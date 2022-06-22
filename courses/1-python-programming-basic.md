@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Python Programming Basic
+# 1. Python Programming Basic
 
 ## What is Python
 
