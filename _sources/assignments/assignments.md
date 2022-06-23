@@ -23,7 +23,7 @@ To start working on the assignments, you could follow below steps.
 
 7. A Github Action will be triggered automatically, and the result will be shown at your forked repo at Github.
 
-You don't need to finish all the assignments at the same time. Only the changed file will trigger the verification from Github after pushed to remote. You could also find based on the error log from the Github Action execution.
+You don't need to finish all the assignments at the same time. Only the changed file will trigger the verification from Github after pushed to remote. You could also debug the code by checking the error log from the Github Action execution.
 
 ```{seealso}
 - How to fork a Github repo - https://docs.github.com/en/get-started/quickstart/fork-a-repo.
