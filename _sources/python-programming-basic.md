@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# 1. Python Programming Basic
+# Python Programming Basic
 
 ## What is Python
 
@@ -95,11 +95,6 @@ string_variable = 'John'
 
 assert integer_variable == 5
 assert string_variable == 'John'
-
-variable_with_changed_type = 4  # x is of type int
-variable_with_changed_type = 'Sally'  # x is now of type str
-
-assert variable_with_changed_type == 'Sally'
 ```
 
 ## Operators
