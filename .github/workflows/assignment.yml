@@ -14,7 +14,7 @@ on:
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
-  deploy-book:
+  test-assignment:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -31,6 +31,15 @@ jobs:
         pip install pytest
         pip install nbmake
 
+    - name: Get file changes
+      id: get_file_changes
+      uses: trilom/file-changes-action@v1.2.3
+      with:
+        output: ' '
+    - name: Echo file changes
+      run: |
+        echo Changed files: ${{ steps.get_file_changes.outputs.files }}
+
     - name: Test the assignment
       run: |
-        pytest --nbmake ./open-machine-learning-jupyter-book/assignments/*.ipynb
+        pytest --nbmake ${{ steps.get_file_changes.outputs.files}}
