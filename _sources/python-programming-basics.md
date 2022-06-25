@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Python Programming Basic
+# Python Programming Basics
 
 ## What is Python
 
@@ -104,10 +104,10 @@ assert string_variable == 'John'
 ```
 
 ### Arithmetic operators
+
 Arithmetic operators are used with numeric values to perform common mathematical operations
 
 ```{code-cell}
-
 # Addition.
 assert 5 + 3 == 8
 
@@ -144,6 +144,7 @@ assert isinstance(5 // 3, int)
 ```
 
 ### Comparison operators
+
 Comparison operators are used to compare two values.
 
 ```{code-cell}
@@ -173,3 +174,51 @@ number = 5
 assert number <= 5
 assert number <= 6
 ```
+
+## Data Types
+
+### Numbers
+
+### Strings
+
+### Lists
+
+### Dictionaries
+
+### Type Casting
+
+## Control Flow
+
+### The if statement
+
+### The for statement
+
+## Functions
+
+### Function Definition
+
+## Classes
+
+## Modules
+
+## Errors and Exceptions
+
+### Handling Exceptions (try statement)
+
+## More Resources
+
+Here is a list of free learning resources for advanced python programming. 
+
+- [GitHub - trekhleb/learn-python: 📚 Playground and cheatsheet for learning Python. Collection of Python scripts that are split by topics and contain code examples with explanations.](https://github.com/trekhleb/learn-python)
+- [py4e](https://www.py4e.com/)
+- [GitHub - huangsam/ultimate-python: Ultimate Python study guide for newcomers and professionals alike.](https://github.com/huangsam/ultimate-python)
+- [GitHub - satwikkansal/wtfpython: What the f*ck Python? 😱](https://github.com/satwikkansal/wtfpython)
+- [GitHub - wilfredinni/python-cheatsheet: Basic Cheat Sheet for Python (PDF, Markdown and Jupyter Notebook)](https://github.com/wilfredinni/python-cheatsheet)
+- [fullstackpython](https://www.fullstackpython.com/)
+- [GitHub - jerry-git/learn-python3: Jupyter notebooks for teaching/learning Python 3](https://github.com/jerry-git/learn-python3)
+- [python-guide](https://docs.python-guide.org/)
+- [realpython](https://realpython.com/)
+
+## Acknowledge
+
+Thanks to [Oleksii Trekhleb](https://github.com/trekhleb) who helped create this awesome open source project [learn-python](https://github.com/trekhleb/learn-python) for Python learning. It contributes the majoyrity of the content in this chapter.
