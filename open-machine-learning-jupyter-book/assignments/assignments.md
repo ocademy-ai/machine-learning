@@ -38,6 +38,6 @@ The assignment is fully automated by leveraging Github Action. The action is def
 `pytest` is the testing framework used for the assignments. To support unit testing for the Jupyter Notebook, `nbmake` is used as a plugin together with `pytest`.
 
 ```{seealso}
-- [pytest/](https://docs.pytest.org/)
+- [pytest - makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries.](https://docs.pytest.org/)
 - [GitHub - treebeardtech/nbmake: Pytest plugin for testing notebooks](https://github.com/treebeardtech/nbmake)
 ```

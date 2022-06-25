@@ -205,20 +205,12 @@ assert number <= 6
 
 ### Handling Exceptions (try statement)
 
-## More Resources
+## Your turn! 🚀
 
-Here is a list of free learning resources for advanced python programming. 
+```{seealsoo}
+Here is a list of free/open source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python). 
+```
 
-- [GitHub - trekhleb/learn-python: 📚 Playground and cheatsheet for learning Python. Collection of Python scripts that are split by topics and contain code examples with explanations.](https://github.com/trekhleb/learn-python)
-- [py4e](https://www.py4e.com/)
-- [GitHub - huangsam/ultimate-python: Ultimate Python study guide for newcomers and professionals alike.](https://github.com/huangsam/ultimate-python)
-- [GitHub - satwikkansal/wtfpython: What the f*ck Python? 😱](https://github.com/satwikkansal/wtfpython)
-- [GitHub - wilfredinni/python-cheatsheet: Basic Cheat Sheet for Python (PDF, Markdown and Jupyter Notebook)](https://github.com/wilfredinni/python-cheatsheet)
-- [fullstackpython](https://www.fullstackpython.com/)
-- [GitHub - jerry-git/learn-python3: Jupyter notebooks for teaching/learning Python 3](https://github.com/jerry-git/learn-python3)
-- [python-guide](https://docs.python-guide.org/)
-- [realpython](https://realpython.com/)
-
-## Acknowledge
+## Acknowledgements
 
 Thanks to [Oleksii Trekhleb](https://github.com/trekhleb) who helped create this awesome open source project [learn-python](https://github.com/trekhleb/learn-python) for Python learning. It contributes the majoyrity of the content in this chapter.
