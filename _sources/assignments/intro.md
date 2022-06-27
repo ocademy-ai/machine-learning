@@ -1,9 +1,5 @@
 # Assignments
 
-```{tableofcontents}
-
-```
-
 Open Academy sets up the assignment as [Test-driven Development](https://en.wikipedia.org/wiki/Test-driven_development) style. The questions are [unit testing](https://en.wikipedia.org/wiki/Unit_testing) alike, implemented as bunch of Jupyter Notebooks, and fully automated through CI/CD. A real-world code quanlity ensurance environment is simulated. You will learn how to handle the software testing while working on the assignments.
 
 ## Get Started
@@ -40,4 +36,11 @@ The assignment is fully automated by leveraging Github Action. The action is def
 ```{seealso}
 - [pytest - makes it easy to write small, readable tests, and can scale to support complex functional testing for applications and libraries.](https://docs.pytest.org/)
 - [GitHub - treebeardtech/nbmake: Pytest plugin for testing notebooks](https://github.com/treebeardtech/nbmake)
+```
+
+
+---
+
+```{tableofcontents}
+
 ```
