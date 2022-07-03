@@ -70,7 +70,7 @@ Let's start with answering some Problem Formulation related basic questions.
 4. What is the system architecture and required infrastructure?
    1. a data pipeline to refresh the input data regularly,
    2. a Machine Learning pipeline to regularly iterate the model by using the latest input data,
-   3. a event schedule module to manage the system communication and collaboration,
+   3. an event schedule module to manage the system communication and collaboration,
    4. a website to show the projected results and accessible in real-time.
 5. Any other questions? Such as,
    1. is the data generally available and easy to access,
@@ -129,7 +129,7 @@ def get_transition_sigmoid(inflection_idx, inflection_rate, low_value, high_valu
 
 A [Grid Search](https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_search) based approach is used as the model algorithm, which is similar to the traditional way of performing hyperparameter optimization. Grid Search builds a model on each parameter combination possible. It iterates through every different combination and stores a model for each of them.
 
-The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified [SER](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) epidemiology model which is applied to the mathematical modelling of infectious diseases.
+The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified [SIR](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) epidemiology model which is applied to the mathematical modelling of infectious diseases.
 
 ```{figure} ../../images/SEIR.jpeg
 ---
