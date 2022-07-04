@@ -18,8 +18,8 @@ kernelspec:
 In this session/assignment, you should come up with a Machine Learning Project idea.
 
 Each student should, in the next session, present your idea with
-- either a project plan following [this template](overview.ipynb),
-- or, a slide of around 10 pages, [like this one](https://docs.google.com/presentation/d/1gTK27XUOC12X8PpggB8_NGxVOAPeYV3I5W6QTYIp49U/edit#slide=id.gcb9a0b074_1_0).
+- either [a project plan following this template](overview.ipynb),
+- or, [a slide of around 10 pages, like this one](https://docs.google.com/presentation/d/1gTK27XUOC12X8PpggB8_NGxVOAPeYV3I5W6QTYIp49U/edit#slide=id.gcb9a0b074_1_0).
 
 Your presentation should be limited to around 3 minutes.
 
