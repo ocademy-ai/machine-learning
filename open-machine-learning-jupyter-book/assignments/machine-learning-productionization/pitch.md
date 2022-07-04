@@ -23,8 +23,8 @@ Each student should, in the next session, present your idea with
 
 Your presentation should be limited to around 3 minutes.
 
-After the pitch, projects that received the most votes would remain.
-You will then form groups of 3-4 students, sharing one common project.
+After the pitch, projects receiving the most votes would "survive".
+You will then form groups of 3-4 students, each group sharing one common project.
 
 
 You will present your midterm work in this manner:
