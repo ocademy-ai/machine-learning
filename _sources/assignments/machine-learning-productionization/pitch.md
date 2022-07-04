@@ -19,7 +19,7 @@ In this session/assignment, you should come up with a Machine Learning Project i
 
 Each student should, in the next session, present your idea with
 - either a project plan following [this template](overview.ipynb),
-- or, a slide of around 10 pages. [This one can be an example for you to follow](https://docs.google.com/presentation/d/1gTK27XUOC12X8PpggB8_NGxVOAPeYV3I5W6QTYIp49U/edit#slide=id.gcb9a0b074_1_0).
+- or, a slide of around 10 pages, [like this one](https://docs.google.com/presentation/d/1gTK27XUOC12X8PpggB8_NGxVOAPeYV3I5W6QTYIp49U/edit#slide=id.gcb9a0b074_1_0).
 
 Your presentation should be limited to around 3 minutes.
 
@@ -29,7 +29,7 @@ You will then form groups of 3-4 students, each group sharing one common project
 
 You will present your midterm work in this manner:
 - https://courses.d2l.ai/berkeley-stat-157/projects/7.html
-- https://www.youtube.com/watch?v=pmDEWyf648c&list=PLZSO_6-bSqHQ_29JS5GnZdK0yTS53dWib&index=17
+- https://www.youtube.com/watch?v=pmDEWyf648c
 
 And at the end of the project, you will present your work in this manner:
 - https://www.youtube.com/watch?v=olhyQojuL5M
