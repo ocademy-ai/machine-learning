@@ -27,11 +27,11 @@ After the pitch, projects receiving the most votes would "survive".
 You will then form groups of 3-4 students, each group sharing one common project.
 
 
-You will present your midterm work in this manner:
+You will present your mid-batch work in this manner:
 - https://courses.d2l.ai/berkeley-stat-157/projects/7.html
 - https://www.youtube.com/watch?v=pmDEWyf648c
 
-And at the end of the project, you will present your work in this manner:
+And at the end of the batch (demo day), you will present your work in this manner:
 - https://www.youtube.com/watch?v=olhyQojuL5M
 - https://www.youtube.com/watch?v=2F0GSnfKzY4
 
