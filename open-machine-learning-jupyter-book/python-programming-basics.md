@@ -207,9 +207,9 @@ assert number <= 6
 
 ## Your turn! 🚀
 
-```{seealso}
-Here is a list of free/open source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python). 
-```
+## More Resources
+
+Here is a list of free/open source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python).
 
 ## Acknowledgements
 
