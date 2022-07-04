@@ -213,7 +213,7 @@ And at the end of the batch (demo day), you will present your work in this manne
 
 ```{seealso}
 Those links are for you to get some inspirations for a Machine Learning Project,
-- [Video - Bilibili](https://www.bilibili.com/video/BV1244y1J7C7/)
+- [Machine Learning Web App](https://www.bilibili.com/video/BV1244y1J7C7/)
 - https://www.tensorflow.org/js
 - https://streamlit.io/gallery
 - https://playground.tensorflow.org
