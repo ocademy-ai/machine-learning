@@ -213,4 +213,4 @@ Here is a list of free/open source learning resources for advanced [Python progr
 
 ## Acknowledgements
 
-Thanks to [Oleksii Trekhleb](https://github.com/trekhleb) who helped create this awesome open source project [learn-python](https://github.com/trekhleb/learn-python) for Python learning. It contributes the majoyrity of the content in this chapter.
+Thanks to [Oleksii Trekhleb](https://github.com/trekhleb) who helped create this awesome open source project [learn-python](https://github.com/trekhleb/learn-python) for Python learning. It contributes the majority of the content in this chapter.
