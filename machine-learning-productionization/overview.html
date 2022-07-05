@@ -583,6 +583,12 @@ title="Print to PDF"
 <li><p>Deployment,</p></li>
 <li><p>Maintenance.</p></li>
 </ul>
+<figure class="align-default" id="machine-learning-lifecycle">
+<img alt="../_images/machine-learning-lifecycle.jpeg" src="../_images/machine-learning-lifecycle.jpeg" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Machine Learning Lifecycle</span><a class="headerlink" href="#machine-learning-lifecycle" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>In below sections, we will walk through the Machine Learning lifecycle components with a real world example.</p>
 <section id="problem-framing">
 <h2><span class="section-number">2.1.1. </span>Problem Framing<a class="headerlink" href="#problem-framing" title="Permalink to this headline">#</a></h2>
@@ -853,7 +859,19 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
 <h3><span class="section-number">2.1.3.1. </span>Model Algorithm<a class="headerlink" href="#model-algorithm" title="Permalink to this headline">#</a></h3>
 <p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_search">Grid Search</a> based approach is used as the model algorithm, which is similar to the traditional way of performing hyperparameter optimization. Grid Search builds a model on each parameter combination possible. It iterates through every different combination and stores a model for each of them.</p>
 <p>The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified <a class="reference external" href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR</a> epidemiology model which is applied to the mathematical modelling of infectious diseases.</p>
+<figure class="align-default" id="seir-model">
+<img alt="../_images/SEIR.jpeg" src="../_images/SEIR.jpeg" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text">SEIR Model</span><a class="headerlink" href="#seir-model" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The simulator generates infection and death data according to the pre-defined static parameters. By comparing the simulated data with real world data, it gets the simulator performance under a certain parameter setting.</p>
+<figure class="align-default" id="death-forecasting-model-overview">
+<img alt="../_images/death-forecasting-model-overview.png" src="../_images/death-forecasting-model-overview.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.3 </span><span class="caption-text"><a class="reference external" href="https://covid19-projections.com/model-details/">Death Forecasting Model Overview</a></span><a class="headerlink" href="#death-forecasting-model-overview" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The training of Death Forecasting model is basically a Grid Search process. It is found that the brute-force Grid Search method that iterates through the entire parameter space is the most effective in finding an optimal set of parameters. So if there are <span class="math notranslate nohighlight">\(10\)</span> values for one parameter and <span class="math notranslate nohighlight">\(10\)</span> values for another parameter. Then there are <span class="math notranslate nohighlight">\(100\)</span> different parameter combinations for those two parameters. For parameters not able to be estimated as lacking of data, the values are considered all equally, resulting in a wider confidence interval.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -866,12 +884,30 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
 <section id="model-testing">
 <h3><span class="section-number">2.1.3.2. </span>Model Testing<a class="headerlink" href="#model-testing" title="Permalink to this headline">#</a></h3>
 <p>To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular <a class="reference external" href="https://covid19.healthdata.org/">model</a> developed by the <a class="reference external" href="https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation">Institute for Health Metrics and Evaluation (IHME)</a>. The latter is commonly referred to by the White House and media. The detailed result could be find from the <a class="reference external" href="https://covid19-projections.com/about/#historical-performance">covid19-projections website</a>.</p>
+<figure class="align-default" id="evaluation-between-different-machine-learning-model-s-covid-19-death-projections">
+<img alt="../_images/covid19-model-performance-evaluation.png" src="../_images/covid19-model-performance-evaluation.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Evaluation Between Different Machine Learning Model’s COVID-19 Death Projections</span><a class="headerlink" href="#evaluation-between-different-machine-learning-model-s-covid-19-death-projections" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The evaluation is more focused on the accuracy. There are other <a class="reference external" href="https://mlinproduction.com/testing-machine-learning-models-deployment-series-07/">Test-driven Machine Learning development</a> methods, including unit testing, integration testing, etc.</p>
+<figure class="align-default" id="the-machine-learning-test-pyramid">
+<img alt="../_images/test-pyramid.png" src="../_images/test-pyramid.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.5 </span><span class="caption-text">The <a class="reference external" href="https://martinfowler.com/articles/cd4ml.html">Machine Learning Test Pyramid</a> from Martin Fowler</span><a class="headerlink" href="#the-machine-learning-test-pyramid" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="deployment">
 <h2><span class="section-number">2.1.4. </span>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">#</a></h2>
 <p>The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections <a class="reference external" href="https://pages.github.com/">GitHub Pages</a>. This will trigger the website building process, which is manged by Github Action and fully CI/CD.</p>
+<figure class="align-default" id="covid-19-projection-github-action">
+<img alt="../_images/covid19-projection-github-action.png" src="../_images/covid19-projection-github-action.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.6 </span><span class="caption-text">COVID-19 Projection Github Action</span><a class="headerlink" href="#covid-19-projection-github-action" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The Machine Learning model could be also deployed on a embedded device or as a service. You could refer to <a class="reference external" href="https://aws.amazon.com/greengrass/ml/">AWS Greengrass</a> and <a class="reference external" href="https://aws.amazon.com/pm/sagemaker/">AWS SageMaker</a> to learn more.</p>
 </section>
 <section id="maintenance">
