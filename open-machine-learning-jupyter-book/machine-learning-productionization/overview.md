@@ -25,15 +25,15 @@ Machine learning is a highly iterative process: you may try many dozens of ideas
 
 Machine Learning lifecycle, also known as MLOps(Machine Learning Operations), could be mapped and fit to traditional software development process. Better understanding of Machine Learning will help you as you think about how to incorporate machine learning, including models, into your software development processes.
 
-A Machine Learning lifecycle consists of such major phases, including,
+A Machine Learning lifecycle consists of such major phases, including:
 
-- Problem Formulation,
+- Problem Framing,
 - Data Engineering,
 - Model Training & Evaluation,
 - Deployment,
 - Maintenance.
 
-```{figure} ../../images/machine-learning-lifecycle.jpeg
+```{figure}
 ---
 name: Machine Learning Lifecycle
 ---
@@ -42,7 +42,7 @@ Machine Learning Lifecycle
 
 In below sections, we will walk through the Machine Learning lifecycle components with a real world example.
 
-## Problem Formulation
+## Problem Framing
 
 To bring a Machine Learning solution to production successfully, the first step is to define a valuable business objective, and translate the objective to a Machine Learning solvable problem.
 
@@ -55,9 +55,9 @@ I began estimating true infections in November 2020 because I couldn’t find an
 ```
 
 There have been three separate iterations of the covid19-projections.com model, which are Death Forecasts,
-Infections Estimates and Vaccination Projections. We will use the [Death Forecasting model](https://covid19-projections.com/model-details/) as an example to explore how to formulate a Machine Learning problem.
+Infections Estimates and Vaccination Projections. We will use the [Death Forecasting model](https://covid19-projections.com/model-details/) as an example to explore how to frame a Machine Learning problem.
 
-Let's start with answering some Problem Formulation related basic questions.
+Let's start with answering some Problem Framing related basic questions:
 
 1. What are the inputs?
    1. time series table of deaths data with geography and demography information. For example to United Status, each row of the data needs to have **number of deaths $x$ at date $y$ in region $z$**.
@@ -131,7 +131,7 @@ A [Grid Search](https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_s
 
 The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified [SIR](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) epidemiology model which is applied to the mathematical modelling of infectious diseases.
 
-```{figure} ../../images/SEIR.jpeg
+```{figure}
 ---
 name: SEIR Model
 ---
@@ -140,7 +140,7 @@ SEIR Model
 
 The simulator generates infection and death data according to the pre-defined static parameters. By comparing the simulated data with real world data, it gets the simulator performance under a certain parameter setting.
 
-```{figure} ../../images/death-forecasting-model-overview.png
+```{figure}
 ---
 name: Death Forecasting Model Overview
 ---
@@ -159,7 +159,7 @@ Based on such strategy, the Grid Search algorithm searches the optimized SEIR si
 
 To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular [model](https://covid19.healthdata.org/) developed by the [Institute for Health Metrics and Evaluation (IHME)](https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation). The latter is commonly referred to by the White House and media. The detailed result could be find from the [covid19-projections website](https://covid19-projections.com/about/#historical-performance).
 
-```{figure} ../../images/covid19-model-performance-evaluation.png
+```{figure}
 ---
 name: Evaluation Between Different Machine Learning Model's COVID-19 Death Projections
 ---
@@ -168,7 +168,7 @@ Evaluation Between Different Machine Learning Model's COVID-19 Death Projections
 
 The evaluation is more focused on the accuracy. There are other [Test-driven Machine Learning development](https://mlinproduction.com/testing-machine-learning-models-deployment-series-07/) methods, including unit testing, integration testing, etc.
 
-```{figure} ../../images/test-pyramid.png
+```{figure}
 ---
 name: The Machine Learning Test Pyramid
 ---
@@ -179,7 +179,7 @@ The [Machine Learning Test Pyramid](https://martinfowler.com/articles/cd4ml.html
 
 The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections [GitHub Pages](https://pages.github.com/). This will trigger the website building process, which is manged by Github Action and fully CI/CD.
 
-```{figure} ../../images/covid19-projection-github-action.png
+```{figure}
 ---
 name: COVID-19 Projection Github Action
 ---
@@ -196,35 +196,41 @@ The covid19-projection is a part-time project. During the author actively worked
 
 ## Your turn! 🚀
 
-In this session/assignment, you should come up with a Machine Learning Project idea. Everyone should, in the next session, present your idea with,
+It is time to start your own Machine Learning project!
+
+In this session/assignment, you should come up with a Machine Learning Project idea. Everyone should, in the next session, present your idea with:
+
 - either [a project plan following this template](../assignments/project-plan-template.ipynb),
 - or, [a slide of around 10 pages, like this one](https://docs.google.com/presentation/d/1gTK27XUOC12X8PpggB8_NGxVOAPeYV3I5W6QTYIp49U/edit#slide=id.gcb9a0b074_1_0).
 
 Your presentation should be limited to around 3 minutes. After the pitch, projects receiving the most votes would "survive". You will then form groups of 3-4 students, each group sharing one common project.
 
-You will present your mid-batch work in this manner,
-- https://courses.d2l.ai/berkeley-stat-157/projects/7.html
-- https://www.youtube.com/watch?v=pmDEWyf648c
+You will present your mid-batch work in this manner:
 
-And at the end of the batch (demo day), you will present your work in this manner,
-- https://www.youtube.com/watch?v=olhyQojuL5M
-- https://www.youtube.com/watch?v=2F0GSnfKzY4
+- [7. Deep fitting room - STAT 157, Spring 19 documentation](https://courses.d2l.ai/berkeley-stat-157/projects/7.html)
+- [M/19 Parameterizable Single GAN Multi-Style - YouTube](https://www.youtube.com/watch?v=pmDEWyf648c)
 
+And at the end of the batch (demo day), you will present your work in this manner:
+
+- [UCLA Statistics 102B Final Project Presentation - YouTube](https://www.youtube.com/watch?v=olhyQojuL5M)
+- [Unemployment Rate Forecasting using Machine Learning (Student Presentation, Group 3) - YouTube](https://www.youtube.com/watch?v=2F0GSnfKzY4)
 
 ```{seealso}
-Those links are for you to get some inspirations for a Machine Learning Project,
+Those links are for you to get some inspirations for a Machine Learning Project:
+
 - [Machine Learning Web App](https://www.bilibili.com/video/BV1244y1J7C7/)
-- https://www.tensorflow.org/js
-- https://streamlit.io/gallery
-- https://playground.tensorflow.org
-- https://maneprajakta.github.io/Digit_Recognition_Web_App/
+- [TensorFlow.js | Machine Learning for JavaScript Developers](https://www.tensorflow.org/js)
+- [Gallery • Streamlit](https://streamlit.io/gallery)
+- [https://playground.tensorflow.org](https://playground.tensorflow.org)
+- [Digit Recognition WebApp](https://maneprajakta.github.io/Digit_Recognition_Web_App/)
 ```
 
-## More Resources
+## Self Study
 
 - [Introduction to Machine Learning Problem Framing](https://developers.google.com/machine-learning/problem-framing)
 
 ---
 
 ```{bibliography}
+
 ```

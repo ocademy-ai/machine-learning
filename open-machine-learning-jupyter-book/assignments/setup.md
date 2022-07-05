@@ -2,7 +2,7 @@
 
 ## Get Started
 
-To start working on the assignments, you could follow below steps.
+To start working on the assignments, you could follow below steps:
 
 1. Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own Github account.
 
