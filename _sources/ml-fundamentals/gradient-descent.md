@@ -17,7 +17,7 @@ kernelspec:
 
 ## Video
 
-The corresponding video(in Chinese) for this notebook is [👉 available here on Bilibili](https://www.bilibili.com/video/BV1SY4y1G7o9/).
+The corresponding video (in Chinese) for this notebook is [👉 available here on Bilibili](https://www.bilibili.com/video/BV1SY4y1G7o9/).
 
 You can (and should) watch the video before diving into the details of gradient descent.
 
