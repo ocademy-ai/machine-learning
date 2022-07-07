@@ -232,5 +232,5 @@ Those links are for you to get some inspirations for a Machine Learning Project:
 ---
 
 ```{bibliography}
-
+:filter: docname in docnames
 ```
