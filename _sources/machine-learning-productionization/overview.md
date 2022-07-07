@@ -221,7 +221,7 @@ Those links are for you to get some inspirations for a Machine Learning Project:
 - [Machine Learning Web App](https://www.bilibili.com/video/BV1244y1J7C7/)
 - [TensorFlow.js | Machine Learning for JavaScript Developers](https://www.tensorflow.org/js)
 - [Gallery • Streamlit](https://streamlit.io/gallery)
-- [https://playground.tensorflow.org](https://playground.tensorflow.org)
+- [Tensorflow Playground](https://playground.tensorflow.org)
 - [Digit Recognition WebApp](https://maneprajakta.github.io/Digit_Recognition_Web_App/)
 ```
 
