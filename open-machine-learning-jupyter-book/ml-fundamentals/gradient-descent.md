@@ -288,4 +288,4 @@ Modify ```LogisticRegression``` so that the training will use SGD instead of GD.
 - [Gradient Descent, Step-by-Step - StatQuest](https://www.youtube.com/watch?v=sDv4f4s2SB8)
 - [Stochastic Gradient Descent, Clearly Explained!!! - StatQuest](https://www.youtube.com/watch?v=vMh0zPT0tLI) 
 - http://43.142.12.204:12345/05-ML_04-Under-the-Hood.html
-- https://open-academy.github.io/open-online-resources-html/GradientDescentAnimation.html
+- http://43.142.12.204:9999/GradientDescentAnimation.html
