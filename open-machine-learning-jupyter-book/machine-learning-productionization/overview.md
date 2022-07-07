@@ -228,6 +228,7 @@ Those links are for you to get some inspirations for a Machine Learning Project:
 ## Self Study
 
 - [Machine Learning Operations](https://ml-ops.org/)
+- [MLOps: Model management, deployment, lineage, and monitoring with Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/concept-model-management-and-deployment)
 
 ---
 
