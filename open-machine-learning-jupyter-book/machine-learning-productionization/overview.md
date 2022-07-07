@@ -150,7 +150,7 @@ name: Death Forecasting Model Overview
 The training of Death Forecasting model is basically a Grid Search process. It is found that the brute-force Grid Search method that iterates through the entire parameter space is the most effective in finding an optimal set of parameters. So if there are $10$ values for one parameter and $10$ values for another parameter. Then there are $100$ different parameter combinations for those two parameters. For parameters not able to be estimated as lacking of data, the values are considered all equally, resulting in a wider confidence interval. 
 
 ```{seealso}
-- [COVID-19 Death Forecasting - Model Details](https://covid19-projections.com/model-details/)
+[COVID-19 Death Forecasting - Model Details](https://covid19-projections.com/model-details/)
 ```
 
 Based on such strategy, the Grid Search algorithm searches the optimized SEIR simulator parameters from thousands of different combinations. Then the simulator with the optimized parameters could be used to predict the future death data.
@@ -227,7 +227,7 @@ Those links are for you to get some inspirations for a Machine Learning Project:
 
 ## Self Study
 
-- [Introduction to Machine Learning Problem Framing](https://developers.google.com/machine-learning/problem-framing)
+- [Machine Learning Operations](https://ml-ops.org/)
 
 ---
 
