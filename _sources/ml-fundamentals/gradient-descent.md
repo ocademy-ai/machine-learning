@@ -68,7 +68,7 @@ $$\frac{\partial f}{\partial m} = \frac{1}{n}\sum_{i=1}^{n}-2x_i(y_i - (mx_i+b))
 
 Here, $\frac{df}{dm}$ means we find partial derivative of function f (we mentioned it earlier) with respect to m. We plug our derivative to the summation and we're done.
 
-### Partical Derivative With Respect to $b$
+### Partial Derivative With Respect to $b$
 
 Same rules apply to the derivative with respect to b.
 
