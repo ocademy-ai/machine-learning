@@ -73,7 +73,7 @@ El Emam, Khaled, Lucy Mosquera, and Richard Hoptroff. [Practical synthetic data 
 **More data is better?** The answer is yes or no. No matter the Machine Learning performance increases monotonically{cite}`banko2001scaling` or logarithmically{cite}`8237359` based on volume of the training data size, more data is usually better. But this is not always the truth, because more data is not equal to better data once more noise introduced. Also, the appearance of large public datasets like [Imagenet](http://image-net.org/) and recent research advances makes data less of a competitive advantage.
 
 ```{seealso}
-[In machine learning, is more data always better than better algorithms?](https://qr.ae/pv4GyP).
+[In machine learning, is more data always better than better algorithms? | Quora](https://qr.ae/pv4GyP)
 ```
 
 ## What models to use?
@@ -92,17 +92,22 @@ name: Machine Learning Algorithm Cheat Sheet
 - [Choosing the right estimator | scikit-learn](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)
 ```
 
-**[Automated machine learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning)** is the process and methods of automating the tasks of applying Machine Learning to real-world problems. It makes Machine Learning available to non-experts, such as a software engineer. There are many open source library could be leveraged for the AutoML, such as [AutoGluon](https://auto.gluon.ai/), [AutoKeras](https://github.com/keras-team/autokeras).
+**[Automated machine learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning)** is the process and methods of automating the tasks of applying Machine Learning to real-world problems, which is another option to help select the algorithm. It makes Machine Learning available to non-experts, such as a software engineer. There are many open source library could be leveraged for the AutoML, such as [AutoGluon](https://auto.gluon.ai/), [AutoKeras](https://github.com/keras-team/autokeras).
 
 ```{seealso}
+- https://odsc.medium.com/the-past-present-and-future-of-automated-machine-learning-5e081ca4b71a
 - [automl.org - What is AutoML?](https://www.automl.org/)
-- [What is automated ML? AutoML](https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml)
+- [What is automated ML? AutoML | Microsoft Azure](https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml)
 - [AutoML tools and solutions from AWS](https://aws.amazon.com/machine-learning/automl/)
 ```
 
-## Any limitations or constraints?
+## How to put a machine learning model into production?
 
+Machine learning inference is the process of inputting data into a model to calculate an output, which is also referred as “putting a machine learning model into production”. There are two major type of inferences which may impact the feasibility of productionize the trained model.
 
+**Batch inference** means the multiple predictions are requested periodically. The [COVID-19 Projections]{cite}`COVID_19_Projections` project is typically a batch inference example, which is mentioned in the previous section. Another good example is Facebook News feed generation, which is a complex and time-consuming artificial intelligent process. The News feeds are pre-generated regularly and stored in the cache. Then the web application could request and present the cached feeds in runtime.
+
+**Online inference**, on the contrary, is the process to handle the prediction in real-time, synchronized, or from continuous data streaming. Online inference is suitable for more latency sensitive user scenarios such as the search engine and autonomous driving, and requires to speed up both the inferring and input data sampling. It should be noted that the inference is usually just part of the end to end workflow of serving a request from the client side. It will be more challenging if the reference is in the critical path.
 
 ## Your turn! 🚀
 
