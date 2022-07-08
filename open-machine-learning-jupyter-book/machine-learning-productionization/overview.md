@@ -42,7 +42,7 @@ Machine Learning Lifecycle
 
 In below sections, we will walk through the Machine Learning lifecycle components with a real world example.
 
-## Problem Framing
+## Problem framing
 
 To bring a Machine Learning solution to production successfully, the first step is to define a valuable business objective, and translate the objective to a Machine Learning solvable problem.
 
@@ -77,9 +77,9 @@ Let's start with answering some Problem Framing related basic questions:
    2. what are the existing solutions,
    3. etc.
 
-## Data Engineering
+## Data engineering
 
-### Data Ingestion
+### Data ingestion
 
 COVID-19 Projections Death Forecasting model uses the daily death total provided by [Johns Hopkins CSSE](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series), which is considered by experts to be the “gold standard” reference data. It sometimes uses US testing data from the [COVID Tracking Project](https://covidtracking.com/) in our research and graphs. Below is a piece of sample data from CSSE.
 
@@ -93,7 +93,7 @@ df.head()
 
 The above data is public available, and able to be automatically and easily sourced by a web crawler. There are also other ingestion approaches, including synthetic data simulation and manual collecting.
 
-### Data Processing
+### Data processing
 
 The typical data processing includes data cleaning, labeling, feature engineering and augmentation.
 
@@ -123,9 +123,9 @@ def get_transition_sigmoid(inflection_idx, inflection_rate, low_value, high_valu
     return utils.inv_sigmoid(shift, a, b, c)
 ```
 
-## Model Training & Evaluation
+## Model training & evaluation
 
-### Model Algorithm
+### Model algorithm
 
 A [Grid Search](https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_search) based approach is used as the model algorithm, which is similar to the traditional way of performing hyperparameter optimization. Grid Search builds a model on each parameter combination possible. It iterates through every different combination and stores a model for each of them.
 
@@ -155,7 +155,7 @@ The training of Death Forecasting model is basically a Grid Search process. It i
 
 Based on such strategy, the Grid Search algorithm searches the optimized SEIR simulator parameters from thousands of different combinations. Then the simulator with the optimized parameters could be used to predict the future death data.
 
-### Model Testing
+### Model testing
 
 To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular [model](https://covid19.healthdata.org/) developed by the [Institute for Health Metrics and Evaluation (IHME)](https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation). The latter is commonly referred to by the White House and media. The detailed result could be find from the [covid19-projections website](https://covid19-projections.com/about/#historical-performance).
 
@@ -225,7 +225,7 @@ Those links are for you to get some inspirations for a Machine Learning Project:
 - [Digit Recognition WebApp](https://maneprajakta.github.io/Digit_Recognition_Web_App/)
 ```
 
-## Self Study
+## Self study
 
 - [Machine Learning Operations](https://ml-ops.org/)
 - [MLOps: Model management, deployment, lineage, and monitoring with Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/concept-model-management-and-deployment)
