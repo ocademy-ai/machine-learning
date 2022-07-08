@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Gradient Descent
+# Gradient descent
 
 ## Video
 
@@ -38,7 +38,7 @@ $$ MSE = \frac{1}{n}\sum_{i=1}^{n} (y_i - \hat{y_i})^2 \quad \textrm{where} \qua
 
 Now we have to figure out how to tweak parameters $m$ and $b$ to reduce MSE.
 
-### Partial Derivatives
+### Partial derivatives
 
 We use partial derivatives to find how each individual parameter affects MSE, so that's where word _partial_ comes from. In simple words, we take the derivative with respect to $m$ and $b$ **separately**. Take a look at the formula below. It looks almost exactly the same as MSE, but this time we added f(m, b) to it. It essentially changes nothing, except now we can plug $m$ and $b$ numbers into it and calculate the result.
 
@@ -46,7 +46,7 @@ $$𝑓(𝑚,𝑏)= \frac{1}{n}\sum_{i=1}^{n}(y_i - (mx_i+b))^2$$
 
 This formula (or better say function) is better representation for further calculations of partial derivatives. We can ignore sum for now and what comes before that and focus only on $y - (mx + b)^2$.
 
-### Partial Derivative With Respect to $m$
+### Partial derivative with respect to $m$
 
 With respect to $m$ means we derive parameter $m$ and basically ignore what is going on with $b$, or we can say its 0. To derive with respect to $m$ we will use chain rule.
 
@@ -68,7 +68,7 @@ $$\frac{\partial f}{\partial m} = \frac{1}{n}\sum_{i=1}^{n}-2x_i(y_i - (mx_i+b))
 
 Here, $\frac{df}{dm}$ means we find partial derivative of function f (we mentioned it earlier) with respect to m. We plug our derivative to the summation and we're done.
 
-### Partial Derivative With Respect to $b$
+### Partial derivative with respect to $b$
 
 Same rules apply to the derivative with respect to b.
 
@@ -80,7 +80,7 @@ Multiply all the parts together and we get $-2(y-(mx+b))$
 
 $$\frac{\partial f}{\partial b} = \frac{1}{n}\sum_{i=1}^{n}-2(y_i - (mx_i+b))$$
 
-### Final Function
+### Final function
 
 Few details we should discuss before jumping into code:
 
@@ -90,7 +90,7 @@ Few details we should discuss before jumping into code:
 
 Thats about it. So you can already understand that Gradient Descent for the most part is just process of taking derivatives and using them over and over to minimize function.
 
-## Time to Code!
+## Time to code!
 
 ```{code-cell}
 %matplotlib inline
@@ -102,7 +102,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 ```
 
-### Linear Regression With Gradient Descent
+### Linear regression With gradient descent
 
 ```{code-cell}
 class LinearRegression:
@@ -156,7 +156,7 @@ plt.plot([0, 5], [0, 5])
 plt.show()
 ```
 
-### Linear Regression With Stochastic Gradient Descent
+### Linear regression with stochastic gradient descent
 
 ```{code-cell}
 class LinearRegressionWithSGD:
@@ -217,7 +217,7 @@ plt.plot([0, 5], [0, 5])
 plt.show()
 ```
 
-### Logistic Regression with Gradient Descent
+### Logistic regression with gradient descent
 
 ```{code-cell}
 class LogisticRegression:

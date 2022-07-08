@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Problem Framing
+# Problem framing
 
 **[Problem Framing](https://developers.google.com/machine-learning/problem-framing/problem-framing)**, is the process of analyzing a problem to isolate the individual elements that need to be addressed to solve it. It helps you to determine the feasibility of your project, and clearly defines the project goals and success criteria. Under our context, problem framing is to dive deep business requirements to figure out a potential Machine Learning based technical solution.
 
@@ -101,9 +101,9 @@ name: Machine Learning Algorithm Cheat Sheet
 - [AutoML tools and solutions from AWS](https://aws.amazon.com/machine-learning/automl/)
 ```
 
-## How to put a machine learning model into production?
+## How to put a model into production?
 
-Machine learning inference is the process of inputting data into a model to calculate an output, which is also referred as “putting a machine learning model into production”. There are two major type of inferences which may impact the feasibility of productionize the trained model.
+Machine Learning inference is the process of inputting data into a model to calculate an output, which is also referred as “putting a Machine Learning model into production”. There are two major type of inferences which may impact the feasibility of productionize the trained model.
 
 **Batch inference** means the multiple predictions are requested periodically. The [COVID-19 Projections]{cite}`COVID_19_Projections` project is typically a batch inference example, which is mentioned in the previous section. Another good example is Facebook News feed generation, which is a complex and time-consuming artificial intelligent process. The News feeds are pre-generated regularly and stored in the cache. Then the web application could request and present the cached feeds in runtime.
 
@@ -113,7 +113,7 @@ Machine learning inference is the process of inputting data into a model to calc
 
 Apply the knowledge of this section to refine [your own Machine Learning project proposal](overview.html#your-turn).
 
-## Self Study
+## Self study
 
 - [Introduction to Machine Learning Problem Framing](https://developers.google.com/machine-learning/problem-framing)
 
