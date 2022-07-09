@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Loss Function and Gradient descent
+# Gradient descent
 
 ## Goal of this session
 
