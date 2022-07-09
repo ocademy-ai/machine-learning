@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>2. Gradient descent &#8212; Open Machine Learning</title>
+    <title>2. Loss Function and Gradient descent &#8212; Open Machine Learning</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -130,7 +130,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   2. Gradient descent
+   2. Loss Function and Gradient descent
   </a>
  </li>
 </ul>
@@ -438,33 +438,38 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goal-of-this-session">
+   2.1. Goal of this session
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#video">
-   2.1. Video
+   2.2. Video
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#let-s-be-playful-to-gain-some-intuition">
-   2.2. Let’s be playful … to gain some intuition
+   2.3. Let’s be playful … to gain some intuition
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#some-mathematics-to-gain-more-insight">
-   2.3. Some mathematics … to gain more insight
+   2.4. Some mathematics … to gain more insight
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#abstract">
-     2.3.1. Abstract
+     2.4.1. Abstract
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#partial-derivatives">
-     2.3.2. Partial derivatives
+     2.4.2. Partial derivatives
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">
-     2.3.3. Partial derivative with respect to
+     2.4.3. Partial derivative with respect to
      <span class="math notranslate nohighlight">
       \(m\)
      </span>
@@ -472,7 +477,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">
-     2.3.4. Partial derivative with respect to
+     2.4.4. Partial derivative with respect to
      <span class="math notranslate nohighlight">
       \(b\)
      </span>
@@ -480,41 +485,41 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#final-function">
-     2.3.5. Final function
+     2.4.5. Final function
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#time-to-code">
-   2.4. Time to code!
+   2.5. Time to code!
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linear-regression-with-gradient-descent">
-     2.4.1. Linear regression With gradient descent
+     2.5.1. Linear regression With gradient descent
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linear-regression-with-stochastic-gradient-descent">
-     2.4.2. Linear regression with stochastic gradient descent
+     2.5.2. Linear regression with stochastic gradient descent
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#logistic-regression-with-gradient-descent">
-     2.4.3. Logistic regression with gradient descent
+     2.5.3. Logistic regression with gradient descent
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#your-turn">
-   2.5. Your turn 🚀
+   2.6. Your turn 🚀
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bibliography">
-   2.6. Bibliography
+   2.7. Bibliography
   </a>
  </li>
 </ul>
@@ -526,7 +531,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Gradient descent</h1>
+                <h1>Loss Function and Gradient descent</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -537,33 +542,38 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goal-of-this-session">
+   2.1. Goal of this session
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#video">
-   2.1. Video
+   2.2. Video
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#let-s-be-playful-to-gain-some-intuition">
-   2.2. Let’s be playful … to gain some intuition
+   2.3. Let’s be playful … to gain some intuition
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#some-mathematics-to-gain-more-insight">
-   2.3. Some mathematics … to gain more insight
+   2.4. Some mathematics … to gain more insight
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#abstract">
-     2.3.1. Abstract
+     2.4.1. Abstract
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#partial-derivatives">
-     2.3.2. Partial derivatives
+     2.4.2. Partial derivatives
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#partial-derivative-with-respect-to-m">
-     2.3.3. Partial derivative with respect to
+     2.4.3. Partial derivative with respect to
      <span class="math notranslate nohighlight">
       \(m\)
      </span>
@@ -571,7 +581,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#partial-derivative-with-respect-to-b">
-     2.3.4. Partial derivative with respect to
+     2.4.4. Partial derivative with respect to
      <span class="math notranslate nohighlight">
       \(b\)
      </span>
@@ -579,41 +589,41 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#final-function">
-     2.3.5. Final function
+     2.4.5. Final function
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#time-to-code">
-   2.4. Time to code!
+   2.5. Time to code!
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linear-regression-with-gradient-descent">
-     2.4.1. Linear regression With gradient descent
+     2.5.1. Linear regression With gradient descent
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linear-regression-with-stochastic-gradient-descent">
-     2.4.2. Linear regression with stochastic gradient descent
+     2.5.2. Linear regression with stochastic gradient descent
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#logistic-regression-with-gradient-descent">
-     2.4.3. Logistic regression with gradient descent
+     2.5.3. Logistic regression with gradient descent
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#your-turn">
-   2.5. Your turn 🚀
+   2.6. Your turn 🚀
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bibliography">
-   2.6. Bibliography
+   2.7. Bibliography
   </a>
  </li>
 </ul>
@@ -626,15 +636,26 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="gradient-descent">
-<h1><span class="section-number">2. </span>Gradient descent<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="loss-function-and-gradient-descent">
+<h1><span class="section-number">2. </span>Loss Function and Gradient descent<a class="headerlink" href="#loss-function-and-gradient-descent" title="Permalink to this headline">#</a></h1>
+<section id="goal-of-this-session">
+<h2><span class="section-number">2.1. </span>Goal of this session<a class="headerlink" href="#goal-of-this-session" title="Permalink to this headline">#</a></h2>
+<p>We have already learnt how to use Linear Regression and Logistic Regression models.</p>
+<p>The code might seem quite easy and intuitive for you. And you might naturally ask:</p>
+<ul class="simple">
+<li><p>What’s behind the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> function?</p></li>
+<li><p>Why sometimes it takes quite a bit for this <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> function to finish?</p></li>
+</ul>
+<p>In this session, you will learn that the <code class="docutils literal notranslate"><span class="pre">.fit()</span></code> is the training of ML models,
+i.e. tuning of parameters for ML models. And the technique behind is called “Gradient Descent”.</p>
+</section>
 <section id="video">
-<h2><span class="section-number">2.1. </span>Video<a class="headerlink" href="#video" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.2. </span>Video<a class="headerlink" href="#video" title="Permalink to this headline">#</a></h2>
 <p>The corresponding video (in Chinese) for this notebook is <a class="reference external" href="https://www.bilibili.com/video/BV1SY4y1G7o9/">👉 available here on Bilibili</a>.</p>
 <p>You can (and should) watch the video before diving into the details of gradient descent.</p>
 </section>
 <section id="let-s-be-playful-to-gain-some-intuition">
-<h2><span class="section-number">2.2. </span>Let’s be playful … to gain some intuition<a class="headerlink" href="#let-s-be-playful-to-gain-some-intuition" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.3. </span>Let’s be playful … to gain some intuition<a class="headerlink" href="#let-s-be-playful-to-gain-some-intuition" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://playground.tensorflow.org/#activation=sigmoid&amp;batchSize=10&amp;dataset=circle%C2%AEDataset=reg-plane&amp;learningRate=0.00001%C2%AEularizationRate=0&amp;noise=0&amp;networkShape=&amp;seed=0.71864&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=true&amp;xSquared=true&amp;ySquared=true&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false">Tensorflow Playground</a></p></li>
 <li><p><a class="reference external" href="https://github.com/lilipads/gradient_descent_viz">Gradient Descent Visualization</a></p></li>
@@ -642,9 +663,9 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="some-mathematics-to-gain-more-insight">
-<h2><span class="section-number">2.3. </span>Some mathematics … to gain more insight<a class="headerlink" href="#some-mathematics-to-gain-more-insight" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.4. </span>Some mathematics … to gain more insight<a class="headerlink" href="#some-mathematics-to-gain-more-insight" title="Permalink to this headline">#</a></h2>
 <section id="abstract">
-<h3><span class="section-number">2.3.1. </span>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.1. </span>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">#</a></h3>
 <p>The idea behind gradient descent is simple - by gradually tuning parameters, such as slope (<span class="math notranslate nohighlight">\(m\)</span>) and the intercept (<span class="math notranslate nohighlight">\(b\)</span>) in our regression function <span class="math notranslate nohighlight">\(y = mx + b\)</span>, we minimize cost.
 By cost, we usually mean some kind of a function that tells us how far off our model predicted result. For regression problems we often use <code class="docutils literal notranslate"><span class="pre">mean</span> <span class="pre">squared</span> <span class="pre">error</span></code> (MSE) cost function. If we use gradient descent for the classification problem, we will have a different set of parameters to tune.</p>
 <div class="math notranslate nohighlight">
@@ -652,14 +673,14 @@ By cost, we usually mean some kind of a function that tells us how far off our m
 <p>Now we have to figure out how to tweak parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to reduce MSE.</p>
 </section>
 <section id="partial-derivatives">
-<h3><span class="section-number">2.3.2. </span>Partial derivatives<a class="headerlink" href="#partial-derivatives" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.2. </span>Partial derivatives<a class="headerlink" href="#partial-derivatives" title="Permalink to this headline">#</a></h3>
 <p>We use partial derivatives to find how each individual parameter affects MSE, so that’s where word <em>partial</em> comes from. In simple words, we take the derivative with respect to <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span> <strong>separately</strong>. Take a look at the formula below. It looks almost exactly the same as MSE, but this time we added f(m, b) to it. It essentially changes nothing, except now we can plug <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span> numbers into it and calculate the result.</p>
 <div class="math notranslate nohighlight">
 \[𝑓(𝑚,𝑏)= \frac{1}{n}\sum_{i=1}^{n}(y_i - (mx_i+b))^2\]</div>
 <p>This formula (or better say function) is better representation for further calculations of partial derivatives. We can ignore sum for now and what comes before that and focus only on <span class="math notranslate nohighlight">\(y - (mx + b)^2\)</span>.</p>
 </section>
 <section id="partial-derivative-with-respect-to-m">
-<h3><span class="section-number">2.3.3. </span>Partial derivative with respect to <span class="math notranslate nohighlight">\(m\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-m" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.3. </span>Partial derivative with respect to <span class="math notranslate nohighlight">\(m\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-m" title="Permalink to this headline">#</a></h3>
 <p>With respect to <span class="math notranslate nohighlight">\(m\)</span> means we derive parameter <span class="math notranslate nohighlight">\(m\)</span> and basically ignore what is going on with <span class="math notranslate nohighlight">\(b\)</span>, or we can say its 0. To derive with respect to <span class="math notranslate nohighlight">\(m\)</span> we will use chain rule.</p>
 <div class="math notranslate nohighlight">
 \[ [f(g(x))]' = f'(g(x)) * g(x)' \: - \textrm{chain rule}\]</div>
@@ -678,7 +699,7 @@ By cost, we usually mean some kind of a function that tells us how far off our m
 <p>Here, <span class="math notranslate nohighlight">\(\frac{df}{dm}\)</span> means we find partial derivative of function f (we mentioned it earlier) with respect to m. We plug our derivative to the summation and we’re done.</p>
 </section>
 <section id="partial-derivative-with-respect-to-b">
-<h3><span class="section-number">2.3.4. </span>Partial derivative with respect to <span class="math notranslate nohighlight">\(b\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-b" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.4. </span>Partial derivative with respect to <span class="math notranslate nohighlight">\(b\)</span><a class="headerlink" href="#partial-derivative-with-respect-to-b" title="Permalink to this headline">#</a></h3>
 <p>Same rules apply to the derivative with respect to b.</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(()^2\)</span> becomes <span class="math notranslate nohighlight">\(2()\)</span>, same as <span class="math notranslate nohighlight">\(x^2\)</span> becomes <span class="math notranslate nohighlight">\(2x\)</span></p></li>
@@ -690,18 +711,18 @@ By cost, we usually mean some kind of a function that tells us how far off our m
 \[\frac{\partial f}{\partial b} = \frac{1}{n}\sum_{i=1}^{n}-2(y_i - (mx_i+b))\]</div>
 </section>
 <section id="final-function">
-<h3><span class="section-number">2.3.5. </span>Final function<a class="headerlink" href="#final-function" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.4.5. </span>Final function<a class="headerlink" href="#final-function" title="Permalink to this headline">#</a></h3>
 <p>Few details we should discuss before jumping into code:</p>
 <ol class="simple">
-<li><p>Gradient descent is an iterative process and with each iteration (<span class="math notranslate nohighlight">\(epoch\)</span>) we slightly minimizing MSE, so each time we use our derived functions to update parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span></p></li>
-<li><p>Because its iterative, we should choose how many iterations we take, or make algorithm stop when we approach minima of MSE. In other words when algorithm is no longer improving MSE, we know it reached minimum.</p></li>
+<li><p>Gradient descent is an iterative process and with each iteration (<span class="math notranslate nohighlight">\(epoch\)</span>) we slightly minimizing MSE, so each time we use our derived functions to update parameters <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(b\)</span>.</p></li>
+<li><p>Because it’s iterative, we should choose how many iterations we take, or make algorithm stop when we approach minima of MSE. In other words when algorithm is no longer improving MSE, we know it reached minimum.</p></li>
 <li><p>Gradient descent has an additional parameter learning rate (<span class="math notranslate nohighlight">\(lr\)</span>), which helps control how fast or slow algorithm going towards minima of MSE</p></li>
 </ol>
-<p>Thats about it. So you can already understand that Gradient Descent for the most part is just process of taking derivatives and using them over and over to minimize function.</p>
+<p>That’s about it. So you can already understand that Gradient Descent for the most part is just process of taking derivatives and using them over and over to minimize function.</p>
 </section>
 </section>
 <section id="time-to-code">
-<h2><span class="section-number">2.4. </span>Time to code!<a class="headerlink" href="#time-to-code" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.5. </span>Time to code!<a class="headerlink" href="#time-to-code" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -716,7 +737,7 @@ By cost, we usually mean some kind of a function that tells us how far off our m
 </div>
 </div>
 <section id="linear-regression-with-gradient-descent">
-<h3><span class="section-number">2.4.1. </span>Linear regression With gradient descent<a class="headerlink" href="#linear-regression-with-gradient-descent" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.1. </span>Linear regression With gradient descent<a class="headerlink" href="#linear-regression-with-gradient-descent" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinearRegression</span><span class="p">:</span>
@@ -796,7 +817,7 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </section>
 <section id="linear-regression-with-stochastic-gradient-descent">
-<h3><span class="section-number">2.4.2. </span>Linear regression with stochastic gradient descent<a class="headerlink" href="#linear-regression-with-stochastic-gradient-descent" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.2. </span>Linear regression with stochastic gradient descent<a class="headerlink" href="#linear-regression-with-stochastic-gradient-descent" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LinearRegressionWithSGD</span><span class="p">:</span>
@@ -862,19 +883,19 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 5000, &#39;weights&#39;: array([0.44711638, 0.21884964, 0.01114285, 0.08939411, 0.14373086,
-       0.13585953, 0.12109216, 0.00436042]), &#39;bias&#39;: 0.021490094438939487}
-0    -1.770550
-1    -1.526532
-2    -1.991745
-3    -1.424701
-4    -1.842213
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lr&#39;: 0.0003, &#39;n_iters&#39;: 5000, &#39;weights&#39;: array([0.45774993, 0.22315664, 0.01734181, 0.09476456, 0.13832571,
+       0.14650018, 0.12509565, 0.01835005]), &#39;bias&#39;: 0.021707175156242927}
+0    -2.088302
+1    -1.891839
+2    -2.742465
+3    -1.787619
+4    -2.251364
         ...   
-92    0.183488
-93    0.274844
-94    1.253193
-95    0.892357
-96    0.869108
+92   -1.153667
+93   -0.653381
+94    0.703799
+95   -0.743033
+96    0.057654
 Name: lpsa, Length: 97, dtype: float64
 </pre></div>
 </div>
@@ -883,7 +904,7 @@ Name: lpsa, Length: 97, dtype: float64
 </div>
 </section>
 <section id="logistic-regression-with-gradient-descent">
-<h3><span class="section-number">2.4.3. </span>Logistic regression with gradient descent<a class="headerlink" href="#logistic-regression-with-gradient-descent" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">2.5.3. </span>Logistic regression with gradient descent<a class="headerlink" href="#logistic-regression-with-gradient-descent" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LogisticRegression</span><span class="p">:</span>
@@ -962,11 +983,11 @@ LR classification error rate:
 </section>
 </section>
 <section id="your-turn">
-<h2><span class="section-number">2.5. </span>Your turn 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.6. </span>Your turn 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
 <p>Modify <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> so that the training will use SGD instead of GD.</p>
 </section>
 <section id="bibliography">
-<h2><span class="section-number">2.6. </span>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">2.7. </span>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=sDv4f4s2SB8">Gradient Descent, Step-by-Step - StatQuest</a></p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=vMh0zPT0tLI">Stochastic Gradient Descent, Clearly Explained!!! - StatQuest</a></p></li>
