@@ -15,7 +15,7 @@ kernelspec:
 
 # Overview
 
-Productionization of a Machine Learning solution is not a one time thing. It is always under improving  through the iterative process continuously.
+Productionization of a Machine Learning solution is not a one-time thing. It is always under improving one-time through the iterative process continuously.
 
 ```{epigraph}
 Machine learning is a highly iterative process: you may try many dozens of ideas before finding one that you're satisfied with.
@@ -23,7 +23,7 @@ Machine learning is a highly iterative process: you may try many dozens of ideas
 -- Andrew Ng
 ```
 
-Machine Learning lifecycle, also known as MLOps(Machine Learning Operations), could be mapped and fit to traditional software development process. Better understanding of Machine Learning will help you as you think about how to incorporate machine learning, including models, into your software development processes.
+The Machine Learning lifecycle, also known as MLOps(Machine Learning Operations), could be mapped and fit into the traditional software development process. A better understanding of Machine Learning will help you as you think about how to incorporate machine learning, including models, into your software development processes.
 
 A Machine Learning lifecycle consists of such major phases, including:
 
@@ -33,23 +33,23 @@ A Machine Learning lifecycle consists of such major phases, including:
 - Deployment,
 - Maintenance.
 
-```{figure} ../../images/machine-learning-lifecycle.jpeg
+```{figure}
 ---
 name: Machine Learning Lifecycle
 ---
 Machine Learning Lifecycle
 ```
 
-In below sections, we will walk through the Machine Learning lifecycle components with a real world example.
+In the below sections, we will walk through the Machine Learning lifecycle components with a real-world example.
 
 ## Problem framing
 
-To bring a Machine Learning solution to production successfully, the first step is to define a valuable business objective, and translate the objective to a Machine Learning solvable problem.
+To bring a Machine Learning solution to production successfully, the first step is to define a valuable business objective and translate the objective into a Machine Learning solvable problem.
 
-**[COVID-19](https://en.wikipedia.org/wiki/COVID-19) Projections{cite}`COVID_19_Projections`** is an artificial intelligence solution to accurately forecast infections, deaths, and recovery timelines of the COVID-19 / coronavirus pandemic in the US and globally. By the end of April 2020, it was cited by the Centers for Disease Control & Prevention (CDC) as one of the first models to “help inform public health decision making”.
+**[COVID-19](https://en.wikipedia.org/wiki/COVID-19) Projections{cite}`COVID_19_Projections`** is an artificial intelligence solution to accurately forecast infections, deaths, and recovery timelines of the COVID-19/coronavirus pandemic in the US and globally. By the end of April 2020, it was cited by the Centers for Disease Control & Prevention (CDC) as one of the first models to “help inform public health decision making”.
 
 ```{epigraph}
-I began estimating true infections in November 2020 because I couldn’t find any good models that were doing that in real time during a critical moment in the pandemic (though there were 30+ models for forecasting deaths)... My goal when I started covid19-projections.com was to create the most accurate COVID-19 model.
+I began estimating true infections in November 2020 because I couldn’t find any good models that were doing that in real-time during a critical moment in the pandemic (though there were 30+ models for forecasting deaths)... My goal when I started covid19-projections.com was to create the most accurate COVID-19 model.
 
 -- Youyang Gu, creator of covid19-projections.com
 ```
@@ -60,7 +60,7 @@ Infections Estimates and Vaccination Projections. We will use the [Death Forecas
 Let's start with answering some Problem Framing related basic questions:
 
 1. What are the inputs?
-   1. time series table of deaths data with geography and demography information. For example to United Status, each row of the data needs to have **number of deaths $x$ at date $y$ in region $z$**.
+   1. time-series table of death data with geography and demography information. For example to United Status, each row of the data needs to have **number of deaths $x$ at date $y$ in region $z$**.
 2. What are the outputs?
    1. **number of deaths $x'$ at a given future date $y'$ in region $z'$**.
 3. What are the metrics to measure the success of the project? Such as,
@@ -131,7 +131,7 @@ A [Grid Search](https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_s
 
 The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified [SIR](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) epidemiology model which is applied to the mathematical modelling of infectious diseases.
 
-```{figure} ../../images/SEIR.jpeg
+```{figure}
 ---
 name: SEIR Model
 ---
@@ -140,7 +140,7 @@ SEIR Model
 
 The simulator generates infection and death data according to the pre-defined static parameters. By comparing the simulated data with real world data, it gets the simulator performance under a certain parameter setting.
 
-```{figure} ../../images/death-forecasting-model-overview.png
+```{figure}
 ---
 name: Death Forecasting Model Overview
 ---
@@ -159,7 +159,7 @@ Based on such strategy, the Grid Search algorithm searches the optimized SEIR si
 
 To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular [model](https://covid19.healthdata.org/) developed by the [Institute for Health Metrics and Evaluation (IHME)](https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation). The latter is commonly referred to by the White House and media. The detailed result could be find from the [covid19-projections website](https://covid19-projections.com/about/#historical-performance).
 
-```{figure} ../../images/covid19-model-performance-evaluation.png
+```{figure}
 ---
 name: Evaluation Between Different Machine Learning Model's COVID-19 Death Projections
 ---
@@ -168,7 +168,7 @@ Evaluation Between Different Machine Learning Model's COVID-19 Death Projections
 
 The evaluation is more focused on the accuracy. There are other [Test-driven Machine Learning development](https://mlinproduction.com/testing-machine-learning-models-deployment-series-07/) methods, including unit testing, integration testing, etc.
 
-```{figure} ../../images/test-pyramid.png
+```{figure}
 ---
 name: The Machine Learning Test Pyramid
 ---
@@ -179,7 +179,7 @@ The [Machine Learning Test Pyramid](https://martinfowler.com/articles/cd4ml.html
 
 The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections [GitHub Pages](https://pages.github.com/). This will trigger the website building process, which is manged by Github Action and fully CI/CD.
 
-```{figure} ../../images/covid19-projection-github-action.png
+```{figure}
 ---
 name: COVID-19 Projection Github Action
 ---
