@@ -33,7 +33,7 @@ A Machine Learning lifecycle consists of such major phases, including:
 - Deployment,
 - Maintenance.
 
-```{figure}
+```{figure} ../../images/machine-learning-lifecycle.jpeg
 ---
 name: Machine Learning Lifecycle
 ---
@@ -131,7 +131,7 @@ A [Grid Search](https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_s
 
 The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified [SIR](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology) epidemiology model which is applied to the mathematical modelling of infectious diseases.
 
-```{figure}
+```{figure} ../../images/SEIR.jpeg
 ---
 name: SEIR Model
 ---
@@ -140,7 +140,7 @@ SEIR Model
 
 The simulator generates infection and death data according to the pre-defined static parameters. By comparing the simulated data with real world data, it gets the simulator performance under a certain parameter setting.
 
-```{figure}
+```{figure} ../../images/death-forecasting-model-overview.png
 ---
 name: Death Forecasting Model Overview
 ---
@@ -159,7 +159,7 @@ Based on such strategy, the Grid Search algorithm searches the optimized SEIR si
 
 To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular [model](https://covid19.healthdata.org/) developed by the [Institute for Health Metrics and Evaluation (IHME)](https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation). The latter is commonly referred to by the White House and media. The detailed result could be find from the [covid19-projections website](https://covid19-projections.com/about/#historical-performance).
 
-```{figure}
+```{figure} ../../images/covid19-model-performance-evaluation.png
 ---
 name: Evaluation Between Different Machine Learning Model's COVID-19 Death Projections
 ---
@@ -168,7 +168,7 @@ Evaluation Between Different Machine Learning Model's COVID-19 Death Projections
 
 The evaluation is more focused on the accuracy. There are other [Test-driven Machine Learning development](https://mlinproduction.com/testing-machine-learning-models-deployment-series-07/) methods, including unit testing, integration testing, etc.
 
-```{figure}
+```{figure} ../../images/test-pyramid.png
 ---
 name: The Machine Learning Test Pyramid
 ---
@@ -179,7 +179,7 @@ The [Machine Learning Test Pyramid](https://martinfowler.com/articles/cd4ml.html
 
 The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections [GitHub Pages](https://pages.github.com/). This will trigger the website building process, which is manged by Github Action and fully CI/CD.
 
-```{figure}
+```{figure} ../../images/covid19-projection-github-action.png
 ---
 name: COVID-19 Projection Github Action
 ---
