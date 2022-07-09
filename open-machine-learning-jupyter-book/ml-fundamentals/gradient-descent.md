@@ -13,7 +13,18 @@ kernelspec:
   name: python3
 ---
 
-# Gradient descent
+# Loss Function and Gradient descent
+
+## Goal of this session
+
+We have already learnt how to use Linear Regression and Logistic Regression models.
+
+The code might seem quite easy and intuitive for you. And you might naturally ask:
+- What's behind the ```.fit()``` function?
+- Why sometimes it takes quite a bit for this ```.fit()``` function to finish?
+
+In this session, you will learn that the ```.fit()``` is the training of ML models, 
+i.e. tuning of parameters for ML models. And the technique behind is called "Gradient Descent".
 
 ## Video
 
@@ -84,11 +95,11 @@ $$\frac{\partial f}{\partial b} = \frac{1}{n}\sum_{i=1}^{n}-2(y_i - (mx_i+b))$$
 
 Few details we should discuss before jumping into code:
 
-1. Gradient descent is an iterative process and with each iteration ($epoch$) we slightly minimizing MSE, so each time we use our derived functions to update parameters $m$ and $b$
-2. Because its iterative, we should choose how many iterations we take, or make algorithm stop when we approach minima of MSE. In other words when algorithm is no longer improving MSE, we know it reached minimum.
+1. Gradient descent is an iterative process and with each iteration ($epoch$) we slightly minimizing MSE, so each time we use our derived functions to update parameters $m$ and $b$.
+2. Because it's iterative, we should choose how many iterations we take, or make algorithm stop when we approach minima of MSE. In other words when algorithm is no longer improving MSE, we know it reached minimum.
 3. Gradient descent has an additional parameter learning rate ($lr$), which helps control how fast or slow algorithm going towards minima of MSE
 
-Thats about it. So you can already understand that Gradient Descent for the most part is just process of taking derivatives and using them over and over to minimize function.
+That's about it. So you can already understand that Gradient Descent for the most part is just process of taking derivatives and using them over and over to minimize function.
 
 ## Time to code!
 
