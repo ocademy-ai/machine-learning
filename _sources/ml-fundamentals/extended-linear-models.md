@@ -13,6 +13,8 @@ kernelspec:
   name: python3
 ---
 
+# Extended Linear Models
+
 SVM, LDA etc.
 
 
