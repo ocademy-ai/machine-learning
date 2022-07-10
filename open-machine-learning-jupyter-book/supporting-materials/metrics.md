@@ -13,8 +13,9 @@ kernelspec:
   name: python3
 ---
 
+# Metrics
 
-# Summary of Machine Learning Fundamentals
-
-
-## Landscape
+## Accuracy
+## Precision
+## Recall
+## ROC

@@ -13,8 +13,4 @@ kernelspec:
   name: python3
 ---
 
-
-# Summary of Machine Learning Fundamentals
-
-
-## Landscape
+# Unsupervised Learning
