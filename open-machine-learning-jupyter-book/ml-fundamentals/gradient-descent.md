@@ -294,6 +294,12 @@ print("LR classification error rate:\n", error_rate)
 
 Modify ```LogisticRegression``` so that the training will use SGD instead of GD.
 
+
+## Other Optimization Techniques [optional]
+
+[Optimizers - EXPLAINED!](https://www.youtube.com/watch?v=mdKjMPmcWjY)
+
+
 ## Bibliography
 
 - [Gradient Descent, Step-by-Step - StatQuest](https://www.youtube.com/watch?v=sDv4f4s2SB8)
