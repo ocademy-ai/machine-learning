@@ -18,8 +18,7 @@ kernelspec:
 
 
 ```{epigraph}
-The function we want to minimize or maximize is called the objective function or criterion. 
-When we are minimizing it, we may also call it the cost function, loss function, or error function.
+The function we want to minimize or maximize is called the objective function or criterion. When we are minimizing it, we may also call it the cost function, loss function, or error function.
 
 
 — Page 82, Deep Learning [Book], Ian Goodfellow, Yoshua Bengio, Aaron Courville, 2016.
@@ -90,7 +89,13 @@ probability distributions for predicting class 1.
 The score is minimized and a perfect cross-entropy value is 0.
 
 This video by Andrew Ng explains very well Binary Cross Entropy Loss:
-- [Andrew Ng - Logistic Regression Cost Function](https://www.youtube.com/watch?v=SHEPb1JHw5o)
+
+<iframe width="100%" height="500"
+src="https://www.youtube.com/embed/SHEPb1JHw5o" 
+frameborder="0" 
+allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+
 
 ### Multi-Class Cross-Entropy Loss
 
@@ -124,3 +129,4 @@ and a perfect cross-entropy value is 0.
 ## Bibliography
 - [ML cheat sheet for loss functions](https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html)
 - [A Short Introduction to Entropy, Cross-Entropy and KL-Divergence](https://www.youtube.com/watch?v=ErfnhcEV1O8)
+
