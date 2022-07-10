@@ -88,7 +88,8 @@ the average difference between the actual and predicted
 probability distributions for predicting class 1. 
 The score is minimized and a perfect cross-entropy value is 0.
 
-This YouTube video by Andrew Ng explains very well Binary Cross Entropy Loss:
+This YouTube video by Andrew Ng explains very well Binary Cross Entropy Loss (make sure 
+that you have access to YouTube for this web page to render correctly):
 
 <iframe width="100%" height="500"
 src="https://www.youtube.com/embed/SHEPb1JHw5o" 
