@@ -29,12 +29,13 @@ i.e. tuning of parameters for ML models. And the technique behind is called "Gra
 ## Video
 
 The corresponding video (in Chinese) for this notebook is [👉 available here on Bilibili](https://www.bilibili.com/video/BV1SY4y1G7o9/).
+You can (and should) watch the video before diving into the details of gradient descent:
+
 
 <iframe width="100%" height="500" src="//player.bilibili.com/player.html?aid=642485873&cid=764796592&page=1&high_quality=1&danmaku=0" 
 scrolling="no" frameborder="0" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts" allowfullscreen="true"> </iframe>
 
 
-You can (and should) watch the video before diving into the details of gradient descent.
 
 ## Let's be playful ... to gain some intuition
 
