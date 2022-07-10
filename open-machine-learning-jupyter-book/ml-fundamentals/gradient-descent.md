@@ -21,7 +21,7 @@ We have already learnt how to use Linear Regression and Logistic Regression mode
 
 The code might seem quite easy and intuitive for you. And you might naturally ask:
 - What's behind the ```.fit()``` function?
-- Why sometimes it takes quite a bit for this ```.fit()``` function to finish?
+- Why sometimes it takes quite a bit for this ```.fit()``` function to finish running?
 
 In this session, you will learn that the ```.fit()``` is the training of ML models, 
 i.e. tuning of parameters for ML models. And the technique behind is called "Gradient Descent".
