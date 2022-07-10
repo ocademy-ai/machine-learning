@@ -18,4 +18,15 @@ kernelspec:
 SVM, LDA etc.
 
 
+### Hinge Loss
+
+An alternative to cross-entropy for binary 
+classification problems is the hinge loss function.
+, primarily developed for use with 
+Support Vector Machine (SVM) models.
+
+It is intended for use with binary 
+classification where the target values are in the set {-1, 1}.
+
+
 
