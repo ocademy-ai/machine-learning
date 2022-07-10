@@ -88,15 +88,29 @@ the average difference between the actual and predicted
 probability distributions for predicting class 1. 
 The score is minimized and a perfect cross-entropy value is 0.
 
+This video by Andrew Ng explains very well Binary Cross Entropy Loss:
+- [Andrew Ng - Logistic Regression Cost Function](https://www.youtube.com/watch?v=SHEPb1JHw5o)
+
 ### Multi-Class Cross-Entropy Loss
 
-Cross-entropy is the default loss function to use for multi-class classification problems.
+Cross-entropy is the default loss function to 
+use for multi-class classification problems.
 
-In this case, it is intended for use with multi-class classification where the target values are in the set {0, 1, 3, …, n}, where each class is assigned a unique integer value.
+In this case, it is intended for use with 
+multi-class classification where the target values 
+are in the set {0, 1, 3, …, n}, where each class is 
+assigned a unique integer value.
 
-Mathematically, it is the preferred loss function under the inference framework of maximum likelihood. It is the loss function to be evaluated first and only changed if you have a good reason.
+Mathematically, it is the preferred loss 
+function under the inference framework of 
+maximum likelihood. It is the loss function 
+to be evaluated first and only changed if you have a good reason.
 
-Cross-entropy will calculate a score that summarizes the average difference between the actual and predicted probability distributions for all classes in the problem. The score is minimized and a perfect cross-entropy value is 0.
+Cross-entropy will calculate a score that 
+summarizes the average difference between 
+the actual and predicted probability distributions 
+for all classes in the problem. The score is minimized 
+and a perfect cross-entropy value is 0.
 
 
 ## At the frontier of Machine Learning Research [optional]
@@ -107,4 +121,5 @@ Cross-entropy will calculate a score that summarizes the average difference betw
 
 
 ## Bibliography
-
+- [ML cheat sheet for loss functions](https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html)
+- [A Short Introduction to Entropy, Cross-Entropy and KL-Divergence](https://www.youtube.com/watch?v=ErfnhcEV1O8)
