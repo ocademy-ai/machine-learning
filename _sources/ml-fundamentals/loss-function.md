@@ -18,7 +18,8 @@ kernelspec:
 
 
 ```{epigraph}
-The function we want to minimize or maximize is called the objective function or criterion. When we are minimizing it, we may also call it the cost function, loss function, or error function.
+The function we want to minimize or maximize is called the objective function or criterion. 
+When we are minimizing it, we may also call it the cost function, loss function, or error function.
 
 
 — Page 82, Deep Learning [Book], Ian Goodfellow, Yoshua Bengio, Aaron Courville, 2016.
@@ -62,7 +63,7 @@ is the distance between the predicted and the actual values,
 irrespective of the sign. Absolute Error is also 
 known as the **L1 loss**:
 
-$$L = \abs{y - f(x)}$$
+$$L = \lvert y - f(x) \rvert$$
 
 
 The corresponding cost function is the 
