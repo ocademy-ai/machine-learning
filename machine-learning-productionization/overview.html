@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -44,6 +45,8 @@
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -52,6 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="20.2. Problem framing" href="problem-framing.html" />
@@ -755,8 +760,7 @@ title="Print to PDF"
 <li><p>Maintenance.</p></li>
 </ul>
 <figure class="align-default" id="machine-learning-lifecycle">
-<img alt="../_images/machine-learning-lifecycle.jpeg" src="../_images/machine-learning-lifecycle.jpeg" />
-<figcaption>
+<img alt="../_images/machine-learning-lifecycle.svg" class="drawio" src="../_images/machine-learning-lifecycle.svg" /><figcaption>
 <p><span class="caption-number">Fig. 20.1 </span><span class="caption-text">Machine Learning Lifecycle</span><a class="headerlink" href="#machine-learning-lifecycle" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
@@ -775,27 +779,27 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
 <ol class="simple">
 <li><p>What are the inputs?</p>
 <ol class="simple">
-<li><p>time-series table of death data with geography and demography information. For example to United Status, each row of the data needs to have <strong>number of deaths <span class="math notranslate nohighlight">\(x\)</span> at date <span class="math notranslate nohighlight">\(y\)</span> in region <span class="math notranslate nohighlight">\(z\)</span></strong>.</p></li>
+<li><p>time-series table of death data with geography and demography information. For example to United Status, each row of the data needs to have <strong>a number of deaths <span class="math notranslate nohighlight">\(x\)</span> at date <span class="math notranslate nohighlight">\(y\)</span> in the region <span class="math notranslate nohighlight">\(z\)</span></strong>.</p></li>
 </ol>
 </li>
 <li><p>What are the outputs?</p>
 <ol class="simple">
-<li><p><strong>number of deaths <span class="math notranslate nohighlight">\(x'\)</span> at a given future date <span class="math notranslate nohighlight">\(y'\)</span> in region <span class="math notranslate nohighlight">\(z'\)</span></strong>.</p></li>
+<li><p><strong>a number of deaths <span class="math notranslate nohighlight">\(x'\)</span> at a given future date <span class="math notranslate nohighlight">\(y'\)</span> in region <span class="math notranslate nohighlight">\(z'\)</span></strong>.</p></li>
 </ol>
 </li>
 <li><p>What are the metrics to measure the success of the project? Such as,</p>
 <ol class="simple">
-<li><p>projection accuracy, precision, etc. - comparing with existing Machine Learning models and real world data,</p></li>
-<li><p>model inference speed - comparing with with existing Machine Learning models,</p></li>
+<li><p>projection accuracy, precision, etc. - comparing with existing Machine Learning models and real-world data,</p></li>
+<li><p>model inference speed - comparing with existing Machine Learning models,</p></li>
 <li><p>etc.</p></li>
 </ol>
 </li>
-<li><p>What is the system architecture and required infrastructure?</p>
+<li><p>What are the system architecture and required infrastructure?</p>
 <ol class="simple">
 <li><p>a data pipeline to refresh the input data regularly,</p></li>
 <li><p>a Machine Learning pipeline to regularly iterate the model by using the latest input data,</p></li>
 <li><p>an event schedule module to manage the system communication and collaboration,</p></li>
-<li><p>a website to show the projected results and accessible in real-time.</p></li>
+<li><p>and a website to show the projected results and accessible in real-time.</p></li>
 </ol>
 </li>
 <li><p>Any other questions? Such as,</p>
@@ -989,12 +993,12 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
 <p>5 rows × 899 columns</p>
 </div></div></div>
 </div>
-<p>The above data is public available, and able to be automatically and easily sourced by a web crawler. There are also other ingestion approaches, including synthetic data simulation and manual collecting.</p>
+<p>The above data is publicly available, and able to be automatically and easily sourced by a web crawler. There are also other ingestion approaches, including synthetic data simulation and manual collecting.</p>
 </section>
 <section id="data-processing">
 <h3><span class="section-number">20.1.2.2. </span>Data processing<a class="headerlink" href="#data-processing" title="Permalink to this headline">#</a></h3>
 <p>The typical data processing includes data cleaning, labeling, feature engineering and augmentation.</p>
-<p>For example, because the CSSE raw data may be noisy, a smoothing algorithm is firstly run to smooth the data. For example, if a state reports 0 death on one day and 300 deaths the next day, the data is smoothed to show 150 deaths on each day. <a class="reference external" href="http://matlab.cheme.cmu.edu/2011/10/30/smooth-transitions-between-discontinuous-functions/#:~:text=Sigmoid%20functions,-A%20sigmoid%20function&amp;text=There%20is%20no%20formal%20justification,or%20from%201%20to%20zero.">Sigmoid Function</a> is used for this process as shown in below <a class="reference external" href="https://github.com/youyanggu/yyg-seir-simulator/blob/b511187a2d4273c92235fdb79017e7a6367e2f4c/region_model.py#L9">code snippet</a>.</p>
+<p>For example, because the CSSE raw data may be noisy, a smoothing algorithm is first to smooth the data. For example, if a state reports 0 death on one day and 300 deaths the next day, the data is smoothed to show 150 deaths on each day. <a class="reference external" href="http://matlab.cheme.cmu.edu/2011/10/30/smooth-transitions-between-discontinuous-functions/#:~:text=Sigmoid%20functions,-A%20sigmoid%20function&amp;text=There%20is%20no%20formal%20justification,or%20from%201%20to%20zero.">Sigmoid Function</a> is used for this process as shown in below <a class="reference external" href="https://github.com/youyanggu/yyg-seir-simulator/blob/b511187a2d4273c92235fdb79017e7a6367e2f4c/region_model.py#L9">code snippet</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inv_sigmoid</span><span class="p">(</span><span class="n">shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -1029,37 +1033,37 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
 <section id="model-algorithm">
 <h3><span class="section-number">20.1.3.1. </span>Model algorithm<a class="headerlink" href="#model-algorithm" title="Permalink to this headline">#</a></h3>
 <p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Hyperparameter_optimization#Grid_search">Grid Search</a> based approach is used as the model algorithm, which is similar to the traditional way of performing hyperparameter optimization. Grid Search builds a model on each parameter combination possible. It iterates through every different combination and stores a model for each of them.</p>
-<p>The algorithm is built on top of a SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified <a class="reference external" href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR</a> epidemiology model which is applied to the mathematical modelling of infectious diseases.</p>
+<p>The algorithm is built on top of an SEIR(susceptible-exposed-infectious-recovered) simulator. SEIR is a modified <a class="reference external" href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">SIR</a> epidemiology model which is applied to the mathematical modeling of infectious diseases.</p>
 <figure class="align-default" id="seir-model">
 <img alt="../_images/SEIR.jpeg" src="../_images/SEIR.jpeg" />
 <figcaption>
 <p><span class="caption-number">Fig. 20.2 </span><span class="caption-text">SEIR Model</span><a class="headerlink" href="#seir-model" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The simulator generates infection and death data according to the pre-defined static parameters. By comparing the simulated data with real world data, it gets the simulator performance under a certain parameter setting.</p>
+<p>The simulator generates infection and death data according to the pre-defined static parameters. By comparing the simulated data with real-world data, it gets the simulator performance under a certain parameter setting.</p>
 <figure class="align-default" id="death-forecasting-model-overview">
 <img alt="../_images/death-forecasting-model-overview.png" src="../_images/death-forecasting-model-overview.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 20.3 </span><span class="caption-text"><a class="reference external" href="https://covid19-projections.com/model-details/">Death Forecasting Model Overview</a></span><a class="headerlink" href="#death-forecasting-model-overview" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The training of Death Forecasting model is basically a Grid Search process. It is found that the brute-force Grid Search method that iterates through the entire parameter space is the most effective in finding an optimal set of parameters. So if there are <span class="math notranslate nohighlight">\(10\)</span> values for one parameter and <span class="math notranslate nohighlight">\(10\)</span> values for another parameter. Then there are <span class="math notranslate nohighlight">\(100\)</span> different parameter combinations for those two parameters. For parameters not able to be estimated as lacking of data, the values are considered all equally, resulting in a wider confidence interval.</p>
+<p>The training of Death Forecasting model is basically a Grid Search process. It is found that the brute-force Grid Search method that iterates through the entire parameter space is the most effective in finding an optimal set of parameters. So if there are <span class="math notranslate nohighlight">\(10\)</span> values for one parameter and <span class="math notranslate nohighlight">\(10\)</span> values for another parameter. Then there are <span class="math notranslate nohighlight">\(100\)</span> different parameter combinations for those two parameters. For parameters not able to be estimated as lacking data, the values are considered all equally, resulting in a wider confidence interval.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p><a class="reference external" href="https://covid19-projections.com/model-details/">COVID-19 Death Forecasting - Model Details</a></p>
 </div>
-<p>Based on such strategy, the Grid Search algorithm searches the optimized SEIR simulator parameters from thousands of different combinations. Then the simulator with the optimized parameters could be used to predict the future death data.</p>
+<p>Based on such a strategy, the Grid Search algorithm searches the optimized SEIR simulator parameters from thousands of different combinations. Then the simulator with the optimized parameters could be used to predict the future death data.</p>
 </section>
 <section id="model-testing">
 <h3><span class="section-number">20.1.3.2. </span>Model testing<a class="headerlink" href="#model-testing" title="Permalink to this headline">#</a></h3>
-<p>To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular <a class="reference external" href="https://covid19.healthdata.org/">model</a> developed by the <a class="reference external" href="https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation">Institute for Health Metrics and Evaluation (IHME)</a>. The latter is commonly referred to by the White House and media. The detailed result could be find from the <a class="reference external" href="https://covid19-projections.com/about/#historical-performance">covid19-projections website</a>.</p>
+<p>To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular <a class="reference external" href="https://covid19.healthdata.org/">model</a> developed by the <a class="reference external" href="https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation">Institute for Health Metrics and Evaluation (IHME)</a>. The latter is commonly referred to by the White House and media. The detailed result could be found on the <a class="reference external" href="https://covid19-projections.com/about/#historical-performance">covid19-projections website</a>.</p>
 <figure class="align-default" id="evaluation-between-different-machine-learning-model-s-covid-19-death-projections">
 <img alt="../_images/covid19-model-performance-evaluation.png" src="../_images/covid19-model-performance-evaluation.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 20.4 </span><span class="caption-text">Evaluation Between Different Machine Learning Model’s COVID-19 Death Projections</span><a class="headerlink" href="#evaluation-between-different-machine-learning-model-s-covid-19-death-projections" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The evaluation is more focused on the accuracy. There are other <a class="reference external" href="https://mlinproduction.com/testing-machine-learning-models-deployment-series-07/">Test-driven Machine Learning development</a> methods, including unit testing, integration testing, etc.</p>
+<p>The evaluation is more focused on accuracy. There are other <a class="reference external" href="https://mlinproduction.com/testing-machine-learning-models-deployment-series-07/">Test-driven Machine Learning development</a> methods, including unit testing, integration testing, etc.</p>
 <figure class="align-default" id="the-machine-learning-test-pyramid">
 <img alt="../_images/test-pyramid.png" src="../_images/test-pyramid.png" />
 <figcaption>
@@ -1070,24 +1074,24 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
 </section>
 <section id="deployment">
 <h2><span class="section-number">20.1.4. </span>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">#</a></h2>
-<p>The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections <a class="reference external" href="https://pages.github.com/">GitHub Pages</a>. This will trigger the website building process, which is manged by Github Action and fully CI/CD.</p>
+<p>The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections <a class="reference external" href="https://pages.github.com/">GitHub Pages</a>. This will trigger the website building process, which is managed by Github Action and fully CI/CD.</p>
 <figure class="align-default" id="covid-19-projection-github-action">
 <img alt="../_images/covid19-projection-github-action.png" src="../_images/covid19-projection-github-action.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 20.6 </span><span class="caption-text">COVID-19 Projection Github Action</span><a class="headerlink" href="#covid-19-projection-github-action" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The Machine Learning model could be also deployed on a embedded device or as a service. You could refer to <a class="reference external" href="https://aws.amazon.com/greengrass/ml/">AWS Greengrass</a> and <a class="reference external" href="https://aws.amazon.com/pm/sagemaker/">AWS SageMaker</a> to learn more.</p>
+<p>The Machine Learning model could be also deployed on an embedded device or as a service. You could refer to <a class="reference external" href="https://aws.amazon.com/greengrass/ml/">AWS Greengrass</a> and <a class="reference external" href="https://aws.amazon.com/pm/sagemaker/">AWS SageMaker</a> to learn more.</p>
 </section>
 <section id="maintenance">
 <h2><span class="section-number">20.1.5. </span>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline">#</a></h2>
-<p><a class="reference external" href="https://www.forbes.com/sites/forbestechcouncil/2021/09/23/model-drift-in-data-analytics-what-is-it-so-what-now-what/?sh=54ce17194862">Model drift</a> refers to the degradation of model performance due to changes in data and relationships between input and output variables. In order to deal with model drift, continuously model monitoring is the key.</p>
-<p>The covid19-projection is a part-time project. During the author actively worked on it, the past performance is evaluated weekly. The <a class="reference external" href="https://covid19-projections.com/historical-performance/">historical performance</a> along with other models are presented in the <a class="reference external" href="https://github.com/reichlab/covid19-forecast-hub">COVID-19 Forecast Hub</a>, which is a website maintains the authoritative, up-to-date record for forecasts of COVID-19 cases, deaths and hospitalizations in the US. The latest forecasts from these models were sent to the CDC weekly and presented on the CDC COVID-19 Forecasting page. Also, the evaluation results were used to guide the model iteration for better consistency and accuracy.</p>
+<p><a class="reference external" href="https://www.forbes.com/sites/forbestechcouncil/2021/09/23/model-drift-in-data-analytics-what-is-it-so-what-now-what/?sh=54ce17194862">Model drift</a> refers to the degradation of model performance due to changes in data and relationships between input and output variables. In order to deal with model drift, continuous model monitoring is the key.</p>
+<p>The covid19-projection is a part-time project. During the author actively worked on it, the past performance is evaluated weekly. The <a class="reference external" href="https://covid19-projections.com/historical-performance/">historical performance</a> along with other models are presented in the <a class="reference external" href="https://github.com/reichlab/covid19-forecast-hub">COVID-19 Forecast Hub</a>, which is a website that maintains the authoritative, up-to-date record for forecasts of COVID-19 cases, deaths and hospitalizations in the US. The latest forecasts from these models were sent to the CDC weekly and presented on the CDC COVID-19 Forecasting page. Also, the evaluation results were used to guide the model iteration for better consistency and accuracy.</p>
 </section>
 <section id="your-turn">
 <h2><span class="section-number">20.1.6. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
 <p>It is time to start your own Machine Learning project!</p>
-<p>In this session/assignment, you should come up with a Machine Learning Project idea. Everyone should, in the next session, present your idea with:</p>
+<p>In this session/assignment, you should come up with a Machine Learning Project idea. Everyone should, in the next session, present their idea with:</p>
 <ul class="simple">
 <li><p>either <a class="reference internal" href="../assignments/project-plan-template.html"><span class="doc std std-doc">a project plan following this template</span></a>,</p></li>
 <li><p>or, <a class="reference external" href="https://docs.google.com/presentation/d/1gTK27XUOC12X8PpggB8_NGxVOAPeYV3I5W6QTYIp49U/edit#slide=id.gcb9a0b074_1_0">a slide of around 10 pages, like this one</a>.</p></li>
@@ -1151,6 +1155,12 @@ Infections Estimates and Vaccination Projections. We will use the <a class="refe
     }
     </script>
     <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
 
               </div>
               
