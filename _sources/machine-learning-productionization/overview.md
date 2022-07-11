@@ -55,7 +55,7 @@ I began estimating true infections in November 2020 because I couldn’t find an
 ```
 
 There have been three separate iterations of the covid19-projections.com model, which are Death Forecasts,
-Infections Estimates and Vaccination Projections. We will use the [Death Forecasting model](https://covid19-projections.com/model-details/) as an example to explore how to frame a Machine Learning problem.
+Infections Estimates, and Vaccination Projections. We will use the [Death Forecasting model](https://covid19-projections.com/model-details/) as an example to explore how to frame a Machine Learning problem.
 
 Let's start with answering some Problem Framing related basic questions:
 
@@ -71,7 +71,7 @@ Let's start with answering some Problem Framing related basic questions:
    1. a data pipeline to refresh the input data regularly,
    2. a Machine Learning pipeline to regularly iterate the model by using the latest input data,
    3. an event schedule module to manage the system communication and collaboration,
-   4. and a website to show the projected results and accessible in real-time.
+   4. and a website to show the projected results and be accessible in real-time.
 5. Any other questions? Such as,
    1. is the data generally available and easy to access,
    2. what are the existing solutions,
@@ -95,7 +95,7 @@ The above data is publicly available, and able to be automatically and easily so
 
 ### Data processing
 
-The typical data processing includes data cleaning, labeling, feature engineering and augmentation.
+Typical data processing includes data cleaning, labeling, feature engineering, and augmentation.
 
 For example, because the CSSE raw data may be noisy, a smoothing algorithm is first to smooth the data. For example, if a state reports 0 death on one day and 300 deaths the next day, the data is smoothed to show 150 deaths on each day. [Sigmoid Function](http://matlab.cheme.cmu.edu/2011/10/30/smooth-transitions-between-discontinuous-functions/#:~:text=Sigmoid%20functions,-A%20sigmoid%20function&text=There%20is%20no%20formal%20justification,or%20from%201%20to%20zero.) is used for this process as shown in below [code snippet](https://github.com/youyanggu/yyg-seir-simulator/blob/b511187a2d4273c92235fdb79017e7a6367e2f4c/region_model.py#L9).
 
@@ -147,7 +147,7 @@ name: Death Forecasting Model Overview
 [Death Forecasting Model Overview](https://covid19-projections.com/model-details/)
 ```
 
-The training of Death Forecasting model is basically a Grid Search process. It is found that the brute-force Grid Search method that iterates through the entire parameter space is the most effective in finding an optimal set of parameters. So if there are $10$ values for one parameter and $10$ values for another parameter. Then there are $100$ different parameter combinations for those two parameters. For parameters not able to be estimated as lacking data, the values are considered all equally, resulting in a wider confidence interval. 
+The training of the Death Forecasting model is basically a Grid Search process. It is found that the brute-force Grid Search method that iterates through the entire parameter space is the most effective in finding an optimal set of parameters. So if there are $10$ values for one parameter and $10$ values for another parameter. Then there are $100$ different parameter combinations for those two parameters. For parameters not able to be estimated as lacking data, the values are considered all equally, resulting in a wider confidence interval.
 
 ```{seealso}
 [COVID-19 Death Forecasting - Model Details](https://covid19-projections.com/model-details/)
@@ -157,7 +157,7 @@ Based on such a strategy, the Grid Search algorithm searches the optimized SEIR 
 
 ### Model testing
 
-To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular [model](https://covid19.healthdata.org/) developed by the [Institute for Health Metrics and Evaluation (IHME)](https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation). The latter is commonly referred to by the White House and media. The detailed result could be found on the [covid19-projections website](https://covid19-projections.com/about/#historical-performance).
+To evaluate the result, the trained Death Forecasting model has been compared with existing Machine Learning approaches, such as the popular [model](https://covid19.healthdata.org/) developed by the [Institute for Health Metrics and Evaluation (IHME)](https://en.wikipedia.org/wiki/Institute_for_Health_Metrics_and_Evaluation). The latter is commonly referred to by the White House and the media. The detailed result could be found on the [covid19-projections website](https://covid19-projections.com/about/#historical-performance).
 
 ```{figure} ../../images/covid19-model-performance-evaluation.png
 ---
@@ -177,7 +177,7 @@ The [Machine Learning Test Pyramid](https://martinfowler.com/articles/cd4ml.html
 
 ## Deployment
 
-The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto COVID-19 Projections [GitHub Pages](https://pages.github.com/). This will trigger the website building process, which is managed by Github Action and fully CI/CD.
+The model training itself is handled manually. Every day, raw daily projections for all 50 US states and select international countries will be uploaded onto the COVID-19 Projections [GitHub Pages](https://pages.github.com/). This will trigger the website building process, which is managed by Github Action and fully CI/CD.
 
 ```{figure} ../../images/covid19-projection-github-action.png
 ---
@@ -192,7 +192,7 @@ The Machine Learning model could be also deployed on an embedded device or as a 
 
 [Model drift](https://www.forbes.com/sites/forbestechcouncil/2021/09/23/model-drift-in-data-analytics-what-is-it-so-what-now-what/?sh=54ce17194862) refers to the degradation of model performance due to changes in data and relationships between input and output variables. In order to deal with model drift, continuous model monitoring is the key.
 
-The covid19-projection is a part-time project. During the author actively worked on it, the past performance is evaluated weekly. The [historical performance](https://covid19-projections.com/historical-performance/) along with other models are presented in the [COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), which is a website that maintains the authoritative, up-to-date record for forecasts of COVID-19 cases, deaths and hospitalizations in the US. The latest forecasts from these models were sent to the CDC weekly and presented on the CDC COVID-19 Forecasting page. Also, the evaluation results were used to guide the model iteration for better consistency and accuracy.
+The covid19-projection is a part-time project. During the author actively worked on it, the past performance is evaluated weekly. The [historical performance](https://covid19-projections.com/historical-performance/) along with other models are presented in the [COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), which is a website that maintains the authoritative, up-to-date record for forecasts of COVID-19 cases, deaths, and hospitalizations in the US. The latest forecasts from these models were sent to the CDC weekly and presented on the CDC COVID-19 Forecasting page. Also, the evaluation results were used to guide the model iteration for better consistency and accuracy.
 
 ## Your turn! 🚀
 
