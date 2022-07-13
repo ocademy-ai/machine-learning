@@ -15,7 +15,7 @@ kernelspec:
 
 # Problem framing
 
-**[Problem Framing](https://developers.google.com/machine-learning/problem-framing/problem-framing)**, is the process of analyzing a problem to isolate the individual elements that need to be addressed to solve it. It helps you to determine the feasibility of your project, and clearly defines the project goals and success criteria. Under our context, problem framing is to dive deep into the business requirements to figure out a potential Machine Learning based technical solution.
+**[Problem Framing](https://developers.google.com/machine-learning/problem-framing/problem-framing)** is the process of analyzing a problem to isolate the individual elements that need to be addressed to solve it. It helps you to determine the feasibility of your project, and clearly defines the project goals and success criteria. Under our context, problem framing is to dive deep into the business requirements to figure out a potential Machine Learning based technical solution.
 
 ```{epigraph}
 Formal problem framing is the critical beginning for solving an ML problem, as it forces us to better understand both the problem and the data in order to design and build a bridge between them. 
@@ -40,9 +40,9 @@ Machine Learning is not universally applicable. Similar to any other technology,
 
 **Is concrete interpretability needed?** Machine learning does a great job to improve products, processes, and research. But computers usually do not explain their predictions. The [dark secret at the heart of AI](https://www.technologyreview.com/2017/04/11/5113/the-dark-secret-at-the-heart-of-ai/) could be a problem. Conversely, a better explanation could increase the trust in the decision to adopt Machine Learning. But this is still [challenging even to the supervised Machine Learning](https://christophm.github.io/interpretable-ml-book/), let alone Deep Learning{cite}`li2021interpretable`.
 
-**Any risk to violate ethics or regulation?** AI presents three major areas of ethical concern for society: privacy and surveillance, bias and discrimination{cite}`pazzanese_2020`. For example, the bank, a highly regulated industry, algorithm-driven lending decisions may result in the systematic disparate treatment of African Americans and other marginalized consumers.
+**Any risk to violate ethics or regulation?** AI presents three major areas of ethical concern for society: privacy and surveillance, bias, and discrimination{cite}`pazzanese_2020`. For example, the bank, a highly regulated industry, algorithm-driven lending decisions may result in the systematic disparate treatment of African Americans and other marginalized consumers.
 
-**Any Machine Learning approaches available?** To create a TikTok alike short video platform, [Amazon Rekognition](https://aws.amazon.com/rekognition/content-moderation/) could help build AI-powered content moderation easily. And [Amazon Transcribe](https://aws.amazon.com/transcribe/) is something ready to use for generating transcripts automatically for customers. To [reinvent the wheel](https://en.wikipedia.org/wiki/Reinventing_the_wheel) is resource wasting and should be avoided always.
+**Are any Machine Learning approaches available?** To create a TikTok alike short video platform, [Amazon Rekognition](https://aws.amazon.com/rekognition/content-moderation/) could help build AI-powered content moderation easily. And [Amazon Transcribe](https://aws.amazon.com/transcribe/) is something ready to use for generating transcripts automatically for customers. To [reinvent the wheel](https://en.wikipedia.org/wiki/Reinventing_the_wheel) is resource-wasting and should be avoided always.
 
 **Is Machine Learning cost-effective?** The cost of a Machine Learning solution may be across multiple aspects similar to traditional software development, such as cloud, data, device, human resource, maintenance, etc. Besides, if the team is new to Machine Learning, the additional training cost needs to be considered. If Machine Learning is one of the options, the [opportunity cost](https://en.wikipedia.org/wiki/Opportunity_cost) must be in the mind. More specifically, it is remarkably easy to incur massive ongoing maintenance costs at the system level when applying machine learning, including boundary erosion, entanglement, hidden feedback loops, undeclared consumers, data dependencies, changes in the external world, and a variety of system-level anti-patterns{cite}`43146`.
 
@@ -50,7 +50,7 @@ Machine Learning is not universally applicable. Similar to any other technology,
 
 It is no doubt that data is the driving force of Machine Learning. Make sure you have the data required to train a model, before initiating the Machine Learning execution. Regardless of the challenge to gather data from your own company or real customers, the options below could be helpful.
 
-**[Synthetic data](https://en.wikipedia.org/wiki/Synthetic_data)**, which is any production data applicable to a given situation that is not obtained by direct measurement{cite}`lapedes1978mcgraw`. Typically, it is usually generated by a computer simulation. Today, synthetic data becomes more and more important in the entire AI landscape, and is even predicted to overshadow real data by 2030{cite}`gartner_inc`. [Generative Adversarial Networks](https://en.wikipedia.org/wiki/Generative_adversarial_network)(GANs) is one of the most popular frameworks to generate synthetic data. For example, [Ford has combined gaming engines and GANs to create synthetic data for AI training for self-driving](https://blogs.nvidia.com/blog/2020/04/23/ford-ai-data/). There are other approaches, including statistical distribution fitting, Rule-based procedural generation, benchmarks, simulations, and so on{cite}`anderson2021methods`.
+**[Synthetic data](https://en.wikipedia.org/wiki/Synthetic_data)**, which is any production data applicable to a given situation that is not obtained by direct measurement{cite}`lapedes1978mcgraw`. Typically, it is usually generated by a computer simulation. Today, synthetic data becomes more and more important in the entire AI landscape and is even predicted to overshadow real data by 2030{cite}`gartner_inc`. [Generative Adversarial Networks](https://en.wikipedia.org/wiki/Generative_adversarial_network)(GANs) are one of the most popular frameworks to generate synthetic data. For example, [Ford has combined gaming engines and GANs to create synthetic data for AI training for self-driving](https://blogs.nvidia.com/blog/2020/04/23/ford-ai-data/). There are other approaches, including statistical distribution fitting, Rule-based procedural generation, benchmarks, simulations, and so on{cite}`anderson2021methods`.
 
 ```{figure} ../../images/gartner-chart.jpeg
 ---
@@ -69,7 +69,7 @@ El Emam, Khaled, Lucy Mosquera, and Richard Hoptroff. [Practical synthetic data 
 [Open Learning Resource - dataset](https://github.com/open-academy/open-learning-resources/blob/main/README.md#dataset) - a curated list of open-source/public datasets.
 ```
 
-**More data is better?** The answer is yes or no. No matter whether the Machine Learning performance increases monotonically{cite}`banko2001scaling` or logarithmically{cite}`8237359` based on the volume of the training data size, more data is usually better. But this is not always the truth, because more data is not equal to better data if more noise is introduced. Also, the appearance of large public datasets like [Imagenet](http://image-net.org/) and recent research advances makes data less of competitive advantage.
+**More data is better?** The answer is yes or no. No matter whether the Machine Learning performance increases monotonically{cite}`banko2001scaling` or logarithmically{cite}`8237359` based on the volume of the training data size, more data is usually better. But this is not always the truth, because more data is not equal to better data if more noise is introduced. Also, the appearance of large public datasets like [Imagenet](http://image-net.org/) and recent research advances makes data less of a competitive advantage.
 
 ```{seealso}
 [In machine learning, is more data always better than better algorithms? | Quora](https://qr.ae/pv4GyP)
@@ -91,7 +91,7 @@ name: Machine Learning Algorithm Cheat Sheet
 - [Choosing the right estimator | scikit-learn](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)
 ```
 
-**[Automated machine learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning)** is the process and methods of automating the tasks of applying Machine Learning to real-world problems, which is another option to help select the algorithm. It makes Machine Learning available to non-experts, such as software engineers. Many open-source libraries could be leveraged for the AutoML, such as [AutoGluon](https://auto.gluon.ai/), [AutoKeras](https://github.com/keras-team/autokeras).
+**[Automated machine learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning)** is the process and method of automating the tasks of applying Machine Learning to real-world problems, which is another option to help select the algorithm. It makes Machine Learning available to non-experts, such as software engineers. Many open-source libraries could be leveraged for AutoML, such as [AutoGluon](https://auto.gluon.ai/), [AutoKeras](https://github.com/keras-team/autokeras).
 
 ```{seealso}
 - [The Past, Present, and Future of Automated Machine Learning](https://odsc.medium.com/the-past-present-and-future-of-automated-machine-learning-5e081ca4b71a)
@@ -106,7 +106,7 @@ Machine Learning inference is the process of inputting data into a model to calc
 
 **Batch inference** means that multiple predictions are requested periodically. The [COVID-19 Projections](https://covid19-projections.com/) project is typically a batch inference example, which is mentioned in the previous section. Another good example is Facebook News feed generation, which is a complex and time-consuming artificial intelligent process. The News feeds are pre-generated regularly and stored in the cache. Then the web application could request and present the cached feeds in runtime.
 
-**Online inference**, on the contrary, is the process to handle the prediction in real-time, synchronized, or from continuous data streaming. Online inference is suitable for more latency sensitive user scenarios such as the search engine and autonomous driving, and requires to speed up both the inferring and input data sampling. It should be noted that the inference is usually just part of the end to end workflow of serving a request from the client side. It will be more challenging if the reference is in the critical path.
+**Online inference**, on the contrary, is the process to handle the prediction in real-time, synchronized, or from continuous data streaming. The online inference is suitable for more latency-sensitive user scenarios such as the search engine and autonomous driving. And it requires speeding up both the inferring and input data sampling. It should be noted that the inference is usually just part of the end-to-end workflow of serving a request from the client side. It will be more challenging if the reference is on the critical path.
 
 ## Your turn! 🚀
 
