@@ -15,11 +15,11 @@ Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersG
 
 #### Install draw.io
 
-[draw.io](https://www.draw.io/) is needed for generating draw.io based diagrams in build time. Install [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
+[draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
 
 - Windows: `C:\Program Files\draw.io\draw.io.exe`
 - Linux: `/opt/drawio/drawio` or `/opt/draw.io/drawio` (older versions)
-- MacOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`.
+- macOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`.
 
 Mostly, you don't need to do anything here. The executable will be picked up by [sphinxcontrib-drawio](https://pypi.org/project/sphinxcontrib-drawio/) automatically.
 
@@ -48,11 +48,12 @@ conda env update -f environment.yml
 ```
 
 Activate the Conda environment.
+
 ```bash
 conda activate open-machine-learning-jupyter-book
 ```
 
-Build the book after you make any change. 
+Build the book after you make any changes.
 
 ```bash
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
