@@ -1,4 +1,4 @@
-# Machine Learning Productionization
+# Machine Learning productionization
 
 Moving Machine Learning models into production is as important as building them, sometimes even harder. Maintaining data quality and model accuracy over time are just a few of the challenges. To achieve end-to-end system productionization as a whole, the various components and designs need to be identified, from defining a problem to serving the model as a service.
 
