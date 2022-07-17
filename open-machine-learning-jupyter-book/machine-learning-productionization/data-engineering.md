@@ -152,7 +152,7 @@ If the pipeline is built on other cloud computing platforms, equivalent services
 
 ## Your turn! 🚀
 
-Data cleaning is a key part of data engineering to improve the [data quality](#data-quality), but it can be deeply frustrating as the situation could be highly varied in different datasets. Sometimes you will see the text fields garbled. Sometimes your dates are formatted incorrectly. In this [assignment](../assignments/machine-learning-productionization/data-engineering.ipynb), you’ll work through three hands-on exercises to deal with messy data.
+Data cleaning is a key part of data engineering to improve the [data quality](#data-quality), but it can be deeply frustrating as the situation could be highly varied in different datasets. Sometimes you will see the text fields garbled. Sometimes your dates are formatted incorrectly. In this [assignment](../assignments/machine-learning-productionization/data-engineering), you’ll work through three hands-on exercises to deal with messy data.
 
 ## Self study
 
