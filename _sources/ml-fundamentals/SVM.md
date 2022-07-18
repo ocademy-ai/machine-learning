@@ -13,9 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Extended Linear Models
-
-SVM, LDA etc.
+# SVM
 
 
 ### Hinge Loss
@@ -27,6 +25,4 @@ Support Vector Machine (SVM) models.
 
 It is intended for use with binary 
 classification where the target values are in the set {-1, 1}.
-
-
 
