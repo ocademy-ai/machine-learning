@@ -17,7 +17,7 @@ kernelspec:
 # Summary of Machine Learning Fundamentals
 
 
-## Machine Learning Landscape
+## Machine Learning Landscape : Discriminative Models
 
 Most of supervised machine learning can be looked at using the following framework: 
 You have a set of training points $(x_i, y_i)$, and you want to find a function f that "fits the data well", 
@@ -46,7 +46,7 @@ you get different supervised learning models or even unsupervised learning model
 
 and so on.
 
-## How to conceive a "new" Machine Learning algorithm 
+## How to conceive a "new" Machine Learning algorithm : Discriminative Models
 
 
 - [How about perpendicular distance instead of vertical distance for Linear Regression?](https://math.stackexchange.com/questions/1530298/variant-of-linear-regression-using-perpendicular-distance-instead-of-vertical)
@@ -60,5 +60,15 @@ and so on.
 - [How about a Binary Tree + Neural Network]
 - [How about a Binary Tree + Logistic Regression]
 - [How about a Binary Tree + Kernel Trick]
+
+
+## Machine Learning Landscape : Generative Models 
+
+
+## LDA 
+
+
+## How to conceive a "new" Machine Learning algorithm : Generative Models
+
 
 
