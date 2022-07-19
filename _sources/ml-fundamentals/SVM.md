@@ -15,12 +15,25 @@ kernelspec:
 
 # SVM
 
+## 
+
+https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html
+
+Which is licenced under CC-by licence.
+
+## Animation
+
+
+https://www.youtube.com/watch?v=9NrALgHFwTo
+
+https://www.youtube.com/watch?v=3liCbRZPrZA
+
 
 ### Hinge Loss
 
 An alternative to cross-entropy for binary 
 classification problems is the hinge loss function.
-, primarily developed for use with 
+It is primarily developed for use with 
 Support Vector Machine (SVM) models.
 
 It is intended for use with binary 

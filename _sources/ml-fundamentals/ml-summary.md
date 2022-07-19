@@ -17,7 +17,7 @@ kernelspec:
 # Summary of Machine Learning Fundamentals
 
 
-## Landscape
+## Machine Learning Landscape
 
 Most of supervised machine learning can be looked at using the following framework: 
 You have a set of training points $(x_i, y_i)$, and you want to find a function f that "fits the data well", 
@@ -49,5 +49,16 @@ and so on.
 ## How to conceive a "new" Machine Learning algorithm 
 
 
-[How about perpendicular distance instead of vertical distance for Linear Regression?]https://math.stackexchange.com/questions/1530298/variant-of-linear-regression-using-perpendicular-distance-instead-of-vertical
+- [How about perpendicular distance instead of vertical distance for Linear Regression?](https://math.stackexchange.com/questions/1530298/variant-of-linear-regression-using-perpendicular-distance-instead-of-vertical)
+
+- [How about Logistic Regression with Kernel Trick?](https://www.quora.com/How-can-one-use-kernels-utilizing-the-kernel-trick-in-logistic-regression)
+
+- [How about a Neural Network with Kernel Trick]
+
+- [How about a Neural Network not by Layers but inter-connected]
+
+- [How about a Binary Tree + Neural Network]
+- [How about a Binary Tree + Logistic Regression]
+- [How about a Binary Tree + Kernel Trick]
+
 
