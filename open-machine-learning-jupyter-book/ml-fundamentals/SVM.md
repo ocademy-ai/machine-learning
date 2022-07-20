@@ -15,6 +15,11 @@ kernelspec:
 
 # SVM
 
+## Video
+
+https://www.youtube.com/watch?v=_YPScrckx28
+
+
 ## 
 
 https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html
@@ -29,7 +34,7 @@ https://www.youtube.com/watch?v=9NrALgHFwTo
 https://www.youtube.com/watch?v=3liCbRZPrZA
 
 
-### Hinge Loss
+### Hinge loss
 
 An alternative to cross-entropy for binary 
 classification problems is the hinge loss function.
@@ -39,3 +44,22 @@ Support Vector Machine (SVM) models.
 It is intended for use with binary 
 classification where the target values are in the set {-1, 1}.
 
+
+## Kernel trick
+
+https://www.youtube.com/watch?v=Q7vT0--5VII
+
+
+## Support Vector Regression (SVR)
+
+
+
+
+## SVM v.s. logistic regression
+
+
+
+## SVM v.s. linear regression
+
+
+## Acknowledgement

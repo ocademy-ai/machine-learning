@@ -57,9 +57,12 @@ and so on.
 
 - [How about a Neural Network not by Layers but inter-connected]
 
-- [How about a Binary Tree + Neural Network]
-- [How about a Binary Tree + Logistic Regression]
-- [How about a Binary Tree + Kernel Trick]
+- [How about horizontal or vertical lines - then we have Decision Tree]
+
+- [How about counting numbers - then we have KNN]
+
+- [How about counting numbers with Kernel trick](https://stats.stackexchange.com/questions/44166/kernelised-k-nearest-neighbour)
+
 
 
 ## Machine Learning Landscape : Generative Models 
@@ -68,7 +71,8 @@ and so on.
 ## LDA 
 
 
-## How to conceive a "new" Machine Learning algorithm : Generative Models
+## Unsupervised learning
 
+## Semi-supervised learning
 
 

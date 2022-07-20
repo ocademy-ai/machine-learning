@@ -13,8 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# LDA
+# Newton's Method
 
-YouTube video:
+https://www.youtube.com/watch?v=W7S94pq5Xuo
 
-https://www.youtube.com/watch?v=azXCzI57Yfc
