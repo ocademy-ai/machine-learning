@@ -84,7 +84,7 @@ Missing a large portion of the datasets can break the Machine Learning model tra
 
 ## Ingestion layer
 
-Data ingestion is used to load data records from one or more sources, e.g. IoT devices, data lakes, databases, and SaaS applications, etc., into a target data warehouse. It is the layer between the data source and data processing. Once ingested, the data becomes available in the data pipeline. There are three major ways to ingest data.
+Data ingestion is used to load data records from one or more sources, e.g. IoT devices, data lakes, databases, SaaS applications, etc., into a target data warehouse. It is the layer between the data source and data processing. Once ingested, the data becomes available in the data pipeline. There are three major ways to ingest data.
 
 - **Batch ingestion**, where the ingestion layer collects data from sources incrementally and sends it to the data storage in batch. Data can be grouped based on a schedule or certain rules. This approach is generally used for use cases that don't require real-time data. And it is typically cost-effective and less expensive.
 - **Stream ingestion** is also known as real-time processing. Data are not grouped in any way and are directly sent to the data storage in real time once recognized. Applications that consume real-time data should use this way.
