@@ -17,7 +17,11 @@ kernelspec:
 
 ## Video
 
-https://www.youtube.com/watch?v=_YPScrckx28
+<iframe width="100%" height="500"
+src="https://www.youtube.com/embed/_YPScrckx28" 
+frameborder="0" 
+allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 
 
 ## 
@@ -29,9 +33,17 @@ Which is licenced under CC-by licence.
 ## Animation
 
 
-https://www.youtube.com/watch?v=9NrALgHFwTo
+<iframe width="100%" height="500"
+src="https://www.youtube.com/embed/9NrALgHFwTo" 
+frameborder="0" 
+allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 
-https://www.youtube.com/watch?v=3liCbRZPrZA
+<iframe width="100%" height="500"
+src="https://www.youtube.com/embed/3liCbRZPrZA" 
+frameborder="0" 
+allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 
 
 ### Hinge loss
@@ -47,7 +59,11 @@ classification where the target values are in the set {-1, 1}.
 
 ## Kernel trick
 
-https://www.youtube.com/watch?v=Q7vT0--5VII
+<iframe width="100%" height="500"
+src="https://www.youtube.com/embed/Q7vT0--5VII" 
+frameborder="0" 
+allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
 
 
 ## Support Vector Regression (SVR)
