@@ -27,11 +27,11 @@ The Machine Learning lifecycle, also known as MLOps(Machine Learning Operations)
 
 A Machine Learning lifecycle consists of such major phases, including:
 
-- Problem Framing,
-- Data Engineering,
-- Model Training & Evaluation,
-- Deployment,
-- Maintenance.
+- problem framing,
+- data engineering,
+- model training & evaluation,
+- deployment,
+- maintenance.
 
 ```{drawio-figure} ../../drawio/machine-learning-lifecycle.drawio
 ---
