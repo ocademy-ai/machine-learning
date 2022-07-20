@@ -13,5 +13,5 @@ kernelspec:
   name: python3
 ---
 
-# QDA
+# QDA (TBD)
 
