@@ -14,3 +14,15 @@ kernelspec:
 ---
 
 # PCA
+
+YouTube video:
+
+https://www.youtube.com/watch?v=HMOI_lkzW08
+
+
+## PCA v.s. LDA
+
+YouTube video:
+
+https://www.youtube.com/watch?v=SP9r1L_C494
+

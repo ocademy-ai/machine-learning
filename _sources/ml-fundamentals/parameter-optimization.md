@@ -13,8 +13,8 @@ kernelspec:
   name: python3
 ---
 
-# LDA
 
-YouTube video:
+# Parameter Optimization
 
-https://www.youtube.com/watch?v=azXCzI57Yfc
+
+
