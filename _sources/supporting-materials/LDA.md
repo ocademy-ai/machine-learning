@@ -13,8 +13,12 @@ kernelspec:
   name: python3
 ---
 
-# LDA
+# LDA (TBD)
 
 YouTube video:
 
 https://www.youtube.com/watch?v=azXCzI57Yfc
+
+## LDA vs Logistic Regression
+
+https://stats.stackexchange.com/questions/95247/logistic-regression-vs-lda-as-two-class-classifiers
