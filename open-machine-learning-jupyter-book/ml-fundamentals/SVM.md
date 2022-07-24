@@ -111,7 +111,7 @@ Support vector machines are an example of such a maximum margin estimator.
 
 
 Let's see the result of an actual fit to this data: 
-we will use Scikit-Learn's support vector classifier to 
+we will use Scikit-learn's support vector classifier to 
 train an SVM model on this data. For the time being, 
 we will use a linear kernel and set the ```C``` parameter to a very large number 
 (we'll discuss the meaning of these in more depth momentarily).
