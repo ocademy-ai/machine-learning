@@ -97,8 +97,21 @@ Support vector machines are an example of such a maximum margin estimator.
 
 ## Fitting a support vector machine
 
-![](../../images/svm/svm3.png)
-![](../../images/svm/svm2.gif)
+
+
+```{figure} ../../images/svm/svm2d.png
+---
+name: 'SVM for Linear classification : 2D case'
+---
+SVM for Linear classification : 2D case. [(source)](https://online.stat.psu.edu/stat555/node/102/)
+```
+
+```{figure} ../../images/svm/svm3d.gif
+---
+name: 'SVM for Linear classification : 3D case'
+---
+SVM for Linear classification : 3D case. [(source)](https://www.youtube.com/watch?v=3liCbRZPrZA)
+```
 
 
 Let's see the result of an actual fit to this data: 
@@ -214,7 +227,13 @@ interact(plot_svm, N=[10, 200], ax=fixed(None));
 ## Beyond linear boundaries: Kernel SVM
 
 
-![](../../images/svm/svm1.gif)
+```{figure} ../../images/svm/svm1.gif
+---
+name: Kernel SVM visualization
+---
+Kernel SVM visualization
+```
+
 
 
 Where SVM becomes extremely powerful is when it is combined with _kernels_.
@@ -358,7 +377,9 @@ within that boundary line.
 - SVMs don’t penalize examples for which the correct decision is made with sufficient confidence. This may be good for generalization.
 - SVMs have a nice dual form, giving sparse solutions when using the kernel trick (better scalability)
 
+```{seealso}
 https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-logistic-regression/
+```
 
 ## SVR v.s. linear regression
 
@@ -367,7 +388,7 @@ SVR can minimize overfitting problem.
 - SVR allows non linear fitting problems as well (based on the kernel trick and the representation of the solution/model in the dual rather than in the primal),
 while Linear Regression is only for simple linear regression with straight line (may contain any number of features in both cases).
 
-
+  
 ## Support Vector Machine Summary
 We have seen here a brief intuitive introduction to 
 the principals behind support vector machines. 
