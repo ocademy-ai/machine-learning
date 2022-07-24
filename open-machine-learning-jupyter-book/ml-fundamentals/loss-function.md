@@ -91,12 +91,9 @@ The score is minimized and a perfect cross-entropy value is 0.
 This YouTube video by Andrew Ng explains very well Binary Cross Entropy Loss (make sure 
 that you have access to YouTube for this web page to render correctly):
 
-<iframe width="100%" height="500"
-src="https://www.youtube.com/embed/SHEPb1JHw5o" 
-frameborder="0" 
-allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
-
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/SHEPb1JHw5o" allowfullscreen></iframe>
+</div>
 
 ### Multi-Class Cross-Entropy Loss
 
@@ -122,9 +119,12 @@ and a perfect cross-entropy value is 0.
 
 ## At the frontier of Machine Learning Research [optional]
 
-- YouTube Video: [Loss Functions - EXPLAINED!](https://www.youtube.com/watch?v=QBbC3Cjsnjg)
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/QBbC3Cjsnjg" allowfullscreen></iframe>
+</div>
 
-- Corresponding paper: [A General and Adaptive Robust Loss Function](https://arxiv.org/abs/1701.03077)
+
+With its corresponding paper: [A General and Adaptive Robust Loss Function](https://arxiv.org/abs/1701.03077)
 
 
 ## Bibliography
