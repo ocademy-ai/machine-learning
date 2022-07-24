@@ -15,15 +15,6 @@ kernelspec:
 
 # SVM
 
-## Video
-
-<iframe width="100%" height="500"
-src="https://www.youtube.com/embed/_YPScrckx28" 
-frameborder="0" 
-allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
-
-
 ## Motivating Support Vector Machines
 
 Consider the simple case of a classification task, 
@@ -322,19 +313,13 @@ models in which the kernel trick can be used.
 
 ## Animation
 
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/9NrALgHFwTo" allowfullscreen></iframe>
+</div>
 
-<iframe width="100%" height="500"
-src="https://www.youtube.com/embed/9NrALgHFwTo" 
-frameborder="0" 
-allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
-
-<iframe width="100%" height="500"
-src="https://www.youtube.com/embed/3liCbRZPrZA" 
-frameborder="0" 
-allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
-
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/3liCbRZPrZA" allowfullscreen></iframe>
+</div>
 
 ## Hinge loss
 
@@ -347,19 +332,16 @@ It is intended for use with binary
 classification where the target values are in the set {-1, 1}.
 
 
-## Kernel trick
+## RBF Kernel
 
-<iframe width="100%" height="500"
-src="https://www.youtube.com/embed/Q7vT0--5VII" 
-frameborder="0" 
-allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
-
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/NYwVM6_EuxQ" allowfullscreen></iframe>
+</div>
 
 ## Support Vector Regression (SVR)
 
 
-What we are trying to do here is basically 
+With SVR, we are basically 
 trying to decide a decision boundary at $e$ distance 
 from the original hyper plane such that data points 
 closest to the hyper plane or the support vectors are 
@@ -373,7 +355,7 @@ within that boundary line.
 - SVM is based on geometrical properties of the data while logistic regression is based on statistical approaches.
 - The risk of overfitting is less in SVM, while logistic regression is vulnerable to overfitting.
 - LR gives calibrated probabilities that can be interpreted as confidence in a decision.
-- LR gives us an unconstrained, smooth objective.
+- LR gives us an unconstrained, smooth objective. 
 - LR can be (straightforwardly) used within Bayesian models.
 - SVMs don’t penalize examples for which the correct decision is made with sufficient confidence. This may be good for generalization.
 - SVMs have a nice dual form, giving sparse solutions when using the kernel trick (better scalability)
