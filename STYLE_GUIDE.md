@@ -1,7 +1,5 @@
 # Style guide
 
->
-
 ## In general
 
 * Be precise, clear, engaging, pragmatic, and consistent
@@ -18,6 +16,7 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
     * `## Acknowledgments` if needed.
     * add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
   * Only capitalize the first letter.
+* Don't add the URL as plain text. Instead, add it as a [preview](https://link-previews.stephanbogner.de/).
 * Quotes - use double quotes
 * Symbol descriptions - timestep t（not t timestep）
 * Use numerals when they are explaining or part of code or math.

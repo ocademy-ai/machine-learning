@@ -1,7 +1,5 @@
 # Notation
 
-> Inspired by [d2l-ai](https://github.com/d2l-ai/).
-
 Throughout this book, we adhere to the following notational conventions. Note that some of these symbols are placeholders, while others refer to specific objects. As a general rule of thumb, the indefinite article "a" often indicates that the symbol is a placeholder and that similarly formatted symbols can denote other objects of the same type. For example, "$x$: a scalar" means that lowercase letters generally represent scalar values, but "$\mathbb{Z}$: the set of integers" refers specifically to the symbol $\mathbb{Z}$.
 
 ## Numerical Objects
