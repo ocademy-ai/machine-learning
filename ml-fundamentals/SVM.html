@@ -53,6 +53,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
@@ -701,45 +703,66 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   6.2.
+  <a class="reference internal nav-link" href="#motivating-support-vector-machines">
+   6.2. Motivating Support Vector Machines
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machines-maximizing-the-margin">
+   6.3. Support Vector Machines: Maximizing the
+   <em>
+    Margin
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-support-vector-machine">
+   6.4. Fitting a support vector machine
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-linear-boundaries-kernel-svm">
+   6.5. Beyond linear boundaries: Kernel SVM
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#animation">
-   6.3. Animation
+   6.6. Animation
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hinge-loss">
-     6.3.1. Hinge loss
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hinge-loss">
+   6.7. Hinge loss
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#kernel-trick">
-   6.4. Kernel trick
+   6.8. Kernel trick
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#support-vector-regression-svr">
-   6.5. Support Vector Regression (SVR)
+   6.9. Support Vector Regression (SVR)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#svm-v-s-logistic-regression">
-   6.6. SVM v.s. logistic regression
+   6.10. SVM v.s. logistic regression
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#svm-v-s-linear-regression">
-   6.7. SVM v.s. linear regression
+  <a class="reference internal nav-link" href="#svr-v-s-linear-regression">
+   6.11. SVR v.s. linear regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machine-summary">
+   6.12. Support Vector Machine Summary
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#acknowledgement">
-   6.8. Acknowledgement
+   6.13. Acknowledgement
   </a>
  </li>
 </ul>
@@ -767,45 +790,66 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   6.2.
+  <a class="reference internal nav-link" href="#motivating-support-vector-machines">
+   6.2. Motivating Support Vector Machines
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machines-maximizing-the-margin">
+   6.3. Support Vector Machines: Maximizing the
+   <em>
+    Margin
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-support-vector-machine">
+   6.4. Fitting a support vector machine
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-linear-boundaries-kernel-svm">
+   6.5. Beyond linear boundaries: Kernel SVM
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#animation">
-   6.3. Animation
+   6.6. Animation
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hinge-loss">
-     6.3.1. Hinge loss
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hinge-loss">
+   6.7. Hinge loss
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#kernel-trick">
-   6.4. Kernel trick
+   6.8. Kernel trick
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#support-vector-regression-svr">
-   6.5. Support Vector Regression (SVR)
+   6.9. Support Vector Regression (SVR)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#svm-v-s-logistic-regression">
-   6.6. SVM v.s. logistic regression
+   6.10. SVM v.s. logistic regression
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#svm-v-s-linear-regression">
-   6.7. SVM v.s. linear regression
+  <a class="reference internal nav-link" href="#svr-v-s-linear-regression">
+   6.11. SVR v.s. linear regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machine-summary">
+   6.12. Support Vector Machine Summary
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#acknowledgement">
-   6.8. Acknowledgement
+   6.13. Acknowledgement
   </a>
  </li>
 </ul>
@@ -828,13 +872,332 @@ frameborder="0"
 allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe>
 </section>
-<section id="id1">
-<h2><span class="section-number">6.2. </span><a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
-<p><a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html</a></p>
-<p>Which is licenced under CC-by licence.</p>
+<section id="motivating-support-vector-machines">
+<h2><span class="section-number">6.2. </span>Motivating Support Vector Machines<a class="headerlink" href="#motivating-support-vector-machines" title="Permalink to this headline">#</a></h2>
+<p>Consider the simple case of a classification task,
+in which the two classes of points are well separated:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+<span class="c1"># use seaborn plotting defaults</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 7&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># use seaborn plotting defaults</span>
+<span class="ne">----&gt; </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets.samples_generator</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.60</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A linear discriminative classifier would attempt
+to draw a straight line separating the two sets of data,
+and thereby create a model for classification.
+For two dimensional data like that shown here,
+this is a task we could do by hand. But immediately
+we see a problem: there is more than one possible
+dividing line that can
+perfectly discriminate between the two classes!</p>
+<p>We can draw them as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xfit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">)]:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="n">xfit</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;-k&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>These are three very different separators which,
+nevertheless, perfectly discriminate between these
+samples. Depending on which you choose, a new data point
+(e.g., the one marked by the “X” in this plot) will be
+assigned a different label! Evidently our simple intuition
+of “drawing a line between classes” is not enough,
+and we need to think a bit deeper.</p>
+</section>
+<section id="support-vector-machines-maximizing-the-margin">
+<h2><span class="section-number">6.3. </span>Support Vector Machines: Maximizing the <em>Margin</em><a class="headerlink" href="#support-vector-machines-maximizing-the-margin" title="Permalink to this headline">#</a></h2>
+<p>Support vector machines offer one way to improve on this.
+The intuition is this: rather than simply drawing a
+zero-width line between the classes, we can draw around each
+line a margin of some width, up to the nearest point.
+Here is an example of how this might look:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xfit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]:</span>
+    <span class="n">yfit</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">xfit</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">yfit</span><span class="p">,</span> <span class="s1">&#39;-k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">yfit</span> <span class="o">-</span> <span class="n">d</span><span class="p">,</span> <span class="n">yfit</span> <span class="o">+</span> <span class="n">d</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#AAAAAA&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In support vector machines, the line that maximizes this margin
+is the one we will choose as the optimal model.
+Support vector machines are an example of such a maximum margin estimator.</p>
+</section>
+<section id="fitting-a-support-vector-machine">
+<h2><span class="section-number">6.4. </span>Fitting a support vector machine<a class="headerlink" href="#fitting-a-support-vector-machine" title="Permalink to this headline">#</a></h2>
+<p><img alt="" src="../_images/svm3.png" />
+<img alt="" src="../_images/svm2.gif" /></p>
+<p>Let’s see the result of an actual fit to this data:
+we will use Scikit-learn’s support vector classifier to
+train an SVM model on this data. For the time being,
+we will use a linear kernel and set the <code class="docutils literal notranslate"><span class="pre">C</span></code> parameter to a very large number
+(we’ll discuss the meaning of these in more depth momentarily).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span> <span class="c1"># &quot;Support vector classifier&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1E10</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To better visualize what’s happening here,
+let’s create a quick convenience function that
+will plot SVM decision boundaries for us:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_svc_decision_function</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_support</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot the decision function for a 2D SVC&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">xlim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+    <span class="n">ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    
+    <span class="c1"># create grid to evaluate model</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="c1"># plot decision boundary and margins</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+               <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+               <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># plot support vectors</span>
+    <span class="k">if</span> <span class="n">plot_support</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                   <span class="n">model</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is the dividing line that maximizes
+the margin between the two sets of points.
+Notice that a few of the training points just
+touch the margin: they are indicated by the
+black circles in this figure. These points are
+the pivotal elements of this fit, and are known as
+the support vectors, and give the algorithm its name.
+In Scikit-Learn, the identity of these points are
+stored in the <code class="docutils literal notranslate"><span class="pre">support_vectors_</span></code> attribute of the classifier:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">support_vectors_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A key to this classifier’s success is that for the fit, only the position of the support vectors matter;
+any points further from the margin which are on the correct side
+do not modify the fit! Technically, this is because these points do not contribute to the loss function
+used to fit the model, so their position and number do not matter so long as they do not cross the margin.</p>
+<p>We can see this, for example,
+if we plot the model learned from the
+first 60 points and first 120 points of this dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_svm</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.60</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1E10</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.0625</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">axi</span><span class="p">,</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">]):</span>
+    <span class="n">plot_svm</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">axi</span><span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;N = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the left panel, we see the model and the support vectors for 60 training points.
+In the right panel, we have doubled the number of training points,
+but the model has not changed: the three support vectors from the left panel are still
+the support vectors from the right panel. This insensitivity to the exact behavior of
+distant points is one of the strengths of the SVM model.</p>
+<p>If you are running this notebook live,
+you can use IPython’s interactive widgets to view this feature of the SVM model interactively:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">fixed</span>
+<span class="n">interact</span><span class="p">(</span><span class="n">plot_svm</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="kc">None</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="beyond-linear-boundaries-kernel-svm">
+<h2><span class="section-number">6.5. </span>Beyond linear boundaries: Kernel SVM<a class="headerlink" href="#beyond-linear-boundaries-kernel-svm" title="Permalink to this headline">#</a></h2>
+<p><img alt="" src="../_images/svm1.gif" /></p>
+<p>Where SVM becomes extremely powerful is when it is combined with <em>kernels</em>.
+The main idea is to project the data into higher-dimensional space defined by
+polynomials and Gaussian basis functions,
+and thereby were able to fit for nonlinear relationships with a linear classifier.</p>
+<p>To motivate the need for kernels, let’s look at some data that is not linearly separable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets.samples_generator</span> <span class="kn">import</span> <span class="n">make_circles</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">plot_support</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It is clear that no linear discrimination will ever be able to separate this data.
+But we can  project the data into a
+higher dimension such that a linear separator would be
+sufficient. For example, one simple projection we could
+use would be to compute a radial basis function centered on the middle clump:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can visualize this extra data dimension using a three-dimensional
+plot. If you are running this notebook live,
+you will be able to use the sliders to rotate the plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits</span> <span class="kn">import</span> <span class="n">mplot3d</span>
+
+<span class="k">def</span> <span class="nf">plot_3D</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="n">elev</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="n">azim</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="n">interact</span><span class="p">(</span><span class="n">plot_3D</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">azip</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+         <span class="n">X</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">y</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that with this additional dimension,
+the data becomes trivially linearly separable,
+by drawing a separating plane at, say, <span class="math notranslate nohighlight">\(r=0.7\)</span>.</p>
+<p>Here we had to choose and carefully tune our projection:
+if we had not centered our radial basis function in the right location,
+we would not have seen such clean, linearly separable results.
+In general, the need to make such a choice is a problem:
+we would like to somehow automatically find the best basis functions to use.</p>
+<p>One strategy to this end is to compute a basis function centered at every
+point in the dataset, and let the SVM algorithm sift through the results.
+This type of basis function transformation is known as a <em>kernel transformation</em>,
+as it is based on a similarity relationship (or kernel) between each pair of points.</p>
+<p>A potential problem with this strategy—projecting <span class="math notranslate nohighlight">\(N\)</span> points
+into <span class="math notranslate nohighlight">\(N\)</span> dimensions—is that it might become very computationally
+intensive as <span class="math notranslate nohighlight">\(N\)</span> grows large. However, because of a neat little procedure known
+as the <em>kernel trick</em>, a fit on kernel-transformed data can be done implicitly—that is,
+without ever building the full <span class="math notranslate nohighlight">\(N\)</span>-dimensional representation of the kernel projection!
+This kernel trick is built into the SVM, and is one of the reasons the method is so powerful.</p>
+<p>In Scikit-Learn, we can apply kernelized
+SVM simply by changing our linear kernel
+to an RBF (radial basis function) kernel,
+using the <code class="docutils literal notranslate"><span class="pre">kernel</span></code> model hyperparameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1E6</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using this kernelized support vector machine, we learn a suitable
+nonlinear decision boundary.
+This kernel transformation strategy is used often in machine learning
+to turn fast linear methods into fast nonlinear methods, especially for
+models in which the kernel trick can be used.</p>
 </section>
 <section id="animation">
-<h2><span class="section-number">6.3. </span>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">6.6. </span>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">#</a></h2>
 <iframe width="100%" height="500"
 src="https://www.youtube.com/embed/9NrALgHFwTo" 
 frameborder="0" 
@@ -845,8 +1208,9 @@ src="https://www.youtube.com/embed/3liCbRZPrZA"
 frameborder="0" 
 allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe>
+</section>
 <section id="hinge-loss">
-<h3><span class="section-number">6.3.1. </span>Hinge loss<a class="headerlink" href="#hinge-loss" title="Permalink to this headline">#</a></h3>
+<h2><span class="section-number">6.7. </span>Hinge loss<a class="headerlink" href="#hinge-loss" title="Permalink to this headline">#</a></h2>
 <p>An alternative to cross-entropy for binary
 classification problems is the hinge loss function.
 It is primarily developed for use with
@@ -854,9 +1218,8 @@ Support Vector Machine (SVM) models.</p>
 <p>It is intended for use with binary
 classification where the target values are in the set {-1, 1}.</p>
 </section>
-</section>
 <section id="kernel-trick">
-<h2><span class="section-number">6.4. </span>Kernel trick<a class="headerlink" href="#kernel-trick" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">6.8. </span>Kernel trick<a class="headerlink" href="#kernel-trick" title="Permalink to this headline">#</a></h2>
 <iframe width="100%" height="500"
 src="https://www.youtube.com/embed/Q7vT0--5VII" 
 frameborder="0" 
@@ -864,16 +1227,61 @@ allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen></iframe>
 </section>
 <section id="support-vector-regression-svr">
-<h2><span class="section-number">6.5. </span>Support Vector Regression (SVR)<a class="headerlink" href="#support-vector-regression-svr" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">6.9. </span>Support Vector Regression (SVR)<a class="headerlink" href="#support-vector-regression-svr" title="Permalink to this headline">#</a></h2>
+<p>What we are trying to do here is basically
+trying to decide a decision boundary at <span class="math notranslate nohighlight">\(e\)</span> distance
+from the original hyper plane such that data points
+closest to the hyper plane or the support vectors are
+within that boundary line.</p>
+<p><img alt="" src="../_images/svr1.jpeg" /></p>
 </section>
 <section id="svm-v-s-logistic-regression">
-<h2><span class="section-number">6.6. </span>SVM v.s. logistic regression<a class="headerlink" href="#svm-v-s-logistic-regression" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">6.10. </span>SVM v.s. logistic regression<a class="headerlink" href="#svm-v-s-logistic-regression" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>SVM works well with unstructured and semi-structured data like text and images while logistic regression works with already identified independent variables.</p></li>
+<li><p>SVM is based on geometrical properties of the data while logistic regression is based on statistical approaches.</p></li>
+<li><p>The risk of overfitting is less in SVM, while logistic regression is vulnerable to overfitting.</p></li>
+<li><p>LR gives calibrated probabilities that can be interpreted as confidence in a decision.</p></li>
+<li><p>LR gives us an unconstrained, smooth objective.</p></li>
+<li><p>LR can be (straightforwardly) used within Bayesian models.</p></li>
+<li><p>SVMs don’t penalize examples for which the correct decision is made with sufficient confidence. This may be good for generalization.</p></li>
+<li><p>SVMs have a nice dual form, giving sparse solutions when using the kernel trick (better scalability)</p></li>
+</ul>
+<p><a class="reference external" href="https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-logistic-regression/">https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-logistic-regression/</a></p>
 </section>
-<section id="svm-v-s-linear-regression">
-<h2><span class="section-number">6.7. </span>SVM v.s. linear regression<a class="headerlink" href="#svm-v-s-linear-regression" title="Permalink to this headline">#</a></h2>
+<section id="svr-v-s-linear-regression">
+<h2><span class="section-number">6.11. </span>SVR v.s. linear regression<a class="headerlink" href="#svr-v-s-linear-regression" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>One Advantage of SVR over OLSE linear regression is
+SVR can minimize overfitting problem.</p></li>
+<li><p>SVR allows non linear fitting problems as well (based on the kernel trick and the representation of the solution/model in the dual rather than in the primal),
+while Linear Regression is only for simple linear regression with straight line (may contain any number of features in both cases).</p></li>
+</ul>
+</section>
+<section id="support-vector-machine-summary">
+<h2><span class="section-number">6.12. </span>Support Vector Machine Summary<a class="headerlink" href="#support-vector-machine-summary" title="Permalink to this headline">#</a></h2>
+<p>We have seen here a brief intuitive introduction to
+the principals behind support vector machines.
+These methods are a powerful classification method for a number of reasons:</p>
+<ul class="simple">
+<li><p>Their dependence on relatively few support vectors means that they are very compact models, and take up very little memory.</p></li>
+<li><p>Once the model is trained, the prediction phase is very fast.</p></li>
+<li><p>Because they are affected only by points near the margin, they work well with high-dimensional data—even data with more dimensions than samples, which is a challenging regime for other algorithms.</p></li>
+<li><p>Their integration with kernel methods makes them very versatile, able to adapt to many types of data.</p></li>
+</ul>
+<p>However, SVMs have several disadvantages as well:</p>
+<ul class="simple">
+<li><p>The scaling with the number of samples N is <span class="math notranslate nohighlight">\(O[N^3]\)</span> at worst,
+or <span class="math notranslate nohighlight">\(O[N^2]\)</span> for efficient implementations. For large numbers of training samples, this computational cost can be prohibitive.</p></li>
+<li><p>The results are strongly dependent on a suitable choice for the softening parameter <span class="math notranslate nohighlight">\(C\)</span>.
+This must be carefully chosen via cross-validation, which can be expensive as datasets grow in size.</p></li>
+<li><p>The results do not have a direct probabilistic interpretation. This can be estimated via an internal
+cross-validation (see the <code class="docutils literal notranslate"><span class="pre">probability</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">SVC</span></code>), but this extra estimation is costly.</p></li>
+</ul>
 </section>
 <section id="acknowledgement">
-<h2><span class="section-number">6.8. </span>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">6.13. </span>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">jakevdp</a>, which is licenced under CC-by licence.</p>
 </section>
 </section>
 

@@ -24,7 +24,7 @@ The function we want to minimize or maximize is called the objective function or
 — Page 82, Deep Learning [Book], Ian Goodfellow, Yoshua Bengio, Aaron Courville, 2016.
 ```
 
-## Goal of this session
+## Objective of this session
 
 We have already learned the math and code for "Gradient Descent", as well
 as other optimization techniques.
