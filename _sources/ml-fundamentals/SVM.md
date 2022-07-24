@@ -225,7 +225,7 @@ and thereby were able to fit for nonlinear relationships with a linear classifie
 To motivate the need for kernels, let's look at some data that is not linearly separable:
 
 ```{code-cell}
-from sklearn.datasets.samples_generator import make_circles
+from sklearn.datasets import make_circles
 X, y = make_circles(100, factor=.1, noise=.1)
 
 clf = SVC(kernel='linear').fit(X, y)
