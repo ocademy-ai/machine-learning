@@ -15,7 +15,7 @@ kernelspec:
 
 # Gradient Descent
 
-## Goal of this session
+## Objective of this session
 
 We have already learnt how to use Linear Regression and Logistic Regression models.
 
