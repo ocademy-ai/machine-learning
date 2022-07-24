@@ -14,37 +14,28 @@ kernelspec:
 ---
 
 
-# Loss Function
-
+# Loss function
 
 ```{epigraph}
 The function we want to minimize or maximize is called the objective function or criterion. When we are minimizing it, we may also call it the cost function, loss function, or error function.
 
-
-— Page 82, Deep Learning [Book], Ian Goodfellow, Yoshua Bengio, Aaron Courville, 2016.
+— Ian Goodfellow, Yoshua Bengio, Aaron Courville
 ```
 
-## Objective of this session
+## Objective of this section
 
-We have already learned the math and code for "Gradient Descent", as well
-as other optimization techniques.
+We have already learned math and code for "Gradient Descent", as well as other optimization techniques.
 
-In this session, we will learn more about loss functions 
-for Linear Regression and Logistic Regression.
-
-
+In this section, we will learn more about loss functions for Linear Regression and Logistic Regression.
 
 ## What’s the Difference between a Loss Function and a Cost Function?
 
-A loss function is for a single training example. 
-It is also sometimes called an error function.
-A cost function, on the other hand, 
-is the average loss over the entire training dataset. 
-The optimization strategies aim at minimizing the cost function.
+A loss function is for a single training example. It is also sometimes called an error function. A cost function, on the other hand, is the average loss over the entire training dataset. The optimization strategies aim at minimizing the cost function.
 
 ## Regression Loss Functions
 
 ### Squared Error Loss
+
 Squared Error loss for each training example, 
 also known as **L2 Loss**, is the square of the 
 difference between the actual and the predicted values:
@@ -64,19 +55,15 @@ known as the **L1 loss**:
 
 $$L = \lvert y - f(x) \rvert$$
 
-
-The corresponding cost function is the 
-Mean of these Absolute Errors (MAE).
-
+The corresponding cost function is the Mean of these Absolute Errors (MAE).
 
 ## Classification Loss Functions
 
 ### Binary Cross Entropy Loss
-Cross-entropy is the default loss function to use 
-for binary classification problems.
 
-It is intended for use with binary classification 
-where the target values are in the set {0, 1}.
+Cross-entropy is the default loss function to use for binary classification problems.
+
+It is intended for use with binary classification where the target values are in the set {0, 1}.
 
 Mathematically, it is the preferred loss function 
 under the inference framework of maximum likelihood. 
@@ -116,7 +103,6 @@ the actual and predicted probability distributions
 for all classes in the problem. The score is minimized 
 and a perfect cross-entropy value is 0.
 
-
 ## At the frontier of Machine Learning Research [optional]
 
 <div class="yt-container">
@@ -126,8 +112,7 @@ and a perfect cross-entropy value is 0.
 
 With its corresponding paper: [A General and Adaptive Robust Loss Function](https://arxiv.org/abs/1701.03077)
 
-
 ## Bibliography
+
 - [ML cheat sheet for loss functions](https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html)
 - [A Short Introduction to Entropy, Cross-Entropy and KL-Divergence](https://www.youtube.com/watch?v=ErfnhcEV1O8)
-
