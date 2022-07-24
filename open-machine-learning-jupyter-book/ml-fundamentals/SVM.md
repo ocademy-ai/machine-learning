@@ -32,7 +32,7 @@ sns.set()
 ```
 
 ```{code-cell}
-from sklearn.datasets.samples_generator import make_blobs
+from sklearn.datasets import make_blobs
 X, y = make_blobs(n_samples=50, centers=2,
                   random_state=0, cluster_std=0.60)
 plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
@@ -41,7 +41,7 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
 A linear discriminative classifier would attempt 
 to draw a straight line separating the two sets of data, 
 and thereby create a model for classification. 
-For two dimensional data like that shown here, 
+For two-dimensional data like that shown here, 
 this is a task we could do by hand. But immediately 
 we see a problem: there is more than one possible 
 dividing line that can 
@@ -311,15 +311,6 @@ to turn fast linear methods into fast nonlinear methods, especially for
 models in which the kernel trick can be used.
 
 
-## Animation
-
-<div class="yt-container">
-   <iframe src="https://www.youtube.com/embed/9NrALgHFwTo" allowfullscreen></iframe>
-</div>
-
-<div class="yt-container">
-   <iframe src="https://www.youtube.com/embed/3liCbRZPrZA" allowfullscreen></iframe>
-</div>
 
 ## Hinge loss
 
@@ -330,6 +321,13 @@ Support Vector Machine (SVM) models.
 
 It is intended for use with binary 
 classification where the target values are in the set {-1, 1}.
+
+
+## Polynomial Kernel
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/3liCbRZPrZA" allowfullscreen></iframe>
+</div>
 
 
 ## RBF Kernel
