@@ -216,13 +216,14 @@ And at the end of the batch (demo day), you will present your work in this manne
 - [Unemployment Rate Forecasting using Machine Learning (Student Presentation, Group 3) - YouTube](https://www.youtube.com/watch?v=2F0GSnfKzY4)
 
 ```{seealso}
-Those links are for you to get some inspirations for a Machine Learning Project:
+Those links are for you to get some inspirations for a conceiving Machine Learning Project:
 
 - [Machine Learning Web App](https://www.bilibili.com/video/BV1244y1J7C7/)
 - [TensorFlow.js | Machine Learning for JavaScript Developers](https://www.tensorflow.org/js)
 - [Gallery • Streamlit](https://streamlit.io/gallery)
 - [Tensorflow Playground](https://playground.tensorflow.org)
 - [Digit Recognition WebApp](https://maneprajakta.github.io/Digit_Recognition_Web_App/)
+- [Google AI Experiments](https://experiments.withgoogle.com/collection/ai)
 ```
 
 ## Self study
