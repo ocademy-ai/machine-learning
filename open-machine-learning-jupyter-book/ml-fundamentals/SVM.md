@@ -35,7 +35,7 @@ sns.set()
 from sklearn.datasets import make_blobs
 X, y = make_blobs(n_samples=50, centers=2,
                   random_state=0, cluster_std=0.60)
-plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn');
 ```
 
 A linear discriminative classifier would attempt 
@@ -58,7 +58,7 @@ plt.plot([0.6], [2.1], 'x', color='red', markeredgewidth=2, markersize=10)
 for m, b in [(1, 0.65), (0.5, 1.6), (-0.2, 2.9)]:
     plt.plot(xfit, m * xfit + b, '-k')
 
-plt.xlim(-1, 3.5)
+plt.xlim(-1, 3.5);
 ```
 
 These are three very different separators which, 
@@ -88,7 +88,7 @@ for m, b, d in [(1, 0.65, 0.33), (0.5, 1.6, 0.55), (-0.2, 2.9, 0.2)]:
     plt.fill_between(xfit, yfit - d, yfit + d, edgecolor='none',
                      color='#AAAAAA', alpha=0.4)
 
-plt.xlim(-1, 3.5)
+plt.xlim(-1, 3.5);
 ```
 In support vector machines, the line that maximizes this margin 
 is the one we will choose as the optimal model. 
@@ -124,7 +124,7 @@ we will use a linear kernel and set the ```C``` parameter to a very large number
 ```{code-cell}
 from sklearn.svm import SVC # "Support vector classifier"
 model = SVC(kernel='linear', C=1E10)
-model.fit(X, y)
+model.fit(X, y);
 ```
 
 To better visualize what's happening here, 
@@ -312,7 +312,7 @@ using the ```kernel``` model hyperparameter:
 
 ```{code-cell}
 clf = SVC(kernel='rbf', C=1E6)
-clf.fit(X, y)
+clf.fit(X, y);
 ```
 
 ```{code-cell}
