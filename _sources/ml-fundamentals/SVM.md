@@ -15,6 +15,17 @@ kernelspec:
 
 # SVM
 
+```{warning}
+This book is under construction.
+```
+
+```{admonition} Tip
+:class: tip
+Every page with code can be downloaded and run as a Jupyter notebook--just click <i class="fas fa-download"></i> at the top of the page and select '.ipynb'.
+
+Most pages with code can be run in Google Colab --just click <i class="fas fa-rocket"></i> at the top of the page and select 'Colab'.
+```
+
 ## Motivating Support Vector Machines
 
 Consider the simple case of a classification task, 
