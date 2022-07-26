@@ -14,3 +14,31 @@ kernelspec:
 ---
 
 # Neural Network Implementation Overview (TBD)
+
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/CcRkHl75Z-Y" allowfullscreen></iframe>
+</div>
+
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/rMOdrD61IoU" allowfullscreen></iframe>
+</div>
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/xy5MOQpx3aQ" allowfullscreen></iframe>
+</div>
+
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/kkWRbIb42Ms" allowfullscreen></iframe>
+</div>
+
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/Xvg00QnyaIY" allowfullscreen></iframe>
+</div>
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/B7-iPbddhsw" allowfullscreen></iframe>
+</div>
