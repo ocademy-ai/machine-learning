@@ -76,3 +76,6 @@ and so on.
 ## Semi-supervised learning
 
 
+<div hidden>
+    https://www.baeldung.com/cs/svm-vs-neural-network
+</div>
