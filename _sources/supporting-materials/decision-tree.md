@@ -13,6 +13,8 @@ kernelspec:
   name: python3
 ---
 
-# Decision Tree (TBD)
+# Decision Tree
 
-https://www.youtube.com/watch?v=JcI5E2Ng6r4
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/JcI5E2Ng6r4" allowfullscreen></iframe>
+</div>
