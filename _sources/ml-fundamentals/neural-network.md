@@ -24,12 +24,11 @@ kernelspec:
 
 ## SVM with Tensorflow
 
-https://insideaiml.com/blog/Hinge-Loss-and-Square-Hinge-loss-1068
 
-https://stackoverflow.com/questions/54414392/convert-sklearn-svm-svc-classifier-to-keras-implementation
-
-https://keras.io/examples/keras_recipes/quasi_svm/
-
-
+<div hidden>
+  https://insideaiml.com/blog/Hinge-Loss-and-Square-Hinge-loss-1068
+  https://stackoverflow.com/questions/54414392/convert-sklearn-svm-svc-classifier-to-keras-implementation
+  https://keras.io/examples/keras_recipes/quasi_svm/
+</div>
 
 
