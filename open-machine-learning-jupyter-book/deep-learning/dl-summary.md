@@ -14,7 +14,7 @@ kernelspec:
 ---
 
 
-# Summary of Deep Learning (TBD)
+# Summary of deep learning (TBD)
 
 
 ## Landscape

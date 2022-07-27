@@ -1,4 +1,4 @@
-# Boosting vs Bagging
+# Boosting vs bagging
 
 
 <div hidden>

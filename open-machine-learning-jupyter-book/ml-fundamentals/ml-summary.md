@@ -14,7 +14,7 @@ kernelspec:
 ---
 
 
-# Summary of Machine Learning Fundamentals
+# Summary of machine learning fundamentals
 
 
 ## Machine Learning Landscape : Discriminative Models

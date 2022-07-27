@@ -13,14 +13,14 @@ kernelspec:
   name: python3
 ---
 
-# Neural Network (TBD)
+# Neural network (TBD)
 
 
-## Neural Network with Tensorflow
+## Neural network with Tensorflow
 
-## Linear Regression with Tensorflow
+## Linear regression with Tensorflow
 
-## Logistic Regression with Tensorflow
+## Logistic regression with Tensorflow
 
 ## SVM with Tensorflow
 

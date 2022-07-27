@@ -14,7 +14,7 @@ kernelspec:
 ---
 
 
-# Parameter Optimization
+# Parameter optimization
 
 
 

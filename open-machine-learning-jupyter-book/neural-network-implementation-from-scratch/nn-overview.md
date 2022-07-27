@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Neural Network Implementation Overview (TBD)
+# Neural network implementation overview (TBD)
 
 
 <div class="yt-container">

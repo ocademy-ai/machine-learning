@@ -1,4 +1,4 @@
-# SVM vs Neural Network
+# SVM vs neural network
 
 
 <div hidden>

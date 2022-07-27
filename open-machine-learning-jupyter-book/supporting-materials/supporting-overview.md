@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# Supporting Materials Overview (TBD)
+# Supporting materials overview (TBD)

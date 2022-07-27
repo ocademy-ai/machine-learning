@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Newton's Method (TBD)
+# Newton's method (TBD)
 
 https://www.youtube.com/watch?v=W7S94pq5Xuo
 

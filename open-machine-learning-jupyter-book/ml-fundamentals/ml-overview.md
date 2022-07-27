@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# Machine Learning Overview (TBD)
+# Machine learning overview (TBD)
