@@ -27,7 +27,7 @@ import pandas as pd
 
 
 ```{code-cell}
-dataset = pd.read_csv('../../data/Position_Salaries.csv')
+dataset = pd.read_csv('../../../data/Position_Salaries.csv')
 X = dataset.iloc[:, 1:-1].values
 y = dataset.iloc[:, -1].values
 ```
