@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Decision Tree
+# Decision tree
 
 <div class="yt-container">
    <iframe src="https://www.youtube.com/embed/JcI5E2Ng6r4" allowfullscreen></iframe>

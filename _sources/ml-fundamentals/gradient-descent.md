@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Gradient Descent
+# Gradient descent
 
 ## Objective of this session
 

@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# Naive Bayes (TBD)
+# Naive bayes (TBD)
