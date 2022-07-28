@@ -299,7 +299,7 @@ print("LR classification error rate:\n", error_rate)
 Modify ```LogisticRegression``` so that the training will use SGD instead of GD.
 
 
-## At the frontier of Machine Learning Research [optional]
+## [optional] At the frontier of Machine Learning Research 
 
 <div class="yt-container">
    <iframe src="https://www.youtube.com/embed/mdKjMPmcWjY" allowfullscreen></iframe>

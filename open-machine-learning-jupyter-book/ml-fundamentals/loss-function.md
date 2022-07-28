@@ -103,7 +103,7 @@ the actual and predicted probability distributions
 for all classes in the problem. The score is minimized 
 and a perfect cross-entropy value is 0.
 
-## At the frontier of Machine Learning Research [optional]
+##  [optional] At the frontier of Machine Learning Research
 
 <div class="yt-container">
    <iframe src="https://www.youtube.com/embed/QBbC3Cjsnjg" allowfullscreen></iframe>

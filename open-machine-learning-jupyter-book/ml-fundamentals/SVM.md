@@ -242,7 +242,7 @@ interact(plot_svm, N=[10, 200], ax=fixed(None));
 ---
 name: Kernel SVM visualization
 ---
-Kernel SVM visualization
+Kernel SVM visualization (with a polynomial kernel). [source](https://www.youtube.com/embed/3liCbRZPrZA)
 ```
 
 
@@ -352,14 +352,6 @@ Support Vector Machine (SVM) models.
 It is intended for use with binary 
 classification where the target values are in the set {-1, 1}.
 
-
-## Polynomial Kernel
-
-<div class="yt-container">
-   <iframe src="https://www.youtube.com/embed/3liCbRZPrZA" allowfullscreen></iframe>
-</div>
-
-
 ## RBF Kernel
 
 <div class="yt-container">
@@ -375,7 +367,14 @@ from the original hyper plane such that data points
 closest to the hyper plane or the support vectors are 
 within that boundary line.
 
-![](../../images/svm/svr1.jpeg)
+
+```{figure} ../../images/svm/svr1.jpeg
+---
+name: support vector regression
+---
+An illustration of support vector regression
+```
+
 
 ## SVM v.s. logistic regression
 
@@ -399,7 +398,6 @@ SVR can minimize overfitting problem.
 - SVR allows non linear fitting problems as well (based on the kernel trick and the representation of the solution/model in the dual rather than in the primal),
 while Linear Regression is only for simple linear regression with straight line (may contain any number of features in both cases).
 
-  
 ## Support Vector Machine Summary
 We have seen here a brief intuitive introduction to 
 the principals behind support vector machines. 
@@ -416,6 +414,12 @@ or $O[N^2]$ for efficient implementations. For large numbers of training samples
 This must be carefully chosen via cross-validation, which can be expensive as datasets grow in size.
 - The results do not have a direct probabilistic interpretation. This can be estimated via an internal 
 cross-validation (see the ```probability``` parameter of ```SVC```), but this extra estimation is costly.
+
+## [Optional] Let's dive into the math of SVM ...
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/05VABNfa1ds" allowfullscreen></iframe>
+</div>
 
 ## Acknowledgement
 
