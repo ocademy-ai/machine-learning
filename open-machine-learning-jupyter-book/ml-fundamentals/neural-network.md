@@ -15,12 +15,10 @@ kernelspec:
 
 # Neural network
 
-```{figure} ../../images/nn/nn-872d.gif
----
-name: 'nn-872d'
-width: 90%
----
-Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-artificial-neural-networks.html)
+
+```{admonition} Tip
+:class: tip
+Tensorflow Playground
 ```
 
 ```{figure} ../../images/nn/artificial_neuron.png
@@ -115,8 +113,6 @@ dog. [source](https://medium.com/the-21st-century/solution-to-failing-convolutio
 ```
 
 
-
-
 ## Neural network with Tensorflow
 
 ## Linear regression with Tensorflow
@@ -124,6 +120,18 @@ dog. [source](https://medium.com/the-21st-century/solution-to-failing-convolutio
 ## Logistic regression with Tensorflow
 
 ## SVM with Tensorflow
+
+
+## Finally, NN vs Human brain
+
+```{figure} ../../images/nn/nn-872d.gif
+
+---
+name: 'nn-872d'
+width: 90%
+---
+Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-artificial-neural-networks.html)
+```
 
 
 <div hidden>
