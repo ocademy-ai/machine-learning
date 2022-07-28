@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Neural network (TBD)
+# Neural network
 
 
 ## Neural network with Tensorflow
@@ -31,4 +31,7 @@ kernelspec:
   https://keras.io/examples/keras_recipes/quasi_svm/
 </div>
 
+<div hidden>
+  As the first iteration, I d focus mainly on Figures, Gifs and Code.
+</div>
 
