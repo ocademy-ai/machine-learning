@@ -135,6 +135,6 @@ dog. [source](https://medium.com/the-21st-century/solution-to-failing-convolutio
 <div hidden>
   As the first iteration, I d focus mainly on Figures, Gifs and Code.
 
-TODO: add Activation Figures
+TODO: add Activation Figures (even better, plotted with python code)
 </div>
 
