@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# SVM
+# Support vector machine
 
 ```{warning}
 This book is under construction.
