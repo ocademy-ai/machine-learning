@@ -113,15 +113,17 @@ Support vector machines are an example of such a maximum margin estimator.
 ```{figure} ../../images/svm/svm2d.png
 ---
 name: 'SVM for Linear classification : 2D case'
+width: 90%
 ---
-SVM for Linear classification : 2D case. [(source)](https://online.stat.psu.edu/stat555/node/102/)
+SVM for Linear classification : 2D case. [source](https://online.stat.psu.edu/stat555/node/102/)
 ```
 
 ```{figure} ../../images/svm/svm3d.gif
 ---
 name: 'SVM for Linear classification : 3D case'
+width: 90%
 ---
-SVM for Linear classification : 3D case. [(source)](https://www.youtube.com/watch?v=3liCbRZPrZA)
+SVM for Linear classification : 3D case. [source](https://www.youtube.com/watch?v=3liCbRZPrZA)
 ```
 
 
@@ -241,6 +243,7 @@ interact(plot_svm, N=[10, 200], ax=fixed(None));
 ```{figure} ../../images/svm/svm1.gif
 ---
 name: Kernel SVM visualization
+width: 90%
 ---
 Kernel SVM visualization (with a polynomial kernel). [source](https://www.youtube.com/embed/3liCbRZPrZA)
 ```
@@ -371,6 +374,7 @@ within that boundary line.
 ```{figure} ../../images/svm/svr1.jpeg
 ---
 name: support vector regression
+width: 90%
 ---
 An illustration of support vector regression
 ```
@@ -424,3 +428,12 @@ cross-validation (see the ```probability``` parameter of ```SVC```), but this ex
 ## Acknowledgement
 
 [jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), which is licenced under CC-by licence.
+
+
+<div hidden>
+
+https://slazebni.cs.illinois.edu/spring21/lec03_linear.pdf
+
+https://slazebni.cs.illinois.edu/spring21/lec05_nonlinear_classifiers.pdf
+
+</div>
