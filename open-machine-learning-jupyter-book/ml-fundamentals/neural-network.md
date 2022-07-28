@@ -125,7 +125,6 @@ dog. [source](https://medium.com/the-21st-century/solution-to-failing-convolutio
 ## Finally, NN vs Human brain
 
 ```{figure} ../../images/nn/nn-872d.gif
-
 ---
 name: 'nn-872d'
 width: 90%
@@ -138,6 +137,11 @@ Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-art
   https://insideaiml.com/blog/Hinge-Loss-and-Square-Hinge-loss-1068
   https://stackoverflow.com/questions/54414392/convert-sklearn-svm-svc-classifier-to-keras-implementation
   https://keras.io/examples/keras_recipes/quasi_svm/
+
+Book:
+http://neuralnetworksanddeeplearning.com/chap3.html
+
+
 </div>
 
 <div hidden>
