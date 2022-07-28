@@ -42,3 +42,15 @@ kernelspec:
 <div class="yt-container">
    <iframe src="https://www.youtube.com/embed/B7-iPbddhsw" allowfullscreen></iframe>
 </div>
+
+
+
+<div hidden>
+Neural-Network-from-scratch
+
+https://github.com/ahmedbesbes/Neural-Network-from-scratch/blob/master/nn.py
+
+https://slazebni.cs.illinois.edu/spring21/assignment2.html
+
+</div>
+
