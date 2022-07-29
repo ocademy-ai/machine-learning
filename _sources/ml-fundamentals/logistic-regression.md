@@ -14,3 +14,12 @@ kernelspec:
 ---
 
 # Logistic regression (TBD)
+
+<div hidden>
+
+
+Metrics will be presented here
+
+</div>
+
+## Cross validation

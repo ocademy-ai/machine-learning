@@ -1,0 +1,1389 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>8. Kernel method &#8212; Machine Learning Open Course</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Model selection" href="model-selection.html" />
+    <link rel="prev" title="7. Summary of machine learning fundamentals" href="../ml-fundamentals/ml-summary.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Course</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PYTHON BASICS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../python-programming-basics.html">
+   1. Python Programming Basics
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/ml-overview.html">
+   2. Machine learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/linear-regression.html">
+   3. Linear regression (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/logistic-regression.html">
+   4. Logistic regression (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/parameter-optimization.html">
+   5. Parameter optimization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/gradient-descent.html">
+     5.1. Gradient descent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/loss-function.html">
+     5.2. Loss function
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/neural-network/neural-network.html">
+   6. Neural network
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/neural-network/nn-overview.html">
+     6.1. Neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/neural-network/nn-hands-on.html">
+     6.2. Hands on neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/neural-network/nn-implementation.html">
+     6.3. Neural network implementation from scratch
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/ml-summary.html">
+   7. Summary of machine learning fundamentals
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   8. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="model-selection.html">
+   9. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ensemble-learning.html">
+   10. Ensemble learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="unsupervised-learning.html">
+   11. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generative-models.html">
+   12. Generative models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-overview.html">
+   13. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/CNN.html">
+   14. CNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/GAN.html">
+   15. GAN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/RNN.html">
+   16. RNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/AutoEncoder.html">
+   17. Autoencoder (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/LSTM.html">
+   18. LSTM (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/NLP.html">
+   19. NLP (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/time-series.html">
+   20. Time series (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/DQN.html">
+   21. DQN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-summary.html">
+   22. Summary of deep learning (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../machine-learning-productionization/intro.html">
+   23. Machine Learning productionization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/overview.html">
+     23.1. Overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/problem-framing.html">
+     23.2. Problem framing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/data-engineering.html">
+     23.3. Data engineering
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Supporting Materials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/supporting-overview.html">
+   24. Supporting materials overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/pytorch.html">
+   25. PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/bamboolib.html">
+   26. Bamboolib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/mito.html">
+   27. Mito
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/KNN.html">
+   28. KNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/semi-supervised-learning.html">
+   29. Semi-supervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/unbalanced-problems.html">
+   30. Unbalanced problems
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ASSIGNMENT
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../assignments/intro.html">
+   31. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/setup.html">
+     31.1. Setup
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/python-programming-basics.html">
+     31.2. Python Programming Basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/project-plan-template.html">
+     31.3. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html">
+     31.4. Data engineering
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/ml-advanced/kernel-method.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/ml-advanced/kernel-method.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-advanced/kernel-method.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-advanced/kernel-method.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ml-advanced/kernel-method.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/ml-advanced/kernel-method.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivating-support-vector-machines">
+   8.1. Motivating Support Vector Machines
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machines-maximizing-the-margin">
+   8.2. Support Vector Machines: Maximizing the
+   <em>
+    Margin
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-support-vector-machine">
+   8.3. Fitting a support vector machine
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-linear-boundaries-kernel-svm">
+   8.4. Beyond linear boundaries: Kernel SVM
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hinge-loss">
+   8.5. Hinge loss
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rbf-kernel">
+   8.6. RBF Kernel
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-regression-svr">
+   8.7. Support Vector Regression (SVR)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#svm-v-s-logistic-regression">
+   8.8. SVM v.s. logistic regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#svr-v-s-linear-regression">
+   8.9. SVR v.s. linear regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machine-summary">
+   8.10. Support Vector Machine Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optional-let-s-dive-into-the-math-of-svm">
+   8.11. [Optional] Let’s dive into the math of SVM …
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgement">
+   8.12. Acknowledgement
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Kernel method</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motivating-support-vector-machines">
+   8.1. Motivating Support Vector Machines
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machines-maximizing-the-margin">
+   8.2. Support Vector Machines: Maximizing the
+   <em>
+    Margin
+   </em>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-support-vector-machine">
+   8.3. Fitting a support vector machine
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-linear-boundaries-kernel-svm">
+   8.4. Beyond linear boundaries: Kernel SVM
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hinge-loss">
+   8.5. Hinge loss
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rbf-kernel">
+   8.6. RBF Kernel
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-regression-svr">
+   8.7. Support Vector Regression (SVR)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#svm-v-s-logistic-regression">
+   8.8. SVM v.s. logistic regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#svr-v-s-linear-regression">
+   8.9. SVR v.s. linear regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#support-vector-machine-summary">
+   8.10. Support Vector Machine Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optional-let-s-dive-into-the-math-of-svm">
+   8.11. [Optional] Let’s dive into the math of SVM …
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgement">
+   8.12. Acknowledgement
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="kernel-method">
+<h1><span class="section-number">8. </span>Kernel method<a class="headerlink" href="#kernel-method" title="Permalink to this headline">#</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This book is under construction.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Tip</p>
+<p>Every page with code can be downloaded and run as a Jupyter notebook–just click <i class="fas fa-download"></i> at the top of the page and select ‘.ipynb’.</p>
+<p>Most pages with code can be run in Google Colab –just click <i class="fas fa-rocket"></i> at the top of the page and select ‘Colab’.</p>
+</div>
+<section id="motivating-support-vector-machines">
+<h2><span class="section-number">8.1. </span>Motivating Support Vector Machines<a class="headerlink" href="#motivating-support-vector-machines" title="Permalink to this headline">#</a></h2>
+<p>Consider the simple case of a classification task,
+in which the two classes of points are well separated:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+<span class="c1"># use seaborn plotting defaults</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                  <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.60</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_2_0.png" src="../_images/kernel-method_2_0.png" />
+</div>
+</div>
+<p>A linear discriminative classifier would attempt
+to draw a straight line separating the two sets of data,
+and thereby create a model for classification.
+For two-dimensional data like that shown here,
+this is a task we could do by hand. But immediately
+we see a problem: there is more than one possible
+dividing line that can
+perfectly discriminate between the two classes!</p>
+<p>We can draw them as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xfit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">markeredgewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">)]:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">m</span> <span class="o">*</span> <span class="n">xfit</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;-k&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_4_0.png" src="../_images/kernel-method_4_0.png" />
+</div>
+</div>
+<p>These are three very different separators which,
+nevertheless, perfectly discriminate between these
+samples. Depending on which you choose, a new data point
+(e.g., the one marked by the “X” in this plot) will be
+assigned a different label! Evidently our simple intuition
+of “drawing a line between classes” is not enough,
+and we need to think a bit deeper.</p>
+</section>
+<section id="support-vector-machines-maximizing-the-margin">
+<h2><span class="section-number">8.2. </span>Support Vector Machines: Maximizing the <em>Margin</em><a class="headerlink" href="#support-vector-machines-maximizing-the-margin" title="Permalink to this headline">#</a></h2>
+<p>Support vector machines offer one way to improve on this.
+The intuition is this: rather than simply drawing a
+zero-width line between the classes, we can draw around each
+line a margin of some width, up to the nearest point.
+Here is an example of how this might look:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xfit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.33</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]:</span>
+    <span class="n">yfit</span> <span class="o">=</span> <span class="n">m</span> <span class="o">*</span> <span class="n">xfit</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">yfit</span><span class="p">,</span> <span class="s1">&#39;-k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xfit</span><span class="p">,</span> <span class="n">yfit</span> <span class="o">-</span> <span class="n">d</span><span class="p">,</span> <span class="n">yfit</span> <span class="o">+</span> <span class="n">d</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#AAAAAA&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_6_0.png" src="../_images/kernel-method_6_0.png" />
+</div>
+</div>
+<p>In support vector machines, the line that maximizes this margin
+is the one we will choose as the optimal model.
+Support vector machines are an example of such a maximum margin estimator.</p>
+</section>
+<section id="fitting-a-support-vector-machine">
+<h2><span class="section-number">8.3. </span>Fitting a support vector machine<a class="headerlink" href="#fitting-a-support-vector-machine" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="svm-for-linear-classification-2d-case">
+<a class="reference internal image-reference" href="../_images/svm2d.png"><img alt="../_images/svm2d.png" src="../_images/svm2d.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">SVM for Linear classification : 2D case. <a class="reference external" href="https://online.stat.psu.edu/stat555/node/102/">source</a></span><a class="headerlink" href="#svm-for-linear-classification-2d-case" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="svm-for-linear-classification-3d-case">
+<a class="reference internal image-reference" href="../_images/svm3d.gif"><img alt="../_images/svm3d.gif" src="../_images/svm3d.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">SVM for Linear classification : 3D case. <a class="reference external" href="https://www.youtube.com/watch?v=3liCbRZPrZA">source</a></span><a class="headerlink" href="#svm-for-linear-classification-3d-case" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s see the result of an actual fit to this data:
+we will use Scikit-learn’s support vector classifier to
+train an SVM model on this data. For the time being,
+we will use a linear kernel and set the <code class="docutils literal notranslate"><span class="pre">C</span></code> parameter to a very large number
+(we’ll discuss the meaning of these in more depth momentarily).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span> <span class="c1"># &quot;Support vector classifier&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1E10</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To better visualize what’s happening here,
+let’s create a quick convenience function that
+will plot SVM decision boundaries for us:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_svc_decision_function</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">plot_support</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot the decision function for a 2D SVC&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">xlim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
+    <span class="n">ylim</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    
+    <span class="c1"># create grid to evaluate model</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="c1"># plot decision boundary and margins</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+               <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+               <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># plot support vectors</span>
+    <span class="k">if</span> <span class="n">plot_support</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+                   <span class="n">model</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                   <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">model</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_11_0.png" src="../_images/kernel-method_11_0.png" />
+</div>
+</div>
+<p>This is the dividing line that maximizes
+the margin between the two sets of points.
+Notice that a few of the training points just
+touch the margin: they are indicated by the
+black circles in this figure. These points are
+the pivotal elements of this fit, and are known as
+the support vectors, and give the algorithm its name.
+In Scikit-Learn, the identity of these points are
+stored in the <code class="docutils literal notranslate"><span class="pre">support_vectors_</span></code> attribute of the classifier:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">support_vectors_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.44359863, 3.11530945],
+       [2.33812285, 3.43116792],
+       [2.06156753, 1.96918596]])
+</pre></div>
+</div>
+</div>
+</div>
+<p>A key to this classifier’s success is that for the fit, only the position of the support vectors matter;
+any points further from the margin which are on the correct side
+do not modify the fit! Technically, this is because these points do not contribute to the loss function
+used to fit the model, so their position and number do not matter so long as they do not cross the margin.</p>
+<p>We can see this, for example,
+if we plot the model learned from the
+first 60 points and first 120 points of this dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_svm</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.60</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1E10</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mf">0.0625</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">axi</span><span class="p">,</span> <span class="n">N</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">]):</span>
+    <span class="n">plot_svm</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">axi</span><span class="p">)</span>
+    <span class="n">axi</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;N = </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_15_0.png" src="../_images/kernel-method_15_0.png" />
+</div>
+</div>
+<p>In the left panel, we see the model and the support vectors for 60 training points.
+In the right panel, we have doubled the number of training points,
+but the model has not changed: the three support vectors from the left panel are still
+the support vectors from the right panel. This insensitivity to the exact behavior of
+distant points is one of the strengths of the SVM model.</p>
+<p>If you are running this notebook live,
+you can use IPython’s interactive widgets to view this feature of the SVM model interactively:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">fixed</span>
+<span class="n">interact</span><span class="p">(</span><span class="n">plot_svm</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="kc">None</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "91ae134a067b4c5c83681dd52e89cc5e"}
+</script></div>
+</div>
+</section>
+<section id="beyond-linear-boundaries-kernel-svm">
+<h2><span class="section-number">8.4. </span>Beyond linear boundaries: Kernel SVM<a class="headerlink" href="#beyond-linear-boundaries-kernel-svm" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="kernel-svm-visualization">
+<a class="reference internal image-reference" href="../_images/svm1.gif"><img alt="../_images/svm1.gif" src="../_images/svm1.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.3 </span><span class="caption-text">Kernel SVM visualization (with a polynomial kernel). <a class="reference external" href="https://www.youtube.com/embed/3liCbRZPrZA">source</a></span><a class="headerlink" href="#kernel-svm-visualization" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Where SVM becomes extremely powerful is when it is combined with <em>kernels</em>.
+The main idea is to project the data into higher-dimensional space defined by
+polynomials and Gaussian basis functions,
+and thereby were able to fit for nonlinear relationships with a linear classifier.</p>
+<p>To motivate the need for kernels, let’s look at some data that is not linearly separable:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_circles</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">plot_support</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_19_0.png" src="../_images/kernel-method_19_0.png" />
+</div>
+</div>
+<p>It is clear that no linear discrimination will ever be able to separate this data.
+But we can  project the data into a
+higher dimension such that a linear separator would be
+sufficient. For example, one simple projection we could
+use would be to compute a radial basis function centered on the middle clump:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">X</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can visualize this extra data dimension using a three-dimensional
+plot. If you are running this notebook live,
+you will be able to use the sliders to rotate the plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mpl_toolkits</span> <span class="kn">import</span> <span class="n">mplot3d</span>
+
+<span class="k">def</span> <span class="nf">plot_3D</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="n">elev</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="n">azim</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="n">interact</span><span class="p">(</span><span class="n">plot_3D</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">azip</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
+         <span class="n">X</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">fixed</span><span class="p">(</span><span class="n">y</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "b4d3462443214c829ed36a4487646de6"}
+</script></div>
+</div>
+<p>We can see that with this additional dimension,
+the data becomes trivially linearly separable,
+by drawing a separating plane at, say, <span class="math notranslate nohighlight">\(r=0.7\)</span>.</p>
+<p>Here we had to choose and carefully tune our projection:
+if we had not centered our radial basis function in the right location,
+we would not have seen such clean, linearly separable results.
+In general, the need to make such a choice is a problem:
+we would like to somehow automatically find the best basis functions to use.</p>
+<p>One strategy to this end is to compute a basis function centered at every
+point in the dataset, and let the SVM algorithm sift through the results.
+This type of basis function transformation is known as a <em>kernel transformation</em>,
+as it is based on a similarity relationship (or kernel) between each pair of points.</p>
+<p>A potential problem with this strategy—projecting <span class="math notranslate nohighlight">\(N\)</span> points
+into <span class="math notranslate nohighlight">\(N\)</span> dimensions—is that it might become very computationally
+intensive as <span class="math notranslate nohighlight">\(N\)</span> grows large. However, because of a neat little procedure known
+as the <em>kernel trick</em>, a fit on kernel-transformed data can be done implicitly—that is,
+without ever building the full <span class="math notranslate nohighlight">\(N\)</span>-dimensional representation of the kernel projection!
+This kernel trick is built into the SVM, and is one of the reasons the method is so powerful.</p>
+<p>In Scikit-Learn, we can apply kernelized
+SVM simply by changing our linear kernel
+to an RBF (radial basis function) kernel,
+using the <code class="docutils literal notranslate"><span class="pre">kernel</span></code> model hyperparameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mf">1E6</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;autumn&#39;</span><span class="p">)</span>
+<span class="n">plot_svc_decision_function</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolors</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/kernel-method_26_0.png" src="../_images/kernel-method_26_0.png" />
+</div>
+</div>
+<p>Using this kernelized support vector machine, we learn a suitable
+nonlinear decision boundary.
+This kernel transformation strategy is used often in machine learning
+to turn fast linear methods into fast nonlinear methods, especially for
+models in which the kernel trick can be used.</p>
+</section>
+<section id="hinge-loss">
+<h2><span class="section-number">8.5. </span>Hinge loss<a class="headerlink" href="#hinge-loss" title="Permalink to this headline">#</a></h2>
+<p>An alternative to cross-entropy for binary
+classification problems is the hinge loss function.
+It is primarily developed for use with
+Support Vector Machine (SVM) models.</p>
+<p>It is intended for use with binary
+classification where the target values are in the set {-1, 1}.</p>
+</section>
+<section id="rbf-kernel">
+<h2><span class="section-number">8.6. </span>RBF Kernel<a class="headerlink" href="#rbf-kernel" title="Permalink to this headline">#</a></h2>
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/NYwVM6_EuxQ" allowfullscreen></iframe>
+</div>
+</section>
+<section id="support-vector-regression-svr">
+<h2><span class="section-number">8.7. </span>Support Vector Regression (SVR)<a class="headerlink" href="#support-vector-regression-svr" title="Permalink to this headline">#</a></h2>
+<p>With SVR, we are basically
+trying to decide a decision boundary at <span class="math notranslate nohighlight">\(e\)</span> distance
+from the original hyper plane such that data points
+closest to the hyper plane or the support vectors are
+within that boundary line.</p>
+<figure class="align-default" id="support-vector-regression">
+<a class="reference internal image-reference" href="../_images/svr1.jpeg"><img alt="../_images/svr1.jpeg" src="../_images/svr1.jpeg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.4 </span><span class="caption-text">An illustration of support vector regression</span><a class="headerlink" href="#support-vector-regression" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="svm-v-s-logistic-regression">
+<h2><span class="section-number">8.8. </span>SVM v.s. logistic regression<a class="headerlink" href="#svm-v-s-logistic-regression" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>SVM works well with unstructured and semi-structured data like text and images while logistic regression works with already identified independent variables.</p></li>
+<li><p>SVM is based on geometrical properties of the data while logistic regression is based on statistical approaches.</p></li>
+<li><p>The risk of overfitting is less in SVM, while logistic regression is vulnerable to overfitting.</p></li>
+<li><p>LR gives calibrated probabilities that can be interpreted as confidence in a decision.</p></li>
+<li><p>LR gives us an unconstrained, smooth objective.</p></li>
+<li><p>LR can be (straightforwardly) used within Bayesian models.</p></li>
+<li><p>SVMs don’t penalize examples for which the correct decision is made with sufficient confidence. This may be good for generalization.</p></li>
+<li><p>SVMs have a nice dual form, giving sparse solutions when using the kernel trick (better scalability)</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-logistic-regression/">https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-logistic-regression/</a></p>
+</div>
+</section>
+<section id="svr-v-s-linear-regression">
+<h2><span class="section-number">8.9. </span>SVR v.s. linear regression<a class="headerlink" href="#svr-v-s-linear-regression" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>One Advantage of SVR over OLSE linear regression is
+SVR can minimize overfitting problem.</p></li>
+<li><p>SVR allows non linear fitting problems as well (based on the kernel trick and the representation of the solution/model in the dual rather than in the primal),
+while Linear Regression is only for simple linear regression with straight line (may contain any number of features in both cases).</p></li>
+</ul>
+</section>
+<section id="support-vector-machine-summary">
+<h2><span class="section-number">8.10. </span>Support Vector Machine Summary<a class="headerlink" href="#support-vector-machine-summary" title="Permalink to this headline">#</a></h2>
+<p>We have seen here a brief intuitive introduction to
+the principals behind support vector machines.
+These methods are a powerful classification method for a number of reasons:</p>
+<ul class="simple">
+<li><p>Their dependence on relatively few support vectors means that they are very compact models, and take up very little memory.</p></li>
+<li><p>Once the model is trained, the prediction phase is very fast.</p></li>
+<li><p>Because they are affected only by points near the margin, they work well with high-dimensional data—even data with more dimensions than samples, which is a challenging regime for other algorithms.</p></li>
+<li><p>Their integration with kernel methods makes them very versatile, able to adapt to many types of data.</p></li>
+</ul>
+<p>However, SVMs have several disadvantages as well:</p>
+<ul class="simple">
+<li><p>The scaling with the number of samples N is <span class="math notranslate nohighlight">\(O[N^3]\)</span> at worst,
+or <span class="math notranslate nohighlight">\(O[N^2]\)</span> for efficient implementations. For large numbers of training samples, this computational cost can be prohibitive.</p></li>
+<li><p>The results are strongly dependent on a suitable choice for the softening parameter <span class="math notranslate nohighlight">\(C\)</span>.
+This must be carefully chosen via cross-validation, which can be expensive as datasets grow in size.</p></li>
+<li><p>The results do not have a direct probabilistic interpretation. This can be estimated via an internal
+cross-validation (see the <code class="docutils literal notranslate"><span class="pre">probability</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">SVC</span></code>), but this extra estimation is costly.</p></li>
+</ul>
+</section>
+<section id="optional-let-s-dive-into-the-math-of-svm">
+<h2><span class="section-number">8.11. </span>[Optional] Let’s dive into the math of SVM …<a class="headerlink" href="#optional-let-s-dive-into-the-math-of-svm" title="Permalink to this headline">#</a></h2>
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/05VABNfa1ds" allowfullscreen></iframe>
+</div>
+</section>
+<section id="acknowledgement">
+<h2><span class="section-number">8.12. </span>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html">jakevdp</a>, which is licenced under CC-by licence.</p>
+<div hidden>
+<p><a class="reference external" href="https://slazebni.cs.illinois.edu/spring21/lec03_linear.pdf">https://slazebni.cs.illinois.edu/spring21/lec03_linear.pdf</a></p>
+<p><a class="reference external" href="https://slazebni.cs.illinois.edu/spring21/lec05_nonlinear_classifiers.pdf">https://slazebni.cs.illinois.edu/spring21/lec05_nonlinear_classifiers.pdf</a></p>
+</div></section>
+</section>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"c33706f7301544f992f2158dfcf2bef0": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "91ae134a067b4c5c83681dd52e89cc5e": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["widget-interact"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_fb1a49ec6a86481b9f0d6b548d5f09c9", "IPY_MODEL_a14206dd25f243bcae915c47d010a350"], "layout": "IPY_MODEL_c33706f7301544f992f2158dfcf2bef0"}}, "610a7e0b4b4c4512825375c2cfc757ff": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "7e4370c089e64898b0bc72b076cbcb50": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "fb1a49ec6a86481b9f0d6b548d5f09c9": {"model_name": "DropdownModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DropdownModel", "_options_labels": ["10", "200"], "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "DropdownView", "description": "N", "description_tooltip": null, "disabled": false, "index": 0, "layout": "IPY_MODEL_610a7e0b4b4c4512825375c2cfc757ff", "style": "IPY_MODEL_7e4370c089e64898b0bc72b076cbcb50"}}, "59a9be1213ab4902a4552782a4b0c784": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "a14206dd25f243bcae915c47d010a350": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_59a9be1213ab4902a4552782a4b0c784", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "<Figure size 432x288 with 1 Axes>", "image/png": "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\n"}}]}}, "8db6f4e6033d4373bde545e7acfbee86": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "b4d3462443214c829ed36a4487646de6": {"model_name": "VBoxModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": ["widget-interact"], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "VBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "VBoxView", "box_style": "", "children": ["IPY_MODEL_18b553d3ff524ac6a79de1647b425fbe", "IPY_MODEL_f015adccc28b4672a243c7d39d2896ad", "IPY_MODEL_40a9cc310d6e4f668644f9a562020c3a"], "layout": "IPY_MODEL_8db6f4e6033d4373bde545e7acfbee86"}}, "7a549bc6b9a648f99bc9119b97b02199": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d9e26da4ff3c4bb686e0cf0d9c1baeb8": {"model_name": "DescriptionStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "18b553d3ff524ac6a79de1647b425fbe": {"model_name": "DropdownModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DropdownModel", "_options_labels": ["-90", "90"], "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "DropdownView", "description": "elev", "description_tooltip": null, "disabled": false, "index": 0, "layout": "IPY_MODEL_7a549bc6b9a648f99bc9119b97b02199", "style": "IPY_MODEL_d9e26da4ff3c4bb686e0cf0d9c1baeb8"}}, "8730044b2b164486a26d7d3bf360379f": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "fa1aff50570f4c37a3b2b420317efb18": {"model_name": "SliderStyleModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "SliderStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": "", "handle_color": null}}, "f015adccc28b4672a243c7d39d2896ad": {"model_name": "IntSliderModel", "model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "IntSliderModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "IntSliderView", "continuous_update": true, "description": "azim", "description_tooltip": null, "disabled": false, "layout": "IPY_MODEL_8730044b2b164486a26d7d3bf360379f", "max": 90, "min": -30, "orientation": "horizontal", "readout": true, "readout_format": "d", "step": 1, "style": "IPY_MODEL_fa1aff50570f4c37a3b2b420317efb18", "value": 30}}, "95b6ce7a4f404049ae98a66e4bcbdc21": {"model_name": "LayoutModel", "model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "40a9cc310d6e4f668644f9a562020c3a": {"model_name": "OutputModel", "model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/output", "_model_module_version": "1.0.0", "_model_name": "OutputModel", "_view_count": null, "_view_module": "@jupyter-widgets/output", "_view_module_version": "1.0.0", "_view_name": "OutputView", "layout": "IPY_MODEL_95b6ce7a4f404049ae98a66e4bcbdc21", "msg_id": "", "outputs": [{"output_type": "display_data", "metadata": {}, "data": {"text/plain": "<Figure size 432x288 with 1 Axes>", "image/png": "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\n"}}]}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-advanced"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../ml-fundamentals/ml-summary.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">7. </span>Summary of machine learning fundamentals</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="model-selection.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Model selection</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open Academy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
