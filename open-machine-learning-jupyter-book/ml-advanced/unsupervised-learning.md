@@ -14,3 +14,17 @@ kernelspec:
 ---
 
 # Unsupervised learning (TBD)
+
+## K-means
+
+## PCA
+
+## LDA
+
+## T-SNE
+
+## DBSCAN
+
+## Hierarchical Clustering 
+
+## Feature Reduction

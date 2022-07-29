@@ -13,9 +13,16 @@ kernelspec:
   name: python3
 ---
 
-# Decision tree for classification
+# Ensemble learning
 
-## Importing the libraries
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/JcI5E2Ng6r4" allowfullscreen></iframe>
+</div>
+
+
+## Decision tree for classification
+
+### Importing the libraries
 
 ```{code-cell}
 import numpy as np
@@ -23,23 +30,23 @@ import matplotlib.pyplot as plt
 import pandas as pd
 ```
 
-## Importing the dataset
+### Importing the dataset
 
 
 ```{code-cell}
-dataset = pd.read_csv('../../../data/Social_Network_Ads.csv')
+dataset = pd.read_csv('../../data/Social_Network_Ads.csv')
 X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, -1].values
 ```
 
-## Splitting the dataset into the Training set and Test set
+### Splitting the dataset into the Training set and Test set
 
 ```{code-cell}
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 ```
 
-## Feature Scaling
+### Feature Scaling
 
 
 ```{code-cell}
@@ -49,7 +56,7 @@ X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 ```
 
-## Training the Decision Tree Classification model on the Training set
+### Training the Decision Tree Classification model on the Training set
 
 ```{code-cell}
 from sklearn.tree import DecisionTreeClassifier
@@ -57,20 +64,20 @@ classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
 classifier.fit(X_train, y_train)
 ```
 
-## Predicting a new result
+### Predicting a new result
 
 ```{code-cell}
 print(classifier.predict(sc.transform([[30,87000]])))
 ```
 
-## Predicting the Test set results
+### Predicting the Test set results
 
 ```{code-cell}
 y_pred = classifier.predict(X_test)
 print(np.concatenate((y_pred.reshape(len(y_pred),1), y_test.reshape(len(y_test),1)),1))
 ```
 
-## Making the Confusion Matrix
+### Making the Confusion Matrix
 
 ```{code-cell}
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -79,7 +86,7 @@ print(cm)
 accuracy_score(y_test, y_pred)
 ```
 
-## Visualising the Training set results
+### Visualising the Training set results
 
 ```{code-cell}
 from matplotlib.colors import ListedColormap
@@ -99,7 +106,7 @@ plt.legend()
 plt.show()
 ```
 
-## Visualising the Test set results
+### Visualising the Test set results
 
 
 ```{code-cell}
@@ -120,6 +127,64 @@ plt.legend()
 plt.show()
 ```
 
-## Acknowledgements
+## Decision tree for regression
+
+### Importing the libraries
+
+```{code-cell}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+```
+
+### Importing the dataset
+
+
+```{code-cell}
+dataset = pd.read_csv('../../data/Position_Salaries.csv')
+X = dataset.iloc[:, 1:-1].values
+y = dataset.iloc[:, -1].values
+```
+
+### Training the Decision Tree Regression model on the whole dataset
+
+```{code-cell}
+from sklearn.tree import DecisionTreeRegressor
+regressor = DecisionTreeRegressor(random_state = 0)
+regressor.fit(X, y)
+```
+
+### Predicting a new result
+
+```{code-cell}
+regressor.predict([[6.5]])
+```
+
+### Visualising the Decision Tree Regression results 
+
+```{code-cell}
+X_grid = np.arange(min(X), max(X), 0.01)
+X_grid = X_grid.reshape((len(X_grid), 1))
+plt.scatter(X, y, color = 'red')
+plt.plot(X_grid, regressor.predict(X_grid), color = 'blue')
+plt.title('Truth or Bluff (Decision Tree Regression)')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
+```
+
+### Acknowledgements
 
 Code is inspired by Machine Learning A-Z.
+
+
+## Random Forest
+
+## Boosting
+
+## Bagging
+
+## Xgboost, LightGBM
+
+
+

@@ -14,3 +14,13 @@ kernelspec:
 ---
 
 # Linear regression (TBD)
+
+
+
+
+<div hidden>
+
+
+Metrics will be presented here
+
+</div>
