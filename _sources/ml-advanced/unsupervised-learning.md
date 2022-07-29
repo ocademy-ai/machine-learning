@@ -21,6 +21,8 @@ kernelspec:
 
 ## LDA
 
+## Manifold learning
+
 ## T-SNE
 
 ## DBSCAN
@@ -28,3 +30,10 @@ kernelspec:
 ## Hierarchical Clustering 
 
 ## Feature Reduction
+
+<div>
+In-Depth: Manifold Learning
+https://jakevdp.github.io/PythonDataScienceHandbook/05.10-manifold-learning.html
+
+
+</div>
