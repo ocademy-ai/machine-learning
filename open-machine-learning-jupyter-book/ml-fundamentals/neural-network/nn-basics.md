@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Neural network
+# Neural network basics
 
 ```{admonition} Tip
 :class: tip
@@ -123,3 +123,9 @@ width: 90%
 Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-artificial-neural-networks.html)
 ```
 
+
+<div hidden>
+
+TODO: add Activation function, code and figure.
+
+</div>
