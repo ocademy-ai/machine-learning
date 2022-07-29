@@ -31,7 +31,7 @@ kernelspec:
 
 ## Feature Reduction
 
-<div>
+<div hidden>
 In-Depth: Manifold Learning
 https://jakevdp.github.io/PythonDataScienceHandbook/05.10-manifold-learning.html
 
