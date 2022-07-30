@@ -16,6 +16,11 @@ kernelspec:
 # Linear regression (TBD)
 
 
+## Simple
+
+## Multiple
+
+## Polynomial
 
 
 <div hidden>
