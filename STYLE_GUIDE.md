@@ -65,6 +65,12 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 * Python - [PEP8](https://www.python.org/dev/peps/pep-0008/)
 * Markdown - [markdownlint](https://github.com/DavidAnson/markdownlint)
 
+## Data
+
+If sample data is needed for the book or assignments, first try to use built-in ones from [sklearn](https://scikit-learn.org/stable/datasets.html) or [tensorflow](https://www.tensorflow.org/datasets) if possible.
+
+To introduce your own dataset, put the data file into the `./data` folder, then it could be referred by a relative path.
+
 ## References
 
 * Refer to [jupyterbook - References and cross-references](https://jupyterbook.org/en/stable/content/references.html) on how to add references for figures, tables and equations.
