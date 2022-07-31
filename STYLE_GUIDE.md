@@ -40,9 +40,9 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
   * [draw.io](https://app.diagrams.net/), add/edit the `.draw.io` file in the `./drawio` folder.
   * Follow [this](https://opencomputinglab.github.io/SubjectMatterNotebooks/diagram/overview.html) for mermaid, wavedrom, plantuml, tikz, blockdiag.
   * Add inline [quiz](https://github.com/bonartm/quizdown-js).
-* Be careful about **COPYRIGHT**.
+* Be careful about **COPYRIGHT**. Add the reference inline by using the [markdown figure format](https://jupyterbook.org/en/stable/content/figures.html#markdown-figures).
 * Always add the link to the original source.
-* Style - optional
+* Style(optional)
   * Size：
     * Horizontal：<= 400 pixels  (limited by page width)
     * Vertical：<= 200 pixels (exceptions may be made)
@@ -99,6 +99,10 @@ To introduce your own dataset, put the data file into the `./data` folder, then 
 ```markdown
 {cite}`Wood.Gasthaus.Archambeau.ea.2011`
 ```
+
+## Appendix
+
+* [How to give attribution? | Creative Commons](https://creativecommons.org/use-remix/attribution/)
 
 ## Acknowledgments
 
