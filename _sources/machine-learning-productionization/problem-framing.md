@@ -75,6 +75,7 @@ El Emam, Khaled, Lucy Mosquera, and Richard Hoptroff. [Practical synthetic data 
 [In machine learning, is more data always better than better algorithms? | Quora](https://qr.ae/pv4GyP)
 ```
 
+(what-models-to-use)=
 ## What models to use?
 
 This is one of the most widely discussed topics when people approach a Machine Learning solution. There are three main categories of machine learning: supervised learning, unsupervised learning, and reinforcement learning. The cheat sheet from Microsoft could be a helpful quick reference.
@@ -91,7 +92,7 @@ name: Machine Learning Algorithm Cheat Sheet
 - [Choosing the right estimator | scikit-learn](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html)
 ```
 
-**[Automated machine learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning)** is the process and method of automating the tasks of applying Machine Learning to real-world problems, which is another option to help select the algorithm. It makes Machine Learning available to non-experts, such as software engineers. Many open-source libraries could be leveraged for AutoML, such as [AutoGluon](https://auto.gluon.ai/), [AutoKeras](https://github.com/keras-team/autokeras).
+**[Automated Machine Learning (AutoML)](https://en.wikipedia.org/wiki/Automated_machine_learning)** is the process and method of automating the tasks of applying Machine Learning to real-world problems, which is another option to help select the algorithm. It makes Machine Learning available to non-experts, such as software engineers. Many open-source libraries could be leveraged for AutoML, such as [AutoGluon](https://auto.gluon.ai/), [AutoKeras](https://github.com/keras-team/autokeras).
 
 ```{seealso}
 - [The Past, Present, and Future of Automated Machine Learning](https://odsc.medium.com/the-past-present-and-future-of-automated-machine-learning-5e081ca4b71a)
