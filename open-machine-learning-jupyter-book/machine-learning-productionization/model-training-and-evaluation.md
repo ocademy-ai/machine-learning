@@ -384,7 +384,7 @@ Apply the debugging concepts learned by completing the following:
 
 ## Acknowledgments
 
-Thanks to Google for creating the open-source course [Testing](https://developers.google.com/machine-learning/testing-debugging) and [Debugging in Machine Learning](https://developers.google.com/machine-learning/testing-debugging) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). It contributes to the majority of [Model](#model-evaluation) evaluation](#model-evaluation), [Model debugging & improvement](#model-deugging-improvement), [Model optimization](#model-optimization) and the assignments.
+Thanks to Google for creating the open-source course [Testing and Debugging in Machine Learning](https://developers.google.com/machine-learning/testing-debugging) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). It contributes to the majority of [Model evaluation](#model-evaluation), [Model debugging & improvement](#model-deugging-improvement), [Model [optimization](#model-optimization) and assignments.
 
 ---
 
