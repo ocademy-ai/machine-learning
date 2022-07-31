@@ -186,7 +186,7 @@ Debugging Machine Learning models is complicated by the time it takes to run you
 
 Low-quality data will significantly affect your model's performance. It's much easier to detect low-quality data at input instead of guessing at its existence after the model predicts badly. Monitor the data by following the advice in this section.
 
-**Validate input data using a data schema.**
+**Validate input data using rules.**
 
 To monitor the data, one approach is to write rules that the data must satisfy, and continuously check the data against the expected [data quality](#data-quality). This collection of rules is defined by following these steps:
 
@@ -280,7 +280,7 @@ Your friend Mel and you continue working on a unicorn appearance predictor. Here
 Your model is not converging. Try these debugging steps:
 
 - Check if your features can predict the labels by following the steps in [Model debugging](#model-debugging).
-- Check your data against a data schema to detect bad examples.
+- Check your data against a rules to detect bad examples.
 - If training looks unstable, as in this plot, then reduce your learning rate to prevent the model from bouncing around in parameter space.
 - Simplify your dataset to 10 examples that you know your model can predict. Obtain a very low loss on the reduced dataset. Then continue debugging your model on the full dataset.
 - Simplify your model and ensure the model outperforms your baseline. Then incrementally add complexity to the model.
@@ -363,7 +363,7 @@ Values of hyperparameters make your model work. However, these hyperparameter va
 
 ### Tune model depth and width
 
-While debugging the model, its depth and width are increased. to improve the model performance In contrast, during model optimization, the mode depth and width could be either increased or decreased depending on the goals. If the model quality is adequate, then try reducing overfitting and training time by decreasing depth and width. Specifically, try halving the width at each successive layer. Since the model quality will also decrease, it is always a tradeoff to balance quality with overfitting and training time.
+While debugging the model, its depth and width are increased to improve the model performance In contrast, during model optimization, the mode depth and width could be either increased or decreased depending on the goals. If the model quality is adequate, then try reducing overfitting and training time by decreasing depth and width. Specifically, try halving the width at each successive layer. Since the model quality will also decrease, it is always a tradeoff to balance quality with overfitting and training time.
 
 Conversely, if the goal is to have higher model quality, then try increasing depth and width. Remember that increases in depth and width are practically limited by accompanying increases in training time and overfitting. To understand overfitting.
 
