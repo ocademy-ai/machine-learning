@@ -15,3 +15,7 @@ kernelspec:
 
 # RNN (TBD)
 
+<div hidden>
+https://medium.com/swlh/a-simple-overview-of-rnn-lstm-and-attention-mechanism-9e844763d07b
+</div>
+
