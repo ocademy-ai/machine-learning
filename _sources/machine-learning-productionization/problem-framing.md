@@ -46,6 +46,10 @@ Machine Learning is not universally applicable. Similar to any other technology,
 
 **Is Machine Learning cost-effective?** The cost of a Machine Learning solution may be across multiple aspects similar to traditional software development, such as cloud, data, device, human resource, maintenance, etc. Besides, if the team is new to Machine Learning, the additional training cost needs to be considered. If Machine Learning is one of the options, the [opportunity cost](https://en.wikipedia.org/wiki/Opportunity_cost) must be in the mind. More specifically, it is remarkably easy to incur massive ongoing maintenance costs at the system level when applying machine learning, including boundary erosion, entanglement, hidden feedback loops, undeclared consumers, data dependencies, changes in the external world, and a variety of system-level anti-patterns{cite}`43146`.
 
+```{seealso}
+Sculley, David, et al. "[Hidden technical debt in machine learning systems.](https://proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html)" Advances in neural information processing systems 28 (2015).
+```
+
 ## How easy to obtain the data?
 
 It is no doubt that data is the driving force of Machine Learning. Make sure you have the data required to train a model, before initiating the Machine Learning execution. Regardless of the challenge to gather data from your own company or real customers, the options below could be helpful.
