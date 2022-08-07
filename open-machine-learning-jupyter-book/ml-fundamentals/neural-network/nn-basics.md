@@ -126,7 +126,7 @@ Epoch. [source](https://www.youtube.com/watch?v=aircAruvnKk)
 ```
 
 
-## Finally, we have a working neural network model!
+## Finally, we have a neural network model that works well!
 
 ```{figure} ../../../images/nn/dog.gif
 ---
