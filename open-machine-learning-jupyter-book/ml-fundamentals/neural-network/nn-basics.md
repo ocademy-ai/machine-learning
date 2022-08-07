@@ -58,7 +58,7 @@ width: 90%
 predict. [source](https://www.youtube.com/watch?v=aircAruvnKk)
 ```
 
-## Well, what we usually get
+## Well, what we usually get ... is trash
 
 ```{figure} ../../../images/nn/trash.gif
 ---
