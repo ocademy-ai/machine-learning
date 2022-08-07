@@ -114,7 +114,7 @@ width: 90%
 Average. [source](https://www.youtube.com/watch?v=aircAruvnKk)
 ```
 
-### Let's Forward and Backward ... with many epochs
+### Let's propagate Forward and Backward ... with many epochs
 
 
 ```{figure} ../../../images/nn/epoch.gif
