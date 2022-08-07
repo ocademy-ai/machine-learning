@@ -1,18 +1,3 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
-
 # Neural network basics
 
 ```{admonition} Tip
@@ -173,8 +158,6 @@ activation_functions. [source](https://theffork.com/activation-functions-in-neur
 
 
 
-
-
 ## Neural Network vs Human brain
 
 ```{figure} ../../../images/nn/nn-872d.gif
@@ -187,6 +170,10 @@ Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-art
 
 
 ## Conclusion
+
+### All in all, Deep Learning is nothing more than
+- multiple linear regressions stacked together
+- non-linear functions: the activation functions
 
 ### Mathematically speaking
 
