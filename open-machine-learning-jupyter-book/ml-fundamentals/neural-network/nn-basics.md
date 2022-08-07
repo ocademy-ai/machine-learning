@@ -165,7 +165,7 @@ activation_functions. [source](https://theffork.com/activation-functions-in-neur
 name: 'nn-872d'
 width: 90%
 ---
-Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-artificial-neural-networks.html)
+Human brain neurons. [source](https://www.kdnuggets.com/2019/10/introduction-artificial-neural-networks.html)
 ```
 
 
