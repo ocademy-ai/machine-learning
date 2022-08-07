@@ -81,7 +81,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 ```
 
-### Simple model with 1 hidden layer
+### Simple model with two hidden layers
 
 ```{code-cell}
 from tensorflow.keras.models import Sequential
