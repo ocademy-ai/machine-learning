@@ -136,7 +136,7 @@ width: 90%
 A neural network for dog/cat classification. [source](https://medium.com/the-21st-century/solution-to-failing-convolutional-neural-networks-ff8857b2eaf0)
 ```
 
-## Activation functions 
+## Activation Functions 
 
 ```{figure} ../../../images/nn/activation_functions.gif
 ---
@@ -158,7 +158,7 @@ activation_functions. [source](https://theffork.com/activation-functions-in-neur
 
 
 
-## Neural network vs human brain
+## Neural Network vs Human brain
 
 ```{figure} ../../../images/nn/nn-872d.gif
 ---
@@ -171,7 +171,7 @@ Human brian neurons. [source](https://www.kdnuggets.com/2019/10/introduction-art
 
 ## Conclusion
 
-### All in all, neural network is nothing more than
+### All in all, Deep Learning is nothing more than
 - multiple linear regressions stacked together
 - non-linear functions: the activation functions
 
