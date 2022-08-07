@@ -101,7 +101,7 @@ model.summary()
 model.compile(
     optimizer='adam',
     loss='binary_crossentropy', 
-    metrics = 'accuracy')
+    metrics = ['accuracy'])
 
 model.fit(X_train, y_train, batch_size=16, epochs=20)
 ```
