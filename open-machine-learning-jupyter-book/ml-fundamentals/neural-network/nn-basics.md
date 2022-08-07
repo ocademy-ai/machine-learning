@@ -17,7 +17,7 @@ width: 90%
 artificial neuron. [source](https://towardsdatascience.com/beginners-crash-course-to-deep-learning-and-cnns-a32f35234038)
 ```
 
-### How the output varies with input
+### How the output varies with different weights
 
 ```{figure} ../../../images/nn/1_KNZZYteeBqkJViS1_LT1CQ.gif
 ---
