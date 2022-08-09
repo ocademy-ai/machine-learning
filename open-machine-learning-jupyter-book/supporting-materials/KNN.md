@@ -14,3 +14,10 @@ kernelspec:
 ---
 
 # KNN (TBD)
+
+<div hidden>
+http://scott.fortmann-roe.com/docs/BiasVariance.html
+
+</div>
+
+
