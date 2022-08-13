@@ -47,7 +47,9 @@ Consider the neurons at the output layer. During training, each neuron usually g
 
 To avoid this, the trick is to multiply the input connections' weights of the last layer by 1-p (so, by 0.5). Alternatively, one can multiply the outputs of the hidden layer by 1-p, which is basically the same.
 
-
+<div hidden>
+https://github.com/bhattbhavesh91/dropout-walkthrough/
+</div>
 
 
 
