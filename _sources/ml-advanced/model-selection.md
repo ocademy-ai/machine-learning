@@ -49,6 +49,10 @@ To avoid this, the trick is to multiply the input connections' weights of the la
 
 <div hidden>
 https://github.com/bhattbhavesh91/dropout-walkthrough/
+
+https://github.com/Coding-Lane/L2-Regularization
+
+
 </div>
 
 
@@ -81,6 +85,9 @@ https://www.youtube.com/watch?v=VqKq78PVO9g
 
 Intuitive Explanation of Ridge / Lasso Regression:
 https://www.youtube.com/watch?v=9LNpiiKCQUo
+
+L1 and L2 Regularization CIS 522 - Deep Learning:
+https://www.youtube.com/watch?v=OLl2nzOeQ68
 
 Thierry Slides Week 6, Week 1
 
