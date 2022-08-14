@@ -185,7 +185,7 @@ The RedHat-sponsored [Ansible](https://github.com/ansible/ansible) is an open-so
 
 ## Your turn! 🚀
 
-TBD
+Practice the model serving by following this [turorial](https://madewithml.com/courses/mlops/api/).
 
 ---
 
