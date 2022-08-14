@@ -187,10 +187,6 @@ The RedHat-sponsored [Ansible](https://github.com/ansible/ansible) is an open-so
 
 TBD
 
-## Acknowledgments
-
-Thanks to Google for creating the open-source course [Testing and Debugging in Machine Learning](https://developers.google.com/machine-learning/testing-debugging) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). It contributes to the majority of [Model evaluation](#model-evaluation), [Model debugging & improvement](#model-deugging-improvement), [Model [optimization](#model-optimization) and assignments.
-
 ---
 
 ```{bibliography}
