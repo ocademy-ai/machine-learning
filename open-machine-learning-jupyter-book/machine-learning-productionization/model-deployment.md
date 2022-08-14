@@ -139,7 +139,7 @@ To implement the "model as service" pattern, most of the cloud providers have to
 
 This is another approach to have the Machine Learning model treated and published independently, but the application will ingest it as data at runtime instead. This is more commonly used in streaming or real-time scenarios where the application can subscribe to events that are published whenever a new model version is released. The model data will be ingested into memory for predicting, which avoid introducin the extra latency. Deployment strategies such as Blue/Green deployment or Canary deployment can be applied in this scenario. Some of above serialization options are also applicable for implementing the "model as data" pattern.
 
-## Infrastructure as Code
+## Infrastructure as code
 
 [Infrastructure as code](https://en.wikipedia.org/wiki/Infrastructure_as_code) (IaC) is the process of managing and provisioning computer data centers through machine-readable definition files, rather than physical hardware configuration or interactive configuration tools. The IT infrastructure managed by this process comprises both physical equipment, such as bare-metal servers, as well as virtual machines, and associated configuration resources.
 
