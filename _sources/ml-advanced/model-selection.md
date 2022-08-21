@@ -24,7 +24,7 @@ Over-fitting and under-fitting in classification {cite}`AndreasMaier`
 :::{figure-md} Datapoints-ms
 <img src="../../images/model-selection/bias-variance-datapoints.jpg" width="90%" class="bg-primary mb-1">
 
-Data points {cite}`DavidPraise`
+Training data points {cite}`DavidPraise`
 :::
 
 :::{figure-md} Over-fitting-train-ms
