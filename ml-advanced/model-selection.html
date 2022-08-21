@@ -56,6 +56,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
     <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
@@ -483,71 +485,6 @@ title="Toggle navigation"
         
     </div>
     <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/ml-advanced/model-selection.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/ml-advanced/model-selection.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_colab.png">
-  </span>
-<span class="headerbtn__text-container">Colab</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="initThebeSBT()"
-  class="headerbtn headerbtn-launch-thebe"
-  data-toggle="tooltip"
-data-placement="left"
-title="Launch Thebe"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-play"></i>
-  </span>
-<span class="headerbtn__text-container">Live Code</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
 <button onclick="toggleFullScreen()"
   class="headerbtn"
   data-toggle="tooltip"
@@ -632,23 +569,6 @@ title="Edit this page"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/ml-advanced/model-selection.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
         <a href="../_sources/ml-advanced/model-selection.md"
    class="headerbtn"
    data-toggle="tooltip"
@@ -709,9 +629,21 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#over-fitting">
-   9.1. Over-fitting
+  <a class="reference internal nav-link" href="#over-fitting-and-under-fitting">
+   9.1. Over-fitting and under-fitting
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     9.1.1. Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-simple-example-of-linear-regression">
+     9.1.2. A simple example of linear regression
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bias-variance-tradeoff">
@@ -719,36 +651,31 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cross-validation">
-   9.3. Cross validation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#l1-regularization">
-   9.4. L1 Regularization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#l2-regularization">
-   9.5. L2 Regularization
+  <a class="reference internal nav-link" href="#l1-and-l2-regularization">
+   9.3. L1 and L2 Regularization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#early-stopping">
-   9.6. Early stopping
+   9.4. Early stopping
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dropout">
-   9.7. Dropout
+   9.5. Dropout
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#prediction-after-dropout">
-     9.7.1. Prediction after dropout
+     9.5.1. Prediction after dropout
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusions">
+   9.6. Conclusions
+  </a>
  </li>
 </ul>
 
@@ -770,9 +697,21 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#over-fitting">
-   9.1. Over-fitting
+  <a class="reference internal nav-link" href="#over-fitting-and-under-fitting">
+   9.1. Over-fitting and under-fitting
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     9.1.1. Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-simple-example-of-linear-regression">
+     9.1.2. A simple example of linear regression
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#bias-variance-tradeoff">
@@ -780,36 +719,31 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#cross-validation">
-   9.3. Cross validation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#l1-regularization">
-   9.4. L1 Regularization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#l2-regularization">
-   9.5. L2 Regularization
+  <a class="reference internal nav-link" href="#l1-and-l2-regularization">
+   9.3. L1 and L2 Regularization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#early-stopping">
-   9.6. Early stopping
+   9.4. Early stopping
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dropout">
-   9.7. Dropout
+   9.5. Dropout
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#prediction-after-dropout">
-     9.7.1. Prediction after dropout
+     9.5.1. Prediction after dropout
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusions">
+   9.6. Conclusions
+  </a>
  </li>
 </ul>
 
@@ -823,37 +757,197 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="model-selection">
 <h1><span class="section-number">9. </span>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h1>
-<section id="over-fitting">
-<h2><span class="section-number">9.1. </span>Over-fitting<a class="headerlink" href="#over-fitting" title="Permalink to this headline">#</a></h2>
+<section id="over-fitting-and-under-fitting">
+<h2><span class="section-number">9.1. </span>Over-fitting and under-fitting<a class="headerlink" href="#over-fitting-and-under-fitting" title="Permalink to this headline">#</a></h2>
+<section id="overview">
+<h3><span class="section-number">9.1.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="over-fitting-regression">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/under_over_justalright.png"><img alt="../_images/under_over_justalright.png" class="bg-primary mb-1" src="../_images/under_over_justalright.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.1 </span><span class="caption-text">Over-fitting and under-fitting in regression <span id="id1">[<a class="reference internal" href="#id83" title="Shubham Jain. An overview of regularization techniques in deep learning (with python code). URL: https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/ (visited on 2022-08-14).">Jai</a>]</span></span><a class="headerlink" href="#over-fitting-regression" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="over-fitting-classification">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/classification.png"><img alt="../_images/classification.png" class="bg-primary mb-1" src="../_images/classification.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.2 </span><span class="caption-text">Over-fitting and under-fitting in classification <span id="id2">[<a class="reference internal" href="#id91" title="Andreas Maier. URL: https://towardsdatascience.com/regularization-part-1-db408819b20f (visited on 2022-08-14).">Mai</a>]</span></span><a class="headerlink" href="#over-fitting-classification" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="a-simple-example-of-linear-regression">
+<h3><span class="section-number">9.1.2. </span>A simple example of linear regression<a class="headerlink" href="#a-simple-example-of-linear-regression" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="transfer-learning">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-and-variance-gif-thumbnail.gif"><img alt="../_images/bias-and-variance-gif-thumbnail.gif" class="bg-primary mb-1" src="../_images/bias-and-variance-gif-thumbnail.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.3 </span><span class="caption-text">Transfer learning <span id="id3">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#transfer-learning" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id5">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-datapoints.jpg"><img alt="../_images/bias-variance-datapoints.jpg" class="bg-primary mb-1" src="../_images/bias-variance-datapoints.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.4 </span><span class="caption-text"><span id="id4">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id7">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-overfitting.jpg"><img alt="../_images/bias-variance-overfitting.jpg" class="bg-primary mb-1" src="../_images/bias-variance-overfitting.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.5 </span><span class="caption-text"><span id="id6">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id9">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-overfitting-testdata.jpg"><img alt="../_images/bias-variance-overfitting-testdata.jpg" class="bg-primary mb-1" src="../_images/bias-variance-overfitting-testdata.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.6 </span><span class="caption-text"><span id="id8">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id11">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-perfect-fit.jpg"><img alt="../_images/bias-variance-perfect-fit.jpg" class="bg-primary mb-1" src="../_images/bias-variance-perfect-fit.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.7 </span><span class="caption-text"><span id="id10">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id13">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-perfect-fit-test-data.jpg"><img alt="../_images/bias-variance-perfect-fit-test-data.jpg" class="bg-primary mb-1" src="../_images/bias-variance-perfect-fit-test-data.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.8 </span><span class="caption-text"><span id="id12">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id15">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-underfitting.jpg"><img alt="../_images/bias-variance-underfitting.jpg" class="bg-primary mb-1" src="../_images/bias-variance-underfitting.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.9 </span><span class="caption-text"><span id="id14">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id15" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id17">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-underfitting-test-data.jpg"><img alt="../_images/bias-variance-underfitting-test-data.jpg" class="bg-primary mb-1" src="../_images/bias-variance-underfitting-test-data.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.10 </span><span class="caption-text"><span id="id16">[<a class="reference internal" href="#id89" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#id17" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 <section id="bias-variance-tradeoff">
 <h2><span class="section-number">9.2. </span>Bias variance tradeoff<a class="headerlink" href="#bias-variance-tradeoff" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="id19">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/graphicalillustration.png"><img alt="../_images/graphicalillustration.png" class="bg-primary mb-1" src="../_images/graphicalillustration.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.11 </span><span class="caption-text">Graphical illustration of variance and bias <span id="id18">[<a class="reference internal" href="#id93" title="Scott Fortmann-Roe. URL: http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2 (visited on 2022-08-14).">FR</a>]</span></span><a class="headerlink" href="#id19" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="model-complexity">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/total_error.png"><img alt="../_images/total_error.png" class="bg-primary mb-1" src="../_images/total_error.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.12 </span><span class="caption-text">Model complexity v.s. error <span id="id20">[<a class="reference internal" href="#id93" title="Scott Fortmann-Roe. URL: http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2 (visited on 2022-08-14).">FR</a>]</span></span><a class="headerlink" href="#model-complexity" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
-<section id="cross-validation">
-<h2><span class="section-number">9.3. </span>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="l1-regularization">
-<h2><span class="section-number">9.4. </span>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="l2-regularization">
-<h2><span class="section-number">9.5. </span>L2 Regularization<a class="headerlink" href="#l2-regularization" title="Permalink to this headline">#</a></h2>
+<section id="l1-and-l2-regularization">
+<h2><span class="section-number">9.3. </span>L1 and L2 Regularization<a class="headerlink" href="#l1-and-l2-regularization" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[L2 Loss = Loss + \lambda\sum_{i} w_i^2\]</div>
+<div class="math notranslate nohighlight">
+\[L1 Loss = Loss + \lambda\sum_{i} \lvert w \rvert\]</div>
+<figure class="align-default" id="id22">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/circlesquare.png"><img alt="../_images/circlesquare.png" class="bg-primary mb-1" src="../_images/circlesquare.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.13 </span><span class="caption-text">Model complexity v.s. error <span id="id21">[<a class="reference internal" href="#id93" title="Scott Fortmann-Roe. URL: http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2 (visited on 2022-08-14).">FR</a>]</span></span><a class="headerlink" href="#id22" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id24">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/L1L2contour.png"><img alt="../_images/L1L2contour.png" class="bg-primary mb-1" src="../_images/L1L2contour.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.14 </span><span class="caption-text"><span id="id23">[<a class="reference internal" href="#id85" title="Terence Parr. URL: https://explained.ai/regularization/ (visited on 2022-08-14).">Par</a>]</span></span><a class="headerlink" href="#id24" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id26">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/ridgelassoItayEvron.gif"><img alt="../_images/ridgelassoItayEvron.gif" class="bg-primary mb-1" src="../_images/ridgelassoItayEvron.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.15 </span><span class="caption-text"><span id="id25">[<a class="reference internal" href="#id86" title="Jonathan Shewchuk. URL: https://people.eecs.berkeley.edu/~jrs/189s21/ (visited on 2022-08-14).">She</a>]</span></span><a class="headerlink" href="#id26" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id28">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/elastic_net_balls.webp"><img alt="../_images/elastic_net_balls.webp" class="bg-primary mb-1" src="../_images/elastic_net_balls.webp" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.16 </span><span class="caption-text"><span id="id27">[]</span></span><a class="headerlink" href="#id28" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id30">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/p-norm_balls.webp"><img alt="../_images/p-norm_balls.webp" class="bg-primary mb-1" src="../_images/p-norm_balls.webp" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.17 </span><span class="caption-text"><span id="id29">[]</span></span><a class="headerlink" href="#id30" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id32">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/lagrange-animation.gif"><img alt="../_images/lagrange-animation.gif" class="bg-primary mb-1" src="../_images/lagrange-animation.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.18 </span><span class="caption-text">The impact of the value of <span class="math notranslate nohighlight">\(\lambda\)</span> <span id="id31">[<a class="reference internal" href="#id85" title="Terence Parr. URL: https://explained.ai/regularization/ (visited on 2022-08-14).">Par</a>]</span></span><a class="headerlink" href="#id32" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="early-stopping">
-<h2><span class="section-number">9.6. </span>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">9.4. </span>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="id34">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/learningcurve.png"><img alt="../_images/learningcurve.png" class="bg-primary mb-1" src="../_images/learningcurve.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.19 </span><span class="caption-text"><span id="id33">[<a class="reference internal" href="#id88" title="Rhnyewale. URL: https://medium.com/swlh/introduction-to-deep-learning-using-keras-and-tensorflow-part2-284746ab4442 (visited on 2022-08-14).">Rhn</a>]</span></span><a class="headerlink" href="#id34" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id36">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/traintestoverfitting.png"><img alt="../_images/traintestoverfitting.png" class="bg-primary mb-1" src="../_images/traintestoverfitting.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.20 </span><span class="caption-text">Early stopping <span id="id35">[<a class="reference internal" href="#id92" title="Arden Dertat. URL: https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2 (visited on 2022-08-14).">Der</a>]</span></span><a class="headerlink" href="#id36" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="dropout">
-<h2><span class="section-number">9.7. </span>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">9.5. </span>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="id38">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/dropoutgif.gif"><img alt="../_images/dropoutgif.gif" class="bg-primary mb-1" src="../_images/dropoutgif.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.21 </span><span class="caption-text"><span id="id37">[<a class="reference internal" href="#id84" title="Ravi Ranjan Chaubey. URL: https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/ (visited on 2022-08-14).">Cha</a>]</span></span><a class="headerlink" href="#id38" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="prediction-after-dropout">
-<h3><span class="section-number">9.7.1. </span>Prediction after dropout<a class="headerlink" href="#prediction-after-dropout" title="Permalink to this headline">#</a></h3>
-<p>Reference:
-<a class="reference external" href="https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network">https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network</a></p>
-<p><img alt="" src="../_images/kUc8r.jpg" /></p>
-<p>During training, p neuron activations (usually, p=0.5, so 50%) are dropped. Doing this at the testing stage is not our goal (the goal is to achieve a better generalization). From the other hand, keeping all activations will lead to an input that is unexpected to the network, more precisely, too high (50% higher) input activations for the following layer.</p>
-<p>Consider the neurons at the output layer. During training, each neuron usually get activations only from two neurons from the hidden layer (while being connected to four), due to dropout. Now, imagine we finished the training and remove dropout. Now activations of the output neurons will be computed based on four values from the hidden layer. This is likely to put the output neurons in unusual regime, so they will produce too large absolute values, being overexcited.</p>
-<p>To avoid this, the trick is to multiply the input connections’ weights of the last layer by 1-p (so, by 0.5). Alternatively, one can multiply the outputs of the hidden layer by 1-p, which is basically the same.</p>
+<h3><span class="section-number">9.5.1. </span>Prediction after dropout<a class="headerlink" href="#prediction-after-dropout" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="id40">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/kUc8r.jpg"><img alt="../_images/kUc8r.jpg" class="bg-primary mb-1" src="../_images/kUc8r.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.22 </span><span class="caption-text"><span id="id39">[<a class="reference internal" href="#id95" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span></span><a class="headerlink" href="#id40" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>During training, p neuron activations (usually, p=0.5, so 50%) are dropped. Doing this at the testing stage is not our goal (the goal is to achieve a better generalization). From the other hand, keeping all activations will lead to an input that is unexpected to the network, more precisely, too high (50% higher) input activations for the following layer <span id="id41">[<a class="reference internal" href="#id95" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span>.</p>
+<p>Consider the neurons at the output layer. During training, each neuron usually get activations only from two neurons from the hidden layer (while being connected to four), due to dropout. Now, imagine we finished the training and remove dropout. Now activations of the output neurons will be computed based on four values from the hidden layer. This is likely to put the output neurons in unusual regime, so they will produce too large absolute values, being overexcited <span id="id42">[<a class="reference internal" href="#id95" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span>.</p>
+<p>To avoid this, the trick is to multiply the input connections’ weights of the last layer by 1-p (so, by 0.5). Alternatively, one can multiply the outputs of the hidden layer by 1-p, which is basically the same <span id="id43">[<a class="reference internal" href="#id95" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span>.</p>
+</section>
+</section>
+<section id="conclusions">
+<h2><span class="section-number">9.6. </span>Conclusions<a class="headerlink" href="#conclusions" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="id45">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/ZahidHasan.png"><img alt="../_images/ZahidHasan.png" class="bg-primary mb-1" src="../_images/ZahidHasan.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.23 </span><span class="caption-text"><span id="id44">[<a class="reference internal" href="#id94" title="Zahid Hasan. URL: https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html (visited on 2022-08-14).">Has</a>]</span></span><a class="headerlink" href="#id45" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id47">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/steps.png"><img alt="../_images/steps.png" class="bg-primary mb-1" src="../_images/steps.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.24 </span><span class="caption-text"><span id="id46">[<a class="reference internal" href="#id94" title="Zahid Hasan. URL: https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html (visited on 2022-08-14).">Has</a>]</span></span><a class="headerlink" href="#id47" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id49">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/Bias-vs.webp"><img alt="../_images/Bias-vs.webp" class="bg-primary mb-1" src="../_images/Bias-vs.webp" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.25 </span><span class="caption-text"><span id="id48">[<a class="reference internal" href="#id90" title="EliteDataScience. URL: https://elitedatascience.com/bias-variance-tradeoff (visited on 2022-08-14).">Eli</a>]</span></span><a class="headerlink" href="#id49" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <div hidden>
 https://github.com/bhattbhavesh91/dropout-walkthrough/
 <p><a class="reference external" href="https://github.com/Coding-Lane/L2-Regularization">https://github.com/Coding-Lane/L2-Regularization</a></p>
+</div>
+<div hidden>
+TODO:
+<p>Cross validation</p>
+<p>Data Size Matters</p>
 </div>
 <div hidden>
 <p>Machine Learning Tutorial Python - 20: Bias vs Variance In Machine Learning:
@@ -871,7 +965,48 @@ https://github.com/bhattbhavesh91/dropout-walkthrough/
 <p>Thierry Slides Week 6, Week 1</p>
 <p>Ridge, Lasso, Cross validation</p>
 <p>Early Stopping, Dropout,</p>
-</div></section>
+</div>
+<hr class="docutils" />
+<div class="docutils container" id="id50">
+<dl class="citation">
+<dt class="label" id="id84"><span class="brackets"><a class="fn-backref" href="#id37">Cha</a></span></dt>
+<dd><p>Ravi Ranjan Chaubey. URL: <a class="reference external" href="https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/">https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id92"><span class="brackets"><a class="fn-backref" href="#id35">Der</a></span></dt>
+<dd><p>Arden Dertat. URL: <a class="reference external" href="https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2">https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id90"><span class="brackets"><a class="fn-backref" href="#id48">Eli</a></span></dt>
+<dd><p>EliteDataScience. URL: <a class="reference external" href="https://elitedatascience.com/bias-variance-tradeoff">https://elitedatascience.com/bias-variance-tradeoff</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id93"><span class="brackets">FR</span><span class="fn-backref">(<a href="#id18">1</a>,<a href="#id20">2</a>,<a href="#id21">3</a>)</span></dt>
+<dd><p>Scott Fortmann-Roe. URL: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2">http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id94"><span class="brackets">Has</span><span class="fn-backref">(<a href="#id44">1</a>,<a href="#id46">2</a>)</span></dt>
+<dd><p>Zahid Hasan. URL: <a class="reference external" href="https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html">https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id83"><span class="brackets"><a class="fn-backref" href="#id1">Jai</a></span></dt>
+<dd><p>Shubham Jain. An overview of regularization techniques in deep learning (with python code). URL: <a class="reference external" href="https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/">https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id89"><span class="brackets">Kal</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>,<a href="#id6">3</a>,<a href="#id8">4</a>,<a href="#id10">5</a>,<a href="#id12">6</a>,<a href="#id14">7</a>,<a href="#id16">8</a>)</span></dt>
+<dd><p>David Praise Chukwuma Kalu. URL: <a class="reference external" href="https://neuraspike.com/blog/estimate-bias-variance-python/">https://neuraspike.com/blog/estimate-bias-variance-python/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id91"><span class="brackets"><a class="fn-backref" href="#id2">Mai</a></span></dt>
+<dd><p>Andreas Maier. URL: <a class="reference external" href="https://towardsdatascience.com/regularization-part-1-db408819b20f">https://towardsdatascience.com/regularization-part-1-db408819b20f</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id85"><span class="brackets">Par</span><span class="fn-backref">(<a href="#id23">1</a>,<a href="#id31">2</a>)</span></dt>
+<dd><p>Terence Parr. URL: <a class="reference external" href="https://explained.ai/regularization/">https://explained.ai/regularization/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id95"><span class="brackets">Pry</span><span class="fn-backref">(<a href="#id39">1</a>,<a href="#id41">2</a>,<a href="#id42">3</a>,<a href="#id43">4</a>)</span></dt>
+<dd><p>Dmytro Prylipko. URL: <a class="reference external" href="https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network">https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id88"><span class="brackets"><a class="fn-backref" href="#id33">Rhn</a></span></dt>
+<dd><p>Rhnyewale. URL: <a class="reference external" href="https://medium.com/swlh/introduction-to-deep-learning-using-keras-and-tensorflow-part2-284746ab4442">https://medium.com/swlh/introduction-to-deep-learning-using-keras-and-tensorflow-part2-284746ab4442</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id86"><span class="brackets"><a class="fn-backref" href="#id25">She</a></span></dt>
+<dd><p>Jonathan Shewchuk. URL: <a class="reference external" href="https://people.eecs.berkeley.edu/~jrs/189s21/">https://people.eecs.berkeley.edu/~jrs/189s21/</a> (visited on 2022-08-14).</p>
+</dd>
+</dl>
+</div>
 </section>
 </section>
 
