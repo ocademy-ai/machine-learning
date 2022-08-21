@@ -128,7 +128,7 @@ Different p norm {cite}`Alexej`
 :::{figure-md} ElasticNet-ms
 <img src="../../images/model-selection/elastic_net_balls.webp" width="90%" class="bg-primary mb-1">
 
-ElasticNet{cite} `Alexej`
+ElasticNet {cite}`Alexej`
 :::
 
 
