@@ -2,7 +2,7 @@
 
 This open-source book has benefited from pedagogical suggestions, typo corrections, and other improvements from community contributors. Your help is valuable for making the book better for everyone.
 
-See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTION.md) for more information about how to make your contribution.
+See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.
 
 
 ## Help wanted
