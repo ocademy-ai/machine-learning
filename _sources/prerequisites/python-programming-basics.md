@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Python Programming Basics
+# Python programming basics
 
 ## What is Python
 
@@ -28,7 +28,7 @@ It is used for:
 - mathematics,
 - system scripting.
 
-## Python Syntax
+## Python syntax
 
 **Python Syntax compared to other programming languages**
 
@@ -36,7 +36,7 @@ It is used for:
 - Python uses new lines to complete a command, as opposed to other programming languages which often use semicolons or parentheses.
 - Python relies on indentation, using whitespace, to define scope; such as the scope of loops, functions and classes. Other programming languages often use curly-brackets for this purpose.
 
-### Python Indentations
+### Python indentations
 
 Where in other programming languages the indentation in code is for readability only, in Python the indentation is very important.
 
@@ -175,7 +175,7 @@ assert number <= 5
 assert number <= 6
 ```
 
-## Data Types
+## Data types
 
 ### Numbers
 
@@ -185,29 +185,11 @@ assert number <= 6
 
 ### Dictionaries
 
-### Type Casting
-
-## Control Flow
-
-### The if statement
-
-### The for statement
-
-## Functions
-
-### Function Definition
-
-## Classes
-
-## Modules
-
-## Errors and Exceptions
-
-### Handling Exceptions (try statement)
+### Type casting
 
 ## Your turn! 🚀
 
-## Self Study
+## Self study
 
 Here is a list of free/open source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python).
 
