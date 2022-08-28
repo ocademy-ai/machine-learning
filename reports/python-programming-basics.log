@@ -1,0 +1,90 @@
+Traceback (most recent call last):
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import pytest
+word = 'Python'
+assert word[0] == 'P'  # First character.
+assert word[5] == 'n'  # Fifth character.
+assert word[-1] == 'n'  # Last character.
+assert word[-2] == 'o'  # Second-last character.
+assert word[-6] == 'P'  # Sixth from the end or zeroth from the beginning.
+
+assert isinstance(word[0], str)
+
+# In addition to indexing, slicing is also supported. While indexing is
+# used to obtain individual characters, slicing allows you to obtain
+# substring:
+assert word[0:2] == 'Py'  # Characters from position 0 (included) to 2 (excluded).
+assert word[2:5] == 'tho'  # Characters from position 2 (included) to 5 (excluded).
+
+# Note how the start is always included, and the end always excluded.
+# This makes sure that s[:i] + s[i:] is always equal to s:
+assert word[:2] + word[2:] == 'Python'
+assert word[:4] + word[4:] == 'Python'
+
+# Slice indices have useful defaults; an omitted first index defaults to
+# zero, an omitted second index defaults to the size of the string being
+# sliced.
+assert word[:2] == 'Py'  # Character from the beginning to position 2 (excluded).
+assert word[4:] == 'on'  # Characters from position 4 (included) to the end.
+assert word[-2:] == 'on'  # Characters from the second-last (included) to the end.
+
+# One way to remember how slices work is to think of the indices as
+# pointing between characters, with the left edge of the first character
+# numbered 0. Then the right edge of the last character of a string of n
+# characters has index n, for example:
+#
+# +---+---+---+---+---+---+
+#  | P | y | t | h | o | n |
+#  +---+---+---+---+---+---+
+#  0   1   2   3   4   5   6
+# -6  -5  -4  -3  -2  -1
+
+# Attempting to use an index that is too large will result in an error.
+with pytest.raises(Exception):
+    not_existing_character = word[42]
+    assert not not_existing_character
+
+# However, out of range slice indexes are handled gracefully when used
+# for slicing:
+assert word[4:42] == 'on'
+assert word[42:] == ''
+
+# Python strings cannot be changed — they are immutable. Therefore,
+# assigning to an indexed position in the string
+# results in an error:
+with pytest.raises(Exception):
+    # pylint: disable=unsupported-assignment-operation
+    word[0] = 'J'
+
+# If you need a different string, you should create a new one:
+assert 'J' + word[1:] == 'Jython'
+assert word[:2] + 'py' == 'Pypy'
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Input [0;32mIn [13][0m, in [0;36m<cell line: 1>[0;34m()[0m
+[0;32m----> 1[0m [38;5;28;01mimport[39;00m [38;5;21;01mpytest[39;00m
+[1;32m      2[0m word [38;5;241m=[39m [38;5;124m'[39m[38;5;124mPython[39m[38;5;124m'[39m
+[1;32m      3[0m [38;5;28;01massert[39;00m word[[38;5;241m0[39m] [38;5;241m==[39m [38;5;124m'[39m[38;5;124mP[39m[38;5;124m'[39m  [38;5;66;03m# First character.[39;00m
+
+[0;31mModuleNotFoundError[0m: No module named 'pytest'
+ModuleNotFoundError: No module named 'pytest'
+
