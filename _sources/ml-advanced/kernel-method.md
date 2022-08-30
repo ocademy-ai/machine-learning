@@ -430,6 +430,10 @@ cross-validation (see the ```probability``` parameter of ```SVC```), but this ex
 [jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), which is licenced under CC-by licence.
 
 
+## Kernel PCA
+
+https://rishi-advani.com/random-projections/notebooks/html/Kernel_PCA.html
+
 <div hidden>
 
 https://slazebni.cs.illinois.edu/spring21/lec03_linear.pdf
