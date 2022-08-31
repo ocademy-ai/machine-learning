@@ -22,6 +22,15 @@ https://github.com/reveurmichael/anomagram
 
 https://anomagram.fastforwardlabs.com/#/
 
+https://medium.datadriveninvestor.com/deep-learning-autoencoders-db265359943e
+
+</div>
+
+## VAE
+
+<div hidden>
+
+https://theaisummer.com/Autoencoder/
 
 
 </div>
