@@ -14,3 +14,14 @@ kernelspec:
 ---
 
 # Autoencoder (TBD)
+
+
+<div hidden>
+
+https://github.com/reveurmichael/anomagram
+
+https://anomagram.fastforwardlabs.com/#/
+
+
+
+</div>
