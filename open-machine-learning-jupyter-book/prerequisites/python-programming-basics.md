@@ -221,9 +221,10 @@ assert str(false_boolean) == "False"
 
 Float, or "floating point number" is a number, positive or negative, containing one or more decimals.
 
+Another way of declaring float is using float() function.
+
 ```{code-cell}
 float_number = 7.0
-# Another way of declaring float is using float() function.
 float_number_via_function = float(7)
 float_negative = -35.59
 
@@ -231,9 +232,11 @@ assert float_number == float_number_via_function
 assert isinstance(float_number, float)
 assert isinstance(float_number_via_function, float)
 assert isinstance(float_negative, float)
+```
 
-# Float can also be scientific numbers with an "e" to indicate
-# the power of 10.
+Float can also be scientific numbers with an "e" to indicate the power of 10.
+
+```{code-cell}
 float_with_small_e = 35e3
 float_with_big_e = 12E4
 
@@ -258,31 +261,48 @@ assert complex_number_1 * complex_number_2 == 27 + 8j
 
 #### Number operation
 
-```{code-cell}
-# Addition.
-assert 2 + 4 == 6
+Addition.
 
-# Multiplication.
+```{code-cell}
+assert 2 + 4 == 6
+```
+
+Multiplication.
+
+```{code-cell}
 assert 2 * 4 == 8
 
-# Division always returns a floating point number.
+Division always returns a floating point number.
+
+```{code-cell}
 assert 12 / 3 == 4.0
 assert 12 / 5 == 2.4
 assert 17 / 3 == 5.666666666666667
+```
 
-# Modulo operator returns the remainder of the division.
+Modulo operator returns the remainder of the division.
+
+```{code-cell}
 assert 12 % 3 == 0
 assert 13 % 3 == 1
+```
 
-# Floor division discards the fractional part.
+Floor division discards the fractional part.
+
+```{code-cell}
 assert 17 // 3 == 5
+```
 
-# Raising the number to specific power.
+Raising the number to specific power.
+
+```{code-cell}
 assert 5 ** 2 == 25  # 5 squared
 assert 2 ** 7 == 128  # 2 to the power of 7
+```
 
-# There is full support for floating point; operators with
-# mixed type operands convert the integer operand to floating point.
+There is full support for floating point; operators with mixed type operands convert the integer operand to floating point.
+
+```{code-cell}
 assert 4 * 3.75 - 1 == 14.0
 ```
 
@@ -298,33 +318,52 @@ Besides numbers, Python can also manipulate strings, which can be expressed in s
 - https://www.w3schools.com/python/python_ref_string.asp
 ```
 
-```{code-cell}
-# String with double quotes.
-name_1 = "John"
-# String with single quotes.
-name_2 = 'John'
 
-# Strings created with different kind of quotes are treated the same.
+String with double quotes.
+
+```{code-cell}
+name_1 = "John"
+```
+
+String with single quotes.
+
+```{code-cell}
+name_2 = 'John'
+```
+
+Strings created with different kind of quotes are treated the same.
+
+```{code-cell}
 assert name_1 == name_2
 assert isinstance(name_1, str)
 assert isinstance(name_2, str)
+```
 
-# \ can be used to escape quotes.
-# use \' to escape the single quote or use double quotes instead.
+\ can be used to escape quotes.
+use \' to escape the single quote or use double quotes instead.
+
+```{code-cell}
 single_quote_string = 'doesn\'t'
 double_quote_string = "doesn't"
 
 assert single_quote_string == double_quote_string
+```
 
-# \n means newline.
+\n means newline.
+
+```{code-cell}
 multiline_string = 'First line.\nSecond line.'
+```
 
-# Without print(), \n is included in the output.
-# But with print(), \n produces a new line.
+Without print(), \n is included in the output.
+But with print(), \n produces a new line.
+
+```{code-cell}
 assert multiline_string == 'First line.\nSecond line.'
 ```
 
 Strings can be indexed, with the first character having index 0. There is no separate character type; a character is simply a string of size one. Note that since -0 is the same as 0, negative indices start from -1.
+
 ```{code-cell}
 import pytest
 word = 'Python'
@@ -335,54 +374,65 @@ assert word[-2] == 'o'  # Second-last character.
 assert word[-6] == 'P'  # Sixth from the end or zeroth from the beginning.
 
 assert isinstance(word[0], str)
+```
 
-# In addition to indexing, slicing is also supported. While indexing is
-# used to obtain individual characters, slicing allows you to obtain
-# substring:
+In addition to indexing, slicing is also supported. While indexing is used to obtain individual characters, slicing allows you to obtain substring:
+
+```{code-cell}
 assert word[0:2] == 'Py'  # Characters from position 0 (included) to 2 (excluded).
 assert word[2:5] == 'tho'  # Characters from position 2 (included) to 5 (excluded).
+```
 
-# Note how the start is always included, and the end always excluded.
-# This makes sure that s[:i] + s[i:] is always equal to s:
+Note how the start is always included, and the end always excluded.
+This makes sure that s[:i] + s[i:] is always equal to s:
+
+```{code-cell}
 assert word[:2] + word[2:] == 'Python'
 assert word[:4] + word[4:] == 'Python'
+```
 
-# Slice indices have useful defaults; an omitted first index defaults to
-# zero, an omitted second index defaults to the size of the string being
-# sliced.
+Slice indices have useful defaults; an omitted first index defaults to zero, an omitted second index defaults to the size of the string being sliced.
+
+```{code-cell}
 assert word[:2] == 'Py'  # Character from the beginning to position 2 (excluded).
 assert word[4:] == 'on'  # Characters from position 4 (included) to the end.
 assert word[-2:] == 'on'  # Characters from the second-last (included) to the end.
+```
 
-# One way to remember how slices work is to think of the indices as
-# pointing between characters, with the left edge of the first character
-# numbered 0. Then the right edge of the last character of a string of n
-# characters has index n, for example:
-#
-# +---+---+---+---+---+---+
-#  | P | y | t | h | o | n |
-#  +---+---+---+---+---+---+
-#  0   1   2   3   4   5   6
-# -6  -5  -4  -3  -2  -1
+One way to remember how slices work is to think of the indices as pointing between characters, with the left edge of the first character numbered 0. Then the right edge of the last character of a string of n characters has index n, for example:
 
-# Attempting to use an index that is too large will result in an error.
+ +---+---+---+---+---+---+
+ | P | y | t | h | o | n |
+ +---+---+---+---+---+---+
+ 0   1   2   3   4   5   6
+-6  -5  -4  -3  -2  -1
+
+Attempting to use an index that is too large will result in an error.
+
+```{code-cell}
 with pytest.raises(Exception):
     not_existing_character = word[42]
     assert not not_existing_character
+```
 
-# However, out of range slice indexes are handled gracefully when used
-# for slicing:
+However, out of range slice indexes are handled gracefully when used for slicing:
+
+```{code-cell}
 assert word[4:42] == 'on'
 assert word[42:] == ''
+```
 
-# Python strings cannot be changed — they are immutable. Therefore,
-# assigning to an indexed position in the string
-# results in an error:
+Python strings cannot be changed — they are immutable. Therefore, assigning to an indexed position in the string results in an error:
+
+```{code-cell}
 with pytest.raises(Exception):
     # pylint: disable=unsupported-assignment-operation
     word[0] = 'J'
+```
 
-# If you need a different string, you should create a new one:
+If you need a different string, you should create a new one:
+
+```{code-cell}
 assert 'J' + word[1:] == 'Jython'
 assert word[:2] + 'py' == 'Pypy'
 ```
@@ -414,19 +464,26 @@ Strings can be concatenated (glued together) with the + operator, and repeated w
 
 ```{code-cell}
 assert 3 * 'un' + 'ium' == 'unununium'
+```
 
-# 'Py' 'thon'
+```{code-cell}
 python = 'Py' 'thon'
 assert python == 'Python'
+```
 
-# This feature is particularly useful when you want to break long strings:
+This feature is particularly useful when you want to break long strings:
+
+```{code-cell}
 text = (
     'Put several strings within parentheses '
     'to have them joined together.'
 )
 assert text == 'Put several strings within parentheses to have them joined together.'
+```
 
-# If you want to concatenate variables or a variable and a literal, use +:
+If you want to concatenate variables or a variable and a literal, use +:
+
+```{code-cell}
 prefix = 'Py'
 assert prefix + 'thon' == 'Python'
 ```
@@ -435,54 +492,96 @@ assert prefix + 'thon' == 'Python'
 
 ```{code-cell}
 hello_world_string = "Hello, World!"
+```
 
-# The strip() method removes any whitespace from the beginning or the end.
+The strip() method removes any whitespace from the beginning or the end.
+
+```{code-cell}
 string_with_whitespaces = " Hello, World! "
 assert string_with_whitespaces.strip() == "Hello, World!"
+```
 
-# The len() method returns the length of a string.
+The len() method returns the length of a string.
+
+```{code-cell}
 assert len(hello_world_string) == 13
+```
 
-# The lower() method returns the string in lower case.
+The lower() method returns the string in lower case.
+
+```{code-cell}
 assert hello_world_string.lower() == 'hello, world!'
+```
 
-# The upper() method returns the string in upper case.
+The upper() method returns the string in upper case.
+
+```{code-cell}
 assert hello_world_string.upper() == 'HELLO, WORLD!'
+```
 
-# The replace() method replaces a string with another string.
+The replace() method replaces a string with another string.
+
+```{code-cell}
 assert hello_world_string.replace('H', 'J') == 'Jello, World!'
+```
 
-# The split() method splits the string into substrings if it finds instances of the separator.
+The split() method splits the string into substrings if it finds instances of the separator.
+
+```{code-cell}
 assert hello_world_string.split(',') == ['Hello', ' World!']
+```
 
-# Converts the first character to upper case
+Converts the first character to upper case.
+```{code-cell}
 assert 'low letter at the beginning'.capitalize() == 'Low letter at the beginning'
+```
 
-# Returns the number of times a specified value occurs in a string.
+Returns the number of times a specified value occurs in a string.
+
+```{code-cell}
 assert 'low letter at the beginning'.count('t') == 4
+```
 
-# Searches the string for a specified value and returns the position of where it was found.
+Searches the string for a specified value and returns the position of where it was found.
+
+```{code-cell}
 assert 'Hello, welcome to my world'.find('welcome') == 7
+```
 
-# Converts the first character of each word to upper case
+Converts the first character of each word to upper case.
+
+```{code-cell}
 assert 'Welcome to my world'.title() == 'Welcome To My World'
+```
 
-# Returns a string where a specified value is replaced with a specified value.
+Returns a string where a specified value is replaced with a specified value.
+
+```{code-cell}
 assert 'I like bananas'.replace('bananas', 'apples') == 'I like apples'
+```
 
-# Joins the elements of an iterable to the end of the string.
+Joins the elements of an iterable to the end of the string.
+```{code-cell}
 my_tuple = ('John', 'Peter', 'Vicky')
 assert '-'.join(my_tuple) == 'John-Peter-Vicky'
+```
 
-# Returns True if all characters in the string are upper case.
+Returns True if all characters in the string are upper case.
+```{code-cell}
 assert 'ABC'.isupper()
 assert not 'AbC'.isupper()
+```
 
-# Check if all the characters in the text are letters.
+Check if all the characters in the text are letters.
+
+```{code-cell}
 assert 'CompanyX'.isalpha()
 assert not 'Company 23'.isalpha()
+```
 
-# Returns True if all characters in the string are decimals.
+Returns True if all characters in the string are decimals.
+
+```{code-cell}
 assert '1234'.isdecimal()
 assert not 'a21453'.isdecimal()
 ```
