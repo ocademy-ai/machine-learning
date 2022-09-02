@@ -66,6 +66,10 @@ git clone https://github.com/<UserName>/machine-learning
 
 Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
 
+#### Install Jupyter Book
+
+Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version. 
+
 #### Install draw.io
 
 [draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
