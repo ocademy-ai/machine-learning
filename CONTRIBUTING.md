@@ -128,7 +128,7 @@ fatal: expected flush after ref listing
 
 Solution:
 
-**Change your network.**In order to proceed smoothly later, hope you can solve this problem here.
+**Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
 
 Activate the Conda environment.
 
