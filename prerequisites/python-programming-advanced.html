@@ -1162,44 +1162,58 @@ title="Print to PDF"
 <section id="the-for-statement-and-range-function">
 <h3><span class="section-number">2.1.2. </span>The for statement (and range() function)<a class="headerlink" href="#the-for-statement-and-range-function" title="Permalink to this headline">#</a></h3>
 <p>The for statement in Python differs a bit from what you may be used to in C or Pascal. Rather than always iterating over an arithmetic progression of numbers (like in Pascal), or giving the user the ability to define both the iteration step and halting condition (as C), Python’s for statement iterates over the items of any sequence (a list or a string), in the order that they appear in the sequence. For example (no pun intended):</p>
+<p>Measure some strings:</p>
+<p>“cat” length is 3
+“window” length is 6
+“defenestrate” length is 12</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Measure some strings:</span>
-<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="s1">&#39;defenestrate&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="s1">&#39;defenestrate&#39;</span><span class="p">]</span>
 <span class="n">words_length</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
     <span class="n">words_length</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
 
-<span class="c1"># &quot;cat&quot; length is 3</span>
-<span class="c1"># &quot;window&quot; length is 6</span>
-<span class="c1"># &quot;defenestrate&quot; length is 12</span>
 <span class="k">assert</span> <span class="n">words_length</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">12</span><span class="p">)</span>
-
-<span class="c1"># If you need to modify the sequence you are iterating over while inside the loop</span>
-<span class="c1"># (for example to duplicate selected items), it is recommended that you first make a copy.</span>
-<span class="c1"># Iterating over a sequence does not implicitly make a copy. The slice notation makes this</span>
-<span class="c1"># especially convenient:</span>
-<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:]:</span>  <span class="c1"># Loop over a slice copy of the entire list.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you need to modify the sequence you are iterating over while inside the loop (for example to duplicate selected items), it is recommended that you first make a copy. Iterating over a sequence does not implicitly make a copy. The slice notation makes this especially convenient:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:]:</span>  <span class="c1"># Loop over a slice copy of the entire list.</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
         <span class="n">words</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
-
-<span class="c1"># Otherwise with for w in words:, the example would attempt to create an infinite list,</span>
-<span class="c1"># inserting defenestrate over and over again.</span>
-
-<span class="k">assert</span> <span class="n">words</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;defenestrate&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="s1">&#39;defenestrate&#39;</span><span class="p">]</span>
-
-<span class="c1"># If you do need to iterate over a sequence of numbers, the built-in function range() comes in</span>
-<span class="c1"># handy. It generates arithmetic progressions:</span>
-<span class="n">iterated_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Otherwise with for w in words:, the example would attempt to create an infinite list, inserting defenestrate over and over again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">words</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;defenestrate&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="s1">&#39;defenestrate&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iterated_numbers</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">iterated_numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="n">iterated_numbers</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-
-<span class="c1"># To iterate over the indices of a sequence, you can combine range() and len() as follows:</span>
-<span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span> <span class="s1">&#39;had&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;little&#39;</span><span class="p">,</span> <span class="s1">&#39;lamb&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To iterate over the indices of a sequence, you can combine range() and len() as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span> <span class="s1">&#39;had&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;little&#39;</span><span class="p">,</span> <span class="s1">&#39;lamb&#39;</span><span class="p">]</span>
 <span class="n">concatenated_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
 <span class="c1"># pylint: disable=consider-using-enumerate</span>
@@ -1207,18 +1221,27 @@ title="Print to PDF"
     <span class="n">concatenated_string</span> <span class="o">+=</span> <span class="n">words</span><span class="p">[</span><span class="n">word_index</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
 
 <span class="k">assert</span> <span class="n">concatenated_string</span> <span class="o">==</span> <span class="s1">&#39;Mary had a little lamb &#39;</span>
-
-<span class="c1"># Or simply use enumerate().</span>
-<span class="n">concatenated_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or simply use enumerate().</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">concatenated_string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
 <span class="k">for</span> <span class="n">word_index</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
     <span class="n">concatenated_string</span> <span class="o">+=</span> <span class="n">word</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
 
 <span class="k">assert</span> <span class="n">concatenated_string</span> <span class="o">==</span> <span class="s1">&#39;Mary had a little lamb &#39;</span>
-
-<span class="c1"># When looping through dictionaries, the key and corresponding value can be retrieved at the</span>
-<span class="c1"># same time using the items() method.</span>
-<span class="n">knights_names</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When looping through dictionaries, the key and corresponding value can be retrieved at the same time using the items() method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">knights_names</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">knights_properties</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="n">knights</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gallahad&#39;</span><span class="p">:</span> <span class="s1">&#39;the pure&#39;</span><span class="p">,</span> <span class="s1">&#39;robin&#39;</span><span class="p">:</span> <span class="s1">&#39;the brave&#39;</span><span class="p">}</span>
@@ -1228,10 +1251,14 @@ title="Print to PDF"
 
 <span class="k">assert</span> <span class="n">knights_names</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;gallahad&#39;</span><span class="p">,</span> <span class="s1">&#39;robin&#39;</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">knights_properties</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;the pure&#39;</span><span class="p">,</span> <span class="s1">&#39;the brave&#39;</span><span class="p">]</span>
-
-<span class="c1"># When looping through a sequence, the position index and corresponding value can be retrieved</span>
-<span class="c1"># at the same time using the enumerate() function</span>
-<span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When looping through a sequence, the position index and corresponding value can be retrieved at the same time using the enumerate() function</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;tic&#39;</span><span class="p">,</span> <span class="s1">&#39;tac&#39;</span><span class="p">,</span> <span class="s1">&#39;toe&#39;</span><span class="p">]):</span>
     <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
@@ -1239,10 +1266,14 @@ title="Print to PDF"
 
 <span class="k">assert</span> <span class="n">indices</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">values</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;tic&#39;</span><span class="p">,</span> <span class="s1">&#39;tac&#39;</span><span class="p">,</span> <span class="s1">&#39;toe&#39;</span><span class="p">]</span>
-
-<span class="c1"># To loop over two or more sequences at the same time, the entries can be paired with</span>
-<span class="c1"># the zip() function.</span>
-<span class="n">questions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;quest&#39;</span><span class="p">,</span> <span class="s1">&#39;favorite color&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To loop over two or more sequences at the same time, the entries can be paired with the zip() function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">questions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;quest&#39;</span><span class="p">,</span> <span class="s1">&#39;favorite color&#39;</span><span class="p">]</span>
 <span class="n">answers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lancelot&#39;</span><span class="p">,</span> <span class="s1">&#39;the holy grail&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>
 <span class="n">combinations</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1261,15 +1292,10 @@ title="Print to PDF"
 <p>If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions.</p>
 <p>In many ways the object returned by range() behaves as if it is a list, but in fact it isn’t. It is an object which returns the successive items of the desired sequence when you iterate over it, but it doesn’t really make the list, thus saving space.</p>
 <p>We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. We have seen that the for statement is such an iterator. The function list() is another; it creates lists from iterables:</p>
+<p>The given end point is never part of the generated sequence; range(10) generates 10 values, the legal indices for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a different increment (even negative; sometimes this is called the ‘step’):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-
-<span class="c1"># The given end point is never part of the generated sequence; range(10) generates 10 values,</span>
-<span class="c1"># the legal indices for items of a sequence of length 10. It is possible to let the range start</span>
-<span class="c1"># at another number, or to specify a different increment (even negative; sometimes this is</span>
-<span class="c1"># called the ‘step’):</span>
-
 <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
 <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
 <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">30</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="o">-</span><span class="mi">70</span><span class="p">]</span>
@@ -1289,12 +1315,11 @@ title="Print to PDF"
 <li><p><a class="reference external" href="https://docs.python.org/3/reference/compound_stmts.html#the-while-statement">https://docs.python.org/3/reference/compound_stmts.html#the-while-statement</a></p></li>
 </ul>
 </div>
+<p>Let’s raise the number to certain power using while loop.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s raise the number to certain power using while loop.</span>
-<span class="n">number</span> <span class="o">=</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">power</span> <span class="o">=</span> <span class="mi">5</span>
-
 <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">while</span> <span class="n">power</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -1311,8 +1336,7 @@ title="Print to PDF"
 <section id="the-try-statement">
 <h3><span class="section-number">2.1.4. </span>The try statement<a class="headerlink" href="#the-try-statement" title="Permalink to this headline">#</a></h3>
 <p>“try” statement is used for exception handling.
-When an error occurs, or exception as we call it, Python will normally stop and generate an error
-message. These exceptions can be handled using the try statement.</p>
+When an error occurs, or exception as we call it, Python will normally stop and generate an error message. These exceptions can be handled using the try statement.</p>
 <p>The “try” block lets you test a block of code for errors.
 The “except” block lets you handle the error.
 The “else” block lets you execute the code if no errors were raised.
@@ -1323,10 +1347,10 @@ The “finally” block lets you execute code, regardless of the result of the t
 <li><p><a class="reference external" href="https://www.w3schools.com/python/python_try_except.asp">https://www.w3schools.com/python/python_try_except.asp</a></p></li>
 </ul>
 </div>
+<p>The try block will generate an error, because x is not defined:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The try block will generate an error, because x is not defined:</span>
-<span class="n">exception_has_been_caught</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_has_been_caught</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># pylint: disable=undefined-variable</span>
@@ -1335,10 +1359,14 @@ The “finally” block lets you execute code, regardless of the result of the t
     <span class="n">exception_has_been_caught</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">assert</span> <span class="n">exception_has_been_caught</span>
-
-<span class="c1"># You can define as many exception blocks as you want, e.g. if you want to execute a special</span>
-<span class="c1"># block of code for a special kind of error:</span>
-<span class="n">exception_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can define as many exception blocks as you want, e.g. if you want to execute a special block of code for a special kind of error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># pylint: disable=undefined-variable</span>
@@ -1347,10 +1375,14 @@ The “finally” block lets you execute code, regardless of the result of the t
     <span class="n">exception_message</span> <span class="o">=</span> <span class="s1">&#39;Variable is not defined&#39;</span>
 
 <span class="k">assert</span> <span class="n">exception_message</span> <span class="o">==</span> <span class="s1">&#39;Variable is not defined&#39;</span>
-
-<span class="c1"># You can use the else keyword to define a block of code to be executed</span>
-<span class="c1"># if no errors were raised.</span>
-<span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can use the else keyword to define a block of code to be executed if no errors were raised.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 <span class="c1"># pylint: disable=broad-except</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;Success.&#39;</span>
@@ -1360,10 +1392,14 @@ The “finally” block lets you execute code, regardless of the result of the t
     <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;Nothing went wrong.&#39;</span>
 
 <span class="k">assert</span> <span class="n">message</span> <span class="o">==</span> <span class="s1">&#39;Success.Nothing went wrong.&#39;</span>
-
-<span class="c1"># The finally block, if specified, will be executed regardless if the try block raises an</span>
-<span class="c1"># error or not.</span>
-<span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The finally block, if specified, will be executed regardless if the try block raises an error or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># pylint: undefined-variable</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">not_existing_variable</span><span class="p">)</span>  <span class="c1"># noqa: F821</span>
@@ -1457,11 +1493,7 @@ The “finally” block lets you execute code, regardless of the result of the t
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fibonacci_function_example</span><span class="p">(</span><span class="n">number_limit</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generate a Fibonacci series up to number_limit.</span>
-<span class="sd">    The first statement of the function body can optionally be a string literal; this string</span>
-<span class="sd">    literal is the function’s documentation string, or docstring. There are tools which use</span>
-<span class="sd">    docstrings to automatically produce online or printed documentation, or to let the user</span>
-<span class="sd">    interactively browse through code; it’s good practice to include docstrings in code that you</span>
-<span class="sd">    write, so make a habit of it.</span>
+<span class="sd">    The first statement of the function body can optionally be a string literal; this string literal is the function’s documentation string, or docstring. There are tools which use docstrings to automatically produce online or printed documentation, or to let the user interactively browse through code; it’s good practice to include docstrings in code that you write, so make a habit of it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># The execution of a function introduces a new symbol table used for the local variables of the</span>
@@ -1490,37 +1522,52 @@ The “finally” block lets you execute code, regardless of the result of the t
     <span class="c1"># The return statement returns with a value from a function. return without an expression</span>
     <span class="c1"># argument returns None. Falling off the end of a function also returns None.</span>
     <span class="k">return</span> <span class="n">fibonacci_list</span>
-
-<span class="c1"># Now call the function we just defined.</span>
-<span class="k">assert</span> <span class="n">fibonacci_function_example</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">233</span><span class="p">]</span>
-
-<span class="c1"># A function definition introduces the function name in the current symbol table. The value of</span>
-<span class="c1"># the function name has a type that is recognized by the interpreter as a user-defined function.</span>
-<span class="c1"># This value can be assigned to another name which can then also be used as a function.</span>
-<span class="c1"># This serves as a general renaming mechanism</span>
-<span class="n">fibonacci_function_clone</span> <span class="o">=</span> <span class="n">fibonacci_function_example</span>
-<span class="k">assert</span> <span class="n">fibonacci_function_clone</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">233</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now call the function we just defined.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># In Python, functions are first class citizens, they are objects and that means we can do </span>
-<span class="c1"># a lot of useful stuff with them.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>assert fibonacci_function_example(300) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
 
-<span class="c1"># Assign functions to variables.</span>
+A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function.
+This value can be assigned to another name which can then also be used as a function.
+This serves as a general renaming mechanism.
 
-<span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+```{code-cell}
+fibonacci_function_clone = fibonacci_function_example
+assert fibonacci_function_clone(300) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">]</span>
+    <span class="n">A</span> <span class="n">function</span> <span class="n">definition</span> <span class="n">introduces</span> <span class="n">the</span> <span class="n">function</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">symbol</span> <span class="n">table</span><span class="o">.</span> <span class="n">The</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">function</span> <span class="n">name</span> <span class="n">has</span> <span class="n">a</span> <span class="nb">type</span> <span class="n">that</span> <span class="ow">is</span> <span class="n">recognized</span> <span class="n">by</span> <span class="n">the</span> <span class="n">interpreter</span> <span class="k">as</span> <span class="n">a</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span> <span class="n">function</span><span class="o">.</span>
+      <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<p>In Python, functions are first class citizens, they are objects and that means we can do a lot of useful stuff with them.</p>
+<p>Assign functions to variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;Hello, &#39;</span> <span class="o">+</span> <span class="n">name</span>
 
 <span class="n">greet_someone</span> <span class="o">=</span> <span class="n">greet</span>
 
 <span class="k">assert</span> <span class="n">greet_someone</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Hello, John&#39;</span>
-
-<span class="c1"># Define functions inside other functions.</span>
-
-<span class="k">def</span> <span class="nf">greet_again</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define functions inside other functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greet_again</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">get_message</span><span class="p">():</span>
         <span class="k">return</span> <span class="s1">&#39;Hello, &#39;</span>
 
@@ -1528,10 +1575,14 @@ The “finally” block lets you execute code, regardless of the result of the t
     <span class="k">return</span> <span class="n">result</span>
 
 <span class="k">assert</span> <span class="n">greet_again</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Hello, John&#39;</span>
-
-<span class="c1"># Functions can be passed as parameters to other functions.</span>
-
-<span class="k">def</span> <span class="nf">greet_one_more</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Functions can be passed as parameters to other functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greet_one_more</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">return</span> <span class="s1">&#39;Hello, &#39;</span> <span class="o">+</span> <span class="n">name</span>
 
 <span class="k">def</span> <span class="nf">call_func</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
@@ -1539,10 +1590,14 @@ The “finally” block lets you execute code, regardless of the result of the t
     <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">other_name</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="n">call_func</span><span class="p">(</span><span class="n">greet_one_more</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Hello, John&#39;</span>
-
-<span class="c1"># Functions can return other functions. In other words, functions generating other functions.</span>
-
-<span class="k">def</span> <span class="nf">compose_greet_func</span><span class="p">():</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Functions can return other functions. In other words, functions generating other functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compose_greet_func</span><span class="p">():</span>
     <span class="k">def</span> <span class="nf">get_message</span><span class="p">():</span>
         <span class="k">return</span> <span class="s1">&#39;Hello there!&#39;</span>
 
@@ -1550,15 +1605,15 @@ The “finally” block lets you execute code, regardless of the result of the t
 
 <span class="n">greet_function</span> <span class="o">=</span> <span class="n">compose_greet_func</span><span class="p">()</span>
 <span class="k">assert</span> <span class="n">greet_function</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Hello there!&#39;</span>
-
-<span class="c1"># Inner functions have access to the enclosing scope.</span>
-
-<span class="c1"># More commonly known as a closure. A very powerful pattern that we will come across while</span>
-<span class="c1"># building decorators. Another thing to note, Python only allows read access to the outer</span>
-<span class="c1"># scope and not assignment. Notice how we modified the example above to read a &quot;name&quot; argument</span>
-<span class="c1"># from the enclosing scope of the inner function and return the new function.</span>
-
-<span class="k">def</span> <span class="nf">compose_greet_func_with_closure</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Inner functions have access to the enclosing scope.</p>
+<p>More commonly known as a closure. A very powerful pattern that we will come across while building decorators. Another thing to note, Python only allows read access to the outer scope and not assignment. Notice how we modified the example above to read a “name” argument from the enclosing scope of the inner function and return the new function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compose_greet_func_with_closure</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">get_message</span><span class="p">():</span>
         <span class="k">return</span> <span class="s1">&#39;Hello there, &#39;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span>
 
@@ -1595,69 +1650,100 @@ The important thing to know about namespaces is that there is absolutely no rela
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=invalid-name</span>
 <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;initial global value&#39;</span>
-
-
-<span class="k">def</span> <span class="nf">test_function_scopes</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Scopes and Namespaces Example&quot;&quot;&quot;</span>
-
-    <span class="c1"># This is an example demonstrating how to reference the different scopes and namespaces, and</span>
-    <span class="c1"># how global and nonlocal affect variable binding:</span>
-
+</pre></div>
+</div>
+</div>
+</div>
+<p>Scopes and Namespaces Example</p>
+<p>This is an example demonstrating how to reference the different scopes and namespaces, and how global and nonlocal affect variable binding:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=redefined-outer-name</span>
+<span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;initial value inside test function&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Create variable that is only accessible inside current do_local() function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_local</span><span class="p">():</span>
     <span class="c1"># pylint: disable=redefined-outer-name</span>
-    <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;initial value inside test function&#39;</span>
-
-    <span class="k">def</span> <span class="nf">do_local</span><span class="p">():</span>
-        <span class="c1"># Create variable that is only accessible inside current do_local() function.</span>
-        <span class="c1"># pylint: disable=redefined-outer-name</span>
-        <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;local value&#39;</span>
-        <span class="k">return</span> <span class="n">test_variable</span>
-
-    <span class="k">def</span> <span class="nf">do_nonlocal</span><span class="p">():</span>
-        <span class="c1"># Address the variable from outer scope and try to change it.</span>
-        <span class="c1"># pylint: disable=redefined-outer-name</span>
-        <span class="k">nonlocal</span> <span class="n">test_variable</span>
-        <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;nonlocal value&#39;</span>
-        <span class="k">return</span> <span class="n">test_variable</span>
-
-    <span class="k">def</span> <span class="nf">do_global</span><span class="p">():</span>
-        <span class="c1"># Address the variable from very global scope and try to change it.</span>
-        <span class="c1"># pylint: disable=redefined-outer-name,global-statement</span>
-        <span class="k">global</span> <span class="n">test_variable</span>
-        <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;global value&#39;</span>
-        <span class="k">return</span> <span class="n">test_variable</span>
-
-    <span class="c1"># On this level currently we have access to local for test_function_scopes() function variable.</span>
-    <span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;initial value inside test function&#39;</span>
-
-    <span class="c1"># Do local assignment.</span>
-    <span class="c1"># It doesn&#39;t change global variable and variable from test_function_scopes() scope.</span>
-    <span class="n">do_local</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;initial value inside test function&#39;</span>
-
-    <span class="c1"># Do non local assignment.</span>
-    <span class="c1"># It doesn&#39;t change global variable but it does change variable</span>
-    <span class="c1"># from test_function_scopes() function scope.</span>
-    <span class="n">do_nonlocal</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;nonlocal value&#39;</span>
-
-    <span class="c1"># Do global assignment.</span>
-    <span class="c1"># This one changes global variable but doesn&#39;t change variable from</span>
-    <span class="c1"># test_function_scopes() function scope.</span>
-    <span class="n">do_global</span><span class="p">()</span>
-    <span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;nonlocal value&#39;</span>
-
-
-<span class="k">def</span> <span class="nf">test_global_variable_access</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Testing global variable access from within a function&quot;&quot;&quot;</span>
-
-    <span class="c1"># Global value of test_variable has been already changed by do_global() function in previous</span>
-    <span class="c1"># test so let&#39;s check that.</span>
-    <span class="c1"># pylint: disable=global-statement</span>
+    <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;local value&#39;</span>
+    <span class="k">return</span> <span class="n">test_variable</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Address the variable from outer scope and try to change it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_nonlocal</span><span class="p">():</span>
+    <span class="c1"># pylint: disable=redefined-outer-name</span>
+    <span class="k">nonlocal</span> <span class="n">test_variable</span>
+    <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;nonlocal value&#39;</span>
+    <span class="k">return</span> <span class="n">test_variable</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Address the variable from very global scope and try to change it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_global</span><span class="p">():</span>
+    <span class="c1"># pylint: disable=redefined-outer-name,global-statement</span>
     <span class="k">global</span> <span class="n">test_variable</span>
-    <span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;global value&#39;</span>
-
-<span class="n">test_function_scopes</span><span class="p">()</span>
-<span class="n">test_global_variable_access</span><span class="p">()</span>
+    <span class="n">test_variable</span> <span class="o">=</span> <span class="s1">&#39;global value&#39;</span>
+    <span class="k">return</span> <span class="n">test_variable</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>On this level currently we have access to local for test_function_scopes() function variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;initial value inside test function&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Do local assignment.
+It doesn’t change global variable and variable from test_function_scopes() scope.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">do_local</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;initial value inside test function&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Do non local assignment.
+It doesn’t change global variable but it does change variable from test_function_scopes() function scope.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">do_nonlocal</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;nonlocal value&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Do global assignment.
+This one changes global variable but doesn’t change variable from test_function_scopes() function scope.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">do_global</span><span class="p">()</span>
+<span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;nonlocal value&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Testing global variable access from within a function</p>
+<p>Global value of test_variable has been already changed by do_global() function in previous test so let’s check that.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=global-statement</span>
+<span class="k">global</span> <span class="n">test_variable</span>
+<span class="k">assert</span> <span class="n">test_variable</span> <span class="o">==</span> <span class="s1">&#39;global value&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1678,12 +1764,22 @@ The important thing to know about namespaces is that there is absolutely no rela
 <span class="sd">    You may notice that by default the function raises number to the power of two.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">number</span> <span class="o">**</span> <span class="n">power</span>
-
-<span class="c1"># This function power_of can be called in several ways because it has default value for</span>
-<span class="c1"># the second argument. First we may call it omitting the second argument at all.</span>
-<span class="k">assert</span> <span class="n">power_of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
-<span class="c1"># We may also want to override the second argument by using the following function calls.</span>
-<span class="k">assert</span> <span class="n">power_of</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This function power_of can be called in several ways because it has default value for the second argument. First we may call it omitting the second argument at all.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">power_of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We may also want to override the second argument by using the following function calls.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">power_of</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span>
 <span class="k">assert</span> <span class="n">power_of</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="mi">27</span>
 </pre></div>
 </div>
@@ -1702,90 +1798,134 @@ The important thing to know about namespaces is that there is absolutely no rela
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
-<span class="k">def</span> <span class="nf">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;a stiff&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;voom&#39;</span><span class="p">,</span> <span class="n">parrot_type</span><span class="o">=</span><span class="s1">&#39;Norwegian Blue&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Example of multi-argument function</span>
-
-<span class="sd">    This function accepts one required argument (voltage) and three optional arguments</span>
-<span class="sd">    (state, action, and type).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
+</pre></div>
+</div>
+</div>
+</div>
+<p>Example of multi-argument function</p>
+<p>This function accepts one required argument (voltage) and three optional arguments
+(state, action, and type).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;a stiff&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;voom&#39;</span><span class="p">,</span> <span class="n">parrot_type</span><span class="o">=</span><span class="s1">&#39;Norwegian Blue&#39;</span><span class="p">):</span>
     <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;This parrot wouldn</span><span class="se">\&#39;</span><span class="s1">t &#39;</span> <span class="o">+</span> <span class="n">action</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
     <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;if you put &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">voltage</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; volts through it. &#39;</span>
     <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;Lovely plumage, the &#39;</span> <span class="o">+</span> <span class="n">parrot_type</span> <span class="o">+</span> <span class="s1">&#39;. &#39;</span>
     <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;It</span><span class="se">\&#39;</span><span class="s1">s &#39;</span> <span class="o">+</span> <span class="n">state</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span>
 
     <span class="k">return</span> <span class="n">message</span>
-
-<span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;This parrot wouldn&#39;t voom if you put 1000 volts through it. &quot;</span>
     <span class="s2">&quot;Lovely plumage, the Norwegian Blue. &quot;</span>
     <span class="s2">&quot;It&#39;s a stiff!&quot;</span>
 <span class="p">)</span>
-<span class="c1"># 1 positional argument</span>
-<span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
-<span class="c1"># 1 keyword argument</span>
-<span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
-
-<span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>1 positional argument</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>1 keyword argument</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;This parrot wouldn&#39;t VOOOOOM if you put 1000000 volts through it. &quot;</span>
     <span class="s2">&quot;Lovely plumage, the Norwegian Blue. &quot;</span>
     <span class="s2">&quot;It&#39;s a stiff!&quot;</span>
 <span class="p">)</span>
-<span class="c1"># 2 keyword arguments</span>
-<span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;VOOOOOM&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
-<span class="c1"># 2 keyword arguments</span>
-<span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;VOOOOOM&#39;</span><span class="p">,</span> <span class="n">voltage</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
-
-<span class="c1"># 3 positional arguments</span>
-<span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>2 keyword arguments</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;VOOOOOM&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>2 keyword arguments</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;VOOOOOM&#39;</span><span class="p">,</span> <span class="n">voltage</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>3 positional arguments</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;This parrot wouldn&#39;t jump if you put 1000000 volts through it. &quot;</span>
     <span class="s2">&quot;Lovely plumage, the Norwegian Blue. &quot;</span>
     <span class="s2">&quot;It&#39;s bereft of life!&quot;</span>
 <span class="p">)</span>
 <span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,</span> <span class="s1">&#39;bereft of life&#39;</span><span class="p">,</span> <span class="s1">&#39;jump&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
-
-<span class="c1"># 1 positional, 1 keyword</span>
-<span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>1 positional, 1 keyword</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;This parrot wouldn&#39;t voom if you put 1000 volts through it. &quot;</span>
     <span class="s2">&quot;Lovely plumage, the Norwegian Blue. &quot;</span>
     <span class="s2">&quot;It&#39;s pushing up the daisies!&quot;</span>
 <span class="p">)</span>
 <span class="k">assert</span> <span class="n">parrot</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;pushing up the daisies&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">message</span>
-
-<span class="c1"># But all the following calls would be invalid.</span>
-
-<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="c1"># Required argument missing.</span>
-    <span class="c1"># pylint: disable=no-value-for-parameter</span>
-    <span class="n">parrot</span><span class="p">()</span>
-
-<span class="c1"># Non-keyword argument after a keyword argument.</span>
-<span class="c1"># parrot(voltage=5.0, &#39;dead&#39;)</span>
-
-<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="c1"># pylint: disable=redundant-keyword-arg</span>
-    <span class="n">parrot</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="n">voltage</span><span class="o">=</span><span class="mi">220</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="c1"># unknown keyword argument</span>
-    <span class="c1"># pylint: disable=unexpected-keyword-arg,no-value-for-parameter</span>
-    <span class="n">parrot</span><span class="p">(</span><span class="n">actor</span><span class="o">=</span><span class="s1">&#39;John Cleese&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="nn">Input In [12],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pytest</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="k">def</span> <span class="nf">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;a stiff&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;voom&#39;</span><span class="p">,</span> <span class="n">parrot_type</span><span class="o">=</span><span class="s1">&#39;Norwegian Blue&#39;</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="sd">&quot;&quot;&quot;Example of multi-argument function</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> </span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span><span class="sd">     This function accepts one required argument (voltage) and three optional arguments</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span><span class="sd">     (state, action, and type).</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span><span class="sd">     &quot;&quot;&quot;</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;pytest&#39;
+</div>
+<p>But all the following calls would be invalid.</p>
+<p>Required argument missing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=no-value-for-parameter</span>
+    <span class="n">parrot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Non-keyword argument after a keyword argument.
+parrot(voltage=5.0, ‘dead’)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=redundant-keyword-arg</span>
+    <span class="n">parrot</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="n">voltage</span><span class="o">=</span><span class="mi">220</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>unknown keyword argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=unexpected-keyword-arg,no-value-for-parameter</span>
+    <span class="n">parrot</span><span class="p">(</span><span class="n">actor</span><span class="o">=</span><span class="s1">&#39;John Cleese&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1806,10 +1946,10 @@ The important thing to know about namespaces is that there is absolutely no rela
 </div>
 </div>
 <p>When a final formal parameter of the form **name is present, it receives a dictionary containing all keyword arguments except for those corresponding to a formal parameter. This may be combined with a formal parameter of the form *name which receives a tuple containing the positional arguments beyond the formal parameter list. (*name must occur before **name.) For example, if we define a function like this:</p>
+<p>This function accepts its arguments through “arguments” tuple and keywords dictionary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_function</span><span class="p">(</span><span class="n">first_param</span><span class="p">,</span> <span class="o">*</span><span class="n">arguments</span><span class="p">,</span> <span class="o">**</span><span class="n">keywords</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This function accepts its arguments through &quot;arguments&quot; tuple and keywords dictionary.&quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">first_param</span> <span class="o">==</span> <span class="s1">&#39;first param&#39;</span>
     <span class="k">assert</span> <span class="n">arguments</span> <span class="o">==</span> <span class="p">(</span><span class="s1">&#39;second param&#39;</span><span class="p">,</span> <span class="s1">&#39;third param&#39;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">keywords</span> <span class="o">==</span> <span class="p">{</span>
@@ -1838,25 +1978,24 @@ The important thing to know about namespaces is that there is absolutely no rela
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists">https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists</a></p></li>
 </ul>
 </div>
+<p>When a final formal parameter of the form **name is present, it receives a dictionary containing all keyword arguments except for those corresponding to a formal parameter.
+This may be combined with a formal parameter of the form *name which receives a tuple containing the positional arguments beyond the formal parameter list. (*name must occur before **name.) For example, if we define a function like this:</p>
+<p>This function accepts its arguments through “arguments” tuple.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># When a final formal parameter of the form **name is present, it receives a dictionary</span>
-<span class="c1"># containing all keyword arguments except for those corresponding to a formal parameter.</span>
-<span class="c1"># This may be combined with a formal parameter of the form *name which receives a tuple</span>
-<span class="c1"># containing the positional arguments beyond the formal parameter list.</span>
-<span class="c1"># (*name must occur before **name.) For example, if we define a function like this:</span>
-<span class="k">def</span> <span class="nf">test_function</span><span class="p">(</span><span class="n">first_param</span><span class="p">,</span> <span class="o">*</span><span class="n">arguments</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;This function accepts its arguments through &quot;arguments&quot; tuple&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_function</span><span class="p">(</span><span class="n">first_param</span><span class="p">,</span> <span class="o">*</span><span class="n">arguments</span><span class="p">):</span>
     <span class="k">assert</span> <span class="n">first_param</span> <span class="o">==</span> <span class="s1">&#39;first param&#39;</span>
     <span class="k">assert</span> <span class="n">arguments</span> <span class="o">==</span> <span class="p">(</span><span class="s1">&#39;second param&#39;</span><span class="p">,</span> <span class="s1">&#39;third param&#39;</span><span class="p">)</span>
 
 <span class="n">test_function</span><span class="p">(</span><span class="s1">&#39;first param&#39;</span><span class="p">,</span> <span class="s1">&#39;second param&#39;</span><span class="p">,</span> <span class="s1">&#39;third param&#39;</span><span class="p">)</span>
-
-<span class="c1"># Normally, these variadic arguments will be last in the list of formal parameters, because</span>
-<span class="c1"># they scoop up all remaining input arguments that are passed to the function. Any formal</span>
-<span class="c1"># parameters which occur after the *args parameter are ‘keyword-only’ arguments, meaning that</span>
-<span class="c1"># they can only be used as keywords rather than positional arguments.</span>
-<span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Normally, these variadic arguments will be last in the list of formal parameters, because they scoop up all remaining input arguments that are passed to the function. Any formal parameters which occur after the *args parameter are ‘keyword-only’ arguments, meaning that they can only be used as keywords rather than positional arguments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">sep</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="n">concat</span><span class="p">(</span><span class="s1">&#39;earth&#39;</span><span class="p">,</span> <span class="s1">&#39;mars&#39;</span><span class="p">,</span> <span class="s1">&#39;venus&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;earth/mars/venus&#39;</span>
@@ -1875,23 +2014,28 @@ The important thing to know about namespaces is that there is absolutely no rela
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists">https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists</a></p></li>
 </ul>
 </div>
+<p>The situation may occur when the arguments are already in a list or tuple but need to be unpacked for a function call requiring separate positional arguments. For instance, the built-in range() function expects separate start and stop arguments. If they are not available separately, write the function call with the *-operator to unpack the arguments out of a list or tuple:</p>
+<p>Normal call with separate arguments:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The situation may occur when the arguments are already in a list or tuple but need to be</span>
-<span class="c1"># unpacked for a function call requiring separate positional arguments. For instance, the</span>
-<span class="c1"># built-in range() function expects separate start and stop arguments. If they are not</span>
-<span class="c1"># available separately, write the function call with the *-operator to unpack the arguments out</span>
-<span class="c1"># of a list or tuple:</span>
-
-<span class="c1"># Normal call with separate arguments:</span>
-<span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-
-<span class="c1"># Call with arguments unpacked from a list.</span>
-<span class="n">arguments_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Call with arguments unpacked from a list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arguments_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">arguments_list</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-
-<span class="c1"># In the same fashion, dictionaries can deliver keyword arguments with the **-operator:</span>
-<span class="k">def</span> <span class="nf">function_that_receives_names_arguments</span><span class="p">(</span><span class="n">first_word</span><span class="p">,</span> <span class="n">second_word</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the same fashion, dictionaries can deliver keyword arguments with the **-operator:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_that_receives_names_arguments</span><span class="p">(</span><span class="n">first_word</span><span class="p">,</span> <span class="n">second_word</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">first_word</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="n">second_word</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span>
 
 <span class="n">arguments_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first_word&#39;</span><span class="p">:</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;second_word&#39;</span><span class="p">:</span> <span class="s1">&#39;World&#39;</span><span class="p">}</span>
@@ -1910,13 +2054,10 @@ The important thing to know about namespaces is that there is absolutely no rela
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions">https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions</a></p></li>
 </ul>
 </div>
+<p>This function returns the sum of its two arguments: lambda a, b: a+b Like nested function definitions, lambda functions can reference variables from the containing scope.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This function returns the sum of its two arguments: lambda a, b: a+b</span>
-<span class="c1"># Like nested function definitions, lambda functions can reference variables from the</span>
-<span class="c1"># containing scope.</span>
-
-<span class="k">def</span> <span class="nf">make_increment_function</span><span class="p">(</span><span class="n">delta</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_increment_function</span><span class="p">(</span><span class="n">delta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This example uses a lambda expression to return a function&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="k">lambda</span> <span class="n">number</span><span class="p">:</span> <span class="n">number</span> <span class="o">+</span> <span class="n">delta</span>
 
@@ -1925,9 +2066,14 @@ The important thing to know about namespaces is that there is absolutely no rela
 <span class="k">assert</span> <span class="n">increment_function</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">42</span>
 <span class="k">assert</span> <span class="n">increment_function</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">43</span>
 <span class="k">assert</span> <span class="n">increment_function</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">44</span>
-
-<span class="c1"># Another use of lambda is to pass a small function as an argument.</span>
-<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;four&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another use of lambda is to pass a small function as an argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;four&#39;</span><span class="p">)]</span>
 <span class="c1"># Sort pairs by text key.</span>
 <span class="n">pairs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
@@ -1954,18 +2100,14 @@ The important thing to know about namespaces is that there is absolutely no rela
 <span class="sd">    No, really, it doesn&#39;t do anything.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
-
-<span class="c1"># The Python parser does not strip indentation from multi-line string literals in Python, so</span>
-<span class="c1"># tools that process documentation have to strip indentation if desired. This is done using the</span>
-<span class="c1"># following convention. The first non-blank line after the first line of the string determines</span>
-<span class="c1"># the amount of indentation for the entire documentation string. (We can’t use the first line</span>
-<span class="c1"># since it is generally adjacent to the string’s opening quotes so its indentation is not</span>
-<span class="c1"># apparent in the string literal.) Whitespace “equivalent” to this indentation is then stripped</span>
-<span class="c1"># from the start of all lines of the string. Lines that are indented less should not occur, but</span>
-<span class="c1"># if they occur all their leading whitespace should be stripped. Equivalence of whitespace</span>
-<span class="c1"># should be tested after expansion of tabs (to 8 spaces, normally).</span>
-
-<span class="k">assert</span> <span class="n">do_nothing</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s2">&quot;&quot;&quot;Do nothing, but document it.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The Python parser does not strip indentation from multi-line string literals in Python, so tools that process documentation have to strip indentation if desired. This is done using the following convention. The first non-blank line after the first line of the string determines the amount of indentation for the entire documentation string. (We can’t use the first line since it is generally adjacent to the string’s opening quotes so its indentation is not apparent in the string literal.) Whitespace “equivalent” to this indentation is then stripped from the start of all lines of the string. Lines that are indented less should not occur, but if they occur all their leading whitespace should be stripped. Equivalence of whitespace should be tested after expansion of tabs (to 8 spaces, normally).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">do_nothing</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s2">&quot;&quot;&quot;Do nothing, but document it.</span>
 
 <span class="s2">No, really, it doesn&#39;t do anything.</span>
 <span class="s2">&quot;&quot;&quot;</span>
@@ -1984,13 +2126,11 @@ The important thing to know about namespaces is that there is absolutely no rela
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html#function-annotations">https://docs.python.org/3/tutorial/controlflow.html#function-annotations</a></p></li>
 </ul>
 </div>
+<p>Breakfast creator.</p>
+<p>This function has a positional argument, a keyword argument, and the return value annotated.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">breakfast</span><span class="p">(</span><span class="n">ham</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eggs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;eggs&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Breakfast creator.</span>
-
-<span class="sd">    This function has a positional argument, a keyword argument, and the return value annotated.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ham</span> <span class="o">+</span> <span class="s1">&#39; and &#39;</span> <span class="o">+</span> <span class="n">eggs</span>
 
 <span class="k">assert</span> <span class="n">breakfast</span><span class="o">.</span><span class="vm">__annotations__</span> <span class="o">==</span> <span class="p">{</span><span class="s1">&#39;eggs&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;ham&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;return&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">}</span>
@@ -2008,72 +2148,89 @@ The important thing to know about namespaces is that there is absolutely no rela
 <li><p><a class="reference external" href="https://www.thecodeship.com/patterns/guide-to-python-function-decorators/">https://www.thecodeship.com/patterns/guide-to-python-function-decorators/</a></p></li>
 </ul>
 </div>
+<p>Function decorators are simply wrappers to existing functions. Putting the ideas mentioned above together, we can build a decorator. In this example let’s consider a function that wraps the string output of another function by p tags.</p>
+<p>This is the function that we want to decorate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Function decorators are simply wrappers to existing functions. Putting the ideas mentioned</span>
-<span class="c1"># above together, we can build a decorator. In this example let&#39;s consider a function that</span>
-<span class="c1"># wraps the string output of another function by p tags.</span>
-
-<span class="c1"># This is the function that we want to decorate.</span>
-<span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Hello, </span><span class="si">{0}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-<span class="c1"># This function decorates another functions output with &lt;p&gt; tag.</span>
-<span class="k">def</span> <span class="nf">decorate_with_p</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This function decorates another functions output with <p> tag.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorate_with_p</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">function_wrapper</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;p&gt;</span><span class="si">{0}</span><span class="s2">&lt;/p&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">function_wrapper</span>
-
-<span class="c1"># Now, let&#39;s call our decorator and pass the function we want decorate to it.</span>
-<span class="n">my_get_text</span> <span class="o">=</span> <span class="n">decorate_with_p</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
-
-<span class="c1"># Here we go, we&#39;ve just decorated the function output without changing the function itself.</span>
-<span class="k">assert</span> <span class="n">my_get_text</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&lt;p&gt;Hello, John!&lt;/p&gt;&#39;</span>  <span class="c1"># With decorator.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s call our decorator and pass the function we want decorate to it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_get_text</span> <span class="o">=</span> <span class="n">decorate_with_p</span><span class="p">(</span><span class="n">greeting</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here we go, we’ve just decorated the function output without changing the function itself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">my_get_text</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&lt;p&gt;Hello, John!&lt;/p&gt;&#39;</span>  <span class="c1"># With decorator.</span>
 <span class="k">assert</span> <span class="n">greeting</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Hello, John!&#39;</span>  <span class="c1"># Without decorator.</span>
-
-<span class="c1"># Now, Python makes creating and using decorators a bit cleaner and nicer for the programmer</span>
-<span class="c1"># through some syntactic sugar  There is a neat shortcut for that, which is to mention the</span>
-<span class="c1"># name of the decorating function before the function to be decorated. The name of the</span>
-<span class="c1"># decorator should be prepended with an @ symbol.</span>
-
-<span class="nd">@decorate_with_p</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, Python makes creating and using decorators a bit cleaner and nicer for the programmer through some syntactic sugar  There is a neat shortcut for that, which is to mention the name of the decorating function before the function to be decorated. The name of the decorator should be prepended with an &#64; symbol.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@decorate_with_p</span>
 <span class="k">def</span> <span class="nf">greeting_with_p</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Hello, </span><span class="si">{0}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="n">greeting_with_p</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&lt;p&gt;Hello, John!&lt;/p&gt;&#39;</span>
-
-<span class="c1"># Now let&#39;s consider we wanted to decorate our greeting function by one more functions to wrap a</span>
-<span class="c1"># div the string output.</span>
-
-<span class="c1"># This will be our second decorator.</span>
-<span class="k">def</span> <span class="nf">decorate_with_div</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s consider we wanted to decorate our greeting function by one more functions to wrap a div the string output.</p>
+<p>This will be our second decorator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorate_with_div</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">function_wrapper</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;div&gt;</span><span class="si">{0}</span><span class="s2">&lt;/div&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">function_wrapper</span>
-
-<span class="c1"># With the basic approach, decorating get_text would be along the lines of</span>
-<span class="c1"># greeting_with_div_p = decorate_with_div(decorate_with_p(greeting_with_p))</span>
-
-<span class="c1"># With Python&#39;s decorator syntax, same thing can be achieved with much more expressive power.</span>
-<span class="nd">@decorate_with_div</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With the basic approach, decorating get_text would be along the lines of greeting_with_div_p = decorate_with_div(decorate_with_p(greeting_with_p))</p>
+<p>With Python’s decorator syntax, same thing can be achieved with much more expressive power.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@decorate_with_div</span>
 <span class="nd">@decorate_with_p</span>
 <span class="k">def</span> <span class="nf">greeting_with_div_p</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;Hello, </span><span class="si">{0}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="n">greeting_with_div_p</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&lt;div&gt;&lt;p&gt;Hello, John!&lt;/p&gt;&lt;/div&gt;&#39;</span>
-
-<span class="c1"># One important thing to notice here is that the order of setting our decorators matters.</span>
-<span class="c1"># If the order was different in the example above, the output would have been different.</span>
-
-<span class="c1"># Passing arguments to decorators.</span>
-
-<span class="c1"># Looking back at the example before, you can notice how redundant the decorators in the</span>
-<span class="c1"># example are. 2 decorators(decorate_with_div, decorate_with_p) each with the same</span>
-<span class="c1"># functionality but wrapping the string with different tags. We can definitely do much better</span>
-<span class="c1"># than that. Why not have a more general implementation for one that takes the tag to wrap</span>
-<span class="c1"># with as a string? Yes please!</span>
-
-<span class="k">def</span> <span class="nf">tags</span><span class="p">(</span><span class="n">tag_name</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>One important thing to notice here is that the order of setting our decorators matters.
+If the order was different in the example above, the output would have been different.</p>
+<p>Passing arguments to decorators.</p>
+<p>Looking back at the example before, you can notice how redundant the decorators in the example are. 2 decorators(decorate_with_div, decorate_with_p) each with the same functionality but wrapping the string with different tags. We can definitely do much better than that. Why not have a more general implementation for one that takes the tag to wrap with as a string? Yes please!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tags</span><span class="p">(</span><span class="n">tag_name</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">tags_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
             <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">{0}</span><span class="s2">&gt;</span><span class="si">{1}</span><span class="s2">&lt;/</span><span class="si">{0}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag_name</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
@@ -2105,13 +2262,10 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/classes.html">https://docs.python.org/3/tutorial/classes.html</a></p></li>
 </ul>
 </div>
+<p>Class definitions, like function definitions (def statements) must be executed before they have any effect. (You could conceivably place a class definition in a branch of an if statement, or inside a function.)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Class definitions, like function definitions (def statements) must be executed before they</span>
-<span class="c1"># have any effect. (You could conceivably place a class definition in a branch of an if</span>
-<span class="c1"># statement, or inside a function.)</span>
-
-<span class="k">class</span> <span class="nc">GreetingClass</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GreetingClass</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Example of the class definition</span>
 
 <span class="sd">    This class contains two public methods and doesn&#39;t contain constructor.</span>
@@ -2128,15 +2282,15 @@ A Class is like an object constructor, or a “blueprint” for creating objects
     <span class="k">def</span> <span class="nf">say_goodbye</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Class method.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s1">&#39;Goodbye &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-
-<span class="c1"># When a class definition is entered, a new namespace is created, and used as the local scope —</span>
-<span class="c1"># thus, all assignments to local variables go into this new namespace. In particular, function</span>
-<span class="c1"># definitions bind the name of the new function here.</span>
-
-<span class="c1"># Class instantiation uses function notation. Just pretend that the class object is a</span>
-<span class="c1"># parameterless function that returns a new instance of the class. For example the following</span>
-<span class="c1"># code will creates a new instance of the class and assigns this object to the local variable.</span>
-<span class="n">greeter</span> <span class="o">=</span> <span class="n">GreetingClass</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When a class definition is entered, a new namespace is created, and used as the local scope — thus, all assignments to local variables go into this new namespace. In particular, function definitions bind the name of the new function here.</p>
+<p>Class instantiation uses function notation. Just pretend that the class object is a parameterless function that returns a new instance of the class. For example the following code will creates a new instance of the class and assigns this object to the local variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">greeter</span> <span class="o">=</span> <span class="n">GreetingClass</span><span class="p">()</span>
 
 <span class="k">assert</span> <span class="n">greeter</span><span class="o">.</span><span class="n">say_hello</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Hello user&#39;</span>
 <span class="k">assert</span> <span class="n">greeter</span><span class="o">.</span><span class="n">say_goodbye</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Goodbye user&#39;</span>
@@ -2159,16 +2313,11 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/classes.html#class-objects">https://docs.python.org/3/tutorial/classes.html#class-objects</a></p></li>
 </ul>
 </div>
+<p>ATTRIBUTE REFERENCES use the standard syntax used for all attribute references in Python: <a class="reference external" href="http://obj.name">obj.name</a>. Valid attribute names are all the names that were in the class’s namespace when the class object was created. For class MyCounter the following references are valid attribute references:</p>
+<p>Example of the complex numbers class</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ATTRIBUTE REFERENCES use the standard syntax used for all attribute references in</span>
-<span class="c1"># Python: obj.name. Valid attribute names are all the names that were in the class’s namespace</span>
-<span class="c1"># when the class object was created. For class MyCounter the following references are valid</span>
-<span class="c1"># attribute references:</span>
-
-<span class="k">class</span> <span class="nc">ComplexNumber</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Example of the complex numbers class&quot;&quot;&quot;</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ComplexNumber</span><span class="p">:</span>
     <span class="n">real</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">imaginary</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -2181,32 +2330,51 @@ A Class is like an object constructor, or a “blueprint” for creating objects
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imaginary</span>
 
 <span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">==</span> <span class="mi">0</span>
-
-<span class="c1"># __doc__ is also a valid attribute, returning the docstring belonging to the class</span>
-<span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s1">&#39;Example of the complex numbers class&#39;</span>
-
-<span class="c1"># Class attributes can also be assigned to, so you can change the value of</span>
-<span class="c1"># ComplexNumber.counter by assignment.</span>
-<span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>doc</strong> is also a valid attribute, returning the docstring belonging to the class</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s1">&#39;Example of the complex numbers class&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Class attributes can also be assigned to, so you can change the value of ComplexNumber.counter by assignment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">==</span> <span class="mi">10</span>
-
-<span class="c1"># CLASS INSTANTIATION uses function notation. Just pretend that the class object is a</span>
-<span class="c1"># parameterless function that returns a new instance of the class. For example</span>
-<span class="c1"># (assuming the above class):</span>
-<span class="n">complex_number</span> <span class="o">=</span> <span class="n">ComplexNumber</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>CLASS INSTANTIATION uses function notation. Just pretend that the class object is a parameterless function that returns a new instance of the class. For example (assuming the above class):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complex_number</span> <span class="o">=</span> <span class="n">ComplexNumber</span><span class="p">()</span>
 
 <span class="k">assert</span> <span class="n">complex_number</span><span class="o">.</span><span class="n">real</span> <span class="o">==</span> <span class="mi">10</span>
 <span class="k">assert</span> <span class="n">complex_number</span><span class="o">.</span><span class="n">get_real</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10</span>
-
-<span class="c1"># Let&#39;s change counter default value back.</span>
-<span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s change counter default value back.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="n">real</span> <span class="o">==</span> <span class="mi">10</span>
-
-<span class="c1"># The instantiation operation (“calling” a class object) creates an empty object. Many classes</span>
-<span class="c1"># like to create objects with instances customized to a specific initial state. Therefore a</span>
-<span class="c1"># class may define a special method named __init__(), like this:</span>
-
-<span class="k">class</span> <span class="nc">ComplexNumberWithConstructor</span><span class="p">:</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The instantiation operation (“calling” a class object) creates an empty object. Many classes like to create objects with instances customized to a specific initial state. Therefore a class may define a special method named <strong>init</strong>(), like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ComplexNumberWithConstructor</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Example of the class with constructor&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_part</span><span class="p">,</span> <span class="n">imaginary_part</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">real</span> <span class="o">=</span> <span class="n">real_part</span>
@@ -2240,13 +2408,10 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/classes.html#instance-objects">https://docs.python.org/3/tutorial/classes.html#instance-objects</a></p></li>
 </ul>
 </div>
+<p>DATA ATTRIBUTES need not be declared; like local variables, they spring into existence when they are first assigned to. For example, if x is the instance of MyCounter created above, the following piece of code will print the value 16, without leaving a trace.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DATA ATTRIBUTES need not be declared; like local variables, they spring into existence when</span>
-<span class="c1"># they are first assigned to. For example, if x is the instance of MyCounter created above,</span>
-<span class="c1"># the following piece of code will print the value 16, without leaving a trace.</span>
-
-<span class="c1"># pylint: disable=too-few-public-methods</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=too-few-public-methods</span>
 <span class="k">class</span> <span class="nc">DummyClass</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Dummy class&quot;&quot;&quot;</span>
     <span class="k">pass</span>
@@ -2271,10 +2436,10 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/classes.html#method-objects">https://docs.python.org/3/tutorial/classes.html#method-objects</a></p></li>
 </ul>
 </div>
+<p>A simple example of the counter class.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCounter</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;A simple example of the counter class&quot;&quot;&quot;</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="mi">10</span>
 
     <span class="k">def</span> <span class="nf">get_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2285,40 +2450,35 @@ A Class is like an object constructor, or a “blueprint” for creating objects
         <span class="sd">&quot;&quot;&quot;Increment the counter&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
-
-<span class="c1"># The other kind of instance attribute reference is a method. A method is a function that</span>
-<span class="c1"># “belongs to” an object. (In Python, the term method is not unique to class instances: other</span>
-<span class="c1"># object types can have methods as well. For example, list objects have methods called append,</span>
-<span class="c1"># insert, remove, sort, and so on. However, in the following discussion, we’ll use the term</span>
-<span class="c1"># method exclusively to mean methods of class instance objects, unless explicitly stated</span>
-<span class="c1"># otherwise.)</span>
-
-<span class="c1"># But be aware that counter.get_counter() is not the same thing as MyCounter.get_counter() —</span>
-<span class="c1"># it is a method object, not a function object.</span>
-
-<span class="c1"># Usually, a method is called right after it is bound</span>
-<span class="n">counter</span> <span class="o">=</span> <span class="n">MyCounter</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The other kind of instance attribute reference is a method. A method is a function that “belongs to” an object. (In Python, the term method is not unique to class instances: other object types can have methods as well. For example, list objects have methods called append, insert, remove, sort, and so on. However, in the following discussion, we’ll use the term method exclusively to mean methods of class instance objects, unless explicitly stated otherwise.)</p>
+<p>But be aware that counter.get_counter() is not the same thing as MyCounter.get_counter() — it is a method object, not a function object.</p>
+<p>Usually, a method is called right after it is bound.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="n">MyCounter</span><span class="p">()</span>
 <span class="k">assert</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10</span>
-
-<span class="c1"># However, it is not necessary to call a method right away: counter.get_counter() is a method</span>
-<span class="c1"># object, and can be stored away and called at a later time. For example:</span>
-<span class="n">get_counter</span> <span class="o">=</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counter</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>However, it is not necessary to call a method right away: counter.get_counter() is a method object, and can be stored away and called at a later time. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_counter</span> <span class="o">=</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counter</span>
 <span class="k">assert</span> <span class="n">get_counter</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10</span>
-
-<span class="c1"># What exactly happens when a method is called? You may have noticed that counter.get_counter()</span>
-<span class="c1"># was called without an argument above, even though the function definition for get_counter()</span>
-<span class="c1"># specified an argument (self). What happened to the argument? Surely Python raises an</span>
-<span class="c1"># exception when a function that requires an argument is called without any — even if the</span>
-<span class="c1"># argument isn’t actually used…</span>
-
-<span class="c1"># Actually, you may have guessed the answer: the special thing about methods is that the</span>
-<span class="c1"># instance object is passed as the first argument of the function. In our example, the call</span>
-<span class="c1"># counter.get_counter() is exactly equivalent to MyCounter.get_counter(counter). In general,</span>
-<span class="c1"># calling a method with a list of n arguments is equivalent to calling the corresponding</span>
-<span class="c1"># function with an argument list that is created by inserting the method’s instance object</span>
-<span class="c1"># before the first argument.</span>
-
-<span class="k">assert</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>What exactly happens when a method is called? You may have noticed that counter.get_counter() was called without an argument above, even though the function definition for get_counter() specified an argument (self). What happened to the argument? Surely Python raises an exception when a function that requires an argument is called without any — even if the argument isn’t actually used…</p>
+<p>Actually, you may have guessed the answer: the special thing about methods is that the instance object is passed as the first argument of the function. In our example, the call counter.get_counter() is exactly equivalent to MyCounter.get_counter(counter). In general, calling a method with a list of n arguments is equivalent to calling the corresponding function with an argument list that is created by inserting the method’s instance object before the first argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span> <span class="o">==</span> <span class="mi">10</span>
 <span class="k">assert</span> <span class="n">MyCounter</span><span class="o">.</span><span class="n">get_counter</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span>
 </pre></div>
 </div>
@@ -2334,11 +2494,11 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables">https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables</a></p></li>
 </ul>
 </div>
+<p>Dog class example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=too-few-public-methods</span>
 <span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Dog class example&quot;&quot;&quot;</span>
     <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;canine&#39;</span>  <span class="c1"># Class variable shared by all instances.</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -2346,24 +2506,41 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 
 <span class="n">fido</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s1">&#39;Fido&#39;</span><span class="p">)</span>
 <span class="n">buddy</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">(</span><span class="s1">&#39;Buddy&#39;</span><span class="p">)</span>
-
-<span class="c1"># Shared by all dogs.</span>
-<span class="k">assert</span> <span class="n">fido</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;canine&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Shared by all dogs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">fido</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;canine&#39;</span>
 <span class="k">assert</span> <span class="n">buddy</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;canine&#39;</span>
-
-<span class="c1"># Unique to fido.</span>
-<span class="k">assert</span> <span class="n">fido</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Fido&#39;</span>
-
-<span class="c1"># Unique to buddy.</span>
-<span class="k">assert</span> <span class="n">buddy</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Buddy&#39;</span>
-
-<span class="c1"># Shared data can have possibly surprising effects with involving mutable objects such as lists</span>
-<span class="c1"># and dictionaries. For example, the tricks list in the following code should not be used as a</span>
-<span class="c1"># class variable because just a single list would be shared by all Dog instances.</span>
-
-<span class="c1"># pylint: disable=too-few-public-methods</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Unique to fido.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">fido</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Fido&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Unique to buddy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">buddy</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Buddy&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Shared data can have possibly surprising effects with involving mutable objects such as lists and dictionaries. For example, the tricks list in the following code should not be used as a class variable because just a single list would be shared by all Dog instances.</p>
+<p>Dog class example with wrong shared variable usage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=too-few-public-methods</span>
 <span class="k">class</span> <span class="nc">DogWithSharedTricks</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Dog class example with wrong shared variable usage&quot;&quot;&quot;</span>
     <span class="n">tricks</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Mistaken use of a class variable (see below) for mutable objects.</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -2384,13 +2561,16 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 
 <span class="k">assert</span> <span class="n">fido</span><span class="o">.</span><span class="n">tricks</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;roll over&#39;</span><span class="p">,</span> <span class="s1">&#39;play dead&#39;</span><span class="p">]</span>  <span class="c1"># unexpectedly shared by all dogs</span>
 <span class="k">assert</span> <span class="n">buddy</span><span class="o">.</span><span class="n">tricks</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;roll over&#39;</span><span class="p">,</span> <span class="s1">&#39;play dead&#39;</span><span class="p">]</span>  <span class="c1"># unexpectedly shared by all dogs</span>
-
-<span class="c1"># Correct design of the class should use an instance variable instead:</span>
-
-<span class="c1"># pylint: disable=too-few-public-methods</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Correct design of the class should use an instance variable instead:</p>
+<p>Dog class example</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=too-few-public-methods</span>
 <span class="k">class</span> <span class="nc">DogWithTricks</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Dog class example&quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>  <span class="c1"># Instance variable unique to each instance.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tricks</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># creates a new empty list for each dog</span>
@@ -2424,38 +2604,30 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <li><p><a class="reference external" href="https://docs.python.org/3/tutorial/classes.html#inheritance">https://docs.python.org/3/tutorial/classes.html#inheritance</a></p></li>
 </ul>
 </div>
+<p>Example of the base class</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=too-few-public-methods</span>
 <span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Example of the base class&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get person name&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
-
-
-<span class="c1"># The syntax for a derived class definition looks like this.</span>
-<span class="c1"># pylint: disable=too-few-public-methods</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The syntax for a derived class definition looks like this.</p>
+<p>The Base Class (in our case Person) must be defined in a scope containing the derived class definition. In place of a base class name, other arbitrary expressions are also allowed.</p>
+<p>Derived classes may override methods of their base classes. Because methods have no special privileges when calling other methods of the same object, a method of a base class that calls another method defined in the same base class may end up calling a method of a derived class that overrides it.</p>
+<p>An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as BaseClassName in the global scope.)</p>
+<p>Example of the derived class</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=too-few-public-methods</span>
 <span class="k">class</span> <span class="nc">Employee</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Example of the derived class</span>
-
-<span class="sd">    The Base Class (in our case Person) must be defined in a scope containing the derived class</span>
-<span class="sd">    definition. In place of a base class name, other arbitrary expressions are also allowed.</span>
-
-<span class="sd">    Derived classes may override methods of their base classes. Because methods have no special</span>
-<span class="sd">    privileges when calling other methods of the same object, a method of a base class that calls</span>
-<span class="sd">    another method defined in the same base class may end up calling a method of a derived class</span>
-<span class="sd">    that overrides it.</span>
-
-<span class="sd">    An overriding method in a derived class may in fact want to extend rather than simply replace</span>
-<span class="sd">    the base class method of the same name. There is a simple way to call the base class method</span>
-<span class="sd">    directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to</span>
-<span class="sd">    clients as well. (Note that this only works if the base class is accessible as BaseClassName</span>
-<span class="sd">    in the global scope.)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">staff_id</span><span class="p">):</span>
         <span class="n">Person</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="c1"># You may also use super() here in order to avoid explicit using of parent class name:</span>
@@ -2465,28 +2637,31 @@ A Class is like an object constructor, or a “blueprint” for creating objects
     <span class="k">def</span> <span class="nf">get_full_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get full employee id&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">staff_id</span>
-
-<span class="c1"># There’s nothing special about instantiation of derived classes: DerivedClassName() creates a</span>
-<span class="c1"># new instance of the class. Method references are resolved as follows: the corresponding class</span>
-<span class="c1"># attribute is searched, descending down the chain of base classes if necessary, and the method</span>
-<span class="c1"># reference is valid if this yields a function object.</span>
-<span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There’s nothing special about instantiation of derived classes: DerivedClassName() creates a new instance of the class. Method references are resolved as follows: the corresponding class attribute is searched, descending down the chain of base classes if necessary, and the method reference is valid if this yields a function object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">person</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">&#39;Bill&#39;</span><span class="p">)</span>
 <span class="n">employee</span> <span class="o">=</span> <span class="n">Employee</span><span class="p">(</span><span class="s1">&#39;John&#39;</span><span class="p">,</span> <span class="s1">&#39;A23&#39;</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="n">person</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Bill&#39;</span>
 <span class="k">assert</span> <span class="n">employee</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;John&#39;</span>
 <span class="k">assert</span> <span class="n">employee</span><span class="o">.</span><span class="n">get_full_id</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;John, A23&#39;</span>
-
-<span class="c1"># Python has two built-in functions that work with inheritance:</span>
-<span class="c1">#</span>
-<span class="c1"># - Use isinstance() to check an instance’s type: isinstance(obj, int) will be True only if</span>
-<span class="c1"># obj.__class__ is int or some class derived from int.</span>
-<span class="c1">#</span>
-<span class="c1"># - Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is</span>
-<span class="c1"># a subclass of int. However, issubclass(float, int) is False since float is not a subclass</span>
-<span class="c1"># of int.</span>
-
-<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">employee</span><span class="p">,</span> <span class="n">Employee</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Python has two built-in functions that work with inheritance:</p>
+<ul class="simple">
+<li><p>Use isinstance() to check an instance’s type: isinstance(obj, int) will be True only if obj.<strong>class</strong> is int or some class derived from int.</p></li>
+<li><p>Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, issubclass(float, int) is False since float is not a subclass of int.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">employee</span><span class="p">,</span> <span class="n">Employee</span><span class="p">)</span>
 <span class="k">assert</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="n">Employee</span><span class="p">)</span>
 
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="n">Person</span><span class="p">)</span>
@@ -2535,32 +2710,18 @@ A Class is like an object constructor, or a “blueprint” for creating objects
 <span class="sd">        Method is hardcoded just for multiple inheritance illustration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">date</span>
-
-<span class="c1"># Python supports a form of multiple inheritance as well. A class definition with multiple</span>
-<span class="c1"># base classes looks like this.</span>
-<span class="k">class</span> <span class="nc">CalendarClock</span><span class="p">(</span><span class="n">Clock</span><span class="p">,</span> <span class="n">Calendar</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Class that uses multiple inheritance.</span>
-
-<span class="sd">    For most purposes, in the simplest cases, you can think of the search for attributes</span>
-<span class="sd">    inherited from a parent class as depth-first, left-to-right, not searching twice in the same</span>
-<span class="sd">    class where there is an overlap in the hierarchy. Thus, if an attribute is not found in</span>
-<span class="sd">    CalendarClock, it is searched for in Clock, then (recursively) in the base classes of</span>
-<span class="sd">    Clock, and if it was not found there, it was searched for in Calendar, and so on.</span>
-
-<span class="sd">    In fact, it is slightly more complex than that; the method resolution order changes</span>
-<span class="sd">    dynamically to support cooperative calls to super(). This approach is known in some other</span>
-<span class="sd">    multiple-inheritance languages as call-next-method and is more powerful than the super call</span>
-<span class="sd">    found in single-inheritance languages.</span>
-
-<span class="sd">    Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more</span>
-<span class="sd">    diamond relationships (where at least one of the parent classes can be accessed through</span>
-<span class="sd">    multiple paths from the bottommost class). For example, all classes inherit from object,</span>
-<span class="sd">    so any case of multiple inheritance provides more than one path to reach object. To keep</span>
-<span class="sd">    the base classes from being accessed more than once, the dynamic algorithm linearizes the</span>
-<span class="sd">    search order in a way that preserves the left-to-right ordering specified in each class,</span>
-<span class="sd">    that calls each parent only once, and that is monotonic (meaning that a class can be</span>
-<span class="sd">    subclassed without affecting the precedence order of its parents).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Python supports a form of multiple inheritance as well. A class definition with multiple base classes looks like this.</p>
+<p>For most purposes, in the simplest cases, you can think of the search for attributes inherited from a parent class as depth-first, left-to-right, not searching twice in the same class where there is an overlap in the hierarchy. Thus, if an attribute is not found in CalendarClock, it is searched for in Clock, then (recursively) in the base classes of Clock, and if it was not found there, it was searched for in Calendar, and so on.</p>
+<p>In fact, it is slightly more complex than that; the method resolution order changes dynamically to support cooperative calls to super(). This approach is known in some other multiple-inheritance languages as call-next-method and is more powerful than the super call found in single-inheritance languages.</p>
+<p>Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond relationships (where at least one of the parent classes can be accessed through multiple paths from the bottommost class). For example, all classes inherit from object, so any case of multiple inheritance provides more than one path to reach object. To keep the base classes from being accessed more than once, the dynamic algorithm linearizes the search order in a way that preserves the left-to-right ordering specified in each class, that calls each parent only once, and that is monotonic (meaning that a class can be subclassed without affecting the precedence order of its parents).</p>
+<p>Class that uses multiple inheritance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CalendarClock</span><span class="p">(</span><span class="n">Clock</span><span class="p">,</span> <span class="n">Calendar</span><span class="p">):</span>
 
 <span class="n">calendar_clock</span> <span class="o">=</span> <span class="n">CalendarClock</span><span class="p">()</span>
 
@@ -2601,40 +2762,50 @@ sys.path</p>
 <li><p><a class="reference external" href="https://realpython.com/python-modules-packages/">https://realpython.com/python-modules-packages/</a></p></li>
 </ul>
 </div>
+<p>This does not enter the names of the functions defined in fibonacci_module directly in the current symbol table; it only enters the module name fibonacci_module there.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This does not enter the names of the functions defined in fibonacci_module directly in the</span>
-<span class="c1"># current symbol table; it only enters the module name fibonacci_module there.</span>
-<span class="kn">import</span> <span class="nn">fibonacci_module</span>
-
-<span class="c1"># There is a variant of the import statement that imports names from a module directly into the</span>
-<span class="c1"># importing module’s symbol table. For example:</span>
-
-<span class="c1"># pylint: disable=reimported</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fibonacci_module</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is a variant of the import statement that imports names from a module directly into the importing module’s symbol table. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=reimported</span>
 <span class="kn">from</span> <span class="nn">fibonacci_module</span> <span class="kn">import</span> <span class="n">fibonacci_at_position</span><span class="p">,</span> <span class="n">fibonacci_smaller_than</span>
-
-<span class="c1"># There is even a variant to import all names that a module defines. This imports all names except</span>
-<span class="c1"># those beginning with an underscore (_). In most cases Python programmers do not use this facility</span>
-<span class="c1"># since it introduces an unknown set of names into the interpreter, possibly hiding some things you</span>
-<span class="c1"># have already defined.</span>
-<span class="c1"># &gt;&gt;&gt; from fibonacci_module import *</span>
-
-<span class="c1"># If the module name is followed by as, then the name following as is bound directly to the</span>
-<span class="c1"># imported module:</span>
-<span class="kn">import</span> <span class="nn">fibonacci_module</span> <span class="k">as</span> <span class="nn">fibonacci_module_renamed</span>
-
-<span class="c1"># It can also be used when utilising from with similar effects:</span>
-<span class="kn">from</span> <span class="nn">fibonacci_module</span> <span class="kn">import</span> <span class="n">fibonacci_at_position</span> <span class="k">as</span> <span class="n">fibonacci_at_position_renamed</span>
-
-<span class="c1"># When a module named spam is imported, the interpreter first searches for a built-in module with</span>
-<span class="c1"># that name. If not found, it then searches for a file named spam.py in a list of directories</span>
-<span class="c1"># given by the variable sys.path. sys.path is initialized from these locations:</span>
-<span class="c1">#</span>
-<span class="c1"># - The directory containing the input script (or the current directory when no file is specified).</span>
-<span class="c1"># - PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</span>
-<span class="c1"># - The installation-dependent default.</span>
-
-<span class="k">assert</span> <span class="n">fibonacci_module</span><span class="o">.</span><span class="n">fibonacci_at_position</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">13</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is even a variant to import all names that a module defines. This imports all names except those beginning with an underscore (_). In most cases Python programmers do not use this facility since it introduces an unknown set of names into the interpreter, possibly hiding some things you have already defined.</p>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><p>from fibonacci_module import *</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+<p>If the module name is followed by as, then the name following as is bound directly to the imported module:
+import fibonacci_module as fibonacci_module_renamed</p>
+<p>It can also be used when utilising from with similar effects:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fibonacci_module</span> <span class="kn">import</span> <span class="n">fibonacci_at_position</span> <span class="k">as</span> <span class="n">fibonacci_at_position_renamed</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named <a class="reference external" href="http://spam.py">spam.py</a> in a list of directories given by the variable sys.path. sys.path is initialized from these locations:</p>
+<ul class="simple">
+<li><p>The directory containing the input script (or the current directory when no file is specified).</p></li>
+<li><p>PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).</p></li>
+<li><p>The installation-dependent default.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">fibonacci_module</span><span class="o">.</span><span class="n">fibonacci_at_position</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">13</span>
 <span class="k">assert</span> <span class="n">fibonacci_at_position</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">13</span>
 <span class="k">assert</span> <span class="n">fibonacci_module_renamed</span><span class="o">.</span><span class="n">fibonacci_at_position</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">13</span>
 <span class="k">assert</span> <span class="n">fibonacci_at_position_renamed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="o">==</span> <span class="mi">13</span>
@@ -2642,14 +2813,23 @@ sys.path</p>
 <span class="k">assert</span> <span class="n">fibonacci_module</span><span class="o">.</span><span class="n">fibonacci_smaller_than</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">89</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">fibonacci_smaller_than</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">89</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">fibonacci_module_renamed</span><span class="o">.</span><span class="n">fibonacci_smaller_than</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
-
-<span class="c1"># If you intend to use a function often you can assign it to a local name.</span>
-<span class="n">fibonacci</span> <span class="o">=</span> <span class="n">fibonacci_module</span><span class="o">.</span><span class="n">fibonacci_smaller_than</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you intend to use a function often you can assign it to a local name.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fibonacci</span> <span class="o">=</span> <span class="n">fibonacci_module</span><span class="o">.</span><span class="n">fibonacci_smaller_than</span>
 <span class="k">assert</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">89</span><span class="p">]</span>
-
-<span class="c1"># The built-in function dir() is used to find out which names a module defines. It returns a</span>
-<span class="c1"># sorted list of strings.</span>
-<span class="k">assert</span> <span class="nb">dir</span><span class="p">(</span><span class="n">fibonacci_module</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="nb">dir</span><span class="p">(</span><span class="n">fibonacci_module</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
     <span class="s1">&#39;__builtins__&#39;</span><span class="p">,</span>
     <span class="s1">&#39;__cached__&#39;</span><span class="p">,</span>
     <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span>
@@ -2692,30 +2872,37 @@ sys.path</p>
 <li><p><a class="reference external" href="https://realpython.com/python-modules-packages/">https://realpython.com/python-modules-packages/</a></p></li>
 </ul>
 </div>
+<p>Users of the package can import individual modules from the package, for example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Users of the package can import individual modules from the package, for example.</span>
-<span class="kn">import</span> <span class="nn">sound_package.effects.echo</span>
-
-<span class="c1"># An alternative way of importing the submodule is:</span>
-
-<span class="c1"># pylint: disable=reimported</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sound_package.effects.echo</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>An alternative way of importing the submodule is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=reimported</span>
 <span class="kn">from</span> <span class="nn">sound_package.effects</span> <span class="kn">import</span> <span class="n">echo</span>
-
-<span class="c1"># Yet another variation is to import the desired function or variable directly:</span>
-<span class="kn">from</span> <span class="nn">sound_package.effects.echo</span> <span class="kn">import</span> <span class="n">echo_function</span>
-
-<span class="c1"># Note that when using from package import item, the item can be either a submodule (or subpackage)</span>
-<span class="c1"># of the package, or some other name defined in the package, like a function, class or variable.</span>
-<span class="c1"># The import statement first tests whether the item is defined in the package; if not, it assumes</span>
-<span class="c1"># it is a module and attempts to load it. If it fails to find it, an ImportError exception is</span>
-<span class="c1"># raised.</span>
-
-<span class="c1"># Contrarily, when using syntax like import item.subitem.subsubitem, each item except for the last</span>
-<span class="c1"># must be a package; the last item can be a module or a package but can’t be a class or function or</span>
-<span class="c1"># variable defined in the previous item.</span>
-
-<span class="k">assert</span> <span class="n">sound_package</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">echo</span><span class="o">.</span><span class="n">echo_function</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Do echo effect&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Yet another variation is to import the desired function or variable directly:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sound_package.effects.echo</span> <span class="kn">import</span> <span class="n">echo_function</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that when using from package import item, the item can be either a submodule (or subpackage) of the package, or some other name defined in the package, like a function, class or variable.
+The import statement first tests whether the item is defined in the package; if not, it assumes it is a module and attempts to load it. If it fails to find it, an ImportError exception is raised.</p>
+<p>Contrarily, when using syntax like import item.subitem.subsubitem, each item except for the last must be a package; the last item can be a module or a package but can’t be a class or function or variable defined in the previous item.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">sound_package</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">echo</span><span class="o">.</span><span class="n">echo_function</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Do echo effect&#39;</span>
 <span class="k">assert</span> <span class="n">echo</span><span class="o">.</span><span class="n">echo_function</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Do echo effect&#39;</span>
 <span class="k">assert</span> <span class="n">echo_function</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;Do echo effect&#39;</span>
 </pre></div>
@@ -2743,10 +2930,10 @@ unconditionally fatal.</p>
 <li><p>If an exception occurs during execution of the try clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the except clause is executed, and then execution continues after the try statement.</p></li>
 <li><p>If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements; if no handler is found, it is an unhandled exception and execution stops with a message.</p></li>
 </ul>
+<p>Let’s simulate division by zero exception.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s simulate division by zero exception.</span>
-<span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># division by zero</span>
     <span class="c1"># We should not get here at all.</span>
@@ -2756,9 +2943,14 @@ unconditionally fatal.</p>
     <span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">assert</span> <span class="n">exception_has_been_handled</span>
-
-<span class="c1"># Let&#39;s simulate undefined variable access exception.</span>
-<span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s simulate undefined variable access exception.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># pylint: disable=undefined-variable</span>
     <span class="n">result</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="n">spam</span> <span class="o">*</span> <span class="mi">3</span>  <span class="c1"># name &#39;spam&#39; is not defined</span>
@@ -2769,13 +2961,14 @@ unconditionally fatal.</p>
     <span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">assert</span> <span class="n">exception_has_been_handled</span>
-
-<span class="c1"># A try statement may have more than one except clause, to specify handlers for different</span>
-<span class="c1"># exceptions. At most one handler will be executed. Handlers only handle exceptions that occur</span>
-<span class="c1"># in the corresponding try clause, not in other handlers of the same try statement. An except</span>
-<span class="c1"># clause may name multiple exceptions as a parenthesized tuple, for example:</span>
-
-<span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A try statement may have more than one except clause, to specify handlers for different exceptions. At most one handler will be executed. Handlers only handle exceptions that occur in the corresponding try clause, not in other handlers of the same try statement. An except clause may name multiple exceptions as a parenthesized tuple, for example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># division by zero</span>
     <span class="c1"># We should not get here at all.</span>
@@ -2785,9 +2978,14 @@ unconditionally fatal.</p>
     <span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">assert</span> <span class="n">exception_has_been_handled</span>
-
-<span class="c1"># Exception handlers may be chained.</span>
-<span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Exception handlers may be chained.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># division by zero</span>
     <span class="c1"># We should not get here at all.</span>
@@ -2800,12 +2998,14 @@ unconditionally fatal.</p>
     <span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="k">assert</span> <span class="n">exception_has_been_handled</span>
-
-<span class="c1"># The try … except statement has an optional else clause, which, when present, must follow all</span>
-<span class="c1"># except clauses. It is useful for code that must be executed if the try clause does not raise</span>
-<span class="c1"># an exception. For example:</span>
-
-<span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The try … except statement has an optional else clause, which, when present, must follow all except clauses. It is useful for code that must be executed if the try clause does not raise an exception. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_has_been_handled</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">no_exceptions_has_been_fired</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -2832,13 +3032,11 @@ unconditionally fatal.</p>
 <p class="admonition-title">See also</p>
 <p><a class="reference external" href="https://docs.python.org/3/tutorial/errors.html#raising-exceptions">https://docs.python.org/3/tutorial/errors.html#raising-exceptions</a></p>
 </div>
+<p>The raise statement allows the programmer to force a specified exception to occur.</p>
+<p>Raising Exceptions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Raising Exceptions.</span>
-
-<span class="sd">The raise statement allows the programmer to force a specified exception to occur.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="n">exception_is_caught</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exception_is_caught</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c1"># The sole argument to raise indicates the exception to be raised. This must be either an</span>
@@ -2854,16 +3052,11 @@ unconditionally fatal.</p>
 </div>
 </div>
 </div>
+<p>Programs may name their own exceptions by creating a new exception class. Exceptions should typically be derived from the Exception class, either directly or indirectly. Most exceptions are defined with names that end in “Error,” similar to the naming of the standard exceptions. Many standard modules define their own exceptions to report errors that may occur in functions they define.</p>
+<p>User-defined Exceptions</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;User-defined Exceptions&quot;&quot;&quot;</span>
-
-<span class="c1"># Programs may name their own exceptions by creating a new exception class. Exceptions should</span>
-<span class="c1"># typically be derived from the Exception class, either directly or indirectly.</span>
-<span class="c1"># Most exceptions are defined with names that end in “Error,” similar to the naming of the</span>
-<span class="c1"># standard exceptions. Many standard modules define their own exceptions to report errors</span>
-<span class="c1"># that may occur in functions they define.</span>
-<span class="k">class</span> <span class="nc">MyCustomError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCustomError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Example of MyCustomError exception.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
