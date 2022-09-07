@@ -104,6 +104,32 @@ conda env create -f environment.yml
 conda env update -f environment.yml      
 ```
 
+You may encouter following problems when you program on ARM-based M1 Mac.
+
+Problem:
+
+```bash
+ERROR: Could not find a version that satisfies the requirement tensorflow (from versions: none)
+ERROR: No matching distribution found for tensorflow
+```
+
+Solution:
+
+- Step 1: Comment out **tensorflow** in **environment.yml**.
+- Step 2: Follow Apple's [official documentation](https://developer.apple.com/metal/tensorflow-plugin/).
+- Step 3:`conda env update -f environment.yml`
+
+Problem:
+
+```bash
+error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
+fatal: expected flush after ref listing
+```
+
+Solution:
+
+**Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
+
 Activate the Conda environment.
 
 ```bash
@@ -116,6 +142,60 @@ Build the book after you make any changes.
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
 jupyter-book build . 
 ```
+
+You may encouter following problem when you program on ARM-based M1 Mac.
+
+Problem:
+
+```bash
+OSError: no library called "cairo-2" was found
+no library called "cairo" was found
+no library called "libcairo-2" was found
+```
+
+Solution:
+
+- Step 1: Install Homebrew:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Run `which brew ` in terminal, if response is `zsh: command not found: brew`, please run the commands in that order in terminal, you'll be editing the path and creating the missing .zshrc file, exporting the path to this new file.
+
+```bash
+cd /opt/homebrew/bin/
+PATH=$PATH:/opt/homebrew/bin
+cd
+touch .zshrc
+echo export PATH=$PATH:/opt/homebrew/bin >> .zshrc
+```
+
+- Step 2: Install the whole shebang of dependencies through homebrew:
+
+```bash
+brew install cairo pango gdk-pixbuf libxml2 libxslt libffi
+```
+
+- Step 3: Find out the path of `cairo`, `glib` and `pango` installation, and export these to DYLD_LIBRARY_PATH:
+
+```bash
+export DYLD_LIBRARY_PATH=/opt/homebrew/Cellar/cairo/1.16.0_5/lib/:/opt/homebrew/Cellar/pango/1.50.9/lib/:/opt/homebrew/Cellar/glib/2.72.3_1/lib/
+```
+
+**How to find out above pathes?** Here is an example of cairo:
+
+- Run the command `which brew`.
+
+- Response is `/opt/homebrew/bin/brew`, now we get path '/opt/homebrew/'.(**This depends on your computer!!**)
+
+- Enter `/opt/homebrew/Cellar` in command line and press Tab key. You would find `cairo`, `glib`, `pango` inside.
+
+- Continue to enter `cairo/` in command line and press Tab key, the path will be automatically filled in like `/opt/homebrew/Cellar/cairo/1.16.0_5/`
+
+- Add `lib/` to the end of the path above, you've successfully get ultimate path '/opt/homebrew/Cellar/cairo/1.16.0_5/lib/'(**This depends on your computer!! Remind again.**)
+
+- Step 4: `pip uninstall xcffib` if error still exists.
 
 ## Code of conduct
 
