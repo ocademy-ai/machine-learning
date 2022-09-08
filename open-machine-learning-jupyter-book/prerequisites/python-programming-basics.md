@@ -64,9 +64,9 @@ print("Hello, World!")
 
 Python also has extended documentation capability, called docstrings.
 
-Docstrings can be one line, or multiline. Docstrings are also comments:
+Docstrings can be one line, or multiline. Docstrings are also comments.
 
-Python uses triple quotes at the beginning and end of the docstring:
+Python uses `"""` at the beginning and end of the docstring:
 
 ```{code-cell}
 """This is a 
@@ -200,7 +200,7 @@ assert isinstance(big_integer, int)
 
 #### Booleans
 
-Booleans represent the truth values False and True. The two objects representing the values False and True are the only Boolean objects. The Boolean type is a subtype of the integer type, and Boolean values behave like the values 0 and 1, respectively, in almost all contexts, the exception being that when converted to a string, the strings "False" or "True" are returned, respectively.
+Booleans represent the truth values `False` and `True`. The two objects representing the values `False` and `True` are the only Boolean objects. The Boolean type is a subtype of the integer type, and Boolean values behave like the values 0 and 1, respectively, in almost all contexts, the exception being that when converted to a string, the strings `False` or `True` are returned, respectively.
 
 ```{code-cell}
 true_boolean = True
@@ -221,11 +221,9 @@ assert str(false_boolean) == "False"
 
 Float, or "floating point number" is a number, positive or negative, containing one or more decimals.
 
-Another way of declaring float is using float() function.
-
 ```{code-cell}
 float_number = 7.0
-float_number_via_function = float(7)
+float_number_via_function = float(7) # Another way of declaring float is using float() function.
 float_negative = -35.59
 
 assert float_number == float_number_via_function
@@ -261,48 +259,30 @@ assert complex_number_1 * complex_number_2 == 27 + 8j
 
 #### Number operation
 
-Addition.
-
 ```{code-cell}
+# Addition.
 assert 2 + 4 == 6
-```
 
-Multiplication.
-
-```{code-cell}
+# Multiplication.
 assert 2 * 4 == 8
 
-Division always returns a floating point number.
-
-```{code-cell}
+# Division always returns a floating point number.
 assert 12 / 3 == 4.0
 assert 12 / 5 == 2.4
 assert 17 / 3 == 5.666666666666667
-```
 
-Modulo operator returns the remainder of the division.
-
-```{code-cell}
+# Modulo operator returns the remainder of the division.
 assert 12 % 3 == 0
 assert 13 % 3 == 1
-```
 
-Floor division discards the fractional part.
-
-```{code-cell}
+# Floor division discards the fractional part.
 assert 17 // 3 == 5
-```
 
-Raising the number to specific power.
-
-```{code-cell}
+# Raising the number to specific power.
 assert 5 ** 2 == 25  # 5 squared
 assert 2 ** 7 == 128  # 2 to the power of 7
-```
 
-There is full support for floating point; operators with mixed type operands convert the integer operand to floating point.
-
-```{code-cell}
+# There is full support for floating point; operators with mixed type operands convert the integer operand to floating point.
 assert 4 * 3.75 - 1 == 14.0
 ```
 
@@ -310,7 +290,7 @@ assert 4 * 3.75 - 1 == 14.0
 
 #### String Type
 
-Besides numbers, Python can also manipulate strings, which can be expressed in several ways. They can be enclosed in single quotes ('...') or double quotes ("...") with the same result.
+Besides numbers, Python can also manipulate strings, which can be expressed in several ways. They can be enclosed in single quotes `''` or double quotes `""` with the same result.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/introduction.html
@@ -319,15 +299,15 @@ Besides numbers, Python can also manipulate strings, which can be expressed in s
 ```
 
 
-String with double quotes.
+
 
 ```{code-cell}
+# String with double quotes.
 name_1 = "John"
 ```
 
-String with single quotes.
-
 ```{code-cell}
+# String with single quotes.
 name_2 = 'John'
 ```
 
@@ -339,8 +319,9 @@ assert isinstance(name_1, str)
 assert isinstance(name_2, str)
 ```
 
-\ can be used to escape quotes.
-use \' to escape the single quote or use double quotes instead.
+`\` can be used to escape quotes.
+
+Use `\'` to escape the single quote or use double quotes instead.
 
 ```{code-cell}
 single_quote_string = 'doesn\'t'
@@ -349,14 +330,13 @@ double_quote_string = "doesn't"
 assert single_quote_string == double_quote_string
 ```
 
-\n means newline.
+`\n` means newline.
 
 ```{code-cell}
 multiline_string = 'First line.\nSecond line.'
 ```
 
-Without print(), \n is included in the output.
-But with print(), \n produces a new line.
+Without `print()`, `\n` is included in the output. But with `print()`, `\n` produces a new line.
 
 ```{code-cell}
 assert multiline_string == 'First line.\nSecond line.'
@@ -376,15 +356,14 @@ assert word[-6] == 'P'  # Sixth from the end or zeroth from the beginning.
 assert isinstance(word[0], str)
 ```
 
-In addition to indexing, slicing is also supported. While indexing is used to obtain individual characters, slicing allows you to obtain substring:
+In addition to indexing, slicing is also supported. While indexing is used to obtain individual characters, slicing allows you to obtain substring.
 
 ```{code-cell}
 assert word[0:2] == 'Py'  # Characters from position 0 (included) to 2 (excluded).
 assert word[2:5] == 'tho'  # Characters from position 2 (included) to 5 (excluded).
 ```
 
-Note how the start is always included, and the end always excluded.
-This makes sure that s[:i] + s[i:] is always equal to s:
+Note how the start is always included, and the end always excluded. This makes sure that `s[:i] + s[i:]` is always equal to `s`:
 
 ```{code-cell}
 assert word[:2] + word[2:] == 'Python'
@@ -401,11 +380,11 @@ assert word[-2:] == 'on'  # Characters from the second-last (included) to the en
 
 One way to remember how slices work is to think of the indices as pointing between characters, with the left edge of the first character numbered 0. Then the right edge of the last character of a string of n characters has index n, for example:
 
- +---+---+---+---+---+---+
- | P | y | t | h | o | n |
- +---+---+---+---+---+---+
- 0   1   2   3   4   5   6
--6  -5  -4  -3  -2  -1
+ 
+|   | P |   | y |   | t |   | h |   | o |   | n |   |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|  0|   |  1|   |  2|   |  3|   |  4|   |  5|   |  6|
+| -6|   | -5|   | -4|   | -3|   | -2|   | -1|   
 
 Attempting to use an index that is too large will result in an error.
 
@@ -415,7 +394,7 @@ with pytest.raises(Exception):
     assert not not_existing_character
 ```
 
-However, out of range slice indexes are handled gracefully when used for slicing:
+However, out of range slice indexes are handled gracefully when used for slicing.
 
 ```{code-cell}
 assert word[4:42] == 'on'
@@ -430,21 +409,21 @@ with pytest.raises(Exception):
     word[0] = 'J'
 ```
 
-If you need a different string, you should create a new one:
+If you need a different string, you should create a new one.
 
 ```{code-cell}
 assert 'J' + word[1:] == 'Jython'
 assert word[:2] + 'py' == 'Pypy'
 ```
 
-The built-in function len() returns the length of a string:
+The built-in function `len()` returns the length of a string.
 
 ```{code-cell}
 characters = 'supercalifragilisticexpialidocious'
 assert len(characters) == 34
 ```
 
-String literals can span multiple lines. One way is using triple-quotes: """...""" or '''...'''. End of lines are automatically included in the string, but it’s possible to prevent this by adding a \ at the end of the line. The following example:
+String literals can span multiple lines. One way is using triple-quotes: `"""..."""` or `'''...'''`. End of lines are automatically included in the string, but it’s possible to prevent this by adding a `\` at the end of the line. The following example:
 
 ```{code-cell}
 multi_line_string = '''\
@@ -460,7 +439,7 @@ assert multi_line_string == '''\
 
 #### String operations
 
-Strings can be concatenated (glued together) with the + operator, and repeated with *.
+Strings can be concatenated (glued together) with the `+` operator, and repeated with `*`.
 
 ```{code-cell}
 assert 3 * 'un' + 'ium' == 'unununium'
@@ -481,7 +460,7 @@ text = (
 assert text == 'Put several strings within parentheses to have them joined together.'
 ```
 
-If you want to concatenate variables or a variable and a literal, use +:
+If you want to concatenate variables or a variable and a literal, use `+`:
 
 ```{code-cell}
 prefix = 'Py'
@@ -494,92 +473,93 @@ assert prefix + 'thon' == 'Python'
 hello_world_string = "Hello, World!"
 ```
 
-The strip() method removes any whitespace from the beginning or the end.
+The `strip()` method removes any whitespace from the beginning or the end.
 
 ```{code-cell}
 string_with_whitespaces = " Hello, World! "
 assert string_with_whitespaces.strip() == "Hello, World!"
 ```
 
-The len() method returns the length of a string.
+The `len()` method returns the length of a string.
 
 ```{code-cell}
 assert len(hello_world_string) == 13
 ```
 
-The lower() method returns the string in lower case.
+The `lower()` method returns the string in lower case.
 
 ```{code-cell}
 assert hello_world_string.lower() == 'hello, world!'
 ```
 
-The upper() method returns the string in upper case.
+The `upper()` method returns the string in upper case.
 
 ```{code-cell}
 assert hello_world_string.upper() == 'HELLO, WORLD!'
 ```
 
-The replace() method replaces a string with another string.
+The `replace()` method replaces a string with another string.
 
 ```{code-cell}
 assert hello_world_string.replace('H', 'J') == 'Jello, World!'
 ```
 
-The split() method splits the string into substrings if it finds instances of the separator.
+The `split()` method splits the string into substrings if it finds instances of the separator.
 
 ```{code-cell}
 assert hello_world_string.split(',') == ['Hello', ' World!']
 ```
 
-Converts the first character to upper case.
+The `capitalize()` method converts the first character to upper case.
+
 ```{code-cell}
 assert 'low letter at the beginning'.capitalize() == 'Low letter at the beginning'
 ```
 
-Returns the number of times a specified value occurs in a string.
+The `count()` method returns the number of times a specified value occurs in a string.
 
 ```{code-cell}
 assert 'low letter at the beginning'.count('t') == 4
 ```
 
-Searches the string for a specified value and returns the position of where it was found.
+The `find()` method searches the string for a specified value and returns the position of where it was found.
 
 ```{code-cell}
 assert 'Hello, welcome to my world'.find('welcome') == 7
 ```
 
-Converts the first character of each word to upper case.
+The `title()` method converts the first character of each word to upper case.
 
 ```{code-cell}
 assert 'Welcome to my world'.title() == 'Welcome To My World'
 ```
 
-Returns a string where a specified value is replaced with a specified value.
+The `replace()` method returns a string where a specified value is replaced with a specified value.
 
 ```{code-cell}
 assert 'I like bananas'.replace('bananas', 'apples') == 'I like apples'
 ```
 
-Joins the elements of an iterable to the end of the string.
+The `join()` method joins the elements of an iterable to the end of the string.
 ```{code-cell}
 my_tuple = ('John', 'Peter', 'Vicky')
 assert '-'.join(my_tuple) == 'John-Peter-Vicky'
 ```
 
-Returns True if all characters in the string are upper case.
+The `isupper()` method returns True if all characters in the string are upper case.
 ```{code-cell}
 assert 'ABC'.isupper()
 assert not 'AbC'.isupper()
 ```
 
-Check if all the characters in the text are letters.
+The `isalpha()` method checks if all the characters in the text are letters.
 
 ```{code-cell}
 assert 'CompanyX'.isalpha()
 assert not 'Company 23'.isalpha()
 ```
 
-Returns True if all characters in the string are decimals.
+The `isdecimal()` method returns True if all characters in the string are decimals.
 
 ```{code-cell}
 assert '1234'.isdecimal()
@@ -590,7 +570,7 @@ assert not 'a21453'.isdecimal()
 
 Often you’ll want more control over the formatting of your output than simply printing space-separated values. There are several ways to format output.
 
-To use formatted string literals, begin a string with f or F before the opening quotation mark or triple quotation mark. Inside this string, you can write a Python expression between { and } characters that can refer to variables or literal values.
+To use formatted string literals, begin a string with f or F before the opening quotation mark or triple quotation mark. Inside this string, you can write a Python expression between `{}` characters that can refer to variables or literal values.
 
 ```{code-cell}
 year = 2018
@@ -599,7 +579,7 @@ event = 'conference'
 assert f'Results of the {year} {event}' == 'Results of the 2018 conference'
 ```
 
-The str.format() method of strings requires more manual effort. You’ll still use { and } to mark where a variable will be substituted and can provide detailed formatting directives, but you’ll also need to provide the information to be formatted.
+The `str.format()` method of strings requires more manual effort. You’ll still use `{}` to mark where a variable will be substituted and can provide detailed formatting directives, but you’ll also need to provide the information to be formatted.
 
 ```{code-cell}
 yes_votes = 42_572_654  # equivalent of 42572654
@@ -609,7 +589,11 @@ percentage = yes_votes / (yes_votes + no_votes)
 assert '{:-9} YES votes  {:2.2%}'.format(yes_votes, percentage) == ' 42572654 YES votes  49.67%'
 ```
 
-When you don’t need fancy output but just want a quick display of some variables for debugging purposes, you can convert any value to a string with the repr() or str() functions. The str() function is meant to return representations of values which are fairly human-readable, while repr() is meant to generate representations which can be read by the interpreter (or will force a SyntaxError if there is no equivalent syntax). For objects which don’t have a particular representation for human consumption, str() will return the same value as repr(). Many values, such as numbers or structures like lists and dictionaries, have the same representation using either function. Strings, in particular, have two distinct representations.
+When you don’t need fancy output but just want a quick display of some variables for debugging purposes, you can convert any value to a string with the `repr()` or `str()` functions. 
+
+The `str()` function is meant to return representations of values which are fairly human-readable, while `repr()` is meant to generate representations which can be read by the interpreter (or will force a `SyntaxError` if there is no equivalent syntax). 
+
+For objects which don’t have a particular representation for human consumption, `str()` will return the same value as `repr()`. Many values, such as numbers or structures like lists and dictionaries, have the same representation using either function. Strings, in particular, have two distinct representations.
 
 ```{code-cell}
 greeting = 'Hello, world.'
@@ -621,15 +605,15 @@ assert repr(greeting) == "'Hello, world.'"
 assert str(1/7) == '0.14285714285714285'
 ```
 
-The argument to repr() may be any Python object:
+The argument to `repr()` may be any Python object:
 
 ```{code-cell}
 assert repr((first_num, second_num, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"
 ```
 
-Formatted String Literals
+##### Formatted String Literals
 
-Formatted string literals (also called f-strings for short) let you include the value of Python expressions inside a string by prefixing the string with f or F and writing expressions as {expression}.
+Formatted string literals (also called f-strings for short) let you include the value of Python expressions inside a string by prefixing the string with f or F and writing expressions as `{expression}`.
 
 An optional format specifier can follow the expression. This allows greater control over how the value is formatted. The following example rounds pi to three places after the decimal.
 
@@ -638,7 +622,7 @@ pi_value = 3.14159
 assert f'The value of pi is {pi_value:.3f}.' == 'The value of pi is 3.142.'
 ```
 
-Passing an integer after the ':' will cause that field to be a minimum number of characters wide. This is useful for making columns line up:
+Passing an integer after the `:` will cause that field to be a minimum number of characters wide. This is useful for making columns line up.
 
 ```{code-cell}
 table_data = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 7678}
@@ -651,22 +635,22 @@ assert table_string == ('Sjoerd ==>   4127'
                         'Dcab   ==>   7678')
 ```
 
-The String format() Method
+##### The String format() Method
 
-Basic usage of the str.format() method looks like this:
+Basic usage of the `str.format()` method looks like this:
 
 ```{code-cell}
 assert 'We are {} who say "{}!"'.format('knights', 'Ni') == 'We are knights who say "Ni!"'
 ```
 
-The brackets and characters within them (called format fields) are replaced with the objects passed into the str.format() method. A number in the brackets can be used to refer to the position of the object passed into the str.format() method.
+The brackets and characters within them (called format fields) are replaced with the objects passed into the `str.format()` method. A number in the brackets can be used to refer to the position of the object passed into the `str.format()` method.
 
 ```{code-cell}
 assert '{0} and {1}'.format('spam', 'eggs') == 'spam and eggs'
 assert '{1} and {0}'.format('spam', 'eggs') == 'eggs and spam'
 ```
 
-If keyword arguments are used in the str.format() method, their values are referred to by using the name of the argument.
+If keyword arguments are used in the `str.format()` method, their values are referred to by using the name of the argument.
 
 ```{code-cell}
 formatted_string = 'This {food} is {adjective}.'.format(
@@ -677,7 +661,7 @@ formatted_string = 'This {food} is {adjective}.'.format(
 assert formatted_string == 'This spam is absolutely horrible.'
 ```
 
-Positional and keyword arguments can be arbitrarily combined
+Positional and keyword arguments can be arbitrarily combined.
 
 ```{code-cell}
 formatted_string = 'The story of {0}, {1}, and {other}.'.format(
@@ -689,7 +673,7 @@ formatted_string = 'The story of {0}, {1}, and {other}.'.format(
 assert formatted_string == 'The story of Bill, Manfred, and Georg.'
 ```
 
-If you have a really long format string that you don’t want to split up, it would be nice if you could reference the variables to be formatted by name instead of by position. This can be done by simply passing the dict and using square brackets '[]' to access the keys.
+If you have a really long format string that you don’t want to split up, it would be nice if you could reference the variables to be formatted by name instead of by position. This can be done by simply passing the dict and using square brackets `[]` to access the keys.
 
 ```{code-cell}
 table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678}
@@ -698,7 +682,7 @@ formatted_string = 'Jack: {0[Jack]:d}; Sjoerd: {0[Sjoerd]:d}; Dcab: {0[Dcab]:d}'
 assert formatted_string == 'Jack: 4098; Sjoerd: 4127; Dcab: 8637678'
 ```
 
-This could also be done by passing the table as keyword arguments with the ‘**’ notation.
+This could also be done by passing the table as keyword arguments with the `**` notation.
 
 ```{code-cell}
 formatted_string = 'Jack: {Jack:d}; Sjoerd: {Sjoerd:d}; Dcab: {Dcab:d}'.format(**table)
@@ -756,7 +740,7 @@ cubes[3] = 64  # replace the wrong value
 assert cubes == [1, 8, 27, 64, 125]
 ```
 
-You can also add new items at the end of the list, by using the append() method
+You can also add new items at the end of the list, by using the `append()` method.
 
 ```{code-cell}
 cubes.append(216)  # add the cube of 6
@@ -774,13 +758,13 @@ letters[2:5] = []  # now remove them
 assert letters == ['a', 'b', 'f', 'g']
 ```
 
-clear the list by replacing all the elements with an empty list
+Clear the list by replacing all the elements with an empty list.
 
 ```{code-cell}
 letters[:] = []
 assert letters == []
 ```
-The built-in function len() also applies to lists
+The built-in function `len()` also applies to lists.
 
 ```{code-cell} 
 letters = ['a', 'b', 'c', 'd']
@@ -806,18 +790,14 @@ import pytest
 fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 ```
 
-list.append(x)
-Add an item to the end of the list.
-Equivalent to a[len(a):] = [x].
+`list.append(x)` adds an item to the end of the list, equivalent to `a[len(a):] = [x]`.
 
 ```{code-cell}
 fruits.append('grape')
 assert fruits == ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'grape']
 ```
 
-list.remove(x)
-Remove the first item from the list whose value is equal to x.
-It raises a ValueError if there is no such item.
+`list.remove(x)` removes the first item from the list whose value is equal to x. It raises a `ValueError` if there is no such item.
 
 ```{code-cell}
 fruits.remove('grape')
@@ -827,16 +807,14 @@ with pytest.raises(Exception):
     fruits.remove('not existing element')
 ```
 
-list.insert(i, x)
-Insert an item at a given position. The first argument is the index of the element before which to insert, so a.insert(0, x) inserts at the front of the list, and a.insert(len(a), x) is equivalent to a.append(x).
+`list.insert(i, x)` inserts an item at a given position. The first argument is the index of the element before which to insert, so `a.insert(0, x)` inserts at the front of the list, and `a.insert(len(a), x)` is equivalent to `a.append(x)`.
 
 ```{code-cell}
 fruits.insert(0, 'grape')
 assert fruits == ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 ```
 
-list.index(x[, start[, end]])
-Return zero-based index in the list of the first item whose value is equal to x.
+`list.index(x[, start[, end]])` returns zero-based index in the list of the first item whose value is equal to x.
 Raises a ValueError if there is no such item.
 The optional arguments start and end are interpreted as in the slice notation and are used to limit the search to a particular subsequence of the list. The returned index is computed relative to the beginning of the full sequence rather than the start argument.
 
@@ -850,24 +828,21 @@ with pytest.raises(Exception):
     fruits.index('not existing element')
 ```
 
-list.count(x)
-Return the number of times x appears in the list.
+`list.count(x)` returns the number of times x appears in the list.
 
 ```{code-cell}
 assert fruits.count('tangerine') == 0
 assert fruits.count('banana') == 2
 ```
 
-list.copy()
-Return a shallow copy of the list. Equivalent to a[:].
+`list.copy()` returns a shallow copy of the list. Equivalent to `a[:]`.
 
 ```{code-cell}
 fruits_copy = fruits.copy()
 assert fruits_copy == ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 ```
 
-list.reverse()
-Reverse the elements of the list in place.
+`list.reverse()` reverses the elements of the list in place.
 
 ```{code-cell}
 fruits_copy.reverse()
@@ -883,8 +858,7 @@ assert fruits_copy == [
 ]
 ```
 
-list.sort(key=None, reverse=False)
-Sort the items of the list in place (the arguments can be used for sort customization, see sorted() for their explanation).
+`list.sort(key=None, reverse=False)` sorts the items of the list in place. (The arguments can be used for sort customization, see `sorted()` for their explanation.)
 
 ```{code-cell}
 fruits_copy.sort()
@@ -900,8 +874,7 @@ assert fruits_copy == [
 ]
 ```
 
-list.pop([i])
-Remove the item at the given position in the list, and return it. If no index is specified, a.pop() removes and returns the last item in the list. (The square brackets around the i in the method signature denote that the parameter is optional, not that you should type square brackets at that position.)
+`list.pop([i])` removes the item at the given position in the list, and return it. If no index is specified, `a.pop()` removes and returns the last item in the list. (The square brackets around the i in the method signature denote that the parameter is optional, not that you should type square brackets at that position.)
 
 ```{code-cell}
 assert fruits == ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
@@ -909,8 +882,7 @@ assert fruits.pop() == 'banana'
 assert fruits == ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple']
 ```
 
-list.clear()
-Remove all items from the list. Equivalent to del a[:].
+`list.clear()` removes all items from the list. Equivalent to `del a[:]`.
 
 ```{code-cell}
 fruits.clear()
@@ -919,7 +891,7 @@ assert fruits == []
 
 #### The del statement
 
-There is a way to remove an item from a list given its index instead of its value: the del statement. This differs from the pop() method which returns a value. The del statement can also be used to remove slices from a list or clear the entire list (which we did earlier by assignment of an empty list to the slice).
+There is a way to remove an item from a list given its index instead of its value: the `del` statement. This differs from the `pop()` method which returns a value. The `del` statement can also be used to remove slices from a list or clear the entire list (which we did earlier by assignment of an empty list to the slice).
 
 ```{code-cell}
 import pytest
@@ -945,7 +917,7 @@ with pytest.raises(Exception):
 
 #### List Comprehensions
 
-List comprehensions provide a concise way to create lists. Common applications are to make new lists where each element is the result of some operations applied to each member of another sequence or iterable, or to create a subsequence of those elements that satisfy a certain condition. A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. The result will be a new list resulting from evaluating the expression in the context of the for and if clauses which follow it.
+List comprehensions provide a concise way to create lists. Common applications are to make new lists where each element is the result of some operations applied to each member of another sequence or iterable, or to create a subsequence of those elements that satisfy a certain condition. A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more `for` or `if` clauses. The result will be a new list resulting from evaluating the expression in the context of the `for` and `if` clauses which follow it.
 
 For example, assume we want to create a list of squares, like:
 
@@ -964,21 +936,21 @@ squares = list(map(lambda x: x ** 2, range(10)))
 assert squares == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 ```
 
-or, equivalently (which is more concise and readable):
+Or, equivalently (which is more concise and readable):
 
 ```{code-cell}
 squares = [x ** 2 for x in range(10)]
 assert squares == [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 ```
 
-For example, this listcomp combines the elements of two lists if they are not equal.
+For example, this listcomp combines the elements of two lists if they are not equal:
 
 ```{code-cell}
 combinations = [(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
 assert combinations == [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
 ```
 
-and it’s equivalent to:
+And it’s equivalent to:
 
 ```{code-cell}
 combinations = []
@@ -990,7 +962,7 @@ for first_number in [1, 2, 3]:
 assert combinations == [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
 ```
 
-Note how the order of the for and if statements is the same in both these snippets.
+Note how the order of the `for` and `if` statements is the same in both these snippets.
 
 If the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized.
 
@@ -1036,7 +1008,7 @@ square_tuples = [(x, x ** 2) for x in range(6)]
 assert square_tuples == [(0, 0), (1, 1), (2, 4), (3, 9), (4, 16), (5, 25)]
 ```
 
-Flatten a list using a listcomp with two 'for'.
+Flatten a list using a listcomp with two `for`.
 
 ```{code-cell}
 vector = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -1085,7 +1057,7 @@ assert transposed == [
 ]
 ```
 
-which, in turn, is the same as:
+Which, in turn, is the same as:
 
 ```{code-cell}
 transposed = []
@@ -1104,8 +1076,7 @@ assert transposed == [
 ]
 ```
 
-In the real world, you should prefer built-in functions to complex flow statements.
-The zip() function would do a great job for this use case:
+In the real world, you should prefer built-in functions to complex flow statements. The `zip()` function would do a great job for this use case.
 
 ```{code-cell}
 assert list(zip(*matrix)) == [
@@ -1149,8 +1120,9 @@ with pytest.raises(Exception):
     fruits_tuple[0] = "pineapple"
 ```
 
-It is also possible to use the tuple() constructor to make a tuple (note the double round-brackets).
-The len() function returns the length of the tuple.
+It is also possible to use the `tuple()` constructor to make a tuple (note the double round-brackets). 
+
+The `len()` function returns the length of the tuple.
 
 ```{code-cell}
 fruits_tuple_via_constructor = tuple(("apple", "banana", "cherry"))
@@ -1188,7 +1160,7 @@ assert len(singleton_tuple) == 1
 assert singleton_tuple == ('hello',)
 ```
 
-The following example is called tuple packing:
+The following example is called **tuple packing**:
 
 ```{code-cell}
 packed_tuple = 12345, 54321, 'hello!'
@@ -1203,9 +1175,12 @@ assert second_tuple_number == 54321
 assert third_tuple_string == 'hello!'
 ```
 
-This is called, appropriately enough, sequence unpacking and works for any sequence on the right-hand side. Sequence unpacking requires that there are as many variables on the left side of the equals sign as there are elements in the sequence. Note that multiple assignment is really just a combination of tuple packing and sequence unpacking.
+This is called, appropriately enough, **sequence unpacking** and works for any sequence on the right-hand side. Sequence unpacking requires that there are as many variables on the left side of the equals sign as there are elements in the sequence. 
+
+Note that multiple assignment is really just a combination of tuple packing and sequence unpacking.
 
 Swapping using tuples.
+
 Data can be swapped from one variable to another in python using tuples. This eliminates the need to use a 'temp' variable.
 
 ```{code-cell}
@@ -1220,7 +1195,8 @@ assert second_number == 123
 ### Sets and their methods
 
 A set is a collection which is unordered and unindexed.
-In Python sets are written with curly brackets.
+
+In Python sets are written with `{}`.
 
 Set objects also support mathematical operations like union, intersection, difference, and symmetric difference.
 
@@ -1237,8 +1213,7 @@ fruits_set = {"apple", "banana", "cherry"}
 assert isinstance(fruits_set, set)
 ```
 
-It is also possible to use the set() constructor to make a set.
-Note the double round-brackets
+It is also possible to use the set() constructor to make a set. Note the `(())`.
 
 ```{code-cell}
 fruits_set_via_constructor = set(("apple", "banana", "cherry"))
@@ -1252,20 +1227,20 @@ assert isinstance(fruits_set_via_constructor, set)
 fruits_set = {"apple", "banana", "cherry"}
 ```
 
-You may check if the item is in set by using "in" statement
+You may check if the item is in set by using `in` statement.
 
 ```{code-cell}
 assert "apple" in fruits_set
 assert "pineapple" not in fruits_set
 ```
 
-Use the len() method to return the number of items.
+Use the `len()` method to return the number of items.
 
 ```{code-cell}
 assert len(fruits_set) == 3
 ```
 
-You can use the add() object method to add an item.
+You can use the `add()` object method to add an item.
 
 ```{code-cell}
 fruits_set.add("pineapple")
@@ -1273,7 +1248,7 @@ assert "pineapple" in fruits_set
 assert len(fruits_set) == 4
 ```
 
-Use remove() method to remove an item.
+Use `remove()` object method to remove an item.
 
 ```{code-cell}
 fruits_set.remove("pineapple")
@@ -1326,9 +1301,9 @@ assert word == {'r', 'd'}
 
 A dictionary is a collection which is unordered, changeable and indexed. In Python dictionaries are written with curly brackets, and they have keys and values.
 
-Dictionaries are sometimes found in other languages as “associative memories” or “associative arrays”. Unlike sequences, which are indexed by a range of numbers, dictionaries are indexed by keys, which can be any immutable type; strings and numbers can always be keys. Tuples can be used as keys if they contain only strings, numbers, or tuples; if a tuple contains any mutable object either directly or indirectly, it cannot be used as a key. You can’t use lists as keys, since lists can be modified in place using index assignments, slice assignments, or methods like append() and extend().
+Dictionaries are sometimes found in other languages as “associative memories” or “associative arrays”. Unlike sequences, which are indexed by a range of numbers, dictionaries are indexed by keys, which can be any immutable type; strings and numbers can always be keys. Tuples can be used as keys if they contain only strings, numbers, or tuples; if a tuple contains any mutable object either directly or indirectly, it cannot be used as a key. You can’t use lists as keys, since lists can be modified in place using index assignments, slice assignments, or methods like `append()` and `extend()`.
 
-It is best to think of a dictionary as a set of key: value pairs, with the requirement that the keys are unique (within one dictionary). A pair of braces creates an empty dictionary: {}. Placing a comma-separated list of key:value pairs within the braces adds initial key:value pairs to the dictionary; this is also the way dictionaries are written on output.
+It is best to think of a dictionary as a set of key: value pairs, with the requirement that the keys are unique (within one dictionary). A pair of braces creates an empty dictionary: `{}`. Placing a comma-separated list of key:value pairs within the braces adds initial key:value pairs to the dictionary; this is also the way dictionaries are written on output.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/datastructures.html#dictionaries
@@ -1353,7 +1328,7 @@ assert fruits_dictionary['banana'] == 'yellow'
 assert fruits_dictionary['cherry'] == 'red'
 ```
 
-To check whether a single key is in the dictionary, use the in keyword.
+To check whether a single key is in the dictionary, use the `in` keyword.
 
 ```{code-cell}
 assert 'apple' in fruits_dictionary
@@ -1366,28 +1341,28 @@ Change the apple color to "red".
 fruits_dictionary['apple'] = 'red'
 ```
 
-Add new key/value pair to the dictionary
+Add new key/value pair to the dictionary.
 
 ```{code-cell}
 fruits_dictionary['pineapple'] = 'yellow'
 assert fruits_dictionary['pineapple'] == 'yellow'
 ```
 
-Performing list(d) on a dictionary returns a list of all the keys used in the dictionary, in insertion order (if you want it sorted, just use sorted(d) instead).
+Performing `list(d)` on a dictionary returns a list of all the keys used in the dictionary, in insertion order. (If you want it sorted, just use `sorted(d)` instead.)
 
 ```{code-cell}
 assert list(fruits_dictionary) == ['cherry', 'apple', 'banana', 'pineapple']
 assert sorted(fruits_dictionary) == ['apple', 'banana', 'cherry', 'pineapple']
 ```
 
-It is also possible to delete a key:value pair with del.
+It is also possible to delete a key:value pair with `del`.
 
 ```{code-cell}
 del fruits_dictionary['pineapple']
 assert list(fruits_dictionary) == ['cherry', 'apple', 'banana']
 ```
 
-The dict() constructor builds dictionaries directly from sequences of key-value pairs.
+The `dict()` constructor builds dictionaries directly from sequences of key-value pairs.
 
 ```{code-cell}
 dictionary_via_constructor = dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
@@ -1417,20 +1392,21 @@ assert dictionary_for_string_keys['jack'] == 4098
 
 ### Type Casting
 
-There may be times when you want to specify a type on to a variable. This can be done with casting.
+There may be times when you want to specify a type on to a variable. This can be done with **casting**.
+
 Python is an object-orientated language, and as such it uses classes to define data types,
 including its primitive types.
 
-Casting in python is therefore done using constructor functions
+Casting in python is therefore done using constructor functions.
 
-- int() - constructs an integer number from an integer literal, a float literal (by rounding down
+- `int()` - constructs an integer number from an integer literal, a float literal (by rounding down
 to the previous whole number) literal, or a string literal (providing the string represents a
 whole number)
 
-- float() - constructs a float number from an integer literal, a float literal or a string literal
+- `float()` - constructs a float number from an integer literal, a float literal or a string literal
 (providing the string represents a float or an integer)
 
-- str() - constructs a string from a wide variety of data types, including strings, integer
+- `str()` - constructs a string from a wide variety of data types, including strings, integer
 literals and float literals
 
 ```{seealso}
@@ -1438,7 +1414,7 @@ literals and float literals
 ```
 
 
-Type casting to integer
+Type casting to integer.
 
 ```{code-cell}
 assert int(1) == 1
@@ -1446,7 +1422,7 @@ assert int(2.8) == 2
 assert int('3') == 3
 ```
 
-Type casting to float
+Type casting to float.
 
 ```{code-cell}
 assert float(1) == 1.0
@@ -1455,7 +1431,7 @@ assert float("3") == 3.0
 assert float("4.2") == 4.2
 ```
 
-Type casting to string
+Type casting to string.
 
 ```{code-cell}
 assert str("s1") == 's1'
