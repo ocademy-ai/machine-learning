@@ -21,7 +21,7 @@ kernelspec:
 
 There can be zero or more elif parts, and the else part is optional. The keyword ‘elif’ is short for ‘else if’, and is useful to avoid excessive indentation.
 
-An if … elif … elif … sequence is a substitute for the switch or case statements found in other languages.
+An `if … elif … elif …` sequence is a substitute for the switch or case statements found in other languages.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html
@@ -49,10 +49,6 @@ The for statement in Python differs a bit from what you may be used to in C or P
 
 Measure some strings:
 
-"cat" length is 3
-"window" length is 6
-"defenestrate" length is 12
-
 ```{code-cell}
 words = ['cat', 'window', 'defenestrate']
 words_length = 0
@@ -60,6 +56,7 @@ words_length = 0
 for word in words:
     words_length += len(word)
 
+#"cat" length is 3. "window" length is 6. "defenestrate" length is 12.
 assert words_length == (3 + 6 + 12)
 ```
 
@@ -71,13 +68,13 @@ for word in words[:]:  # Loop over a slice copy of the entire list.
         words.insert(0, word)
 ```
 
-Otherwise with for w in words:, the example would attempt to create an infinite list, inserting defenestrate over and over again.
+Otherwise `with for word in words[:]`, the example would attempt to create an infinite list, inserting defenestrate over and over again.
 
 ```{code-cell}
 assert words == ['defenestrate', 'cat', 'window', 'defenestrate']
 ```
 
-If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions:
+If you do need to iterate over a sequence of numbers, the built-in function `range()` comes in handy. It generates arithmetic progressions:
 
 ```{code-cell}
 iterated_numbers = []
@@ -88,7 +85,7 @@ for number in range(5):
 assert iterated_numbers == [0, 1, 2, 3, 4]
 ```
 
-To iterate over the indices of a sequence, you can combine range() and len() as follows:
+To iterate over the indices of a sequence, you can combine `range()` and `len()` as follows:
 
 ```{code-cell}
 words = ['Mary', 'had', 'a', 'little', 'lamb']
@@ -101,7 +98,7 @@ for word_index in range(len(words)):
 assert concatenated_string == 'Mary had a little lamb '
 ```
 
-Or simply use enumerate().
+Or simply use `enumerate()`.
 
 ```{code-cell}
 concatenated_string = ''
@@ -112,7 +109,7 @@ for word_index, word in enumerate(words):
 assert concatenated_string == 'Mary had a little lamb '
 ```
 
-When looping through dictionaries, the key and corresponding value can be retrieved at the same time using the items() method.
+When looping through dictionaries, the key and corresponding value can be retrieved at the same time using the `items()` method.
 
 ```{code-cell}
 knights_names = []
@@ -127,7 +124,7 @@ assert knights_names == ['gallahad', 'robin']
 assert knights_properties == ['the pure', 'the brave']
 ```
 
-When looping through a sequence, the position index and corresponding value can be retrieved at the same time using the enumerate() function
+When looping through a sequence, the position index and corresponding value can be retrieved at the same time using the `enumerate()` function
 
 ```{code-cell}
 indices = []
@@ -140,7 +137,7 @@ assert indices == [0, 1, 2]
 assert values == ['tic', 'tac', 'toe']
 ```
 
-To loop over two or more sequences at the same time, the entries can be paired with the zip() function.
+To loop over two or more sequences at the same time, the entries can be paired with the `zip()` function.
 
 ```{code-cell}
 questions = ['name', 'quest', 'favorite color']
@@ -157,13 +154,11 @@ assert combinations == [
 ]
 ```
 
-If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions.
+In many ways the object returned by `range()` behaves as if it is a list, but in fact it isn’t. It is an object which returns the successive items of the desired sequence when you iterate over it, but it doesn’t really make the list, thus saving space.
 
-In many ways the object returned by range() behaves as if it is a list, but in fact it isn’t. It is an object which returns the successive items of the desired sequence when you iterate over it, but it doesn’t really make the list, thus saving space.
+We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. We have seen that the for statement is such an iterator. The function `list()` is another; it creates lists from iterables:
 
-We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. We have seen that the for statement is such an iterator. The function list() is another; it creates lists from iterables:
-
-The given end point is never part of the generated sequence; range(10) generates 10 values, the legal indices for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a different increment (even negative; sometimes this is called the ‘step’):
+The given end point is never part of the generated sequence; `range(10)` generates 10 values, the legal indices for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a different increment (even negative; sometimes this is called the ‘step’):
 
 
 ```{code-cell}
@@ -177,7 +172,7 @@ assert list(range(-10, -100, -30)) == [-10, -40, -70]
 
 The while loop executes as long as the condition remains true. In Python, like in C, any non-zero integer value is true; zero is false. The condition may also be a string or list value, in fact any sequence; anything with a non-zero length is true, empty sequences are false.
 
-The test used in the example is a simple comparison. The standard comparison operators are written the same as in C: < (less than), > (greater than), == (equal to), <= (less than or equal to), >= (greater than or equal to) and != (not equal to).
+The test used in the example is a simple comparison. The standard comparison operators are written the same as in C: `<` (less than), `>` (greater than), `==` (equal to), `<=` (less than or equal to), `>=` (greater than or equal to) and `!=` (not equal to).
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html
@@ -201,13 +196,14 @@ assert result == 32
 
 ### The try statement
 
-"try" statement is used for exception handling.
-When an error occurs, or exception as we call it, Python will normally stop and generate an error message. These exceptions can be handled using the try statement.
+The try statement is used for exception handling.
 
-The "try" block lets you test a block of code for errors.
-The "except" block lets you handle the error.
-The "else" block lets you execute the code if no errors were raised.
-The "finally" block lets you execute code, regardless of the result of the try- and except blocks.
+When an error occurs, or exception as we call it, Python will normally stop and generate an error message. These exceptions can be handled using the try statement:
+
+- The `try` block lets you test a block of code for errors.
+- The `except` block lets you handle the error.
+- The `else` block lets you execute the code if no errors were raised.
+- The `finally` block lets you execute code, regardless of the result of the `try` and `except` blocks.
 
 ```{seealso}
 - https://www.w3schools.com/python/python_try_except.asp
@@ -256,7 +252,7 @@ else:
 assert message == 'Success.Nothing went wrong.'
 ```
 
-The finally block, if specified, will be executed regardless if the try block raises an error or not.
+The finally block, if specified, will be executed regardless if the `try` block raises an error or not.
 
 ```{code-cell}
 message = ''
@@ -336,8 +332,9 @@ The keyword def introduces a function definition. It must be followed by the fun
 
 ```{code-cell}
 def fibonacci_function_example(number_limit):
-    """Generate a Fibonacci series up to number_limit.
-    The first statement of the function body can optionally be a string literal; this string literal is the function’s documentation string, or docstring. There are tools which use docstrings to automatically produce online or printed documentation, or to let the user interactively browse through code; it’s good practice to include docstrings in code that you write, so make a habit of it.
+    """The first statement of the function body can optionally be a string literal; this string literal is the function’s documentation string, or docstring. There are tools which use docstrings to automatically produce online or printed documentation, or to let the user interactively browse through code; it’s good practice to include docstrings in code that you write, so make a habit of it.
+
+    Generate a Fibonacci series up to number_limit.
     """
 
     # The execution of a function introduces a new symbol table used for the local variables of the
@@ -372,9 +369,10 @@ Now call the function we just defined.
 
 ```{code-cell}
 assert fibonacci_function_example(300) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
+```
 
-A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function.
-This value can be assigned to another name which can then also be used as a function.
+A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function. This value can be assigned to another name which can then also be used as a function.
+
 This serves as a general renaming mechanism.
 
 ```{code-cell}
@@ -436,7 +434,7 @@ assert greet_function() == 'Hello there!'
 
 Inner functions have access to the enclosing scope.
 
-More commonly known as a closure. A very powerful pattern that we will come across while building decorators. Another thing to note, Python only allows read access to the outer scope and not assignment. Notice how we modified the example above to read a "name" argument from the enclosing scope of the inner function and return the new function.
+More commonly known as a closure. A very powerful pattern that we will come across while building decorators. Another thing to note, Python only allows read access to the outer scope and not assignment. Notice how we modified the example above to read a `name` argument from the enclosing scope of the inner function and return the new function.
 
 ```{code-cell}
 def compose_greet_func_with_closure(name):
@@ -452,23 +450,22 @@ assert greet_with_closure() == 'Hello there, John!'
 
 ### Scopes of Variables Inside Functions (global and nonlocal statements)
 
-A NAMESPACE is a mapping from names to objects. Most namespaces are currently implemented as Python dictionaries, but that’s normally not noticeable in any way (except for performance), and it may change in the future. Examples of namespaces are: the set of built-in names (containing functions such as abs(), and built-in exception names); the global names in a module; and the local names in a function invocation. In a sense the set of attributes of an object also form a namespace.
-The important thing to know about namespaces is that there is absolutely no relation between names in different namespaces; for instance, two different modules may both define a function maximize without confusion — users of the modules must prefix it with the module name.
+A NAMESPACE is a mapping from names to objects. Most namespaces are currently implemented as Python dictionaries, but that’s normally not noticeable in any way (except for performance), and it may change in the future. Examples of namespaces are: the set of built-in names (containing functions such as `abs()`, and built-in exception names); the global names in a module; and the local names in a function invocation. In a sense the set of attributes of an object also form a namespace.
 
-By the way, we use the word attribute for any name following a dot — for example, in the expression z.real, real is an attribute of the object z. Strictly speaking, references to names in modules are attribute references: in the expression modname.func_name, modname is a module object and func_name is an attribute of it. In this case there happens to be a straightforward mapping between the module’s attributes and the global names defined in the module: they share the same namespace!
+The important thing to know about namespaces is that there is absolutely no relation between names in different namespaces; for instance, two different modules may both define a function `maximize` without confusion — users of the modules must prefix it with the module name.
 
-A SCOPE is a textual region of a Python program where a namespace is directly accessible.
-“Directly accessible” here means that an unqualified reference to a name attempts to find the name in the namespace.
+By the way, we use the word attribute for any name following a dot — for example, in the expression `z.real`, `real` is an attribute of the object `z`. Strictly speaking, references to names in modules are attribute references: in the expression `modname.func_name`, `modname` is a module object and `func_name` is an attribute of it. In this case there happens to be a straightforward mapping between the module’s attributes and the global names defined in the module: they share the same namespace!
 
+A SCOPE is a textual region of a Python program where a namespace is directly accessible. (“Directly accessible” here means that an unqualified reference to a name attempts to find the name in the namespace.)
 
 Although scopes are determined statically, they are used dynamically. At any time during execution, there are at least three nested scopes whose namespaces are directly accessible:
-- the innermost scope, which is searched first, contains the local names.
-- the scopes of any enclosing functions, which are searched starting with the nearest enclosing scope, contains non-local, but also non-global names.
-- the next-to-last scope contains the current module’s global names.
-- the outermost scope (searched last) is the namespace containing built-in names.
+- The innermost scope, which is searched first, contains the local names.
+- The scopes of any enclosing functions, which are searched starting with the nearest enclosing scope, contains non-local, but also non-global names.
+- The next-to-last scope contains the current module’s global names.
+- The outermost scope (searched last) is the namespace containing built-in names.
 
 
-**BE CAREFUL!!!**
+### **BE CAREFUL!!!**
 -------------
 Changing global or nonlocal variables from within an inner function might be a BAD practice and might lead to harder debugging and to more fragile code! Do this only if you know what you're doing.
 
@@ -477,83 +474,72 @@ Changing global or nonlocal variables from within an inner function might be a B
 test_variable = 'initial global value'
 ```
 
-Scopes and Namespaces Example
-
-This is an example demonstrating how to reference the different scopes and namespaces, and how global and nonlocal affect variable binding:
+This is a scopes and namespaces example demonstrating how to reference the different scopes and namespaces, and how global and nonlocal affect variable binding:
 
 ```{code-cell}
-# pylint: disable=redefined-outer-name
-test_variable = 'initial value inside test function'
-```
+# pylint: disable=invalid-name
+test_variable = 'initial global value'
 
-Create variable that is only accessible inside current do_local() function.
 
-```{code-cell}
-def do_local():
+def test_function_scopes():
     # pylint: disable=redefined-outer-name
-    test_variable = 'local value'
-    return test_variable
-```
+    test_variable = 'initial value inside test function'
 
-Address the variable from outer scope and try to change it.
+    def do_local():
+        # Create variable that is only accessible inside current do_local() function.
+        # pylint: disable=redefined-outer-name
+        test_variable = 'local value'
+        return test_variable
 
-```{code-cell}
-def do_nonlocal():
-    # pylint: disable=redefined-outer-name
-    nonlocal test_variable
-    test_variable = 'nonlocal value'
-    return test_variable
-```
+    def do_nonlocal():
+        # Address the variable from outer scope and try to change it.
+        # pylint: disable=redefined-outer-name
+        nonlocal test_variable
+        test_variable = 'nonlocal value'
+        return test_variable
 
-Address the variable from very global scope and try to change it.
+    def do_global():
+        # Address the variable from very global scope and try to change it.
+        # pylint: disable=redefined-outer-name,global-statement
+        global test_variable
+        test_variable = 'global value'
+        return test_variable
 
-```{code-cell}
-def do_global():
-    # pylint: disable=redefined-outer-name,global-statement
+    # On this level currently we have access to local for test_function_scopes() function variable.
+    assert test_variable == 'initial value inside test function'
+
+    # Do local assignment.
+    # It doesn't change global variable and variable from test_function_scopes() scope.
+    do_local()
+    assert test_variable == 'initial value inside test function'
+
+    # Do non local assignment.
+    # It doesn't change global variable but it does change variable
+    # from test_function_scopes() function scope.
+    do_nonlocal()
+    assert test_variable == 'nonlocal value'
+
+    # Do global assignment.
+    # This one changes global variable but doesn't change variable from
+    # test_function_scopes() function scope.
+    do_global()
+    assert test_variable == 'nonlocal value'
+
+
+def test_global_variable_access():
+    """Testing global variable access from within a function"""
+
+    # Global value of test_variable has been already changed by do_global() function in previous
+    # test so let's check that.
+    # pylint: disable=global-statement
     global test_variable
-    test_variable = 'global value'
-    return test_variable
+    assert test_variable == 'global value'
+
+test_function_scopes()
+test_global_variable_access()
 ```
 
-On this level currently we have access to local for test_function_scopes() function variable.
-
-```{code-cell}
-assert test_variable == 'initial value inside test function'
-```
-
-Do local assignment.
-It doesn't change global variable and variable from test_function_scopes() scope.
-
-```{code-cell}
-do_local()
-assert test_variable == 'initial value inside test function'
-```
-
-Do non local assignment.
-It doesn't change global variable but it does change variable from test_function_scopes() function scope.
-
-```{code-cell}
-do_nonlocal()
-assert test_variable == 'nonlocal value'
-```
-
-Do global assignment.
-This one changes global variable but doesn't change variable from test_function_scopes() function scope.
-
-```{code-cell}
-do_global()
-assert test_variable == 'nonlocal value'
-```
-
-Testing global variable access from within a function
-
-Global value of test_variable has been already changed by do_global() function in previous test so let's check that.
-
-```{code-cell}
-# pylint: disable=global-statement
-global test_variable
-assert test_variable == 'global value'
-```
+On this example you may see how accessing and changing global variables from within inner functions might make debugging more difficult and code to be less predictable. Since you might have expected that `test_variable` should still be equal to 'initial global value' but it was changed by "someone" and you need to know about the CONTEXT of who had changed that. So once again access global and non local scope only if you know what you're doing otherwise it might be considered as bad practice.
 
 ### Default Argument Values
 
@@ -571,7 +557,7 @@ def power_of(number, power=2):
     return number ** power
 ```
 
-This function power_of can be called in several ways because it has default value for the second argument. First we may call it omitting the second argument at all.
+This function `power_of` can be called in several ways because it has default value for the second argument. First we may call it omitting the second argument at all.
 
 ```{code-cell}
 assert power_of(3) == 9
@@ -586,21 +572,13 @@ assert power_of(3, 3) == 27
 
 ### Keyword Arguments
 
-Functions can be called using keyword arguments of the form kwarg=value.
+Functions can be called using keyword arguments of the form `kwarg=value`.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html#keyword-arguments
 ```
 
-```{code-cell}
-import pytest
-```
-
-Example of multi-argument function
-
-
-This function accepts one required argument (voltage) and three optional arguments
-(state, action, and type).
+This is an example of multi-argument function.This function accepts one required argument (`voltage`) and three optional arguments(`state`, `action`, and `type`)：
 
 ```{code-cell}
 def parrot(voltage, state='a stiff', action='voom', parrot_type='Norwegian Blue'):
@@ -610,131 +588,73 @@ def parrot(voltage, state='a stiff', action='voom', parrot_type='Norwegian Blue'
     message += 'It\'s ' + state + '!'
 
     return message
-```
 
-```{code-cell}
 message = (
     "This parrot wouldn't voom if you put 1000 volts through it. "
     "Lovely plumage, the Norwegian Blue. "
     "It's a stiff!"
 )
-```
 
-1 positional argument
-
-```{code-cell}
+# 1 positional argument.
 assert parrot(1000) == message
-```
 
-1 keyword argument
-
-```{code-cell}
+# 1 keyword argument.
 assert parrot(voltage=1000) == message
-```
 
-```{code-cell}
 message = (
     "This parrot wouldn't VOOOOOM if you put 1000000 volts through it. "
     "Lovely plumage, the Norwegian Blue. "
     "It's a stiff!"
-)
-```
 
-2 keyword arguments
-
-```{code-cell}
+# 2 keyword arguments.
 assert parrot(voltage=1000000, action='VOOOOOM') == message
-```
-
-2 keyword arguments
-
-```{code-cell}
 assert parrot(action='VOOOOOM', voltage=1000000) == message
-```
 
-3 positional arguments
-
-```{code-cell}
 message = (
     "This parrot wouldn't jump if you put 1000000 volts through it. "
     "Lovely plumage, the Norwegian Blue. "
     "It's bereft of life!"
 )
+
+# 3 positional arguments.
 assert parrot(1000000, 'bereft of life', 'jump') == message
-```
 
-1 positional, 1 keyword
-
-```{code-cell}
 message = (
     "This parrot wouldn't voom if you put 1000 volts through it. "
     "Lovely plumage, the Norwegian Blue. "
     "It's pushing up the daisies!"
 )
+
+# 1 positional, 1 keyword.
 assert parrot(1000, state='pushing up the daisies') == message
 ```
 
-But all the following calls would be invalid.
-
-Required argument missing.
+But all the following calls would be invalid:
 
 ```{code-cell}
+import pytest
+
+# Required argument missing.
 with pytest.raises(Exception):
     # pylint: disable=no-value-for-parameter
     parrot()
-```
 
-Non-keyword argument after a keyword argument.
-parrot(voltage=5.0, 'dead')
+# Non-keyword argument after a keyword argument.
+with pytest.raises(Exception):
+    parrot(voltage=5.0, 'dead')
 
-```{code-cell}
+# No argument may receive a value more than once.
 with pytest.raises(Exception):
     # pylint: disable=redundant-keyword-arg
     parrot(110, voltage=220)
-```
 
-unknown keyword argument.
-
-```{code-cell}
+#Unknown keyword argument.
 with pytest.raises(Exception):
     # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
     parrot(actor='John Cleese')
 ```
 
-In a function call, keyword arguments must follow positional arguments. All the keywordmarguments passed must match one of the arguments accepted by the function (e.g. actor is not a valid argument for the parrot function), and their order is not important. This also includes non-optional arguments (e.g. parrot(voltage=1000) is valid too). No argument may receive a value more than once. Here’s an example that fails due to this restriction:
-
-```{code-cell}
-import pytest
-
-def function_with_one_argument(number):
-    return number
-
-with pytest.raises(Exception):
-    # pylint: disable=redundant-keyword-arg
-    function_with_one_argument(0, number=0)
-```
-
-When a final formal parameter of the form **name is present, it receives a dictionary containing all keyword arguments except for those corresponding to a formal parameter. This may be combined with a formal parameter of the form *name which receives a tuple containing the positional arguments beyond the formal parameter list. (*name must occur before **name.) For example, if we define a function like this:
-
-This function accepts its arguments through "arguments" tuple and keywords dictionary.
-
-```{code-cell}
-def test_function(first_param, *arguments, **keywords):
-    assert first_param == 'first param'
-    assert arguments == ('second param', 'third param')
-    assert keywords == {
-        'fourth_param_name': 'fourth named param',
-        'fifth_param_name': 'fifth named param'
-    }
-
-test_function(
-    'first param',
-    'second param',
-    'third param',
-    fourth_param_name='fourth named param',
-    fifth_param_name='fifth named param',
-)
-```
+In a function call, keyword arguments must follow positional arguments. All the keyword arguments passed must match one of the arguments accepted by the function (e.g. `actor` is not a valid argument for the `parrot` function), and their order is not important. This also includes non-optional arguments (e.g. `parrot(voltage=1000)` is valid too).  
 
 ### Arbitrary Argument Lists
 
@@ -744,10 +664,9 @@ Function can be called with an arbitrary number of arguments. These arguments wi
 - https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists
 ```
 
-When a final formal parameter of the form **name is present, it receives a dictionary containing all keyword arguments except for those corresponding to a formal parameter.
-This may be combined with a formal parameter of the form *name which receives a tuple containing the positional arguments beyond the formal parameter list. (*name must occur before **name.) For example, if we define a function like this:
+When a final formal parameter of the form `**name` is present, it receives a dictionary containing all keyword arguments except for those corresponding to a formal parameter. This may be combined with a formal parameter of the form `*name` which receives a tuple containing the positional arguments beyond the formal parameter list. (`*name` must occur before `**name`.) 
 
-This function accepts its arguments through "arguments" tuple.
+For example, if we define a function like this. This function accepts its arguments through `arguments` tuple:
 
 ```{code-cell}
 def test_function(first_param, *arguments):
@@ -757,7 +676,7 @@ def test_function(first_param, *arguments):
 test_function('first param', 'second param', 'third param')
 ```
 
-Normally, these variadic arguments will be last in the list of formal parameters, because they scoop up all remaining input arguments that are passed to the function. Any formal parameters which occur after the *args parameter are ‘keyword-only’ arguments, meaning that they can only be used as keywords rather than positional arguments.
+Normally, these variadic arguments will be last in the list of formal parameters, because they scoop up all remaining input arguments that are passed to the function. Any formal parameters which occur after the *`args` parameter are **keyword-only arguments**, meaning that they can only be used as keywords rather than positional arguments.
 
 ```{code-cell}
 def concat(*args, sep='/'):
@@ -769,30 +688,23 @@ assert concat('earth', 'mars', 'venus', sep='.') == 'earth.mars.venus'
 
 ### Unpacking Argument Lists (* and ** statements)
 
-Unpacking arguments may be executed via * and ** operators. See below for further details.
+Unpacking arguments may be executed via `*` and `**` operators. See below for further details.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists
 ```
 
-The situation may occur when the arguments are already in a list or tuple but need to be unpacked for a function call requiring separate positional arguments. For instance, the built-in range() function expects separate start and stop arguments. If they are not available separately, write the function call with the *-operator to unpack the arguments out of a list or tuple:
-
-Normal call with separate arguments:
+The situation may occur when the arguments are already in a list or tuple but need to be unpacked for a function call requiring separate positional arguments. For instance, the built-in `range()` function expects separate start and stop arguments. If they are not available separately, write the function call with the `*` operator to unpack the arguments out of a list or tuple:
 
 ```{code-cell}
+# Normal call with separate arguments.
 assert list(range(3, 6)) == [3, 4, 5]
-```
 
-Call with arguments unpacked from a list.
-
-```{code-cell}
+# Call with arguments unpacked from a list.
 arguments_list = [3, 6]
 assert list(range(*arguments_list)) == [3, 4, 5]
-```
 
-In the same fashion, dictionaries can deliver keyword arguments with the **-operator:
-
-```{code-cell}
+# In the same fashion, dictionaries can deliver keyword arguments with the ** operator.
 def function_that_receives_names_arguments(first_word, second_word):
     return first_word + ', ' + second_word + '!'
 
@@ -802,17 +714,16 @@ assert function_that_receives_names_arguments(**arguments_dictionary) == 'Hello,
 
 ### Lambda Expressions (lambda statement)
 
-Small anonymous functions can be created with the lambda keyword. Lambda functions can be used wherever function objects are required. They are syntactically restricted to a single expression. Semantically, they are just syntactic sugar for a normal function definition. Like nested function definitions, lambda functions can reference variables from the containing scope.
+Small anonymous functions can be created with the `lambda` keyword. Lambda functions can be used wherever function objects are required. They are syntactically restricted to a single expression. Semantically, they are just syntactic sugar for a normal function definition. Like nested function definitions, lambda functions can reference variables from the containing scope.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions
 ```
 
-This function returns the sum of its two arguments: lambda a, b: a+b Like nested function definitions, lambda functions can reference variables from the containing scope.
+Here is an example of Lambda Expressions. This function returns the sum of its two arguments: lambda a, b: a+b. Like nested function definitions, lambda functions can reference variables from the containing scope.
 
 ```{code-cell}
 def make_increment_function(delta):
-    """This example uses a lambda expression to return a function"""
     return lambda number: number + delta
 
 increment_function = make_increment_function(42)
@@ -866,15 +777,13 @@ No, really, it doesn't do anything.
 
 Function annotations are completely optional metadata information about the types used by user-defined functions.
 
-Annotations are stored in the __annotations__ attribute of the function as a dictionary and have no effect on any other part of the function. Parameter annotations are defined by a colon after the parameter name, followed by an expression evaluating to the value of the annotation. Return annotations are defined by a literal ->, followed by an expression, between the parameter list and the colon denoting the end of the def statement.
+Annotations are stored in the `__annotations__` attribute of the function as a dictionary and have no effect on any other part of the function. Parameter annotations are defined by a colon after the parameter name, followed by an expression evaluating to the value of the annotation. Return annotations are defined by a literal `->`, followed by an expression, between the parameter list and the colon denoting the end of the `def` statement.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html#function-annotations
 ```
 
-Breakfast creator.
-
-This function has a positional argument, a keyword argument, and the return value annotated.
+Here is an example of Function Annotations. This function has a positional argument, a keyword argument, and the return value annotated.
 
 ```{code-cell}
 def breakfast(ham: str, eggs: str = 'eggs') -> str:
@@ -891,38 +800,28 @@ Function decorators are simply wrappers to existing functions. In the context of
 - https://www.thecodeship.com/patterns/guide-to-python-function-decorators/
 ```
 
-Function decorators are simply wrappers to existing functions. Putting the ideas mentioned above together, we can build a decorator. In this example let's consider a function that wraps the string output of another function by p tags.
-
-This is the function that we want to decorate.
+Function decorators are simply wrappers to existing functions. Putting the ideas mentioned above together, we can build a decorator. In this example let's consider a function that wraps the string output of another function by `p` tags.
 
 ```{code-cell}
+# This is the function that we want to decorate.
 def greeting(name):
     return "Hello, {0}!".format(name)
-```
 
-This function decorates another functions output with <p> tag.
-
-```{code-cell}
+# This function decorates another functions output with <p> tag.
 def decorate_with_p(func):
     def function_wrapper(name):
         return "<p>{0}</p>".format(func(name))
     return function_wrapper
-```
 
-Now, let's call our decorator and pass the function we want decorate to it.
-
-```{code-cell}
+# Now, let's call our decorator and pass the function we want decorate to it.
 my_get_text = decorate_with_p(greeting)
-```
 
-Here we go, we've just decorated the function output without changing the function itself.
-
-```{code-cell}
+# Here we go, we've just decorated the function output without changing the function itself.
 assert my_get_text('John') == '<p>Hello, John!</p>'  # With decorator.
 assert greeting('John') == 'Hello, John!'  # Without decorator.
 ```
 
-Now, Python makes creating and using decorators a bit cleaner and nicer for the programmer through some syntactic sugar  There is a neat shortcut for that, which is to mention the name of the decorating function before the function to be decorated. The name of the decorator should be prepended with an @ symbol.
+Now, Python makes creating and using decorators a bit cleaner and nicer for the programmer through some syntactic sugar. There is a neat shortcut for that, which is to mention the name of the decorating function before the function to be decorated. The name of the decorator should be prepended with an `@` symbol.
 
 ```{code-cell}
 @decorate_with_p
@@ -932,18 +831,17 @@ def greeting_with_p(name):
 assert greeting_with_p('John') == '<p>Hello, John!</p>'
 ```
 
-Now let's consider we wanted to decorate our greeting function by one more functions to wrap a div the string output.
-
-This will be our second decorator.
+Now let's consider we wanted to decorate our greeting function by one more functions to wrap a `div` the string output.
 
 ```{code-cell}
+# This will be our second decorator.
 def decorate_with_div(func):
     def function_wrapper(text):
         return "<div>{0}</div>".format(func(text))
     return function_wrapper
 ```
 
-With the basic approach, decorating get_text would be along the lines of greeting_with_div_p = decorate_with_div(decorate_with_p(greeting_with_p))
+With the basic approach, decorating get_text would be along the lines of `greeting_with_div_p = decorate_with_div(decorate_with_p(greeting_with_p))`
 
 With Python's decorator syntax, same thing can be achieved with much more expressive power.
 
@@ -956,12 +854,11 @@ def greeting_with_div_p(name):
 assert greeting_with_div_p('John') == '<div><p>Hello, John!</p></div>'
 ```
 
-One important thing to notice here is that the order of setting our decorators matters.
-If the order was different in the example above, the output would have been different.
+One important thing to notice here is that the order of setting our decorators matters. If the order was different in the example above, the output would have been different.
 
-Passing arguments to decorators.
+**Passing arguments to decorators.**
 
-Looking back at the example before, you can notice how redundant the decorators in the example are. 2 decorators(decorate_with_div, decorate_with_p) each with the same functionality but wrapping the string with different tags. We can definitely do much better than that. Why not have a more general implementation for one that takes the tag to wrap with as a string? Yes please!
+Looking back at the example before, you can notice how redundant the decorators in the example are. 2 decorators(`decorate_with_div`, `decorate_with_p`) each with the same functionality but wrapping the string with different tags. We can definitely do much better than that. Why not have a more general implementation for one that takes the tag to wrap with as a string? Yes please!
 
 ```{code-cell}
 def tags(tag_name):
@@ -1036,12 +933,12 @@ Class objects support two kinds of operations:
 - https://docs.python.org/3/tutorial/classes.html#class-objects
 ```
 
-ATTRIBUTE REFERENCES use the standard syntax used for all attribute references in Python: obj.name. Valid attribute names are all the names that were in the class’s namespace when the class object was created. For class MyCounter the following references are valid attribute references:
-
-Example of the complex numbers class
+ATTRIBUTE REFERENCES use the standard syntax used for all attribute references in Python: obj.name. Valid attribute names are all the names that were in the class’s namespace when the class object was created. For class ComplexNumber the following references are valid attribute references:
 
 ```{code-cell}
 class ComplexNumber:
+    """Example of the complex numbers class"""
+
     real = 0
     imaginary = 0
 
@@ -1053,16 +950,16 @@ class ComplexNumber:
         """Return imaginary part of complex number."""
         return self.imaginary
 
-assert ComplexNumber.real == 0
+    assert ComplexNumber.real == 0
 ```
 
- __doc__ is also a valid attribute, returning the docstring belonging to the class
+ `__doc__` is also a valid attribute, returning the docstring belonging to the class:
 
 ```{code-cell}
 assert ComplexNumber.__doc__ == 'Example of the complex numbers class'
 ```
 
-Class attributes can also be assigned to, so you can change the value of ComplexNumber.counter by assignment.
+Class attributes can also be assigned to, so you can change the value of `ComplexNumber.counter` by assignment.
 
 ```{code-cell}
 ComplexNumber.real = 10
@@ -1078,18 +975,12 @@ assert complex_number.real == 10
 assert complex_number.get_real() == 10
 ```
 
-Let's change counter default value back.
-
-```{code-cell}
-ComplexNumber.real = 10
-assert ComplexNumber.real == 10
-```
-
-The instantiation operation (“calling” a class object) creates an empty object. Many classes like to create objects with instances customized to a specific initial state. Therefore a class may define a special method named __init__(), like this:
+The instantiation operation (“calling” a class object) creates an empty object. Many classes like to create objects with instances customized to a specific initial state. Therefore a class may define a special method named `__init__() `, like this:
 
 ```{code-cell}
 class ComplexNumberWithConstructor:
     """Example of the class with constructor"""
+
     def __init__(self, real_part, imaginary_part):
         self.real = real_part
         self.imaginary = imaginary_part
@@ -1116,7 +1007,7 @@ Now what can we do with instance objects? The only operations understood by inst
 - https://docs.python.org/3/tutorial/classes.html#instance-objects
 ```
 
-DATA ATTRIBUTES need not be declared; like local variables, they spring into existence when they are first assigned to. For example, if x is the instance of MyCounter created above, the following piece of code will print the value 16, without leaving a trace.
+DATA ATTRIBUTES need not be declared; like local variables, they spring into existence when they are first assigned to. For example:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1134,13 +1025,13 @@ del dummy_instance.temporary_attribute
 
 ### Methods objects
 
-Classes can have two types of attribute references: data or methods. Class methods are called by [variable_name].[method_name]([parameters]) as opposed to class data which lacks the ().
+Classes can have two types of attribute references: data or methods. Class methods are called by `variable_name.method_name(parameters)` as opposed to class data which lacks the `()`.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/classes.html#method-objects
 ```
 
-A simple example of the counter class.
+A simple example of the Mycounter class.
 
 ```{code-cell}
 class MyCounter:
@@ -1156,9 +1047,7 @@ class MyCounter:
         return self.counter
 ```
 
-The other kind of instance attribute reference is a method. A method is a function that “belongs to” an object. (In Python, the term method is not unique to class instances: other object types can have methods as well. For example, list objects have methods called append, insert, remove, sort, and so on. However, in the following discussion, we’ll use the term method exclusively to mean methods of class instance objects, unless explicitly stated otherwise.)
-
-But be aware that counter.get_counter() is not the same thing as MyCounter.get_counter() — it is a method object, not a function object.
+A method is a function that “belongs to” an object. (In Python, the term method is not unique to class instances: other object types can have methods as well. For example, list objects have methods called `append`, `insert`, `remove`, `sort`, and so on. However, in the following discussion, we’ll use the term method exclusively to mean methods of class instance objects, unless explicitly stated otherwise.)
 
 Usually, a method is called right after it is bound.
 
@@ -1167,16 +1056,18 @@ counter = MyCounter()
 assert counter.get_counter() == 10
 ```
 
-However, it is not necessary to call a method right away: counter.get_counter() is a method object, and can be stored away and called at a later time. For example:
+However, it is not necessary to call a method right away: `counter.get_counter()` is a method object, and can be stored away and called at a later time. For example:
 
 ```{code-cell}
 get_counter = counter.get_counter
 assert get_counter() == 10
 ```
 
-What exactly happens when a method is called? You may have noticed that counter.get_counter() was called without an argument above, even though the function definition for get_counter() specified an argument (self). What happened to the argument? Surely Python raises an exception when a function that requires an argument is called without any — even if the argument isn’t actually used…
+But be aware that `counter.get_counter()` is not the same thing as `MyCounter.get_counter()` — it is a method object, not a function object.
 
-Actually, you may have guessed the answer: the special thing about methods is that the instance object is passed as the first argument of the function. In our example, the call counter.get_counter() is exactly equivalent to MyCounter.get_counter(counter). In general, calling a method with a list of n arguments is equivalent to calling the corresponding function with an argument list that is created by inserting the method’s instance object before the first argument.
+What exactly happens when a method is called? You may have noticed that `counter.get_counter()` was called without an argument above, even though the function definition for `get_counter()` specified an argument (`self`). What happened to the argument? Surely Python raises an exception when a function that requires an argument is called without any — even if the argument isn’t actually used…
+
+Actually, you may have guessed the answer: the special thing about methods is that the instance object is passed as the first argument of the function. In our example, the call `counter.get_counter()` is exactly equivalent to `MyCounter.get_counter(counter)`. In general, calling a method with a list of n arguments is equivalent to calling the corresponding function with an argument list that is created by inserting the method’s instance object before the first argument.
 
 ```{code-cell}
 assert counter.get_counter() == 10
@@ -1191,7 +1082,7 @@ Generally speaking, instance variables are for data unique to each instance and 
 - https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables
 ```
 
-Dog class example.
+Let's look at the example of Dog class:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1203,38 +1094,31 @@ class Dog:
 
 fido = Dog('Fido')
 buddy = Dog('Buddy')
-```
 
-Shared by all dogs.
-
-```{code-cell}
+# Shared by all dogs.
 assert fido.kind == 'canine'
 assert buddy.kind == 'canine'
-```
 
-Unique to fido.
-
-```{code-cell}
+# Unique to fido.
 assert fido.name == 'Fido'
-```
 
-Unique to buddy.
-
-```{code-cell}
+# Unique to buddy.
 assert buddy.name == 'Buddy'
 ```
 
 Shared data can have possibly surprising effects with involving mutable objects such as lists and dictionaries. For example, the tricks list in the following code should not be used as a class variable because just a single list would be shared by all Dog instances.
 
-Dog class example with wrong shared variable usage.
+Here is a Dog class example with wrong shared variable usage:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
 class DogWithSharedTricks:
-    tricks = []  # Mistaken use of a class variable (see below) for mutable objects.
+    # Mistaken use of a class variable (see below) for mutable objects.
+    tricks = []  
 
     def __init__(self, name):
-        self.name = name  # Instance variable unique to each instance.
+        # Instance variable unique to each instance.
+        self.name = name  
 
     def add_trick(self, trick):
         """Add trick to the dog
@@ -1249,13 +1133,12 @@ buddy = DogWithSharedTricks('Buddy')
 fido.add_trick('roll over')
 buddy.add_trick('play dead')
 
-assert fido.tricks == ['roll over', 'play dead']  # unexpectedly shared by all dogs
-assert buddy.tricks == ['roll over', 'play dead']  # unexpectedly shared by all dogs
+# unexpectedly shared by all dogs
+assert fido.tricks == ['roll over', 'play dead']
+assert buddy.tricks == ['roll over', 'play dead']
 ```
 
 Correct design of the class should use an instance variable instead:
-
-Dog class example
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1289,7 +1172,7 @@ Inheritance is one of the principles of object-oriented programming. Since class
 - https://docs.python.org/3/tutorial/classes.html#inheritance
 ```
 
-Example of the base class
+Here is an example of the base class:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1302,15 +1185,13 @@ class Person:
         return self.name
 ```
 
-The syntax for a derived class definition looks like this.
-
-The Base Class (in our case Person) must be defined in a scope containing the derived class definition. In place of a base class name, other arbitrary expressions are also allowed.
+The Base Class (in our case `Person`) must be defined in a scope containing the derived class definition. In place of a base class name, other arbitrary expressions are also allowed.
 
 Derived classes may override methods of their base classes. Because methods have no special privileges when calling other methods of the same object, a method of a base class that calls another method defined in the same base class may end up calling a method of a derived class that overrides it.
 
-An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as BaseClassName in the global scope.)
+An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call `BaseClassName.methodname(self, arguments)`. This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as `BaseClassName` in the global scope.)
 
-Example of the derived class
+The syntax for a derived class definition looks like this:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1326,7 +1207,7 @@ class Employee(Person):
         return self.get_name() + ', ' + self.staff_id
 ```
 
-There’s nothing special about instantiation of derived classes: DerivedClassName() creates a new instance of the class. Method references are resolved as follows: the corresponding class attribute is searched, descending down the chain of base classes if necessary, and the method reference is valid if this yields a function object.
+There’s nothing special about instantiation of derived classes: `DerivedClassName()` creates a new instance of the class. Method references are resolved as follows: the corresponding class attribute is searched, descending down the chain of base classes if necessary, and the method reference is valid if this yields a function object.
 
 ```{code-cell}
 person = Person('Bill')
@@ -1339,8 +1220,8 @@ assert employee.get_full_id() == 'John, A23'
 
 Python has two built-in functions that work with inheritance:
 
-- Use isinstance() to check an instance’s type: isinstance(obj, int) will be True only if obj.__class__ is int or some class derived from int.
-- Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, issubclass(float, int) is False since float is not a subclass of int.
+- Use `isinstance()` to check an instance’s type: `isinstance(obj, int)` will be True only if `obj.__class__` is int or some class derived from int.
+- Use `issubclass()` to check class inheritance: `issubclass(bool, int)` is True since bool is a subclass of int. However, `issubclass(float, int)` is False since float is not a subclass of int.
 
 ```{code-cell}
 assert isinstance(employee, Employee)
@@ -1389,15 +1270,7 @@ class Calendar:
         return self.date
 ```
 
-Python supports a form of multiple inheritance as well. A class definition with multiple base classes looks like this.
-
-For most purposes, in the simplest cases, you can think of the search for attributes inherited from a parent class as depth-first, left-to-right, not searching twice in the same class where there is an overlap in the hierarchy. Thus, if an attribute is not found in CalendarClock, it is searched for in Clock, then (recursively) in the base classes of Clock, and if it was not found there, it was searched for in Calendar, and so on.
-
- In fact, it is slightly more complex than that; the method resolution order changes dynamically to support cooperative calls to super(). This approach is known in some other multiple-inheritance languages as call-next-method and is more powerful than the super call found in single-inheritance languages.
-
-Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond relationships (where at least one of the parent classes can be accessed through multiple paths from the bottommost class). For example, all classes inherit from object, so any case of multiple inheritance provides more than one path to reach object. To keep the base classes from being accessed more than once, the dynamic algorithm linearizes the search order in a way that preserves the left-to-right ordering specified in each class, that calls each parent only once, and that is monotonic (meaning that a class can be subclassed without affecting the precedence order of its parents).
-
-Class that uses multiple inheritance.
+Python supports a form of multiple inheritance as well. A class definition with multiple base classes looks like this:
 
 ```{code-cell}
 class CalendarClock(Clock, Calendar):
@@ -1408,6 +1281,12 @@ assert calendar_clock.get_date() == '12/08/2018'
 assert calendar_clock.get_time() == '11:23 PM'
 ```
 
+For most purposes, in the simplest cases, you can think of the search for attributes inherited from a parent class as depth-first, left-to-right, not searching twice in the same class where there is an overlap in the hierarchy. Thus, if an attribute is not found in `CalendarClock`, it is searched for in `Clock`, then (recursively) in the base classes of `Clock`, and if it was not found there, it was searched for in `Calendar`, and so on.
+
+In fact, it is slightly more complex than that; the method resolution order changes dynamically to support cooperative calls to `super()`. This approach is known in some other multiple-inheritance languages as call-next-method and is more powerful than the super call found in single-inheritance languages.
+
+Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond relationships (where at least one of the parent classes can be accessed through multiple paths from the bottommost class). For example, all classes inherit from object, so any case of multiple inheritance provides more than one path to reach object. To keep the base classes from being accessed more than once, the dynamic algorithm linearizes the search order in a way that preserves the left-to-right ordering specified in each class, that calls each parent only once, and that is monotonic (meaning that a class can be subclassed without affecting the precedence order of its parents).
+
 ## Modules
 
 ### Modules (import statement)
@@ -1416,24 +1295,26 @@ As your program gets longer, you may want to split it into several files for eas
 
 To support this, Python has a way to put definitions in a file and use them in a script or in an interactive instance of the interpreter. Such a file is called a module; definitions from a module can be imported into other modules or into the main module (the collection of variables that you have access to in a script executed at the top level and in calculator mode).
 
-A module is a file containing Python definitions and statements. The file name is the module name with the suffix .py appended. Within a module, the module’s name (as a string) is available as the value of the global variable __name__.
+A module is a file containing Python definitions and statements. The file name is the module name with the suffix .py appended. Within a module, the module’s name (as a string) is available as the value of the global variable `__name__`.
 
 When the interpreter executes the import statement, it searches for module in a list of directories assembled from the following sources:
 
-- The directory from which the input script was run or the current directory if the interpreter is being run interactively
+- The directory from which the input script was run or the current directory if the interpreter is being run interactively.
 - The list of directories contained in the PYTHONPATH environment variable, if it is set. (The format for PYTHONPATH is OS-dependent but should mimic the PATH environment variable.)
-- An installation-dependent list of directories configured at the time Python is installed
+- An installation-dependent list of directories configured at the time Python is installed.
 
 The resulting search path is accessible in the Python variable sys.path, which is obtained from a module named sys:
->>> import sys
->>> sys.path
+
+`>>>import sys`
+
+`>>>sys.path`
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/modules.html
 - https://realpython.com/python-modules-packages/
 ```
 
-This does not enter the names of the functions defined in fibonacci_module directly in the current symbol table; it only enters the module name fibonacci_module there.
+This does not enter the names of the functions defined in `fibonacci_module` directly in the current symbol table; it only enters the module name `fibonacci_module` there.
 
 ```{code-cell}
 import fibonacci_module
@@ -1446,11 +1327,11 @@ There is a variant of the import statement that imports names from a module dire
 from fibonacci_module import fibonacci_at_position, fibonacci_smaller_than
 ```
 
-There is even a variant to import all names that a module defines. This imports all names except those beginning with an underscore (_). In most cases Python programmers do not use this facility since it introduces an unknown set of names into the interpreter, possibly hiding some things you have already defined.
->>> from fibonacci_module import *
+There is even a variant to import all names that a module defines. This imports all names except those beginning with an underscore `_`. In most cases Python programmers do not use this facility since it introduces an unknown set of names into the interpreter, possibly hiding some things you have already defined.
 
 If the module name is followed by as, then the name following as is bound directly to the imported module:
-import fibonacci_module as fibonacci_module_renamed
+
+`>>>import fibonacci_module as fibonacci_module_renamed`
 
 It can also be used when utilising from with similar effects:
 
@@ -1458,7 +1339,7 @@ It can also be used when utilising from with similar effects:
 from fibonacci_module import fibonacci_at_position as fibonacci_at_position_renamed
 ```
 
-When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named spam.py in a list of directories given by the variable sys.path. sys.path is initialized from these locations:
+When a module named spam is imported, the interpreter first searches for a built-in module with that name. If not found, it then searches for a file named spam.py in a list of directories given by the variable `sys.path`. `sys.path` is initialized from these locations:
 
 - The directory containing the input script (or the current directory when no file is specified).
 - PYTHONPATH (a list of directory names, with the same syntax as the shell variable PATH).
@@ -1482,7 +1363,7 @@ fibonacci = fibonacci_module.fibonacci_smaller_than
 assert fibonacci(100) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 ```
 
-The built-in function dir() is used to find out which names a module defines. It returns a sorted list of strings.
+The built-in function `dir()` is used to find out which names a module defines. It returns a sorted list of strings.
 
 ```{code-cell}
 assert dir(fibonacci_module) == [
@@ -1501,27 +1382,11 @@ assert dir(fibonacci_module) == [
 
 ### Packages
 
-Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name A.B designates a submodule named B in a package named A. Just like the use of modules saves the authors of different modules from having to worry about each other’s global variable names, the use of dotted module names saves the authors of multi-module packages like NumPy or Pillow from having to worry about each other’s module names.
+Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name `A.B` designates a submodule named `B` in a package named `A`. Just like the use of modules saves the authors of different modules from having to worry about each other’s global variable names, the use of dotted module names saves the authors of multi-module packages like NumPy or Pillow from having to worry about each other’s module names.
 
-The __init__.py files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path. In the simplest case, __init__.py can just be an empty file, but it can also execute initialization code for the package or set the __all__ variable, described later.
+The `__init__.py` files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path. In the simplest case, `__init__.py` can just be an empty file, but it can also execute initialization code for the package or set the `__all__` variable, described later.
 
-When the interpreter executes the import statement, it searches for module in a list of directories assembled from the following sources:
-
-- The directory from which the input script was run or the current directory if the interpreter is being run interactively
-- The list of directories contained in the PYTHONPATH environment variable, if it is set. (The format for PYTHONPATH is OS-dependent but should mimic the PATH environment variable.)
-- An installation-dependent list of directories configured at the time Python is installed
-
-The resulting search path is accessible in the Python variable sys.path, which is obtained from a module named sys:
-
->>> import sys
->>> sys.path
-
-```{seealso}
-- https://docs.python.org/3/tutorial/modules.html#packages
-- https://realpython.com/python-modules-packages/
-```
-
-Users of the package can import individual modules from the package, for example.
+Users of the package can import individual modules from the package, for example:
 
 ```{code-cell}
 import sound_package.effects.echo
@@ -1541,9 +1406,10 @@ from sound_package.effects.echo import echo_function
 ```
 
 Note that when using from package import item, the item can be either a submodule (or subpackage) of the package, or some other name defined in the package, like a function, class or variable.
-The import statement first tests whether the item is defined in the package; if not, it assumes it is a module and attempts to load it. If it fails to find it, an ImportError exception is raised.
 
-Contrarily, when using syntax like import item.subitem.subsubitem, each item except for the last must be a package; the last item can be a module or a package but can’t be a class or function or variable defined in the previous item.
+The import statement first tests whether the item is defined in the package; if not, it assumes it is a module and attempts to load it. If it fails to find it, an `ImportError` exception is raised.
+
+Contrarily, when using syntax like import `item.subitem.subsubitem`, each item except for the last must be a package; the last item can be a module or a package but can’t be a class or function or variable defined in the previous item.
 
 ```{code-cell}
 assert sound_package.effects.echo.echo_function() == 'Do echo effect'
@@ -1565,11 +1431,11 @@ It is possible to write programs that handle selected exceptions.
 https://docs.python.org/3/tutorial/errors.html#errors-and-exceptions
 ```
 
-The try statement works as follows.
-- First, the try clause (the statement(s) between the try and except keywords) is executed.
-- If no exception occurs, the except clause is skipped and execution of the try statement is finished.
-- If an exception occurs during execution of the try clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the except clause is executed, and then execution continues after the try statement.
-- If an exception occurs which does not match the exception named in the except clause, it is passed on to outer try statements; if no handler is found, it is an unhandled exception and execution stops with a message.
+The `try` statement works as follows.
+- First, the `try` clause (the statement(s) between the `try` and `except` keywords) is executed.
+- If no exception occurs, the `except` clause is skipped and execution of the `try` statement is finished.
+- If an exception occurs during execution of the `try` clause, the rest of the clause is skipped. Then if its type matches the exception named after the except keyword, the `except` clause is executed, and then execution continues after the `try` statement.
+- If an exception occurs which does not match the exception named in the `except` clause, it is passed on to outer `try` statements; if no handler is found, it is an unhandled exception and execution stops with a message.
 
 Let's simulate division by zero exception.
 
@@ -1602,7 +1468,7 @@ except NameError:
 assert exception_has_been_handled
 ```
 
-A try statement may have more than one except clause, to specify handlers for different exceptions. At most one handler will be executed. Handlers only handle exceptions that occur in the corresponding try clause, not in other handlers of the same try statement. An except clause may name multiple exceptions as a parenthesized tuple, for example:
+A `try` statement may have more than one `except` clause, to specify handlers for different exceptions. At most one handler will be executed. Handlers only handle exceptions that occur in the corresponding `try` clause, not in other handlers of the same `try` statement. An `except` clause may name multiple exceptions as a parenthesized tuple, for example:
 
 ```{code-cell}
 exception_has_been_handled = False
@@ -1635,7 +1501,7 @@ except ZeroDivisionError:
 assert exception_has_been_handled
 ```
 
-The try … except statement has an optional else clause, which, when present, must follow all except clauses. It is useful for code that must be executed if the try clause does not raise an exception. For example:
+The `try … except` statement has an optional `else` clause, which, when present, must follow all `except` clauses. It is useful for code that must be executed if the `try` clause does not raise an exception. For example:
 
 ```{code-cell}
 exception_has_been_handled = False
@@ -1657,15 +1523,13 @@ assert no_exceptions_has_been_fired
 
 ### Raising Exceptions (raise statement)
 
-The raise statement allows the programmer to force a specified exception to occur.
+The `raise` statement allows the programmer to force a specified exception to occur.
 
 ```{seealso}
 https://docs.python.org/3/tutorial/errors.html#raising-exceptions
 ```
 
-The raise statement allows the programmer to force a specified exception to occur.
-
-Raising Exceptions.
+The `raise` statement allows the programmer to force a specified exception to occur.
 
 ```{code-cell}
 exception_is_caught = False
@@ -1682,11 +1546,10 @@ except NameError:
 assert exception_is_caught
 ```
 
-Programs may name their own exceptions by creating a new exception class. Exceptions should typically be derived from the Exception class, either directly or indirectly. Most exceptions are defined with names that end in “Error,” similar to the naming of the standard exceptions. Many standard modules define their own exceptions to report errors that may occur in functions they define.
-
-User-defined Exceptions
+Programs may name their own exceptions by creating a new exception class. Exceptions should typically be derived from the `Exception` class, either directly or indirectly. Most exceptions are defined with names that end in `Error,` similar to the naming of the standard exceptions. Many standard modules define their own exceptions to report errors that may occur in functions they define.
 
 ```{code-cell}
+# User-defined Exceptions.
 class MyCustomError(Exception):
     """Example of MyCustomError exception."""
     def __init__(self, message):
