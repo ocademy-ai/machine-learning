@@ -1331,7 +1331,7 @@ There is even a variant to import all names that a module defines. This imports 
 
 If the module name is followed by as, then the name following as is bound directly to the imported module:
 
-`import fibonacci_module as fibonacci_module_renamed`
+`>>>import fibonacci_module as fibonacci_module_renamed`
 
 It can also be used when utilising from with similar effects:
 
