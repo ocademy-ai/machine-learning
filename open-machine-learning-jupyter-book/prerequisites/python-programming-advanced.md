@@ -49,6 +49,10 @@ The for statement in Python differs a bit from what you may be used to in C or P
 
 Measure some strings:
 
+- "cat" length is 3. 
+- "window" length is 6. 
+- "defenestrate" length is 12.
+
 ```{code-cell}
 words = ['cat', 'window', 'defenestrate']
 words_length = 0
@@ -56,7 +60,6 @@ words_length = 0
 for word in words:
     words_length += len(word)
 
-#"cat" length is 3. "window" length is 6. "defenestrate" length is 12.
 assert words_length == (3 + 6 + 12)
 ```
 
@@ -68,7 +71,7 @@ for word in words[:]:  # Loop over a slice copy of the entire list.
         words.insert(0, word)
 ```
 
-Otherwise `with for word in words[:]`, the example would attempt to create an infinite list, inserting defenestrate over and over again.
+Otherwise with `for w in words`, the example would attempt to create an infinite list, inserting defenestrate over and over again.
 
 ```{code-cell}
 assert words == ['defenestrate', 'cat', 'window', 'defenestrate']
@@ -332,9 +335,9 @@ The keyword def introduces a function definition. It must be followed by the fun
 
 ```{code-cell}
 def fibonacci_function_example(number_limit):
-    """The first statement of the function body can optionally be a string literal; this string literal is the function’s documentation string, or docstring. There are tools which use docstrings to automatically produce online or printed documentation, or to let the user interactively browse through code; it’s good practice to include docstrings in code that you write, so make a habit of it.
-
-    Generate a Fibonacci series up to number_limit.
+    """Generate a Fibonacci series up to number_limit.
+    
+    The first statement of the function body can optionally be a string literal; this string literal is the function’s documentation string, or docstring. There are tools which use docstrings to automatically produce online or printed documentation, or to let the user interactively browse through code; it’s good practice to include docstrings in code that you write, so make a habit of it.
     """
 
     # The execution of a function introduces a new symbol table used for the local variables of the
@@ -465,7 +468,7 @@ Although scopes are determined statically, they are used dynamically. At any tim
 - The outermost scope (searched last) is the namespace containing built-in names.
 
 
-### **BE CAREFUL!!!**
+BE CAREFUL!!!
 -------------
 Changing global or nonlocal variables from within an inner function might be a BAD practice and might lead to harder debugging and to more fragile code! Do this only if you know what you're doing.
 
@@ -676,7 +679,7 @@ def test_function(first_param, *arguments):
 test_function('first param', 'second param', 'third param')
 ```
 
-Normally, these variadic arguments will be last in the list of formal parameters, because they scoop up all remaining input arguments that are passed to the function. Any formal parameters which occur after the *`args` parameter are **keyword-only arguments**, meaning that they can only be used as keywords rather than positional arguments.
+Normally, these variadic arguments will be last in the list of formal parameters, because they scoop up all remaining input arguments that are passed to the function. Any formal parameters which occur after the `*args` parameter are **keyword-only arguments**, meaning that they can only be used as keywords rather than positional arguments.
 
 ```{code-cell}
 def concat(*args, sep='/'):
@@ -712,7 +715,7 @@ arguments_dictionary = {'first_word': 'Hello', 'second_word': 'World'}
 assert function_that_receives_names_arguments(**arguments_dictionary) == 'Hello, World!'
 ```
 
-### Lambda Expressions (lambda statement)
+### Lambda expressions (lambda statement)
 
 Small anonymous functions can be created with the `lambda` keyword. Lambda functions can be used wherever function objects are required. They are syntactically restricted to a single expression. Semantically, they are just syntactic sugar for a normal function definition. Like nested function definitions, lambda functions can reference variables from the containing scope.
 
@@ -802,21 +805,31 @@ Function decorators are simply wrappers to existing functions. In the context of
 
 Function decorators are simply wrappers to existing functions. Putting the ideas mentioned above together, we can build a decorator. In this example let's consider a function that wraps the string output of another function by `p` tags.
 
+This is the function that we want to decorate.
+
 ```{code-cell}
-# This is the function that we want to decorate.
 def greeting(name):
     return "Hello, {0}!".format(name)
+```
 
-# This function decorates another functions output with <p> tag.
+This function decorates another functions output with <p> tag.
+
+```{code-cell}
 def decorate_with_p(func):
     def function_wrapper(name):
         return "<p>{0}</p>".format(func(name))
     return function_wrapper
+```
 
-# Now, let's call our decorator and pass the function we want decorate to it.
+Now, let's call our decorator and pass the function we want decorate to it.
+
+```{code-cell}
 my_get_text = decorate_with_p(greeting)
+```
 
-# Here we go, we've just decorated the function output without changing the function itself.
+Here we go, we've just decorated the function output without changing the function itself.
+
+```{code-cell}
 assert my_get_text('John') == '<p>Hello, John!</p>'  # With decorator.
 assert greeting('John') == 'Hello, John!'  # Without decorator.
 ```
@@ -935,10 +948,10 @@ Class objects support two kinds of operations:
 
 ATTRIBUTE REFERENCES use the standard syntax used for all attribute references in Python: obj.name. Valid attribute names are all the names that were in the class’s namespace when the class object was created. For class ComplexNumber the following references are valid attribute references:
 
+Example of the complex numbers class.
+
 ```{code-cell}
 class ComplexNumber:
-    """Example of the complex numbers class"""
-
     real = 0
     imaginary = 0
 
@@ -950,7 +963,7 @@ class ComplexNumber:
         """Return imaginary part of complex number."""
         return self.imaginary
 
-    assert ComplexNumber.real == 0
+assert ComplexNumber.real == 0
 ```
 
  `__doc__` is also a valid attribute, returning the docstring belonging to the class:
@@ -1031,7 +1044,7 @@ Classes can have two types of attribute references: data or methods. Class metho
 - https://docs.python.org/3/tutorial/classes.html#method-objects
 ```
 
-A simple example of the Mycounter class.
+A simple example of the `Mycounter` class.
 
 ```{code-cell}
 class MyCounter:
@@ -1082,7 +1095,7 @@ Generally speaking, instance variables are for data unique to each instance and 
 - https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables
 ```
 
-Let's look at the example of Dog class:
+Let's look at the example of `Dog` class:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1108,7 +1121,7 @@ assert buddy.name == 'Buddy'
 
 Shared data can have possibly surprising effects with involving mutable objects such as lists and dictionaries. For example, the tricks list in the following code should not be used as a class variable because just a single list would be shared by all Dog instances.
 
-Here is a Dog class example with wrong shared variable usage:
+Here is a `Dog` class example with wrong shared variable usage:
 
 ```{code-cell}
 # pylint: disable=too-few-public-methods
@@ -1185,7 +1198,7 @@ class Person:
         return self.name
 ```
 
-The Base Class (in our case `Person`) must be defined in a scope containing the derived class definition. In place of a base class name, other arbitrary expressions are also allowed.
+The base class (in our case `Person`) must be defined in a scope containing the derived class definition. In place of a base class name, other arbitrary expressions are also allowed.
 
 Derived classes may override methods of their base classes. Because methods have no special privileges when calling other methods of the same object, a method of a base class that calls another method defined in the same base class may end up calling a method of a derived class that overrides it.
 
@@ -1300,14 +1313,15 @@ A module is a file containing Python definitions and statements. The file name i
 When the interpreter executes the import statement, it searches for module in a list of directories assembled from the following sources:
 
 - The directory from which the input script was run or the current directory if the interpreter is being run interactively.
-- The list of directories contained in the PYTHONPATH environment variable, if it is set. (The format for PYTHONPATH is OS-dependent but should mimic the PATH environment variable.)
+- The list of directories contained in the `PYTHONPATH` environment variable, if it is set. (The format for `PYTHONPATH` is OS-dependent but should mimic the PATH environment variable.)
 - An installation-dependent list of directories configured at the time Python is installed.
 
 The resulting search path is accessible in the Python variable sys.path, which is obtained from a module named sys:
 
-`>>>import sys`
-
-`>>>sys.path`
+```python
+import sys
+sys.path
+```
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/modules.html
@@ -1548,8 +1562,8 @@ assert exception_is_caught
 
 Programs may name their own exceptions by creating a new exception class. Exceptions should typically be derived from the `Exception` class, either directly or indirectly. Most exceptions are defined with names that end in `Error,` similar to the naming of the standard exceptions. Many standard modules define their own exceptions to report errors that may occur in functions they define.
 
+User-defined exceptions.
 ```{code-cell}
-# User-defined Exceptions.
 class MyCustomError(Exception):
     """Example of MyCustomError exception."""
     def __init__(self, message):
