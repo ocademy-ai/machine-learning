@@ -223,7 +223,8 @@ Float, or "floating point number" is a number, positive or negative, containing 
 
 ```{code-cell}
 float_number = 7.0
-float_number_via_function = float(7) # Another way of declaring float is using float() function.
+# Another way of declaring float is using float() function.
+float_number_via_function = float(7) 
 float_negative = -35.59
 
 assert float_number == float_number_via_function
@@ -570,7 +571,7 @@ assert not 'a21453'.isdecimal()
 
 Often you’ll want more control over the formatting of your output than simply printing space-separated values. There are several ways to format output.
 
-To use formatted string literals, begin a string with f or F before the opening quotation mark or triple quotation mark. Inside this string, you can write a Python expression between `{}` characters that can refer to variables or literal values.
+To use formatted string literals, begin a string with f or F before the opening quotation mark or triple quotation mark. Inside this string, you can write a Python expression inside `{}` characters that can refer to variables or literal values.
 
 ```{code-cell}
 year = 2018
@@ -1179,9 +1180,7 @@ This is called, appropriately enough, **sequence unpacking** and works for any s
 
 Note that multiple assignment is really just a combination of tuple packing and sequence unpacking.
 
-Swapping using tuples.
-
-Data can be swapped from one variable to another in python using tuples. This eliminates the need to use a 'temp' variable.
+Data can be swapped from one variable to another in Python using tuples. This eliminates the need to use a 'temp' variable.
 
 ```{code-cell}
 first_number = 123
@@ -1213,7 +1212,7 @@ fruits_set = {"apple", "banana", "cherry"}
 assert isinstance(fruits_set, set)
 ```
 
-It is also possible to use the set() constructor to make a set. Note the `(())`.
+It is also possible to use the `set()` constructor to make a set. Note the `(())`.
 
 ```{code-cell}
 fruits_set_via_constructor = set(("apple", "banana", "cherry"))

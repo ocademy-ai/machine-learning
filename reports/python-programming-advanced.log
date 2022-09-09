@@ -17,21 +17,58 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-assert fibonacci_function_example(300) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
+def parrot(voltage, state='a stiff', action='voom', parrot_type='Norwegian Blue'):
+    message = 'This parrot wouldn\'t ' + action + ' '
+    message += 'if you put ' + str(voltage) + ' volts through it. '
+    message += 'Lovely plumage, the ' + parrot_type + '. '
+    message += 'It\'s ' + state + '!'
 
-A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function.
-This value can be assigned to another name which can then also be used as a function.
-This serves as a general renaming mechanism.
+    return message
 
-```{code-cell}
-fibonacci_function_clone = fibonacci_function_example
-assert fibonacci_function_clone(300) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]
+message = (
+    "This parrot wouldn't voom if you put 1000 volts through it. "
+    "Lovely plumage, the Norwegian Blue. "
+    "It's a stiff!"
+)
+
+# 1 positional argument.
+assert parrot(1000) == message
+
+# 1 keyword argument.
+assert parrot(voltage=1000) == message
+
+message = (
+    "This parrot wouldn't VOOOOOM if you put 1000000 volts through it. "
+    "Lovely plumage, the Norwegian Blue. "
+    "It's a stiff!"
+
+# 2 keyword arguments.
+assert parrot(voltage=1000000, action='VOOOOOM') == message
+assert parrot(action='VOOOOOM', voltage=1000000) == message
+
+message = (
+    "This parrot wouldn't jump if you put 1000000 volts through it. "
+    "Lovely plumage, the Norwegian Blue. "
+    "It's bereft of life!"
+)
+
+# 3 positional arguments.
+assert parrot(1000000, 'bereft of life', 'jump') == message
+
+message = (
+    "This parrot wouldn't voom if you put 1000 volts through it. "
+    "Lovely plumage, the Norwegian Blue. "
+    "It's pushing up the daisies!"
+)
+
+# 1 positional, 1 keyword.
+assert parrot(1000, state='pushing up the daisies') == message
 ------------------
 
-[0;36m  Cell [0;32mIn [20], line 3[0;36m[0m
-[0;31m    A function definition introduces the function name in the current symbol table. The value of the function name has a type that is recognized by the interpreter as a user-defined function.[0m
-[0m      ^[0m
+[0;36m  Cell [0;32mIn [32], line 27[0;36m[0m
+[0;31m    assert parrot(voltage=1000000, action='VOOOOOM') == message[0m
+[0m    ^[0m
 [0;31mSyntaxError[0m[0;31m:[0m invalid syntax
 
-SyntaxError: invalid syntax (998153621.py, line 3)
+SyntaxError: invalid syntax (1343014106.py, line 27)
 
