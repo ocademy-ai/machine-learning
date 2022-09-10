@@ -38,6 +38,7 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 
 * Software
   * [draw.io](https://app.diagrams.net/), add/edit the `.draw.io` file in the `./drawio` folder.
+    * [Example-diagrams](https://www.diagrams.net/example-diagrams) as a quick reference.
   * Follow [this](https://opencomputinglab.github.io/SubjectMatterNotebooks/diagram/overview.html) for mermaid, wavedrom, plantuml, tikz, blockdiag.
   * Add inline [quiz](https://github.com/bonartm/quizdown-js).
 * Be careful about **COPYRIGHT**. Add the reference inline by using the [markdown figure format](https://jupyterbook.org/en/stable/content/figures.html#markdown-figures).
