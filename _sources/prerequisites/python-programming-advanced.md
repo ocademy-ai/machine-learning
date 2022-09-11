@@ -812,7 +812,7 @@ def greeting(name):
     return "Hello, {0}!".format(name)
 ```
 
-This function decorates another functions output with <p> tag.
+This function decorates another functions output with `<p>` tag.
 
 ```{code-cell}
 def decorate_with_p(func):
@@ -1212,7 +1212,7 @@ class Employee(Person):
     def __init__(self, name, staff_id):
         Person.__init__(self, name)
         # You may also use super() here in order to avoid explicit using of parent class name:
-        # >>> super().__init__(name)
+        # super().__init__(name)
         self.staff_id = staff_id
 
     def get_full_id(self):
@@ -1345,7 +1345,7 @@ There is even a variant to import all names that a module defines. This imports 
 
 If the module name is followed by as, then the name following as is bound directly to the imported module:
 
-`>>>import fibonacci_module as fibonacci_module_renamed`
+`import fibonacci_module as fibonacci_module_renamed`
 
 It can also be used when utilising from with similar effects:
 
@@ -1563,6 +1563,7 @@ assert exception_is_caught
 Programs may name their own exceptions by creating a new exception class. Exceptions should typically be derived from the `Exception` class, either directly or indirectly. Most exceptions are defined with names that end in `Error,` similar to the naming of the standard exceptions. Many standard modules define their own exceptions to report errors that may occur in functions they define.
 
 User-defined exceptions.
+
 ```{code-cell}
 class MyCustomError(Exception):
     """Example of MyCustomError exception."""
