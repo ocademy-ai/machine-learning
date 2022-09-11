@@ -70,7 +70,11 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 
 If sample data is needed for the book or assignments, first try to use built-in ones from [sklearn](https://scikit-learn.org/stable/datasets.html) or [tensorflow](https://www.tensorflow.org/datasets) if possible.
 
-To introduce your own dataset, put the data file into the `./data` folder, then it could be referred by a relative path.
+To introduce your own dataset, put the data file into the `./data` folder, then it could be referred to by a relative path.
+
+## Slides
+
+The project's slide source code is hosted in `open-machine-learning-jupyter-book/slides/`. If you want to add or edit any slide, please refer to the demo and example code [here](https://github.com/damianavila/RISE). The slideshow functionality is powered by [reveal.js](https://revealjs.com/), and you could find the detailed documentation there.
 
 ## References
 
