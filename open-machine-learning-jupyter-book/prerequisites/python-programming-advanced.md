@@ -15,6 +15,20 @@ kernelspec:
 
 # Python programming advanced
 
+## Preface
+
+### To everyone
+
+### To educators
+
+### To students
+
+### Acknowledges
+
+### Final words
+
+### References
+
 ## Control flow
 
 ### The if statement

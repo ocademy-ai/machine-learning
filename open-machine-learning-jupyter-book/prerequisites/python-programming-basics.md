@@ -15,6 +15,20 @@ kernelspec:
 
 # Python programming basics
 
+## Preface
+
+### To everyone
+
+### To educators
+
+### To students
+
+### Acknowledges
+
+### Final words
+
+### References
+
 ## What is Python
 
 Python is a popular programming language. It was created in 1991 by Guido van Rossum.
