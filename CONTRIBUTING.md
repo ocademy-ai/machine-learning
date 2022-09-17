@@ -65,7 +65,7 @@ Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html)
 
 #### Install draw.io
 
-[draw.io](https://www.draw.io/) is needed for generating draw.io based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
+[draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
 
 * Windows: `C:\Program Files\draw.io\draw.io.exe`
 * Linux: `/opt/drawio/drawio` or `/opt/draw.io/drawio` (older versions)
@@ -137,6 +137,14 @@ conda activate open-machine-learning-jupyter-book
 ```bash
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
 jupyter-book build . 
+```
+
+#### Build the slides (optional)
+
+If you want to edit or view the slides locally, you need to execute the below command after the book is built. It will convert the notebooks at `slides/` to slides at `./_build/html/slides/build`, which is powered by [RISE](https://github.com/damianavila/RISE).
+
+```bash
+jupyter-nbconvert slides/*.ipynb --output-dir ./_build/html/slides/build --to slides
 ```
 
 > **Warning**
