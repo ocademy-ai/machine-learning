@@ -30,7 +30,7 @@ It is used for:
 
 ## Python syntax
 
-**Python Syntax compared to other programming languages**
+**Python syntax compared to other programming languages**
 
 - Python was designed to for readability, and has some similarities to the English language with influence from mathematics.
 - Python uses new lines to complete a command, as opposed to other programming languages which often use semicolons or parentheses.
@@ -175,7 +175,7 @@ assert number <= 5
 assert number <= 6
 ```
 
-## Data Types
+## Data types
 
 ### Numbers (including booleans)
 
@@ -289,7 +289,7 @@ assert 4 * 3.75 - 1 == 14.0
 
 ### Strings and their methods
 
-#### String Type
+#### String type
 
 Besides numbers, Python can also manipulate strings, which can be expressed in several ways. They can be enclosed in single quotes `''` or double quotes `""` with the same result.
 
@@ -468,7 +468,7 @@ prefix = 'Py'
 assert prefix + 'thon' == 'Python'
 ```
 
-#### String Methods
+#### String methods
 
 ```{code-cell}
 hello_world_string = "Hello, World!"
@@ -567,7 +567,7 @@ assert '1234'.isdecimal()
 assert not 'a21453'.isdecimal()
 ```
 
-#### String Formatting
+#### String formatting
 
 Often you’ll want more control over the formatting of your output than simply printing space-separated values. There are several ways to format output.
 
@@ -612,7 +612,7 @@ The argument to `repr()` may be any Python object:
 assert repr((first_num, second_num, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"
 ```
 
-##### Formatted String Literals
+##### Formatted string literals
 
 Formatted string literals (also called f-strings for short) let you include the value of Python expressions inside a string by prefixing the string with f or F and writing expressions as `{expression}`.
 
@@ -636,7 +636,7 @@ assert table_string == ('Sjoerd ==>   4127'
                         'Dcab   ==>   7678')
 ```
 
-##### The String format() Method
+##### The string format() method
 
 Basic usage of the `str.format()` method looks like this:
 
@@ -701,7 +701,7 @@ Python knows a number of compound data types, used to group together other value
 - https://docs.python.org/3/tutorial/datastructures.html#more-on-lists
 ```
 
-#### List Type
+#### List type
 
 Lists are very similar to arrays. They can contain any type of variable, and they can contain as many variables as you wish. Lists can also be iterated over in a very simple manner.
 
@@ -783,7 +783,7 @@ assert mixed_list[0] == ['a', 'b', 'c']
 assert mixed_list[0][1] == 'b'
 ```
 
-#### List Methods
+#### List methods
 
 ```{code-cell}
 import pytest
@@ -916,7 +916,7 @@ with pytest.raises(Exception):
     assert numbers == []  # noqa: F821
 ```
 
-#### List Comprehensions
+#### List comprehensions
 
 List comprehensions provide a concise way to create lists. Common applications are to make new lists where each element is the result of some operations applied to each member of another sequence or iterable, or to create a subsequence of those elements that satisfy a certain condition. A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more `for` or `if` clauses. The result will be a new list resulting from evaluating the expression in the context of the `for` and `if` clauses which follow it.
 
@@ -1017,7 +1017,7 @@ flatten_vector = [num for elem in vector for num in elem]
 assert flatten_vector == [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-#### Nested List Comprehensions
+#### Nested list comprehensions
 
 The initial expression in a list comprehension can be any arbitrary expression, including another list comprehension.
 
@@ -1204,7 +1204,7 @@ Set objects also support mathematical operations like union, intersection, diffe
 - https://docs.python.org/3.7/tutorial/datastructures.html#sets
 ```
 
-#### Set Type
+#### Set type
 
 ```{code-cell}
 fruits_set = {"apple", "banana", "cherry"}
@@ -1220,7 +1220,7 @@ fruits_set_via_constructor = set(("apple", "banana", "cherry"))
 assert isinstance(fruits_set_via_constructor, set)
 ```
 
-#### Set Methods
+#### Set methods
 
 ```{code-cell}
 fruits_set = {"apple", "banana", "cherry"}
@@ -1389,7 +1389,7 @@ assert dictionary_for_string_keys['guido'] == 4127
 assert dictionary_for_string_keys['jack'] == 4098
 ```
 
-### Type Casting
+### Type casting
 
 There may be times when you want to specify a type on to a variable. This can be done with **casting**.
 
