@@ -1437,6 +1437,8 @@ assert str(3.0) == '3.0'
 
 ## Your turn! 🚀
 
+Practice the Python programming basics by following this [assignment](../assignments/prerequisites/python-programming-basics.ipynb).
+
 ## Self study
 
 Here is a list of free/open source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python).

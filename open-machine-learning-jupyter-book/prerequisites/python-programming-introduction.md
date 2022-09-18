@@ -358,3 +358,7 @@ To run the Python file check the image below. You can run the Python file either
 2. Find a [Euclidian distance](https://en.wikipedia.org/wiki/Euclidean_distance#:~:text=In%20mathematics%2C%20the%20Euclidean%20distance,being%20called%20the%20Pythagorean%20distance.) between (2, 3) and (10, 8)
 
 🎉 CONGRATULATIONS! 🎉
+
+## Acknowledgments
+
+Thanks to [Asabeneh](https://github.com/Asabeneh) who helped create this awesome open source project [30-Days-Of-Python](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/readme.md) for Python learning. It contributes the majority of the content in this chapter.
