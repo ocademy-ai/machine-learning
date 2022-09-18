@@ -17,7 +17,16 @@ kernelspec:
 
 Python is a high-level programming language for general-purpose programming. It is an open-source, interpreted, objected-oriented programming language. Python was created by a Dutch programmer, Guido van Rossum. The name of the Python programming language was derived from a British sketch comedy series, Month Python's Flying Circus. The first version was released on February 20, 1991.
 
-This challenge is designed for beginners and professionals who want to learn Python programming language. If you are in favor of videos, you may get started with this [Python for Absolute Beginners video](https://www.youtube.com/watch?v=11OYpBrhdyM).
+Python is an easy-to-learn, powerful programming language. It has efficient high-level data structures and a simple but effective approach to object-oriented programming. Python’s elegant syntax and dynamic typing, together with its interpreted nature, make it an ideal language for scripting and rapid application development in many areas on most platforms.
+
+It is used for:
+
+- web development (server-side),
+- software development,
+- mathematics,
+- system scripting.
+
+These Python programming related sections are designed for beginners and professionals who want to learn Python programming language. If you are in favor of videos, you may get started with this [Python for Absolute Beginners video](https://www.youtube.com/watch?v=11OYpBrhdyM).
 
 ## Why Python?
 
