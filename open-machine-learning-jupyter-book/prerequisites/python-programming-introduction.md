@@ -25,12 +25,11 @@ It is used for:
 - software development,
 - mathematics,
 - system scripting.
-
-These Python programming related sections are designed for beginners and professionals who want to learn Python programming language. If you are in favor of videos, you may get started with this [Python for Absolute Beginners video](https://www.youtube.com/watch?v=11OYpBrhdyM).
+These Python programming-related sections are designed for beginners and professionals who want to learn Python programming language. If you are in favor of videos, you may get started with this [Python for Absolute Beginners video](https://www.youtube.com/watch?v=11OYpBrhdyM).
 
 ## Why Python?
 
-It is a programming language that is very close to human language and because of that, it is easy to learn and use. Python is used by various industries and companies (including Google). It has been used to develop web applications, desktop applications, system administration, and machine learning libraries. Python is a highly embraced language in the data science and Machine Learning community. I hope this is enough to convince you to start learning Python. Python is eating the world and you are killing it before it eats you.
+It is a programming language that is very close to human language and because of that, it is easy to learn and use. Python is used by various industries and companies (including Google). It has been used to develop web applications, desktop applications, system administration, and Machine Learning libraries. Python is a highly embraced language in the data science and Machine Learning community. I hope this is enough to convince you to start learning Python. Python is eating the world and you are killing it before it eats you.
 
 ## Environment setup
 
@@ -178,9 +177,9 @@ Comments are very important to make the code more readable and to leave remarks 
 **Example: Single Line Comment**
 
 ```shell
-    # This is the first comment
-    # This is the second comment
-    # Python is eating the world
+# This is the first comment
+# This is the second comment
+# Python is eating the world
 ```
 
 **Example: Multiline Comment**
