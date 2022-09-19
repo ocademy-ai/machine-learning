@@ -136,16 +136,19 @@ conda activate open-machine-learning-jupyter-book
 
 ```bash
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
-jupyter-book build . 
+
+# if you are using bash
+bash ./build.sh
+
+# or you can rebuild everything
+bash ./build-force-all.sh
 ```
 
 #### Build the slides (optional)
 
-If you want to edit or view the slides locally, you need to execute the below command after the book is built. It will convert the notebooks at `slides/` to slides at `./_build/html/slides/build`, which is powered by [RISE](https://github.com/damianavila/RISE).
+The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE). 
 
-```bash
-jupyter-nbconvert slides/*.ipynb --output-dir ./_build/html/slides/build --to slides
-```
+If you want to preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/install). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
 
 > **Warning**
 >
