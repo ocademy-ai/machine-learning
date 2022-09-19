@@ -146,9 +146,9 @@ bash ./build-force-all.sh
 
 #### Build the slides (optional)
 
-The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE). 
+The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
 
-If you want to preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/install). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
+If you want to edit or preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/install). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
 
 > **Warning**
 >
