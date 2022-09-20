@@ -286,13 +286,13 @@ A set is a collection of data types similar to a list and tuple. Unlike the list
 {3.14, 9.81, 2.7} # order is not important in set
 ```
 
-### Checking Data types
+### Checking data types
 
 To check the data type of certain data/variables we use the `type` function. In the following terminal you will see different Python data types:
 
 ![Checking Data types](../../images/checking_data_types.png)
 
-### Python File
+### Python file
 
 First open your project folder, `open-academy`. If you don't have this folder, create a folder name called `open-academy`. Inside this folder, create a file called `helloworld.py`. Now, let's do what we did on Python interactive shell using Visual Studio Code.
 
