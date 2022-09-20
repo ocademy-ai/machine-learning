@@ -15,7 +15,7 @@ kernelspec:
 
 # Python programming advanced
 
-## Control Flow
+## Control flow
 
 ### The if statement
 
@@ -324,7 +324,7 @@ assert rest_of_the_numbers == [1, 3, 5, 7, 9]
 
 ## Functions
 
-### Function Definition (def and return statements)
+### Function definition (def and return statements)
 
 The keyword def introduces a function definition. It must be followed by the function name and the parenthesized list of formal parameters. The statements that form the body of the function start at the next line, and must be indented.
 
@@ -451,7 +451,7 @@ greet_with_closure = compose_greet_func_with_closure('John')
 assert greet_with_closure() == 'Hello there, John!'
 ```
 
-### Scopes of Variables Inside Functions (global and nonlocal statements)
+### Scopes of variables inside functions (global and nonlocal statements)
 
 A NAMESPACE is a mapping from names to objects. Most namespaces are currently implemented as Python dictionaries, but that’s normally not noticeable in any way (except for performance), and it may change in the future. Examples of namespaces are: the set of built-in names (containing functions such as `abs()`, and built-in exception names); the global names in a module; and the local names in a function invocation. In a sense the set of attributes of an object also form a namespace.
 
@@ -544,7 +544,7 @@ test_global_variable_access()
 
 On this example you may see how accessing and changing global variables from within inner functions might make debugging more difficult and code to be less predictable. Since you might have expected that `test_variable` should still be equal to 'initial global value' but it was changed by "someone" and you need to know about the CONTEXT of who had changed that. So once again access global and non local scope only if you know what you're doing otherwise it might be considered as bad practice.
 
-### Default Argument Values
+### Default argument values
 
 The most useful form is to specify a default value for one or more arguments. This creates a function that can be called with fewer arguments than it is defined to allow.
 
@@ -573,7 +573,7 @@ assert power_of(3, 2) == 9
 assert power_of(3, 3) == 27
 ```
 
-### Keyword Arguments
+### Keyword arguments
 
 Functions can be called using keyword arguments of the form `kwarg=value`.
 
@@ -659,7 +659,7 @@ with pytest.raises(Exception):
 
 In a function call, keyword arguments must follow positional arguments. All the keyword arguments passed must match one of the arguments accepted by the function (e.g. `actor` is not a valid argument for the `parrot` function), and their order is not important. This also includes non-optional arguments (e.g. `parrot(voltage=1000)` is valid too).  
 
-### Arbitrary Argument Lists
+### Arbitrary argument lists
 
 Function can be called with an arbitrary number of arguments. These arguments will be wrapped up in a tuple. Before the variable number of arguments, zero or more normal arguments may occur.
 
@@ -689,7 +689,7 @@ assert concat('earth', 'mars', 'venus') == 'earth/mars/venus'
 assert concat('earth', 'mars', 'venus', sep='.') == 'earth.mars.venus'
 ```
 
-### Unpacking Argument Lists (* and ** statements)
+### Unpacking argument lists (* and ** statements)
 
 Unpacking arguments may be executed via `*` and `**` operators. See below for further details.
 
@@ -746,7 +746,7 @@ pairs.sort(key=lambda pair: pair[1])
 assert pairs == [(4, 'four'), (1, 'one'), (3, 'three'), (2, 'two')]
 ```
 
-### Documentation Strings
+### Documentation strings
 
 Here are some conventions about the content and formatting of documentation strings.
 
@@ -776,7 +776,7 @@ No, really, it doesn't do anything.
 """
 ```
 
-### Function Annotations
+### Function annotations
 
 Function annotations are completely optional metadata information about the types used by user-defined functions.
 
@@ -795,7 +795,7 @@ def breakfast(ham: str, eggs: str = 'eggs') -> str:
 assert breakfast.__annotations__ == {'eggs': str, 'ham': str, 'return': str}
 ```
 
-### Function Decorators
+### Function decorators
 
 Function decorators are simply wrappers to existing functions. In the context of design patterns, decorators dynamically alter the functionality of a function, method or class without having to directly use subclasses. This is ideal when you need to extend the functionality of functions that you don't want to modify. We can implement the decorator pattern anywhere, but Python facilitates the implementation by providing much more expressive features and syntax for that.
 
@@ -891,7 +891,7 @@ assert greeting_with_tags('John') == '<div><p>Hello, John!</p></div>'
 
 ## Classes
 
-### Class Definition (class statement)
+### Class definition (class statement)
 
 Python is an object oriented programming language.
 Almost everything in Python is an object, with its properties and methods.
@@ -934,7 +934,7 @@ assert greeter.say_hello() == 'Hello user'
 assert greeter.say_goodbye() == 'Goodbye user'
 ```
 
-### Class Objects
+### Class objects
 
 After defining the class attributes to a class, the class object can be created by assigning the object to a variable. The created object would have instance attributes associated with it.
 
@@ -1087,7 +1087,7 @@ assert counter.get_counter() == 10
 assert MyCounter.get_counter(counter) == 10
 ```
 
-### Class and Instance Variables
+### Class and instance variables
 
 Generally speaking, instance variables are for data unique to each instance and class variables are for attributes and methods shared by all instances of the class.
 
@@ -1212,7 +1212,7 @@ class Employee(Person):
     def __init__(self, name, staff_id):
         Person.__init__(self, name)
         # You may also use super() here in order to avoid explicit using of parent class name:
-        # super().__init__(name)
+        # >>> super().__init__(name)
         self.staff_id = staff_id
 
     def get_full_id(self):
@@ -1247,7 +1247,7 @@ assert issubclass(Employee, Person)
 assert not issubclass(Person, Employee)
 ```
 
-### Multiple Inheritance
+### Multiple inheritance
 
 Some classes may derive from multiple classes. This means that the derived class would have its attributes, along with the attributes of all the classes that it was derived from.
 
@@ -1431,9 +1431,9 @@ assert echo.echo_function() == 'Do echo effect'
 assert echo_function() == 'Do echo effect'
 ```
 
-## Errors and Exceptions
+## Errors and exceptions
 
-### Handling Exceptions (try statement)
+### Handling exceptions (try statement)
 
 Even if a statement or expression is syntactically correct, it may cause an error when an attempt
 is made to execute it. Errors detected during execution are called exceptions and are not
@@ -1535,7 +1535,7 @@ assert not exception_has_been_handled
 assert no_exceptions_has_been_fired
 ```
 
-### Raising Exceptions (raise statement)
+### Raising exceptions (raise statement)
 
 The `raise` statement allows the programmer to force a specified exception to occur.
 
@@ -1582,6 +1582,8 @@ assert custom_exception_is_caught
 ```
 
 ## Your turn! 🚀
+
+Practice the Python programming basics by following this [assignment](../assignments/prerequisites/python-programming-advanced.ipynb).
 
 ## Self study
 

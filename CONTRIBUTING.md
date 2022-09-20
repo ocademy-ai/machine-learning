@@ -136,15 +136,12 @@ conda activate open-machine-learning-jupyter-book
 
 ```bash
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
-jupyter-book build . 
-```
 
-#### Build the slides (optional)
+# if you are using bash
+bash ./build.sh
 
-If you want to edit or view the slides locally, you need to execute the below command after the book is built. It will convert the notebooks at `slides/` to slides at `./_build/html/slides/build`, which is powered by [RISE](https://github.com/damianavila/RISE).
-
-```bash
-jupyter-nbconvert slides/*.ipynb --output-dir ./_build/html/slides/build --to slides
+# or you can rebuild everything
+bash ./build-force-all.sh
 ```
 
 > **Warning**
@@ -187,6 +184,27 @@ jupyter-nbconvert slides/*.ipynb --output-dir ./_build/html/slides/build --to sl
 >
 > 5. Rerun `jupyter-book build .`
 > 6. Run `pip uninstall xcffib` if error still exists, and then try again.
+
+#### Build the slides (optional)
+
+The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
+
+If you want to edit or preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
+
+```bash
+# Install javascript and css files
+jupyter contrib nbextension install --user
+
+# Enabling extensions
+jupyter nbextension enable init_cell/main
+
+# Launch the notebook
+jupyter notebook
+```
+
+> **Warning**
+>
+> Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
 
 ## Code of conduct
 
