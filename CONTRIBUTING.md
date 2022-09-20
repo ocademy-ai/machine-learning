@@ -144,12 +144,6 @@ bash ./build.sh
 bash ./build-force-all.sh
 ```
 
-#### Build the slides (optional)
-
-The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
-
-If you want to edit or preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/install). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
-
 > **Warning**
 >
 > You may encouter following problem when you program on ARM-based M1 Mac.
@@ -190,6 +184,27 @@ If you want to edit or preview the slides locally, you need to use [Jupyter Note
 >
 > 5. Rerun `jupyter-book build .`
 > 6. Run `pip uninstall xcffib` if error still exists, and then try again.
+
+#### Build the slides (optional)
+
+The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
+
+If you want to edit or preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
+
+```bash
+# Install javascript and css files
+jupyter contrib nbextension install --user
+
+# Enabling extensions
+jupyter nbextension enable init_cell/main
+
+# Launch the notebook
+jupyter notebook
+```
+
+> **Warning**
+>
+> Please make sure the Jupyter Notebook is running in trusted mode. So that the first cell of slide will be automatically executed to load the css
 
 ## Code of conduct
 
