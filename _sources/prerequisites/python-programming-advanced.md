@@ -467,9 +467,8 @@ Although scopes are determined statically, they are used dynamically. At any tim
 - The next-to-last scope contains the current module’s global names.
 - The outermost scope (searched last) is the namespace containing built-in names.
 
-
 BE CAREFUL!!!
--------------
+
 Changing global or nonlocal variables from within an inner function might be a BAD practice and might lead to harder debugging and to more fragile code! Do this only if you know what you're doing.
 
 ```{code-cell}
