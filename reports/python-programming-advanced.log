@@ -17,58 +17,32 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-def parrot(voltage, state='a stiff', action='voom', parrot_type='Norwegian Blue'):
-    message = 'This parrot wouldn\'t ' + action + ' '
-    message += 'if you put ' + str(voltage) + ' volts through it. '
-    message += 'Lovely plumage, the ' + parrot_type + '. '
-    message += 'It\'s ' + state + '!'
+import pytest
 
-    return message
+# Required argument missing.
+with pytest.raises(Exception):
+    # pylint: disable=no-value-for-parameter
+    parrot()
 
-message = (
-    "This parrot wouldn't voom if you put 1000 volts through it. "
-    "Lovely plumage, the Norwegian Blue. "
-    "It's a stiff!"
-)
+# Non-keyword argument after a keyword argument.
+with pytest.raises(Exception):
+    parrot(voltage=5.0, 'dead')
 
-# 1 positional argument.
-assert parrot(1000) == message
+# No argument may receive a value more than once.
+with pytest.raises(Exception):
+    # pylint: disable=redundant-keyword-arg
+    parrot(110, voltage=220)
 
-# 1 keyword argument.
-assert parrot(voltage=1000) == message
-
-message = (
-    "This parrot wouldn't VOOOOOM if you put 1000000 volts through it. "
-    "Lovely plumage, the Norwegian Blue. "
-    "It's a stiff!"
-
-# 2 keyword arguments.
-assert parrot(voltage=1000000, action='VOOOOOM') == message
-assert parrot(action='VOOOOOM', voltage=1000000) == message
-
-message = (
-    "This parrot wouldn't jump if you put 1000000 volts through it. "
-    "Lovely plumage, the Norwegian Blue. "
-    "It's bereft of life!"
-)
-
-# 3 positional arguments.
-assert parrot(1000000, 'bereft of life', 'jump') == message
-
-message = (
-    "This parrot wouldn't voom if you put 1000 volts through it. "
-    "Lovely plumage, the Norwegian Blue. "
-    "It's pushing up the daisies!"
-)
-
-# 1 positional, 1 keyword.
-assert parrot(1000, state='pushing up the daisies') == message
+#Unknown keyword argument.
+with pytest.raises(Exception):
+    # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    parrot(actor='John Cleese')
 ------------------
 
-[0;36m  Cell [0;32mIn [31], line 27[0;36m[0m
-[0;31m    assert parrot(voltage=1000000, action='VOOOOOM') == message[0m
-[0m    ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+[0;36m  Cell [0;32mIn [32], line 10[0;36m[0m
+[0;31m    parrot(voltage=5.0, 'dead')[0m
+[0m                        ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m positional argument follows keyword argument
 
-SyntaxError: invalid syntax (1343014106.py, line 27)
+SyntaxError: positional argument follows keyword argument (3304292473.py, line 10)
 

@@ -591,6 +591,7 @@ message = (
     "This parrot wouldn't VOOOOOM if you put 1000000 volts through it. "
     "Lovely plumage, the Norwegian Blue. "
     "It's a stiff!"
+)
 
 # 2 keyword arguments.
 assert parrot(voltage=1000000, action='VOOOOOM') == message
