@@ -627,15 +627,22 @@ with pytest.raises(Exception):
     parrot()
 
 # Non-keyword argument after a keyword argument.
-with pytest.raises(Exception):
-    parrot(voltage=5.0, 'dead')
+# Below code will result in SyntaxError as this.
+#   File "/tmp/ipykernel_44/168525738.py", line 9
+#    parrot(voltage=5.0, 'dead')
+#   SyntaxError: positional argument follows keyword argument
+#
+# parrot(voltage=5.0, 'dead')
+
+                       ^
+SyntaxError: positional argument follows keyword argument
 
 # No argument may receive a value more than once.
 with pytest.raises(Exception):
     # pylint: disable=redundant-keyword-arg
     parrot(110, voltage=220)
 
-#Unknown keyword argument.
+# Unknown keyword argument.
 with pytest.raises(Exception):
     # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
     parrot(actor='John Cleese')

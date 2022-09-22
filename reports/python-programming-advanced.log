@@ -25,24 +25,31 @@ with pytest.raises(Exception):
     parrot()
 
 # Non-keyword argument after a keyword argument.
-with pytest.raises(Exception):
-    parrot(voltage=5.0, 'dead')
+# Below code will result in SyntaxError as this.
+#   File "/tmp/ipykernel_44/168525738.py", line 9
+#    parrot(voltage=5.0, 'dead')
+#   SyntaxError: positional argument follows keyword argument
+#
+# parrot(voltage=5.0, 'dead')
+
+                       ^
+SyntaxError: positional argument follows keyword argument
 
 # No argument may receive a value more than once.
 with pytest.raises(Exception):
     # pylint: disable=redundant-keyword-arg
     parrot(110, voltage=220)
 
-#Unknown keyword argument.
+# Unknown keyword argument.
 with pytest.raises(Exception):
     # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
     parrot(actor='John Cleese')
 ------------------
 
-[0;36m  Cell [0;32mIn [32], line 10[0;36m[0m
-[0;31m    parrot(voltage=5.0, 'dead')[0m
-[0m                        ^[0m
-[0;31mSyntaxError[0m[0;31m:[0m positional argument follows keyword argument
+[0;36m  Cell [0;32mIn [32], line 16[0;36m[0m
+[0;31m    ^[0m
+[0m    ^[0m
+[0;31mIndentationError[0m[0;31m:[0m unexpected indent
 
-SyntaxError: positional argument follows keyword argument (3304292473.py, line 10)
+IndentationError: unexpected indent (2449944863.py, line 16)
 
