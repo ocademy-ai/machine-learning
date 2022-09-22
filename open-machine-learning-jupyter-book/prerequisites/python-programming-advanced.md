@@ -626,17 +626,6 @@ with pytest.raises(Exception):
     # pylint: disable=no-value-for-parameter
     parrot()
 
-# Non-keyword argument after a keyword argument.
-# Below code will result in SyntaxError as this.
-#   File "/tmp/ipykernel_44/168525738.py", line 9
-#    parrot(voltage=5.0, 'dead')
-#   SyntaxError: positional argument follows keyword argument
-#
-# parrot(voltage=5.0, 'dead')
-
-                       ^
-SyntaxError: positional argument follows keyword argument
-
 # No argument may receive a value more than once.
 with pytest.raises(Exception):
     # pylint: disable=redundant-keyword-arg
@@ -646,6 +635,16 @@ with pytest.raises(Exception):
 with pytest.raises(Exception):
     # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
     parrot(actor='John Cleese')
+```
+
+```py
+# Non-keyword argument after a keyword argument.
+# Below code will result in SyntaxError as this.
+#   File "/tmp/ipykernel_44/168525738.py", line 9
+#    parrot(voltage=5.0, 'dead')
+#   SyntaxError: positional argument follows keyword argument
+#
+parrot(voltage=5.0, 'dead')
 ```
 
 In a function call, keyword arguments must follow positional arguments. All the keyword arguments passed must match one of the arguments accepted by the function (e.g. `actor` is not a valid argument for the `parrot` function), and their order is not important. This also includes non-optional arguments (e.g. `parrot(voltage=1000)` is valid too).  
