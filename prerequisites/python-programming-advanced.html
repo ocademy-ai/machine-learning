@@ -1797,9 +1797,7 @@ title="Print to PDF"
 </div>
 </div>
 <p>But all the following calls would be invalid:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytest</span>
 
 <span class="c1"># Required argument missing.</span>
 <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -1811,21 +1809,17 @@ title="Print to PDF"
     <span class="c1"># pylint: disable=redundant-keyword-arg</span>
     <span class="n">parrot</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="n">voltage</span><span class="o">=</span><span class="mi">220</span><span class="p">)</span>
 
-<span class="c1"># Unknown keyword argument.</span>
-<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="c1"># pylint: disable=unexpected-keyword-arg,no-value-for-parameter</span>
-    <span class="n">parrot</span><span class="p">(</span><span class="n">actor</span><span class="o">=</span><span class="s1">&#39;John Cleese&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="c1"># Non-keyword argument after a keyword argument.</span>
+<span class="c1"># Non-keyword argument after a keyword argument.</span>
 <span class="c1"># Below code will result in SyntaxError as this.</span>
 <span class="c1">#   File &quot;/tmp/ipykernel_44/168525738.py&quot;, line 9</span>
 <span class="c1">#    parrot(voltage=5.0, &#39;dead&#39;)</span>
 <span class="c1">#   SyntaxError: positional argument follows keyword argument</span>
-<span class="c1">#</span>
 <span class="n">parrot</span><span class="p">(</span><span class="n">voltage</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="s1">&#39;dead&#39;</span><span class="p">)</span>
+
+<span class="c1"># Unknown keyword argument.</span>
+<span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=unexpected-keyword-arg,no-value-for-parameter</span>
+    <span class="n">parrot</span><span class="p">(</span><span class="n">actor</span><span class="o">=</span><span class="s1">&#39;John Cleese&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In a function call, keyword arguments must follow positional arguments. All the keyword arguments passed must match one of the arguments accepted by the function (e.g. <code class="docutils literal notranslate"><span class="pre">actor</span></code> is not a valid argument for the <code class="docutils literal notranslate"><span class="pre">parrot</span></code> function), and their order is not important. This also includes non-optional arguments (e.g. <code class="docutils literal notranslate"><span class="pre">parrot(voltage=1000)</span></code> is valid too).</p>
@@ -1954,28 +1948,11 @@ title="Print to PDF"
 </div>
 </div>
 <p>The Python parser does not strip indentation from multi-line string literals in Python, so tools that process documentation have to strip indentation if desired. This is done using the following convention. The first non-blank line after the first line of the string determines the amount of indentation for the entire documentation string. (We can’t use the first line since it is generally adjacent to the string’s opening quotes so its indentation is not apparent in the string literal.) Whitespace “equivalent” to this indentation is then stripped from the start of all lines of the string. Lines that are indented less should not occur, but if they occur all their leading whitespace should be stripped. Equivalence of whitespace should be tested after expansion of tabs (to 8 spaces, normally).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">do_nothing</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s2">&quot;&quot;&quot;Do nothing, but document it.</span>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">do_nothing</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s2">&quot;&quot;&quot;Do nothing, but document it.</span>
 
 <span class="s2">No, really, it doesn&#39;t do anything.</span>
 <span class="s2">&quot;&quot;&quot;</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">39</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">assert</span> <span class="n">do_nothing</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s2">&quot;&quot;&quot;Do nothing, but document it.</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="s2"> </span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="s2"> No, really, it doesn&#39;t do anything.</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="s2"> &quot;&quot;&quot;</span>
-
-<span class="ne">AssertionError</span>: 
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="function-annotations">
@@ -2196,6 +2173,16 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s1">&#39;Example of the complex numbers class&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">50</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">assert</span> <span class="n">ComplexNumber</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">==</span> <span class="s1">&#39;Example of the complex numbers class&#39;</span>
+
+<span class="ne">AssertionError</span>: 
 </pre></div>
 </div>
 </div>
