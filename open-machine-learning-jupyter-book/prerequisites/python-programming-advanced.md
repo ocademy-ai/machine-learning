@@ -954,7 +954,7 @@ assert ComplexNumber.real == 0
 
  `__doc__` is also a valid attribute, returning the docstring belonging to the class:
 
-```{code-cell}
+```py
 assert ComplexNumber.__doc__ == 'Example of the complex numbers class'
 ```
 
