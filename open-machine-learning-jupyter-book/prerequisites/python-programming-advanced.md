@@ -1274,6 +1274,7 @@ Python supports a form of multiple inheritances as well. A class definition with
 
 ```{code-cell}
 class CalendarClock(Clock, Calendar):
+    pass
 
 calendar_clock = CalendarClock()
 
