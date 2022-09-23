@@ -618,7 +618,7 @@ assert parrot(1000, state='pushing up the daisies') == message
 
 But all the following calls would be invalid:
 
-```{code-cell}
+```py
 import pytest
 
 # Required argument missing.
@@ -631,20 +631,17 @@ with pytest.raises(Exception):
     # pylint: disable=redundant-keyword-arg
     parrot(110, voltage=220)
 
-# Unknown keyword argument.
-with pytest.raises(Exception):
-    # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
-    parrot(actor='John Cleese')
-```
-
-```py
 # Non-keyword argument after a keyword argument.
 # Below code will result in SyntaxError as this.
 #   File "/tmp/ipykernel_44/168525738.py", line 9
 #    parrot(voltage=5.0, 'dead')
 #   SyntaxError: positional argument follows keyword argument
-#
 parrot(voltage=5.0, 'dead')
+
+# Unknown keyword argument.
+with pytest.raises(Exception):
+    # pylint: disable=unexpected-keyword-arg,no-value-for-parameter
+    parrot(actor='John Cleese')
 ```
 
 In a function call, keyword arguments must follow positional arguments. All the keyword arguments passed must match one of the arguments accepted by the function (e.g. `actor` is not a valid argument for the `parrot` function), and their order is not important. This also includes non-optional arguments (e.g. `parrot(voltage=1000)` is valid too).  
@@ -759,7 +756,7 @@ def do_nothing():
 
 The Python parser does not strip indentation from multi-line string literals in Python, so tools that process documentation have to strip indentation if desired. This is done using the following convention. The first non-blank line after the first line of the string determines the amount of indentation for the entire documentation string. (We can’t use the first line since it is generally adjacent to the string’s opening quotes so its indentation is not apparent in the string literal.) Whitespace “equivalent” to this indentation is then stripped from the start of all lines of the string. Lines that are indented less should not occur, but if they occur all their leading whitespace should be stripped. Equivalence of whitespace should be tested after expansion of tabs (to 8 spaces, normally).
 
-```{code-cell}
+```py
 assert do_nothing.__doc__ == """Do nothing, but document it.
 
 No, really, it doesn't do anything.
