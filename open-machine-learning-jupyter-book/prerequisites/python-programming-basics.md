@@ -25,7 +25,7 @@ kernelspec:
 
 ### Python indentations
 
-Where in other programming languages the indentation in code is for readability only, in Python the indentation is very important.
+While in other programming languages the indentation in code is for readability only, in Python the indentation is very important.
 
 Python uses indentation to indicate a block of code.
 
@@ -38,22 +38,16 @@ Python will give you an error if you skip the indentation.
 
 ### Comments
 
-Python has commenting capability for the purpose of in-code documentation.
-
-Comments start with a `#`, and Python will render the rest of the line as a comment:
+Python has the commenting capability for the purpose of in-code documentation. Comments start with a `#`, and Python will render the rest of the line as a comment:
 
 ```{code-cell}
-#This is a comment.
+# This is a comment.
 print("Hello, World!")
 ```
 
 ### Docstrings
 
-Python also has extended documentation capability, called docstrings.
-
-Docstrings can be one line, or multiline. Docstrings are also comments.
-
-Python uses `"""` at the beginning and end of the docstring:
+Python also has extended documentation capability, called docstrings. Docstrings can be one line, or multiline. Docstrings are also comments. Python uses `"""` at the beginning and end of the docstring:
 
 ```{code-cell}
 """This is a 
@@ -86,13 +80,23 @@ assert string_variable == 'John'
 
 ## Operators
 
+Operators are used to performing operations on variables and values. Python divides the operators into the following groups:
+
+- Arithmetic operators
+- Assignment operators
+- Comparison operators
+- Logical operators
+- Identity operators
+- Membership operators
+- Bitwise operators
+
 ```{seealso}
 - https://www.w3schools.com/python/python_operators.asp
 ```
 
 ### Arithmetic operators
 
-Arithmetic operators are used with numeric values to perform common mathematical operations
+Arithmetic operators are used with numeric values to perform common mathematical operations.
 
 ```{code-cell}
 # Addition.
@@ -132,7 +136,7 @@ assert isinstance(5 // 3, int)
 
 ### Comparison operators
 
-Comparison operators are used to comparing two values.
+Comparison operators are used to compare two values.
 
 ```{code-cell}
 # Equal.
@@ -164,7 +168,31 @@ assert number <= 6
 
 ## Data types
 
+In programming, data type is an important concept. Variables can store data of different types, and different types can do different things. Python has the following data types built in by default, in these categories:
+
+Name | Type
+---------|----------
+Text Type | `str`
+Numeric Types | `int`, `float`, `complex`
+Sequence Types | `list`, `tuple`, `range`
+Mapping Type | `dict`
+Set Types | `set`, `frozenset`
+Boolean Type | `bool`
+Binary Types | `bytes`, `bytearray`, `memoryview`
+None Type | `NoneType`
+
+```{seealso}
+- https://docs.python.org/3/tutorial/introduction.html
+- https://www.w3schools.com/python/python_datatypes.asp
+```
+
 ### Numbers (including booleans)
+
+There are three numeric types in Python:
+
+- `int`
+- `float`
+- `complex`
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/introduction.html
@@ -276,8 +304,6 @@ assert 4 * 3.75 - 1 == 14.0
 
 ### Strings and their methods
 
-#### String type
-
 Besides numbers, Python can also manipulate strings, which can be expressed in several ways. They can be enclosed in single quotes `''` or double quotes `""` with the same result.
 
 ```{seealso}
@@ -289,24 +315,18 @@ Besides numbers, Python can also manipulate strings, which can be expressed in s
 ```{code-cell}
 # String with double quotes.
 name_1 = "John"
-```
 
-```{code-cell}
 # String with single quotes.
 name_2 = 'John'
-```
 
-Strings created with different kinds of quotes are treated the same.
-
-```{code-cell}
 assert name_1 == name_2
 assert isinstance(name_1, str)
 assert isinstance(name_2, str)
 ```
 
-`\` can be used to escape quotes.
+#### String type
 
-Use `\'` to escape the single quote or use double quotes instead.
+`\` can be used to escape quotes. Use `\'` to escape the single quote or use double quotes instead.
 
 ```{code-cell}
 single_quote_string = 'doesn\'t'
@@ -428,9 +448,7 @@ Strings can be concatenated (glued together) with the `+` operator, and repeated
 
 ```{code-cell}
 assert 3 * 'un' + 'ium' == 'unununium'
-```
 
-```{code-cell}
 python = 'Py' 'thon'
 assert python == 'Python'
 ```
@@ -526,12 +544,14 @@ assert 'I like bananas'.replace('bananas', 'apples') == 'I like apples'
 ```
 
 The `join()` method joins the elements of an iterable to the end of the string.
+
 ```{code-cell}
 my_tuple = ('John', 'Peter', 'Vicky')
 assert '-'.join(my_tuple) == 'John-Peter-Vicky'
 ```
 
 The `isupper()` method returns True if all characters in the string are upper case.
+
 ```{code-cell}
 assert 'ABC'.isupper()
 assert not 'AbC'.isupper()
@@ -555,50 +575,9 @@ assert not 'a21453'.isdecimal()
 
 Often you’ll want more control over the formatting of your output than simply printing space-separated values. There are several ways to format output.
 
-To use formatted string literals, begin a string with f or F before the opening quotation mark or triple quotation mark. Inside this string, you can write a Python expression inside `{}` characters that can refer to variables or literal values.
-
-```{code-cell}
-year = 2018
-event = 'conference'
-
-assert f'Results of the {year} {event}' == 'Results of the 2018 conference'
-```
-
-The `str.format()` method of strings requires more manual effort. You’ll still use `{}` to mark where a variable will be substituted and can provide detailed formatting directives, but you’ll also need to provide the information to be formatted.
-
-```{code-cell}
-yes_votes = 42_572_654  # equivalent of 42572654
-no_votes = 43_132_495   # equivalent of 43132495
-percentage = yes_votes / (yes_votes + no_votes)
-
-assert '{:-9} YES votes  {:2.2%}'.format(yes_votes, percentage) == ' 42572654 YES votes  49.67%'
-```
-
-When you don’t need fancy output but just want a quick display of some variables for debugging purposes, you can convert any value to a string with the `repr()` or `str()` functions. 
-
-The `str()` function is meant to return representations of values that are fairly human-readable, while `repr()` is meant to generate representations that can be read by the interpreter (or will force a `SyntaxError` if there is no equivalent syntax).
-
-For objects which don’t have a particular representation for human consumption, `str()` will return the same value as `repr()`. Many values, such as numbers or structures like lists and dictionaries, have the same representation using either function. Strings, in particular, have two distinct representations.
-
-```{code-cell}
-greeting = 'Hello, world.'
-first_num = 10 * 3.25
-second_num = 200 * 200
-
-assert str(greeting) == 'Hello, world.'
-assert repr(greeting) == "'Hello, world.'"
-assert str(1/7) == '0.14285714285714285'
-```
-
-The argument to `repr()` may be any Python object:
-
-```{code-cell}
-assert repr((first_num, second_num, ('spam', 'eggs'))) == "(32.5, 40000, ('spam', 'eggs'))"
-```
-
 ##### Formatted string literals
 
-Formatted string literals (also called f-strings for short) let you include the value of Python expressions inside a string by prefixing the string with f or F and writing expressions as `{expression}`.
+Formatted string literals (also called f-strings for short) let you include the value of Python expressions inside a string by prefixing the string with `f` or `F` and writing expressions as `{expression}`.
 
 An optional format specifier can follow the expression. This allows greater control over how the value is formatted. The following example rounds pi to three places after the decimal.
 
@@ -777,13 +756,6 @@ import pytest
 fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 ```
 
-`list.append(x)` adds an item to the end of the list, equivalent to `a[len(a):] = [x]`.
-
-```{code-cell}
-fruits.append('grape')
-assert fruits == ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'grape']
-```
-
 `list.remove(x)` removes the first item from the list whose value is equal to x. It raises a `ValueError` if there is no such item.
 
 ```{code-cell}
@@ -801,7 +773,7 @@ fruits.insert(0, 'grape')
 assert fruits == ['grape', 'orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
 ```
 
-`list.index(x[, start[, end]]`)` returns a zero-based index in the list of the first item whose value is equal to x. Raises a ValueError if there is no such item. The optional arguments start and end are interpreted as in the slice notation and are used to limit the search to a particular subsequence of the list. The returned index is computed relative to the beginning of the full sequence rather than the start argument.
+`list.index(x[, start[, end]])` returns a zero-based index in the list of the first item whose value is equal to x. Raises a ValueError if there is no such item. The optional arguments start and end are interpreted as in the slice notation and are used to limit the search to a particular subsequence of the list. The returned index is computed relative to the beginning of the full sequence rather than the start argument.
 
 ```{code-cell}
 assert fruits.index('grape') == 0
@@ -949,9 +921,7 @@ assert combinations == [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
 
 Note how the order of the `for` and `if` statements is the same in both these snippets.
 
-If the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized.
-
-Let's see some more examples:
+If the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized. Let's see some more examples:
 
 ```{code-cell}
 vector = [-4, -2, 0, 2, 4]
@@ -1376,20 +1346,13 @@ assert dictionary_for_string_keys['jack'] == 4098
 
 ### Type casting
 
-There may be times when you want to specify a type on to a variable. This can be done with **casting**.
-
-Python is an object-orientated language, and as such it uses classes to define data types,
-including its primitive types.
-
-Casting in python is therefore done using constructor functions.
+There may be times when you want to specify a type to a variable. This can be done with **casting**. Python is an object-orientated language, and as such it uses classes to define data types, including its primitive types. Casting in Python is therefore done using constructor functions.
 
 - `int()` - constructs an integer number from an integer literal, a float literal (by rounding down
 to the previous whole number) literal, or a string literal (providing the string represents a
 whole number)
-
 - `float()` - constructs a float number from an integer literal, a float literal or a string literal
 (providing the string represents a float or an integer)
-
 - `str()` - constructs a string from a wide variety of data types, including strings, integer
 literals and float literals
 
