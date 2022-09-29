@@ -1,2 +1,2 @@
 jupyter-book build .
-cp -R ./slides/images ./_build/html/slides/ 
+cbash ./post-build.sh
