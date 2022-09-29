@@ -25,11 +25,12 @@ It is used for:
 - software development,
 - mathematics,
 - system scripting.
+
 These Python programming-related sections are designed for beginners and professionals who want to learn Python programming language. If you are in favor of videos, you may get started with this [Python for Absolute Beginners video](https://www.youtube.com/watch?v=11OYpBrhdyM).
 
 ## Why Python?
 
-It is a programming language that is very close to human language and because of that, it is easy to learn and use. Python is used by various industries and companies (including Google). It has been used to develop web applications, desktop applications, system administration, and Machine Learning libraries. Python is a highly embraced language in the data science and Machine Learning community. I hope this is enough to convince you to start learning Python. Python is eating the world and you are killing it before it eats you.
+It is a programming language that is very close to human language and because of that, it is easy to learn and use. Python is used by various industries and companies (including Google). It has been used to develop web applications, desktop applications, system administration, and Machine Learning libraries. Python is a highly embraced language in the data science and Machine Learning community. Hope this is enough to convince you to start learning Python. Python is eating the world and you are killing it before it eats you.
 
 ## Environment setup
 
@@ -345,7 +346,7 @@ To run the Python file check the image below. You can run the Python file either
    - Your name
    - Your family name
    - Your country
-   - I am enjoying 30 days of Python
+   - I am enjoying Open Academy courses
 4. Check the data types of the following data:
    - 10
    - 9.8
