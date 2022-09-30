@@ -1,2 +1,2 @@
 jupyter-book build .
-cbash ./post-build.sh
+bash ./post-build.sh
