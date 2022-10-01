@@ -753,7 +753,7 @@ assert mixed_list[0][1] == 'b'
 ```{code-cell}
 import pytest
 
-fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana']
+fruits = ['orange', 'apple', 'pear', 'banana', 'kiwi', 'apple', 'banana', 'grape']
 ```
 
 `list.remove(x)` removes the first item from the list whose value is equal to x. It raises a `ValueError` if there is no such item.

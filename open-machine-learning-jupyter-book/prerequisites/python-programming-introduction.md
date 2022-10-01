@@ -25,11 +25,12 @@ It is used for:
 - software development,
 - mathematics,
 - system scripting.
+
 These Python programming-related sections are designed for beginners and professionals who want to learn Python programming language. If you are in favor of videos, you may get started with this [Python for Absolute Beginners video](https://www.youtube.com/watch?v=11OYpBrhdyM).
 
 ## Why Python?
 
-It is a programming language that is very close to human language and because of that, it is easy to learn and use. Python is used by various industries and companies (including Google). It has been used to develop web applications, desktop applications, system administration, and Machine Learning libraries. Python is a highly embraced language in the data science and Machine Learning community. I hope this is enough to convince you to start learning Python. Python is eating the world and you are killing it before it eats you.
+It is a programming language that is very close to human language and because of that, it is easy to learn and use. Python is used by various industries and companies (including Google). It has been used to develop web applications, desktop applications, system administration, and Machine Learning libraries. Python is a highly embraced language in the data science and Machine Learning community. Hope this is enough to convince you to start learning Python. Python is eating the world and you are killing it before it eats you.
 
 ## Environment setup
 
@@ -53,7 +54,7 @@ Python --version
 
 ![Python Version](../../images/python_version.png)
 
-As you can see from the terminal, I am using _Python 3.7.5_ version at the moment. Your version of Python might be different from mine, but it should be 3.6 or above. If you manage to see the Python version, well done. Python has been installed on your machine. Continue to the next section.
+As you can see from the terminal, _Python 3.7.5_ version is used at the moment. Your version of Python might be different from mine, but it should be 3.6 or above. If you manage to see the Python version, well done. Python has been installed on your machine. Continue to the next section.
 
 ### Python shell
 
@@ -130,7 +131,7 @@ Before we move on to the next section, let us practice more on the Python intera
 
 ### Installing Visual Studio Code
 
-The Python interactive shell is good to try and test small script codes but it will not be for a big project. In the real work environment, developers use different code editors to write codes. Will use Visual Studio Code. Visual Studio Code is a very popular open-source text editor. I am a fan of Visual Studio Code and I would recommend [downloading](https://code.visualstudio.com/) Visual Studio Code, but if you are in favor of other editors, feel free to follow with what you have.
+The Python interactive shell is good to try and test small script codes but it will not be for a big project. In the real work environment, developers use different code editors to write codes. Will use Visual Studio Code. Visual Studio Code is a very popular open-source text editor. If you are a fan of Visual Studio Code, it is recommended to [download](https://code.visualstudio.com/) it. but if you are in favor of other editors, feel free to follow with what you have.
 
 [![Visual Studio Code](../../images/vscode.png)](https://code.visualstudio.com/)
 
@@ -148,7 +149,7 @@ Create a folder named `open-academy` on your desktop. Then open it using Visual 
 
 ![Opening a project](../../images/opening_project.png)
 
-After opening it you will see shortcuts for creating files and folders inside of `open-academy` project's directory. As you can see below, I have created the very first file, `helloworld.py`. You can do the same.
+After opening it you will see shortcuts for creating files and folders inside of `open-academy` project's directory. As you can see below, the very first file is created as `helloworld.py`. You can do the same.
 
 ![Creating a Python file](../../images/helloworld.png)
 
@@ -345,7 +346,7 @@ To run the Python file check the image below. You can run the Python file either
    - Your name
    - Your family name
    - Your country
-   - I am enjoying 30 days of Python
+   - I am enjoying Open Academy courses
 4. Check the data types of the following data:
    - 10
    - 9.8
