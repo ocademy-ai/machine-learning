@@ -147,7 +147,7 @@ World of Data Science{cite}`nolli_how_2020`
 Visit [`notebook.ipynb`](../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real time.
 
 * **Task 1**: Modify the code above to find out related concepts for the fields of **Big Data** and **Machine Learning**.
-* **Task 2**: Think about [Data Science scenarios](../assignments/data-science/).
+* **Task 2**: Think about [Data Science scenarios](../assignments/data-science/data-science-scenarios.md).
 
 ## Self study
 
