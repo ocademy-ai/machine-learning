@@ -277,7 +277,7 @@ The latter requires [collaborative approaches to defining ethics cultures](https
 
 ## Your turn! 🚀
 
-[Write A Data Ethics Case Study](assignment.md)
+[Write a data ethics case study](../assignments/data-science/write-a-data-ethics-case-study.md)
 
 ## Self study
 
