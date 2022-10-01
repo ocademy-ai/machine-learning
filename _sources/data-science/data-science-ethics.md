@@ -27,7 +27,7 @@ Data ethics are now _necessary guardrails_ for data science and engineering, hel
 ---
 name: 'Gartner Hype Cycle for AI - 2020'
 ---
-Gartner Hype Cycle for AI - 2020{cite}`mishra_kamal_gartner_2021`
+Gartner Hype Cycle for AI - 2020{cite}`MishraKamalGartner2021`
 ```
 
 In this lesson, we'll explore the fascinating area of data ethics - from core concepts and challenges, to case studies and applied AI concepts like governance - that help establish an ethics culture in teams and organizations that work with data and AI.
@@ -60,7 +60,7 @@ Every data ethics strategy begins by defining _ethical principles_ - the "shared
 ---
 name: 'Responsible AI at Microsoft'
 ---
-Responsible AI at Microsoft{cite}`jcodella_ethics_nodate`
+Responsible AI at Microsoft{cite}`JcodellaEthicsNodate`
 
 ```
 
