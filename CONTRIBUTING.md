@@ -124,7 +124,7 @@ conda env update -f environment.yml
 > An HTTP error occurred when trying to retrieve this URL.
 > HTTP errors are often intermittent, and a simple retry will get you on your way.
 > ```
-
+>
 > Create `.condarc` conda configuration file.
 >
 > ```bash
