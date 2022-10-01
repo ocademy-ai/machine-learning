@@ -116,40 +116,40 @@ conda env create -f environment.yml
 conda env update -f environment.yml      
 ```
 
-  **Warining**
+> **Warning**
+>
+> You may see below HTTP error first. 
+>
+> ```bash
+> An HTTP error occurred when trying to retrieve this URL.
+> HTTP errors are often intermittent, and a simple retry will get you on your way.
+> ```
 
-You may see below HTTP error first. 
-
-```bash
-An HTTP error occurred when trying to retrieve this URL.
-HTTP errors are often intermittent, and a simple retry will get you on your way.
-```
-
-Create `.condarc` conda configuration file.
-
-```bash
-conda config --set show_channel_urls yes
-```
-
-Delete initial content in `.condarc`, the add the following content to `.condarc`.
-
-```bash
-channels:
-  - defaults
-show_channel_urls: true
-default_channels:
-  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
-  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
-  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
-custom_channels:
-  conda-forge: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  msys2: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  bioconda: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  menpo: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-```
-
+> Create `.condarc` conda configuration file.
+>
+> ```bash
+> conda config --set show_channel_urls yes
+> ```
+>
+> Delete initial content in `.condarc`, the add the following content to `.condarc`.
+>
+> ```bash
+> channels:
+>   - defaults
+> show_channel_urls: true
+> default_channels:
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+> custom_channels:
+>   conda-forge: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   msys2: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   bioconda: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   menpo: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+> ```
+>
 > **Warning**
 >
 > You may see below Tensorflow installation failures, especially on the ARM-based M1 Mac.
@@ -242,15 +242,15 @@ bash ./build-force-all.sh
 
 ##### On Windows
 
-Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
-
-Run the following command.
-
-```bash
-pip uninstall xcffib
-```
-
-Restart the terminal and build again.
+> Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
+>
+> Run the following command.
+>
+> ```bash
+> pip uninstall xcffib
+> ```
+> 
+> Restart the terminal and build again.
 
 #### Build the slides (optional)
 
