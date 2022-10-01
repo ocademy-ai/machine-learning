@@ -1,4 +1,4 @@
-# Assignment: Data Science Scenarios
+# Data Science scenarios
 
 In this first assignment, we ask you to think about some real-life process or problem in different problem domains, and how you can improve it using the Data Science process. Think about the following:
 
