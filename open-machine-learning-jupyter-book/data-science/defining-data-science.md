@@ -140,7 +140,7 @@ In this challenge, we will try to find concepts relevant to the field of Data Sc
 ---
 name: 'World of Data Science'
 ---
-World of Data Science{cite}`nolli_how_2020`
+World of Data Science{cite}`NolliHow2020`
 
 ```
 
