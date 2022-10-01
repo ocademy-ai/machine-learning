@@ -23,7 +23,9 @@ However, data became much more critical with the creation of computers. The prim
 
 With the emergence of the Internet, the role of computers as data-handling devices increased. If you think about it, we now use computers more and more for data processing and communication, rather than actual computations. When we write an e-mail to a friend or search for some information on the Internet - we are essentially creating, storing, transmitting, and manipulating data.
 
-> Can you remember the last time you have used computers to actually compute something?
+```{note}
+Can you remember the last time you have used computers to actually compute something?
+```
 
 ## What is Data Science?
 
@@ -37,7 +39,9 @@ This definition highlights the following important aspects of Data Science:
 * We should be able to operate on both **structured** and **unstructured** data. We will come back to discuss different types of data later in the course.
 * **Application domain** is an important concept, and data scientists often need at least some degree of expertise in the problem domain, for example, finance, medicine, marketing, etc.
 
-> Another important aspect of Data Science is that it studies how data can be gathered, stored and operated upon using computers. While statistics gives us mathematical foundations, Data Science applies mathematical concepts to actually draw insights from data.
+```{note}
+Another important aspect of Data Science is that it studies how data can be gathered, stored and operated upon using computers. While statistics gives us mathematical foundations, Data Science applies mathematical concepts to actually draw insights from data.
+```
 
 One of the ways (attributed to [Jim Gray](https://en.wikipedia.org/wiki/Jim_Gray_(computer_scientist))) to look at Data Science is to consider it to be a separate paradigm of science:
 
@@ -126,7 +130,9 @@ Let's consider an example. Suppose we have a Data Science course (like this one)
 
 We can start by asking "What can be digitized?" The simplest way would be to measure the time it takes each student to complete each module and to measure the obtained knowledge by giving a multiple-choice test at the end of each module. By averaging time-to-complete across all students, we can find out which modules cause the most difficulties for students, and work on simplifying them.
 
-> You may argue that this approach is not ideal, because modules can be of different lengths. It is probably more fair to divide the time by the length of the module (in number of characters), and compare those values instead.
+```{note}
+You may argue that this approach is not ideal, because modules can be of different lengths. It is probably more fair to divide the time by the length of the module (in number of characters), and compare those values instead.
+```
 
 When we start analyzing the results of multiple-choice tests, we can try to determine which concepts students have difficulty understanding, and use that information to improve the content. To do that, we need to design tests in such a way that each question maps to a certain concept or chunk of knowledge.
 
