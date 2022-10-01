@@ -76,4 +76,4 @@ This Microsoft Learn unit, titled [Classify your data](https://docs.microsoft.co
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
