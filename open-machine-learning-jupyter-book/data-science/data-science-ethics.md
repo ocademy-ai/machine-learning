@@ -40,7 +40,7 @@ The word "ethics" comes from the [Greek word "ethikos"](https://en.wikipedia.org
 
 **Ethics** is about the shared values and moral principles that govern our behavior in society. Ethics is based not on laws but on widely accepted norms of what is "right vs. wrong". However, ethical considerations can influence corporate governance initiatives and government regulations that create more incentives for compliance.
 
-**Data ethics** is a [new branch of ethics](https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0360#sec-1) that "studies and evaluates moral problems related to _data, algorithms and corresponding practices_". Here, **"data"** focuses on actions related to generation, recording, curation, processing dissemination, sharing ,and usage, **"algorithms"** focuses on AI, agents, Machine Learning ,and robots, and **"practices"** focuses on topics like responsible innovation, programming, hacking and ethics codes.
+**Data ethics** is a [new branch of ethics](https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0360#sec-1) that "studies and evaluates moral problems related to _data, algorithms and corresponding practices_". Here, **"data"** focuses on actions related to generation, recording, curation, processing dissemination, sharing, and usage, **"algorithms"** focuses on AI, agents, Machine Learning, and robots, and **"practices"** focuses on topics like responsible innovation, programming, hacking and ethics codes.
 
 **Applied ethics** is the [practical application of moral considerations](https://en.wikipedia.org/wiki/Applied_ethics). It's the process of actively investigating ethical issues in the context of _real-world actions, products and processes_, and taking corrective measures to make that these remain aligned with our defined ethical values.
 
@@ -296,3 +296,9 @@ Courses and books help with understanding core ethics concepts and challenges, w
 ## Acknowledgments
 
 Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+
+---
+
+```{bibliography}
+:filter: docname in docnames
+```
