@@ -59,6 +59,14 @@ git clone https://github.com/<UserName>/machine-learning.git
 
 Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
 
+TIPS: Don't forget to add `Python` and `conda` to `PATH`. Like this:
+
+```bash
+D:\Python\Python310\Scripts\
+D:\Python\Python310\
+D:\anaconda3\Scripts
+```
+
 #### Install Jupyter Book
 
 Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version. 
@@ -72,6 +80,17 @@ Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html)
 * macOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`.
 
 Mostly, you don't need to do anything here. The executable will be picked up by [sphinxcontrib-drawio](https://pypi.org/project/sphinxcontrib-drawio/) automatically.
+
+#### Install Git
+
+Download [Git](https://git-scm.com/downloads) then add `Git` to `PATH`. Like this:
+
+```bash
+C:\Program Files\Git\cmd
+C:\Program Files\Git\bin
+```
+
+
 
 #### Initialize the environment
 
@@ -97,6 +116,40 @@ conda env create -f environment.yml
 conda env update -f environment.yml      
 ```
 
+> **Warning**
+>
+> You may see below HTTP error first. 
+>
+> ```bash
+> An HTTP error occurred when trying to retrieve this URL.
+> HTTP errors are often intermittent, and a simple retry will get you on your way.
+> ```
+>
+> Create `.condarc` conda configuration file.
+>
+> ```bash
+> conda config --set show_channel_urls yes
+> ```
+>
+> Delete initial content in `.condarc`, the add the following content to `.condarc`.
+>
+> ```bash
+> channels:
+>   - defaults
+> show_channel_urls: true
+> default_channels:
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+> custom_channels:
+>   conda-forge: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   msys2: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   bioconda: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   menpo: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+> ```
+>
 > **Warning**
 >
 > You may see below Tensorflow installation failures, especially on the ARM-based M1 Mac.
@@ -146,8 +199,10 @@ bash ./build-force-all.sh
 
 > **Warning**
 >
-> You may encouter following problem when you program on ARM-based M1 Mac.
->
+> You may encouter following problem when you program on ARM-based M1 Mac or Windows10/11.
+
+##### On M1
+
 > ```bash
 > OSError: no library called "cairo-2" was found
 > no library called "cairo" was found
@@ -184,6 +239,18 @@ bash ./build-force-all.sh
 >
 > 5. Rerun `jupyter-book build .`
 > 6. Run `pip uninstall xcffib` if error still exists, and then try again.
+
+##### On Windows
+
+> Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
+>
+> Run the following command.
+>
+> ```bash
+> pip uninstall xcffib
+> ```
+> 
+> Restart the terminal and build again.
 
 #### Build the slides (optional)
 
