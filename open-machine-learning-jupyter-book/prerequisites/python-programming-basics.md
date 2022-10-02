@@ -25,7 +25,7 @@ kernelspec:
 
 ### Python indentations
 
-While in other programming languages the indentation in code is for readability only, in Python the indentation is very important.
+While in most programming languages the indentation in code is for readability only, in Python the indentation is very important.
 
 Python uses indentation to indicate a block of code.
 
@@ -248,7 +248,7 @@ assert isinstance(float_number_via_function, float)
 assert isinstance(float_negative, float)
 ```
 
-Float can also be scientific numbers with an "e" to indicate the power of 10.
+Float can also be scientific numbers with an `e` of `E` to indicate the power of 10.
 
 ```{code-cell}
 float_with_small_e = 35e3
