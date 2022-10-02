@@ -19,9 +19,9 @@ kernelspec:
 
 ### The if statement
 
-There can be zero or more `elif` parts, and the else part is optional. The keyword `elif` is short for ‘else if’, and is useful to avoid excessive indentation.
-
 An `if … elif … elif …` sequence is a substitute for the switch or case statements found in other languages.
+
+There can be zero or more `elif` parts, and the else part is optional. The keyword `elif` is short for ‘else if’, and is useful to avoid excessive indentation.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html
@@ -255,7 +255,7 @@ assert message == 'Something went wrong.The "try except" is finished.'
 
 ### The break statement
 
-The break statement, like in C, breaks out of the innermost enclosing "for" or "while" loop.
+The break statement, breaks out of the innermost enclosing "for" or "while" loop.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html
@@ -309,7 +309,7 @@ assert rest_of_the_numbers == [1, 3, 5, 7, 9]
 
 ### Function definition (def and return statements)
 
-The keyword def introduces a function definition. It must be followed by the function name and the parenthesized list of formal parameters. The statements that form the body of the function start at the next line and must be indented.
+The keyword `def` introduces a function definition. It must be followed by the function name and the parenthesized list of formal parameters. The statements that form the body of the function start at the next line and must be indented.
 
 ```{seealso}
 - https://docs.python.org/3/tutorial/controlflow.html#defining-functions
