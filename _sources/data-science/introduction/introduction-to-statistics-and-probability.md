@@ -72,7 +72,7 @@ To help us understand the distribution of data, it is helpful to talk about **qu
 
 Graphically we can represent the relationship between median and quartiles in a diagram called the **box plot**:
 
-![](../../images/boxplot_explanation.png)
+![](../../../images/boxplot_explanation.png)
 
 Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR,Q3+1.5*IQR]$.
 
@@ -87,16 +87,16 @@ When we analyze data from real life, they often are not random variables as such
 ```
 
 ```{note}
-To see the example of working with this dataset, have a look at the [accompanying notebook](../assignments/data-science/introduction-to-statistics-and-probability.ipynb). There are also a number of challenges throughout this lesson, and you may complete them by adding some code to that notebook. If you are not sure how to operate on data, do not worry - we will come back to working with data using Python at a later time. If you do not know how to run code in Jupyter Notebook, have a look at [this article](https://soshnikov.com/education/how-to-execute-notebooks-from-github/).
+To see the example of working with this dataset, have a look at the [accompanying notebook](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb). There are also a number of challenges throughout this lesson, and you may complete them by adding some code to that notebook. If you are not sure how to operate on data, do not worry - we will come back to working with data using Python at a later time. If you do not know how to run code in Jupyter Notebook, have a look at [this article](https://soshnikov.com/education/how-to-execute-notebooks-from-github/).
 ```
 
 Here is the box plot showing the mean, median and quartiles for our data:
 
-![Weight Box Plot](../../images/weight-boxplot.png)
+![Weight Box Plot](../../../images/weight-boxplot.png)
 
 Since our data contains information about different player **roles**, we can also do the box plot by role - it will allow us to get an idea on how parameter values differ across roles. This time we will consider height:
 
-![Box plot by role](../../images/boxplot_byrole.png)
+![Box plot by role](../../../images/boxplot_byrole.png)
 
 This diagram suggests that, on average, the height of first basemen is higher than the height of second basemen. Later in this lesson, we will learn how we can test this hypothesis more formally, and how to demonstrate that our data is statistically significant to show that.
 
@@ -106,7 +106,7 @@ When working with real-world data, we assume that all data points are samples dr
 
 To see what the distribution of our data is, we can plot a graph called a **histogram**. X-axis would contain a number of different weight intervals (so-called **bins**), and the vertical axis would show the number of times our random variable sample was inside a given interval.
 
-![Histogram of real world data](../../images/weight-histogram.png)
+![Histogram of real world data](../../../images/weight-histogram.png)
 
 From this histogram, you can see that all values are centered around a certain mean weight, and the further we go from that weight - the fewer weights of that value are encountered. I.e., it is very improbable that the weight of a baseball player would be very different from the mean weight. The variance of weights shows the extent to which weights are likely to differ from the mean.
 
@@ -126,7 +126,7 @@ samples = np.random.normal(mean, std, 1000)
 
 If we plot the histogram of the generated samples we will see the picture very similar to the one shown above. And if we increase the number of samples and the number of bins, we can generate a picture of a normal distribution that is more close to ideal:
 
-```{figure} ../../images/normal-histogram.png
+```{figure} ../../../images/normal-histogram.png
 ---
 name: 'Normal distribution with mean=0 and std.dev=1'
 ---
@@ -157,7 +157,7 @@ If we want to estimate the mean $\mu$; of our population with confidence $p$, we
 We also omit the discussion of an important concept of [degrees of freedom](https://en.wikipedia.org/wiki/Degrees_of_freedom_(statistics)), which is important in relation to student distribution. You can refer to more complete books on statistics to understand this concept deeper.
 ```
 
-An example of calculating the confidence interval for weights and heights is given in the [accompanying notebooks](../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
+An example of calculating the confidence interval for weights and heights is given in the [accompanying notebooks](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
 
 | p | Weight mean |
 |-----|-----------|
@@ -169,7 +169,7 @@ Notice that the higher the confidence probability, the wider the confidence inte
 
 ## Hypothesis testing
 
-In our baseball players dataset, there are different player roles, that can be summarized below (look at the [accompanying notebooks](../assignments/data-science/introduction-to-statistics-and-probability.ipynb)) to see how this table can be calculated):
+In our baseball players dataset, there are different player roles, that can be summarized below (look at the [accompanying notebooks](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb)) to see how this table can be calculated):
 
 | Role | Height | Weight | Count |
 |------|--------|--------|-------|
@@ -212,7 +212,13 @@ For example, our comparison between the heights of first and second basemen give
 ```py
 from scipy.stats import ttest_ind
 
-tval, pval = ttest_ind(df.loc[df['Role']=='First_Baseman',['Height']], df.loc[df['Role']=='Designated_Hitter',['Height']],equal_var=False)
+tval, pval = ttest_ind(
+  df.loc[df['Role'] == 'First_Baseman', 
+  ['Height']], 
+  df.loc[df['Role'] == 'Designated_Hitter', 
+  ['Height']], 
+  equal_var=False
+)
 print(f"T-value = {tval[0]:.2f}\nP-value: {pval[0]}")
 ```
 
@@ -270,10 +276,10 @@ Correlation matrix $C$ can be computed for any number of input sequences $S_1, .
 
 In our case, the value $0.53$ indicates that there is some correlation between the weight and height of a person. We can also make the scatter plot of one value against the other to see the relationship visually:
 
-![Relationship between weight and height](../../images/weight-height-relationship.png)
+![Relationship between weight and height](../../../images/weight-height-relationship.png)
 
 ```{note}
-More examples of correlation and covariance can be found in [accompanying notebook](../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
+More examples of correlation and covariance can be found in [accompanying notebook](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
 ```
 
 ## Conclusion
@@ -290,17 +296,17 @@ While this is definitely not an exhaustive list of topics that exist within prob
 
 ## Your turn! 🚀
 
-Use the sample code in the notebook to test another hypothesis that:
+Use the sample code in the notebook to test another hypothesis:
 
 1. First basemen are older than second basemen
 2. First basemen are taller than third basemen
 3. Shortstops are taller than second basemen
 
-Task - [Small diabetes study](../assignments/data-science/small-diabetes-study.ipynb).
+Task - [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
 
 ## Self study
 
-Probability and statistics is such a broad topic that it deserves its own course. If you are interested to go deeper into theory, you may want to continue reading some of the following books:
+Probability and statistics are such a broad topic that it deserves their own course. If you are interested to go deeper into theory, you may want to continue reading some of the following books:
 
 1. [Carlos Fernandez-Granda](https://cims.nyu.edu/~cfgranda/) from New York University has great lecture notes [Probability and Statistics for Data Science](https://cims.nyu.edu/~cfgranda/pages/stuff/probability_stats_for_DS.pdf) (available online)
 1. [Peter and Andrew Bruce. Practical Statistics for Data Scientists.](https://www.oreilly.com/library/view/practical-statistics-for/9781491952955/) [[sample code in R](https://github.com/andrewgbruce/statistics-for-data-scientists)].
