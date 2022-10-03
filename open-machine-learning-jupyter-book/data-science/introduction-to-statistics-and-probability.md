@@ -19,7 +19,7 @@ Statistics and Probability Theory are two highly related areas of Mathematics th
 
 ```{seealso}
 <div class="yt-container">
-   <iframe src="https://youtu.be/Z5Zy85g4Yjw" allowfullscreen></iframe>
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/Z5Zy85g4Yjw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 ```
 
@@ -87,7 +87,7 @@ When we analyze data from real life, they often are not random variables as such
 ```
 
 ```{note}
-To see the example of working with this dataset, have a look at the [accompanying notebook](notebook.ipynb). There are also a number of challenges throughout this lesson, and you may complete them by adding some code to that notebook. If you are not sure how to operate on data, do not worry - we will come back to working with data using Python at a later time. If you do not know how to run code in Jupyter Notebook, have a look at [this article](https://soshnikov.com/education/how-to-execute-notebooks-from-github/).
+To see the example of working with this dataset, have a look at the [accompanying notebook](../assignments/data-science/introduction-to-statistics-and-probability.ipynb). There are also a number of challenges throughout this lesson, and you may complete them by adding some code to that notebook. If you are not sure how to operate on data, do not worry - we will come back to working with data using Python at a later time. If you do not know how to run code in Jupyter Notebook, have a look at [this article](https://soshnikov.com/education/how-to-execute-notebooks-from-github/).
 ```
 
 Here is the box plot showing the mean, median and quartiles for our data:
