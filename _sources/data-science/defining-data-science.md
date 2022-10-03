@@ -147,7 +147,6 @@ In this challenge, we will try to find concepts relevant to the field of Data Sc
 name: 'World of Data Science'
 ---
 World of Data Science{cite}`NolliHow2020`
-
 ```
 
 Visit [Analyzing text about data science](../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real-time.
