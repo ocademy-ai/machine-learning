@@ -56,7 +56,7 @@ Since data is pervasive, Data Science itself is also a broad field, touching man
 
 **Databases**
 
-A critical consideration is **how to store** the data, i.e. how to structure it in a way that allows faster processing. There are different types of databases that store structured and unstructured data, which [we will consider in our book](../working-with-data.md).
+A critical consideration is **how to store** the data, i.e. how to structure it in a way that allows faster processing. There are different types of databases that store structured and unstructured data, which [we will consider in our book](../working-with-data/working-with-data.md).
 
 **Big Data**
 
