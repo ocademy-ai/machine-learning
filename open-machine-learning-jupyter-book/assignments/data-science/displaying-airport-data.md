@@ -1,6 +1,6 @@
 # Displaying airport data
 
-You have been provided a [database](https://raw.githubusercontent.com/Microsoft/Data-Science-For-Beginners/main/2-Working-With-Data/05-relational-databases/airports.db) built on [SQLite](https://sqlite.org/index.html) which contains information about airports. The schema is displayed below. You will use the [SQLite extension](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite&WT.mc_id=academic-77958-bethanycheum) in [Visual Studio Code](https://code.visualstudio.com?WT.mc_id=academic-77958-bethanycheum) to display information about different cities' airports.
+You have been provided a [database](../../../assets/airports.db) built on [SQLite](https://sqlite.org/index.html) which contains information about airports. The schema is displayed below. You will use the [SQLite extension](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite&WT.mc_id=academic-77958-bethanycheum) in [Visual Studio Code](https://code.visualstudio.com?WT.mc_id=academic-77958-bethanycheum) to display information about different cities' airports.
 
 ## Instructions
 
@@ -15,21 +15,23 @@ You can use Visual Studio Code and the SQLite extension to interact with the dat
 
 ### Download and open the database
 
-Next you will download an open the database.
+Next, you will download and open the database.
 
-1. Download the [database file from GitHub](https://raw.githubusercontent.com/Microsoft/Data-Science-For-Beginners/main/2-Working-With-Data/05-relational-databases/airports.db) and save it to a directory
-1. Open Visual Studio Code
-1. Open the database in the SQLite extension by selecting **Ctl-Shift-P** (or **Cmd-Shift-P** on a Mac) and typing `SQLite: Open database`
-1. Select **Choose database from file** and open the **airports.db** file you downloaded previously
-1. After opening the database (you won't see an update on the screen), create a new query window by selecting **Ctl-Shift-P** (or **Cmd-Shift-P** on a Mac) and typing `SQLite: New query`
+1. Download the database file [airports.db](../../../assets/airports.db) and save it to a directory
+2. Open Visual Studio Code
+3. Open the database in the SQLite extension by selecting **Ctl-Shift-P** (or **Cmd-Shift-P** on a Mac) and typing `SQLite: Open database`
+4. Select **Choose database from file** and open the **airports.db** file you downloaded previously
+5. After opening the database (you won't see an update on the screen), create a new query window by selecting **Ctl-Shift-P** (or **Cmd-Shift-P** on a Mac) and typing `SQLite: New query`
 
 Once open, the new query window can be used to run SQL statements against the database. You can use the command **Ctl-Shift-Q** (or **Cmd-Shift-Q** on a Mac) to run queries against the database.
 
-> [!NOTE] For more information about the SQLite extension, you can consult the [documentation](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite&WT.mc_id=academic-77958-bethanycheum)
+```{note}
+For more information about the SQLite extension, you can consult the [documentation](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite&WT.mc_id=academic-77958-bethanycheum)
+```
 
 ## Database schema
 
-A database's schema is its table design and structure. The **airports** database as two tables, `cities`, which contains a list of cities in the United Kingdom and Ireland, and `airports`, which contains the list of all airports. Because some cities may have multiple airports, two tables were created to store the information. In this exercise you will use joins to display information for different cities.
+A database's schema is its table design and structure. The **airports** database has two tables, `cities`, which contains a list of cities in the United Kingdom and Ireland, and `airports`, which contains the list of all airports. Because some cities may have multiple airports, two tables were created to store the information. In this exercise, you will use joins to display information for different cities.
 
 | Cities           |
 | ---------------- |
@@ -57,3 +59,7 @@ Create queries to return the following information:
 
 | Exemplary | Adequate | Needs Improvement |
 | --------- | -------- | ----------------- |
+
+## Acknowledgments
+
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
