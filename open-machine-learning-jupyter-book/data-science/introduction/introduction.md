@@ -13,9 +13,9 @@ kernelspec:
   name: python3
 ---
 
-# Overview
+# Introduction
 
-```{figure} ../../images/the-data-science-venn-diagram.png
+```{figure} ../../../images/the-data-science-venn-diagram.png
 ---
 name: The data science venn diagram
 ---

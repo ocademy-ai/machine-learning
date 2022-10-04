@@ -56,7 +56,7 @@ Since data is pervasive, Data Science itself is also a broad field, touching man
 
 **Databases**
 
-A critical consideration is **how to store** the data, i.e. how to structure it in a way that allows faster processing. There are different types of databases that store structured and unstructured data, which [we will consider in our book](./working-with-data.md).
+A critical consideration is **how to store** the data, i.e. how to structure it in a way that allows faster processing. There are different types of databases that store structured and unstructured data, which [we will consider in our book](../working-with-data.md).
 
 **Big Data**
 
@@ -64,7 +64,7 @@ Often we need to store and process very large quantities of data with a relative
 
 **Machine Learning**
 
-One way to understand data is to **build a model** that will be able to predict the desired outcome. Developing models from data is called **machine learning**. You may want to have a look at our [Machine Learning](../ml-fundamentals/ml-overview.md)-related chapters to learn more about it.
+One way to understand data is to **build a model** that will be able to predict the desired outcome. Developing models from data is called **machine learning**. You may want to have a look at our [Machine Learning](../../ml-fundamentals/ml-overview.md)-related chapters to learn more about it.
 
 **Artificial Intelligence**
 
@@ -72,7 +72,7 @@ An area of Machine Learning known as artificial intelligence (AI) also relies on
 
 **Visualization**
 
-Vast amounts of data are incomprehensible to a human being, but once we create useful visualizations using that data, we can make more sense of the data, and draw some conclusions. Thus, it is important to know many ways to visualize information - something that we will cover in the [Data visualization](./data-visualization.md) section. Related fields also include **Infographics** and **Human-Computer** Interaction** in general.
+Vast amounts of data are incomprehensible to a human being, but once we create useful visualizations using that data, we can make more sense of the data, and draw some conclusions. Thus, it is important to know many ways to visualize information - something that we will cover in the [Data visualization](../data-visualization.md) section. Related fields also include **Infographics** and **Human-Computer** Interaction** in general.
 
 ## Types of data
 
@@ -118,7 +118,7 @@ In Data Science, we focus on the following steps of the data journey:
 
 **Visualization / human insights.** Oftentimes, in order to understand the data, we need to visualize it. Having many different visualization techniques in our toolbox, we can find the right view to make an insight. Often, a data scientist needs to "play with data", visualizing it many times and looking for some relationships. Also, we may use statistical techniques to test hypotheses or prove a correlation between different pieces of data.
 
-**Training a predictive model.** Because the ultimate goal of Data Science is to be able to make decisions based on data, we may want to use the techniques of [Machine Learning](../ml-fundamentals/ml-overview.md) to build a predictive model. We can then use this to make predictions using new datasets with similar structures.
+**Training a predictive model.** Because the ultimate goal of Data Science is to be able to make decisions based on data, we may want to use the techniques of [Machine Learning](../../ml-fundamentals/ml-overview.md) to build a predictive model. We can then use this to make predictions using new datasets with similar structures.
 
 Of course, depending on the actual data, some steps might be missing (e.g., when we already have the data in the database, or when we do not need model training), or some steps might be repeated several times (such as data processing).
 
@@ -142,18 +142,17 @@ If we want to get even more complicated, we can plot the time taken for each mod
 
 In this challenge, we will try to find concepts relevant to the field of Data Science by looking at texts. We will take a Wikipedia article on Data Science, download and process the text, and then build a word cloud like this one:
 
-```{figure} ../../images/data-science-word-cloud.png
+```{figure} ../../../images/data-science-word-cloud.png
 ---
 name: 'World of Data Science'
 ---
 World of Data Science{cite}`NolliHow2020`
-
 ```
 
-Visit [Analyzing text about data science](../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real-time.
+Visit [Analyzing text about data science](../../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real-time.
 
 * **Task 1**: Modify the code above to find out related concepts for the fields of **Big Data** and **Machine Learning**.
-* **Task 2**: Think about [Data Science scenarios](../assignments/data-science/data-science-scenarios.md).
+* **Task 2**: Think about [Data Science scenarios](../../assignments/data-science/data-science-scenarios.md).
 
 ## Self study
 
