@@ -183,7 +183,6 @@ There are numerous relational databases available on the internet. You can explo
 
 Task - [Assignment Title](../../assignments/data-science/displaying-airport-data.md)
 
-
 ## Self study
 
 There are several resources available on [Microsoft Learn](https://docs.microsoft.com/learn?WT.mc_id=academic-77958-bethanycheum) for you to continue your exploration of SQL and relational database concepts
