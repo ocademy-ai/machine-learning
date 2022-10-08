@@ -41,7 +41,7 @@ Chances are, the table above seems relatively familiar to you. Let's start to ad
 | Tokyo | Japan   | 2019 | 1874   |
 | Tokyo | Japan   | 2018 | 1445   |
 
-What do you notice about our table? You might notice we're duplicating the name and country of the city over and over. That could take up quite a bit of storage, and is largely unnecessary to have multiple copies of. After all, Tokyo has just the one name we're interested in.
+What do you notice about our table? You might notice we're duplicating the name and country of the city over and over. That could take up quite a bit of storage, and is largely unnecessary to have multiple copies of. After all, Tokyo has just one name we're interested in.
 
 OK, let's try something else. Let's add new columns for each year:
 
@@ -99,7 +99,7 @@ With our cities table created, let's store the rainfall. Rather than duplicating
 | 8           | 3       | 2019 | 942    |
 | 9           | 3       | 2020 | 1176   |
 
-Notice the `city_id` column inside the newly created `rainfall` table. This column contains values which reference the IDs in the `cities` table. In technical relational data terms, this is called a **foreign key**; it's a primary key from another table. You can just think of it as a reference or a pointer. `city_id` 1 references Tokyo.
+Notice the `city_id` column inside the newly created `rainfall` table. This column contains values that reference the IDs in the `cities` table. In technical relational data terms, this is called a **foreign key**; it's a primary key from another table. You can just think of it as a reference or a pointer. `city_id` 1 references Tokyo.
 
 ```{note}
 Foreign key is frequently abbreviated as FK
