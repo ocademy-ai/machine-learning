@@ -17,7 +17,7 @@ kernelspec:
 
 ## Instructions
 
-The <a href="../../data/coca-cola-co.xlsx">Coca-Cola Co spreadsheet]</a>{cite}`cocacola_excel` is missing some calculations. Your task is to:
+The <a href="../../data/coca-cola-co.xlsx">Coca-Cola Co spreadsheet</a>{cite}`cocacola_excel` is missing some calculations. Your task is to:
 
 1. Calculate the Gross profits of FY '15, '16, '17, and '18
     - Gross Profit = Net Operating revenues - Cost of goods sold
