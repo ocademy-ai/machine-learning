@@ -2,7 +2,7 @@
 
 ## Instructions
 
-The <a href="../../coca-cola-co.xlsx">Coca-Cola Co spreadsheet]</a> is missing some calculations. Your task is to:
+The <a href="../../data/coca-cola-co.xlsx">Coca-Cola Co spreadsheet]</a> is missing some calculations. Your task is to:
 
 1. Calculate the Gross profits of FY '15, '16, '17, and '18
     - Gross Profit = Net Operating revenues - Cost of goods sold
@@ -16,6 +16,7 @@ The <a href="../../coca-cola-co.xlsx">Coca-Cola Co spreadsheet]</a> is missing s
 ## Rubric
 
 Exemplary | Adequate | Needs Improvement
+--- | --- | -- |
 --- | --- | -- |
 
 ## Acknowledgments
