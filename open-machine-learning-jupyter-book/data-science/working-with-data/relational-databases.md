@@ -181,7 +181,7 @@ Relational databases are centered around dividing information between multiple t
 
 There are numerous relational databases available on the internet. You can explore the data by using the skills you've learned above.
 
-Task - [Assignment Title](../../assignments/data-science/displaying-airport-data.md)
+Assignment - [Displaying airport data](../../assignments/data-science/displaying-airport-data.md)
 
 ## Self study
 
