@@ -1,0 +1,2074 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>40.13. Data preparation &#8212; Machine Learning Open Course</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="40.14. Project Plan​ Template" href="../project-plan-template.html" />
+    <link rel="prev" title="40.12. Evaluating data from a form" href="evaluating-data-from-a-form.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Course</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data-science/data-visualization.html">
+   6. Data visualization
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-overview.html">
+   7. Machine learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/linear-regression.html">
+   8. Linear regression (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/logistic-regression.html">
+   9. Logistic regression (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/parameter-optimization/parameter-optimization.html">
+   10. Parameter optimization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/parameter-optimization/gradient-descent.html">
+     10.1. Gradient descent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/parameter-optimization/loss-function.html">
+     10.2. Loss function
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/neural-network/neural-network.html">
+   11. Neural network
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/neural-network/nn-basics.html">
+     11.1. Neural network basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/neural-network/nn-hands-on.html">
+     11.2. Hands on neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/neural-network/nn-implementation.html">
+     11.3. Neural network implementation from scratch
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-summary.html">
+   12. Summary of machine learning fundamentals
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/kernel-method.html">
+   13. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/model-selection.html">
+   14. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/ensemble-learning.html">
+   15. Ensemble learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/unsupervised-learning.html">
+   16. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/generative-models.html">
+   17. Generative models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-overview.html">
+   18. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/CNN.html">
+   19. CNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/GAN.html">
+   20. GAN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/RNN.html">
+   21. RNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/AutoEncoder.html">
+   22. Autoencoder (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/LSTM.html">
+   23. LSTM (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/NLP.html">
+   24. NLP (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/time-series.html">
+   25. Time series (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/DQN.html">
+   26. DQN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-summary.html">
+   27. Summary of deep learning (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/overview.html">
+   28. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/problem-framing.html">
+   29. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+   30. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-training-and-evaluation.html">
+   31. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-deployment.html">
+   32. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/pytorch.html">
+   33. PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/bamboolib.html">
+   34. Bamboolib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/mito.html">
+   35. Mito
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/KNN.html">
+   36. KNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/semi-supervised-learning.html">
+   37. Semi-supervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/unbalanced-problems.html">
+   38. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/automl.html">
+   39. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../introduction.html">
+   40. Assignments
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../get-started.html">
+     40.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../prerequisites/python-programming-basics.html">
+     40.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../prerequisites/python-programming-advanced.html">
+     40.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="analyzing-text-about-data-science.html">
+     40.4. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="data-science-scenarios.html">
+     40.5. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="write-a-data-ethics-case-study.html">
+     40.6. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="classifying-datasets.html">
+     40.7. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="small-diabetes-study.html">
+     40.8. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="introduction-to-statistics-and-probability.html">
+     40.9. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="displaying-airport-data.html">
+     40.10. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="soda-profits.html">
+     40.11. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="evaluating-data-from-a-form.html">
+     40.12. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     40.13. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../project-plan-template.html">
+     40.14. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/data-engineering.html">
+     40.15. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     40.16. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/debugging-in-classification.html">
+     40.17. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../machine-learning-productionization/debugging-in-regression.html">
+     40.18. Case Study: Debugging in Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../slides/introduction.html">
+   41. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming-introduction.html">
+     41.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming-basics.html">
+     41.2. Python programming basics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/assignments/data-science/data-preparation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/assignments/data-science/data-preparation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fassignments/data-science/data-preparation.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/assignments/data-science/data-preparation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/assignments/data-science/data-preparation.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploring-dataframe-information">
+   40.13.1. Exploring
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DataFrame
+    </span>
+   </code>
+   information
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-shape">
+     40.13.1.1.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.shape
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-columns">
+     40.13.1.2.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.columns
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-info">
+     40.13.1.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.info
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-describe">
+     40.13.1.4. DataFrame.describe()
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-head">
+     40.13.1.5.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.head
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     40.13.1.6. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-tail">
+     40.13.1.7.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.tail
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#missing-data">
+     40.13.1.8. Missing Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#none-non-float-missing-data">
+     40.13.1.9.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       None
+      </span>
+     </code>
+     : non-float missing data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nan-missing-float-values">
+     40.13.1.10.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NaN
+      </span>
+     </code>
+     : missing float values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     40.13.1.11. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nan-and-none-null-values-in-pandas">
+     40.13.1.12.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NaN
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       None
+      </span>
+     </code>
+     : null values in pandas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     40.13.1.13. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detecting-null-values">
+     40.13.1.14. Detecting null values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     40.13.1.15. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dealing-with-missing-data">
+     40.13.1.16. Dealing with missing data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dropping-null-values">
+     40.13.1.17. Dropping null values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     40.13.1.18. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filling-null-values">
+     40.13.1.19. Filling null values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorical-data-non-numeric">
+     40.13.1.20. Categorical Data(Non-numeric)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numeric-data">
+     40.13.1.21. Numeric data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     40.13.1.22. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     40.13.1.23. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#encoding-categorical-data">
+     40.13.1.24. Encoding categorical data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-duplicate-data">
+   40.13.2. Removing duplicate data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#identifying-duplicates-duplicated">
+     40.13.2.1. Identifying duplicates:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       duplicated
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dropping-duplicates-drop-duplicates">
+     40.13.2.2. Dropping duplicates:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       drop_duplicates
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   40.13.3. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data preparation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exploring-dataframe-information">
+   40.13.1. Exploring
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DataFrame
+    </span>
+   </code>
+   information
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-shape">
+     40.13.1.1.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.shape
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-columns">
+     40.13.1.2.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.columns
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-info">
+     40.13.1.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.info
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-describe">
+     40.13.1.4. DataFrame.describe()
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-head">
+     40.13.1.5.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.head
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     40.13.1.6. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-tail">
+     40.13.1.7.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       DataFrame.tail
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#missing-data">
+     40.13.1.8. Missing Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#none-non-float-missing-data">
+     40.13.1.9.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       None
+      </span>
+     </code>
+     : non-float missing data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nan-missing-float-values">
+     40.13.1.10.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NaN
+      </span>
+     </code>
+     : missing float values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     40.13.1.11. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#nan-and-none-null-values-in-pandas">
+     40.13.1.12.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       NaN
+      </span>
+     </code>
+     and
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       None
+      </span>
+     </code>
+     : null values in pandas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     40.13.1.13. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detecting-null-values">
+     40.13.1.14. Detecting null values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     40.13.1.15. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dealing-with-missing-data">
+     40.13.1.16. Dealing with missing data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dropping-null-values">
+     40.13.1.17. Dropping null values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     40.13.1.18. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#filling-null-values">
+     40.13.1.19. Filling null values
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorical-data-non-numeric">
+     40.13.1.20. Categorical Data(Non-numeric)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numeric-data">
+     40.13.1.21. Numeric data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     40.13.1.22. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     40.13.1.23. Exercise:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#encoding-categorical-data">
+     40.13.1.24. Encoding categorical data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-duplicate-data">
+   40.13.2. Removing duplicate data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#identifying-duplicates-duplicated">
+     40.13.2.1. Identifying duplicates:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       duplicated
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dropping-duplicates-drop-duplicates">
+     40.13.2.2. Dropping duplicates:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       drop_duplicates
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   40.13.3. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="data-preparation">
+<h1><span class="section-number">40.13. </span>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">#</a></h1>
+<section id="exploring-dataframe-information">
+<h2><span class="section-number">40.13.1. </span>Exploring <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> information<a class="headerlink" href="#exploring-dataframe-information" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><strong>Learning goal:</strong> By the end of this subsection, you should be comfortable finding general information about the data stored in pandas DataFrames.</p>
+</div></blockquote>
+<p>Once you have loaded your data into pandas, it will more likely than not be in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. However, if the data set in your <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> has 60,000 rows and 400 columns, how do you even begin to get a sense of what you’re working with? Fortunately, pandas provides some convenient tools to quickly look at overall information about a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> in addition to the first few and last few rows.</p>
+<p>In order to explore this functionality, we will import the Python scikit-learn library and use an iconic dataset that every data scientist has seen hundreds of times: British biologist Ronald Fisher’s <em>Iris</em> data set used in his 1936 paper “The use of multiple measurements in taxonomic problems”:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">iris_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="p">[</span><span class="s1">&#39;feature_names&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dataframe-shape">
+<h3><span class="section-number">40.13.1.1. </span><code class="docutils literal notranslate"><span class="pre">DataFrame.shape</span></code><a class="headerlink" href="#dataframe-shape" title="Permalink to this headline">#</a></h3>
+<p>We have loaded the Iris Dataset in the variable <code class="docutils literal notranslate"><span class="pre">iris_df</span></code>. Before diving into the data, it would be valuable to know the number of datapoints we have and the overall size of the dataset. It is useful to look at the volume of data we are dealing with.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, we are dealing with 150 rows and 4 columns of data. Each row represents one datapoint and each column represents a single feature associated with the data frame. So basically, there are 150 datapoints containing 4 features each.</p>
+<p><code class="docutils literal notranslate"><span class="pre">shape</span></code> here is an attribute of the dataframe and not a function, which is why it doesn’t end in a pair of parentheses.</p>
+</section>
+<section id="dataframe-columns">
+<h3><span class="section-number">40.13.1.2. </span><code class="docutils literal notranslate"><span class="pre">DataFrame.columns</span></code><a class="headerlink" href="#dataframe-columns" title="Permalink to this headline">#</a></h3>
+<p>Let us now move into the 4 columns of data. What does each of them exactly represent? The <code class="docutils literal notranslate"><span class="pre">columns</span></code> attribute will give us the name of the columns in the dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, there are four(4) columns. The <code class="docutils literal notranslate"><span class="pre">columns</span></code> attribute tells us the name of the columns and basically nothing else. This attribute assumes importance when we want to identify the features a dataset contains.</p>
+</section>
+<section id="dataframe-info">
+<h3><span class="section-number">40.13.1.3. </span><code class="docutils literal notranslate"><span class="pre">DataFrame.info</span></code><a class="headerlink" href="#dataframe-info" title="Permalink to this headline">#</a></h3>
+<p>The amount of data(given by the <code class="docutils literal notranslate"><span class="pre">shape</span></code> attribute) and the name of the features or columns(given by the <code class="docutils literal notranslate"><span class="pre">columns</span></code> attribute) tell us something about the dataset. Now, we would want to dive deeper into the dataset. The <code class="docutils literal notranslate"><span class="pre">DataFrame.info()</span></code> function is quite useful for this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>From here, we get to can make a few observations:</p>
+<ol class="simple">
+<li><p>The DataType of each column: In this dataset, all of the data is stored as 64-bit floating-point numbers.</p></li>
+<li><p>Number of Non-Null values: Dealing with null values is an important step in data preparation. It will be dealt with later in the notebook.</p></li>
+</ol>
+</section>
+<section id="dataframe-describe">
+<h3><span class="section-number">40.13.1.4. </span>DataFrame.describe()<a class="headerlink" href="#dataframe-describe" title="Permalink to this headline">#</a></h3>
+<p>Say we have a lot of numerical data in our dataset. Univariate statistical calculations such as the mean, median, quartiles etc. can be done on each of the columns individually. The <code class="docutils literal notranslate"><span class="pre">DataFrame.describe()</span></code> function provides us with a statistical summary of the numerical columns of a dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output above shows the total number of data points, mean, standard deviation, minimum, lower quartile(25%), median(50%), upper quartile(75%) and the maximum value of each column.</p>
+</section>
+<section id="dataframe-head">
+<h3><span class="section-number">40.13.1.5. </span><code class="docutils literal notranslate"><span class="pre">DataFrame.head</span></code><a class="headerlink" href="#dataframe-head" title="Permalink to this headline">#</a></h3>
+<p>With all the above functions and attributes, we have got a top level view of the dataset. We know how many data points are there, how many features are there, the data type of each feature and the number of non-null values for each feature.</p>
+<p>Now its time to look at the data itself. Let’s see what the first few rows(the first few datapoints) of our <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> look like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As the output here, we can see five(5) entries of the dataset. If we look at the index at the left, we find out that these are the first five rows.</p>
+</section>
+<section id="exercise">
+<h3><span class="section-number">40.13.1.6. </span>Exercise:<a class="headerlink" href="#exercise" title="Permalink to this headline">#</a></h3>
+<p>From the example given above, it is clear that, by default, <code class="docutils literal notranslate"><span class="pre">DataFrame.head</span></code> returns the first five rows of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. In the code cell below, can you figure out a way to display more than five rows?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hint: Consult the documentation by using iris_df.head?</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataframe-tail">
+<h3><span class="section-number">40.13.1.7. </span><code class="docutils literal notranslate"><span class="pre">DataFrame.tail</span></code><a class="headerlink" href="#dataframe-tail" title="Permalink to this headline">#</a></h3>
+<p>Another way of looking at the data can be from the end(instead of the beginning). The flipside of <code class="docutils literal notranslate"><span class="pre">DataFrame.head</span></code> is <code class="docutils literal notranslate"><span class="pre">DataFrame.tail</span></code>, which returns the last five rows of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In practice, it is useful to be able to easily examine the first few rows or the last few rows of a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, particularly when you are looking for outliers in ordered datasets.</p>
+<p>All the functions and attributes shown above with the help of code examples, help us get a look and feel of the data.</p>
+<blockquote>
+<div><p><strong>Takeaway:</strong> Even just by looking at the metadata about the information in a DataFrame or the first and last few values in one, you can get an immediate idea about the size, shape, and content of the data you are dealing with.</p>
+</div></blockquote>
+</section>
+<section id="missing-data">
+<h3><span class="section-number">40.13.1.8. </span>Missing Data<a class="headerlink" href="#missing-data" title="Permalink to this headline">#</a></h3>
+<p>Let us dive into missing data. Missing data occurs, when no value is stored in some of the columns.</p>
+<p>Let us take an example: say someone is conscious about his/her weight and doesn’t fill the weight field in a survey. Then, the weight value for that certain person will be missing.</p>
+<p>Most of the time, in real world datasets, missing values occur.</p>
+<p><strong>How Pandas Handles missing data</strong></p>
+<p>Pandas handles missing values in two ways. The first you’ve seen before in previous sections: <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, or Not a Number. This is a actually a special value that is part of the IEEE floating-point specification and it is only used to indicate missing floating-point values.</p>
+<p>For missing values apart from floats, pandas uses the Python <code class="docutils literal notranslate"><span class="pre">None</span></code> object. While it might seem confusing that you will encounter two different kinds of values that say essentially the same thing, there are sound programmatic reasons for this design choice and, in practice, going this route enables pandas to deliver a good compromise for the vast majority of cases. Notwithstanding this, both <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> carry restrictions that you need to be mindful of with regards to how they can be used.</p>
+</section>
+<section id="none-non-float-missing-data">
+<h3><span class="section-number">40.13.1.9. </span><code class="docutils literal notranslate"><span class="pre">None</span></code>: non-float missing data<a class="headerlink" href="#none-non-float-missing-data" title="Permalink to this headline">#</a></h3>
+<p>Because <code class="docutils literal notranslate"><span class="pre">None</span></code> comes from Python, it cannot be used in NumPy and pandas arrays that are not of data type <code class="docutils literal notranslate"><span class="pre">object</span></code>. Remember, NumPy arrays (and the data structures in pandas) can contain only one type of data. This is what gives them their tremendous power for large-scale data and computational work, but it also limits their flexibility. Such arrays have to upcast to the “lowest common denominator,” the data type that will encompass everything in the array. When <code class="docutils literal notranslate"><span class="pre">None</span></code> is in the array, it means you are working with Python objects.</p>
+<p>To see this in action, consider the following example array (note the <code class="docutils literal notranslate"><span class="pre">dtype</span></code> for it):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">example1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">example1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The reality of upcast data types carries two side effects with it. First, operations will be carried out at the level of interpreted Python code rather than compiled NumPy code. Essentially, this means that any operations involving <code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrames</span></code> with <code class="docutils literal notranslate"><span class="pre">None</span></code> in them will be slower. While you would probably not notice this performance hit, for large datasets it might become an issue.</p>
+<p>The second side effect stems from the first. Because <code class="docutils literal notranslate"><span class="pre">None</span></code> essentially drags <code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s back into the world of vanilla Python, using NumPy/pandas aggregations like <code class="docutils literal notranslate"><span class="pre">sum()</span></code> or <code class="docutils literal notranslate"><span class="pre">min()</span></code> on arrays that contain a <code class="docutils literal notranslate"><span class="pre">None</span></code> value will generally produce an error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Key takeaway</strong>: Addition (and other operations) between integers and <code class="docutils literal notranslate"><span class="pre">None</span></code> values is undefined, which can limit what you can do with datasets that contain them.</p>
+</section>
+<section id="nan-missing-float-values">
+<h3><span class="section-number">40.13.1.10. </span><code class="docutils literal notranslate"><span class="pre">NaN</span></code>: missing float values<a class="headerlink" href="#nan-missing-float-values" title="Permalink to this headline">#</a></h3>
+<p>In contrast to <code class="docutils literal notranslate"><span class="pre">None</span></code>, NumPy (and therefore pandas) supports <code class="docutils literal notranslate"><span class="pre">NaN</span></code> for its fast, vectorized operations and ufuncs. The bad news is that any arithmetic performed on <code class="docutils literal notranslate"><span class="pre">NaN</span></code> always results in <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. For example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The good news: aggregations run on arrays with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> in them don’t pop errors. The bad news: the results are not uniformly useful:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span> 
+<span class="n">example2</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">example2</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">example2</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h3><span class="section-number">40.13.1.11. </span>Exercise:<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># What happens if you add np.nan and None together?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Remember: <code class="docutils literal notranslate"><span class="pre">NaN</span></code> is just for missing floating-point values; there is no <code class="docutils literal notranslate"><span class="pre">NaN</span></code> equivalent for integers, strings, or Booleans.</p>
+</section>
+<section id="nan-and-none-null-values-in-pandas">
+<h3><span class="section-number">40.13.1.12. </span><code class="docutils literal notranslate"><span class="pre">NaN</span></code> and <code class="docutils literal notranslate"><span class="pre">None</span></code>: null values in pandas<a class="headerlink" href="#nan-and-none-null-values-in-pandas" title="Permalink to this headline">#</a></h3>
+<p>Even though <code class="docutils literal notranslate"><span class="pre">NaN</span></code> and <code class="docutils literal notranslate"><span class="pre">None</span></code> can behave somewhat differently, pandas is nevertheless built to handle them interchangeably. To see what we mean, consider a <code class="docutils literal notranslate"><span class="pre">Series</span></code> of integers:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">int_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">int_series</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h3><span class="section-number">40.13.1.13. </span>Exercise:<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now set an element of int_series equal to None.</span>
+<span class="c1"># How does that element show up in the Series?</span>
+<span class="c1"># What is the dtype of the Series?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the process of upcasting data types to establish data homogeneity in <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s, pandas will willingly switch missing values between <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">NaN</span></code>. Because of this design feature, it can be helpful to think of <code class="docutils literal notranslate"><span class="pre">None</span></code> and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> as two different flavors of “null” in pandas. Indeed, some of the core methods you will use to deal with missing values in pandas reflect this idea in their names:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">isnull()</span></code>: Generates a Boolean mask indicating missing values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notnull()</span></code>: Opposite of <code class="docutils literal notranslate"><span class="pre">isnull()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dropna()</span></code>: Returns a filtered version of the data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fillna()</span></code>: Returns a copy of the data with missing values filled or imputed</p></li>
+</ul>
+<p>These are important methods to master and get comfortable with, so let’s go over them each in some depth.</p>
+</section>
+<section id="detecting-null-values">
+<h3><span class="section-number">40.13.1.14. </span>Detecting null values<a class="headerlink" href="#detecting-null-values" title="Permalink to this headline">#</a></h3>
+<p>Now that we have understood the importance of missing values, we need to detect them in our dataset, before dealing with them.
+Both <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> and <code class="docutils literal notranslate"><span class="pre">notnull()</span></code> are your primary methods for detecting null data. Both return Boolean masks over your data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example3</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Look closely at the output. Does any of it surprise you? While <code class="docutils literal notranslate"><span class="pre">0</span></code> is an arithmetic null, it’s nevertheless a perfectly good integer and pandas treats it as such. <code class="docutils literal notranslate"><span class="pre">''</span></code> is a little more subtle. While we used it in Section 1 to represent an empty string value, it is nevertheless a string object and not a representation of null as far as pandas is concerned.</p>
+<p>Now, let’s turn this around and use these methods in a manner more like you will use them in practice. You can use Boolean masks  directly as a <code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> index, which can be useful when trying to work with isolated missing (or present) values.</p>
+<p>If we want the total number of missing values, we can just do a sum over the mask produced by the <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example3</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3><span class="section-number">40.13.1.15. </span>Exercise:<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Try running example3[example3.notnull()].</span>
+<span class="c1"># Before you do so, what do you expect to see?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Key takeaway</strong>: Both the <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> and <code class="docutils literal notranslate"><span class="pre">notnull()</span></code> methods produce similar results when you use them in DataFrames: they show the results and the index of those results, which will help you enormously as you wrestle with your data.</p>
+</section>
+<section id="dealing-with-missing-data">
+<h3><span class="section-number">40.13.1.16. </span>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Permalink to this headline">#</a></h3>
+<blockquote>
+<div><p><strong>Learning goal:</strong> By the end of this subsection, you should know how and when to replace or remove null values from DataFrames.</p>
+</div></blockquote>
+<p>Machine Learning models can’t deal with missing data themselves. So, before passing the data into the model, we need to deal with these missing values.</p>
+<p>How missing data is handled carries with it subtle tradeoffs, can affect your final analysis and real-world outcomes.</p>
+<p>There are primarily two ways of dealing with missing data:</p>
+<ol class="simple">
+<li><p>Drop the row containing the missing value</p></li>
+<li><p>Replace the missing value with some other value</p></li>
+</ol>
+<p>We will discuss both these methods and their pros and cons in details.</p>
+</section>
+<section id="dropping-null-values">
+<h3><span class="section-number">40.13.1.17. </span>Dropping null values<a class="headerlink" href="#dropping-null-values" title="Permalink to this headline">#</a></h3>
+<p>The amount of data we pass on to our model has a direct effect on its performance. Dropping null values means that we are reducing the number of datapoints, and hence reducing the size of the dataset. So, it is advisable to drop rows with null values when the dataset is quite large.</p>
+<p>Another instance maybe that a certain row or column has a lot of missing values. Then, they maybe dropped because they wouldn’t add much value to our analysis as most of the data is missing for that row/column.</p>
+<p>Beyond identifying missing values, pandas provides a convenient means to remove null values from <code class="docutils literal notranslate"><span class="pre">Series</span></code> and <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>s. To see this in action, let’s return to <code class="docutils literal notranslate"><span class="pre">example3</span></code>. The <code class="docutils literal notranslate"><span class="pre">DataFrame.dropna()</span></code> function helps in dropping the rows with null values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example3</span> <span class="o">=</span> <span class="n">example3</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">example3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that this should look like your output from <code class="docutils literal notranslate"><span class="pre">example3[example3.notnull()]</span></code>. The difference here is that, rather than just indexing on the masked values, <code class="docutils literal notranslate"><span class="pre">dropna</span></code> has removed those missing values from the <code class="docutils literal notranslate"><span class="pre">Series</span></code> <code class="docutils literal notranslate"><span class="pre">example3</span></code>.</p>
+<p>Because DataFrames have two dimensions, they afford more options for dropping data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span>      <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> 
+                         <span class="p">[</span><span class="mi">2</span><span class="p">,</span>      <span class="mi">5</span><span class="p">,</span>      <span class="mi">8</span><span class="p">],</span> 
+                         <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span>      <span class="mi">9</span><span class="p">]])</span>
+<span class="n">example4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>(Did you notice that pandas upcast two of the columns to floats to accommodate the <code class="docutils literal notranslate"><span class="pre">NaN</span></code>s?)</p>
+<p>You cannot drop a single value from a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, so you have to drop full rows or columns. Depending on what you are doing, you might want to do one or the other, and so pandas gives you options for both. Because in data science, columns generally represent variables and rows represent observations, you are more likely to drop rows of data; the default setting for <code class="docutils literal notranslate"><span class="pre">dropna()</span></code> is to drop all rows that contain any null values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If necessary, you can drop NA values from columns. Use <code class="docutils literal notranslate"><span class="pre">axis=1</span></code> to do so:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;columns&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that this can drop a lot of data that you might want to keep, particularly in smaller datasets. What if you just want to drop rows or columns that contain several or even just all null values? You specify those setting in <code class="docutils literal notranslate"><span class="pre">dropna</span></code> with the <code class="docutils literal notranslate"><span class="pre">how</span></code> and <code class="docutils literal notranslate"><span class="pre">thresh</span></code> parameters.</p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">how='any'</span></code> (if you would like to check for yourself or see what other parameters the method has, run <code class="docutils literal notranslate"><span class="pre">example4.dropna?</span></code> in a code cell). You could alternatively specify <code class="docutils literal notranslate"><span class="pre">how='all'</span></code> so as to drop only rows or columns that contain all null values. Let’s expand our example <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to see this in action in the next exercise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">example4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Key takeaways:</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>Dropping null values is a good idea only if the dataset is large enough.</p></li>
+<li><p>Full rows or columns can be dropped if they have most of their data missing.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">DataFrame.dropna(axis=)</span></code> method helps in dropping null values. The <code class="docutils literal notranslate"><span class="pre">axis</span></code> argument signifies whether rows are to be dropped or columns.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">how</span></code> argument can also be used. By default it is set to <code class="docutils literal notranslate"><span class="pre">any</span></code>. So, it drops only those rows/columns which contain any null values. It can be set to <code class="docutils literal notranslate"><span class="pre">all</span></code> to specify that we will drop only those rows/columns where all values are null.</p></li>
+</ol>
+</section>
+<section id="id4">
+<h3><span class="section-number">40.13.1.18. </span>Exercise:<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># How might you go about dropping just column 3?</span>
+<span class="c1"># Hint: remember that you will need to supply both the axis parameter and the how parameter.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">thresh</span></code> parameter gives you finer-grained control: you set the number of <em>non-null</em> values that a row or column needs to have in order to be kept:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;rows&#39;</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here, the first and last row have been dropped, because they contain only two non-null values.</p>
+</section>
+<section id="filling-null-values">
+<h3><span class="section-number">40.13.1.19. </span>Filling null values<a class="headerlink" href="#filling-null-values" title="Permalink to this headline">#</a></h3>
+<p>It sometimes makes sense to fill in missing values with ones which could be valid. There are a few techniques to fill null values. The first is using Domain Knowledge(knowledge of the subject on which the dataset is based) to somehow approximate the missing values.</p>
+<p>You could use <code class="docutils literal notranslate"><span class="pre">isnull</span></code> to do this in place, but that can be laborious, particularly if you have a lot of values to fill. Because this is such a common task in data science, pandas provides <code class="docutils literal notranslate"><span class="pre">fillna</span></code>, which returns a copy of the <code class="docutils literal notranslate"><span class="pre">Series</span></code> or <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with the missing values replaced with one of your choosing. Let’s create another example <code class="docutils literal notranslate"><span class="pre">Series</span></code> to see how this works in practice.</p>
+</section>
+<section id="categorical-data-non-numeric">
+<h3><span class="section-number">40.13.1.20. </span>Categorical Data(Non-numeric)<a class="headerlink" href="#categorical-data-non-numeric" title="Permalink to this headline">#</a></h3>
+<p>First let us consider non-numeric data. In datasets, we have columns with categorical data. Eg. Gender, True or False etc.</p>
+<p>In most of these cases, we replace missing values with the <code class="docutils literal notranslate"><span class="pre">mode</span></code> of the column. Say, we have 100 data points and 90 have said True, 8 have said False and 2 have not filled. Then, we can will the 2 with True, considering the full column.</p>
+<p>Again, here we can use domain knowledge here. Let us consider an example of filling with the mode.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_mode</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;True&quot;</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="kc">None</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="s2">&quot;False&quot;</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="s2">&quot;True&quot;</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="s2">&quot;True&quot;</span><span class="p">]])</span>
+
+<span class="n">fill_with_mode</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, lets first find the mode before filling the <code class="docutils literal notranslate"><span class="pre">None</span></code> value with the mode.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_mode</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>So, we will replace None with True</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_mode</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_mode</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the null value has been replaced. Needless to say, we could have written anything in place or <code class="docutils literal notranslate"><span class="pre">'True'</span></code> and it would have got substituted.</p>
+</section>
+<section id="numeric-data">
+<h3><span class="section-number">40.13.1.21. </span>Numeric data<a class="headerlink" href="#numeric-data" title="Permalink to this headline">#</a></h3>
+<p>Now, coming to numeric data. Here, we have a two common ways of replacing missing values:</p>
+<ol class="simple">
+<li><p>Replace with Median of the row</p></li>
+<li><p>Replace with Mean of the row</p></li>
+</ol>
+<p>We replace with Median, in case of skewed data with outliers. This is because median is robust to outliers.</p>
+<p>When the data is normalized, we can use mean, as in that case, mean and median would be pretty close.</p>
+<p>First, let us take a column which is normally distributed and let us fill the missing value with the mean of the column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_mean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                               <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+                               <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
+
+<span class="n">fill_with_mean</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The mean of the column is</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">fill_with_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Filling with mean</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">fill_with_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fill_with_mean</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the missing value has been replaced with its mean.</p>
+<p>Now let us try another dataframe, and this time we will replace the None values with the median of the column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_median</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                               <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
+
+<span class="n">fill_with_median</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The median of the second column is</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_median</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Filling with median</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fill_with_median</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">fill_with_median</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fill_with_median</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the NaN value has been replaced by the median of the column</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;abcde&#39;</span><span class="p">))</span>
+<span class="n">example5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can fill all of the null entries with a single value, such as <code class="docutils literal notranslate"><span class="pre">0</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example5</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Key takeaways:</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>Filling in missing values should be done when either there is less data or there is a strategy to fill in the missing data.</p></li>
+<li><p>Domain knowledge can be used to fill in missing values by approximating them.</p></li>
+<li><p>For Categorical data, mostly, missing values are substituted with the mode of the column.</p></li>
+<li><p>For numeric data, missing values are usually filled in with the mean(for normalized datasets) or the median of the columns.</p></li>
+</ol>
+</section>
+<section id="id5">
+<h3><span class="section-number">40.13.1.22. </span>Exercise:<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># What happens if you try to fill null values with a string, like &#39;&#39;?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can <strong>forward-fill</strong> null values, which is to use the last valid value to fill a null:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example5</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also <strong>back-fill</strong> to propagate the next valid value backward to fill a null:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example5</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;bfill&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you might guess, this works the same with DataFrames, but you can also specify an <code class="docutils literal notranslate"><span class="pre">axis</span></code> along which to fill null values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;ffill&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that when a previous value is not available for forward-filling, the null value remains.</p>
+</section>
+<section id="id6">
+<h3><span class="section-number">40.13.1.23. </span>Exercise:<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># What output does example4.fillna(method=&#39;bfill&#39;, axis=1) produce?</span>
+<span class="c1"># What about example4.fillna(method=&#39;ffill&#39;) or example4.fillna(method=&#39;bfill&#39;)?</span>
+<span class="c1"># Can you think of a longer code snippet to write that can fill all of the null values in example4?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can be creative about how you use <code class="docutils literal notranslate"><span class="pre">fillna</span></code>. For example, let’s look at <code class="docutils literal notranslate"><span class="pre">example4</span></code> again, but this time let’s fill the missing values with the average of all of the values in the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example4</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">example4</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that column 3 is still valueless: the default direction is to fill values row-wise.</p>
+<blockquote>
+<div><p><strong>Takeaway:</strong> There are multiple ways to deal with missing values in your datasets. The specific strategy you use (removing them, replacing them, or even how you replace them) should be dictated by the particulars of that data. You will develop a better sense of how to deal with missing values the more you handle and interact with datasets.</p>
+</div></blockquote>
+</section>
+<section id="encoding-categorical-data">
+<h3><span class="section-number">40.13.1.24. </span>Encoding categorical data<a class="headerlink" href="#encoding-categorical-data" title="Permalink to this headline">#</a></h3>
+<p>Machine learning models only deal with numbers and any form of numeric data. It won’t be able to tell the difference between a Yes and a No, but it would be able to distinguish between 0 and 1. So, after filling in the missing values, we need to do encode the categorical data to some numeric form for the model to understand.</p>
+<p>Encoding can be done in two ways. We will be discussing them next.</p>
+<p><strong>LABEL ENCODING</strong></p>
+<p>Label encoding is basically converting each category to a number. For example, say we have a dataset of airline passengers and there is a column containing their class among the following [‘business class’, ‘economy class’,’first class’]. If Label encoding is done on this, this would be transformed to [0,1,2]. Let us see an example via code. As we would be learning <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> in the upcoming notebooks, we won’t use it here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">label</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+                      <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;business class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="s1">&#39;first class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;economy class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;economy class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;economy class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;business class&#39;</span><span class="p">]</span>
+<span class="p">],</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>
+<span class="n">label</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To perform label encoding on the 1st column, we have to first describe a mapping from each class to a number, before replacing</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">class_labels</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;business class&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;economy class&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;first class&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
+<span class="n">label</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">class_labels</span><span class="p">)</span>
+<span class="n">label</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, the output matches what we thought would happen. So, when do we use label encoding? Label encoding is used in either or both of the following cases :</p>
+<ol class="simple">
+<li><p>When the number of categories is large</p></li>
+<li><p>When the categories are in order.</p></li>
+</ol>
+<p><strong>ONE HOT ENCODING</strong></p>
+<p>Another type of encoding is One Hot Encoding. In this type of encoding, each category of the column gets added as a separate column and each datapoint will get a 0 or a 1 based on whether it contains that category. So, if there are n different categories, n columns will be appended to the dataframe.</p>
+<p>For example, let us take the same aeroplane class example. The categories were: [‘business class’, ‘economy class’,’first class’] . So, if we perform one hot encoding, the following three columns will be added to the dataset: [‘class_business class’,’class_economy class’,’class_first class’].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">one_hot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+                      <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;business class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="s1">&#39;first class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;economy class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;economy class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;economy class&#39;</span><span class="p">],</span>
+                      <span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;business class&#39;</span><span class="p">]</span>
+<span class="p">],</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>
+<span class="n">one_hot</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let us perform one hot encoding on the 1st column</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">one_hot_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">one_hot</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">one_hot_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each one hot encoded column contains 0 or 1, which specifies whether that category exists for that datapoint.</p>
+<p>When do we use one hot encoding? One hot encoding is used in either or both of the following cases :</p>
+<ol class="simple">
+<li><p>When the number of categories and the size of the dataset is smaller.</p></li>
+<li><p>When the categories follow no particular order.</p></li>
+</ol>
+<blockquote>
+<div><p>Key Takeaways:</p>
+</div></blockquote>
+<ol class="simple">
+<li><p>Encoding is done to convert non-numeric data to numeric data.</p></li>
+<li><p>There are two types of encoding: Label encoding and One Hot encoding, both of which can be performed based on the demands of the dataset.</p></li>
+</ol>
+</section>
+</section>
+<section id="removing-duplicate-data">
+<h2><span class="section-number">40.13.2. </span>Removing duplicate data<a class="headerlink" href="#removing-duplicate-data" title="Permalink to this headline">#</a></h2>
+<blockquote>
+<div><p><strong>Learning goal:</strong> By the end of this subsection, you should be comfortable identifying and removing duplicate values from DataFrames.</p>
+</div></blockquote>
+<p>In addition to missing data, you will often encounter duplicated data in real-world datasets. Fortunately, pandas provides an easy means of detecting and removing duplicate entries.</p>
+<section id="identifying-duplicates-duplicated">
+<h3><span class="section-number">40.13.2.1. </span>Identifying duplicates: <code class="docutils literal notranslate"><span class="pre">duplicated</span></code><a class="headerlink" href="#identifying-duplicates-duplicated" title="Permalink to this headline">#</a></h3>
+<p>You can easily spot duplicate values using the <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> method in pandas, which returns a Boolean mask indicating whether an entry in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is a duplicate of an earlier one. Let’s create another example <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> to see this in action.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;letters&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">],</span>
+                         <span class="s1">&#39;numbers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="n">example6</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example6</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dropping-duplicates-drop-duplicates">
+<h3><span class="section-number">40.13.2.2. </span>Dropping duplicates: <code class="docutils literal notranslate"><span class="pre">drop_duplicates</span></code><a class="headerlink" href="#dropping-duplicates-drop-duplicates" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">drop_duplicates</span></code> simply returns a copy of the data for which all of the <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> values are <code class="docutils literal notranslate"><span class="pre">False</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example6</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Both <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> and <code class="docutils literal notranslate"><span class="pre">drop_duplicates</span></code> default to consider all columns but you can specify that they examine only a subset of columns in your <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example6</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">([</span><span class="s1">&#39;letters&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><strong>Takeaway:</strong> Removing duplicate data is an essential part of almost every data-science project. Duplicate data can change the results of your analyses and give you inaccurate results!</p>
+</div></blockquote>
+</section>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">40.13.3. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to Microsoft for creating the open-source course <a class="reference external" href="https://github.com/microsoft/Data-Science-For-Beginners">Data Science for Beginners</a>. It inspires majority of the content in this chapter. Original Notebook source from <a class="reference external" href="https://github.com/leestott/intro-Datascience/blob/master/Course%20Materials/4-Cleaning_and_Manipulating-Reference.ipynb"><em>Data Science: Introduction to Machine Learning for Data Science Python and Machine Learning Studio</em></a> by Lee Stott</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./assignments/data-science"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="evaluating-data-from-a-form.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">40.12. </span>Evaluating data from a form</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../project-plan-template.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">40.14. </span>Project Plan​ Template</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open Academy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
