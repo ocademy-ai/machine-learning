@@ -152,7 +152,7 @@ class LinearRegression:
 ```
 
 ```{code-cell}
-prostate = pd.read_table("../../../data/prostate.data")
+prostate = pd.read_table("../../assets/data/prostate.data")
 prostate.drop(prostate.columns[0], axis=1, inplace=True)
 
 X = prostate.drop(["lpsa", "train"], axis=1)
@@ -213,7 +213,7 @@ class LinearRegressionWithSGD:
 ```
 
 ```{code-cell}
-prostate = pd.read_table("../../../data/prostate.data")
+prostate = pd.read_table("../../assets/data/prostate.data")
 prostate.drop(prostate.columns[0], axis=1, inplace=True)
 
 X = prostate.drop(["lpsa", "train"], axis=1)
@@ -275,7 +275,7 @@ class LogisticRegression:
 ```
 
 ```{code-cell}
-heart = pd.read_csv("../../../data/SA_heart.csv")
+heart = pd.read_csv("../../assets/data/SA_heart.csv")
 heart.famhist.replace(to_replace=['Present', 'Absent'], value=[1, 0], inplace=True)
 heart.drop(['row.names'], axis=1, inplace=True)
 X = heart.iloc[:, :-1]

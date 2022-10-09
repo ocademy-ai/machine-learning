@@ -91,7 +91,7 @@ COVID-19 Projections Death Forecasting model uses the daily death total provided
 :tags: [output_scroll]
 import pandas as pd
 
-df = pd.read_csv('../../data/sample_time_series_covid19_deaths_US.csv')
+df = pd.read_csv('../assets/data/sample_time_series_covid19_deaths_US.csv')
 df.head()
 ```
 
