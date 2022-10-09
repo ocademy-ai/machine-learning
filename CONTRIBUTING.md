@@ -57,13 +57,11 @@ git clone https://github.com/<UserName>/machine-learning.git
 
  **There will be slight differences on different systems**
 
-## For Windows
-
 ### Install Python & Conda
 
 Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
 
-Add the following paths(depend on your OS) to environment variable `PATH`:
+Add the following paths(depending on your OS) to the environment variable `PATH`` if needed. To Windows,
 
 ```bash
 D:\Python\Python310\Scripts\
@@ -109,9 +107,43 @@ conda env create -f environment.yml
 conda env update -f environment.yml      
 ```
 
+To Mac,
+
 > **Warning**
 >
-> You may see below HTTP error first. 
+> You may see below Tensorflow installation failures, especially on the ARM-based M1 Mac.
+>
+> ```bash
+> ERROR: Could not find a version that satisfies the requirement tensorflow (from versions: none)
+> ERROR: No matching distribution found for tensorflow
+> ```
+>
+> Solution:
+>
+> 1. Comment out Tensorflow in **environment.yml**.
+> 2. Follow Apple's [official documentation](https://developer.apple.com/metal/tensorflow-plugin/) to install the Tensorflow.
+> 3. Run `conda env update -f environment.yml` again to install the remaining dependencies.
+> 4. Optional - try to uncomment the Tensorflow in **environment.yml**.
+>
+> **Warning**
+>
+> You may see below error when you have trouble access GitHub.
+>
+> ```bash
+> error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
+> fatal: expected flush after ref listing
+> ```
+> 
+> Solution:
+> 
+> **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
+
+
+To Windows,
+
+> **Warning**
+>
+> You may see below HTTP error first.
 >
 > ```bash
 > An HTTP error occurred when trying to retrieve this URL.
@@ -170,142 +202,18 @@ conda activate open-machine-learning-jupyter-book
 ```bash
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
 
+# Windows
 jupyter-book build .
-```
 
-> **Warning**
->
-> You may encouter following problem when you program.
->
-> ```bash
-> OSError: no library called "cairo-2" was found
-> no library called "cairo" was found
-> no library called "libcairo-2" was found
-> ```
->
-> Solution:
->
-> Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
->
-> Run the following command.
->
-> ```bash
-> pip uninstall xcffib
-> ```
-> 
-> Restart the terminal and build again.
-
-### Build the slides (optional)
-
-The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
-
-If you want to edit or preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
-
-```bash
-# Install javascript and css files
-jupyter contrib nbextension install --user
-
-# Enabling extensions
-jupyter nbextension enable init_cell/main
-
-# Launch the notebook
-jupyter notebook
-```
-
-> **Warning**
->
-> Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
-
-## For Mac
-
-### Install Python & Conda
-
-Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
-
-### Install Jupyter Book
-
-Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version. 
-
-### Install draw.io
-
-[draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
-
-* Windows: `C:\Program Files\draw.io\draw.io.exe`
-* Linux: `/opt/drawio/drawio` or `/opt/draw.io/drawio` (older versions)
-* macOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`.
-
-Mostly, you don't need to do anything here. The executable will be picked up by [sphinxcontrib-drawio](https://pypi.org/project/sphinxcontrib-drawio/) automatically.
-
-### Initialize the environment
-
-Clone the source code from remote through your preferred protocol.
-
-```bash
-# through HTTP
-git clone https://github.com/open-academy/machine-learning.git
-```
-
-Move to the working directory.
-
-```bash
-cd machine-learning/open-machine-learning-jupyter-book/
-```
-
-Initialize the Conda env.
-
-```bash
-# first time setup
-conda env create -f environment.yml
-# or update
-conda env update -f environment.yml      
-```
-
-> **Warning**
->
-> You may see below Tensorflow installation failures, especially on the ARM-based M1 Mac.
->
-> ```bash
-> ERROR: Could not find a version that satisfies the requirement tensorflow (from versions: none)
-> ERROR: No matching distribution found for tensorflow
-> ```
->
-> Solution:
->
-> 1. Comment out Tensorflow in **environment.yml**.
-> 2. Follow Apple's [official documentation](https://developer.apple.com/metal/tensorflow-plugin/) to install the Tensorflow.
-> 3. Run `conda env update -f environment.yml` again to install the remaining dependencies.
-> 4. Optional - try to uncomment the Tensorflow in **environment.yml**.
->
-> **Warning**
->
-> You may see below error when you have trouble access GitHub.
->
-> ```bash
-> error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
-> fatal: expected flush after ref listing
-> ```
-> 
-> Solution:
-> 
-> **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
-
-### Activate the Conda environment
-
-```bash
-conda activate open-machine-learning-jupyter-book
-```
-
-### Build the book
-
-```bash
-# official guidance - https://jupyterbook.org/en/stable/start/build.html
-
+# Mac
 # if you are using bash
 bash ./build.sh
-
 # or you can rebuild everything
 bash ./build-force-all.sh
 ```
+
+To Mac,
+
 
 > **Warning**
 >
@@ -347,6 +255,30 @@ bash ./build-force-all.sh
 >
 > 5. Rerun `jupyter-book build .`
 > 6. Run `pip uninstall xcffib` if error still exists, and then try again.
+
+To Windows,
+
+> **Warning**
+>
+> You may encouter following problem when you program.
+>
+> ```bash
+> OSError: no library called "cairo-2" was found
+> no library called "cairo" was found
+> no library called "libcairo-2" was found
+> ```
+>
+> Solution:
+>
+> Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
+>
+> Run the following command.
+>
+> ```bash
+> pip uninstall xcffib
+> ```
+> 
+> Restart the terminal and build again.
 
 ### Build the slides (optional)
 
