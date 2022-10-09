@@ -1853,6 +1853,7 @@ Using Boolean masking, this even allows you to do some more sophisticated operat
 ```{code-cell}
 # Get names where age is under 30
 data[data['age'] < 30]['name']
+```
 
 Note that if you'd like to do any operations that are any more complicated than these, you should probably consider the Pandas package, covered in the next chapter. As we'll see, Pandas provides a `Dataframe` object, which is a structure built on NumPy arrays that offers a variety of useful data manipulation functionality similar to what we've shown here, as well as much, much more.
 
