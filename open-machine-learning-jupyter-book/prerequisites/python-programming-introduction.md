@@ -66,12 +66,12 @@ Python Shell waits for the Python code from the user. When you enter the code, i
 Python
 ```
 
-![Python Scripting Shell](../../images/opening_Python_shell.png)
+![Python Scripting Shell](../../images/opening_python_shell.png)
 
 The Python interactive shell is opened and it is waiting for you to write Python code(Python script). You will write your Python script next to this symbol >>> and then click Enter.
 Let us write our very first script on the Python scripting shell.
 
-![Python script on Python shell](../../images/adding_on_Python_shell.png)
+![Python script on Python shell](../../images/adding_on_python_shell.png)
 
 Well done, you wrote your first Python script on Python interactive shell. How do we close the Python interactive shell?
 
@@ -95,7 +95,7 @@ Our bug was fixed, the code ran and we got the result we were expecting. As a pr
 
 Let us practice more on how to use Python interactive shell. Go to your terminal or command prompt and write the word `Python`.
 
-![Python Scripting Shell](../../images/opening_Python_shell.png)
+![Python Scripting Shell](../../images/opening_python_shell.png)
 
 The Python interactive shell is opened. Let us do some basic mathematical operations (addition, subtraction, multiplication, division, modulus, exponential).
 
@@ -123,7 +123,7 @@ This is how you write a comment in Python
 # this is a Python comment, because it starts with a (#) symbol
 ```
 
-![Maths on Python shell](../../images/maths_on_Python_shell.png)
+![Maths on Python shell](../../images/maths_on_python_shell.png)
 
 Before we move on to the next section, let us practice more on the Python interactive shell. Close the opened shell by writing `exit()` on the shell and open it again and let us practice how to write text on the Python shell.
 
@@ -185,7 +185,7 @@ Comments are very important to make the code more readable and to leave remarks 
 
 **Example: Multiline Comment**
 
-The triple quote can be used for multiline comment if it is not assigned to a variable
+The triple quote can be used for multiline comments if it is not assigned to a variable
 
 ```shell
 """This is multiline comment
@@ -325,7 +325,7 @@ print(type((9.8, 3.14, 2.7)))    # Tuple
 
 To run the Python file check the image below. You can run the Python file either by running the green button on Visual Studio Code or by typing `Python helloworld.py` in the terminal.
 
-![Running Python script](../../images/running_Python_script.png)
+![Running Python script](../../images/running_python_script.png)
 
 🌕  You are amazing. You have just completed our challenge and you are on your way to greatness. Now do some exercises for your brain and muscles.
 
@@ -359,7 +359,7 @@ To run the Python file check the image below. You can run the Python file either
 
 ### Exercise: Level 2
 
-1. Create a folder named day_1 inside `open-academy` folder. Inside day_1 folder, create a Python file `helloworld.py` and repeat questions 1, 2, 3 and 4. Remember to use `print()` when you are working on a Python file. Navigate to the directory where you have saved your file, and run it.
+1. Create a folder named day_1 inside `open-academy` folder. Inside `day_1` folder, create a Python file `helloworld.py` and repeat questions 1, 2, 3 and 4. Remember to use `print()` when you are working on a Python file. Navigate to the directory where you have saved your file, and run it.
 
 ### Exercise: Level 3
 
@@ -370,4 +370,4 @@ To run the Python file check the image below. You can run the Python file either
 
 ## Acknowledgments
 
-Thanks to [Asabeneh](https://github.com/Asabeneh) who helped create this awesome open source project [30-Days-Of-Python](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/readme.md) for Python learning. It contributes the majority of the content in this chapter.
+Thanks to [Asabeneh](https://github.com/Asabeneh) who helped create this awesome open-source project [30-Days-Of-Python](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/readme.md)](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/readme.md) for Python learning. It contributes the majority of the content in this chapter.
