@@ -1683,3 +1683,7 @@ The downside is that for record arrays, there is some extra overhead involved in
 ```
 
 Whether the more convenient notation is worth the additional overhead will depend on your own application.
+
+#### On to pandas
+
+This section on structured and record arrays is purposely at the end of this chapter, because it leads so well into the next package we will cover: Pandas. Structured arrays like the ones discussed here are good to know about for certain situations, especially in case you're using NumPy arrays to map onto binary data formats in C, Fortran, or another language. For day-to-day use of structured data, the Pandas package is a much better choice, and we'll dive into a full discussion of it in the chapter that follows.
