@@ -18,7 +18,7 @@ You don't need to finish all the assignments at the same time. Only the changed 
 - [How to check Github Action result?](https://docs.github.com/en/actions/quickstart#viewing-your-workflow-results)
 ```
 
-## How Does This Work?
+## How does this work?
 
 The assignment is fully automated by leveraging GitHub Action. The action is defined by [assignment.yml](https://github.com/open-academy/machine-learning/blob/main/.github/workflows/assignment.yml), which handles the continuous integration workflow post a code push. It listens to the code change under `open-machine-learning-jupyter-book/assignments` path, gets the changed files, and runs unit testing against them.
 
