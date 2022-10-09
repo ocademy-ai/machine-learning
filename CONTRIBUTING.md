@@ -55,15 +55,27 @@ Clone your repo fork to a local machine.
 git clone https://github.com/<UserName>/machine-learning.git
 ```
 
-#### Install Python & Conda
+ **There will be slight differences on different systems**
+
+## For Windows
+
+### Install Python & Conda
 
 Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
 
-#### Install Jupyter Book
+Add the following paths(depend on your OS) to environment variable `PATH`:
+
+```bash
+D:\Python\Python310\Scripts\
+D:\Python\Python310\
+D:\anaconda3\Scripts
+```
+
+### Install Jupyter Book
 
 Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version. 
 
-#### Install draw.io
+### Install draw.io
 
 [draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
 
@@ -73,7 +85,158 @@ Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html)
 
 Mostly, you don't need to do anything here. The executable will be picked up by [sphinxcontrib-drawio](https://pypi.org/project/sphinxcontrib-drawio/) automatically.
 
-#### Initialize the environment
+### Initialize the environment
+
+Clone the source code from remote through your preferred protocol.
+
+```bash
+# through HTTP
+git clone https://github.com/open-academy/machine-learning.git
+```
+
+Move to the working directory.
+
+```bash
+cd machine-learning/open-machine-learning-jupyter-book/
+```
+
+Initialize the Conda env.
+
+```bash
+# first time setup
+conda env create -f environment.yml
+# or update
+conda env update -f environment.yml      
+```
+
+> **Warning**
+>
+> You may see below HTTP error first. 
+>
+> ```bash
+> An HTTP error occurred when trying to retrieve this URL.
+> HTTP errors are often intermittent, and a simple retry will get you on your way.
+> ```
+>
+> Create `.condarc` conda configuration file(This file should):
+>
+> ```bash
+> conda config --set show_channel_urls yes
+> ```
+>This file is in your user directory by default,for example:
+>
+>```C:\Users\gouha\.gitconfig```
+>
+> Delete initial content in `.condarc`, the add the following content to `.condarc`.
+>
+> ```
+> channels:
+>   - defaults
+> show_channel_urls: true
+> default_channels:
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
+>   - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+> custom_channels:
+>   conda-forge: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   msys2: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   bioconda: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   menpo: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+>   simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+> ```
+>
+> **Warning**
+>
+> You may see below error when you have trouble access GitHub.
+>
+> ```bash
+> error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
+> fatal: expected flush after ref listing
+> ```
+> 
+> Solution:
+> 
+> **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
+
+### Activate the Conda environment
+
+```bash
+conda activate open-machine-learning-jupyter-book
+```
+
+### Build the book
+
+```bash
+# official guidance - https://jupyterbook.org/en/stable/start/build.html
+
+jupyter-book build .
+```
+
+> **Warning**
+>
+> You may encouter following problem when you program.
+>
+> ```bash
+> OSError: no library called "cairo-2" was found
+> no library called "cairo" was found
+> no library called "libcairo-2" was found
+> ```
+>
+> Solution:
+>
+> Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
+>
+> Run the following command.
+>
+> ```bash
+> pip uninstall xcffib
+> ```
+> 
+> Restart the terminal and build again.
+
+### Build the slides (optional)
+
+The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
+
+If you want to edit or preview the slides locally, you need to use [Jupyter Notebook](https://jupyter.org/). Once you use Jupyter Notebook/JupyterLab to load the project, the slide will be launched in live mode after you open any corresponding notebook.
+
+```bash
+# Install javascript and css files
+jupyter contrib nbextension install --user
+
+# Enabling extensions
+jupyter nbextension enable init_cell/main
+
+# Launch the notebook
+jupyter notebook
+```
+
+> **Warning**
+>
+> Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
+
+## For Mac
+
+### Install Python & Conda
+
+Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
+
+### Install Jupyter Book
+
+Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version. 
+
+### Install draw.io
+
+[draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
+
+* Windows: `C:\Program Files\draw.io\draw.io.exe`
+* Linux: `/opt/drawio/drawio` or `/opt/draw.io/drawio` (older versions)
+* macOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`.
+
+Mostly, you don't need to do anything here. The executable will be picked up by [sphinxcontrib-drawio](https://pypi.org/project/sphinxcontrib-drawio/) automatically.
+
+### Initialize the environment
 
 Clone the source code from remote through your preferred protocol.
 
@@ -126,13 +289,13 @@ conda env update -f environment.yml
 > 
 > **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
 
-Activate the Conda environment.
+### Activate the Conda environment
 
 ```bash
 conda activate open-machine-learning-jupyter-book
 ```
 
-#### Build the book
+### Build the book
 
 ```bash
 # official guidance - https://jupyterbook.org/en/stable/start/build.html
@@ -185,7 +348,7 @@ bash ./build-force-all.sh
 > 5. Rerun `jupyter-book build .`
 > 6. Run `pip uninstall xcffib` if error still exists, and then try again.
 
-#### Build the slides (optional)
+### Build the slides (optional)
 
 The slides are implemented as notebooks in `slides/`, which is powered by [RISE](https://github.com/damianavila/RISE).
 
