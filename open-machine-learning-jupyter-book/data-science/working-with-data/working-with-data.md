@@ -1258,7 +1258,7 @@ B = np.array([1, 1, 1, 0, 1, 1], dtype=bool)
 A | B
 ```
 
-Using or on these arrays will try to evaluate the truth or falsehood of the entire array object, which is not a well-defined value:
+Using `or` on these arrays will try to evaluate the truth or falsehood of the entire array object, which is not a well-defined value:
 
 ```{code-cell}
 A or B
@@ -1504,7 +1504,7 @@ The counts now reflect the number of points within each bin–in other words, a 
 
 ```{code-cell}
 # plot the results
-plt.plot(bins, counts, linestyle='steps');
+plt.plot(bins, counts, linestyle='solid');
 ```
 
 Of course, it would be silly to have to do this each time you want to plot a histogram.
