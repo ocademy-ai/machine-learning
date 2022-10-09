@@ -1,6 +1,6 @@
 # Displaying airport data
 
-You have been provided a <a href="../../data/airports.db">database</a> built on [SQLite](https://sqlite.org/index.html) which contains information about airports. The schema is displayed below. You will use the [SQLite extension](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite&WT.mc_id=academic-77958-bethanycheum) in [Visual Studio Code](https://code.visualstudio.com?WT.mc_id=academic-77958-bethanycheum) to display information about different cities' airports.
+You have been provided a <a href="../../assets/data/airports.db">database</a> built on [SQLite](https://sqlite.org/index.html) which contains information about airports. The schema is displayed below. You will use the [SQLite extension](https://marketplace.visualstudio.com/items?itemName=alexcvzz.vscode-sqlite&WT.mc_id=academic-77958-bethanycheum) in [Visual Studio Code](https://code.visualstudio.com?WT.mc_id=academic-77958-bethanycheum) to display information about different cities' airports.
 
 ## Instructions
 
@@ -17,7 +17,7 @@ You can use Visual Studio Code and the SQLite extension to interact with the dat
 
 Next, you will download and open the database.
 
-1. Download the database file <a href="../../../airports.db">database</a> and save it to a directory
+1. Download the database file <a href="../../assets/data/airports.db">database</a> and save it to a directory
 2. Open Visual Studio Code
 3. Open the database in the SQLite extension by selecting **Ctl-Shift-P** (or **Cmd-Shift-P** on a Mac) and typing `SQLite: Open database`
 4. Select **Choose database from the file** and open the **airports.db** file you downloaded previously
