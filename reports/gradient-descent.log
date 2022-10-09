@@ -17,17 +17,31 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-dataset = pd.read_csv('../../data/Social_Network_Ads.csv')
-X = dataset.iloc[:, :-1].values
-y = dataset.iloc[:, -1].values
+prostate = pd.read_table("../../../data/prostate.data")
+prostate.drop(prostate.columns[0], axis=1, inplace=True)
+
+X = prostate.drop(["lpsa", "train"], axis=1)
+y = prostate["lpsa"]
+
+regressor = LinearRegression()
+
+regressor.fit(X, y)
+y_pred = regressor.predict(X)
+
+print(regressor.__dict__)
+print(y - y_pred)
+
+plt.scatter(y, y_pred)
+plt.plot([0, 5], [0, 5])
+plt.show()
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mFileNotFoundError[0m                         Traceback (most recent call last)
-Cell [0;32mIn [2], line 1[0m
-[0;32m----> 1[0m dataset [38;5;241m=[39m [43mpd[49m[38;5;241;43m.[39;49m[43mread_csv[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43m../../data/Social_Network_Ads.csv[39;49m[38;5;124;43m'[39;49m[43m)[49m
-[1;32m      2[0m X [38;5;241m=[39m dataset[38;5;241m.[39miloc[:, :[38;5;241m-[39m[38;5;241m1[39m][38;5;241m.[39mvalues
-[1;32m      3[0m y [38;5;241m=[39m dataset[38;5;241m.[39miloc[:, [38;5;241m-[39m[38;5;241m1[39m][38;5;241m.[39mvalues
+Cell [0;32mIn [3], line 1[0m
+[0;32m----> 1[0m prostate [38;5;241m=[39m [43mpd[49m[38;5;241;43m.[39;49m[43mread_table[49m[43m([49m[38;5;124;43m"[39;49m[38;5;124;43m../../../data/prostate.data[39;49m[38;5;124;43m"[39;49m[43m)[49m
+[1;32m      2[0m prostate[38;5;241m.[39mdrop(prostate[38;5;241m.[39mcolumns[[38;5;241m0[39m], axis[38;5;241m=[39m[38;5;241m1[39m, inplace[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
+[1;32m      4[0m X [38;5;241m=[39m prostate[38;5;241m.[39mdrop([[38;5;124m"[39m[38;5;124mlpsa[39m[38;5;124m"[39m, [38;5;124m"[39m[38;5;124mtrain[39m[38;5;124m"[39m], axis[38;5;241m=[39m[38;5;241m1[39m)
 
 File [0;32m/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/pandas/util/_decorators.py:211[0m, in [0;36mdeprecate_kwarg.<locals>._deprecate_kwarg.<locals>.wrapper[0;34m(*args, **kwargs)[0m
 [1;32m    209[0m     [38;5;28;01melse[39;00m:
@@ -43,15 +57,15 @@ File [0;32m/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/pyt
 [1;32m    316[0m     )
 [0;32m--> 317[0m [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
 
-File [0;32m/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/pandas/io/parsers/readers.py:950[0m, in [0;36mread_csv[0;34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)[0m
-[1;32m    935[0m kwds_defaults [38;5;241m=[39m _refine_defaults_read(
-[1;32m    936[0m     dialect,
-[1;32m    937[0m     delimiter,
+File [0;32m/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/pandas/io/parsers/readers.py:1289[0m, in [0;36mread_table[0;34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)[0m
+[1;32m   1274[0m kwds_defaults [38;5;241m=[39m _refine_defaults_read(
+[1;32m   1275[0m     dialect,
+[1;32m   1276[0m     delimiter,
 [0;32m   (...)[0m
-[1;32m    946[0m     defaults[38;5;241m=[39m{[38;5;124m"[39m[38;5;124mdelimiter[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;124m,[39m[38;5;124m"[39m},
-[1;32m    947[0m )
-[1;32m    948[0m kwds[38;5;241m.[39mupdate(kwds_defaults)
-[0;32m--> 950[0m [38;5;28;01mreturn[39;00m [43m_read[49m[43m([49m[43mfilepath_or_buffer[49m[43m,[49m[43m [49m[43mkwds[49m[43m)[49m
+[1;32m   1285[0m     defaults[38;5;241m=[39m{[38;5;124m"[39m[38;5;124mdelimiter[39m[38;5;124m"[39m: [38;5;124m"[39m[38;5;130;01m\t[39;00m[38;5;124m"[39m},
+[1;32m   1286[0m )
+[1;32m   1287[0m kwds[38;5;241m.[39mupdate(kwds_defaults)
+[0;32m-> 1289[0m [38;5;28;01mreturn[39;00m [43m_read[49m[43m([49m[43mfilepath_or_buffer[49m[43m,[49m[43m [49m[43mkwds[49m[43m)[49m
 
 File [0;32m/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.8/site-packages/pandas/io/parsers/readers.py:605[0m, in [0;36m_read[0;34m(filepath_or_buffer, kwds)[0m
 [1;32m    602[0m _validate_names(kwds[38;5;241m.[39mget([38;5;124m"[39m[38;5;124mnames[39m[38;5;124m"[39m, [38;5;28;01mNone[39;00m))
@@ -98,6 +112,6 @@ File [0;32m/usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/pyt
 [1;32m    865[0m         [38;5;66;03m# Binary mode[39;00m
 [1;32m    866[0m         handle [38;5;241m=[39m [38;5;28mopen[39m(handle, ioargs[38;5;241m.[39mmode)
 
-[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '../../data/Social_Network_Ads.csv'
-FileNotFoundError: [Errno 2] No such file or directory: '../../data/Social_Network_Ads.csv'
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: '../../../data/prostate.data'
+FileNotFoundError: [Errno 2] No such file or directory: '../../../data/prostate.data'
 
