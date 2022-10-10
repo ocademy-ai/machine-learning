@@ -1759,6 +1759,6 @@ Here are some examples of exploring data from Image data sources:
 
 # Acknowledgments
 
-Thanks to Donne Martin for creating the open source course [data-science-ipython-notebooks](https://github.com/donnemartin/data-science-ipython-notebooks). It contributes course section in this chapter.
+Thanks to Donne Martin for creating the open source course [data-science-ipython-notebooks](https://github.com/donnemartin/data-science-ipython-notebooks). It contributes the majority of the content in this chapter.
 
 Thanks to Microsoft for creating the open source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It contributes assignment section in this chapter.
