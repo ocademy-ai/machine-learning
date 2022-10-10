@@ -55,7 +55,9 @@ Clone your repo fork to a local machine.
 git clone https://github.com/<UserName>/machine-learning.git
 ```
 
- **There will be slight differences on different systems**
+> **Warning**
+>
+> **There will be slight differences on different systems**
 
 ### Install Python & Conda
 
@@ -138,7 +140,6 @@ To Mac,
 > 
 > **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
 
-
 To Windows,
 
 > **Warning**
@@ -213,7 +214,6 @@ bash ./build-force-all.sh
 ```
 
 To Mac,
-
 
 > **Warning**
 >
