@@ -21,3 +21,7 @@ In this assignment, we will ask you to elaborate on the code we have started dev
 Exemplary | Adequate | Needs Improvement
 --- | --- | -- |
 All tasks are complete, graphically illustrated and explained, including at least one of two stretch goals | More than 5 tasks are complete, no stretch goals are attempted, or the results are not clear | Less than 5 (but more than 3) tasks are complete, visualizations do not help to demonstrate the point
+
+## Acknowledgments
+
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
