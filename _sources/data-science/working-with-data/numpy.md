@@ -13,7 +13,6 @@ kernelspec:
   name: python3
 ---
 
-
 # NumPy
 
 Numpy is a library for working with tensors, i.e. multi-dimensional arrays. Array has values of the same underlying type, and it is simpler than dataframe, but it offers more mathematical operations, and creates less overhead.
