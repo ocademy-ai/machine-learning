@@ -14,11 +14,11 @@ kernelspec:
 ---
 
 
-## NumPy
+# NumPy
 
 Numpy is a library for working with tensors, i.e. multi-dimensional arrays. Array has values of the same underlying type, and it is simpler than dataframe, but it offers more mathematical operations, and creates less overhead.
 
-### The basics of numpy arrays
+## The basics of numpy arrays
 
 Data manipulation in Python is nearly synonymous with NumPy array manipulation: even newer tools like **Pandas** are built around the NumPy array. This section will present several examples of using NumPy array manipulation to access data and subarrays, and to split, reshape, and join the arrays. While the types of operations shown here may seem a bit dry and pedantic, they comprise the building blocks of many other examples used throughout the book. Get to know them well!
 
@@ -30,7 +30,7 @@ We'll cover a few categories of basic array manipulations here:
 - Reshaping of arrays: Changing the shape of a given array
 Joining and splitting of arrays: Combining multiple arrays into one, and splitting one array into many.
 
-#### NumPy array attributes
+### NumPy array attributes
 
 First let's discuss some useful array attributes. We'll start by defining three random arrays, a one-dimensional, two-dimensional, and three-dimensional array. We'll use NumPy's random number generator, which we will seed with a set value in order to ensure that the same random arrays are generated each time this code is run:
 
@@ -66,13 +66,13 @@ print("nbytes:", x3.nbytes, "bytes")
 
 In general, we expect that `nbytes` is equal to `itemsize` times `size`.
 
-### Computation on numpy arrays: universal functions
+## Computation on numpy arrays: universal functions
 
 Up until now, we have been discussing some of the basic nuts and bolts of NumPy; in the next few sections, we will dive into the reasons that NumPy is so important in the Python data science world. Namely, it provides an easy and flexible interface to optimized computation with arrays of data.
 
 Computation on NumPy arrays can be very fast, or it can be very slow. The key to making it fast is to use vectorized operations, generally implemented through NumPy's universal functions (ufuncs). This section motivates the need for NumPy's ufuncs, which can be used to make repeated calculations on array elements much more efficient. It then introduces many of the most common and useful arithmetic ufuncs available in the NumPy package.
 
-#### The wlowness of loops
+### The wlowness of loops
 
 ```{code-cell}
 import numpy as np
@@ -97,7 +97,7 @@ big_array = np.random.randint(1, 100, size=1000000)
 
 It takes several seconds to compute these million operations and to store the result! When even cell phones have processing speeds measured in Giga-FLOPS (i.e., billions of numerical operations per second), this seems almost absurdly slow. It turns out that the bottleneck here is not the operations themselves, but the type-checking and function dispatches that CPython must do at each cycle of the loop. Each time the reciprocal is computed, Python first examines the object's type and does a dynamic lookup of the correct function to use for that type. If we were working in compiled code instead, this type specification would be known before the code executes and the result could be computed much more efficiently.
 
-#### Introducing ufuncs
+### Introducing ufuncs
 
 For many types of operations, NumPy provides a convenient interface into just this kind of statically typed, compiled routine. This is known as a vectorized operation. This can be accomplished by simply performing an operation on the array, which will then be applied to each element. This vectorized approach is designed to push the loop into the compiled layer that underlies NumPy, leading to much faster execution.
 
@@ -129,11 +129,11 @@ x = np.arange(9).reshape((3, 3))
 
 Computations using vectorization through ufuncs are nearly always more efficient than their counterpart implemented using Python loops, especially as the arrays grow in size. Any time you see such a loop in a Python script, you should consider whether it can be replaced with a vectorized expression.
 
-#### Exploring numPy's ufuncs
+### Exploring numPy's ufuncs
 
 Ufuncs exist in two flavors: unary ufuncs, which operate on a single input, and binary ufuncs, which operate on two inputs. We'll see examples of both these types of functions here.
 
-##### Array arithmetic
+#### Array arithmetic
 
 NumPy's ufuncs feel very natural to use because they make use of Python's native arithmetic operators. The standard addition, subtraction, multiplication, and division can all be used:
 
@@ -180,7 +180,7 @@ The following table lists the arithmetic operators implemented in NumPy:
 |**|	np.power|	Exponentiation (e.g., 2 ** 3 = 8)|
 |%|	np.mod|	Modulus/remainder (e.g., 9 % 4 = 1)|
 
-##### Absolute value
+#### Absolute value
 
 Just as NumPy understands Python's built-in arithmetic operators, it also understands Python's built-in absolute value function:
 
@@ -206,7 +206,7 @@ x = np.array([3 - 4j, 4 - 3j, 2 + 0j, 0 + 1j])
 np.abs(x)
 ```
 
-##### Trigonometric functions
+#### Trigonometric functions
 
 NumPy provides a large number of useful ufuncs, and some of the most useful for the data scientist are the trigonometric functions. We'll start by defining an array of angles:
 
@@ -233,7 +233,7 @@ print("arccos(x) = ", np.arccos(x))
 print("arctan(x) = ", np.arctan(x))
 ```
 
-##### Exponents and logarithms
+#### Exponents and logarithms
 
 Another common type of operation available in a NumPy ufunc are the exponentials:
 
@@ -265,7 +265,7 @@ print("log(1 + x) =", np.log1p(x))
 
 When `x` is very small, these functions give more precise values than if the raw `np.log` or `np.exp` were to be used.
 
-##### Specialized ufuncs
+#### Specialized ufuncs
 
 NumPy has many more ufuncs available, including hyperbolic trig functions, bitwise arithmetic, comparison operators, conversions from radians to degrees, rounding and remainders, and much more. A look through the NumPy documentation reveals a lot of interesting functionality.
 
@@ -294,11 +294,11 @@ print("erfinv(x) =", special.erfinv(x))
 
 There are many, many more ufuncs available in both NumPy and `scipy.special`. Because the documentation of these packages is available online, a web search along the lines of "gamma function python" will generally find the relevant information.
 
-#### Advanced ufunc features
+### Advanced ufunc features
 
 Many NumPy users make use of ufuncs without ever learning their full set of features. We'll outline a few specialized features of ufuncs here.
 
-##### Specifying output
+#### Specifying output
 
 For large calculations, it is sometimes useful to be able to specify the array where the result of the calculation will be stored. Rather than creating a temporary array, this can be used to write computation results directly to the memory location where you'd like them to be. For all ufuncs, this can be done using the out argument of the function:
 
@@ -319,7 +319,7 @@ print(y)
 
 If we had instead written `y[::2] = 2 ** x`, this would have resulted in the creation of a temporary array to hold the results of `2 ** x`, followed by a second operation copying those values into the `y` array. This doesn't make much of a difference for such a small computation, but for very large arrays the memory savings from careful use of the `out` argument can be significant.
 
-##### Aggregates
+#### Aggregates
 
 For binary ufuncs, there are some interesting aggregates that can be computed directly from the object. For example, if we'd like to reduce an array with a particular operation, we can use the `reduce` method of any ufunc. A reduce repeatedly applies a given operation to the elements of an array until only a single result remains.
 
@@ -348,7 +348,7 @@ np.multiply.accumulate(x)
 
 Note that for these particular cases, there are dedicated NumPy functions to compute the results (`np.sum`, `np.prod`, `np.cumsum`, `np.cumprod`).
 
-##### Outer products
+#### Outer products
 
 Finally, any ufunc can compute the output of all pairs of two different inputs using the `outer` method. This allows you, in one line, to do things like create a multiplication table:
 
@@ -357,13 +357,13 @@ x = np.arange(1, 6)
 np.multiply.outer(x, x)
 ```
 
-### Aggregations: min, max, and everything in between
+## Aggregations: min, max, and everything in between
 
 Often when faced with a large amount of data, a first step is to compute summary statistics for the data in question. Perhaps the most common summary statistics are the mean and standard deviation, which allow you to summarize the "typical" values in a dataset, but other aggregates are useful as well (the sum, product, median, minimum and maximum, quantiles, etc.).
 
 NumPy has fast built-in aggregation functions for working on arrays; we'll discuss and demonstrate some of them here.
 
-#### Summing the values in an array¶
+### Summing the values in an array¶
 
 As a quick example, consider computing the sum of all values in an array. Python itself can do this using the built-in `sum` function:
 
@@ -392,7 +392,7 @@ big_array = np.random.rand(1000000)
 
 Be careful, though: the sum function and the np.sum function are not identical, which can sometimes lead to confusion! In particular, their optional arguments have different meanings, and np.sum is aware of multiple array dimensions, as we will see in the following section
 
-#### Minimum and maximum
+### Minimum and maximum
 
 Similarly, Python has built-in `min` and `max` functions, used to find the minimum value and maximum value of any given array:
 
@@ -419,7 +419,7 @@ print(big_array.min(), big_array.max(), big_array.sum())
 
 Whenever possible, make sure that you are using the NumPy version of these aggregates when operating on NumPy arrays!
 
-#### Multi dimensional aggregates
+### Multi dimensional aggregates
 
 One common type of aggregation operation is an aggregate along a row or column. Say you have some data stored in a two-dimensional array:
 
@@ -450,7 +450,7 @@ M.max(axis=1)
 
 The way the axis is specified here can be confusing to users coming from other languages. The `axis` keyword specifies the dimension of the array that will be collapsed, rather than the dimension that will be returned. So specifying `axis=0` means that the first axis will be collapsed: for two-dimensional arrays, this means that values within each column will be aggregated.
 
-#### Other aggregation functions
+### Other aggregation functions
 
 NumPy provides many other aggregation functions, but we won't discuss them in detail here. Additionally, most aggregates have a `NaN`-safe counterpart that computes the result while ignoring missing values, which are marked by the special IEEE floating-point `NaN` value. Some of these `NaN`-safe functions were not added until NumPy 1.8, so they will not be available in older NumPy versions.
 
@@ -472,11 +472,11 @@ The following table provides a list of useful aggregation functions available in
 |np.any|	N/A|	Evaluate whether any elements are true|
 |np.all|	N/A|	Evaluate whether all elements are true|
 
-### Computation on arrays: broadcasting
+## Computation on arrays: broadcasting
 
 We saw in the previous section how NumPy's universal functions can be used to vectorize operations and thereby remove slow Python loops. Another means of vectorizing operations is to use NumPy's broadcasting functionality. Broadcasting is simply a set of rules for applying binary ufuncs (e.g., addition, subtraction, multiplication, etc.) on arrays of different sizes.
 
-#### Introducing broadcasting
+### Introducing broadcasting
 
 Recall that for arrays of the same size, binary operations are performed on an element-by-element basis:
 
@@ -531,7 +531,7 @@ Just as before we stretched or broadcasted one value to match the shape of the o
 
 The light boxes represent the broadcasted values: again, this extra memory is not actually allocated in the course of the operation, but it can be useful conceptually to imagine that it is.
 
-#### Rules of broadcasting
+### Rules of broadcasting
 
 Broadcasting in NumPy follows a strict set of rules to determine the interaction between the two arrays:
 
@@ -541,7 +541,7 @@ Broadcasting in NumPy follows a strict set of rules to determine the interaction
 
 To make these rules clear, let's consider a few examples in detail.
 
-##### Broadcasting example 1
+#### Broadcasting example 1
 
 Let's look at adding a two-dimensional array to a one-dimensional array:
 
@@ -571,7 +571,7 @@ The shapes match, and we see that the final shape will be `(2, 3)`:
 M + a
 ```
 
-##### Broadcasting example 2
+#### Broadcasting example 2
 
 Let's take a look at an example where both arrays need to be broadcast:
 
@@ -600,7 +600,7 @@ Because the result matches, these shapes are compatible. We can see this here:
 a + b
 ```
 
-##### Broadcasting example 3
+#### Broadcasting example 3
 
 Now let's take a look at an example in which the two arrays are not compatible:
 
@@ -647,11 +647,11 @@ Also note that while we've been focusing on the `+` operator here, these broadca
 np.logaddexp(M, a[:, np.newaxis])
 ```
 
-#### Broadcasting in practice
+### Broadcasting in practice
 
 Broadcasting operations form the core of many examples we'll see throughout this book. We'll now take a look at a couple simple examples of where they can be useful.
 
-##### Centering an array
+#### Centering an array
 
 In the previous section, we saw that ufuncs allow a NumPy user to remove the need to explicitly write slow Python loops. Broadcasting extends this ability. One commonly seen example is when centering an array of data. Imagine you have an array of 10 observations, each of which consists of 3 values. Using the standard convention, we'll store this in a 10×3 array:
 
@@ -680,7 +680,7 @@ X_centered.mean(0)
 
 To within machine precision, the mean is now zero.
 
-##### Plotting a two-dimensional function
+#### Plotting a two-dimensional function
 
 One place that broadcasting is very useful is in displaying images based on two-dimensional functions. If we want to define a function z=f(x,y), broadcasting can be used to compute the function across the grid:
 
@@ -706,11 +706,11 @@ plt.colorbar();
 
 The result is a compelling visualization of the two-dimensional function.
 
-### Comparisons, masks, and boolean logic
+## Comparisons, masks, and boolean logic
 
 This section covers the use of Boolean masks to examine and manipulate values within NumPy arrays. Masking comes up when you want to extract, modify, count, or otherwise manipulate values in an array based on some criterion: for example, you might wish to count all values greater than a certain value, or perhaps remove all outliers that are above some threshold. In NumPy, Boolean masking is often the most efficient way to accomplish these types of tasks.
 
-#### Example: counting rainy days
+### Example: counting rainy days
 
 Imagine you have a series of data that represents the amount of precipitation each day for a year in a given city. For example, here we'll load the daily rainfall statistics for the city of Seattle in 2014, using Panda:
 
@@ -740,11 +740,11 @@ plt.hist(inches, 40);
 
 This histogram gives us a general idea of what the data looks like: despite its reputation, the vast majority of days in Seattle saw near zero measured rainfall in 2014. But this doesn't do a good job of conveying some information we'd like to see: for example, how many rainy days were there in the year? What is the average precipitation on those rainy days? How many days were there with more than half an inch of rain?
 
-##### Digging into the data
+#### Digging into the data
 
 One approach to this would be to answer these questions by hand: loop through the data, incrementing a counter each time we see values in some desired range. For reasons discussed throughout this chapter, such an approach is very inefficient, both from the standpoint of time writing code and time computing the result. We saw in Computation on NumPy Arrays: Universal Functions that NumPy's ufuncs can be used in place of loops to do fast element-wise arithmetic operations on arrays; in the same way, we can use other ufuncs to do element-wise comparisons over arrays, and we can then manipulate the results to answer the questions we have. We'll leave the data aside for right now, and discuss some general tools in NumPy to use masking to quickly answer these types of questions.
 
-#### Comparison operators as ufuncs
+### Comparison operators as ufuncs
 
 In Computation on NumPy Arrays: Universal Functions we introduced ufuncs, and focused in particular on arithmetic operators. We saw that using `+`, `-`, `*`, `/`, and others on arrays leads to element-wise operations. NumPy also implements comparison operators such as `<` (less than) and `>` (greater than) as element-wise ufuncs. The result of these comparison operators is always an array with a Boolean data type. All six of the standard comparison operations are available:
 
@@ -805,7 +805,7 @@ x < 6
 
 In each case, the result is a Boolean array, and NumPy provides a number of straightforward patterns for working with these Boolean results.
 
-#### Working with boolean arrays
+### Working with boolean arrays
 
 Given a Boolean array, there are a host of useful operations you can do.
 We'll work with `x`, the two-dimensional array we created earlier.
@@ -814,7 +814,7 @@ We'll work with `x`, the two-dimensional array we created earlier.
 print(x)
 ```
 
-##### Counting entries
+#### Counting entries
 
 To count the number of `True` entries in a Boolean array, `np.count_nonzero` is useful:
 
@@ -871,7 +871,7 @@ Here all the elements in the first and third rows are less than 8, while this is
 
 Finally, a quick warning: as mentioned in Aggregations: Min, Max, and Everything In Between, Python has built-in `sum()`, `any()`, and `all()` functions. These have a different syntax than the NumPy versions, and in particular will fail or produce unintended results when used on multidimensional arrays. Be sure that you are using `np.sum()`, `np.any()`, and `np.all()` for these examples!
 
-##### Boolean operators
+#### Boolean operators
 
 We've already seen how we might count, say, all days with rain less than four inches, or all days with rain greater than two inches. But what if we want to know about all days with rain less than four inches and greater than one inch? This is accomplished through Python's bitwise logic operators, `&`, `|`, `^`, and `~`. Like with the standard arithmetic operators, NumPy overloads these as ufuncs which work element-wise on (usually Boolean) arrays.
 
@@ -914,7 +914,7 @@ print("Rainy days with < 0.2 inches  :", np.sum((inches > 0) &
                                               (inches < 0.2)))
 ```
 
-#### Boolean arrays as masks
+### Boolean arrays as masks
 
 In the preceding section we looked at aggregates computed directly on Boolean arrays. A more powerful pattern is to use Boolean arrays as masks, to select particular subsets of the data themselves. Returning to our `x` array from before, suppose we want an array of all values in the array that are less than, say, 5:
 
@@ -958,7 +958,7 @@ print("Median precip on non-summer rainy days (inches):",
 
 By combining Boolean operations, masking operations, and aggregates, we can very quickly answer these sorts of questions for our dataset.
 
-#### Aside: using the keywords `and`/`or` versus the operators `&`/`|`¶
+### Aside: using the keywords `and`/`or` versus the operators `&`/`|`¶
 
 One common point of confusion is the difference between the keywords and and or on one hand, and the operators `&` and `|` on the other hand. When would you use one versus the other?
 
@@ -1027,11 +1027,11 @@ Trying to evaluate the truth or falsehood of the entire array will give the same
 
 So remember this: `and` and `or` perform a single Boolean evaluation on an entire object, while `&` and `|` perform multiple Boolean evaluations on the content (the individual bits or bytes) of an object. For Boolean NumPy arrays, the latter is nearly always the desired operation.
 
-### Fancy indexing
+## Fancy indexing
 
 In the previous sections, we saw how to access and modify portions of arrays using simple indices (e.g., `arr[0]`), slices (e.g., `arr[:5]`), and Boolean masks (e.g., `arr[arr > 0]`). In this section, we'll look at another style of array indexing, known as fancy indexing. Fancy indexing is like the simple indexing we've already seen, but we pass arrays of indices in place of single scalars. This allows us to very quickly access and modify complicated subsets of an array's values.
 
-#### Exploring fancy indexing
+### Exploring fancy indexing
 
 Fancy indexing is conceptually simple: it means passing an array of indices to access multiple array elements at once. For example, consider the following array:
 
@@ -1093,7 +1093,7 @@ row[:, np.newaxis] * col
 
 It is always important to remember with fancy indexing that the return value reflects the broadcasted shape of the indices, rather than the shape of the array being indexed.
 
-#### Combined indexing
+### Combined indexing
 
 For even more powerful operations, fancy indexing can be combined with the other indexing schemes we've seen:
 
@@ -1122,7 +1122,7 @@ X[row[:, np.newaxis], mask]
 
 All of these indexing options combined lead to a very flexible set of operations for accessing and modifying array values.
 
-#### Example: Selecting Random Points
+### Example: Selecting Random Points
 
 One common use of fancy indexing is the selection of subsets of rows from a matrix.
 
@@ -1168,7 +1168,7 @@ plt.scatter(selection[:, 0], selection[:, 1],
 
 This sort of strategy is often used to quickly partition datasets, as is often needed in train/test splitting for validation of statistical models, and in sampling approaches to answering statistical questions.
 
-#### Modifying values with fancy indexing
+### Modifying values with fancy indexing
 
 Just as fancy indexing can be used to access parts of an array, it can also be used to modify parts of an array.
 
@@ -1225,7 +1225,7 @@ print(x)
 The `at()` method does an in-place application of the given operator at the specified indices (here, `i`) with the specified value (here, 1).
 Another method that is similar in spirit is the `reduceat()` method of ufuncs, which you can read about in the NumPy documentation.
 
-#### Example: binning data
+### Example: binning data
 
 You can use these ideas to efficiently bin data to create a histogram by hand.
 
@@ -1292,7 +1292,7 @@ But the advantage of coding this algorithm yourself is that with an understandin
 
 The key to efficiently using Python in data-intensive applications is knowing about general convenience routines like `np.histogram` and when they're appropriate, but also knowing how to make use of lower-level functionality when you need more pointed behavior.
 
-### Sorting Arrays
+## Sorting Arrays
 
 Up to this point we have been concerned mainly with tools to access and operate on array data with NumPy.
 
@@ -1343,7 +1343,7 @@ With an average scaling of ***O[N×N!]***, (that's *N* times *N* factorial) this
 
 Fortunately, Python contains built-in sorting algorithms that are *much* more efficient than either of the simplistic algorithms just shown. We'll start by looking at the Python built-ins, and then take a look at the routines included in NumPy and optimized for NumPy arrays.
 
-#### Fast sorting in numPy: `np.sort` and `np.argsort`
+### Fast sorting in numPy: `np.sort` and `np.argsort`
 
 Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes.
 By default `np.sort` uses an ***O[NlogN]***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
@@ -1378,7 +1378,7 @@ These indices can then be used (via fancy indexing) to construct the sorted arra
 x[i]
 ```
 
-##### Sorting along rows or columns
+#### Sorting along rows or columns
 
 A useful feature of NumPy's sorting algorithms is the ability to sort along specific rows or columns of a multidimensional array using the `axis` argument. For example:
 
@@ -1400,7 +1400,7 @@ np.sort(X, axis=1)
 
 Keep in mind that this treats each row or column as an independent array, and any relationships between the row or column values will be lost!
 
-#### Partial sorts: partitioning
+### Partial sorts: partitioning
 
 Sometimes we're not interested in sorting the entire array, but simply want to find the *k* smallest values in the array. NumPy provides this in the `np.partition` function. `np.partition` takes an array and a number *K*; the result is a new array with the smallest *K* values to the left of the partition, and the remaining values to the right, in arbitrary order:
 
@@ -1421,7 +1421,7 @@ The result is an array where the first two slots in each row contain the smalles
 
 Finally, just as there is a `np.argsort` that computes indices of the sort, there is a `np.argpartition` that computes indices of the partition.We'll see this in action in the following section.
 
-#### Example: k-nearest neighbors
+### Example: k-nearest neighbors
 
 Let's quickly see how we might use this `argsort` function along multiple axes to find the nearest neighbors of each point in a set.
 We'll start by creating a random set of 10 points on a two-dimensional plane.Using the standard convention, we'll arrange these in a **10×2** array:
@@ -1512,7 +1512,7 @@ You might be tempted to do the same type of operation by manually looping throug
 
 Finally, I'll note that when doing very large nearest neighbor searches, there are tree-based and/or approximate algorithms that can scale as ***O[NlogN]*** or better rather than the ***O[N^2]*** of the brute-force algorithm. One example of this is the KD-Tree.
 
-#### Aside: big-O notation
+### Aside: big-O notation
 
 Big-O notation is a means of describing how the number of operations required for an algorithm scales as the input grows in size.
 To use it correctly is to dive deeply into the realm of computer science theory, and to carefully distinguish it from the related small-o notation, big-***θ*** notation, big-***Ω*** notation, and probably many mutant hybrids thereof.
@@ -1533,7 +1533,7 @@ Scale up *N* by a factor of 1,000, though, and the ***O[N]*** algorithm will win
 
 Even this loose version of Big-O notation can be very useful when comparing the performance of algorithms, and we'll use this notation throughout the book when talking about how algorithms scale.
 
-### Structured data: numPy's structured arrays
+## Structured data: numPy's structured arrays
 
 While often our data can be well represented by a homogeneous array of values, sometimes this is not the case. This section demonstrates the use of NumPy's **structured arrays** and **record arrays**, which provide efficient storage for compound, heterogeneous data.  While the patterns shown here are useful for simple operations, scenarios like this often lend themselves to the use of Pandas `Dataframe`.
 
@@ -1605,7 +1605,7 @@ data[data['age'] < 30]['name']
 
 Note that if you'd like to do any operations that are any more complicated than these, you should probably consider the Pandas package, covered in the next chapter. As we'll see, Pandas provides a `Dataframe` object, which is a structure built on NumPy arrays that offers a variety of useful data manipulation functionality similar to what we've shown here, as well as much, much more.
 
-#### Creating structured arrays
+### Creating structured arrays
 
 Structured array data types can be specified in a number of ways.
 Earlier, we saw the dictionary method:
@@ -1647,7 +1647,7 @@ The shortened string format codes may seem confusing, but they are built on simp
 | `'U'`          | Unicode string        | `np.dtype('U') == np.str_`        |
 | `'V'`          | Raw data (void)       | `np.dtype('V') == np.void`        |
 
-#### More advanced compound types
+### More advanced compound types
 
 It is possible to define even more advanced compound types.
 For example, you can create a type where each element contains an array or matrix of values. Here, we'll create a data type with a `mat` component consisting of a **3×3** floating-point matrix:
@@ -1661,7 +1661,7 @@ print(X['mat'][0])
 
 Now each element in the `X` array consists of an `id` and a **3×3** matrix. Why would you use this rather than a simple multidimensional array, or perhaps a Python dictionary? The reason is that this NumPy `dtype` directly maps onto a C structure definition, so the buffer containing the array content can be accessed directly within an appropriately written C program. If you find yourself writing a Python interface to a legacy C or Fortran library that manipulates structured data, you'll probably find structured arrays quite useful!
 
-#### RecordArrays: structured arrays with a twist
+### RecordArrays: structured arrays with a twist
 
 NumPy also provides the `np.recarray` class, which is almost identical to the structured arrays just described, but with one additional feature: fields can be accessed as attributes rather than as dictionary keys.Recall that we previously accessed the ages by writing:
 
@@ -1686,13 +1686,13 @@ The downside is that for record arrays, there is some extra overhead involved in
 
 Whether the more convenient notation is worth the additional overhead will depend on your own application.
 
-#### On to pandas
+### On to pandas
 
 This section on structured and record arrays is purposely at the end of this chapter, because it leads so well into the next package we will cover: Pandas. Structured arrays like the ones discussed here are good to know about for certain situations, especially in case you're using NumPy arrays to map onto binary data formats in C, Fortran, or another language. For day-to-day use of structured data, the Pandas package is a much better choice, and we'll dive into a full discussion of it in the chapter that follows.
 
-## Your turn! 🚀
+# Your turn! 🚀
 
-### 🚀 Challenge 1: analyzing COVID spread
+## 🚀 Challenge 1: analyzing COVID spread
 
 First problem we will focus on is modelling of epidemic spread of COVID-19. In order to do that, we will use the data on the number of infected individuals in different countries, provided by the [Center for Systems Science and Engineering](https://systems.jhu.edu/) (CSSE) at [Johns Hopkins University](https://jhu.edu/). Dataset is available in [this GitHub Repository](https://github.com/CSSEGISandData/COVID-19).
 
@@ -1700,7 +1700,7 @@ Since we want to demonstrate how to deal with data, we invite you to open [Estim
 
 ![COVID Spread](../../assets/images/covidspread.png)
 
-### Working with unstructured Data
+## Working with unstructured Data
 
 While data very often comes in tabular form, in some cases we need to deal with less structured data, for example, text or images. In this case, to apply data processing techniques we have seen above, we need to somehow **extract** structured data. Here are a few examples:
 
@@ -1708,7 +1708,7 @@ While data very often comes in tabular form, in some cases we need to deal with 
 * Using neural networks to extract information about objects on the picture
 * Getting information on emotions of people on video camera feed
 
-### 🚀 Challenge 2: analyzing COVID papers
+## 🚀 Challenge 2: analyzing COVID papers
 
 In this challenge, we will continue with the topic of COVID pandemic, and focus on processing scientific papers on the subject. There is [CORD-19 Dataset](https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge) with more than 7000 (at the time of writing) papers on COVID, available with metadata and abstracts (and for about half of them there is also full text provided).
 
@@ -1722,7 +1722,7 @@ Open [Analyzing COVID-19 papers](../../assignments/data-science/analyzing-COVID-
 
 ![Covid Medical Treatment](../../assets/images/covidtreat.png)
 
-### Processing image data
+## Processing image data
 
 Recently, very powerful AI models have been developed that allow us to understand images. There are many tasks that can be solved using pre-trained neural networks, or cloud services. Some examples include:
 
@@ -1737,11 +1737,11 @@ Here are some examples of exploring data from Image data sources:
 * In the blog post [How to Learn Data Science without Coding](https://soshnikov.com/azure/how-to-learn-data-science-without-coding/) we explore Instagram photos, trying to understand what makes people give more likes to a photo. We first extract as much information from pictures as possible using [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum), and then use [Azure Machine Learning AutoML](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml/?WT.mc_id=academic-77958-bethanycheum) to build interpretable model.
 * In [Facial Studies Workshop](https://github.com/CloudAdvocacy/FaceStudies) we use [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum) to extract emotions on people on photographs from events, in order to try to understand what makes people happy.
 
-### Assignments
+## Assignments
 
 [Perform more detailed data study for the challenges above](../../assignments/data-science/data-processing-in-python.md)
 
-## Self study
+# Self study
 
 **Books**
 
@@ -1757,6 +1757,6 @@ Here are some examples of exploring data from Image data sources:
 * [Learn Python in a Fun Way with Turtle Graphics and Fractals](https://github.com/shwars/pycourse)
 * [Take your First Steps with Python](https://docs.microsoft.com/learn/paths/python-first-steps/?WT.mc_id=academic-77958-bethanycheum) Learning Path on [Microsoft Learn](http://learn.microsoft.com/?WT.mc_id=academic-77958-bethanycheum)
 
-## Acknowledgments
+# Acknowledgments
 
 Thanks to Microsoft for creating the open source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It contributes assignment section in this chapter.
