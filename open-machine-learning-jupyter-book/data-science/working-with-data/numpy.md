@@ -169,16 +169,16 @@ np.add(x, 2)
 
 The following table lists the arithmetic operators implemented in NumPy:
 
-|Operator|	Equivalent ufunc|	Description|
+|Operator| Equivalent ufunc| Description|
 |:-|:-|:-|
-|+|	`np.add`|	Addition (e.g., 1 + 1 = 2)|
-|-|	`np.subtract`|	Subtraction (e.g., 3 - 2 = 1)|
-|-|	`np.negative`|	Unary negation (e.g., -2)|
-|*|	`np.multiply`|	Multiplication (e.g., 2 * 3 = 6)|
-|/|	`np.divide`|	Division (e.g., 3 / 2 = 1.5)|
-|//|	`np.floor_divide`|	Floor division (e.g., 3 // 2 = 1)|
-|**|	`np.power`|	Exponentiation (e.g., 2 ** 3 = 8)|
-|%|	`np.mod`|	Modulus/remainder (e.g., 9 % 4 = 1)|
+|+| `np.add`| Addition (e.g., 1 + 1 = 2)|
+|-| `np.subtract`| Subtraction (e.g., 3 - 2 = 1)|
+|-| `np.negative`| Unary negation (e.g., -2)|
+|*| `np.multiply`| Multiplication (e.g., 2 * 3 = 6)|
+|/| `np.divide`| Division (e.g., 3 / 2 = 1.5)|
+|//| `np.floor_divide`| Floor division (e.g., 3 // 2 = 1)|
+|**| `np.power`| Exponentiation (e.g., 2 ** 3 = 8)|
+|%| `np.mod`| Modulus/remainder (e.g., 9 % 4 = 1)|
 
 #### Absolute value
 
@@ -456,21 +456,21 @@ NumPy provides many other aggregation functions, but we won't discuss them in de
 
 The following table provides a list of useful aggregation functions available in NumPy:
 
-|Function Name|	NaN-safe Version|	Description|
+|Function Name| NaN-safe Version| Description|
 |:-|:-|:-|
-|`np.sum`|	`np.nansum`|	Compute sum of elements|
-|`np.prod`|	`np.nanprod`|	Compute product of elements|
-|`np.mean`|	`np.nanmean`|	Compute median of elements|
-|`np.std`|	`np.nanstd`|	Compute standard deviation|
-|`np.var`|	`np.nanvar`|	Compute variance|
-|`np.min`|	`np.nanmin`|	Find minimum value|
-|`np.max`|	`np.nanmax`|	Find maximum value|
-|`np.argmin`|	`np.nanargmin`|	Find index of minimum value|
-|`np.argmax`|	`np.nanargmax`|	Find index of maximum value|
-|`np.median`|	`np.nanmedian`|	Compute median of elements
-|`np.percentil`e|	`np.nanpercentile`|	Compute rank-based statistics of elements|
-|`np.any`|	N/A|	Evaluate whether any elements are true|
-|`np.all`|	N/A|	Evaluate whether all elements are true|
+|`np.sum`| `np.nansum`| Compute sum of elements|
+|`np.prod`| `np.nanprod`| Compute product of elements|
+|`np.mean`| `np.nanmean`| Compute median of elements|
+|`np.std`| `np.nanstd`| Compute standard deviation|
+|`np.var`| `np.nanvar`| Compute variance|
+|`np.min`| `np.nanmin`| Find minimum value|
+|`np.max`| `np.nanmax`| Find maximum value|
+|`np.argmin`| `np.nanargmin`| Find index of minimum value|
+|`np.argmax`| `np.nanargmax`| Find index of maximum value|
+|`np.median`| `np.nanmedian`| Compute median of elements
+|`np.percentil`e| `np.nanpercentile`| Compute rank-based statistics of elements|
+|`np.any`| N/A| Evaluate whether any elements are true|
+|`np.all`| N/A| Evaluate whether all elements are true|
 
 ## Computation on arrays: broadcasting
 
@@ -611,7 +611,6 @@ a = np.arange(3)
 
 This is just a slightly different situation than in the first example: the matrix M is transposed. How does this affect the calculation? The shape of the arrays are:
 
-
 - `M.shape = (3, 2)`
 - `a.shape = (3,)`
 
@@ -691,6 +690,7 @@ y = np.linspace(0, 5, 50)[:, np.newaxis]
 
 z = np.sin(x) ** 10 + np.cos(10 + y * x) * np.cos(x)
 ```
+
 We'll use Matplotlib to plot this two-dimensional array.
 
 ```{code-cell}
@@ -784,12 +784,11 @@ It is also possible to do an element-wise comparison of two arrays, and to inclu
 
 As in the case of arithmetic operators, the comparison operators are implemented as ufuncs in NumPy; for example, when you write `x < 3`, internally NumPy uses `np.less(x, 3)`. A summary of the comparison operators and their equivalent ufunc is shown here:
 
-
-|Operator|	Equivalent ufunc|		Operator|	Equivalent ufunc|
+|Operator| Equivalent ufunc|  Operator| Equivalent ufunc|
 |:-|:|:-|:-|
-|==|	`np.equal`|		!=|	`np.not_equal`|
-|<|	`np.less`|		<=|	`np.less_equal`|
-|>|	`np.greater`|		>=|	`np.greater_equal`|
+|==| `np.equal`|  !=| `np.not_equal`|
+|<| `np.less`|  <=| `np.less_equal`|
+|>| `np.greater`|  >=| `np.greater_equal`|
 
 Just as in the case of arithmetic ufuncs, these will work on arrays of any size and shape. Here is a two-dimensional example:
 
@@ -899,10 +898,10 @@ Combining comparison operators and Boolean operators on arrays can lead to a wid
 
 The following table summarizes the bitwise Boolean operators and their equivalent ufuncs:
 
-|Operator|	Equivalent ufunc|		Operator|	Equivalent ufunc|
+|Operator| Equivalent ufunc|  Operator| Equivalent ufunc|
 |:-|:-|:-|:-|
-|&|	`np.bitwise_and`|		&#124; |	`np.bitwise_or`|
-|^|	`np.bitwise_xor`|		~|	`np.bitwise_not`|
+|&| `np.bitwise_and`|  &#124; | `np.bitwise_or`|
+|^| `np.bitwise_xor`|  ~| `np.bitwise_not`|
 
 Using these tools, we might start to answer the types of questions we have about our weather data. Here are some examples of results we can compute when combining masking with aggregations:
 
@@ -1322,7 +1321,7 @@ As any first-year computer science major will tell you, the selection sort is us
 
 For a list of ***N*** values, it requires ***N*** loops, each of which does on order ***~ N*** comparisons to find the swap value.
 
-In terms of the "big-O" notation often used to characterize these algorithms (see Big-O Notation, selection sort averages *** $O(N^2)$***: if you double the number of items in the list, the execution time will go up by about a factor of four.
+In terms of the "big-O" notation often used to characterize these algorithms (see Big-O Notation, selection sort averages ***$O(N^2)$***: if you double the number of items in the list, the execution time will go up by about a factor of four.
 
 Even selection sort, though, is much better than my all-time favorite sorting algorithms, the **bogosort**:
 
@@ -1338,15 +1337,13 @@ x = np.array([2, 1, 4, 3, 5])
 bogosort(x)
 ```
 
-This silly sorting method relies on pure chance: it repeatedly applies a random shuffling of the array until the result happens to be sorted.
-With an average scaling of ***$O(N * N!)$***, (that's *N* times *N* factorial) this should–quite obviously–never be used for any real computation.
+This silly sorting method relies on pure chance: it repeatedly applies a random shuffling of the array until the result happens to be sorted. With an average scaling of ***$O(N * N!)$***, (that is $N$ times $N$ factorial) this should–quite obviously–never be used for any real computation.
 
 Fortunately, Python contains built-in sorting algorithms that are *much* more efficient than either of the simplistic algorithms just shown. We'll start by looking at the Python built-ins, and then take a look at the routines included in NumPy and optimized for NumPy arrays.
 
 ### Fast sorting in NumPy: `np.sort` and `np.argsort`
 
-Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes.
-By default `np.sort` uses an ***O[NlogN]***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
+Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes. By default `np.sort` uses an ***O[NlogN]***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
 
 To return a sorted version of the array without modifying the input, you can use `np.sort`:
 
@@ -1438,9 +1435,7 @@ import seaborn; seaborn.set() # Plot styling
 plt.scatter(X[:, 0], X[:, 1], s=100);
 ```
 
-Now we'll compute the distance between each pair of points.
-Recall that the squared-distance between two points is the sum of the squared differences in each dimension;
-using the efficient broadcasting and aggregation routines provided by NumPy we can compute the matrix of square distances in a single line of code:
+Now we'll compute the distance between each pair of points. Recall that the squared-distance between two points is the sum of the squared differences in each dimension; using the efficient broadcasting and aggregation routines provided by NumPy we can compute the matrix of square distances in a single line of code:
 
 ```{code-cell}
 dist_sq = np.sum((X[:, np.newaxis, :] - X[np.newaxis, :, :]) ** 2, axis=-1)
@@ -1629,7 +1624,7 @@ np.dtype('S10,i4,f8')
 The shortened string format codes may seem confusing, but they are built on simple principles.The first (optional) character is ``<`` or ``>``, which means "little endian" or "big endian," respectively, and specifies the ordering convention for significant bits.The next character specifies the type of data: characters, bytes, ints, floating points, and so on (see the table below).The last character or characters represents the size of the object in bytes.
 
 | Character        | Description           | Example                             |
-| ---------        | -----------           | -------                             | 
+| ---------        | -----------           | -------                             |
 | `'b'`          | Byte                  | `np.dtype('b')`                   |
 | `'i'`          | Signed integer        | `np.dtype('i4') == np.int32`      |
 | `'u'`          | Unsigned integer      | `np.dtype('u1') == np.uint8`      |
@@ -1696,9 +1691,9 @@ Since we want to demonstrate how to deal with data, we invite you to open [Estim
 
 While data very often comes in tabular form, in some cases we need to deal with less structured data, for example, text or images. In this case, to apply data processing techniques we have seen above, we need to somehow **extract** structured data. Here are a few examples:
 
-* Extracting keywords from text, and seeing how often those keywords appear
-* Using neural networks to extract information about objects on the picture
-* Getting information on emotions of people on video camera feed
+- Extracting keywords from text, and seeing how often those keywords appear
+- Using neural networks to extract information about objects on the picture
+- Getting information on emotions of people on video camera feed
 
 ## 🚀 Challenge 2: analyzing COVID papers
 
@@ -1718,16 +1713,16 @@ Open [Analyzing COVID-19 papers](../../assignments/data-science/analyzing-COVID-
 
 Recently, very powerful AI models have been developed that allow us to understand images. There are many tasks that can be solved using pre-trained neural networks, or cloud services. Some examples include:
 
-* **Image Classification**, which can help you categorize the image into one of the pre-defined classes. You can easily train your own image classifiers using services such as [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum)
-* **Object Detection** to detect different objects in the image. Services such as [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum) can detect a number of common objects, and you can train [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum) model to detect some specific objects of interest.
-* **Face Detection**, including Age, Gender and Emotion detection. This can be done via [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum).
+- **Image Classification**, which can help you categorize the image into one of the pre-defined classes. You can easily train your own image classifiers using services such as [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum)
+- **Object Detection** to detect different objects in the image. Services such as [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum) can detect a number of common objects, and you can train [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum) model to detect some specific objects of interest.
+- **Face Detection**, including Age, Gender and Emotion detection. This can be done via [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum).
 
-All those cloud services can be called using [Python SDKs](https://docs.microsoft.com/samples/azure-samples/cognitive-services-python-sdk-samples/cognitive-services-python-sdk-samples/?WT.mc_id=academic-77958-bethanycheum), and thus can be easily incorporated into your data exploration workflow. 
+All those cloud services can be called using [Python SDKs](https://docs.microsoft.com/samples/azure-samples/cognitive-services-python-sdk-samples/cognitive-services-python-sdk-samples/?WT.mc_id=academic-77958-bethanycheum), and thus can be easily incorporated into your data exploration workflow.
 
 Here are some examples of exploring data from Image data sources:
 
-* In the blog post [How to Learn Data Science without Coding](https://soshnikov.com/azure/how-to-learn-data-science-without-coding/) we explore Instagram photos, trying to understand what makes people give more likes to a photo. We first extract as much information from pictures as possible using [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum), and then use [Azure Machine Learning AutoML](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml/?WT.mc_id=academic-77958-bethanycheum) to build interpretable model.
-* In [Facial Studies Workshop](https://github.com/CloudAdvocacy/FaceStudies) we use [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum) to extract emotions on people on photographs from events, in order to try to understand what makes people happy.
+- In the blog post [How to Learn Data Science without Coding](https://soshnikov.com/azure/how-to-learn-data-science-without-coding/) we explore Instagram photos, trying to understand what makes people give more likes to a photo. We first extract as much information from pictures as possible using [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum), and then use [Azure Machine Learning AutoML](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml/?WT.mc_id=academic-77958-bethanycheum) to build interpretable model.
+- In [Facial Studies Workshop](https://github.com/CloudAdvocacy/FaceStudies) we use [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum) to extract emotions on people on photographs from events, in order to try to understand what makes people happy.
 
 ## Assignments
 
