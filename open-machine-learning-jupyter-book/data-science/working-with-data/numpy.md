@@ -527,7 +527,7 @@ a + b
 
 Just as before we stretched or broadcasted one value to match the shape of the other, here we've stretched both `a` and `b` to match a common shape, and the result is a two-dimensional array! The geometry of these examples is visualized in the following figure.
 
-![broadcasting](https://nbviewer.org/github/donnemartin/data-science-ipython-notebooks/blob/master/numpy/figures/02.05-broadcasting.png)
+![broadcasting](../../../images/broadcasting.png)
 
 The light boxes represent the broadcasted values: again, this extra memory is not actually allocated in the course of the operation, but it can be useful conceptually to imagine that it is.
 
