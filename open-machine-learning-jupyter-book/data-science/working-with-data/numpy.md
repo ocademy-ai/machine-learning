@@ -18,7 +18,7 @@ kernelspec:
 
 Numpy is a library for working with tensors, i.e. multi-dimensional arrays. Array has values of the same underlying type, and it is simpler than dataframe, but it offers more mathematical operations, and creates less overhead.
 
-## The basics of numpy arrays
+## The basics of NumPy arrays
 
 Data manipulation in Python is nearly synonymous with NumPy array manipulation: even newer tools like **Pandas** are built around the NumPy array. This section will present several examples of using NumPy array manipulation to access data and subarrays, and to split, reshape, and join the arrays. While the types of operations shown here may seem a bit dry and pedantic, they comprise the building blocks of many other examples used throughout the book. Get to know them well!
 
@@ -43,7 +43,7 @@ x2 = np.random.randint(10, size=(3, 4))  # Two-dimensional array
 x3 = np.random.randint(10, size=(3, 4, 5))  # Three-dimensional array
 ```
 
-Each array has attributes `ndim` (the number of dimensions), `shape` (the size of each dimension), and size (the total size of the array):
+Each array has attributes `ndim` (the number of dimensions), `shape` (the size of each dimension), and `size` (the total size of the array):
 
 ```{code-cell}
 print("x3 ndim: ", x3.ndim)
@@ -51,13 +51,13 @@ print("x3 shape:", x3.shape)
 print("x3 size: ", x3.size)
 ```
 
-Another useful attribute is the dtype, the data type of the array
+Another useful attribute is the `dtype`, the data type of the array
 
 ```{code-cell}
 print("dtype:", x3.dtype)
 ```
 
-Other attributes include itemsize, which lists the size (in bytes) of each array element, and `nbytes`, which lists the total size (in bytes) of the array:
+Other attributes include `itemsize`, which lists the size (in bytes) of each array element, and `nbytes`, which lists the total size (in bytes) of the array:
 
 ```{code-cell}
 print("itemsize:", x3.itemsize, "bytes")
@@ -66,7 +66,7 @@ print("nbytes:", x3.nbytes, "bytes")
 
 In general, we expect that `nbytes` is equal to `itemsize` times `size`.
 
-## Computation on numpy arrays: universal functions
+## Computation on NumPy arrays: universal functions
 
 Up until now, we have been discussing some of the basic nuts and bolts of NumPy; in the next few sections, we will dive into the reasons that NumPy is so important in the Python data science world. Namely, it provides an easy and flexible interface to optimized computation with arrays of data.
 
@@ -129,7 +129,7 @@ x = np.arange(9).reshape((3, 3))
 
 Computations using vectorization through ufuncs are nearly always more efficient than their counterpart implemented using Python loops, especially as the arrays grow in size. Any time you see such a loop in a Python script, you should consider whether it can be replaced with a vectorized expression.
 
-### Exploring numPy's ufuncs
+### Exploring NumPy's ufuncs
 
 Ufuncs exist in two flavors: unary ufuncs, which operate on a single input, and binary ufuncs, which operate on two inputs. We'll see examples of both these types of functions here.
 
@@ -158,7 +158,7 @@ print("x % 2  = ", x % 2)
 In addition, these can be strung together however you wish, and the standard order of operations is respected:
 
 ```{code-cell}
--(0.5*x + 1) ** 2
+-(0.5 * x + 1) ** 2
 ```
 
 Each of these arithmetic operations are simply convenient wrappers around specific functions built into NumPy; for example, the `+` operator is a wrapper for the `add` function:
@@ -171,14 +171,14 @@ The following table lists the arithmetic operators implemented in NumPy:
 
 |Operator|	Equivalent ufunc|	Description|
 |:-|:-|:-|
-|+|	np.add|	Addition (e.g., 1 + 1 = 2)|
-|-|	np.subtract|	Subtraction (e.g., 3 - 2 = 1)|
-|-|	np.negative|	Unary negation (e.g., -2)|
-|*|	np.multiply|	Multiplication (e.g., 2 * 3 = 6)|
-|/|	np.divide|	Division (e.g., 3 / 2 = 1.5)|
-|//|	np.floor_divide|	Floor division (e.g., 3 // 2 = 1)|
-|**|	np.power|	Exponentiation (e.g., 2 ** 3 = 8)|
-|%|	np.mod|	Modulus/remainder (e.g., 9 % 4 = 1)|
+|+|	`np.add`|	Addition (e.g., 1 + 1 = 2)|
+|-|	`np.subtract`|	Subtraction (e.g., 3 - 2 = 1)|
+|-|	`np.negative`|	Unary negation (e.g., -2)|
+|*|	`np.multiply`|	Multiplication (e.g., 2 * 3 = 6)|
+|/|	`np.divide`|	Division (e.g., 3 / 2 = 1.5)|
+|//|	`np.floor_divide`|	Floor division (e.g., 3 // 2 = 1)|
+|**|	`np.power`|	Exponentiation (e.g., 2 ** 3 = 8)|
+|%|	`np.mod`|	Modulus/remainder (e.g., 9 % 4 = 1)|
 
 #### Absolute value
 
@@ -363,7 +363,7 @@ Often when faced with a large amount of data, a first step is to compute summary
 
 NumPy has fast built-in aggregation functions for working on arrays; we'll discuss and demonstrate some of them here.
 
-### Summing the values in an array¶
+### Summing the values in an array
 
 As a quick example, consider computing the sum of all values in an array. Python itself can do this using the built-in `sum` function:
 
@@ -390,7 +390,7 @@ big_array = np.random.rand(1000000)
 %timeit np.sum(big_array)
 ```
 
-Be careful, though: the sum function and the np.sum function are not identical, which can sometimes lead to confusion! In particular, their optional arguments have different meanings, and np.sum is aware of multiple array dimensions, as we will see in the following section
+Be careful, though: the sum function and the `np.sum` function are not identical, which can sometimes lead to confusion! In particular, their optional arguments have different meanings, and `np.sum` is aware of multiple array dimensions, as we will see in the following section
 
 ### Minimum and maximum
 
@@ -458,19 +458,19 @@ The following table provides a list of useful aggregation functions available in
 
 |Function Name|	NaN-safe Version|	Description|
 |:-|:-|:-|
-|np.sum|	np.nansum|	Compute sum of elements|
-|np.prod|	np.nanprod|	Compute product of elements|
-|np.mean|	np.nanmean|	Compute median of elements|
-|np.std|	np.nanstd|	Compute standard deviation|
-|np.var|	np.nanvar|	Compute variance|
-|np.min|	np.nanmin|	Find minimum value|
-|np.max|	np.nanmax|	Find maximum value|
-|np.argmin|	np.nanargmin|	Find index of minimum value|
-|np.argmax|	np.nanargmax|	Find index of maximum value|
-|np.median|	np.nanmedian|	Compute median of elements
-|np.percentile|	np.nanpercentile|	Compute rank-based statistics of elements|
-|np.any|	N/A|	Evaluate whether any elements are true|
-|np.all|	N/A|	Evaluate whether all elements are true|
+|`np.sum`|	`np.nansum`|	Compute sum of elements|
+|`np.prod`|	`np.nanprod`|	Compute product of elements|
+|`np.mean`|	`np.nanmean`|	Compute median of elements|
+|`np.std`|	`np.nanstd`|	Compute standard deviation|
+|`np.var`|	`np.nanvar`|	Compute variance|
+|`np.min`|	`np.nanmin`|	Find minimum value|
+|`np.max`|	`np.nanmax`|	Find maximum value|
+|`np.argmin`|	`np.nanargmin`|	Find index of minimum value|
+|`np.argmax`|	`np.nanargmax`|	Find index of maximum value|
+|`np.median`|	`np.nanmedian`|	Compute median of elements
+|`np.percentil`e|	`np.nanpercentile`|	Compute rank-based statistics of elements|
+|`np.any`|	N/A|	Evaluate whether any elements are true|
+|`np.all`|	N/A|	Evaluate whether all elements are true|
 
 ## Computation on arrays: broadcasting
 
@@ -787,9 +787,9 @@ As in the case of arithmetic operators, the comparison operators are implemented
 
 |Operator|	Equivalent ufunc|		Operator|	Equivalent ufunc|
 |:-|:|:-|:-|
-|==|	np.equal|		!=|	np.not_equal|
-|<|	np.less|		<=|	np.less_equal|
-|>|	np.greater|		>=|	np.greater_equal|
+|==|	`np.equal`|		!=|	`np.not_equal`|
+|<|	`np.less`|		<=|	`np.less_equal`|
+|>|	`np.greater`|		>=|	`np.greater_equal`|
 
 Just as in the case of arithmetic ufuncs, these will work on arrays of any size and shape. Here is a two-dimensional example:
 
@@ -901,8 +901,8 @@ The following table summarizes the bitwise Boolean operators and their equivalen
 
 |Operator|	Equivalent ufunc|		Operator|	Equivalent ufunc|
 |:-|:-|:-|:-|
-|&|	np.bitwise_and|		&#124; |	np.bitwise_or|
-|^|	np.bitwise_xor|		~|	np.bitwise_not|
+|&|	`np.bitwise_and`|		&#124; |	`np.bitwise_or`|
+|^|	`np.bitwise_xor`|		~|	`np.bitwise_not`|
 
 Using these tools, we might start to answer the types of questions we have about our weather data. Here are some examples of results we can compute when combining masking with aggregations:
 
@@ -958,7 +958,7 @@ print("Median precip on non-summer rainy days (inches):",
 
 By combining Boolean operations, masking operations, and aggregates, we can very quickly answer these sorts of questions for our dataset.
 
-### Aside: using the keywords `and`/`or` versus the operators `&`/`|`¶
+### Aside: using the keywords `and`/`or` versus the operators `&`/`|`
 
 One common point of confusion is the difference between the keywords and and or on one hand, and the operators `&` and `|` on the other hand. When would you use one versus the other?
 
@@ -1122,7 +1122,7 @@ X[row[:, np.newaxis], mask]
 
 All of these indexing options combined lead to a very flexible set of operations for accessing and modifying array values.
 
-### Example: Selecting Random Points
+### Example: selecting random points
 
 One common use of fancy indexing is the selection of subsets of rows from a matrix.
 
@@ -1292,7 +1292,7 @@ But the advantage of coding this algorithm yourself is that with an understandin
 
 The key to efficiently using Python in data-intensive applications is knowing about general convenience routines like `np.histogram` and when they're appropriate, but also knowing how to make use of lower-level functionality when you need more pointed behavior.
 
-## Sorting Arrays
+## Sorting arrays
 
 Up to this point we have been concerned mainly with tools to access and operate on array data with NumPy.
 
@@ -1322,7 +1322,7 @@ As any first-year computer science major will tell you, the selection sort is us
 
 For a list of ***N*** values, it requires ***N*** loops, each of which does on order ***~ N*** comparisons to find the swap value.
 
-In terms of the "big-O" notation often used to characterize these algorithms (see Big-O Notation, selection sort averages *** O[N^2]***: if you double the number of items in the list, the execution time will go up by about a factor of four.
+In terms of the "big-O" notation often used to characterize these algorithms (see Big-O Notation, selection sort averages *** $O(N^2)$***: if you double the number of items in the list, the execution time will go up by about a factor of four.
 
 Even selection sort, though, is much better than my all-time favorite sorting algorithms, the **bogosort**:
 
@@ -1339,11 +1339,11 @@ bogosort(x)
 ```
 
 This silly sorting method relies on pure chance: it repeatedly applies a random shuffling of the array until the result happens to be sorted.
-With an average scaling of ***O[N×N!]***, (that's *N* times *N* factorial) this should–quite obviously–never be used for any real computation.
+With an average scaling of ***$O(N * N!)$***, (that's *N* times *N* factorial) this should–quite obviously–never be used for any real computation.
 
 Fortunately, Python contains built-in sorting algorithms that are *much* more efficient than either of the simplistic algorithms just shown. We'll start by looking at the Python built-ins, and then take a look at the routines included in NumPy and optimized for NumPy arrays.
 
-### Fast sorting in numPy: `np.sort` and `np.argsort`
+### Fast sorting in NumPy: `np.sort` and `np.argsort`
 
 Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes.
 By default `np.sort` uses an ***O[NlogN]***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
@@ -1504,36 +1504,29 @@ for i in range(X.shape[0]):
         plt.plot(*zip(X[j], X[i]), color='black')
 ```
 
-Each point in the plot has lines drawn to its two nearest neighbors.
-At first glance, it might seem strange that some of the points have more than two lines coming out of them: this is due to the fact that if point A is one of the two nearest neighbors of point B, this does not necessarily imply that point B is one of the two nearest neighbors of point A.
+Each point in the plot has lines drawn to its two nearest neighbors. At first glance, it might seem strange that some of the points have more than two lines coming out of them: this is due to the fact that if point A is one of the two nearest neighbors of point B, this does not necessarily imply that point B is one of the two nearest neighbors of point A.
 
 Although the broadcasting and row-wise sorting of this approach might seem less straightforward than writing a loop, it turns out to be a very efficient way of operating on this data in Python.
+
 You might be tempted to do the same type of operation by manually looping through the data and sorting each set of neighbors individually, but this would almost certainly lead to a slower algorithm than the vectorized version we used. The beauty of this approach is that it's written in a way that's agnostic to the size of the input data: we could just as easily compute the neighbors among 100 or 1,000,000 points in any number of dimensions, and the code would look the same.
 
-Finally, I'll note that when doing very large nearest neighbor searches, there are tree-based and/or approximate algorithms that can scale as ***O[NlogN]*** or better rather than the ***O[N^2]*** of the brute-force algorithm. One example of this is the KD-Tree.
+Finally, I'll note that when doing very large nearest neighbor searches, there are tree-based and/or approximate algorithms that can scale as ***$O(Nlog N)$*** or better rather than the ***$O(N^2)$*** of the brute-force algorithm. One example of this is the KD-Tree.
 
 ### Aside: big-O notation
 
-Big-O notation is a means of describing how the number of operations required for an algorithm scales as the input grows in size.
-To use it correctly is to dive deeply into the realm of computer science theory, and to carefully distinguish it from the related small-o notation, big-***θ*** notation, big-***Ω*** notation, and probably many mutant hybrids thereof.
-While these distinctions add precision to statements about algorithmic scaling, outside computer science theory exams and the remarks of pedantic blog commenters, you'll rarely see such distinctions made in practice.
-Far more common in the data science world is a less rigid use of big-O notation: as a general (if imprecise) description of the scaling of an algorithm.
-With apologies to theorists and pedants, this is the interpretation we'll use throughout this book.
+Big-O notation is a means of describing how the number of operations required for an algorithm scales as the input grows in size. To use it correctly is to dive deeply into the realm of computer science theory, and to carefully distinguish it from the related small-o notation, big-***θ*** notation, big-***Ω*** notation, and probably many mutant hybrids thereof.
 
-Big-O notation, in this loose sense, tells you how much time your algorithm will take as you increase the amount of data.
-If you have an ***O[N]*** (read "order *N*") algorithm that takes 1 second to operate on a list of length *N*=1,000, then you should expect it to take roughly 5 seconds for a list of length *N*=5,000.
-If you have an ***O[N^2]*** (read "order *N* squared") algorithm that takes 1 second for *N*=1000, then you should expect it to take about 25 seconds for *N*=5000.
+While these distinctions add precision to statements about algorithmic scaling, outside computer science theory exams and the remarks of pedantic blog commenters, you'll rarely see such distinctions made in practice. Far more common in the data science world is a less rigid use of big-O notation: as a general (if imprecise) description of the scaling of an algorithm. With apologies to theorists and pedants, this is the interpretation we'll use throughout this book.
 
-For our purposes, the *N* will usually indicate some aspect of the size of the dataset (the number of points, the number of dimensions, etc.). When trying to analyze billions or trillions of samples, the difference between ***O[N]*** and ***O[N^2]*** can be far from trivial!
+Big-O notation, in this loose sense, tells you how much time your algorithm will take as you increase the amount of data. If you have an ***$O(N)$*** (read "order *N*") algorithm that takes 1 second to operate on a list of length *N*=1,000, then you should expect it to take roughly 5 seconds for a list of length *N*=5,000. If you have an ***$O(N^2)$*** (read "order *N* squared") algorithm that takes 1 second for *N*=1000, then you should expect it to take about 25 seconds for *N*=5000.
 
-Notice that the big-O notation by itself tells you nothing about the actual wall-clock time of a computation, but only about its scaling as you change *N*.
-Generally, for example, an ***O[N]*** algorithm is considered to have better scaling than an ***O[N^2]*** algorithm, and for good reason. But for small datasets in particular, the algorithm with better scaling might not be faster.
-For example, in a given problem an ***O[N^2]*** algorithm might take 0.01 seconds, while a "better" ***O[N]*** algorithm might take 1 second.
-Scale up *N* by a factor of 1,000, though, and the ***O[N]*** algorithm will win out.
+For our purposes, the *N* will usually indicate some aspect of the size of the dataset (the number of points, the number of dimensions, etc.). When trying to analyze billions or trillions of samples, the difference between ***$O(N)$*** and ***$O(N^2)$*** can be far from trivial!
+
+Notice that the big-O notation by itself tells you nothing about the actual wall-clock time of a computation, but only about its scaling as you change *N*. Generally, for example, an ***$O(N)$*** algorithm is considered to have better scaling than an ***$O(N^2)$*** algorithm, and for good reason. But for small datasets in particular, the algorithm with better scaling might not be faster. For example, in a given problem an ***$O(N^2)$*** algorithm might take 0.01 seconds, while a "better" ***$O(N)$*** algorithm might take 1 second. Scale up *N* by a factor of 1,000, though, and the ***$O(N)$*** algorithm will win out.
 
 Even this loose version of Big-O notation can be very useful when comparing the performance of algorithms, and we'll use this notation throughout the book when talking about how algorithms scale.
 
-## Structured data: numPy's structured arrays
+## Structured data: NumPy's structured arrays
 
 While often our data can be well represented by a homogeneous array of values, sometimes this is not the case. This section demonstrates the use of NumPy's **structured arrays** and **record arrays**, which provide efficient storage for compound, heterogeneous data.  While the patterns shown here are useful for simple operations, scenarios like this often lend themselves to the use of Pandas `Dataframe`.
 
