@@ -1351,7 +1351,7 @@ Fortunately, Python contains built-in sorting algorithms that are *much* more ef
 
 ### Fast sorting in NumPy: `np.sort` and `np.argsort`
 
-Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes. By default `np.sort` uses an ***O[NlogN]***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
+Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes. By default `np.sort` uses an ***$O(Nlog N)$***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
 
 To return a sorted version of the array without modifying the input, you can use `np.sort`:
 
@@ -1685,9 +1685,9 @@ Whether the more convenient notation is worth the additional overhead will depen
 
 This section on structured and record arrays is purposely at the end of this chapter, because it leads so well into the next package we will cover: Pandas. Structured arrays like the ones discussed here are good to know about for certain situations, especially in case you're using NumPy arrays to map onto binary data formats in C, Fortran, or another language. For day-to-day use of structured data, the Pandas package is a much better choice, and we'll dive into a full discussion of it in the chapter that follows.
 
-# Your turn! 🚀
+## Your turn! 🚀
 
-## 🚀 Challenge 1: analyzing COVID spread
+### 🚀 Challenge 1: analyzing COVID spread
 
 First problem we will focus on is modelling of epidemic spread of COVID-19. In order to do that, we will use the data on the number of infected individuals in different countries, provided by the [Center for Systems Science and Engineering](https://systems.jhu.edu/) (CSSE) at [Johns Hopkins University](https://jhu.edu/). Dataset is available in [this GitHub Repository](https://github.com/CSSEGISandData/COVID-19).
 
@@ -1695,7 +1695,7 @@ Since we want to demonstrate how to deal with data, we invite you to open [Estim
 
 ![COVID Spread](../../assets/images/covidspread.png)
 
-## Working with unstructured Data
+### Working with unstructured Data
 
 While data very often comes in tabular form, in some cases we need to deal with less structured data, for example, text or images. In this case, to apply data processing techniques we have seen above, we need to somehow **extract** structured data. Here are a few examples:
 
@@ -1703,7 +1703,7 @@ While data very often comes in tabular form, in some cases we need to deal with 
 - Using neural networks to extract information about objects on the picture
 - Getting information on emotions of people on video camera feed
 
-## 🚀 Challenge 2: analyzing COVID papers
+### 🚀 Challenge 2: analyzing COVID papers
 
 In this challenge, we will continue with the topic of COVID pandemic, and focus on processing scientific papers on the subject. There is [CORD-19 Dataset](https://www.kaggle.com/allen-institute-for-ai/CORD-19-research-challenge) with more than 7000 (at the time of writing) papers on COVID, available with metadata and abstracts (and for about half of them there is also full text provided).
 
@@ -1717,7 +1717,7 @@ Open [Analyzing COVID-19 papers](../../assignments/data-science/analyzing-COVID-
 
 ![Covid Medical Treatment](../../assets/images/covidtreat.png)
 
-## Processing image data
+### Processing image data
 
 Recently, very powerful AI models have been developed that allow us to understand images. There are many tasks that can be solved using pre-trained neural networks, or cloud services. Some examples include:
 
@@ -1732,11 +1732,11 @@ Here are some examples of exploring data from Image data sources:
 - In the blog post [How to Learn Data Science without Coding](https://soshnikov.com/azure/how-to-learn-data-science-without-coding/) we explore Instagram photos, trying to understand what makes people give more likes to a photo. We first extract as much information from pictures as possible using [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum), and then use [Azure Machine Learning AutoML](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml/?WT.mc_id=academic-77958-bethanycheum) to build interpretable model.
 - In [Facial Studies Workshop](https://github.com/CloudAdvocacy/FaceStudies) we use [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum) to extract emotions on people on photographs from events, in order to try to understand what makes people happy.
 
-## Assignments
+### Assignments
 
 [Perform more detailed data study for the challenges above](../../assignments/data-science/data-processing-in-python.md)
 
-# Self study
+## Self study
 
 **Books**
 
@@ -1752,7 +1752,7 @@ Here are some examples of exploring data from Image data sources:
 - [Learn Python in a Fun Way with Turtle Graphics and Fractals](https://github.com/shwars/pycourse)
 - [Take your First Steps with Python](https://docs.microsoft.com/learn/paths/python-first-steps/?WT.mc_id=academic-77958-bethanycheum) Learning Path on [Microsoft Learn](http://learn.microsoft.com/?WT.mc_id=academic-77958-bethanycheum)
 
-# Acknowledgments
+## Acknowledgments
 
 Thanks to Donne Martin for creating the open source course [data-science-ipython-notebooks](https://github.com/donnemartin/data-science-ipython-notebooks). It contributes the majority of the content in this chapter.
 
