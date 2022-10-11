@@ -625,8 +625,17 @@ By rule 2, the first dimension of `a` is stretched to match that of `M`:
 
 Now we hit rule 3–the final shapes do not match, so these two arrays are incompatible, as we can observe by attempting this operation:
 
-```{code-cell}
+```py
 M + a
+```
+
+```
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+Cell In [59], line 1
+----> 1 M + a
+
+ValueError: operands could not be broadcast together with shapes (3,2) (3,) 
 ```
 
 Note the potential confusion here: you could imagine making `a` and `M` compatible by, say, padding `a`'s shape with ones on the right rather than the left. But this is not how the broadcasting rules work! That sort of flexibility might be useful in some cases, but it would lead to potential areas of ambiguity. If right-side padding is what you'd like, you can do this explicitly by reshaping the array.
