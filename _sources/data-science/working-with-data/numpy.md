@@ -1693,7 +1693,7 @@ First problem we will focus on is modelling of epidemic spread of COVID-19. In o
 
 Since we want to demonstrate how to deal with data, we invite you to open [Estimation of COVID-19 pandemic](../../assignments/data-science/estimation-of-COVID-19-pandemic.ipynb) and read it from top to bottom. You can also execute cells, and do some challenges that we have left for you at the end.
 
-![COVID Spread](../../assets/images/covidspread.png)
+![COVID Spread](../../../images/covidspread.png)
 
 ### Working with unstructured Data
 
@@ -1715,7 +1715,7 @@ We do not provide a copy of the dataset as part of this repository. You may firs
 
 Open [Analyzing COVID-19 papers](../../assignments/data-science/analyzing-COVID-19-papers.ipynb) and read it from top to bottom. You can also execute cells, and do some challenges that we have left for you at the end.
 
-![Covid Medical Treatment](../../assets/images/covidtreat.png)
+![Covid Medical Treatment](../../../images/covidtreat.png)
 
 ### Processing image data
 
