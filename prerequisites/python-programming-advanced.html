@@ -1319,6 +1319,15 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="python-programming-advanced">
 <h1><span class="section-number">3. </span>Python programming advanced<a class="headerlink" href="#python-programming-advanced" title="Permalink to this headline">#</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># append the path for resolving the dependencies while building Jupyter Book</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../assets/code/prerequisites&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <section id="control-flow">
 <h2><span class="section-number">3.1. </span>Control flow<a class="headerlink" href="#control-flow" title="Permalink to this headline">#</a></h2>
 <section id="the-if-statement">
@@ -2769,16 +2778,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span> <span class="p">[</span><span class="mi">67</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">fibonacci_module</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;fibonacci_module&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <p>There is a variant of the import statement that imports names from a module directly into the importing module’s symbol table. For example:</p>
 <div class="cell docutils container">
@@ -2791,7 +2790,13 @@ title="Print to PDF"
 </div>
 <p>There is even a variant to import all names that a module defines. This imports all names except those beginning with an underscore <code class="docutils literal notranslate"><span class="pre">_</span></code>. In most cases Python programmers do not use this facility since it introduces an unknown set of names into the interpreter, possibly hiding some things you have already defined.</p>
 <p>If the module name is followed by as then the name following as is bound directly to the imported module:</p>
-<p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">fibonacci_module</span> <span class="pre">as</span> <span class="pre">fibonacci_module_renamed</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fibonacci_module</span> <span class="k">as</span> <span class="nn">fibonacci_module_renamed</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>It can also be used when utilizing from with similar effects:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2852,7 +2857,7 @@ title="Print to PDF"
 <section id="packages">
 <h3><span class="section-number">3.4.2. </span>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">#</a></h3>
 <p>Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name <code class="docutils literal notranslate"><span class="pre">A.B</span></code> designates a submodule named <code class="docutils literal notranslate"><span class="pre">B</span></code> in a package named <code class="docutils literal notranslate"><span class="pre">A</span></code>. Just like the use of modules saves the authors of different modules from having to worry about each other’s global variable names, the use of dotted module names saves the authors of multi-module packages like NumPy or Pillow from having to worry about each other’s module names.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path. In the simplest case, <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> can just be an empty file, but it can also execute initialization code for the package or set the <code class="docutils literal notranslate"><span class="pre">__all__</span></code> variable, described later.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path. In the simplest case, <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> can just be an empty file, but it can also execute the initialization code for the package or set the <code class="docutils literal notranslate"><span class="pre">__all__</span></code> variable, described later.</p>
 <p>Users of the package can import individual modules from the package, for example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2878,7 +2883,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>Note that when using from package import item, the item can be either a submodule (or subpackage) of the package or some other name defined in the package, like a function, class or variable.</p>
+<p>Note that when using from package import item, the item can be either a submodule (or subpackage) of the package or some other name defined in the package, like a function, class, or variable.</p>
 <p>The import statement first tests whether the item is defined in the package; if not, it assumes it is a module and attempts to load it. If it fails to find it, an <code class="docutils literal notranslate"><span class="pre">ImportError</span></code> exception is raised.</p>
 <p>Contrarily, when using syntax like import <code class="docutils literal notranslate"><span class="pre">item.subitem.subsubitem</span></code>, each item except for the last must be a package; the last item can be a module or a package but can’t be a class or function or variable defined in the previous item.</p>
 <div class="cell docutils container">
@@ -3062,7 +3067,7 @@ unconditionally fatal.</p>
 </section>
 <section id="self-study">
 <h2><span class="section-number">3.7. </span>Self study<a class="headerlink" href="#self-study" title="Permalink to this headline">#</a></h2>
-<p>Here is a list of free/open source learning resources for advanced <a class="reference external" href="https://github.com/open-academy/open-learning-resources/blob/main/README.md#python">Python programming</a>.</p>
+<p>Here is a list of free/open-source learning resources for advanced <a class="reference external" href="https://github.com/open-academy/open-learning-resources/blob/main/README.md#python">Python programming</a>.</p>
 </section>
 <section id="acknowledgments">
 <h2><span class="section-number">3.8. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>

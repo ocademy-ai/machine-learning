@@ -15,6 +15,13 @@ kernelspec:
 
 # Python programming advanced
 
+```{code-cell}
+:tags: [hide-input]
+# append the path for resolving the dependencies while building Jupyter Book
+import sys, os
+sys.path.append('../assets/code/prerequisites')
+```
+
 ## Control flow
 
 ### The if statement
@@ -1333,7 +1340,9 @@ There is even a variant to import all names that a module defines. This imports 
 
 If the module name is followed by as then the name following as is bound directly to the imported module:
 
-`import fibonacci_module as fibonacci_module_renamed`
+```{code-cell}
+import fibonacci_module as fibonacci_module_renamed
+```
 
 It can also be used when utilizing from with similar effects:
 
@@ -1386,7 +1395,7 @@ assert dir(fibonacci_module) == [
 
 Packages are a way of structuring Python’s module namespace by using “dotted module names”. For example, the module name `A.B` designates a submodule named `B` in a package named `A`. Just like the use of modules saves the authors of different modules from having to worry about each other’s global variable names, the use of dotted module names saves the authors of multi-module packages like NumPy or Pillow from having to worry about each other’s module names.
 
-The `__init__.py` files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path. In the simplest case, `__init__.py` can just be an empty file, but it can also execute initialization code for the package or set the `__all__` variable, described later.
+The `__init__.py` files are required to make Python treat the directories as containing packages; this is done to prevent directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path. In the simplest case, `__init__.py` can just be an empty file, but it can also execute the initialization code for the package or set the `__all__` variable, described later.
 
 Users of the package can import individual modules from the package, for example:
 
@@ -1407,7 +1416,7 @@ Yet another variation is to import the desired function or variable directly:
 from sound_package.effects.echo import echo_function
 ```
 
-Note that when using from package import item, the item can be either a submodule (or subpackage) of the package or some other name defined in the package, like a function, class or variable.
+Note that when using from package import item, the item can be either a submodule (or subpackage) of the package or some other name defined in the package, like a function, class, or variable.
 
 The import statement first tests whether the item is defined in the package; if not, it assumes it is a module and attempts to load it. If it fails to find it, an `ImportError` exception is raised.
 
@@ -1576,7 +1585,7 @@ Practice the Python programming basics by following this [assignment](../assignm
 
 ## Self study
 
-Here is a list of free/open source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python).
+Here is a list of free/open-source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python).
 
 ## Acknowledgments
 
