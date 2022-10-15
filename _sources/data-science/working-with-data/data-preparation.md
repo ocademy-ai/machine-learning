@@ -15,7 +15,7 @@ kernelspec:
 
 # Data preparation
 
-Depending on its source, raw data may contain some inconsistencies that will cause challenges in analysis and modeling. In other words, this data can be categorized as “dirty” and will need to be cleaned up. This lesson focuses on techniques for cleaning and transforming the data to handle challenges of missing, inaccurate, or incomplete data. Topics covered in this lesson will utilize Python and the Pandas library and will be [demonstrated in the notebook](../../assignments/data-science/data-preparation.ipynb) within this directory.
+Depending on its source, raw data may contain some inconsistencies that will cause challenges in analysis and modeling. In other words, this data can be categorized as “dirty” and will need to be cleaned up. This lesson focuses on techniques for cleaning and transforming the data to handle the challenges of missing, inaccurate, or incomplete data. Topics covered in this lesson will utilize Python and the Pandas library and will be [demonstrated in the notebook](../../assignments/data-science/data-preparation.ipynb) within this directory.
 
 ## The importance of cleaning data
 
@@ -25,10 +25,10 @@ Depending on its source, raw data may contain some inconsistencies that will cau
 
 ## Common cleaning goals and strategies
 
-- **Exploring a dataset**: Data exploration, which is covered in a [later section](../data-science-lifecycle/analyzing.md) can help you discover data that needs to be cleaned up. Visually observing values within a dataset can set expectations of what that rest of it will look like, or provide an idea of the problems that can be resolved. Exploration can involve basic querying, visualizations, and sampling.
+- **Exploring a dataset**: Data exploration, which is covered in a [later section](../data-science-lifecycle/analyzing.md) can help you discover data that needs to be cleaned up. Visually observing values within a dataset can set expectations of what the rest of it will look like, or provide an idea of the problems that can be resolved. Exploration can involve basic querying, visualizations, and sampling.
 - **Formatting**: Depending on the source, data can have inconsistencies in how it’s presented. This can cause problems in searching for and representing the value, where it’s seen within the dataset but is not properly represented in visualizations or query results. Common formatting problems involve resolving whitespace, dates, and data types. Resolving formatting issues is typically up to the people who are using the data. For example, standards on how dates and numbers are presented can differ by country.
-- **Duplications**: Data that has more than one occurrence can produce inaccurate results and usually should be removed. This can be a common occurrence when joining two or more datasets together. However, there are instances where duplication in joined datasets contain pieces that can provide additional information and may need to be preserved.
-- **Missing Data**: Missing data can cause inaccuracies as well as weak or biased results. Sometimes these can be resolved by a "reload" of the data, filling in the missing values with computation and code like Python, or simply just removing the value and corresponding data. There are numerous reasons for why data may be missing and the actions that are taken to resolve these missing values can be dependent on how and why they went missing in the first place.
+- **Duplications**: Data that has more than one occurrence can produce inaccurate results and usually should be removed. This can be a common occurrence when joining two or more datasets together. However, there are instances where duplication in joined datasets contains pieces that can provide additional information and may need to be preserved.
+- **Missing Data**: Missing data can cause inaccuracies as well as weak or biased results. Sometimes these can be resolved by a "reload" of the data, filling in the missing values with computation and code like Python, or simply just removing the value and corresponding data. There are numerous reasons why data may be missing and the actions that are taken to resolve these missing values can be dependent on how and why they went missing in the first place.
 
 ## Exploring DataFrame information
 
@@ -36,7 +36,7 @@ Depending on its source, raw data may contain some inconsistencies that will cau
 **Learning goal:** By the end of this subsection, you should be comfortable finding general information about the data stored in pandas DataFrames.
 ```
 
-Once you have loaded your data into Pandas, it will more likely than not be in a DataFrame(refer to the previous [section](./pandas.md) for detailed overview). However, if the data set in your DataFrame has 60,000 rows and 400 columns, how do you even begin to get a sense of what you're working with? Fortunately, [Pandas](https://pandas.pydata.org/) provides some convenient tools to quickly look at overall information about a DataFrame in addition to the first few and last few rows.
+Once you have loaded your data into Pandas, it will more likely than not be in a DataFrame(refer to the previous [section](./pandas.md) for a detailed overview). However, if the data set in your DataFrame has 60,000 rows and 400 columns, how do you even begin to get a sense of what you're working with? Fortunately, [Pandas](https://pandas.pydata.org/) provides some convenient tools to quickly look at overall information about a DataFrame in addition to the first few and last few rows.
 
 In order to explore this functionality, we will import the Python scikit-learn library and use an iconic dataset: the **Iris data set**.
 
@@ -56,7 +56,7 @@ iris_df = pd.DataFrame(data=iris['data'], columns=iris['feature_names'])
 |3                                       |4.6              |3.1             |1.5              |0.2             |
 |4                                       |5.0              |3.6             |1.4              |0.2             |
 
-**`DataFrame.info()`**: To start off, the `info()` method is used to print a summary of the content present in a `DataFrame`. Let's take a look at this dataset to see what we have:
+**`DataFrame.info()`**: To start, the `info()` method is used to print a summary of the content present in a `DataFrame`. Let's take a look at this dataset to see what we have:
 
 ```{code-cell}
 iris_df.info()
@@ -86,11 +86,11 @@ iris_df.tail()
 **Learning goal:** By the end of this subsection, you should know how to replace or remove null values from DataFrames.
 ```
 
-Most of the time the datasets you want to use (of have to use) have missing values in them. How missing data is handled carries with it subtle tradeoffs that can affect your final analysis and real-world outcomes.
+Most of the time the datasets you want to use (or have to use) have missing values in them. How missing data is handled carries with it subtle tradeoffs that can affect your final analysis and real-world outcomes?
 
-Pandas handles missing values in two ways. The first you've seen before in previous sections: `NaN`, or Not a Number. This is a actually a special value that is part of the IEEE floating-point specification and it is only used to indicate missing floating-point values.
+Pandas handles missing values in two ways. The first you've seen before in previous sections: `NaN`, or Not a Number. This is actually a special value that is part of the IEEE floating-point specification and it is only used to indicate missing floating-point values.
 
-For missing values apart from floats, pandas uses the Python `None` object. While it might seem confusing that you will encounter two different kinds of values that say essentially the same thing, there are sound programmatic reasons for this design choice and, in practice, going this route enables pandas to deliver a good compromise for the vast majority of cases. Notwithstanding this, both `None` and `NaN` carry restrictions that you need to be mindful of with regards to how they can be used.
+For missing values apart from floats, pandas uses the Python `None` object. While it might seem confusing that you will encounter two different kinds of values that say essentially the same thing, there are sound programmatic reasons for this design choice and, in practice, going this route enables pandas to deliver a good compromise for the vast majority of cases. Notwithstanding this, both `None` and `NaN` carry restrictions that you need to be mindful of with regard to how they can be used.
 
 Check out more about `NaN` and `None` from the [notebook](../../assignments/data-science/analyzing-data.ipynb)!
 
@@ -105,7 +105,7 @@ example1.isnull()
 
 Look closely at the output. Does any of it surprise you? While `0` is an arithmetic null, it's nevertheless a perfectly good integer and pandas treats it as such. `''` is a little more subtle. While we used it in Section 1 to represent an empty string value, it is nevertheless a string object and not a representation of null as far as pandas is concerned.
 
-Now, let's turn this around and use these methods in a manner more like you will use them in practice. You can use Boolean masks  directly as a ``Series`` or ``DataFrame`` index, which can be useful when trying to work with isolated missing (or present) values.
+Now, let's turn this around and use these methods in a manner more like you will use them in practice. You can use Boolean masks directly as a ``Series`` or ``DataFrame`` index, which can be useful when trying to work with isolated missing (or present) values.
 
 ```{note}
 **Takeaway**: Both the `isnull()` and `notnull()` methods produce similar results when you use them in `DataFrame`s: they show the results and the index of those results, which will help you enormously as you wrestle with your data.
@@ -170,7 +170,7 @@ The `thresh` parameter gives you finer-grained control: you set the number of *n
 example2.dropna(axis='rows', thresh=3)
 ```
 
-Here, the first and last row have been dropped, because they contain only two non-null values.
+Here, the first and last rows have been dropped, because they contain only two non-null values.
 
 **Filling null values**: Depending on your dataset, it can sometimes make more sense to fill null values with valid ones rather than drop them. You could use `isnull` to do this in place, but that can be laborious, particularly if you have a lot of values to fill. Because this is such a common task in data science, pandas provides `fillna`, which returns a copy of the `Series` or `DataFrame` with the missing values replaced with one of your choosing. Let's create another example `Series` to see how this works in practice.
 
