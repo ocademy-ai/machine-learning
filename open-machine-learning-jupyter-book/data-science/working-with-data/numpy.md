@@ -1016,7 +1016,7 @@ A | B
 Using `or` on these arrays will try to evaluate the truth or falsehood of the entire array object, which is not a well-defined value:
 
 ```{code-cell}
-A or B
+A.any() or B.any()
 ```
 
 Similarly, when doing a Boolean expression on a given array, you should use `|` or `&` rather than `or` or `and`:
@@ -1029,7 +1029,7 @@ x = np.arange(10)
 Trying to evaluate the truth or falsehood of the entire array will give the same `ValueError` we saw previously:
 
 ```{code-cell}
-(x > 4) and (x < 8)
+(x > 4).all() and (x < 8).all()
 ```
 
 So remember this: `and` and `or` perform a single Boolean evaluation on an entire object, while `&` and `|` perform multiple Boolean evaluations on the content (the individual bits or bytes) of an object. For Boolean NumPy arrays, the latter is nearly always the desired operation.
