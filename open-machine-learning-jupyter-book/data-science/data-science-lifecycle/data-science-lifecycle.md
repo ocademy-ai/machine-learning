@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# The Data Science lifecycle
+# Data Science lifecycle
 
 ![](../../../images/communication.jpeg)
 
