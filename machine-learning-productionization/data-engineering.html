@@ -1,0 +1,1334 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>31. Data engineering &#8212; Machine Learning Open Course</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="32. Model training &amp; evaluation" href="model-training-and-evaluation.html" />
+    <link rel="prev" title="30. Problem framing" href="problem-framing.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Course</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-lifecycle/the-data-science-lifecycle.html">
+   7. The Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/ml-overview.html">
+   8. Machine learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/linear-regression.html">
+   9. Linear regression (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/logistic-regression.html">
+   10. Logistic regression (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/parameter-optimization/parameter-optimization.html">
+   11. Parameter optimization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/parameter-optimization/gradient-descent.html">
+     11.1. Gradient descent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/parameter-optimization/loss-function.html">
+     11.2. Loss function
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/neural-network/neural-network.html">
+   12. Neural network
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/neural-network/nn-basics.html">
+     12.1. Neural network basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/neural-network/nn-hands-on.html">
+     12.2. Hands on neural network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/neural-network/nn-implementation.html">
+     12.3. Neural network implementation from scratch
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/ml-summary.html">
+   13. Summary of machine learning fundamentals
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/kernel-method.html">
+   14. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/model-selection.html">
+   15. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/ensemble-learning.html">
+   16. Ensemble learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/unsupervised-learning.html">
+   17. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/generative-models.html">
+   18. Generative models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-overview.html">
+   19. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/CNN.html">
+   20. CNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/GAN.html">
+   21. GAN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/RNN.html">
+   22. RNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/AutoEncoder.html">
+   23. Autoencoder (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/LSTM.html">
+   24. LSTM (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/NLP.html">
+   25. NLP (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/time-series.html">
+   26. Time series (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/DQN.html">
+   27. DQN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-summary.html">
+   28. Summary of deep learning (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="overview.html">
+   29. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="problem-framing.html">
+   30. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   31. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="model-training-and-evaluation.html">
+   32. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="model-deployment.html">
+   33. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/pytorch.html">
+   34. PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/bamboolib.html">
+   35. Bamboolib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/mito.html">
+   36. Mito
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/KNN.html">
+   37. KNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/semi-supervised-learning.html">
+   38. Semi-supervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/unbalanced-problems.html">
+   39. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/automl.html">
+   40. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../assignments/introduction.html">
+   41. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/get-started.html">
+     41.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-basics.html">
+     41.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-advanced.html">
+     41.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-text-about-data-science.html">
+     41.4. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-scenarios.html">
+     41.5. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/write-a-data-ethics-case-study.html">
+     41.6. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/classifying-datasets.html">
+     41.7. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/small-diabetes-study.html">
+     41.8. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/introduction-to-statistics-and-probability.html">
+     41.9. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/displaying-airport-data.html">
+     41.10. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/soda-profits.html">
+     41.11. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-COVID-19-papers.html">
+     41.12. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     41.13. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-processing-in-python.html">
+     41.14. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/evaluating-data-from-a-form.html">
+     41.15. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-preparation.html">
+     41.16. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-data.html">
+     41.17. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     41.18. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/tell-a-story.html">
+     41.19. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/project-plan-template.html">
+     41.20. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html">
+     41.21. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     41.22. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-classification.html">
+     41.23. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-regression.html">
+     41.24. Case Study: Debugging in Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../slides/introduction.html">
+   42. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming-introduction.html">
+     42.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming-basics.html">
+     42.2. Python programming basics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/machine-learning-productionization/data-engineering.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/machine-learning-productionization/data-engineering.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fmachine-learning-productionization/data-engineering.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/machine-learning-productionization/data-engineering.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/machine-learning-productionization/data-engineering.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/machine-learning-productionization/data-engineering.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-quality">
+   31.1. Data quality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ingestion-layer">
+   31.2. Ingestion layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#storage-layer">
+   31.3. Storage layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cataloging-and-search-layer">
+   31.4. Cataloging and search layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-layer">
+   31.5. Processing layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#consumption-layer">
+   31.6. Consumption layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#security-and-governance-layer">
+   31.7. Security and governance layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#showcase">
+   31.8. Showcase
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   31.9. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#self-study">
+   31.10. Self study
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data engineering</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-quality">
+   31.1. Data quality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ingestion-layer">
+   31.2. Ingestion layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#storage-layer">
+   31.3. Storage layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cataloging-and-search-layer">
+   31.4. Cataloging and search layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#processing-layer">
+   31.5. Processing layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#consumption-layer">
+   31.6. Consumption layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#security-and-governance-layer">
+   31.7. Security and governance layer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#showcase">
+   31.8. Showcase
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   31.9. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#self-study">
+   31.10. Self study
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="data-engineering">
+<h1><span class="section-number">31. </span>Data engineering<a class="headerlink" href="#data-engineering" title="Permalink to this headline">#</a></h1>
+<p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Information_engineering">Data engineering</a></strong>, also known as <strong>Information engineering</strong>, is a software engineering approach to designing and developing information systems. A data engineer is someone who creates big data ETL pipelines and makes it possible to take huge amounts of data and translate it into insights.</p>
+<blockquote class="epigraph">
+<div><p>Data is food for AI.</p>
+<p class="attribution">—Andrew Ng</p>
+</div></blockquote>
+<p>Data engineering is critical where data is concerned, no matter whether it is for Machine Learning or not. Over the last decade, more and more companies have completed or are in progress with a digital transformation. This results in not only more data, but also the blooming of data-driven initiatives.</p>
+<p>Even so, only <a class="reference external" href="https://venturebeat.com/2019/07/19/why-do-87-of-data-science-projects-never-make-it-into-production/">13%</a> of data science projects actually were made into production, which is mentioned by IBM CTO Deborah Leff. Similarly, Gartner reiterated its prediction in 2019 that only <a class="reference external" href="https://blogs.gartner.com/andrew_white/2019/01/03/our-top-data-and-analytics-predicts-for-2019/">20%</a> of analytic insights will deliver business outcomes through 2022. This is because the data is in unimaginable volumes, significantly complicated, and produced at a very high frequency. Therefore, data engineering becomes more and more important to play the role of organizing and ensuring the data’s quality, security, and availability for businesses.</p>
+<p><a class="reference external" href="https://dataengineering.wiki/Concepts/Data+Pipeline">Data Pipeline</a> is usually the term used to describe a data engineering workflow consisting of one or more tasks that ingest, move, and transform raw data from one or more sources to a destination. But there is no golden standard to architect the process. For example, below are three different expressions of data pipeline structure in multiple layers.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Architecture</p></th>
+<th class="head"><p>Diagram</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ingestion, data Lake, preparation &amp; computing, data warehouse, presentation</p></td>
+<td><p><figure class="align-default" id="big-data-pipeline-on-aws-microsoft-azure-and-google-cloud">
+<img alt="../_images/big-data-pipelines-on-aws-azure-gcp.png" src="../_images/big-data-pipelines-on-aws-azure-gcp.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31.1 </span><span class="caption-text"><a class="reference external" href="https://www.reddit.com/r/bigdata/comments/mkfsfi/big_data_pipeline_on_aws_microsoft_azure_and/">Big Data Pipeline on AWS, Microsoft Azure, and Google Cloud</a></span><a class="headerlink" href="#big-data-pipeline-on-aws-microsoft-azure-and-google-cloud" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p>Capture, process, store, analyze, use</p></td>
+<td><p><figure class="align-default" id="how-to-build-a-data-analytics-pipeline-on-google-cloud">
+<img alt="../_images/how-to-build-a-scalable-data-analytics-pipeline.png" src="../_images/how-to-build-a-scalable-data-analytics-pipeline.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 31.2 </span><span class="caption-text"><a class="reference external" href="https://www.freecodecamp.org/news/scalable-data-analytics-pipeline/">How to build a Data Analytics Pipeline on Google Cloud?</a></span><a class="headerlink" href="#how-to-build-a-data-analytics-pipeline-on-google-cloud" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</p></td>
+</tr>
+<tr class="row-even"><td><p>Ingestion, storage, cataloging &amp; search, processing, consumption, security &amp; governance</p></td>
+<td><p><figure class="align-default" id="aws-serverless-data-analytics-pipeline">
+<img alt="../_images/aws-serverless-data-analytics-pipeline.jpeg" src="../_images/aws-serverless-data-analytics-pipeline.jpeg" />
+<figcaption>
+<p><span class="caption-number">Fig. 31.3 </span><span class="caption-text"><a class="reference external" href="https://aws.amazon.com/blogs/big-data/aws-serverless-data-analytics-pipeline-reference-architecture/">AWS serverless data analytics pipeline</a></span><a class="headerlink" href="#aws-serverless-data-analytics-pipeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</p></td>
+</tr>
+</tbody>
+</table>
+<p>In this section, the <strong>AWS serverless data analytics pipeline</strong> architecture above is used as a reference to breaking down the data pipeline into 6 layers. Before moving into each of them, we will first have a glance at the concept of data quality. And at the last, we will go through an AWS cloud-based data pipeline architecture showcase.</p>
+<section id="data-quality">
+<h2><span class="section-number">31.1. </span>Data quality<a class="headerlink" href="#data-quality" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Data_quality">Data quality</a> refers to the state of qualitative or quantitative pieces of information. Generally speaking, high-quality data could “fit for [its] intended uses in operations, decision making and planning”<span id="id1">[<a class="reference internal" href="#id23" title="Thomas C Redman. Data driven: profiting from your most important business asset. Harvard Business Press, 2008.">Red08</a>]</span><span id="id2">[<a class="reference internal" href="#id24" title="Kayode Philip Fadahunsi, James Tosin Akinlua, Siobhan O’Connor, Petra A Wark, Joseph Gallagher, Christopher Carroll, Azeem Majeed, and John O’Donoghue. Protocol for a systematic review and qualitative synthesis of information quality frameworks in ehealth. BMJ open, 9(3):e024722, 2019.">FAOConnor+19</a>]</span><span id="id3">[<a class="reference internal" href="#id25" title="Kayode Philip Fadahunsi, Siobhan O'Connor, James Tosin Akinlua, Petra A Wark, Joseph Gallagher, Christopher Carroll, Josip Car, Azeem Majeed, and John O'Donoghue. Information quality frameworks for digital health technologies: systematic review. Journal of medical Internet research, 23(5):e23479, 2021.">FOConnorA+21</a>]</span>. Data quality is a widely used concept and is split into multiple dimensions traditionally. This section will discuss the most common ones to Machine Learning data engineering, including completeness, duplicates, outlier, and consistency.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>The <em><strong>Overview and importance of data quality for machine learning tasks</strong></em><span id="id4">[<a class="reference internal" href="#id27" title="Abhinav Jain, Hima Patel, Lokesh Nagalapatti, Nitin Gupta, Sameep Mehta, Shanmukha Guttula, Shashank Mujumdar, Shazia Afzal, Ruhi Sharma Mittal, and Vitobha Munigala. Overview and importance of data quality for machine learning tasks. In Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining, 3561–3562. 2020.">JPN+20</a>]</span> lecture recording at KDD 2020, <a class="reference external" href="https://www.youtube.com/watch?v=30uRhUZ78gQ">Part 1</a>, <a class="reference external" href="https://www.youtube.com/watch?v=5uAwssnBnGE">Part 2</a>, <a class="reference external" href="https://www.youtube.com/watch?v=IDwQsYKBQqs">Part 3</a>.</p></li>
+<li><p><a class="reference external" href="https://microsoft.github.io/Data-Science-For-Beginners/#/1-Introduction/02-ethics/README">Data Science for Beginners - Introduction to Data Ethics
+</a></p></li>
+</ul>
+</div>
+<p><strong>Data completeness</strong>. Most of the real-world datasets contain missing values, i.e.,</p>
+<ul class="simple">
+<li><p>a product may not have an expiration date if it is from a category like cloth,</p></li>
+<li><p>a survey may not contain data for some of the optional fields.</p></li>
+</ul>
+<p>Missing a large portion of the datasets can break the Machine Learning model training and result in misleading inferences. As many Machine Learning algorithms do not have good support for missing values, it is important to detect the missing values and properly handle them.</p>
+<p><strong>Data duplicates</strong> can be in various formats, such as multiple entries of the same data, or repeated values of the identification variable. It not only wastes memory and computing resources but may also lead to data imbalance. Sometimes, duplicate data might be valid in a dataset, but it eventually still arises because of errors during data extraction and integration. Hence, it is important to identify if the duplicate values are intended or invalid values existing in the dataset.</p>
+<p><strong>Outlier</strong> is an observation that deviates so much from other observations as to arouse suspicion that it was generated by a different mechanism<span id="id5">[<a class="reference internal" href="#id26" title="D Hawkins, A Jain, R Dubes, and others. Identification of outliers chapman and hall. London:[Google Scholar], 1980.">HJD+80</a>]</span>. It could be either the reflection of the dataset diversity itself or caused by errors and mistakes. Machine Learning algorithms are usually sensitive to the range and distribution of attribute values. Outliers may degrade the model performance by increasing the possibility to misclassify.</p>
+<p><strong>Data consistency</strong>. A dataset could be constructed from different data sources. For example, a retailer usually doesn’t have a centralized way to manage its supply chain. Instead, it achieves this by combining different ERP systems across demand, supply, shipment, inventory, and so on. Those ERP systems are vend from different software companies which have their solutions to structure and organize the data, e.g. to present timestamp as Unix epoch vs. the ISO format. Consistency data is necessary to build Machine Learning models. It is also important to help data scientists and business owners to have meaningful business analytics.</p>
+</section>
+<section id="ingestion-layer">
+<h2><span class="section-number">31.2. </span>Ingestion layer<a class="headerlink" href="#ingestion-layer" title="Permalink to this headline">#</a></h2>
+<p>Data ingestion is used to load data records from one or more sources, e.g. IoT devices, data lakes, databases, SaaS applications, etc., into a target data warehouse. It is the layer between the data source and data processing. Once ingested, the data becomes available in the data pipeline. There are three major ways to ingest data.</p>
+<ul class="simple">
+<li><p><strong>Batch ingestion</strong>, where the ingestion layer collects data from sources incrementally and sends it to the data storage in batch. Data can be grouped based on a schedule or certain rules. This approach is generally used for use cases that don’t require real-time data. And it is typically cost-effective and less expensive.</p></li>
+<li><p><strong>Stream ingestion</strong> is also known as real-time processing. Data are not grouped in any way and are directly sent to the data storage in real time once recognized. Applications that consume real-time data should use this way.</p></li>
+<li><p><strong>Micro batching ingestion</strong> is the approach used by streaming systems, such as Apache Spark Streaming. It divides data into small groups and ingests them incrementally as a stream. This makes the data more suitable for applications that have real-time data consumption requirements.</p></li>
+</ul>
+</section>
+<section id="storage-layer">
+<h2><span class="section-number">31.3. </span>Storage layer<a class="headerlink" href="#storage-layer" title="Permalink to this headline">#</a></h2>
+<p>The storage layer is responsible to provide durability, scalability, security, and cost-effectivity for big data storage. It supports storing both unstructured data and structured datasets in different formats. The data is usually loaded as-is without any processing to conform to a target format so that the ingestion layer could quickly land the source data into the storage. During processing, the data will be transformed from the original format to the one defined by the catalog layer, which is ready to be consumed downstream. To achieve the above, the storage layer could be organized into 3 different zones.</p>
+<ul class="simple">
+<li><p><strong>Raw data zone</strong>, which works as a transient area to store the ingested data from sources as-is.</p></li>
+<li><p><strong>Cleaned data zone</strong>, where data is only validated and cleaned, but still stored as original data format. This zone is necessary to support recovery, redo or rollback in case of the data processing is exceptionally exited or partially failed.</p></li>
+<li><p><strong>Processed data zone</strong>, where the ready-to-use data is stored in consumption-oriented format. Data here is fully processed by processing technologies, including cleaning, normalizing, standardizing, enriching, and so on. And typically the data in this zone is optimized to support cost-effective access, such as partitioned and cataloged.</p></li>
+</ul>
+</section>
+<section id="cataloging-and-search-layer">
+<h2><span class="section-number">31.4. </span>Cataloging and search layer<a class="headerlink" href="#cataloging-and-search-layer" title="Permalink to this headline">#</a></h2>
+<p>Once collected into the storage layer, the data needs to be cataloged and accessible to be actually usable in the remaining workflow, especially if the data volume is big. The cataloging and search layer is responsible to store metadata about datasets hosted in the storage layer, which is applied to business in the consumption layer and technical in the processing layer. It provides the ability to manage schema and makes datasets discoverable by providing search capabilities.</p>
+</section>
+<section id="processing-layer">
+<h2><span class="section-number">31.5. </span>Processing layer<a class="headerlink" href="#processing-layer" title="Permalink to this headline">#</a></h2>
+<p>The processing layer is responsible for transforming data to be consumable across the data storage zones, which includes multiple technologies such as data validation, cleanup, normalization, transformation, and enrichment. The processing layer needs to handle large data volumes with diverse data formats. The processing layer also provides the ability to build the processing workflow across the data storage zones, so that more complex processing logic could be better handled. Therefore, the processing layer could be composed of three types of components:</p>
+<ul class="simple">
+<li><p><strong>initializing component</strong>, which is used to create a multi-step data processing workflow on schedule or in response to event triggers,</p></li>
+<li><p><strong>orchestrating component</strong>, which manages the data processing workflow,</p></li>
+<li><p><strong>computing component</strong>, where the exact data processing programs are executed.</p></li>
+</ul>
+</section>
+<section id="consumption-layer">
+<h2><span class="section-number">31.6. </span>Consumption layer<a class="headerlink" href="#consumption-layer" title="Permalink to this headline">#</a></h2>
+<p>The consumption layer is responsible to provide scalable and performant tools to gain insights from the vast amount of data in the data storage. To achieve the best flexibility, this layer needs to support different types of data structures and formats, and use data partitioning to optimize cost and performance. The consumption layer is composed using analytics services, tools, and methods that enable:</p>
+<ul class="simple">
+<li><p><strong>interactive SQL</strong> to allow sending a SQL query to search and getting documents streamed back in response,</p></li>
+<li><p><strong>batch analytics</strong> to handle analytic workloads on big data datasets at the varying interval,</p></li>
+<li><p><strong>business intelligence</strong> to easily create and publish visualized dashboards for business insight analysis,</p></li>
+<li><p><strong>Machine Learning</strong> to support software applications to become more accurate at predicting outcomes by leveraging the data.</p></li>
+</ul>
+</section>
+<section id="security-and-governance-layer">
+<h2><span class="section-number">31.7. </span>Security and governance layer<a class="headerlink" href="#security-and-governance-layer" title="Permalink to this headline">#</a></h2>
+<p>The security and governance layer is responsible for protecting the data, identities, and processing resources across all other layers. It provides capabilities to manage the below aspects, including but not limited to below:</p>
+<ul class="simple">
+<li><p><strong>authentication and authorization</strong> to configure fine-grained access control for resources in all layers of the architecture,</p></li>
+<li><p><strong>encryption</strong> to create and manage symmetric and asymmetric customer-managed encryption keys,</p></li>
+<li><p><strong>network protection</strong> to choose the address range, create subnets, and configure route tables and network gateways,</p></li>
+<li><p><strong>monitoring and logging</strong> to analyze logs, visualize monitored metrics, define monitoring thresholds, and send alerts when thresholds.</p></li>
+</ul>
+</section>
+<section id="showcase">
+<h2><span class="section-number">31.8. </span>Showcase<a class="headerlink" href="#showcase" title="Permalink to this headline">#</a></h2>
+<p>Today, most of the main cloud providers offer their own serverless data pipeline solutions. They all target to enable agile and self-service data onboarding and analytics for the whole dataset, although are built on top of different cloud service stacks. By leveraging the data pipeline, engineers and scientists could focus more time on rapidly building data and analytics pipelines to drive insights for the business.</p>
+<figure class="align-default" id="aws-serverless-data-analytics-pipeline-reference-architecture">
+<img alt="../_images/aws-serverless-data-lake-centric-analytics-architecture.jpeg" src="../_images/aws-serverless-data-lake-centric-analytics-architecture.jpeg" />
+<figcaption>
+<p><span class="caption-number">Fig. 31.4 </span><span class="caption-text"><a class="reference external" href="https://aws.amazon.com/blogs/big-data/aws-serverless-data-analytics-pipeline-reference-architecture/">Serverless data lake centric analytics architecture</a></span><a class="headerlink" href="#aws-serverless-data-analytics-pipeline-reference-architecture" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This diagram describes a reference architecture that uses AWS-managed services which compose the 6 layers mentioned in the above logical architecture. More specifically to this showcase:</p>
+<ul class="simple">
+<li><p>AWS Data Migration Service and AWS Lake Formation are usually the options for database ingestion, while Amazon Kinesis Data Firehose is used for streaming data sources.</p></li>
+<li><p>S3 is the foundation for the storage layer, and it provides more cost-effective colder-tier storage through Amazon S3 Glacier.</p></li>
+<li><p>AWS Lake Formation is also the central place to store and manage metadata as the catalog for all datasets in the data lake.</p></li>
+<li><p>AWS Glue and AWS Step Functions are serverless workflow services to build, orchestrate, and run pipelines.</p></li>
+<li><p>To consume the processed data, plenty of products are available, such as Redshift, QuickSight, SageMaker, etc.</p></li>
+<li><p>IAM, KMS, and CloudWatch are the most commonly used AWS services to provide governance capabilities globally.</p></li>
+</ul>
+<p>If the pipeline is built on other cloud computing platforms, equivalent services could be easily found across all the layers. The architecture could also be simplified or customized according to the business needs.</p>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">31.9. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>Data cleaning is a key part of data engineering to improve the <a class="reference external" href="#data-quality">data quality</a>, but it can be deeply frustrating as the situation could be highly varied in different datasets. Sometimes you will see the text fields garbled. Sometimes your dates are formatted incorrectly. In this <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html"><span class="doc std std-doc">assignment</span></a>, you’ll work through three hands-on exercises to deal with messy data.</p>
+</section>
+<section id="self-study">
+<h2><span class="section-number">31.10. </span>Self study<a class="headerlink" href="#self-study" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=06-AZXmwHjo">A Chat with Andrew on MLOps: From Model-centric to Data-centric AI - YouTube</a></p></li>
+</ul>
+<hr class="docutils" />
+<div class="docutils container" id="id6">
+<dl class="citation">
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id2">FAOConnor+19</a></span></dt>
+<dd><p>Kayode Philip Fadahunsi, James Tosin Akinlua, Siobhan O’Connor, Petra A Wark, Joseph Gallagher, Christopher Carroll, Azeem Majeed, and John O’Donoghue. Protocol for a systematic review and qualitative synthesis of information quality frameworks in ehealth. <em>BMJ open</em>, 9(3):e024722, 2019.</p>
+</dd>
+<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id3">FOConnorA+21</a></span></dt>
+<dd><p>Kayode Philip Fadahunsi, Siobhan O'Connor, James Tosin Akinlua, Petra A Wark, Joseph Gallagher, Christopher Carroll, Josip Car, Azeem Majeed, and John O'Donoghue. Information quality frameworks for digital health technologies: systematic review. <em>Journal of medical Internet research</em>, 23(5):e23479, 2021.</p>
+</dd>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id5">HJD+80</a></span></dt>
+<dd><p>D Hawkins, A Jain, R Dubes, and others. Identification of outliers chapman and hall. <em>London:[Google Scholar]</em>, 1980.</p>
+</dd>
+<dt class="label" id="id27"><span class="brackets"><a class="fn-backref" href="#id4">JPN+20</a></span></dt>
+<dd><p>Abhinav Jain, Hima Patel, Lokesh Nagalapatti, Nitin Gupta, Sameep Mehta, Shanmukha Guttula, Shashank Mujumdar, Shazia Afzal, Ruhi Sharma Mittal, and Vitobha Munigala. Overview and importance of data quality for machine learning tasks. In <em>Proceedings of the 26th ACM SIGKDD International Conference on Knowledge Discovery &amp; Data Mining</em>, 3561–3562. 2020.</p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id1">Red08</a></span></dt>
+<dd><p>Thomas C Redman. <em>Data driven: profiting from your most important business asset</em>. Harvard Business Press, 2008.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./machine-learning-productionization"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="problem-framing.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">30. </span>Problem framing</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="model-training-and-evaluation.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">32. </span>Model training &amp; evaluation</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open Academy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
