@@ -21,7 +21,7 @@ We'll be using an example dataset from [Kaggle](https://www.kaggle.com/balaka18/
 
 ## Exploratory data analysis
 
-The capture phase of the lifecycle is where the data is acquired as well as the problems and questions at hand, but how do we know the data can help support the end result? 
+The capture phase of the lifecycle is where the data is acquired as well as the problems and questions at hand, but how do we know the data can help support the end result?
 Recall that a data scientist may ask the following questions when they acquire the data:
 
 - Do I have enough data to solve this problem?
@@ -44,7 +44,7 @@ Pandas has the [`sample()` function in its library](https://pandas.pydata.org/pa
 
 General querying of the data can help you answer some general questions and theories you may have. In contrast to sampling, queries allow you to have control and focus on specific parts of the data you have questions about.
 
-The [`query() `function](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html) in the Pandas library allows you to select columns and receive simple answers about the data through the rows retrieved.
+The [`query()` function](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html) in the Pandas library allows you to select columns and receive simple answers about the data through the rows retrieved.
 
 ## Exploring with visualizations
 
