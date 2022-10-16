@@ -1,6 +1,0 @@
-# Neural network
-
-
-```{tableofcontents}
-
-```
