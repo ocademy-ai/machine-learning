@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Data Science in the Real World
+# Data Science in the real world
 
 We're almost at the end of this learning journey!
 
