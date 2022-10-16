@@ -8,6 +8,7 @@ Data Science is all about storytelling. Pick any dataset and write a short paper
 
 Exemplary | Adequate | Needs Improvement
 --- | --- | -- |
+--- | --- | -- |
 
 A one-page essay is presented in .doc format with the dataset explained, documented, credited, and a coherent story is presented about it with detailed examples from the data. A shorter essay is presented in a less detailed format | The essay is found lacking in one of the above details.
 
