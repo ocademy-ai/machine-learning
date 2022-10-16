@@ -15,9 +15,9 @@ kernelspec:
 
 # Data Science lifecycle
 
-![](../../../images/communication.jpeg)
+![communication](../../../images/communication.jpeg)
 
-> Photo by <a href="https://unsplash.com/@headwayio?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Headway</a> on <a href="https://unsplash.com/s/photos/communication?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+> Photo by [Headway](https://unsplash.com/@headwayio?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/communication?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)
   
 In these sections, you'll explore some of the aspects of the Data Science lifecycle, including analysis and communication around data.
 
