@@ -15,7 +15,7 @@ kernelspec:
 
 # Analyzing
 
-Analyzing in the data lifecycle confirms that the data can answer the questions that are proposed or solving a particular problem. This step can also focus on confirming a model is correctly addressing these questions and problems. This lesson is focused on Exploratory Data Analysis or EDA, which are techniques for defining features and relationships within the data and can be used to prepare the data for modeling.
+Analyzing the data lifecycle confirms that the data can answer the questions that are proposed or solve a particular problem. This step can also focus on confirming a model is correctly addressing these questions and problems. This lesson is focused on Exploratory Data Analysis or EDA, which are techniques for defining features and relationships within the data and can be used to prepare the data for modeling.
 
 We'll be using an example dataset from [Kaggle](https://www.kaggle.com/balaka18/email-spam-classification-dataset-csv/version/1) to show how this can be applied with Python and the Pandas library. This dataset contains a count of some common words found in emails, the sources of these emails are anonymous. Use the [notebook](../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.ipynb) in this directory to follow along.
 
@@ -28,17 +28,17 @@ Recall that a data scientist may ask the following questions when they acquire t
 - Is the data of acceptable quality for this problem?
 - If I discover additional information through this data, should we consider changing or redefining the goals?
 
-Exploratory Data Analysis is the process of getting to know that data and can be used to answer these questions, as well identify the challenges of working with the dataset. Let’s focus on some of the techniques used to achieve this.
+Exploratory Data Analysis is the process of getting to know that data can be used to answer these questions, as well as identify the challenges of working with the dataset. Let’s focus on some of the techniques used to achieve this.
 
 ## Data profiling, descriptive statistics, and Pandas
 
 How do we evaluate if we have enough data to solve this problem? Data profiling can summarize and gather some general overall information about our dataset through techniques of descriptive statistics. Data profiling helps us understand what is available to us, and descriptive statistics helps us understand how many things are available to us.
 
-In a few of the previous lessons, we have used Pandas to provide some descriptive statistics with the [`describe()` function]( https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html). It provides the count, max and min values, mean, standard deviation and quantiles on the numerical data. Using descriptive statistics like the `describe()` function can help you assess how much you have and if you need more.
+In a few of the previous lessons, we used Pandas to provide some descriptive statistics with the [`describe()` function]( https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html). It provides the count, max & min values, mean, standard deviation, and quantiles on the numerical data. Using descriptive statistics like the `describe()` function can help you assess how much you have and if you need more.
 
 ## Sampling and querying
 
-Exploring everything in a large dataset can be very time consuming and a task that’s usually left up to a computer to do. However, sampling is a helpful tool in understanding of the data and allows us to have a better understanding of what’s in the dataset and what it represents. With a sample, you can apply probability and statistics to come to some general conclusions about your data. While there’s no defined rule on how much data you should sample it’s important to note that the more data you sample, the more precise of a generalization you can make of about data.
+Exploring everything in a large dataset can be very time-consuming and a task that’s usually left up to a computer to do. However, sampling is a helpful tool in the understanding of the data and allows us to have a better understanding of what’s in the dataset and what it represents. With a sample, you can apply probability and statistics to come to some general conclusions about your data. While there’s no defined rule on how much data you should sample it’s important to note that the more data you sample, the more precise of a generalization you can make about data.
 
 Pandas has the [`sample()` function in its library](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sample.html) where you can pass an argument of how many random samples you’d like to receive and use.
 
@@ -52,7 +52,7 @@ You don’t have to wait until the data is thoroughly cleaned and analyzed to st
 
 ## Exploring to identify inconsistencies
 
-All the topics in this lesson can help identify missing or inconsistent values, but Pandas provides functions to check for some of these. [isna() or isnull()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.isna.html) can check for missing values. One important piece of exploring for these values within your data is to explore why they ended up that way in the first place. This can help you decide on what [actions to take to resolve them](../../assignments/data-science/data-preparation.ipynb).
+All the topics in this lesson can help identify missing or inconsistent values, but Pandas provides functions to check for some of these. [isna() or isnull()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.isna.html) can check for missing values. One important piece of exploring these values within your data is to explore why they ended up that way in the first place. This can help you decide on what [actions to take to resolve them](../../assignments/data-science/data-preparation.ipynb).
 
 ## Your turn! 🚀
 
