@@ -33,7 +33,7 @@ Thanks to the democratization of AI, developers are now finding it easier to des
 * [Data Science in Banking](https://data-flair.training/blogs/data-science-in-banking/) - highlights the value of data science in the finance industry with applications ranging from risk modeling and fraud detection, to customer segmentation, real-time prediction, and recommender systems. Predictive analytics also drive critical measures like [credit scores](https://dzone.com/articles/using-big-data-and-predictive-analytics-for-credit).
 * [Data Science in Healthcare](https://data-flair.training/blogs/data-science-in-healthcare/) - highlights applications like medical imaging (e.g., MRI, X-Ray, CT-Scan), genomics (DNA sequencing), drug development (risk assessment, success prediction), predictive analytics (patient care & supply logistics), disease tracking & prevention, etc.
 
-```{figure} ../../../images/data-science-applications.png
+```{figure} ../../images/data-science-applications.png
 ---
 name: 'Data Science Applications in The Real World'
 ---
