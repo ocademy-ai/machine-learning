@@ -15,7 +15,6 @@ kernelspec:
 
 # Communication
 
-
 ## Introduction
 
 ### What is Communication?
