@@ -68,7 +68,7 @@ Common techniques used in this stage are covered in the Machine Learning section
 
 ## Maintaining
 
-In the diagram of the lifecycle, you may have noticed that maintenance sits between capturing and processing. Maintenance is an ongoing process of managing, storing and securing the data throughout the process of a project and should be taken into consideration throughout the entirety of the project.
+In the diagram of the lifecycle, you may have noticed that maintenance sits between capturing and processing. Maintenance is an ongoing process of managing, storing, and securing the data throughout the process of a project and should be taken into consideration throughout the entirety of the project.
 
 ### Storing data
 
@@ -78,11 +78,11 @@ Here are some aspects of modern data storage systems that can affect these choic
 
 **On premise vs off premise vs public or private cloud**
 
-On premise refers to hosting and managing the data on your own equipment, like owning a server with hard drives that store the data, while off premise relies on equipment that you don’t own, such as a data center. The public cloud is a popular choice for storing data that requires no knowledge of how or where exactly the data is stored, where the public refers to a unified underlying infrastructure that is shared by all who use the cloud. Some organizations have strict security policies that require that they have complete access to the equipment where the data is hosted and will rely on a private cloud that provides its own cloud services. You’ll learn more about data in the cloud in [the later section](../data-science-in-cloud/introduction.md).
+On premise refers to hosting and managing the data on your own equipment, like owning a server with hard drives that store the data, while off premise relies on equipment that you don’t own, such as a data center. The public cloud is a popular choice for storing data that requires no knowledge of how or where exactly the data is stored, where the public refers to a unified underlying infrastructure that is shared by all who use the cloud. Some organizations have strict security policies that require that they have complete access to the equipment where the data is hosted and will rely on a private cloud that provides its own cloud services. You’ll learn more about data in the cloud in [the later section](../data-science-in-the-cloud/introduction.md).
 
 **Cold vs hot data**
 
-When training your models, you may require more training data. If you’re content with your model, more data will arrive for a model to serve its purpose. In any case the cost of storing and accessing data will increase as you accumulate more of it. Separating rarely used data, known as cold data from frequently accessed hot data can be a cheaper data storage option through hardware or software services. If cold data needs to be accessed, it may take a little longer to retrieve in comparison to hot data.
+When training your models, you may require more training data. If you’re content with your model, more data will arrive for a model to serve its purpose. In any case, the cost of storing and accessing data will increase as you accumulate more of it. Separating rarely used data, known as cold data from frequently accessed hot data can be a cheaper data storage option through hardware or software services. If cold data needs to be accessed, it may take a little longer to retrieve in comparison to hot data.
 
 ### Managing data
 
@@ -90,7 +90,7 @@ As you work with data you may discover that some of the data needs to be cleaned
 
 ### Securing the data
 
-One of the main goals of securing data is ensuring that those working it are in control of what is collected and in what context it is being used. Keeping data secure involves limiting access to only those who need it, adhering to local laws and regulations, as well as maintaining ethical standards, as covered in the [ethics section](../introduction/data-science-ethics.md).
+One of the main goals of securing data is ensuring that those working on it are in control of what is collected and in what context it is being used. Keeping data secure involves limiting access to only those who need it, adhering to local laws and regulations, as well as maintaining ethical standards, as covered in the [ethics section](../introduction/data-science-ethics.md).
 
 Here are some things that a team may do with security in mind:
 
@@ -101,7 +101,7 @@ Provide customers with information on how their data is used.
 
 ## Your turn! 🚀
 
-There are many versions of the Data Science Lifecycle, where each step may have different names and number of stages but will contain the same processes mentioned within this lesson.
+There are many versions of the Data Science Lifecycle, where each step may have different names and numbers of stages but will contain the same processes mentioned within this lesson.
 
 Explore the [Team Data Science Process lifecycle](https://docs.microsoft.com/en-us/azure/architecture/data-science-process/lifecycle) and the [Cross-industry standard process for data mining](https://www.datascience-pm.com/crisp-dm-2/). Name 3 similarities and differences between the two.
 
