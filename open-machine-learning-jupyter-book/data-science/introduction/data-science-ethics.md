@@ -21,7 +21,7 @@ Market trends tell us that by 2022, 1-in-3 large organizations will buy and sell
 
 Trends also indicate that we will create and consume over [180 zettabytes](https://www.statista.com/statistics/871513/worldwide-data-created/) of data by 2025. As **Data Scientists**, this gives us unprecedented levels of access to personal data. This means we can build behavioral profiles of users and influence decision-making in ways that create an [illusion of free choice](https://www.verywellmind.com/what-is-the-illusion-of-choice-5224973) while potentially nudging users towards outcomes we prefer. It also raises broader questions on data privacy and user protections.
 
-Data ethics are now _necessary guardrails_ for data science and engineering, helping us minimize potential harms and unintended consequences from our data-driven actions. The [Gartner Hype Cycle for AI](https://www.gartner.com/smarterwithgartner/2-megatrends-dominate-the-gartner-hype-cycle-for-artificial-intelligence-2020/) identifies relevant trends in digital ethics, responsible AI, and AI governance as key drivers for larger megatrends around _democratization_ and _industrialization_ of AI.
+Data ethics are now _necessary guardrails_ for data science and engineering, helping us minimize potential harms and unintended consequences from our data-driven actions. The [Gartner Hype Cycle for AI](https://www.gartner.com/smarterwithgartner/2-megatrends-dominate-the-gartner-hype-cycle-for-artificial-intelligence-2020/) identifies relevant trends in digital ethics, responsible AI, and AI governance as key drivers for larger megatrends around the _democratization_ and _industrialization__ of AI.
 
 ```{figure} ../../../images/hype-cycle-for-ai.png
 ---
@@ -30,7 +30,7 @@ name: 'Gartner Hype Cycle for AI - 2020'
 Gartner Hype Cycle for AI - 2020{cite}`MishraKamalGartner2021`
 ```
 
-In this lesson, we'll explore the fascinating area of data ethics - from core concepts and challenges, to case studies and applied AI concepts like governance - that help establish an ethics culture in teams and organizations that work with data and AI.
+In this section, we'll explore the fascinating area of data ethics - from core concepts and challenges, to case studies and applied AI concepts like governance - that help establish an ethics culture in teams and organizations that work with data and AI.
 
 ## Basic definitions
 
@@ -42,7 +42,7 @@ The word "ethics" comes from the [Greek word "ethikos"](https://en.wikipedia.org
 
 **Data ethics** is a [new branch of ethics](https://royalsocietypublishing.org/doi/full/10.1098/rsta.2016.0360#sec-1) that "studies and evaluates moral problems related to _data, algorithms and corresponding practices_". Here, **"data"** focuses on actions related to generation, recording, curation, processing dissemination, sharing, and usage, **"algorithms"** focuses on AI, agents, Machine Learning, and robots, and **"practices"** focuses on topics like responsible innovation, programming, hacking and ethics codes.
 
-**Applied ethics** is the [practical application of moral considerations](https://en.wikipedia.org/wiki/Applied_ethics). It's the process of actively investigating ethical issues in the context of _real-world actions, products and processes_, and taking corrective measures to make that these remain aligned with our defined ethical values.
+**Applied ethics** is the [practical application of moral considerations](https://en.wikipedia.org/wiki/Applied_ethics). It's the process of actively investigating ethical issues in the context of _real-world actions, products, and processes_, and taking corrective measures to make that these remain aligned with our defined ethical values.
 
 **Ethics culture** is about [_operationalizing_ applied ethics](https://hbr.org/2019/05/how-to-design-an-ethical-organization) to make sure that our ethical principles and practices are adopted in a consistent and scalable manner across the entire organization. Successful ethics cultures define organization-wide ethical principles, provide meaningful incentives for compliance, and reinforce ethics norms by encouraging and amplifying desired behaviors at every level of the organization.
 
@@ -71,7 +71,7 @@ Let's briefly explore these principles. _Transparency_ and _accountability_ are 
 * **Fairness** - focuses on ensuring AI treats _all people_ fairly, addressing any systemic or implicit socio-technical biases in data and systems.
 * **Reliability & Safety**  - ensures that AI behaves _consistently_ with defined values, minimizing potential harms or unintended consequences.
 * **Privacy & Security** - is about understanding data lineage, and providing _data privacy and related protections_ to users.
-* **Inclusiveness** - is about designing AI solutions with intention, adapting them to meet a _broad range of human needs_ & capabilities.
+* **Inclusiveness** - is about designing AI solutions with intention, and adapting them to meet a _broad range of human needs_ & capabilities.
 
 ```{seealso}
 Responsible AI principles from Microsoft. (n.d.). Microsoft. Retrieved 1 October 2022, from https://www.microsoft.com/en-us/ai/responsible-ai
@@ -109,7 +109,7 @@ Questions to explore here are:
 
 * Did the user (data subject) give permission for data capture and usage?
 * Did the user understand the purpose for which that data was captured?
-* Did the user understand the potential risks from their participation?
+* Did the user understand the potential risks of their participation?
 
 **3\. Intellectual property**
 
@@ -287,7 +287,7 @@ The latter requires [collaborative approaches to defining ethics cultures](https
 
 Courses and books help with understanding core ethics concepts and challenges, while case studies and tools help with applied ethics practices in real-world contexts. Here are a few resources to start with.
 
-* [Machine Learning For Beginners](https://github.com/microsoft/ML-For-Beginners/blob/main/1-Introduction/3-fairness/README.md) - lesson on Fairness, from Microsoft.
+* [Machine Learning For Beginners](https://github.com/microsoft/ML-For-Beginners/blob/main/1-Introduction/3-fairness/README.md) - section on Fairness, from Microsoft.
 * [Principles of Responsible AI](https://docs.microsoft.com/en-us/learn/modules/responsible-ai-principles/) - free learning path from Microsoft Learn.
 * [Ethics and Data Science](https://resources.oreilly.com/examples/0636920203964) - O'Reilly EBook (M. Loukides, H. Mason et. al)
 * [Data Science Ethics](https://www.coursera.org/learn/data-science-ethics#syllabus) - online course from the University of Michigan.

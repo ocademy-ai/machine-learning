@@ -15,7 +15,7 @@ kernelspec:
 
 # Analyzing
 
-Analyzing the data lifecycle confirms that the data can answer the questions that are proposed or solve a particular problem. This step can also focus on confirming a model is correctly addressing these questions and problems. This lesson is focused on Exploratory Data Analysis or EDA, which are techniques for defining features and relationships within the data and can be used to prepare the data for modeling.
+Analyzing the data lifecycle confirms that the data can answer the questions that are proposed or solve a particular problem. This step can also focus on confirming a model is correctly addressing these questions and problems. This section is focused on Exploratory Data Analysis or EDA, which are techniques for defining features and relationships within the data and can be used to prepare the data for modeling.
 
 We'll be using an example dataset from [Kaggle](https://www.kaggle.com/balaka18/email-spam-classification-dataset-csv/version/1) to show how this can be applied with Python and the Pandas library. This dataset contains a count of some common words found in emails, the sources of these emails are anonymous. Use the [notebook](../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.ipynb) in this directory to follow along.
 
@@ -34,7 +34,7 @@ Exploratory Data Analysis is the process of getting to know that data can be use
 
 How do we evaluate if we have enough data to solve this problem? Data profiling can summarize and gather some general overall information about our dataset through techniques of descriptive statistics. Data profiling helps us understand what is available to us, and descriptive statistics helps us understand how many things are available to us.
 
-In a few of the previous lessons, we used Pandas to provide some descriptive statistics with the [`describe()` function]( https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html). It provides the count, max & min values, mean, standard deviation, and quantiles on the numerical data. Using descriptive statistics like the `describe()` function can help you assess how much you have and if you need more.
+In a few of the previous sectionns, we used Pandas to provide some descriptive statistics with the [`describe()` function]( https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html). It provides the count, max & min values, mean, standard deviation, and quantiles on the numerical data. Using descriptive statistics like the `describe()` function can help you assess how much you have and if you need more.
 
 ## Sampling and querying
 
@@ -52,7 +52,7 @@ You don’t have to wait until the data is thoroughly cleaned and analyzed to st
 
 ## Exploring to identify inconsistencies
 
-All the topics in this lesson can help identify missing or inconsistent values, but Pandas provides functions to check for some of these. [isna() or isnull()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.isna.html) can check for missing values. One important piece of exploring these values within your data is to explore why they ended up that way in the first place. This can help you decide on what [actions to take to resolve them](../../assignments/data-science/data-preparation.ipynb).
+All the topics in this section can help identify missing or inconsistent values, but Pandas provides functions to check for some of these. [isna() or isnull()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.isna.html) can check for missing values. One important piece of exploring these values within your data is to explore why they ended up that way in the first place. This can help you decide on what [actions to take to resolve them](../../assignments/data-science/data-preparation.ipynb).
 
 ## Your turn! 🚀
 

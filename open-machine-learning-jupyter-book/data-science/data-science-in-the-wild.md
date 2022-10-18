@@ -19,7 +19,7 @@ We're almost at the end of this learning journey!
 
 We started with definitions of data science and ethics, explored various tools & techniques for data analysis and visualization, reviewed the data science lifecycle, and looked at scaling and automating data science workflows with cloud computing services. So, you're probably wondering: _"How exactly do I map all these learnings to real-world contexts?"_
 
-In this lesson, we'll explore real-world applications of data science across industries and dive into specific examples in the research, digital humanities, and sustainability, contexts. We'll look at student project opportunities and conclude with useful resources to help you continue your learning journey!
+In this section, we'll explore real-world applications of data science across industries and dive into specific examples in the research, digital humanities, and sustainability, contexts. We'll look at student project opportunities and conclude with useful resources to help you continue your learning journey!
 
 ## Data Science + industry
 

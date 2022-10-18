@@ -8,7 +8,7 @@ Spreadsheets are a popular way to store and explore data because it requires les
 
 ![An empty Microsoft Excel workbook with two worksheets](../../../images/parts-of-spreadsheet.png)
 
-A spreadsheet is a file and will be accessible in the file system of a computer, device, or cloud-based file system. The software itself may be browser-based or an application that must be installed on a computer or downloaded as an app. In Excel, these files are also defined as **workbooks** and this terminology will be used for the remainder of this lesson.
+A spreadsheet is a file and will be accessible in the file system of a computer, device, or cloud-based file system. The software itself may be browser-based or an application that must be installed on a computer or downloaded as an app. In Excel, these files are also defined as **workbooks** and this terminology will be used for the remainder of this section.
 
 A workbook contains one or more **worksheets**, where each worksheet is labeled by tabs. Within a worksheet are rectangles called **cells**, which will contain the actual data. A cell is the intersection of a row and a column, where the columns are labeled with alphabetical characters and rows are labeled numerically. Some spreadsheets will contain headers in the first few rows to describe the data in a cell.
 
@@ -61,7 +61,7 @@ Graphical representation of a columnar data store showing a customer database wi
 
 [Document](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/non-relational-data#document-data-stores) data stores build on the concept of a key-value data store and are made up of a series of fields and objects. This section will explore document databases with the Cosmos DB emulator.
 
-A Cosmos DB database fits the definition of "Not Only SQL", where Cosmos DB's document database relies on SQL to query the data. The [previous lesson](./relational-databases.md) on SQL covers the basics of the language, and we'll be able to apply some of the same queries to a document database here. We'll be using the Cosmos DB Emulator, which allows us to create and explore a document database locally on a computer. Read more about the Emulator [here](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=ssl-netstd21).
+A Cosmos DB database fits the definition of "Not Only SQL", where Cosmos DB's document database relies on SQL to query the data. The [previous section](./relational-databases.md) on SQL covers the basics of the language, and we'll be able to apply some of the same queries to a document database here. We'll be using the Cosmos DB Emulator, which allows us to create and explore a document database locally on a computer. Read more about the Emulator [here](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=ssl-netstd21).
 
 A document is a collection of fields and object values, where the fields describe what the object value represents. Below is an example of a document.
 
@@ -139,11 +139,11 @@ Task - [Soda profits](../../assignments/data-science/soda-profits.md)
 
 ## Self study
 
-- There are some additional formatting and features added to this spreadsheet that this lesson does not cover. Microsoft has a [large library of documentation and videos](https://support.microsoft.com/excel) on Excel if you're interested in learning more.
+- There are some additional formatting and features added to this spreadsheet that this section does not cover. Microsoft has a [large library of documentation and videos](https://support.microsoft.com/excel) on Excel if you're interested in learning more.
 
 - This architectural documentation details the characteristics of the different types of non-relational data: [Non-relational Data and NoSQL](https://docs.microsoft.com/en-us/azure/architecture/data-guide/big-data/non-relational-data)
 
-- Cosmos DB is a cloud-based non-relational database that can also store the different NoSQL types mentioned in this lesson. Learn more about these types in this [Cosmos DB Microsoft Learn Module](https://docs.microsoft.com/en-us/learn/paths/work-with-nosql-data-in-azure-cosmos-db/)
+- Cosmos DB is a cloud-based non-relational database that can also store the different NoSQL types mentioned in this section. Learn more about these types in this [Cosmos DB Microsoft Learn Module](https://docs.microsoft.com/en-us/learn/paths/work-with-nosql-data-in-azure-cosmos-db/)
 
 ## Acknowledgments
 

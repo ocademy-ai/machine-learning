@@ -87,10 +87,10 @@ When we analyze data from real life, they often are not random variables as such
 ```
 
 ```{note}
-To see the example of working with this dataset, have a look at the [accompanying notebook](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb). There are also a number of challenges throughout this lesson, and you may complete them by adding some code to that notebook. If you are not sure how to operate on data, do not worry - we will come back to working with data using Python at a later time. If you do not know how to run code in Jupyter Notebook, have a look at [this article](https://soshnikov.com/education/how-to-execute-notebooks-from-github/).
+To see the example of working with this dataset, have a look at the [accompanying notebook](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb). There are also a number of challenges throughout this section, and you may complete them by adding some code to that notebook. If you are not sure how to operate on data, do not worry - we will come back to working with data using Python at a later time. If you do not know how to run code in Jupyter Notebook, have a look at [this article](https://soshnikov.com/education/how-to-execute-notebooks-from-github/).
 ```
 
-Here is the box plot showing the mean, median and quartiles for our data:
+Here is the box plot showing the mean, median, and quartiles for our data:
 
 ![Weight Box Plot](../../../images/weight-boxplot.png)
 
@@ -98,15 +98,15 @@ Since our data contains information about different player **roles**, we can als
 
 ![Box plot by role](../../../images/boxplot_byrole.png)
 
-This diagram suggests that, on average, the height of first basemen is higher than the height of second basemen. Later in this lesson, we will learn how we can test this hypothesis more formally, and how to demonstrate that our data is statistically significant to show that.
+This diagram suggests that, on average, the height of first basemen is higher than the height of second basemen. Later in this section, we will learn how we can test this hypothesis more formally, and how to demonstrate that our data is statistically significant to show that.
 
 ```{note}
 When working with real-world data, we assume that all data points are samples drawn from some probability distribution. This assumption allows us to apply machine learning techniques and build working predictive models.
 ```
 
-To see what the distribution of our data is, we can plot a graph called a **histogram**. X-axis would contain a number of different weight intervals (so-called **bins**), and the vertical axis would show the number of times our random variable sample was inside a given interval.
+To see what the distribution of our data is, we can plot a graph called a **histogram**. The X-axis would contain a number of different weight intervals (so-called **bins**), and the vertical axis would show the number of times our random variable sample was inside a given interval.
 
-![Histogram of real world data](../../../images/weight-histogram.png)
+![Histogram of real-world data](../../../images/weight-histogram.png)
 
 From this histogram, you can see that all values are centered around a certain mean weight, and the further we go from that weight - the fewer weights of that value are encountered. I.e., it is very improbable that the weight of a baseball player would be very different from the mean weight. The variance of weights shows the extent to which weights are likely to differ from the mean.
 
@@ -118,13 +118,13 @@ If we take weights of other people, not from the baseball league, the distributi
 
 The distribution of weights that we have seen above is very typical, and many measurements from the real world follow the same type of distribution, but with different mean and variance. This distribution is called **normal distribution**, and it plays a very important role in statistics.
 
-Using normal distribution is the correct way to generate random weights of potential baseball players. Once we know mean weight `mean` and standard deviation `std`, we can generate 1000 weight samples in the following way:
+Using normal distribution is the correct way to generate random weights of potential baseball players. Once we know the mean weight `mean`` and standard deviation `std`, we can generate 1000 weight samples in the following way:
 
 ```python
 samples = np.random.normal(mean, std, 1000)
 ```
 
-If we plot the histogram of the generated samples we will see the picture very similar to the one shown above. And if we increase the number of samples and the number of bins, we can generate a picture of a normal distribution that is more close to ideal:
+If we plot the histogram of the generated samples we will see a picture very similar to the one shown above. And if we increase the number of samples and the number of bins, we can generate a picture of a normal distribution that is more close to ideal:
 
 ```{figure} ../../../images/normal-histogram.png
 ---
@@ -201,7 +201,7 @@ Let's compute confidence intervals separately for heights of first and second ba
 
 We can see that under no confidence the intervals overlap. That proves our hypothesis that first basemen are higher than second basemen.
 
-More formally, the problem we are solving is to see if **two probability distributions are the same** or at least have the same parameters. Depending on the distribution, we need to use different tests for that. If we know that our distributions are normal, we can apply **[student t-test](https://en.wikipedia.org/wiki/Student%27s_t-test)**.
+More formally, the problem we are solving is to see if **two probability distributions are the same** or at least have the same parameters. Depending on the distribution, we need to use different tests for that. If we know that our distributions are normal, we can apply the **[student t-test](https://en.wikipedia.org/wiki/Student%27s_t-test)**.
 
 In the student t-test, we compute the so-called **t-value**, which indicates the difference between means, taking into account the variance. It is demonstrated that the t-value follows **student distribution**, which allows us to get the threshold value for a given confidence level $p$ (this can be computed, or looked up in the numerical tables). We then compare the t-value to this threshold to approve or reject the hypothesis.
 
@@ -257,7 +257,7 @@ Mathematically, the main concept that shows the relation between two random vari
 
 The absolute value of covariance does not tell us much about how large the correlation is, because it depends on the magnitude of actual values. To normalize it, we can divide covariance by the standard deviation of both variables, to get a **correlation**. The good thing is that correlation is always in the range of $[-1,1]$, where $1$ indicates a strong positive correlation between values, $-1$ - strong negative correlation, and $0$ - no correlation at all (variables are independent).
 
-**Example**: We can compute the correlation between weights and heights of baseball players from the dataset mentioned above:
+**Example**: we can compute the correlation between weights and heights of baseball players from the dataset mentioned above:
 
 ```py
 print(np.corrcoef(weights, heights))
@@ -286,7 +286,7 @@ More examples of correlation and covariance can be found in [accompanying notebo
 
 In this section, we have learned:
 
-* basic statistical properties of data, such as mean, variance, mode and quartiles,
+* basic statistical properties of data, such as mean, variance, mode, and quartiles,
 * different distributions of random variables, including normal distribution,
 * how to find the correlation between different properties,
 * how to use sound apparatus of math and statistics in order to prove some hypotheses,

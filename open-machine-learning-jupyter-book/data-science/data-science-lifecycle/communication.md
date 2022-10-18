@@ -19,19 +19,19 @@ kernelspec:
 
 ### What is Communication?
 
-Let’s start this lesson by defining what it means to communicate. **To communicate is to convey or exchange information.** Information can be ideas, thoughts, feelings, messages, covert signals, data – anything that a **_sender_** (someone sending information) wants a **_receiver_** (someone receiving information) to understand. In this lesson, we will refer to senders as communicators and receivers as the audience.
+Let’s start this section by defining what it means to communicate. **To communicate is to convey or exchange information.** Information can be ideas, thoughts, feelings, messages, covert signals, data – anything that a **_sender_** (someone sending information) wants a **_receiver_** (someone receiving information) to understand. In this section, we will refer to senders as communicators and receivers as the audience.
 
 ### Data communication & storytelling
 
-We understand that when communicating, the aim is to convey or exchange information. But when communicating data, your aim shouldn't be to simply pass along numbers to your audience. Your aim should be to communicate a story that is informed by your data - effective data communication and storytelling go hand-in-hand. Your audience is more likely to remember a story you tell, than a number you give. Later in this lesson, we will go over a few ways that you can use storytelling to communicate your data more effectively.
+We understand that when communicating, the aim is to convey or exchange information. But when communicating data, your aim shouldn't be to simply pass along numbers to your audience. Your aim should be to communicate a story that is informed by your data - effective data communication and storytelling go hand-in-hand. Your audience is more likely to remember a story you tell than a number you give. Later in this section, we will go over a few ways that you can use storytelling to communicate your data more effectively.
 
 ### Types of communication
 
-Throughout this lesson two different types of communication will be discussed, One-Way Communication and Two-Way Communication.
+Throughout this section two different types of communication will be discussed, One-Way Communication and Two-Way Communication.
 
 **One way communication** happens is when a sender sends information to a receiver, without any feedback or response. We see examples of one-way communication every day – in bulk/mass emails, when the news delivers the most recent stories, or even when a television commercial comes on and informs you about why their product is great. In each of these instances, the sender is not seeking an exchange of information. They are only seeking to convey or deliver information.
 
-**Two-way communication** happens when all involved parties act as both senders and receivers. A sender will begin by communicating to a receiver, and the receiver will provide feedback or a response. Two-way communication is what we traditionally think of when we talk about communication. We usually think of people engaged in a conversation - either in person, or over a phone call, social media, or text message.
+**Two-way communication** happens when all involved parties act as both senders and receivers. A sender will begin by communicating with a receiver, and the receiver will provide feedback or a response. Two-way communication is what we traditionally think of when we talk about communication. We usually think of people engaged in a conversation - either in person, or over a phone call, social media, or text message.
 
 When communicating data, there will be cases where you will be using one-way communication (think about presenting at a conference, or to a large group where questions won’t be asked directly after) and there will be cases where you will use two-way communication (think about using data to persuade a few stakeholders for buy-in or to convince a teammate that time and effort should be spent building something new).
 
@@ -41,7 +41,7 @@ When communicating data, there will be cases where you will be using one-way com
 
 When communicating, it is your job to make sure that your receiver(s) are taking away the information that you want them to take away. When you’re communicating data, you don’t just want your receivers to takeaway numbers, you want your receivers to takeaway a story that’s informed by your data. A good data communicator is a good storyteller.
 
-How do you tell a story with data? There are infinite ways – but below are 6 that we will talk about in this lesson.
+How do you tell a story with data? There are infinite ways – but below are 6 that we will talk about in this section.
 
 1. Understand Your Audience, Your Medium, & Your Communication Method
 2. Begin with the End in Mind

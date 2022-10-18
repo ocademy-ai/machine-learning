@@ -2,7 +2,7 @@
 
 ## Instructions
 
-In this lesson, we talked about various data science application domains - with deep dives into examples related to research, sustainability, and digital humanities. In this assignment, you'll explore one of these examples in more detail, and apply some of your learnings around data visualizations and analysis to derive insights about sustainability data.
+In this section, we talked about various data science application domains - with deep dives into examples related to research, sustainability, and digital humanities. In this assignment, you'll explore one of these examples in more detail, and apply some of your learnings around data visualizations and analysis to derive insights about sustainability data.
 
 The [Planetary Computer](https://planetarycomputer.microsoft.com/) project has datasets and APIs that can be accessed with an account - request one for access if you want to try the bonus step of the assignment. The site also provides an [Explorer](https://planetarycomputer.microsoft.com/explore) feature that you can use without creating an account. 
 
