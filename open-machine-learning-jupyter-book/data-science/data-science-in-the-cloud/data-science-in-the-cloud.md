@@ -15,7 +15,7 @@ kernelspec:
 
 # Data Science in the cloud
 
-![cloud-picture](../../../images/cloud-picture.jpg)
+![cloud-picture](../../../images/cloud-picture.jpeg)
 
 > Photo by [Jelleke Vanooteghem](https://unsplash.com/@ilumire) from [Unsplash](https://unsplash.com/s/photos/cloud?orientation=landscape)
 
