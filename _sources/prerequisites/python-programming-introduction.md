@@ -331,42 +331,7 @@ To run the Python file check the image below. You can run the Python file either
 
 ## Your turn! 🚀
 
-### Exercise: Level 1
-
-1. Check the Python version you are using
-2. Open the Python interactive shell and do the following operations. The operands are 3 and 4.
-   - addition(+)
-   - subtraction(-)
-   - multiplication(\*)
-   - modulus(%)
-   - division(/)
-   - exponential(\*\*)
-   - floor division operator(//)
-3. Write strings on the Python interactive shell. The strings are the following:
-   - Your name
-   - Your family name
-   - Your country
-   - I am enjoying Open Academy courses
-4. Check the data types of the following data:
-   - 10
-   - 9.8
-   - 3.14
-   - 4 - 4j
-   - ['Asabeneh', 'Python', 'Finland']
-   - Your name
-   - Your family name
-   - Your country
-
-### Exercise: Level 2
-
-1. Create a folder named day_1 inside `open-academy` folder. Inside `day_1` folder, create a Python file `helloworld.py` and repeat questions 1, 2, 3, and 4. Remember to use `print()` when you are working on a Python file. Navigate to the directory where you have saved your file, and run it.
-
-### Exercise: Level 3
-
-1. Write an example for different Python data types such as Number(Integer, Float, Complex), String, Boolean, List, Tuple, Set, and Dictionary.
-2. Find a [Euclidian distance](https://en.wikipedia.org/wiki/Euclidean_distance#:~:text=In%20mathematics%2C%20the%20Euclidean%20distance,being%20called%20the%20Pythagorean%20distance.) between (2, 3) and (10, 8)
-
-🎉 CONGRATULATIONS! 🎉
+Try to [write some simple Python code](../assignments/prerequisites/python-programming-introduction.ipynb) through Python shell, Python file, and Jupyter Notebook.
 
 ## Acknowledgments
 
