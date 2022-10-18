@@ -72,7 +72,7 @@ An area of Machine Learning known as artificial intelligence (AI) also relies on
 
 **Visualization**
 
-Vast amounts of data are incomprehensible to a human being, but once we create useful visualizations using that data, we can make more sense of the data, and draw some conclusions. Thus, it is important to know many ways to visualize information - something that we will cover in the [Data visualization](../data-visualization.md) section. Related fields also include **Infographics** and **Human-Computer** Interaction** in general.
+Vast amounts of data are incomprehensible to a human being, but once we create useful visualizations using that data, we can make more sense of the data, and draw some conclusions. Thus, it is important to know many ways to visualize information - something that we will cover in the [Data visualization](../data-visualization/data-visualization.md) section. Related fields also include **Infographics** and **Human-Computer** Interaction** in general.
 
 ## Types of data
 
