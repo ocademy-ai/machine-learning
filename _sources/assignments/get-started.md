@@ -9,7 +9,7 @@ To start working on the assignments, you could follow the below steps:
 4. Work on the assignment locally by following the instruments provided inline.
 5. Verify your local changes by executing the corresponding notebook cell inside the assignment.
 6. Commit & push the local changes to remote once you finish the assignment.
-7. A GitHub Action will be triggered automatically, and the result will be shown at your forked repo at Github.
+7. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at Github.
 
 You don't need to finish all the assignments at the same time. Only the changed file will trigger the verification from Github after being pushed to the remote. You could also debug the code by checking the error log from the GitHub Action execution.
 

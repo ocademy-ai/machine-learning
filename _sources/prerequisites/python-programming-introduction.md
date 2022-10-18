@@ -44,9 +44,9 @@ If you are a windows user. Click the button encircled in red.
 
 If you are a macOS user. Click the button encircled in red.
 
-[![installing on Windows](../../images/installing_on_macOS.png)](https://www.Python.org/)
+[![installing on Mac](../../images/installing_on_macOS.png)](https://www.Python.org/)
 
-To check if Python is installed write the following command on your device terminal.
+To check if Python is installed, write the following command on your device terminal.
 
 ```shell
 Python --version
@@ -63,7 +63,7 @@ Python is an interpreted scripting language, so it does not need to be compiled.
 Python Shell waits for the Python code from the user. When you enter the code, it interprets the code and shows the result in the next line. Open your terminal or command prompt(cmd) and write:
 
 ```shell
-Python
+python
 ```
 
 ![Python Scripting Shell](../../images/opening_python_shell.png)
@@ -131,7 +131,7 @@ Before we move on to the next section, let us practice more on the Python intera
 
 ### Installing Visual Studio Code
 
-The Python interactive shell is good to try and test small script codes but it will not be for a big project. In the real work environment, developers use different code editors to write codes. Will use Visual Studio Code. Visual Studio Code is a very popular open-source text editor. If you are a fan of Visual Studio Code, it is recommended to [download](https://code.visualstudio.com/) it. but if you are in favor of other editors, feel free to follow with what you have.
+The Python interactive shell is good to try and test small script codes but it will not be for a big project. In the real work environment, developers use different code editors to write code. Will use Visual Studio Code. Visual Studio Code is a very popular open-source text editor. If you are a fan of Visual Studio Code, it is recommended to [download](https://code.visualstudio.com/) it. but if you are in favor of other editors, feel free to follow with what you have.
 
 [![Visual Studio Code](../../images/vscode.png)](https://code.visualstudio.com/)
 
@@ -359,11 +359,11 @@ To run the Python file check the image below. You can run the Python file either
 
 ### Exercise: Level 2
 
-1. Create a folder named day_1 inside `open-academy` folder. Inside `day_1` folder, create a Python file `helloworld.py` and repeat questions 1, 2, 3 and 4. Remember to use `print()` when you are working on a Python file. Navigate to the directory where you have saved your file, and run it.
+1. Create a folder named day_1 inside `open-academy` folder. Inside `day_1` folder, create a Python file `helloworld.py` and repeat questions 1, 2, 3, and 4. Remember to use `print()` when you are working on a Python file. Navigate to the directory where you have saved your file, and run it.
 
 ### Exercise: Level 3
 
-1. Write an example for different Python data types such as Number(Integer, Float, Complex), String, Boolean, List, Tuple, Set and Dictionary.
+1. Write an example for different Python data types such as Number(Integer, Float, Complex), String, Boolean, List, Tuple, Set, and Dictionary.
 2. Find a [Euclidian distance](https://en.wikipedia.org/wiki/Euclidean_distance#:~:text=In%20mathematics%2C%20the%20Euclidean%20distance,being%20called%20the%20Pythagorean%20distance.) between (2, 3) and (10, 8)
 
 🎉 CONGRATULATIONS! 🎉
