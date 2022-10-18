@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# Visualizing Quantities
+# Visualizing quantities
