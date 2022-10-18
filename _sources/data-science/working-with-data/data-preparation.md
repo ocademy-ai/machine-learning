@@ -15,7 +15,7 @@ kernelspec:
 
 # Data preparation
 
-Depending on its source, raw data may contain some inconsistencies that will cause challenges in analysis and modeling. In other words, this data can be categorized as “dirty” and will need to be cleaned up. This lesson focuses on techniques for cleaning and transforming the data to handle the challenges of missing, inaccurate, or incomplete data. Topics covered in this lesson will utilize Python and the Pandas library and will be [demonstrated in the notebook](../../assignments/data-science/data-preparation.ipynb) within this directory.
+Depending on its source, raw data may contain some inconsistencies that will cause challenges in analysis and modeling. In other words, this data can be categorized as “dirty” and will need to be cleaned up. This section focuses on techniques for cleaning and transforming the data to handle the challenges of missing, inaccurate, or incomplete data. Topics covered in this section will utilize Python and the Pandas library and will be [demonstrated in the notebook](../../assignments/data-science/data-preparation.ipynb) within this directory.
 
 ## The importance of cleaning data
 
@@ -255,7 +255,7 @@ example4.drop_duplicates(['letters'])
 
 ## Self study
 
-There are many ways to discover and approach preparing your data for analysis and modeling and cleaning the data is an important step that is a "hands on" experience. Try these challenges from Kaggle to explore techniques that this lesson didn't cover.
+There are many ways to discover and approach preparing your data for analysis and modeling and cleaning the data is an important step that is a "hands on" experience. Try these challenges from Kaggle to explore techniques that this section didn't cover.
 
 - [Data Cleaning Challenge: Parsing Dates](https://www.kaggle.com/rtatman/data-cleaning-challenge-parsing-dates/)
 - [Data Cleaning Challenge: Scale and Normalize Data](https://www.kaggle.com/rtatman/data-cleaning-challenge-scale-and-normalize-data)

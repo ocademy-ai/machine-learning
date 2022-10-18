@@ -15,21 +15,21 @@ kernelspec:
 
 # Defining data
 
-Data is facts, information, observations and measurements that are used to make discoveries and support informed decisions. A data point is a single unit of data within a dataset, which is a collection of data points. Datasets may come in different formats and structures, and will usually be based on their source, or where the data came from. For example, a company's monthly earnings might be in a spreadsheet but hourly heart rate data from a smartwatch may be in [JSON](https://stackoverflow.com/a/383699) format. It's common for data scientists to work with different types of data within a dataset.
+Data is facts, information, observations, and measurements that are used to make discoveries and support informed decisions. A data point is a single unit of data within a dataset, which is a collection of data points. Datasets may come in different formats and structures, and will usually be based on their source, or where the data came from. For example, a company's monthly earnings might be in a spreadsheet but hourly heart rate data from a smartwatch may be in [JSON](https://stackoverflow.com/a/383699) format. It's common for data scientists to work with different types of data within a dataset.
 
 This section focuses on identifying and classifying data by its characteristics and its sources.
 
 ## How data is described
 
-**Raw data** is data that has come from its source in its initial state and has not been analyzed or organized. In order to make sense of what is happening with a dataset, it needs to be organized into a format that can be understood by humans as well as the technology they may use to analyze it further. The structure of a dataset describes how it's organized and can be classified as structured, unstructured and semi-structured. These types of structures will vary, depending on the source but will ultimately fit in these three categories.
+**Raw data** is data that has come from its source in its initial state and has not been analyzed or organized. In order to make sense of what is happening with a dataset, it needs to be organized into a format that can be understood by humans as well as the technology they may use to analyze it further. The structure of a dataset describes how it's organized and can be classified as structured, unstructured, and semi-structured. These types of structures will vary, depending on the source but will ultimately fit into these three categories.
 
 **1\. Quantitative data**
 
-Quantitative data is numerical observations within a dataset and can typically be analyzed, measured and used mathematically. Some examples of quantitative data are a country's population, a person's height or a company's quarterly earnings. With some additional analysis, quantitative data could be used to discover seasonal trends of the Air Quality Index (AQI) or estimate the probability of rush hour traffic on a typical work day.
+Quantitative data is numerical observations within a dataset and can typically be analyzed, measured and used mathematically. Some examples of quantitative data are a country's population, a person's height, or a company's quarterly earnings. With some additional analysis, quantitative data could be used to discover seasonal trends of the Air Quality Index (AQI) or estimate the probability of rush hour traffic on a typical work day.
 
 **2\. Qualitative data**
 
-Qualitative data, also known as categorical data is data that cannot be measured objectively like observations of quantitative data. It's generally various formats of subjective data that capture the quality of something, such as a product or process. Sometimes, qualitative data is numerical and wouldn't be typically used mathematically, like phone numbers or timestamps. Some examples of qualitative data are video comments, the make and model of a car or your closest friends' favorite color. Qualitative data could be used to understand which products consumers like best or to identify popular keywords in job application resumes.
+Qualitative data, also known as categorical data is data that cannot be measured objectively like observations of quantitative data. It's generally various formats of subjective data that capture the quality of something, such as a product or process. Sometimes, qualitative data is numerical and wouldn't be typically used mathematically, like phone numbers or timestamps. Some examples of qualitative data are video comments, the make, and model of a car, or your closest friends' favorite color. Qualitative data could be used to understand which products consumers like best or to identify popular keywords in job application resumes.
 
 **3\. Structured data**
 
@@ -47,7 +47,7 @@ Examples of unstructured data: text files, text messages, video files
 
 **5\. Semi-structured data**
 
-Semi-structured data has features that make it a combination of structured and unstructured data. It doesn't typically conform to a format of rows and columns but is organized in a way that is considered structured and may follow a fixed format or set of rules. The structure will vary between sources, such as a well-defined hierarchy to something more flexible that allows for easy integration of new information. Metadata are indicators that help decide how the data is organized and stored and will have various names, based on the type of data. Some common names for metadata are tags, elements, entities and attributes. For example, a typical email message will have a subject, body and a set of recipients and can be organized by whom or when it was sent.
+Semi-structured data has features that make it a combination of structured and unstructured data. It doesn't typically conform to a format of rows and columns but is organized in a way that is considered structured and may follow a fixed format or set of rules. The structure will vary between sources, such as a well-defined hierarchy to something more flexible that allows for easy integration of new information. Metadata are indicators that help decide how the data is organized and stored and will have various names, based on the type of data. Some common names for metadata are tags, elements, entities, and attributes. For example, a typical email message will have a subject, body, and a set of recipients and can be organized by whom or when it was sent.
 
 Examples of semi-structured data: HTML, CSV files, JavaScript Object Notation (JSON)
 
@@ -55,13 +55,13 @@ Examples of semi-structured data: HTML, CSV files, JavaScript Object Notation (J
 
 A data source is an initial location of where the data was generated, or where it "lives" and will vary based on how and when it was collected. Data generated by its user(s) are known as primary data while secondary data comes from a source that has collected data for general use. For example, a group of scientists collecting observations in a rainforest would be considered primary and if they decide to share it with other scientists it would be considered secondary to those that use it. 
 
-Databases are a common source and rely on a database management system to host and maintain the data where users use commands called queries to explore the data. Files as data sources can be audio, image, and video files as well as spreadsheets like Excel. Internet sources are a common location for hosting data, where databases, as well as files, can be found. Application programming interfaces, also known as APIs allow programmers to create ways to share data with external users through the internet, while the process of web scraping extracts data from a web page. The [lessons in Working with Data](../working-with-data/working-with-data.md) focus on how to use various data sources.
+Databases are a common source and rely on a database management system to host and maintain the data where users use commands called queries to explore the data. Files as data sources can be audio, image, and video files as well as spreadsheets like Excel. Internet sources are a common location for hosting data, where databases, as well as files, can be found. Application programming interfaces, also known as APIs allow programmers to create ways to share data with external users through the internet, while the process of web scraping extracts data from a web page. The sections [in Working with data](../working-with-data/working-with-data.md) focus on how to use various data sources.
 
 ## Your turn! 🚀
 
 ### Task 1
 
-Kaggle is an excellent source of open datasets. Use the [dataset search tool](https://www.kaggle.com/datasets) to find some interesting datasets and classify 3-5 datasets with this criteria:
+Kaggle is an excellent source of open datasets. Use the [dataset search tool](https://www.kaggle.com/datasets) to find some interesting datasets and classify 3-5 datasets with these criteria:
 
 - Is the data quantitative or qualitative?
 - Is the data structured, unstructured, or semi-structured?
