@@ -23,10 +23,6 @@ When it comes to doing data science with big data, the cloud can be a game chang
 
 ![project-schema](../../../images/project-schema.PNG)
 
-## Acknowledgments
-
-Data for the Heart Failure Prediction project is sourced from [Larxel](https://www.kaggle.com/andrewmvd) on [Kaggle](https://www.kaggle.com/andrewmvd/heart-failure-clinical-data). It is licensed under the [Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
-
 ---
 
 ```{tableofcontents}
