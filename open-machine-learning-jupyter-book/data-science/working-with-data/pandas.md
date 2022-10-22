@@ -422,7 +422,7 @@ data[['a', 'e']]
 Among these, slicing may be the source of the most confusion.
 Notice that when slicing with an explicit index (i.e., `data['a':'c']`), the final index is *included* in the slice, while when slicing with an implicit index (i.e., `data[0:2]`), the final index is *excluded* from the slice.
 
-#### Indexers: loc, iloc, and ix
+#### Indexers: loc and iloc
 
 These slicing and indexing conventions can be a source of confusion. For example, if your `Series` has an explicit integer index, an indexing operation such as `data[1]` will use the explicit indices, while a slicing operation like `data[1:3]` will use the implicit Python-style index.
 
@@ -462,9 +462,6 @@ data.iloc[1]
 ```{code-cell}
 data.iloc[1:3]
 ```
-
-A third indexing attribute, `ix`, is a hybrid of the two, and for `Series` objects is equivalent to standard `[]`-based indexing.
-The purpose of the `ix` indexer will become more apparent in the context of `DataFrame` objects, which we will discuss in a moment.
 
 One guiding principle of Python code is that "explicit is better than implicit." The explicit nature of `loc` and `iloc` make them very useful in maintaining clean and readable code; especially in the case of integer indexes, I recommend using these both to make code easier to read and understand, and to prevent subtle bugs due to the mixed indexing/slicing convention.
 
@@ -547,7 +544,7 @@ And passing a single "index" to a `DataFrame` accesses a column:
 data['area']
 ```
 
-Thus for array-style indexing, we need another convention. Here Pandas again uses the `loc`, `iloc`, and `ix` indexers mentioned earlier. Using the `iloc` indexer, we can index the underlying array as if it is a simple NumPy array (using the implicit Python-style index), but the `DataFrame` index and column labels are maintained in the result:
+Thus for array-style indexing, we need another convention. Here Pandas again uses the `loc` and `iloc` indexers mentioned earlier. Using the `iloc` indexer, we can index the underlying array as if it is a simple NumPy array (using the implicit Python-style index), but the `DataFrame` index and column labels are maintained in the result:
 
 ```{code-cell}
 data.iloc[:3, :2]
@@ -558,14 +555,6 @@ Similarly, using the `loc` indexer we can index the underlying data in an array-
 ```{code-cell}
 data.loc[:'Illinois', :'pop']
 ```
-
-The `ix` indexer allows a hybrid of these two approaches:
-
-```{code-cell}
-data.ix[:3, :'pop']
-```
-
-Keep in mind that for integer indices, the `ix` indexer is subject to the same potential sources of confusion as discussed for integer-indexed `Series` objects.
 
 Any of the familiar NumPy-style data access patterns can be used within these indexers. For example, in the `loc` indexer we can combine masking and fancy indexing as in the following:
 
@@ -1309,7 +1298,7 @@ Remember that columns are primary in a `DataFrame`, and the syntax used for mult
 health_data['Guido', 'HR']
 ```
 
-Also, as with the single-index case, we can use the `loc`, `iloc`, and `ix` indexers. For example:
+Also, as with the single-index case, we can use the `loc` and `iloc` indexers. For example:
 
 ```{code-cell}
 health_data.iloc[:2, :2]
@@ -1447,7 +1436,7 @@ While this is a toy example, many real-world datasets have similar hierarchical 
 
 ### Aside: Panel Data
 
-Pandas has a few other fundamental data structures that we have not yet discussed, namely the `pd.Panel` and `pd.Panel4D` objects. These can be thought of, respectively, as three-dimensional and four-dimensional generalizations of the (one-dimensional) `Series` and (two-dimensional) `DataFrame` structures. Once you are familiar with indexing and manipulation of data in a `Series` and `DataFrame`, `Panel` and `Panel4D` are relatively straightforward to use. In particular, the `ix`, `loc`, and `iloc` indexers discussed in *Data Indexing and Selection* extend readily to these higher-dimensional structures.
+Pandas has a few other fundamental data structures that we have not yet discussed, namely the `pd.Panel` and `pd.Panel4D` objects. These can be thought of, respectively, as three-dimensional and four-dimensional generalizations of the (one-dimensional) `Series` and (two-dimensional) `DataFrame` structures. Once you are familiar with indexing and manipulation of data in a `Series` and `DataFrame`, `Panel` and `Panel4D` are relatively straightforward to use. In particular, the `loc`, and `iloc` indexers discussed in *Data Indexing and Selection* extend readily to these higher-dimensional structures.
 
 We won't cover these panel structures further in this text, as I've found in the majority of cases that multi-indexing is a more useful and conceptually simpler representation for higher-dimensional data. Additionally, panel data is fundamentally a dense data representation, while multi-indexing is fundamentally a sparse data representation. As the number of dimensions increases, the dense representation can become very inefficient for the majority of real-world datasets. For the occasional specialized application, however, these structures can be useful. If you'd like to read more about the `Panel` and `Panel4D` structures, see the references listed in *Further Resources*.
 
