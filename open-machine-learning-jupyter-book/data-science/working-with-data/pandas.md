@@ -301,8 +301,24 @@ print(ind.size, ind.shape, ind.ndim, ind.dtype)
 
 One difference between `Index` objects and NumPy arrays is that indices are immutable–that is, they cannot be modified via the normal means:
 
-```{code-cell}
+```PY
 ind[1] = 0
+```
+
+```
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-34-40e631c82e8a> in <module>()
+----> 1 ind[1] = 0
+
+/Users/jakevdp/anaconda/lib/python3.5/site-packages/pandas/indexes/base.py in __setitem__(self, key, value)
+   1243 
+   1244     def __setitem__(self, key, value):
+-> 1245         raise TypeError("Index does not support mutable operations")
+   1246 
+   1247     def __getitem__(self, key):
+
+TypeError: Index does not support mutable operations
 ```
 
 This immutability makes it safer to share indices between multiple `DataFrame`s and arrays, without the potential for side effects from inadvertent index modification.
