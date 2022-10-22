@@ -1561,15 +1561,11 @@ Notice the repeated indices in the result. While this is valid within `DataFrame
 
 If you'd like to simply verify that the indices in the result of `pd.concat()` do not overlap, you can specify the `verify_integrity` flag. With this set to True, the concatenation will raise an exception if there are duplicate indices. Here is an example, where for clarity we'll catch and print the error message:
 
-```py
+```{code-cell}
 try:
     pd.concat([x, y], verify_integrity=True)
 except ValueError as e:
     print("ValueError:", e)
-```
-
-```
-ValueError: Indexes have overlapping values: [0, 1]
 ```
 
 ##### Ignoring the index
@@ -1836,21 +1832,14 @@ For more information on these patterns, see *Aggregation and Grouping *where we 
 
 ### Example: US States Data
 
-Merge and join operations come up most often when combining data from different sources. Here we will consider an example of some data about US states and their populations. The data files can be found at http://github.com/jakevdp/data-USstates/:
+Merge and join operations come up most often when combining data from different sources. Here we will consider an example of some data about US states and their populations. The data files can be found at http://github.com/jakevdp/data-USstates/.
+
+Let's take a look at the three datasets, using the Pandas `read_csv()` function:
 
 ```{code-cell}
-# Following are shell commands to download the data
-# !curl -O https://raw.githubusercontent.com/jakevdp/data-USstates/master/state-population.csv
-# !curl -O https://raw.githubusercontent.com/jakevdp/data-USstates/master/state-areas.csv
-# !curl -O https://raw.githubusercontent.com/jakevdp/data-USstates/master/state-abbrevs.csv
-```
-
-Let's take a look at the three datasets, using the Pandas ``read_csv()`` function:
-
-```{code-cell}
-pop = pd.read_csv('data/state-population.csv')
-areas = pd.read_csv('data/state-areas.csv')
-abbrevs = pd.read_csv('data/state-abbrevs.csv')
+pop = pd.read_csv('../../assets/data/state-population.csv')
+areas = pd.read_csv('../../assets/data/state-areas.csv')
+abbrevs = pd.read_csv('../../assets/data/state-abbrevs.csv')
 
 display('pop.head()', 'areas.head()', 'abbrevs.head()')
 ```
@@ -2066,11 +2055,11 @@ Simple aggregations can give you a flavor of your dataset, but often we would pr
 #### Split, apply, combine
 
 A canonical example of this split-apply-combine operation, where the "apply" is a summation aggregation, is illustrated in this figure:
-![](figures/03.08-split-apply-combine.png)
+![](../../../images/03.08-split-apply-combine.png)
 
-This makes clear what the ``groupby`` accomplishes:
+This makes clear what the `groupby` accomplishes:
 
-- The *split* step involves breaking up and grouping a ``DataFrame`` depending on the value of the specified key.
+- The *split* step involves breaking up and grouping a `DataFrame` depending on the value of the specified key.
 - The *apply* step involves computing some function, usually an aggregate, transformation, or filtering, within the individual groups.
 - The *combine* step merges the results of these operations into an output array.
 
@@ -2290,7 +2279,7 @@ For the examples in this section, we'll use the database of passengers on the *T
 import numpy as np
 import pandas as pd
 import seaborn as sns
-titanic = sns.load_dataset('titanic')
+titanic = sns.load_dataset('../../assets/data/titanic')
 ```
 
 ```{code-cell}
@@ -2381,12 +2370,7 @@ Here this automatically gives us information about the class-agnostic survival r
 As a more interesting example, let's take a look at the freely available data on births in the United States, provided by the Centers for Disease Control (CDC). This data can be found at https://raw.githubusercontent.com/jakevdp/data-CDCbirths/master/births.csv (this dataset has been analyzed rather extensively by Andrew Gelman and his group; see, for example, [this blog post](http://andrewgelman.com/2012/06/14/cool-ass-signal-processing-using-gaussian-processes/)):
 
 ```{code-cell}
-# shell command to download the data:
-# !curl -O https://raw.githubusercontent.com/jakevdp/data-CDCbirths/master/births.csv
-```
-
-```{code-cell}
-births = pd.read_csv('data/births.csv')
+births = pd.read_csv('../../assets/data/births.csv')
 ```
 
 Taking a look at the data, we see that it's relatively simple–it contains the number of births grouped by date and gender:
@@ -2854,7 +2838,7 @@ Once you have a `datetime` object, you can do things like printing the day of th
 date.strftime('%A')
 ```
 
-In the final line, we've used one of the standard string format codes for printing dates (``"%A"``), which you can read about in the [strftime section](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) of Python's [datetime documentation](https://docs.python.org/3/library/datetime.html). Documentation of other useful date utilities can be found in [dateutil's online documentation](http://labix.org/python-dateutil). A related package to be aware of is [``pytz``](http://pytz.sourceforge.net/), which contains tools for working with the most migrane-inducing piece of time series data: time zones.
+In the final line, we've used one of the standard string format codes for printing dates (`"%A"`), which you can read about in the [strftime section](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior) of Python's [datetime documentation](https://docs.python.org/3/library/datetime.html). Documentation of other useful date utilities can be found in [dateutil's online documentation](http://labix.org/python-dateutil). A related package to be aware of is [`pytz`](http://pytz.sourceforge.net/), which contains tools for working with the most migrane-inducing piece of time series data: time zones.
 
 The power of `datetime` and `dateutil` lie in their flexibility and easy syntax: you can use these objects and their built-in methods to easily perform nearly any operation you might be interested in. Where they break down is when you wish to work with large arrays of dates and times: just as lists of Python numerical variables are suboptimal compared to NumPy-style typed numerical arrays, lists of Python datetime objects are suboptimal compared to typed arrays of encoded dates.
 
@@ -3140,6 +3124,7 @@ ax[1].legend(["back-fill", "forward-fill"]);
 ```
 
 The top panel is the default: non-business days are left as NA values and do not appear on the plot. The bottom panel shows the differences between two strategies for filling the gaps: forward-filling and backward-filling.
+
 #### Time-shifts
 
 Another common time series-specific operation is shifting of data in time. Pandas has two closely related methods for computing this: `shift()` and `tshift()`. In short, the difference between them is that `shift()` *shifts the data*, while `tshift()` *shifts the index*. In both cases, the shift is specified in multiples of the frequency.
@@ -3215,16 +3200,10 @@ As always, you can also use the IPython help functionality to explore and try fu
 
 As a more involved example of working with some time series data, let's take a look at bicycle counts on Seattle's [Fremont Bridge](http://www.openstreetmap.org/#map=17/47.64813/-122.34965). This data comes from an automated bicycle counter, installed in late 2012, which has inductive sensors on the east and west sidewalks of the bridge. The hourly bicycle counts can be downloaded from http://data.seattle.gov/; here is the [direct link to the dataset](https://data.seattle.gov/Transportation/Fremont-Bridge-Hourly-Bicycle-Counts-by-Month-Octo/65db-xm6k).
 
-As of summer 2016, the CSV can be downloaded as follows:
+We will specify that we want the Date as an index, and we want these dates to be automatically parsed:
 
 ```{code-cell}
-# !curl -o FremontBridge.csv https://data.seattle.gov/api/views/65db-xm6k/rows.csv?accessType=DOWNLOAD
-```
-
-Once this dataset is downloaded, we can use Pandas to read the CSV output into a `DataFrame`. We will specify that we want the Date as an index, and we want these dates to be automatically parsed:
-
-```{code-cell}
-data = pd.read_csv('FremontBridge.csv', index_col='Date', parse_dates=True)
+data = pd.read_csv('../../assets/data/FremontBridge.csv', index_col='Date', parse_dates=True)
 data.head()
 ```
 
@@ -3318,9 +3297,9 @@ Now we'll use some of the Matplotlib tools to plot two panels side by side:
 ```{code-cell}
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots(1, 2, figsize=(14, 5))
-by_time.ix['Weekday'].plot(ax=ax[0], title='Weekdays',
+by_time.loc['Weekday'].plot(ax=ax[0], title='Weekdays',
                            xticks=hourly_ticks, style=[':', '--', '-'])
-by_time.ix['Weekend'].plot(ax=ax[1], title='Weekends',
+by_time.loc['Weekend'].plot(ax=ax[1], title='Weekends',
                            xticks=hourly_ticks, style=[':', '--', '-']);
 ```
 
@@ -3366,7 +3345,7 @@ tmp2 = (y < 0.5)
 mask = tmp1 & tmp2
 ```
 
-In other words, *every intermediate step is explicitly allocated in memory*. If the ``x`` and ``y`` arrays are very large, this can lead to significant memory and computational overhead. The Numexpr library gives you the ability to compute this type of compound expression element by element, without the need to allocate full intermediate arrays. The [Numexpr documentation](https://github.com/pydata/numexpr) has more details, but for the time being it is sufficient to say that the library accepts a *string* giving the NumPy-style expression you'd like to compute:
+In other words, *every intermediate step is explicitly allocated in memory*. If the `x` and `y` arrays are very large, this can lead to significant memory and computational overhead. The Numexpr library gives you the ability to compute this type of compound expression element by element, without the need to allocate full intermediate arrays. The [Numexpr documentation](https://github.com/pydata/numexpr) has more details, but for the time being it is sufficient to say that the library accepts a *string* giving the NumPy-style expression you'd like to compute:
 
 ```{code-cell}
 import numexpr
@@ -3495,7 +3474,7 @@ Notice here that we treat *column names as variables* within the evaluated expre
 #### Assignment in DataFrame.eval()
 
 In addition to the options just discussed, `DataFrame.eval()`  also allows assignment to any column.
-Let's use the `DataFrame` from before, which has columns `'A'`, ``'B'``, and `'C'`:
+Let's use the `DataFrame` from before, which has columns `'A'`, `'B'`, and `'C'`:
 
 ```{code-cell}
 df.head()
