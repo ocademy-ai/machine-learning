@@ -1539,10 +1539,8 @@ By default, the concatenation takes place row-wise within the `DataFrame` (i.e.,
 ```{code-cell}
 df3 = make_df('AB', [0, 1])
 df4 = make_df('CD', [0, 1])
-display('df3', 'df4', "pd.concat([df3, df4], axis='col')")
+display('df3', 'df4', "pd.concat([df3, df4], axis=1)")
 ```
-
-We could have equivalently specified `axis=1`; here we've used the more intuitive `axis='col'`. 
 
 #### Duplicate indices
 
