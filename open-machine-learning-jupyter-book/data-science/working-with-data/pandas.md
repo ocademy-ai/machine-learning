@@ -1185,11 +1185,11 @@ You can even construct it from a Cartesian product of single indices:
 pd.MultiIndex.from_product([['a', 'b'], [1, 2]])
 ```
 
-Similarly, you can construct the ``MultiIndex`` directly using its internal encoding by passing ``levels`` (a list of lists containing available index values for each level) and ``labels`` (a list of lists that reference these labels):
+Similarly, you can construct the `MultiIndex` directly using its internal encoding by passing `levels` (a list of lists containing available index values for each level) and `codes` (a list of lists that reference these labels):
 
 ```{code-cell}
 pd.MultiIndex(levels=[['a', 'b'], [1, 2]],
-              labels=[[0, 0, 1, 1], [0, 1, 0, 1]])
+              codes=[[0, 0, 1, 1], [0, 1, 0, 1]])
 ```
 
 Any of these objects can be passed as the `index` argument when creating a `Series` or `Dataframe`, or be passed to the `reindex` method of an existing `Series` or `DataFrame`.
