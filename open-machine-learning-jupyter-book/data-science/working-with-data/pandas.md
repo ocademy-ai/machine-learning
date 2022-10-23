@@ -1594,21 +1594,12 @@ df6 = make_df('BCD', [3, 4])
 display('df5', 'df6', 'pd.concat([df5, df6])')
 ```
 
-By default, the entries for which no data is available are filled with NA values. To change this, we can specify one of several options for the `join` and `join_axes` parameters of the concatenate function. By default, the join is a union of the input columns (`join='outer'`), but we can change this to an intersection of the columns using `join='inner'`:
+By default, the entries for which no data is available are filled with NA values. To change this, we can specify  the options `join` parameter of the concatenate function. By default, the join is a union of the input columns (`join='outer'`), but we can change this to an intersection of the columns using `join='inner'`:
 
 ```{code-cell}
 display('df5', 'df6',
         "pd.concat([df5, df6], join='inner')")
 ```
-
-Another option is to directly specify the index of the remaininig colums using the `join_axes` argument, which takes a list of index objects. Here we'll specify that the returned columns should be the same as those of the first input:
-
-```{code-cell}
-display('df5', 'df6',
-        "pd.concat([df5, df6], join_axes=[df5.columns])")
-```
-
-The combination of options of the `pd.concat` function allows a wide range of possible behaviors when joining two datasets; keep these in mind as you use these tools for your own data.
 
 #### The `append()` method
 
