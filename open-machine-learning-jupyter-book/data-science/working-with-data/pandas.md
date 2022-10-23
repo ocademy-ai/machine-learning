@@ -1235,7 +1235,7 @@ health_data['Guido']
 
 For complicated records containing multiple labeled measurements across multiple times for many subjects (people, countries, cities, etc.) use of hierarchical rows and columns can be extremely convenient!
 
-### Indexing and Slicing a MultiIndex
+### Indexing and slicing a MultiIndex
 
 Indexing and slicing on a `MultiIndex` is designed to be intuitive, and it helps if you think about the indices as added dimensions. We'll first look at indexing multiply indexed `Series`, and then multiply-indexed `DataFrame`s.
 
@@ -1582,7 +1582,7 @@ Another option is to use the `keys` option to specify a label for the data sourc
 display('x', 'y', "pd.concat([x, y], keys=['x', 'y'])")
 ```
 
-The result is a multiply indexed `DataFrame`, and we can use the tools discussed in *Hierarchical Indexing* to transform this data into the representation we're interested in.
+The result is a multiply indexed `DataFrame`, and we can use the tools discussed in *Hierarchical indexing* to transform this data into the representation we're interested in.
 
 #### Concatenation with joins
 
@@ -2321,7 +2321,7 @@ fare = pd.qcut(titanic['fare'], 2)
 titanic.pivot_table('survived', ['sex', age], [fare, 'class'])
 ```
 
-The result is a four-dimensional aggregation with hierarchical indices (see *Hierarchical Indexing*), shown in a grid demonstrating the relationship between the values.
+The result is a four-dimensional aggregation with hierarchical indices (see *Hierarchical indexing*), shown in a grid demonstrating the relationship between the values.
 
 #### Additional pivot table options
 
