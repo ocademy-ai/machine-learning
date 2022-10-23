@@ -1997,7 +1997,7 @@ ser
 
 ```{code-cell}
 ser.sum()
-``
+```
 
 ```{code-cell}
 ser.mean()
