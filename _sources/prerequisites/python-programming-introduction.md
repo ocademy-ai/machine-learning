@@ -118,7 +118,7 @@ A _comment_ is a part of the code that is not executed by Python. So we can leav
 
 This is how you write a comment in Python
 
-```shell
+```{code-cell}
 # comment starts with hash
 # this is a Python comment, because it starts with a (#) symbol
 ```
@@ -177,7 +177,7 @@ Comments are very important to make the code more readable and to leave remarks 
 
 **Example: Single Line Comment**
 
-```shell
+```{code-cell}
 # This is the first comment
 # This is the second comment
 # Python is eating the world
@@ -187,7 +187,7 @@ Comments are very important to make the code more readable and to leave remarks 
 
 The triple quote can be used for multiline comments if it is not assigned to a variable
 
-```shell
+```{code-cell}
 """This is multiline comment
 multiline comment takes multiple lines.
 Python is eating the world
@@ -213,7 +213,7 @@ A collection of one or more characters under a single or double quote. If a stri
 
 **Example:**
 
-```py
+```{code-cell}
 'Asabeneh'
 'Finland'
 'Python'
@@ -227,7 +227,7 @@ A boolean data type is either a `True` or `False` value. `T` and `F` should be a
 
 **Example:**
 
-```Python
+```{code-cell}
 True  #  Is the light on? If it is on, then the value is True
 False # Is the light on? If it is off, then the value is False
 ```
@@ -238,7 +238,7 @@ Python list is an ordered collection that allows to store items of different dat
 
 **Example:**
 
-```py
+```{code-cell}
 [0, 1, 2, 3, 4, 5]  # all are the same data types - a list of numbers
 ['Banana', 'Orange', 'Mango', 'Avocado'] # all the same data types - a list of strings (fruits)
 ['Finland','Estonia', 'Sweden','Norway'] # all the same data types - a list of strings (countries)
@@ -251,14 +251,14 @@ A Python dictionary object is an unordered collection of data in a key-value pai
 
 **Example:**
 
-```py
+```{code-cell}
 {
-'first_name':'Asabeneh',
-'last_name':'Yetayeh',
-'country':'Finland', 
-'age':250, 
-'is_married':True,
-'skills':['JS', 'React', 'Node', 'Python']
+  'first_name':'Asabeneh',
+  'last_name':'Yetayeh',
+  'country':'Finland', 
+  'age':250, 
+  'is_married':True,
+  'skills':['JS', 'React', 'Node', 'Python']
 }
 ```
 
@@ -268,11 +268,11 @@ A tuple is an ordered collection of different data types like a list, but tuples
 
 **Example:**
 
-```py
+```{code-cell}
 ('Asabeneh', 'Pawel', 'Brook', 'Abraham', 'Lidiya') # Names
 ```
 
-```py
+```{code-cell}
 ('Earth', 'Jupiter', 'Neptune', 'Mars', 'Venus', 'Saturn', 'Uranus', 'Mercury') # planets
 ```
 
@@ -282,7 +282,7 @@ A set is a collection of data types similar to a list and tuple. Unlike the list
 
 **Example:**
 
-```py
+```{code-cell}
 {2, 4, 3, 5}
 {3.14, 9.81, 2.7} # order is not important in set
 ```
@@ -303,7 +303,7 @@ The Python interactive shell was printing without using `print` but on Visual St
 
 The file name is `helloworld.py`.
 
-```py
+```{code-cell}
 print(2 + 3)             # addition(+)
 print(3 - 1)             # subtraction(-)
 print(2 * 3)             # multiplication(*)
