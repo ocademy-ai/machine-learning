@@ -1594,7 +1594,7 @@ df6 = make_df('BCD', [3, 4])
 display('df5', 'df6', 'pd.concat([df5, df6])')
 ```
 
-By default, the entries for which no data is available are filled with NA values. To change this, we can specify  the options `join` parameter of the concatenate function. By default, the join is a union of the input columns (`join='outer'`), but we can change this to an intersection of the columns using `join='inner'`:
+By default, the entries for which no data is available are filled with NA values. To change this, we can specify  the option `join` parameter of the concatenate function. By default, the join is a union of the input columns (`join='outer'`), but we can change this to an intersection of the columns using `join='inner'`:
 
 ```{code-cell}
 display('df5', 'df6',
