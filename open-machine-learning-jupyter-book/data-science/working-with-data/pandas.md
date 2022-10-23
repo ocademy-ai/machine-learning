@@ -161,7 +161,7 @@ pd.Series({2:'a', 1:'b', 3:'c'}, index=[3, 2])
 
 Notice that in this case, the `Series` is populated only with the explicitly identified keys.
 
-### The Pandas DataFrame Object
+### The Pandas DataFrame object
 
 The next fundamental structure in Pandas is the `DataFrame`. Like the `Series` object discussed in the previous section, the `DataFrame` can be thought of either as a generalization of a NumPy array, or as a specialization of a Python dictionary. We'll now take a look at each of these perspectives.
 
@@ -307,17 +307,6 @@ ind[1] = 0
 
 ```
 ---------------------------------------------------------------------------
-TypeError                                 Traceback (most recent call last)
-<ipython-input-34-40e631c82e8a> in <module>()
-----> 1 ind[1] = 0
-
-/Users/jakevdp/anaconda/lib/python3.5/site-packages/pandas/indexes/base.py in __setitem__(self, key, value)
-   1243 
-   1244     def __setitem__(self, key, value):
--> 1245         raise TypeError("Index does not support mutable operations")
-   1246 
-   1247     def __getitem__(self, key):
-
 TypeError: Index does not support mutable operations
 ```
 
@@ -347,7 +336,8 @@ indA ^ indB  # symmetric difference
 These operations may also be accessed via object methods, for example `indA.intersection(indB)`.
 
 ## Data indexing and selection
-In *Introduction-to-NumPy*, we looked in detail at methods and tools to access, set, and modify values in NumPy arrays. These included indexing (e.g., `arr[2, 1]`), slicing (e.g., `arr[:, 1:5]`), masking (e.g., `arr[arr > 0]`), fancy indexing (e.g., `arr[0, [1, 5]]`), and combinations thereof (e.g., `arr[:, [1, 5]]`). Here we'll look at similar means of accessing and modifying values in Pandas `Series` and `DataFrame` objects. If you have used the NumPy patterns, the corresponding patterns in Pandas will feel very familiar, though there are a few quirks to be aware of.
+
+In Numpy, we looked in detail at methods and tools to access, set, and modify values in NumPy arrays. These included indexing (e.g., `arr[2, 1]`), slicing (e.g., `arr[:, 1:5]`), masking (e.g., `arr[arr > 0]`), fancy indexing (e.g., `arr[0, [1, 5]]`), and combinations thereof (e.g., `arr[:, [1, 5]]`). Here we'll look at similar means of accessing and modifying values in Pandas `Series` and `DataFrame` objects. If you have used the NumPy patterns, the corresponding patterns in Pandas will feel very familiar, though there are a few quirks to be aware of.
 
 We'll start with the simple case of the one-dimensional `Series` object, and then move on to the more complicated two-dimesnional `DataFrame` object.
 
@@ -774,7 +764,7 @@ None of these approaches is without trade-offs: use of a separate mask array req
 As in most cases where no universally optimal choice exists, different languages and systems use different conventions.
 For example, the R language uses reserved bit patterns within each data type as sentinel values indicating missing data, while the SciDB system uses an extra byte attached to every cell which indicates a NA state.
 
-### Missing data in pandas
+### Missing data in Pandas
 
 The way in which Pandas handles missing values is constrained by its reliance on the NumPy package, which does not have a built-in notion of NA values for non-floating-point data types.
 
@@ -1438,7 +1428,7 @@ While this is a toy example, many real-world datasets have similar hierarchical 
 
 Pandas has a few other fundamental data structures that we have not yet discussed, namely the `pd.Panel` and `pd.Panel4D` objects. These can be thought of, respectively, as three-dimensional and four-dimensional generalizations of the (one-dimensional) `Series` and (two-dimensional) `DataFrame` structures. Once you are familiar with indexing and manipulation of data in a `Series` and `DataFrame`, `Panel` and `Panel4D` are relatively straightforward to use. In particular, the `loc`, and `iloc` indexers discussed in *Data indexing and selection* extend readily to these higher-dimensional structures.
 
-We won't cover these panel structures further in this text, as I've found in the majority of cases that multi-indexing is a more useful and conceptually simpler representation for higher-dimensional data. Additionally, panel data is fundamentally a dense data representation, while multi-indexing is fundamentally a sparse data representation. As the number of dimensions increases, the dense representation can become very inefficient for the majority of real-world datasets. For the occasional specialized application, however, these structures can be useful. If you'd like to read more about the `Panel` and `Panel4D` structures, see the references listed in *Further Resources*.
+We won't cover these panel structures further in this text, as I've found in the majority of cases that multi-indexing is a more useful and conceptually simpler representation for higher-dimensional data. Additionally, panel data is fundamentally a dense data representation, while multi-indexing is fundamentally a sparse data representation. As the number of dimensions increases, the dense representation can become very inefficient for the majority of real-world datasets. For the occasional specialized application, however, these structures can be useful. If you'd like to read more about the `Panel` and `Panel4D` structures, see the references listed in *Further resources*.
 
 ## Combining datasets: concat and append
 
@@ -1488,9 +1478,9 @@ class display(object):
     
 The use of this will become clearer as we continue our discussion in the following section.
 
-### Recall: concatenation of NumPy Arrays
+### Recall: concatenation of NumPy arrays
 
-Concatenation of `Series` and `DataFrame` objects is very similar to concatenation of Numpy arrays, which can be done via the `np.concatenate` function as discussed in The *Basics of NumPy Arrays*. Recall that with it, you can combine the contents of two or more arrays into a single array:
+Concatenation of `Series` and `DataFrame` objects is very similar to concatenation of Numpy arrays, which can be done via the `np.concatenate` function as discussed in The *Basics of NumPy arrays*. Recall that with it, you can combine the contents of two or more arrays into a single array:
 
 ```{code-cell}
 x = [1, 2, 3]
@@ -1642,7 +1632,7 @@ class display(object):
                            for a in self.args)
 ```
 
-### Relational Algebra
+### Relational algebra
 
 The behavior implemented in `pd.merge()` is a subset of what is known as *relational algebra*, which is a formal set of rules for manipulating relational data, and forms the conceptual foundation of operations available in most databases. The strength of the relational algebra approach is that it proposes several primitive operations, which become the building blocks of more complicated operations on any dataset. With this lexicon of fundamental operations implemented efficiently in a database or other program, a wide range of fairly complicated composite operations can be performed.
 
@@ -1775,7 +1765,7 @@ df7 = pd.DataFrame({'name': ['Mary', 'Joseph'],
 display('df6', 'df7', 'pd.merge(df6, df7)')
 ```
 
-Here we have merged two datasets that have only a single "name" entry in common: Mary. By default, the result contains the *intersection* of the two sets of inputs; this is what is known as an *inner join*. We can specify this explicitly using the ``how`` keyword, which defaults to `"inner"`:
+Here we have merged two datasets that have only a single "name" entry in common: Mary. By default, the result contains the *intersection* of the two sets of inputs; this is what is known as an *inner join*. We can specify this explicitly using the `how` keyword, which defaults to `"inner"`:
 
 ```{code-cell}
 pd.merge(df6, df7, how='inner')
@@ -1817,7 +1807,7 @@ display('df8', 'df9', 'pd.merge(df8, df9, on="name", suffixes=["_L", "_R"])')
 ```
 
 These suffixes work in any of the possible join patterns, and work also if there are multiple overlapping columns.
-For more information on these patterns, see *Aggregation and Grouping *where we dive a bit deeper into relational algebra.
+For more information on these patterns, see *Aggregation and grouping *where we dive a bit deeper into relational algebra.
 
 ### Example: US States data
 
@@ -1902,7 +1892,7 @@ final.head()
 ```
 
 Now we have all the data we need. To answer the question of interest, let's first select the portion of the data corresponding with the year 2000, and the total population.
-We'll use the `query()` function to do this quickly (this requires the `numexpr` package to be installed; see *High-Performance Pandas: `eval()` and `query()`*:
+We'll use the `query()` function to do this quickly (this requires the `numexpr` package to be installed; see *High-performance Pandas: `eval()` and `query()`*:
 
 ```{code-cell}
 data2010 = final.query("year == 2010 & ages == 'total'")
@@ -2012,7 +2002,7 @@ By specifying the `axis` argument, you can instead aggregate within each row:
 df.mean(axis='columns')
 ```
 
-Pandas `Series` and `DataFrame`s include all of the common aggregates mentioned in *Aggregations: Min, Max, and everything in Between*); in addition, there is a convenience method `describe()` that computes several common aggregates for each column and returns the result. Let's use this on the Planets data, for now dropping rows with missing values:
+Pandas `Series` and `DataFrame`s include all of the common aggregates mentioned in *Aggregations: min, max, and everything in between*); in addition, there is a convenience method `describe()` that computes several common aggregates for each column and returns the result. Let's use this on the Planets data, for now dropping rows with missing values:
 
 ```{code-cell}
 planets.dropna().describe()
@@ -2083,7 +2073,7 @@ The `sum()` method is just one possibility here; you can apply virtually any com
 The `GroupBy` object is a very flexible abstraction.
 In many ways, you can simply treat it as if it's a collection of `DataFrame`s, and it does the difficult things under the hood. Let's see some examples using the Planets data.
 
-Perhaps the most important operations made available by a `GroupBy` are *aggregate*, *filter*, *transform*, and *apply*. We'll discuss each of these more fully in *Aggregate, filter, transform, apply*, but before that let's introduce some of the other functionality that can be used with the basic ``GroupBy`` operation.
+Perhaps the most important operations made available by a `GroupBy` are *aggregate*, *filter*, *transform*, and *apply*. We'll discuss each of these more fully in *Aggregate, filter, transform, apply*, but before that let's introduce some of the other functionality that can be used with the basic `GroupBy` operation.
 
 ##### Column indexing
 
@@ -2399,7 +2389,7 @@ sig = 0.74 * (quartiles[2] - quartiles[0])
 
 This final line is a robust estimate of the sample mean, where the 0.74 comes from the interquartile range of a Gaussian distribution (You can learn more about sigma-clipping operations in a book I coauthored with Željko Ivezić, Andrew J. Connolly, and Alexander Gray: ["Statistics, Data Mining, and Machine Learning in Astronomy"](http://press.princeton.edu/titles/10159.html) (Princeton University Press, 2014)).
 
-With this we can use the `query()` method (discussed further in *High-Performance Pandas: `eval()` and `query()`*) to filter-out rows with births outside these values:
+With this we can use the `query()` method (discussed further in *High-performance Pandas: `eval()` and `query()`*) to filter-out rows with births outside these values:
 
 ```{code-cell}
 births = births.query('(births > @mu - 5 * @sig) & (births < @mu + 5 * @sig)')
@@ -2412,7 +2402,7 @@ Next we set the `day` column to integers; previously it had been a string becaus
 births['day'] = births['day'].astype(int)
 ```
 
-Finally, we can combine the day, month, and year to create a Date index (see *Working with Time Series*). This allows us to quickly compute the weekday corresponding to each row:
+Finally, we can combine the day, month, and year to create a Date index (see *Working with time Series*). This allows us to quickly compute the weekday corresponding to each row:
 
 ```{code-cell}
 # create a datetime index from the year, month, day
@@ -2495,15 +2485,6 @@ data = ['peter', 'Paul', None, 'MARY', 'gUIDO']
 
 ```
 ---------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-<ipython-input-3-fc1d891ab539> in <module>()
-      1 data = ['peter', 'Paul', None, 'MARY', 'gUIDO']
-----> 2 [s.capitalize() for s in data]
-
-<ipython-input-3-fc1d891ab539> in <listcomp>(.0)
-      1 data = ['peter', 'Paul', None, 'MARY', 'gUIDO']
-----> 2 [s.capitalize() for s in data]
-
 AttributeError: 'NoneType' object has no attribute 'capitalize'
 ```
 
@@ -2655,7 +2636,7 @@ full_monte['info'].str.get_dummies('|')
 
 With these operations as building blocks, you can construct an endless range of string processing procedures when cleaning your data.
 
-We won't dive further into these methods here, but I encourage you to read through ["Working with Text Data"](http://pandas.pydata.org/pandas-docs/stable/text.html) in the Pandas online documentation, or to refer to the resources listed in *Further Resources*.
+We won't dive further into these methods here, but I encourage you to read through ["Working with Text Data"](http://pandas.pydata.org/pandas-docs/stable/text.html) in the Pandas online documentation, or to refer to the resources listed in *Further resources*.
 
 ### Example: recipe database
 
@@ -2790,7 +2771,7 @@ Now that we have narrowed down our recipe selection by a factor of almost 20,000
 
 Hopefully this example has given you a bit of a flavor (ba-dum!) for the types of data cleaning operations that are efficiently enabled by Pandas string methods. Of course, building a very robust recipe recommendation system would require a *lot* more work! Extracting full ingredient lists from each recipe would be an important piece of the task; unfortunately, the wide variety of formats used makes this a relatively time-consuming process. This points to the truism that in data science, cleaning and munging of real-world data often comprises the majority of the work, and Pandas provides the tools that can help you do this efficiently.
 
-## Working with time series
+## Working with time Series
 
 Pandas was developed in the context of financial modeling, so as you might expect, it contains a fairly extensive set of tools for working with dates, times, and time-indexed data. Date and time data comes in a few flavors, which we will discuss here:
 
@@ -3434,7 +3415,7 @@ np.allclose(result1, result2)
 ##### Other operations
 Other operations such as function calls, conditional statements, loops, and other more involved constructs are currently *not* implemented in `pd.eval()`. If you'd like to execute these more complicated types of expressions, you can use the Numexpr library itself.
 
-### `DataFrame.eval()` for Column-Wise Operations
+### `DataFrame.eval()` for column-wise operations
 
 Just as Pandas has a top-level `pd.eval()` function, `DataFrame`s have an `eval()` method that works in similar ways. The benefit of the `eval()` method is that columns can be referred to *by name*. We'll use this labeled array as an example:
 
@@ -3550,7 +3531,7 @@ On the performance side, `eval()` can be faster even when you are not maxing-out
 We've covered most of the details of `eval()` and `query()` here; for more information on these, you can refer to the Pandas documentation.
 In particular, different parsers and engines can be specified for running these queries; for details on this, see the discussion within the ["Enhancing Performance" section](http://pandas.pydata.org/pandas-docs/dev/enhancingperf.html).
 
-## Further Resources
+## Further resources
 
 In this chapter, we've covered many of the basics of using Pandas effectively for data analysis. Still, much has been omitted from our discussion. To learn more about Pandas, I recommend the following resources:
 
