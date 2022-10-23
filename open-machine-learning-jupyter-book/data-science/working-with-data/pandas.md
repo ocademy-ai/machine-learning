@@ -599,7 +599,7 @@ One of the essential pieces of NumPy is the ability to perform quick element-wis
 
 Pandas includes a couple useful twists, however: for unary operations like negation and trigonometric functions, these ufuncs will *preserve index and column labels* in the output, and for binary operations such as addition and multiplication, Pandas will automatically *align indices* when passing the objects to the ufunc. This means that keeping the context of data and combining data from different sources–both potentially error-prone tasks with raw NumPy arrays–become essentially foolproof ones with Pandas. We will additionally see that there are well-defined operations between one-dimensional `Series` structures and two-dimensional `DataFrame` structures.
 
-### Ufuncs: Index Preservation
+### Ufuncs: index preservation
 
 Because Pandas is designed to work with NumPy, any NumPy ufunc will work on Pandas `Series` and `DataFrame` objects. Let's start by defining a simple `Series` and `DataFrame` on which to demonstrate this:
 
@@ -1332,7 +1332,7 @@ health_data.loc[idx[:, 1], idx[:, 'HR']]
 
 There are so many ways to interact with data in multiply indexed `Series` and `DataFrame`s, and as with many tools in this book the best way to become familiar with them is to try them out!
 
-### Rearranging Multi-Indices
+### Rearranging multi-indices
 
 One of the keys to working with multiply indexed data is knowing how to effectively transform the data. There are a number of operations that will preserve all the information in the dataset, but rearrange it for the purposes of various computations. We saw a brief example of this in the `stack()` and `unstack()` methods, but there are many more ways to finely control the rearrangement of data between hierarchical indices and columns, and we'll explore them here.
 
@@ -1434,13 +1434,13 @@ Thus in two lines, we've been able to find the average heart rate and temperatur
 This syntax is actually a short cut to the `GroupBy` functionality.
 While this is a toy example, many real-world datasets have similar hierarchical structure.
 
-### Aside: Panel Data
+### Aside: Panel data
 
 Pandas has a few other fundamental data structures that we have not yet discussed, namely the `pd.Panel` and `pd.Panel4D` objects. These can be thought of, respectively, as three-dimensional and four-dimensional generalizations of the (one-dimensional) `Series` and (two-dimensional) `DataFrame` structures. Once you are familiar with indexing and manipulation of data in a `Series` and `DataFrame`, `Panel` and `Panel4D` are relatively straightforward to use. In particular, the `loc`, and `iloc` indexers discussed in *Data indexing and selection* extend readily to these higher-dimensional structures.
 
 We won't cover these panel structures further in this text, as I've found in the majority of cases that multi-indexing is a more useful and conceptually simpler representation for higher-dimensional data. Additionally, panel data is fundamentally a dense data representation, while multi-indexing is fundamentally a sparse data representation. As the number of dimensions increases, the dense representation can become very inefficient for the majority of real-world datasets. For the occasional specialized application, however, these structures can be useful. If you'd like to read more about the `Panel` and `Panel4D` structures, see the references listed in *Further Resources*.
 
-## Combining Datasets: Concat and Append
+## Combining datasets: concat and append
 
 Some of the most interesting studies of data come from combining different data sources. These operations can involve anything from very straightforward concatenation of two different datasets, to more complicated database-style joins and merges that correctly handle any overlaps between the datasets. `Series` and `DataFrame`s are built with this type of operation in mind, and Pandas includes functions and methods that make this sort of data wrangling fast and straightforward.
 
@@ -1488,7 +1488,7 @@ class display(object):
     
 The use of this will become clearer as we continue our discussion in the following section.
 
-### Recall: Concatenation of NumPy Arrays
+### Recall: concatenation of NumPy Arrays
 
 Concatenation of `Series` and `DataFrame` objects is very similar to concatenation of Numpy arrays, which can be done via the `np.concatenate` function as discussed in The *Basics of NumPy Arrays*. Recall that with it, you can combine the contents of two or more arrays into a single array:
 
@@ -1507,7 +1507,7 @@ x = [[1, 2],
 np.concatenate([x, x], axis=1)
 ```
 
-### Simple Concatenation with `pd.concat`
+### Simple concatenation with `pd.concat`
 
 Pandas has a function, `pd.concat()`, which has a similar syntax to `np.concatenate` but contains a number of options that we'll discuss momentarily:
 
@@ -1648,7 +1648,7 @@ The behavior implemented in `pd.merge()` is a subset of what is known as *relati
 
 Pandas implements several of these fundamental building-blocks in the `pd.merge()` function and the related `join()` method of `Series` and `Dataframe`s. As we will see, these let you efficiently link data from different sources.
 
-### Categories of Joins
+### Categories of joins
 
 The `pd.merge()` function implements a number of types of joins: the *one-to-one*, *many-to-one*, and *many-to-many* joins. All three types of joins are accessed via an identical call to the `pd.merge()` interface; the type of join performed depends on the form of the input data. Here we will show simple examples of the three types of merges, and discuss detailed options further below.
 
@@ -1819,7 +1819,7 @@ display('df8', 'df9', 'pd.merge(df8, df9, on="name", suffixes=["_L", "_R"])')
 These suffixes work in any of the possible join patterns, and work also if there are multiple overlapping columns.
 For more information on these patterns, see *Aggregation and Grouping *where we dive a bit deeper into relational algebra.
 
-### Example: US States Data
+### Example: US States data
 
 Merge and join operations come up most often when combining data from different sources. Here we will consider an example of some data about US states and their populations. The data files can be found at http://github.com/jakevdp/data-USstates/.
 
@@ -1933,7 +1933,7 @@ We see that the least dense state, by far, is Alaska, averaging slightly over on
 
 This type of messy data merging is a common task when trying to answer questions using real-world data sources. I hope that this example has given you an idea of the ways you can combine tools we've covered in order to gain insight from your data!
 
-## Aggregation and Grouping
+## Aggregation and grouping
 
 An essential piece of analysis of large data is efficient summarization: computing aggregations like `sum()`, `mean()`, `median()`, `min()`, and `max()`, in which a single number gives insight into the nature of a potentially large dataset. In this section, we'll explore aggregations in Pandas, from simple operations akin to what we've seen on NumPy arrays, to more sophisticated operations based on the concept of a `groupby`.
 
@@ -1960,7 +1960,7 @@ class display(object):
                            for a in self.args)
 ```
 
-### Planets Data
+### Planets data
 
 Here we will use the Planets dataset, available via the [Seaborn package](http://seaborn.pydata.org/). It gives information on planets that astronomers have discovered around other stars (known as *extrasolar planets* or *exoplanets* for short). It can be downloaded with a simple Seaborn command:
 
@@ -3001,7 +3001,7 @@ pd.timedelta_range(0, periods=10, freq='H')
 
 All of these require an understanding of Pandas frequency codes, which we'll summarize in the next section.
 
-### Frequencies and Offsets
+### Frequencies and offsets
 
 Fundamental to these Pandas time series tools is the concept of a frequency or date offset. Just as we saw the `D` (day) and `H` (hour) codes above, we can use such codes to specify any desired frequency spacing. The following table summarizes the main codes available:
 
@@ -3177,7 +3177,7 @@ ax.lines[0].set_alpha(0.3)
 
 As with group-by operations, the `aggregate()` and `apply()` methods can be used for custom rolling computations.
 
-### Where to Learn More
+### Where to learn more
 
 This section has provided only a brief summary of some of the most essential features of time series tools provided by Pandas; for a more complete discussion, you can refer to the ["Time Series/Date" section](http://pandas.pydata.org/pandas-docs/stable/timeseries.html) of the Pandas online documentation.
 
@@ -3185,7 +3185,7 @@ Another excellent resource is the textbook [Python for Data Analysis](http://sho
 
 As always, you can also use the IPython help functionality to explore and try further options available to the functions and methods discussed here. I find this often is the best way to learn a new Python tool.
 
-### Example: Visualizing Seattle Bicycle Counts
+### Example: visualizing Seattle bicycle counts
 
 As a more involved example of working with some time series data, let's take a look at bicycle counts on Seattle's [Fremont Bridge](http://www.openstreetmap.org/#map=17/47.64813/-122.34965). This data comes from an automated bicycle counter, installed in late 2012, which has inductive sensors on the east and west sidewalks of the bridge. The hourly bicycle counts can be downloaded from http://data.seattle.gov/; here is the [direct link to the dataset](https://data.seattle.gov/Transportation/Fremont-Bridge-Hourly-Bicycle-Counts-by-Month-Octo/65db-xm6k).
 
