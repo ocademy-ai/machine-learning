@@ -16,6 +16,7 @@ kernelspec:
 # Pandas
 
 ## Introducing Pandas objects
+
 At the very basic level, Pandas objects can be thought of as enhanced versions of NumPy structured arrays in which the rows and columns are identified with labels rather than simple integer indices.
 
 As we will see during the course of this chapter, Pandas provides a host of useful tools, methods, and functionality on top of the basic data structures, but nearly everything that follows will require an understanding of what these structures are.
@@ -409,8 +410,7 @@ data[(data > 0.3) & (data < 0.8)]
 data[['a', 'e']]
 ```
 
-Among these, slicing may be the source of the most confusion.
-Notice that when slicing with an explicit index (i.e., `data['a':'c']`), the final index is *included* in the slice, while when slicing with an implicit index (i.e., `data[0:2]`), the final index is *excluded* from the slice.
+Among these, slicing may be the source of the most confusion. Notice that when slicing with an explicit index (i.e., `data['a':'c']`), the final index is *included* in the slice, while when slicing with an implicit index (i.e., `data[0:2]`), the final index is *excluded* from the slice.
 
 #### Indexers: loc and iloc
 
@@ -481,6 +481,7 @@ data['area']
 ```
 
 Equivalently, we can use attribute-style access with column names that are strings:
+
 ```{code-cell}
 data.area
 ```
@@ -772,8 +773,7 @@ Pandas could have followed R's lead in specifying bit patterns for each individu
 
 NumPy does have support for masked arrays – that is, arrays that have a separate Boolean mask array attached for marking data as "good" or "bad." Pandas could have derived from this, but the overhead in both storage, computation, and code maintenance makes that an unattractive choice.
 
-With these constraints in mind, Pandas chose to use sentinels for missing data, and further chose to use two already-existing Python null values: the special floating-point `NaN` value, and the Python `None` object.
-This choice has some side effects, as we will see, but in practice ends up being a good compromise in most cases of interest.
+With these constraints in mind, Pandas chose to use sentinels for missing data, and further chose to use two already-existing Python null values: the special floating-point `NaN` value, and the Python `None` object. This choice has some side effects, as we will see, but in practice ends up being a good compromise in most cases of interest.
 
 #### `None`: pythonic missing data
 
@@ -807,17 +807,6 @@ vals1.sum()
 
 ```
 ---------------------------------------------------------------------------
-TypeError                                 Traceback (most recent call last)
-<ipython-input-4-749fd8ae6030> in <module>()
-----> 1 vals1.sum()
-
-/Users/jakevdp/anaconda/lib/python3.5/site-packages/numpy/core/_methods.py in _sum(a, axis, dtype, out, keepdims)
-     30 
-     31 def _sum(a, axis=None, dtype=None, out=None, keepdims=False):
----> 32     return umr_sum(a, axis, dtype, out, keepdims)
-     33 
-     34 def _prod(a, axis=None, dtype=None, out=None, keepdims=False):
-
 TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
 ```
 
@@ -1062,9 +1051,11 @@ But the convenience ends there. For example, if you need to select all values fr
 ```{code-cell}
 pop[[i for i in pop.index if i[1] == 2010]]
 ```
+
 This produces the desired result, but is not as clean (or as efficient for large datasets) as the slicing syntax we've grown to love in Pandas.
 
 #### The better way: Pandas MultiIndex
+
 Fortunately, Pandas provides a better way. Our tuple-based indexing is essentially a rudimentary multi-index, and the Pandas `MultiIndex` type gives us the type of operations we wish to have. We can create a multi-index from the tuples as follows:
 
 ```{code-cell}
@@ -1081,8 +1072,7 @@ pop = pop.reindex(index)
 pop
 ```
 
-Here the first two columns of the `Series` representation show the multiple index values, while the third column shows the data.
-Notice that some entries are missing in the first column: in this multi-index representation, any blank entry indicates the same value as the line above it.
+Here the first two columns of the `Series` representation show the multiple index values, while the third column shows the data. Notice that some entries are missing in the first column: in this multi-index representation, any blank entry indicates the same value as the line above it.
 
 Now to access all data for which the second index is 2010, we can simply use the Pandas slicing notation:
 
@@ -1094,8 +1084,7 @@ The result is a singly indexed array with just the keys we're interested in. Thi
 
 #### MultiIndex as extra dimension
 
-You might notice something else here: we could easily have stored the same data using a simple `DataFrame` with index and column labels.
-In fact, Pandas is built with this equivalence in mind. The `unstack()` method will quickly convert a multiply indexed `Series` into a conventionally indexed `DataFrame`:
+You might notice something else here: we could easily have stored the same data using a simple `DataFrame` with index and column labels. In fact, Pandas is built with this equivalence in mind. The `unstack()` method will quickly convert a multiply indexed `Series` into a conventionally indexed `DataFrame`:
 
 ```{code-cell}
 pop_df = pop.unstack()
@@ -1118,8 +1107,7 @@ pop_df = pd.DataFrame({'total': pop,
 pop_df
 ```
 
-In addition, all the ufuncs and other functionality discussed in *Operating on Data in Pandas* work with hierarchical indices as well.
-Here we compute the fraction of people under 18 by year, given the above data:
+In addition, all the ufuncs and other functionality discussed in *Operating on Data in Pandas* work with hierarchical indices as well. Here we compute the fraction of people under 18 by year, given the above data:
 
 ```{code-cell}
 f_u18 = pop_df['under18'] / pop_df['total']
@@ -1186,8 +1174,7 @@ Any of these objects can be passed as the `index` argument when creating a `Seri
 
 #### MultiIndex level names
 
-Sometimes it is convenient to name the levels of the `MultiIndex`.
-This can be accomplished by passing the `names` argument to any of the above `MultiIndex` constructors, or by setting the `names` attribute of the index after the fact:
+Sometimes it is convenient to name the levels of the `MultiIndex`. This can be accomplished by passing the `names` argument to any of the above `MultiIndex` constructors, or by setting the `names` attribute of the index after the fact:
 
 ```{code-cell}
 pop.index.names = ['state', 'year']
@@ -1307,9 +1294,6 @@ health_data.loc[(:, 1), (:, 'HR')]
 ```
 
 ```
-  File "<ipython-input-32-8e3cc151e316>", line 1
-    health_data.loc[(:, 1), (:, 'HR')]
-                     ^
 SyntaxError: invalid syntax
 ```
 
@@ -1348,6 +1332,7 @@ except KeyError as e:
     print(type(e))
     print(e)
 ```
+
 Although it is not entirely clear from the error message, this is the result of the MultiIndex not being sorted. For various reasons, partial slices and other similar operations require the levels in the `MultiIndex` to be in sorted (i.e., lexographical) order. Pandas provides a number of convenience routines to perform this type of sorting; examples are the `sort_index()` and `sortlevel()` methods of the `DataFrame`. We'll use the simplest, `sort_index()`, here:
 
 ```{code-cell}
@@ -1420,9 +1405,7 @@ By further making use of the `axis` keyword, we can take the mean among levels o
 data_mean.mean(axis=1, level='type')
 ```
 
-Thus in two lines, we've been able to find the average heart rate and temperature measured among all subjects in all visits each year.
-This syntax is actually a short cut to the `GroupBy` functionality.
-While this is a toy example, many real-world datasets have similar hierarchical structure.
+Thus in two lines, we've been able to find the average heart rate and temperature measured among all subjects in all visits each year. This syntax is actually a short cut to the `GroupBy` functionality. While this is a toy example, many real-world datasets have similar hierarchical structure.
 
 ### Aside: Panel data
 
@@ -1661,8 +1644,7 @@ df3 = pd.merge(df1, df2)
 df3
 ```
 
-The `pd.merge()` function recognizes that each `DataFrame` has an "employee" column, and automatically joins using this column as a key.
-The result of the merge is a new `DataFrame` that combines the information from the two inputs. Notice that the order of entries in each column is not necessarily maintained: in this case, the order of the "employee" column differs between `df1` and `df2`, and the `pd.merge()` function correctly accounts for this. Additionally, keep in mind that the merge in general discards the index, except in the special case of merges by index (see the `left_index` and `right_index` keywords, discussed momentarily).
+The `pd.merge()` function recognizes that each `DataFrame` has an "employee" column, and automatically joins using this column as a key. The result of the merge is a new `DataFrame` that combines the information from the two inputs. Notice that the order of entries in each column is not necessarily maintained: in this case, the order of the "employee" column differs between `df1` and `df2`, and the `pd.merge()` function correctly accounts for this. Additionally, keep in mind that the merge in general discards the index, except in the special case of merges by index (see the `left_index` and `right_index` keywords, discussed momentarily).
 
 #### Many-to-one joins
 
@@ -1783,8 +1765,7 @@ The *left join* and *right join* return joins over the left entries and right en
 display('df6', 'df7', "pd.merge(df6, df7, how='left')")
 ```
 
-The output rows now correspond to the entries in the left input. Using
-`how='right'` works in a similar manner.
+The output rows now correspond to the entries in the left input. Using `how='right'` works in a similar manner.
 
 All of these options can be applied straightforwardly to any of the preceding join types.
 
@@ -1891,8 +1872,7 @@ final.dropna(inplace=True)
 final.head()
 ```
 
-Now we have all the data we need. To answer the question of interest, let's first select the portion of the data corresponding with the year 2000, and the total population.
-We'll use the `query()` function to do this quickly (this requires the `numexpr` package to be installed; see *High-performance Pandas: `eval()` and `query()`*:
+Now we have all the data we need. To answer the question of interest, let's first select the portion of the data corresponding with the year 2000, and the total population. We'll use the `query()` function to do this quickly (this requires the `numexpr` package to be installed; see *High-performance Pandas: `eval()` and `query()`*:
 
 ```{code-cell}
 data2010 = final.query("year == 2010 & ages == 'total'")
@@ -2358,8 +2338,7 @@ Taking a look at the data, we see that it's relatively simple–it contains the 
 births.head()
 ```
 
-We can start to understand this data a bit more by using a pivot table.
-Let's add a decade column, and take a look at male and female births as a function of decade:
+We can start to understand this data a bit more by using a pivot table. Let's add a decade column, and take a look at male and female births as a function of decade:
 
 ```{code-cell}
 births['decade'] = 10 * (births['year'] // 10)
@@ -2569,8 +2548,7 @@ In addition, there are several methods that accept regular expressions to examin
 | `split()`   | Equivalent to `str.split()`, but accepts regexps |
 | `rsplit()` | Equivalent to `str.rsplit()`, but accepts regexps |
 
-With these, you can do a wide range of interesting operations.
-For example, we can extract the first name from each by asking for a contiguous group of characters at the beginning of each element:
+With these, you can do a wide range of interesting operations. For example, we can extract the first name from each by asking for a contiguous group of characters at the beginning of each element:
 
 ```{code-cell}
 monte.str.extract('([A-Za-z]+)', expand=False)
@@ -2644,28 +2622,14 @@ These vectorized string operations become most useful in the process of cleaning
 
 The scripts used to compile this can be found at https://github.com/fictivekin/openrecipes, and the link to the current version of the database is found there as well.
 
-As of Spring 2016, this database is about 30 MB, and can be downloaded and unzipped with these commands:
-
 ```{code-cell}
-# !curl -O http://openrecipes.s3.amazonaws.com/recipeitems-latest.json.gz
-# !gunzip recipeitems-latest.json.gz
-```
-
-The database is in JSON format, so we will try `pd.read_json` to read it:
-
-```py
 try:
     recipes = pd.read_json('recipeitems-latest.json')
 except ValueError as e:
     print("ValueError:", e)
 ```
 
-```
-ValueError: Trailing data
-```
-
-Oops! We get a `ValueError` mentioning that there is "trailing data."
-Searching for the text of this error on the Internet, it seems that it's due to using a file in which *each line* is itself a valid JSON, but the full file is not. Let's check if this interpretation is true:
+Oops! We get a `ValueError` mentioning that there is "trailing data." Searching for the text of this error on the Internet, it seems that it's due to using a file in which *each line* is itself a valid JSON, but the full file is not. Let's check if this interpretation is true:
 
 ```{code-cell}
 with open('recipeitems-latest.json') as f:
@@ -2690,8 +2654,7 @@ recipes = pd.read_json(data_json)
 recipes.shape
 ```
 
-We see there are nearly 200,000 recipes, and 17 columns.
-Let's take a look at one row to see what we have:
+We see there are nearly 200,000 recipes, and 17 columns. Let's take a look at one row to see what we have:
 
 ```{code-cell}
 recipes.iloc[0]
@@ -2751,8 +2714,7 @@ spice_df = pd.DataFrame(dict((spice, recipes.ingredients.str.contains(spice, re.
 spice_df.head()
 ```
 
-Now, as an example, let's say we'd like to find a recipe that uses parsley, paprika, and tarragon.
-We can compute this very quickly using the `query()` method of `DataFrame`s, discussed in *High-performance Pandas: `eval()` and `query()`*:
+Now, as an example, let's say we'd like to find a recipe that uses parsley, paprika, and tarragon. We can compute this very quickly using the `query()` method of `DataFrame`s, discussed in *High-performance Pandas: `eval()` and `query()`*:
 
 ```{code-cell}
 selection = spice_df.query('parsley & paprika & tarragon')
@@ -2874,8 +2836,7 @@ Finally, we will note that while the `datetime64` data type addresses some of th
 
 #### Dates and times in pandas: best of both worlds
 
-Pandas builds upon all the tools just discussed to provide a `Timestamp` object, which combines the ease-of-use of `datetime` and `dateutil` with the efficient storage and vectorized interface of `numpy.datetime64`.
-From a group of these `Timestamp` objects, Pandas can construct a `DatetimeIndex` that can be used to index data in a `Series` or `DataFrame`; we'll see many examples of this below.
+Pandas builds upon all the tools just discussed to provide a `Timestamp` object, which combines the ease-of-use of `datetime` and `dateutil` with the efficient storage and vectorized interface of `numpy.datetime64`. From a group of these `Timestamp` objects, Pandas can construct a `DatetimeIndex` that can be used to index data in a `Series` or `DataFrame`; we'll see many examples of this below.
 
 For example, we can use Pandas tools to repeat the demonstration from above. We can parse a flexibly formatted string date, and use format codes to output the day of the week:
 
@@ -2978,7 +2939,9 @@ pd.period_range('2015-07', periods=8, freq='M')
 
 And a sequence of durations increasing by an hour:
 
+```{code-cell}
 pd.timedelta_range(0, periods=10, freq='H')
+```
 
 All of these require an understanding of Pandas frequency codes, which we'll summarize in the next section.
 
@@ -3192,8 +3155,7 @@ data.dropna().describe()
 
 #### Visualizing the data
 
-We can gain some insight into the dataset by visualizing it.
-Let's start by plotting the raw data:
+We can gain some insight into the dataset by visualizing it. Let's start by plotting the raw data:
 
 ```{code-cell}
 %matplotlib inline
@@ -3205,8 +3167,7 @@ data.plot()
 plt.ylabel('Hourly Bicycle Count');
 ```
 
-The ~25,000 hourly samples are far too dense for us to make much sense of. We can gain more insight by resampling the data to a coarser grid.
-Let's resample by week:
+The ~25,000 hourly samples are far too dense for us to make much sense of. We can gain more insight by resampling the data to a coarser grid. Let's resample by week:
 
 ```{code-cell}
 weekly = data.resample('W').sum()
@@ -3216,8 +3177,7 @@ plt.ylabel('Weekly bicycle count');
 
 This shows us some interesting seasonal trends: as you might expect, people bicycle more in the summer than in the winter, and even within a particular season the bicycle use varies from week to week (likely dependent on weather.
 
-Another way that comes in handy for aggregating the data is to use a rolling mean, utilizing the `pd.rolling_mean()` function.
-Here we'll do a 30 day rolling mean of our data, making sure to center the window:
+Another way that comes in handy for aggregating the data is to use a rolling mean, utilizing the `pd.rolling_mean()` function. Here we'll do a 30 day rolling mean of our data, making sure to center the window:
 
 ```{code-cell}
 daily = data.resample('D').sum()
@@ -3225,8 +3185,7 @@ daily.rolling(30, center=True).sum().plot(style=[':', '--', '-'])
 plt.ylabel('mean hourly count');
 ```
 
-The jaggedness of the result is due to the hard cutoff of the window.
-We can get a smoother version of a rolling mean using a window function–for example, a Gaussian window. The following code specifies both the width of the window (we chose 50 days) and the width of the Gaussian within the window (we chose 10 days):
+The jaggedness of the result is due to the hard cutoff of the window. We can get a smoother version of a rolling mean using a window function–for example, a Gaussian window. The following code specifies both the width of the window (we chose 50 days) and the width of the Gaussian within the window (we chose 10 days):
 
 ```{code-cell}
 daily.rolling(50, center=True,
@@ -3279,9 +3238,7 @@ The result is very interesting: we see a bimodal commute pattern during the work
 
 As we've already seen in previous sections, the power of the PyData stack is built upon the ability of NumPy and Pandas to push basic operations into C via an intuitive syntax: examples are vectorized/broadcasted operations in NumPy, and grouping-type operations in Pandas. While these abstractions are efficient and effective for many common use cases, they often rely on the creation of temporary intermediate objects, which can cause undue overhead in computational time and memory use.
 
-As of version 0.13 (released January 2014), Pandas includes some experimental tools that allow you to directly access C-speed operations without costly allocation of intermediate arrays.
-These are the `eval()` and `query()` functions, which rely on the [Numexpr](https://github.com/pydata/numexpr) package.
-In this notebook we will walk through their use and give some rules-of-thumb about when you might think about using them.
+As of version 0.13 (released January 2014), Pandas includes some experimental tools that allow you to directly access C-speed operations without costly allocation of intermediate arrays. These are the `eval()` and `query()` functions, which rely on the [Numexpr](https://github.com/pydata/numexpr) package. In this notebook we will walk through their use and give some rules-of-thumb about when you might think about using them.
 
 ### Motivating `query()` and `eval()`: compound expressions
 
@@ -3358,8 +3315,7 @@ np.allclose(df1 + df2 + df3 + df4,
 
 #### Operations supported by `pd.eval()`
 
-As of Pandas v0.16, `pd.eval()` supports a wide range of operations.
-To demonstrate these, we'll use the following integer `DataFrame`s:
+As of Pandas v0.16, `pd.eval()` supports a wide range of operations. To demonstrate these, we'll use the following integer `DataFrame`s:
 
 ```{code-cell}
 df1, df2, df3, df4, df5 = (pd.DataFrame(rng.randint(0, 1000, (100, 3)))
@@ -3387,6 +3343,7 @@ np.allclose(result1, result2)
 ```
 
 ##### Bitwise operators
+
 `pd.eval()` supports the `&` and `|` bitwise operators:
 
 ```{code-cell}
@@ -3413,6 +3370,7 @@ np.allclose(result1, result2)
 ```
 
 ##### Other operations
+
 Other operations such as function calls, conditional statements, loops, and other more involved constructs are currently *not* implemented in `pd.eval()`. If you'd like to execute these more complicated types of expressions, you can use the Numexpr library itself.
 
 ### `DataFrame.eval()` for column-wise operations
@@ -3528,8 +3486,7 @@ df.values.nbytes
 
 On the performance side, `eval()` can be faster even when you are not maxing-out your system memory. The issue is how your temporary `DataFrame`s compare to the size of the L1 or L2 CPU cache on your system (typically a few megabytes in 2016); if they are much bigger, then `eval()` can avoid some potentially slow movement of values between the different memory caches. In practice, I find that the difference in computation time between the traditional methods and the `eval`/`query` method is usually not significant–if anything, the traditional method is faster for smaller arrays! The benefit of `eval`/`query` is mainly in the saved memory, and the sometimes cleaner syntax they offer.
 
-We've covered most of the details of `eval()` and `query()` here; for more information on these, you can refer to the Pandas documentation.
-In particular, different parsers and engines can be specified for running these queries; for details on this, see the discussion within the ["Enhancing Performance" section](http://pandas.pydata.org/pandas-docs/dev/enhancingperf.html).
+We've covered most of the details of `eval()` and `query()` here; for more information on these, you can refer to the Pandas documentation. In particular, different parsers and engines can be specified for running these queries; for details on this, see the discussion within the ["Enhancing Performance" section](http://pandas.pydata.org/pandas-docs/dev/enhancingperf.html).
 
 ## Further resources
 
