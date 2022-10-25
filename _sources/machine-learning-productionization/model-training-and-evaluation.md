@@ -367,7 +367,7 @@ While debugging the model, its depth and width are increased to improve the mode
 
 Conversely, if the goal is to have higher model quality, then try increasing depth and width. Remember that increases in depth and width are practically limited by accompanying increases in training time and overfitting. To understand overfitting.
 
-Since the depth and width are hyperparameters, hyperparameter tuning could be used to optimize depth and width.
+Since depth and width are hyperparameters, hyperparameter tuning could be used to optimize depth and width.
 
 ## Your turn! 🚀
 
@@ -384,7 +384,7 @@ Apply the debugging concepts learned by completing the following:
 
 ## Acknowledgments
 
-Thanks to Google for creating the open-source course [Testing and Debugging in Machine Learning](https://developers.google.com/machine-learning/testing-debugging) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). It contributes to the majority of [Model evaluation](#model-evaluation), [Model debugging & improvement](#model-deugging-improvement), [Model optimization](#model-optimization) and assignments.
+Thanks to Google for creating the open-source course [Testing and Debugging in Machine Learning](https://developers.google.com/machine-learning/testing-debugging) which is licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/). It contributes to the majority of [Model evaluation](#model-evaluation), [Model debugging & improvement](#model-deugging-improvement), [Model optimization](#model-optimization), and assignments.
 
 Thanks to [@chiphuyen](https://github.com/chiphuyen) for creating the [Machine Learning Systems Design](https://huyenchip.com/machine-learning-systems-design/toc.html) which inspires some of the contents in this section.
 
