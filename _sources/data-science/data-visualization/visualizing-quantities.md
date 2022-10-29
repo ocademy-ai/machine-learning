@@ -13,14 +13,9 @@ kernelspec:
   name: python3
 ---
 
-# Visualizing quantities
-
-|![ Sketchnote by [(@sketchthedocs)](https://sketchthedocs.dev) ](images/09-Visualizing-Quantities.png)|
-|:---:|
-| Visualizing Quantities|
+# Visualizing Quantities
 
 In this lesson you will explore how to use one of the many available Python libraries to learn how to create interesting visualizations all around the concept of quantity. Using a cleaned dataset about the birds of Minnesota, you can learn many interesting facts about local wildlife. 
-## [Pre-lecture quiz](https://purple-hill-04aebfb03.1.azurestaticapps.net/quiz/16)
 
 ## Observe wingspan with Matplotlib
 
@@ -44,7 +39,7 @@ Open the `notebook.ipynb` file at the root of this lesson folder and add a cell.
 
 > Note: the data is stored in the root of this repo in the `/data` folder.
 
-```python
+```{code-cell}
 import pandas as pd
 import matplotlib.pyplot as plt
 birds = pd.read_csv('../../assets/data/birds.csv')
@@ -63,7 +58,7 @@ This data is a mix of text and numbers:
 
 Let's start by plotting some of the numeric data using a basic line plot. Suppose you wanted a view of the maximum wingspan for these interesting birds.
 
-```python
+```{code-cell}
 wingspan = birds['MaxWingspan'] 
 wingspan.plot()
 ```
@@ -91,7 +86,7 @@ plt.show()
 
 Even with the rotation of the labels set to 45 degrees, there are too many to read. Let's try a different strategy: label only those outliers and set the labels within the chart. You can use a scatter chart to make more room for the labeling:
 
-```python
+```{code-cell}
 plt.title('Max Wingspan in Centimeters')
 plt.ylabel('Wingspan (CM)')
 plt.tick_params(axis='both',which='both',labelbottom=False,bottom=False)
@@ -114,7 +109,7 @@ What did you discover?
 
 Both the Bald Eagle and the Prairie Falcon, while probably very large birds, appear to be mislabeled, with an extra `0` added to their maximum wingspan. It's unlikely that you'll meet a Bald Eagle with a 25 meter wingspan, but if so, please let us know! Let's create a new dataframe without those two outliers:
 
-```python
+```{code-cell}
 plt.title('Max Wingspan in Centimeters')
 plt.ylabel('Wingspan (CM)')
 plt.xlabel('Birds')
@@ -148,7 +143,7 @@ In the notebook file, create a basic bar chart
 
 If you want to create a bar chart, you can select the data you want to focus on. Bar charts can be created from raw data:
 
-```python
+```{code-cell}
 birds.plot(x='Category',
         kind='bar',
         stacked=True,
@@ -165,7 +160,7 @@ Filter your data to include only the bird's category.
 
 Since there are many categories, you can display this chart vertically and tweak its height to account for all the data:
 
-```python
+```{code-cell}
 category_count = birds.value_counts(birds['Category'].values, sort=True)
 plt.rcParams['figure.figsize'] = [6, 12]
 category_count.plot.barh()
@@ -180,7 +175,7 @@ This bar chart shows a good view of the number of birds in each category. In a b
 
 You can try different comparisons of grouped data by creating new axes. Try a comparison of the MaxLength of a bird, based on its category:
 
-```python
+```{code-cell}
 maxlength = birds['MaxLength']
 plt.barh(y=birds['Category'], width=maxlength)
 plt.rcParams['figure.figsize'] = [6, 12]
@@ -192,7 +187,7 @@ Nothing is surprising here: hummingbirds have the least MaxLength compared to Pe
 
 You can create more interesting visualizations of bar charts by superimposing data. Let's superimpose Minimum and Maximum Length on a given bird category:
 
-```python
+```{code-cell}
 minLength = birds['MinLength']
 maxLength = birds['MaxLength']
 category = birds['Category']
@@ -206,14 +201,15 @@ In this plot, you can see the range per bird category of the Minimum Length and 
 
 ![superimposed values](images/superimposed-02.png)
 
-## 🚀 Challenge
+## Self study
+This first lesson has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these lessons, so take a look at what it can offer.
+
+## Your turn! 🚀
 
 This bird dataset offers a wealth of information about different types of birds within a particular ecosystem. Search around the internet and see if you can find other bird-oriented datasets. Practice building charts and graphs around these birds to discover facts you didn't realize.
-## [Post-lecture quiz](https://purple-hill-04aebfb03.1.azurestaticapps.net/quiz/17)
 
-## Review & Self Study
+Task - [Lines, Scatters, and Bars](assignment.md)
 
-This first lesson has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these lessons, so take a look at what it can offer.
-## Assignment
+## Acknowledgments
 
-[Lines, Scatters, and Bars](assignment.md)
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
