@@ -197,14 +197,6 @@ This bird dataset offers a wealth of information about different types of birds 
 
 Task - [Lines Scatters and Bars](../../assignments/data-science/visualization-assignment.md)
 
-[Write a data ethics case study](../../assignments/data-science/write-a-data-ethics-case-study.md)
-
-[Write a data ethics case study](../../assignments/data-science/assignment.md)
-
-[Write a data ethics case study](../../assignments/data-science/classifying-datasets.md)
-
-[Lines Scatters and Bars](../../assignments/data-science/visualization-assignment.md)
-
 ## Acknowledgments
 
 Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
