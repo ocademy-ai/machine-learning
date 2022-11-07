@@ -1,6 +1,6 @@
 # Data processing in Python
 
-In this assignment, we will ask you to elaborate on the code we have started developing in our challenges. The assignment consists of two parts:
+In this assignment, we will ask you to elaborate on the code we have started developing in these [challenges](../../data-science/working-with-data/numpy.md#your-turn-🚀). The assignment consists of two parts:
 
 ## COVID-19 spread modeling
 
