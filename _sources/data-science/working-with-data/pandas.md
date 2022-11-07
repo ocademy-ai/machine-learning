@@ -871,10 +871,10 @@ While this type of magic may feel a bit hackish compared to the more unified app
 
 The following table lists the upcasting conventions in Pandas when NA values are introduced:
 
-|Typeclas    |Conversion When Storing NAs| NA Sentinel Value  |
+|Typeclass    |Conversion When Storing NAs| NA Sentinel Value  |
 |------------|---------------------------|--------------------|
 | `floating` | No change                 | `np.nan`           |
-| `object`   | No change                 | `Non`` or `np.nan` |
+| `object`   | No change                 | `None` or `np.nan` |
 | `integer`  | Cast to `float64`         | `np.nan`           |
 | `boolean`  | Cast to `object`          | `None` or `np.nan` |
 
