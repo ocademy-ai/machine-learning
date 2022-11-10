@@ -104,11 +104,7 @@ Now that you know how to group your data and then display it as a pie or donut, 
 
 ## Waffles!
 
-A 'waffle' type chart is a different way to visualize quantities as a 2D array of squares. Try visualizing the different quantities of mushroom cap colors in this dataset. To do this, you need to install a helper library called [PyWaffle](https://pypi.org/project/pywaffle/) and use Matplotlib:
-
-```{code-cell}
-pip install pywaffle
-```
+A 'waffle' type chart is a different way to visualize quantities as a 2D array of squares. Try visualizing the different quantities of mushroom cap colors in this dataset. To do this, you need to install a helper library called [PyWaffle](https://pypi.org/project/pywaffle/) and use Matplotlib.
 
 Select a segment of your data to group:
 

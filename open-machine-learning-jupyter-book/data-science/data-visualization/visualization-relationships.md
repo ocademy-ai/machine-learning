@@ -78,6 +78,7 @@ Another way to visualize this progression is to use size, rather than color. For
 ```{code-cell}
 sns.relplot(x="priceperlb", y="state", size="year", data=honey, height=15, aspect=.5);
 ```
+
 You can see the size of the dots gradually increasing.
 
 Is this a simple case of supply and demand? Due to factors such as climate change and colony collapse, is there less honey available for purchase year over year, and thus the price increases?
@@ -122,6 +123,7 @@ sns.relplot(
     col_wrap=3,
     kind="line")
 ```
+
 In this visualization, you can compare the yield per colony and number of colonies year over year, side by side with a wrap set at 3 for the columns
 
 For this dataset, nothing particularly stands out with regards to the number of colonies and their yield, year over year and state over state. Is there a different way to look at finding a correlation between these two variables?
