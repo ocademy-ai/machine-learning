@@ -9,3 +9,7 @@ In this lesson you started looking at a dataset around bees and their honey prod
 | Exemplary                                                                                                                                               | Adequate                                 | Needs Improvement                        |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | A notebook is presented with a story annotated with at least three different charts showing aspects of the dataset, state over state and year over year | The notebook lacks one of these elements | The notebook lacks two of these elements |
+
+## Acknowledgments
+
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires majority of the content in this chapter.
