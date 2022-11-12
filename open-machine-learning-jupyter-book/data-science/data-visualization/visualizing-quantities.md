@@ -201,7 +201,7 @@ In this plot, you can see the range per bird category of the Minimum Length and 
 
 ## Self study
 
-This first lesson has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these lessons, so take a look at what it can offer.
+This first section has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these sections, so take a look at what it can offer.
 
 ## Your turn! 🚀
 

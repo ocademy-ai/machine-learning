@@ -160,11 +160,11 @@ Go, bees, go!
 
 ## Self study
 
-Line plots can be simple or quite complex. Do a bit of reading in the [Seaborn documentation](https://seaborn.pydata.org/generated/seaborn.lineplot.html) on the various ways you can build them. Try to enhance the line charts you built in this lesson with other methods listed in the docs.
+Line plots can be simple or quite complex. Do a bit of reading in the [Seaborn documentation](https://seaborn.pydata.org/generated/seaborn.lineplot.html) on the various ways you can build them. Try to enhance the line charts you built in this section with other methods listed in the docs.
 
 ## Your turn! 🚀
 
-In this lesson, you learned a bit more about other uses of scatterplots and line grids, including facet grids. Challenge yourself to create a facet grid using a different dataset, maybe one you used prior to these lessons. Note how long they take to create and how you need to be careful about how many grids you need to draw using these techniques.
+In this section, you learned a bit more about other uses of scatterplots and line grids, including facet grids. Challenge yourself to create a facet grid using a different dataset, maybe one you used prior to these sections. Note how long they take to create and how you need to be careful about how many grids you need to draw using these techniques.
 
 Assignment - [Dive into the beehive](../../assignments/data-science/dive-into-the-beehive.md)
 
