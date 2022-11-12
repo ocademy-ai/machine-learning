@@ -19,9 +19,9 @@ kernelspec:
 "Data is food for AI."   -- Andrew Ng
 ```
 
-One of the basic skills of a data scientist is the ability to create a meaningful data visualization that helps answer questions you might have. Prior to visualizing your data, you need to ensure that it has been cleaned and prepared, as you did in prior lessons. After that, you can start deciding how best to present the data.
+One of the basic skills of a data scientist is the ability to create a meaningful data visualization that helps answer questions you might have. Prior to visualizing your data, you need to ensure that it has been cleaned and prepared, as you did in prior sections. After that, you can start deciding how best to present the data.
 
-In this lesson, you will review:
+In this section, you will review:
 
 1. How to choose the right chart type
 2. How to avoid deceptive charting
@@ -32,7 +32,7 @@ In this lesson, you will review:
 
 ## Choose the right chart type
 
-In previous lessons, you experimented with building all kinds of interesting data visualizations using Matplotlib and Seaborn for charting. In general, you can select the [right kind of chart](https://chartio.com/learn/charts/how-to-select-a-data-vizualization/) for the question you are asking using this table:
+In previous sections, you experimented with building all kinds of interesting data visualizations using Matplotlib and Seaborn for charting. In general, you can select the [right kind of chart](https://chartio.com/learn/charts/how-to-select-a-data-vizualization/) for the question you are asking using this table:
 
 | You need to:               | You should use:                 |
 | -------------------------- | ------------------------------- |
@@ -132,7 +132,7 @@ You will complete a web app that will display an animated view of this social ne
 
 ## Project: Build a chart to show a network using D3.js
 
-> This lesson folder includes a `solution` folder where you can find the completed project, for your reference.
+> This section includes a `solution` folder where you can find the completed project, for your reference.
 
 1. Follow the instructions in the README.md file in the starter folder's root. Make sure you have NPM and Node.js running on your machine before installing your project's dependencies.
 
