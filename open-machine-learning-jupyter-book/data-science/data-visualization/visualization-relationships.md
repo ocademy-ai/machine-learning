@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Visualizing Relationships: All About Honey 🍯
+# Visualizing relationships: all about honey 🍯
 
 Continuing with the nature focus of our research, let's discover interesting visualizations to show the relationships between various types of honey, according to a dataset derived from the [United States Department of Agriculture](https://www.nass.usda.gov/About_NASS/index.php). 
 
@@ -21,7 +21,7 @@ This dataset of about 600 items displays honey production in many U.S. states. S
 
 It will be interesting to visualize the relationship between a given state's production per year and, for example, the price of honey in that state. Alternately, you could visualize the relationship between states' honey yield per colony. This year span covers the devastating 'CCD' or 'Colony Collapse Disorder' first seen in 2006 (http://npic.orst.edu/envir/ccd.html), so it is a poignant dataset to study. 🐝
 
-In this lesson, you can use Seaborn, which you have used before, as a good library to visualize relationships between variables. Particularly interesting is the use of Seaborn's `relplot` function that allows scatter plots and line plots to quickly visualize '[statistical relationships](https://seaborn.pydata.org/tutorial/relational.html?highlight=relationships)', which allow the data scientist to better understand how variables relate to each other.
+In this section, you can use Seaborn, which you have used before, as a good library to visualize relationships between variables. Particularly interesting is the use of Seaborn's `relplot` function that allows scatter plots and line plots to quickly visualize '[statistical relationships](https://seaborn.pydata.org/tutorial/relational.html?highlight=relationships)', which allow the data scientist to better understand how variables relate to each other.
 
 ## Scatterplots
 
@@ -47,7 +47,9 @@ sns.relplot(x="priceperlb", y="state", data=honey, height=15, aspect=.5);
 
 Now, show the same data with a honey color scheme to show how the price evolves over the years. You can do this by adding a 'hue' parameter to show the change, year over year:
 
-> ✅ Learn more about the [color palettes you can use in Seaborn](https://seaborn.pydata.org/tutorial/color_palettes.html) - try a beautiful rainbow color scheme!
+```{seealso}
+Learn more about the [color palettes you can use in Seaborn](https://seaborn.pydata.org/tutorial/color_palettes.html) - try a beautiful rainbow color scheme!
+```
 
 ```{code-cell}
 sns.relplot(x="priceperlb", y="state", hue="year", palette="YlOrBr", data=honey, height=15, aspect=.5);
@@ -78,6 +80,7 @@ Another way to visualize this progression is to use size, rather than color. For
 ```{code-cell}
 sns.relplot(x="priceperlb", y="state", size="year", data=honey, height=15, aspect=.5);
 ```
+
 You can see the size of the dots gradually increasing.
 
 Is this a simple case of supply and demand? Due to factors such as climate change and colony collapse, is there less honey available for purchase year over year, and thus the price increases?
@@ -94,7 +97,9 @@ sns.relplot(x="year", y="priceperlb", kind="line", data=honey);
 
 Answer: Yes, with some exceptions around the year 2003:
 
-✅ Because Seaborn is aggregating data around one line, it displays "the multiple measurements at each x value by plotting the mean and the 95% confidence interval around the mean". [Source](https://seaborn.pydata.org/tutorial/relational.html). This time-consuming behavior can be disabled by adding `ci=None`.
+```{note}
+Because Seaborn is aggregating data around one line, it displays "the multiple measurements at each x value by plotting the mean and the 95% confidence interval around the mean". [Source](https://seaborn.pydata.org/tutorial/relational.html). This time-consuming behavior can be disabled by adding `ci=None`.
+```
 
 Question: Well, in 2003 can we also see a spike in the honey supply? What if you look at total production year over year?
 
@@ -122,6 +127,7 @@ sns.relplot(
     col_wrap=3,
     kind="line")
 ```
+
 In this visualization, you can compare the yield per colony and number of colonies year over year, side by side with a wrap set at 3 for the columns
 
 For this dataset, nothing particularly stands out with regards to the number of colonies and their yield, year over year and state over state. Is there a different way to look at finding a correlation between these two variables?
@@ -154,13 +160,13 @@ Go, bees, go!
 
 ## Self study
 
-Line plots can be simple or quite complex. Do a bit of reading in the [Seaborn documentation](https://seaborn.pydata.org/generated/seaborn.lineplot.html) on the various ways you can build them. Try to enhance the line charts you built in this lesson with other methods listed in the docs.
+Line plots can be simple or quite complex. Do a bit of reading in the [Seaborn documentation](https://seaborn.pydata.org/generated/seaborn.lineplot.html) on the various ways you can build them. Try to enhance the line charts you built in this section with other methods listed in the docs.
 
 ## Your turn! 🚀
 
-In this lesson, you learned a bit more about other uses of scatterplots and line grids, including facet grids. Challenge yourself to create a facet grid using a different dataset, maybe one you used prior to these lessons. Note how long they take to create and how you need to be careful about how many grids you need to draw using these techniques.
+In this section, you learned a bit more about other uses of scatterplots and line grids, including facet grids. Challenge yourself to create a facet grid using a different dataset, maybe one you used prior to these sections. Note how long they take to create and how you need to be careful about how many grids you need to draw using these techniques.
 
-Assignment - [Dive into the beehive](../../assignments/data-science/visualization-relationships.md)
+Assignment - [Dive into the beehive](../../assignments/data-science/dive-into-the-beehive.md)
 
 ## Acknowledgments
 

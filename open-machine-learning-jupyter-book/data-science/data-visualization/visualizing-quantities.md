@@ -15,32 +15,38 @@ kernelspec:
 
 # Visualizing quantities
 
-In this lesson you will explore how to use one of the many available Python libraries to learn how to create interesting visualizations all around the concept of quantity. Using a cleaned dataset about the birds of Minnesota, you can learn many interesting facts about local wildlife. 
+In this section you will explore how to use one of the many available Python libraries to learn how to create interesting visualizations all around the concept of quantity. Using a cleaned dataset about the birds of Minnesota, you can learn many interesting facts about local wildlife. 
 
 ## Observe wingspan with matplotlib
 
 An excellent library to create both simple and sophisticated plots and charts of various kinds is [Matplotlib](https://matplotlib.org/stable/index.html). In general terms, the process of plotting data using these libraries includes identifying the parts of your dataframe that you want to target, performing any transforms on that data necessary, assigning its x and y axis values, deciding what kind of plot to show, and then showing the plot. Matplotlib offers a large variety of visualizations, but for this lesson, let's focus on the ones most appropriate for visualizing quantity: line charts, scatterplots, and bar plots.
 
-> ✅ Use the best chart to suit your data's structure and the story you want to tell.
-
+```{note}
+Use the best chart to suit your data's structure and the story you want to tell.
 > - To analyze trends over time: line
 > - To compare values: bar, column, pie, scatterplot
 > - To show how parts relate to a whole: pie
 > - To show distribution of data: scatterplot, bar
 > - To show trends: line, column
 > - To show relationships between values: line, scatterplot, bubble
+```
 
-If you have a dataset and need to discover how much of a given item is included, one of the first tasks you have at hand will be to inspect its values. 
+If you have a dataset and need to discover how much of a given item is included, one of the first tasks you have at hand will be to inspect its values.
 
-✅ There are very good 'cheat sheets' available for Matplotlib [here](https://matplotlib.org/cheatsheets/cheatsheets.pdf).
+```{note}
+There are very good 'cheat sheets' available for Matplotlib [here](https://matplotlib.org/cheatsheets/cheatsheets.pdf).
+```
 
 ## Build a line plot about bird wingspan values
 
-Open the `notebook.ipynb` file at the root of this lesson folder and add a cell.
+Create a new jupyter notebook file name as `let-us-learn-about-birds.ipynb` and add a cell.
 
-> Note: the data is stored in the root of this repo in the `/data` folder.
+```{note}
+The data is stored in the `/open-machine-learning-jupyter-book/assets/data` folder.
+```
 
 ```{code-cell}
+:tags: [output_scroll]
 import pandas as pd
 import matplotlib.pyplot as plt
 birds = pd.read_csv('../../assets/data/birds.csv')
@@ -129,7 +135,9 @@ Bar charts are practical when you need to show groupings of data. Let's explore 
 
 In the notebook file, create a basic bar chart
 
-✅ Note, you can either filter out the two outlier birds we identified in the previous section, edit the typo in their wingspan, or leave them in for these exercises which do not depend on wingspan values.
+```{note}
+you can either filter out the two outlier birds we identified in the previous section, edit the typo in their wingspan, or leave them in for these exercises which do not depend on wingspan values.
+```
 
 If you want to create a bar chart, you can select the data you want to focus on. Bar charts can be created from raw data:
 
@@ -141,11 +149,13 @@ birds.plot(x='Category',
 
 ```
 
-This bar chart, however, is unreadable because there is too much non-grouped data. You need to select only the data that you want to plot, so let's look at the length of birds based on their category. 
+This bar chart, however, is unreadable because there is too much non-grouped data. You need to select only the data that you want to plot, so let's look at the length of birds based on their category.
 
 Filter your data to include only the bird's category. 
 
-✅ Notice that you use Pandas to manage the data, and then let Matplotlib do the charting.
+```{note}
+Notice that you use Pandas to manage the data, and then let Matplotlib do the charting.
+```
 
 Since there are many categories, you can display this chart vertically and tweak its height to account for all the data:
 
@@ -157,7 +167,9 @@ category_count.plot.barh()
 
 This bar chart shows a good view of the number of birds in each category. In a blink of an eye, you see that the largest number of birds in this region are in the Ducks/Geese/Waterfowl category. Minnesota is the 'land of 10,000 lakes' so this isn't surprising!
 
-✅ Try some other counts on this dataset. Does anything surprise you?
+```{seealso}
+Try some other counts on this dataset. Does anything surprise you?
+```
 
 ## Comparing data
 
@@ -189,13 +201,13 @@ In this plot, you can see the range per bird category of the Minimum Length and 
 
 ## Self study
 
-This first lesson has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these lessons, so take a look at what it can offer.
+This first section has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these sections, so take a look at what it can offer.
 
 ## Your turn! 🚀
 
 This bird dataset offers a wealth of information about different types of birds within a particular ecosystem. Search around the internet and see if you can find other bird-oriented datasets. Practice building charts and graphs around these birds to discover facts you didn't realize.
 
-Assignment - [Lines Scatters and Bars](../../assignments/data-science/visualization-assignment.md)
+Assignment - [Lines scatters and bars](../../assignments/data-science/lines-scatters-and-bars.md)
 
 ## Acknowledgments
 
