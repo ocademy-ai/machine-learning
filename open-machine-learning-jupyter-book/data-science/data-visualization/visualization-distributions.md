@@ -15,22 +15,23 @@ kernelspec:
 
 # Visualizing distributions
 
-In the previous lesson, you learned some interesting facts about a dataset about the birds of Minnesota. You found some erroneous data by visualizing outliers and looked at the differences between bird categories by their maximum length.
+In the previous section, you learned some interesting facts about a dataset about the birds of Minnesota. You found some erroneous data by visualizing outliers and looked at the differences between bird categories by their maximum length.
 
 ## Explore the birds dataset
 
 Another way to dig into data is by looking at its distribution, or how the data is organized along an axis. Perhaps, for example, you'd like to learn about the general distribution, for this dataset, of the maximum wingspan or maximum body mass for the birds of Minnesota. 
 
-Let's discover some facts about the distributions of data in this dataset. In the _notebook.ipynb_ file at the root of this lesson folder, import Pandas, Matplotlib, and your data:
+Let's discover some facts about the distributions of data in this dataset. Create a new jupyter notebook file name as `bird-distributions.ipynb`, import Pandas, Matplotlib, and your data:
 
 ```{code-cell}
+:tags: [output_scroll]
 import pandas as pd
 import matplotlib.pyplot as plt
 birds = pd.read_csv('../../assets/data/birds.csv')
 birds.head()
 ```
 
-In general, you can quickly look at the way data is distributed by using a scatter plot as we did in the previous lesson:
+In general, you can quickly look at the way data is distributed by using a scatter plot as we did in the previous section:
 
 ```{code-cell}
 birds.plot(kind='scatter',x='MaxLength',y='Order',figsize=(12,8))
@@ -70,7 +71,9 @@ filteredBirds['MaxBodyMass'].plot(kind = 'hist',bins = 40,figsize = (12,12))
 plt.show()     
 ```
 
-✅ Try some other filters and data points. To see the full distribution of the data, remove the `['MaxBodyMass']` filter to show labeled distributions.
+```{note}
+Try some other filters and data points. To see the full distribution of the data, remove the `['MaxBodyMass']` filter to show labeled distributions.
+```
 
 The histogram offers some nice color and labeling enhancements to try as well:
 
@@ -92,7 +95,8 @@ Histograms work well by default for numeric data. What if you need to see distri
 
 This dataset also includes good information about the bird category and its genus, species, and family as well as its conservation status. Let's dig into this conservation information. What is the distribution of the birds according to their conservation status?
 
-> ✅ In the dataset, several acronyms are used to describe conservation status. These acronyms come from the [IUCN Red List Categories](https://www.iucnredlist.org/), an organization that catalogs species' status.
+```{note}
+In the dataset, several acronyms are used to describe conservation status. These acronyms come from the [IUCN Red List Categories](https://www.iucnredlist.org/), an organization that catalogs species' status.
 > 
 > - CR: Critically Endangered
 > - EN: Endangered
@@ -100,6 +104,7 @@ This dataset also includes good information about the bird category and its genu
 > - LC: Least Concern
 > - NT: Near Threatened
 > - VU: Vulnerable
+```
 
 These are text-based values so you will need to do a transform to create a histogram. Using the filteredBirds dataframe, display its conservation status alongside its Minimum Wingspan. What do you see? 
 
@@ -157,7 +162,9 @@ sns.kdeplot(filteredBirds['MaxBodyMass'], bw_adjust=.2)
 plt.show()
 ```
 
-✅ Read about the parameters available for this type of plot and experiment!
+```{seealso}
+Read about the parameters available for this type of plot and experiment!
+```
 
 This type of chart offers beautifully explanatory visualizations. With a few lines of code, for example, you can show the max body mass density per bird Order:
 
@@ -179,13 +186,13 @@ Perhaps it's worth researching whether the cluster of 'Vulnerable' birds accordi
 
 ## Self study
 
-In this lesson, you used Matplotlib and started working with Seaborn to show more sophisticated charts. Do some research on `kdeplot` in Seaborn, a "continuous probability density curve in one or more dimensions". Read through [the documentation](https://seaborn.pydata.org/generated/seaborn.kdeplot.html) to understand how it works.
+In this section, you used Matplotlib and started working with Seaborn to show more sophisticated charts. Do some research on `kdeplot` in Seaborn, a "continuous probability density curve in one or more dimensions". Read through [the documentation](https://seaborn.pydata.org/generated/seaborn.kdeplot.html) to understand how it works.
 
 ## Your turn! 🚀
 
 Histograms are a more sophisticated type of chart than basic scatterplots, bar charts, or line charts. Go on a search on the internet to find good examples of the use of histograms. How are they used, what do they demonstrate, and in what fields or areas of inquiry do they tend to be used?
 
-Assignment - [Apply your skills](../../assignments/data-science/visualization-distributions-assignment.md)
+Assignment - [Apply your skills](../../assignments/data-science/apply-your-skills.md)
 
 ## Acknowledgments
 
