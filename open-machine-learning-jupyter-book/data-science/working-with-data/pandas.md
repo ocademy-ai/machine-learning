@@ -1458,7 +1458,7 @@ class display(object):
         return '\n\n'.join(a + '\n' + repr(eval(a))
                            for a in self.args)
 ```
-    
+
 The use of this will become clearer as we continue our discussion in the following section.
 
 ### Recall: concatenation of NumPy arrays
