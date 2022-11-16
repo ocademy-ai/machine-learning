@@ -19,7 +19,7 @@ In this section you will explore how to use one of the many available Python lib
 
 ## Observe wingspan with matplotlib
 
-An excellent library to create both simple and sophisticated plots and charts of various kinds is [Matplotlib](https://matplotlib.org/stable/index.html). In general terms, the process of plotting data using these libraries includes identifying the parts of your dataframe that you want to target, performing any transforms on that data necessary, assigning its x and y axis values, deciding what kind of plot to show, and then showing the plot. Matplotlib offers a large variety of visualizations, but for this lesson, let's focus on the ones most appropriate for visualizing quantity: line charts, scatterplots, and bar plots.
+An excellent library to create both simple and sophisticated plots and charts of various kinds is [Matplotlib](https://matplotlib.org/stable/index.html). In general terms, the process of plotting data using these libraries includes identifying the parts of your dataframe that you want to target, performing any transforms on that data necessary, assigning its x and y axis values, deciding what kind of plot to show, and then showing the plot. Matplotlib offers a large variety of visualizations, but for this section, let's focus on the ones most appropriate for visualizing quantity: line charts, scatterplots, and bar plots.
 
 ```{note}
 Use the best chart to suit your data's structure and the story you want to tell.
@@ -39,7 +39,7 @@ There are very good 'cheat sheets' available for Matplotlib [here](https://matpl
 
 ## Build a line plot about bird wingspan values
 
-Open the file [let-us-learn-about-birds.ipynb](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assignments/data-science) and add a cell.
+Open the file [let-us-learn-about-birds.ipynb](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assignments/data-science) with Jupyter Notebook and add a cell.
 
 ```{note}
 The data is stored in the [/open-machine-learning-jupyter-book/assets/data](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assets/data) folder.
