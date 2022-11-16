@@ -23,26 +23,26 @@ An excellent library to create both simple and sophisticated plots and charts of
 
 ```{note}
 Use the best chart to suit your data's structure and the story you want to tell.
-> - To analyze trends over time: line
-> - To compare values: bar, column, pie, scatterplot
-> - To show how parts relate to a whole: pie
-> - To show distribution of data: scatterplot, bar
-> - To show trends: line, column
-> - To show relationships between values: line, scatterplot, bubble
+- To analyze trends over time: line
+- To compare values: bar, column, pie, scatterplot
+- To show how parts relate to a whole: pie
+- To show distribution of data: scatterplot, bar
+- To show trends: line, column
+- To show relationships between values: line, scatterplot, bubble
 ```
 
 If you have a dataset and need to discover how much of a given item is included, one of the first tasks you have at hand will be to inspect its values.
 
-```{note}
+```{seealso}
 There are very good 'cheat sheets' available for Matplotlib [here](https://matplotlib.org/cheatsheets/cheatsheets.pdf).
 ```
 
 ## Build a line plot about bird wingspan values
 
-Create a new jupyter notebook file name as `let-us-learn-about-birds.ipynb` and add a cell.
+Open the file [let-us-learn-about-birds.ipynb](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assignments/data-science) and add a cell.
 
 ```{note}
-The data is stored in the `/open-machine-learning-jupyter-book/assets/data` folder.
+The data is stored in the [/open-machine-learning-jupyter-book/assets/data](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assets/data) folder.
 ```
 
 ```{code-cell}
@@ -136,7 +136,7 @@ Bar charts are practical when you need to show groupings of data. Let's explore 
 In the notebook file, create a basic bar chart
 
 ```{note}
-you can either filter out the two outlier birds we identified in the previous section, edit the typo in their wingspan, or leave them in for these exercises which do not depend on wingspan values.
+You can either filter out the two outlier birds we identified in the previous section, edit the typo in their wingspan, or leave them in for these exercises which do not depend on wingspan values.
 ```
 
 If you want to create a bar chart, you can select the data you want to focus on. Bar charts can be created from raw data:
