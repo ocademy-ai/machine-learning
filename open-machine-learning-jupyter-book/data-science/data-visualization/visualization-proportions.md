@@ -154,13 +154,13 @@ In this lesson, you learned three ways to visualize proportions. First, you need
 
 Sometimes it's not obvious when to use a pie, donut, or waffle chart. Here are some articles to read on this topic:
 
-* a https://www.beautiful.ai/blog/battle-of-the-charts-pie-chart-vs-donut-chart
+* [Battle of the Charts: Pie Chart vs. Donut Chart| The Beautiful Blog](https://www.beautiful.ai/blog/battle-of-the-charts-pie-chart-vs-donut-chart)
 
-* b https://medium.com/@hypsypops/pie-chart-vs-donut-chart-showdown-in-the-ring-5d24fd86a9ce
+* [Pie Chart vs. Donut Chart: Showdown in the Ring](https://medium.com/@hypsypops/pie-chart-vs-donut-chart-showdown-in-the-ring-5d24fd86a9ce)
 
-* c https://www.mit.edu/~mbarker/formula1/f1help/11-ch-c6.htm
+* [About Doughnut Charts](https://www.mit.edu/~mbarker/formula1/f1help/11-ch-c6.htm)
 
-* d https://medium.datadriveninvestor.com/data-visualization-done-the-right-way-with-tableau-waffle-chart-fdf2a19be402
+* [Data Visualization Done the Right Way with Tableau- Waffle Chart](https://medium.datadriveninvestor.com/data-visualization-done-the-right-way-with-tableau-waffle-chart-fdf2a19be402)
 
 Do some research to find more information on this sticky decision.
 
@@ -168,7 +168,7 @@ Do some research to find more information on this sticky decision.
 
 Try recreating these tasty charts in [Charticulator](https://charticulator.com).
 
-Assignment - [Try it in excel](../../assignments/data-science/try-it-in-excel.md)
+Assignment - [Try it in Excel](../../assignments/data-science/try-it-in-excel.md)
 
 ## Acknowledgments
 
