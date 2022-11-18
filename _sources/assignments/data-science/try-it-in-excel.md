@@ -1,4 +1,4 @@
-# Try it in excel
+# Try it in Excel
 
 ## Instructions
 
