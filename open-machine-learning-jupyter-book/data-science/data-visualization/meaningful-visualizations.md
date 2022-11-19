@@ -16,7 +16,9 @@ kernelspec:
 # Making meaningful visualizations
 
 ```{epigraph}
-"Data is food for AI."   -- Andrew Ng
+Data is food for AI.
+
+-- Andrew Ng
 ```
 
 One of the basic skills of a data scientist is the ability to create a meaningful data visualization that helps answer questions you might have. Prior to visualizing your data, you need to ensure that it has been cleaned and prepared, as you did in prior sections. After that, you can start deciding how best to present the data.

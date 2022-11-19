@@ -21,7 +21,7 @@ In the previous section, you learned some interesting facts about a dataset abou
 
 Another way to dig into data is by looking at its distribution, or how the data is organized along an axis. Perhaps, for example, you'd like to learn about the general distribution, for this dataset, of the maximum wingspan or maximum body mass for the birds of Minnesota. 
 
-Let's discover some facts about the distributions of data in this dataset. Open the file [bird-distributions](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assignments/data-science) with Jupyter Notebook, import Pandas, Matplotlib, and your data:
+Let's discover some facts about the distributions of data in this dataset. Open the file [bird-distributions](../../assignments/data-science/bird-distributions.ipynb) with Jupyter Notebook, import Pandas, Matplotlib, and your data:
 
 ```{code-cell}
 :tags: [output_scroll]
