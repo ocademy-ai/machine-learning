@@ -1659,26 +1659,54 @@ title="Print to PDF"
 <span class="ne">--&gt; </span><span class="mi">207</span>     <span class="n">switch_backend</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">rcParams</span><span class="p">,</span> <span class="s2">&quot;backend&quot;</span><span class="p">))</span>
 <span class="g g-Whitespace">    </span><span class="mi">208</span> <span class="k">return</span> <span class="n">_backend_mod</span>
 
-<span class="nn">File /usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.9/site-packages/matplotlib/pyplot.py:226,</span> in <span class="ni">switch_backend</span><span class="nt">(newbackend)</span>
-<span class="g g-Whitespace">    </span><span class="mi">224</span> <span class="k">global</span> <span class="n">_backend_mod</span>
-<span class="g g-Whitespace">    </span><span class="mi">225</span> <span class="c1"># make sure the init is pulled up so we can assign to it later</span>
-<span class="ne">--&gt; </span><span class="mi">226</span> <span class="kn">import</span> <span class="nn">matplotlib.backends</span>
-<span class="g g-Whitespace">    </span><span class="mi">227</span> <span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="k">if</span> <span class="n">newbackend</span> <span class="ow">is</span> <span class="n">rcsetup</span><span class="o">.</span><span class="n">_auto_backend_sentinel</span><span class="p">:</span>
+<span class="nn">File /usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.9/site-packages/matplotlib/pyplot.py:265,</span> in <span class="ni">switch_backend</span><span class="nt">(newbackend)</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span>         <span class="n">rcParamsOrig</span><span class="p">[</span><span class="s2">&quot;backend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;agg&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">263</span>         <span class="k">return</span>
+<span class="ne">--&gt; </span><span class="mi">265</span> <span class="n">backend_mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">266</span>     <span class="n">cbook</span><span class="o">.</span><span class="n">_backend_module_name</span><span class="p">(</span><span class="n">newbackend</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">268</span> <span class="n">required_framework</span> <span class="o">=</span> <span class="n">_get_required_interactive_framework</span><span class="p">(</span><span class="n">backend_mod</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">269</span> <span class="k">if</span> <span class="n">required_framework</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File /usr/share/miniconda/envs/open-machine-learning-jupyter-book/lib/python3.9/importlib/__init__.py:127,</span> in <span class="ni">import_module</span><span class="nt">(name, package)</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span>             <span class="k">break</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>         <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">127</span> <span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1030,</span> in <span class="ni">_gcd_import</span><span class="nt">(name, package, level)</span>
 
 <span class="nn">File &lt;frozen importlib._bootstrap&gt;:1007,</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:982,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:972,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap&gt;:925,</span> in <span class="ni">_find_spec</span><span class="nt">(name, path, target)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:228,</span> in <span class="ni">_call_with_frames_removed</span><span class="nt">(f, *args, **kwds)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1423,</span> in <span class="ni">find_spec</span><span class="nt">(cls, fullname, path, target)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1030,</span> in <span class="ni">_gcd_import</span><span class="nt">(name, package, level)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1395,</span> in <span class="ni">_get_spec</span><span class="nt">(cls, fullname, path, target)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1007,</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:1522,</span> in <span class="ni">find_spec</span><span class="nt">(self, fullname, target)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:986,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
 
-<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:142,</span> in <span class="ni">_path_stat</span><span class="nt">(path)</span>
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:680,</span> in <span class="ni">_load_unlocked</span><span class="nt">(spec)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:850,</span> in <span class="ni">exec_module</span><span class="nt">(self, module)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:228,</span> in <span class="ni">_call_with_frames_removed</span><span class="nt">(f, *args, **kwds)</span>
+
+<span class="n">File</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="nb">open</span><span class="o">-</span><span class="n">machine</span><span class="o">-</span><span class="n">learning</span><span class="o">-</span><span class="n">jupyter</span><span class="o">-</span><span class="n">book</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.9</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib_inline</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">backend_inline</span><span class="p">,</span> <span class="n">config</span>  <span class="c1"># noqa</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;0.1.6&quot;</span>  <span class="c1"># noqa</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:1007,</span> in <span class="ni">_find_and_load</span><span class="nt">(name, import_)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:986,</span> in <span class="ni">_find_and_load_unlocked</span><span class="nt">(name, import_)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap&gt;:680,</span> in <span class="ni">_load_unlocked</span><span class="nt">(spec)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:846,</span> in <span class="ni">exec_module</span><span class="nt">(self, module)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:978,</span> in <span class="ni">get_code</span><span class="nt">(self, fullname)</span>
+
+<span class="nn">File &lt;frozen importlib._bootstrap_external&gt;:647,</span> in <span class="ni">_compile_bytecode</span><span class="nt">(data, name, bytecode_path, source_path)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
