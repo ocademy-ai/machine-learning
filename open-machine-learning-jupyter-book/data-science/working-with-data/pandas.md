@@ -13,14 +13,17 @@ kernelspec:
   name: python3
 ---
 
+<p hidden> https://github.com/donnemartin/data-science-ipython-notebooks/blob/master/LICENSE </p>
+
 # Pandas
+
+Pandas is a software library written for the Python programming language for data manipulation and analysis. In particular, it offers data structures and operations for manipulating numerical tables and time series. It is free software released under the three-clause BSD license. The name is derived from the term "panel data", an econometrics term for data sets that include observations over multiple time periods for the same individuals. Its name is a play on the phrase "Python data analysis" itself.
 
 ## Introducing Pandas objects
 
 At the very basic level, Pandas objects can be thought of as enhanced versions of NumPy structured arrays in which the rows and columns are identified with labels rather than simple integer indices.
 
-As we will see during the course of this chapter, Pandas provides a host of useful tools, methods, and functionality on top of the basic data structures, but nearly everything that follows will require an understanding of what these structures are.
-Thus, before we go any further, let's introduce these three fundamental Pandas data structures: the `Series`, `DataFrame`, and `Index`.
+As we will see during the section of this chapter, Pandas provides a host of useful tools, methods, and functionality on top of the basic data structures, but nearly everything that follows will require an understanding of what these structures are. Thus, before we go any further, let's introduce these three fundamental Pandas data structures: the `Series`, `DataFrame`, and `Index`.
 
 We will start our code sessions with the standard NumPy and Pandas imports:
 
@@ -31,8 +34,7 @@ import pandas as pd
 
 ### The Pandas `Series` object
 
-A Pandas `Series` is a one-dimensional array of indexed data.
-It can be created from a list or array as follows:
+A Pandas `Series` is a one-dimensional array of indexed data. It can be created from a list or array as follows:
 
 ```{code-cell}
 data = pd.Series([0.25, 0.5, 0.75, 1.0])
@@ -134,7 +136,7 @@ We've already seen a few ways of constructing a Pandas `Series` from scratch; al
 pd.Series(data, index=index)
 ```
 
-where `index` is an optional argument, and `data` can be one of many entities.
+Where `index` is an optional argument, and `data` can be one of many entities.
 
 For example, `data` can be a list or NumPy array, in which case `index` defaults to an integer sequence:
 
@@ -283,8 +285,7 @@ ind
 
 #### Index as immutable array
 
-The `Index` in many ways operates like an array.
-For example, we can use standard Python indexing notation to retrieve values or slices:
+The `Index` in many ways operates like an array. For example, we can use standard Python indexing notation to retrieve values or slices:
 
 ```{code-cell}
 ind[1]
@@ -387,8 +388,7 @@ This easy mutability of the objects is a convenient feature: under the hood, Pan
 
 #### Series as one-dimensional array
 
-A `Series` builds on this dictionary-like interface and provides array-style item selection via the same basic mechanisms as NumPy arrays – that is, *slices*, *masking*, and *fancy indexing*.
-Examples of these are as follows:
+A `Series` builds on this dictionary-like interface and provides array-style item selection via the same basic mechanisms as NumPy arrays – that is, *slices*, *masking*, and *fancy indexing*. Examples of these are as follows:
 
 ```{code-cell}
 # slicing by explicit index
@@ -453,7 +453,7 @@ data.iloc[1]
 data.iloc[1:3]
 ```
 
-One guiding principle of Python code is that "explicit is better than implicit." The explicit nature of `loc` and `iloc` make them very useful in maintaining clean and readable code; especially in the case of integer indexes, I recommend using these both to make code easier to read and understand, and to prevent subtle bugs due to the mixed indexing/slicing convention.
+One guiding principle of Python code is that "explicit is better than implicit." The explicit nature of `loc` and `iloc` make them very useful in maintaining clean and readable code; especially in the case of integer indexes, we recommend using these both to make code easier to read and understand, and to prevent subtle bugs due to the mixed indexing/slicing convention.
 
 ### Data selection in DataFrame
 
@@ -560,7 +560,7 @@ data.iloc[0, 2] = 90
 data
 ```
 
-To build up your fluency in Pandas data manipulation, I suggest spending some time with a simple `DataFrame` and exploring the types of indexing, slicing, masking, and fancy indexing that are allowed by these various indexing approaches.
+To build up your fluency in Pandas data manipulation, we suggest spending some time with a simple `DataFrame` and exploring the types of indexing, slicing, masking, and fancy indexing that are allowed by these various indexing approaches.
 
 #### Additional indexing conventions
 
@@ -658,8 +658,7 @@ B = pd.Series([1, 3, 5], index=[1, 2, 3])
 A + B
 ```
 
-If using NaN values is not the desired behavior, the fill value can be modified using appropriate object methods in place of the operators.
-For example, calling `A.add(B)` is equivalent to calling `A + B`, but allows optional explicit specification of the fill value for any elements in `A` or `B` that might be missing:
+If using NaN values is not the desired behavior, the fill value can be modified using appropriate object methods in place of the operators. For example, calling `A.add(B)` is equivalent to calling `A + B`, but allows optional explicit specification of the fill value for any elements in `A` or `B` that might be missing:
 
 ```{code-cell}
 A.add(B, fill_value=0)
@@ -685,8 +684,7 @@ B
 A + B
 ```
 
-Notice that indices are aligned correctly irrespective of their order in the two objects, and indices in the result are sorted. As was the case with `Series`, we can use the associated object's arithmetic method and pass any desired `fill_value` to be used in place of missing entries.
-Here we'll fill with the mean of all values in `A` (computed by first stacking the rows of `A`):
+Notice that indices are aligned correctly irrespective of their order in the two objects, and indices in the result are sorted. As was the case with `Series`, we can use the associated object's arithmetic method and pass any desired `fill_value` to be used in place of missing entries. Here we'll fill with the mean of all values in `A` (computed by first stacking the rows of `A`):
 
 ```{code-cell}
 fill = A.stack().mean()
@@ -775,10 +773,9 @@ NumPy does have support for masked arrays – that is, arrays that have a separa
 
 With these constraints in mind, Pandas chose to use sentinels for missing data, and further chose to use two already-existing Python null values: the special floating-point `NaN` value, and the Python `None` object. This choice has some side effects, as we will see, but in practice ends up being a good compromise in most cases of interest.
 
-#### `None`: pythonic missing data
+#### None: pythonic missing data
 
-The first sentinel value used by Pandas is `None`, a Python singleton object that is often used for missing data in Python code.
-Because it is a Python object, `None` cannot be used in any arbitrary NumPy/Pandas array, but only in arrays with data type `'object'` (i.e., arrays of Python objects):
+The first sentinel value used by Pandas is `None`, a Python singleton object that is often used for missing data in Python code. Because it is a Python object, `None` cannot be used in any arbitrary NumPy/Pandas array, but only in arrays with data type `'object'` (i.e., arrays of Python objects):
 
 ```{code-cell}
 import numpy as np
@@ -812,7 +809,7 @@ TypeError: unsupported operand type(s) for +: 'int' and 'NoneType'
 
 This reflects the fact that addition between an integer and `None` is undefined.
 
-#### `NaN`: missing numerical data
+#### NaN: missing numerical data
 
 The other missing data representation, `NaN` (acronym for *Not a Number*), is different; it is a special floating-point value recognized by all systems that use the standard IEEE floating-point representation:
 
@@ -882,9 +879,7 @@ Keep in mind that in Pandas, string data is always stored with an `object` dtype
 
 ### Operating on null values
 
-As we have seen, Pandas treats `None` and `NaN` as essentially interchangeable for indicating missing or null values.
-To facilitate this convention, there are several useful methods for detecting, removing, and replacing null values in Pandas data structures.
-They are:
+As we have seen, Pandas treats `None` and `NaN` as essentially interchangeable for indicating missing or null values. To facilitate this convention, there are several useful methods for detecting, removing, and replacing null values in Pandas data structures. They are:
 
 - `isnull()`: Generate a boolean mask indicating missing values
 - `notnull()`: Opposite of `isnull()`
@@ -1380,7 +1375,7 @@ This can be done with the `set_index` method of the `DataFrame`, which returns a
 pop_flat.set_index(['state', 'year'])
 ```
 
-In practice, I find this type of reindexing to be one of the more useful patterns when encountering real-world datasets.
+In practice, we find this type of reindexing to be one of the more useful patterns when encountering real-world datasets.
 
 ### Data aggregations on multi-indices
 
@@ -1411,7 +1406,7 @@ Thus in two lines, we've been able to find the average heart rate and temperatur
 
 Pandas has a few other fundamental data structures that we have not yet discussed, namely the `pd.Panel` and `pd.Panel4D` objects. These can be thought of, respectively, as three-dimensional and four-dimensional generalizations of the (one-dimensional) `Series` and (two-dimensional) `DataFrame` structures. Once you are familiar with indexing and manipulation of data in a `Series` and `DataFrame`, `Panel` and `Panel4D` are relatively straightforward to use. In particular, the `loc`, and `iloc` indexers discussed in *Data indexing and selection* extend readily to these higher-dimensional structures.
 
-We won't cover these panel structures further in this text, as I've found in the majority of cases that multi-indexing is a more useful and conceptually simpler representation for higher-dimensional data. Additionally, panel data is fundamentally a dense data representation, while multi-indexing is fundamentally a sparse data representation. As the number of dimensions increases, the dense representation can become very inefficient for the majority of real-world datasets. For the occasional specialized application, however, these structures can be useful. If you'd like to read more about the `Panel` and `Panel4D` structures, see the references listed in *Further resources*.
+We won't cover these panel structures further in this text, as we've found in the majority of cases that multi-indexing is a more useful and conceptually simpler representation for higher-dimensional data. Additionally, panel data is fundamentally a dense data representation, while multi-indexing is fundamentally a sparse data representation. As the number of dimensions increases, the dense representation can become very inefficient for the majority of real-world datasets. For the occasional specialized application, however, these structures can be useful. If you'd like to read more about the `Panel` and `Panel4D` structures, see the references listed in *Further resources*.
 
 ## Combining datasets: concat and append
 
@@ -1485,7 +1480,6 @@ np.concatenate([x, x], axis=1)
 Pandas has a function, `pd.concat()`, which has a similar syntax to `np.concatenate` but contains a number of options that we'll discuss momentarily:
 
 ```py
-# Signature in Pandas v0.18
 pd.concat(objs, axis=0, join='outer', join_axes=None, ignore_index=False,
           keys=None, levels=None, names=None, verify_integrity=False,
           copy=True)
@@ -1787,10 +1781,9 @@ Because the output would have two conflicting column names, the merge function a
 display('df8', 'df9', 'pd.merge(df8, df9, on="name", suffixes=["_L", "_R"])')
 ```
 
-These suffixes work in any of the possible join patterns, and work also if there are multiple overlapping columns.
-For more information on these patterns, see *Aggregation and grouping *where we dive a bit deeper into relational algebra.
+These suffixes work in any of the possible join patterns, and work also if there are multiple overlapping columns. For more information on these patterns, see *Aggregation and grouping *where we dive a bit deeper into relational algebra.
 
-### Example: US States data
+### Example: US states data
 
 Merge and join operations come up most often when combining data from different sources. Here we will consider an example of some data about US states and their populations. The data files can be found at http://github.com/jakevdp/data-USstates/.
 
@@ -1901,7 +1894,7 @@ density.tail()
 
 We see that the least dense state, by far, is Alaska, averaging slightly over one resident per square mile.
 
-This type of messy data merging is a common task when trying to answer questions using real-world data sources. I hope that this example has given you an idea of the ways you can combine tools we've covered in order to gain insight from your data!
+This type of messy data merging is a common task when trying to answer questions using real-world data sources. we hope that this example has given you an idea of the ways you can combine tools we've covered in order to gain insight from your data!
 
 ## Aggregation and grouping
 
@@ -2224,7 +2217,7 @@ planets.groupby(['method', decade])['number'].sum().unstack().fillna(0)
 
 This shows the power of combining many of the operations we've discussed up to this point when looking at realistic datasets. We immediately gain a coarse understanding of when and how planets have been discovered over the past several decades!
 
-Here I would suggest digging into these few lines of code, and evaluating the individual steps to make sure you understand exactly what they are doing to the result. It's certainly a somewhat complicated example, but understanding these pieces will give you the means to similarly explore your own data.
+Here we would suggest digging into these few lines of code, and evaluating the individual steps to make sure you understand exactly what they are doing to the result. It's certainly a somewhat complicated example, but understanding these pieces will give you the means to similarly explore your own data.
 
 ## Pivot tables
 
@@ -2366,7 +2359,7 @@ mu = quartiles[1]
 sig = 0.74 * (quartiles[2] - quartiles[0])
 ```
 
-This final line is a robust estimate of the sample mean, where the 0.74 comes from the interquartile range of a Gaussian distribution (You can learn more about sigma-clipping operations in a book I coauthored with Željko Ivezić, Andrew J. Connolly, and Alexander Gray: ["Statistics, Data Mining, and Machine Learning in Astronomy"](http://press.princeton.edu/titles/10159.html) (Princeton University Press, 2014)).
+This final line is a robust estimate of the sample mean, where the 0.74 comes from the interquartile range of a Gaussian distribution (You can learn more about sigma-clipping operations in a book we coauthored with Željko Ivezić, Andrew J. Connolly, and Alexander Gray: ["Statistics, Data Mining, and Machine Learning in Astronomy"](http://press.princeton.edu/titles/10159.html) (Princeton University Press, 2014)).
 
 With this we can use the `query()` method (discussed further in *High-performance Pandas: `eval()` and `query()`*) to filter-out rows with births outside these values:
 
@@ -2614,11 +2607,11 @@ full_monte['info'].str.get_dummies('|')
 
 With these operations as building blocks, you can construct an endless range of string processing procedures when cleaning your data.
 
-We won't dive further into these methods here, but I encourage you to read through ["Working with Text Data"](http://pandas.pydata.org/pandas-docs/stable/text.html) in the Pandas online documentation, or to refer to the resources listed in *Further resources*.
+We won't dive further into these methods here, but we encourage you to read through ["Working with Text Data"](http://pandas.pydata.org/pandas-docs/stable/text.html) in the Pandas online documentation, or to refer to the resources listed in *Further resources*.
 
 ### Example: recipe database
 
-These vectorized string operations become most useful in the process of cleaning up messy, real-world data. Here I'll walk through an example of that, using an open recipe database compiled from various sources on the Web. Our goal will be to parse the recipe data into ingredient lists, so we can quickly find a recipe based on some ingredients we have on hand.
+These vectorized string operations become most useful in the process of cleaning up messy, real-world data. Here we'll walk through an example of that, using an open recipe database compiled from various sources on the Web. Our goal will be to parse the recipe data into ingredient lists, so we can quickly find a recipe based on some ingredients we have on hand.
 
 The scripts used to compile this can be found at https://github.com/fictivekin/openrecipes, and the link to the current version of the database is found there as well.
 
@@ -3127,7 +3120,7 @@ This section has provided only a brief summary of some of the most essential fea
 
 Another excellent resource is the textbook [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do) by Wes McKinney (OReilly, 2012).  Although it is now a few years old, it is an invaluable resource on the use of Pandas. In particular, this book emphasizes time series tools in the context of business and finance, and focuses much more on particular details of business calendars, time zones, and related topics.
 
-As always, you can also use the IPython help functionality to explore and try further options available to the functions and methods discussed here. I find this often is the best way to learn a new Python tool.
+As always, you can also use the IPython help functionality to explore and try further options available to the functions and methods discussed here. We find this often is the best way to learn a new Python tool.
 
 ### Example: visualizing Seattle bicycle counts
 
@@ -3484,13 +3477,13 @@ If the size of the temporary `DataFrame`s is significant compared to your availa
 df.values.nbytes
 ```
 
-On the performance side, `eval()` can be faster even when you are not maxing-out your system memory. The issue is how your temporary `DataFrame`s compare to the size of the L1 or L2 CPU cache on your system (typically a few megabytes in 2016); if they are much bigger, then `eval()` can avoid some potentially slow movement of values between the different memory caches. In practice, I find that the difference in computation time between the traditional methods and the `eval`/`query` method is usually not significant–if anything, the traditional method is faster for smaller arrays! The benefit of `eval`/`query` is mainly in the saved memory, and the sometimes cleaner syntax they offer.
+On the performance side, `eval()` can be faster even when you are not maxing-out your system memory. The issue is how your temporary `DataFrame`s compare to the size of the L1 or L2 CPU cache on your system (typically a few megabytes in 2016); if they are much bigger, then `eval()` can avoid some potentially slow movement of values between the different memory caches. In practice, we find that the difference in computation time between the traditional methods and the `eval`/`query` method is usually not significant–if anything, the traditional method is faster for smaller arrays! The benefit of `eval`/`query` is mainly in the saved memory, and the sometimes cleaner syntax they offer.
 
 We've covered most of the details of `eval()` and `query()` here; for more information on these, you can refer to the Pandas documentation. In particular, different parsers and engines can be specified for running these queries; for details on this, see the discussion within the ["Enhancing Performance" section](http://pandas.pydata.org/pandas-docs/dev/enhancingperf.html).
 
 ## Further resources
 
-In this chapter, we've covered many of the basics of using Pandas effectively for data analysis. Still, much has been omitted from our discussion. To learn more about Pandas, I recommend the following resources:
+In this chapter, we've covered many of the basics of using Pandas effectively for data analysis. Still, much has been omitted from our discussion. To learn more about Pandas, we recommend the following resources:
 
 - [Pandas online documentation](http://pandas.pydata.org/): This is the go-to source for complete documentation of the package. While the examples in the documentation tend to be small generated datasets, the description of the options is complete and generally very useful for understanding the use of various functions.
 
@@ -3524,5 +3517,7 @@ Here are some examples of exploring data from Image data sources:
 [Perform more detailed data study for the challenges above](../../assignments/data-science/data-processing-in-python.md)
 
 ## Acknowledgments
+
+Thanks for the [introduction of Pandas by Wikipedia](https://en.wikipedia.org/wiki/Pandas_(software)).
 
 Thanks to Donne Martin for creating the open source course [data-science-ipython-notebooks](https://github.com/donnemartin/data-science-ipython-notebooks). It contributes the majority of the content in this chapter.

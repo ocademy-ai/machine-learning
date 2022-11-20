@@ -165,22 +165,21 @@ for (var i = 0; i < letters.length; i++)
 
 Run your app from the terminal (npm run serve) and enjoy the visualization!
 
-
 ## Self study
 
 Here are some articles to read about deceptive data visualization:
 
-https://gizmodo.com/how-to-lie-with-data-visualization-1563576606
+* [How to Lie With Data Visualization](https://gizmodo.com/how-to-lie-with-data-visualization-1563576606)
 
-http://ixd.prattsi.org/2017/12/visual-lies-usability-in-deceptive-data-visualizations/
+* [Visual Lies: Usability in Deceptive Data Visualizations](http://ixd.prattsi.org/2017/12/visual-lies-usability-in-deceptive-data-visualizations/)
 
 Take a look at these interest visualizations for historical assets and artifacts:
 
-https://handbook.pubpub.org/
+* [Visualizing Objects, Places, and Spaces: A Digital Project Handbook](https://handbook.pubpub.org/)
 
 Look through this article on how animation can enhance your visualizations:
 
-https://medium.com/@EvanSinar/use-animation-to-supercharge-data-visualization-cd905a882ad4
+* [Use Animation to Supercharge Data Visualization](https://medium.com/@EvanSinar/use-animation-to-supercharge-data-visualization-cd905a882ad4)
 
 ## Your turn! 🚀
 
