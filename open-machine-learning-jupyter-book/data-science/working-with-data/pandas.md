@@ -2231,7 +2231,7 @@ For the examples in this section, we'll use the database of passengers on the *T
 import numpy as np
 import pandas as pd
 import seaborn as sns
-titanic = sns.load_dataset('../../assets/data/titanic')
+titanic = sns.load_dataset('titanic')
 ```
 
 ```{code-cell}
