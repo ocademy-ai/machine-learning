@@ -1,0 +1,1037 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>36. Unbalanced problems &#8212; Machine Learning Open Course</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="37. AutoML (TBD)" href="automl.html" />
+    <link rel="prev" title="35. Semi-supervised learning (TBD)" href="semi-supervised-learning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Course</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-advanced/clustering/clustering-models-for-machine-learning.html">
+   10. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="simple">
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/kernel-method.html">
+   11. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/model-selection.html">
+   12. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/ensemble-learning.html">
+   13. Ensemble learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/unsupervised-learning.html">
+   14. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/generative-models.html">
+   15. Generative models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-overview.html">
+   16. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/CNN.html">
+   17. CNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/GAN.html">
+   18. GAN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/RNN.html">
+   19. RNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/AutoEncoder.html">
+   20. Autoencoder (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/LSTM.html">
+   21. LSTM (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/NLP.html">
+   22. NLP (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/time-series.html">
+   23. Time series (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/DQN.html">
+   24. DQN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-summary.html">
+   25. Summary of deep learning (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/overview.html">
+   26. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/problem-framing.html">
+   27. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/data-engineering.html">
+   28. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-training-and-evaluation.html">
+   29. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-deployment.html">
+   30. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="pytorch.html">
+   31. PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bamboolib.html">
+   32. Bamboolib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mito.html">
+   33. Mito
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="KNN.html">
+   34. KNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="semi-supervised-learning.html">
+   35. Semi-supervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   36. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="automl.html">
+   37. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../assignments/introduction.html">
+   38. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/get-started.html">
+     38.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-introduction.html">
+     38.2. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-basics.html">
+     38.3. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-advanced.html">
+     38.4. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-text-about-data-science.html">
+     38.5. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-scenarios.html">
+     38.6. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/write-a-data-ethics-case-study.html">
+     38.7. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/lines-scatters-and-bars.html">
+     38.8. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/apply-your-skills.html">
+     38.9. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/try-it-in-excel.html">
+     38.10. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/dive-into-the-beehive.html">
+     38.11. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/build-your-own-custom-vis.html">
+     38.12. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/classifying-datasets.html">
+     38.13. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/small-diabetes-study.html">
+     38.14. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/introduction-to-statistics-and-probability.html">
+     38.15. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/displaying-airport-data.html">
+     38.16. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/soda-profits.html">
+     38.17. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-COVID-19-papers.html">
+     38.18. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     38.19. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-processing-in-python.html">
+     38.20. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/evaluating-data-from-a-form.html">
+     38.21. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-preparation.html">
+     38.22. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-data.html">
+     38.23. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     38.24. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/tell-a-story.html">
+     38.25. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     38.26. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/exploring-for-anwser.html">
+     38.27. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/market-research.html">
+     38.28. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     38.29. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     38.30. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     38.31. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/project-plan-template.html">
+     38.32. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html">
+     38.33. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     38.34. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-classification.html">
+     38.35. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-regression.html">
+     38.36. Case Study: Debugging in Regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../slides/introduction.html">
+   39. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-introduction.html">
+     39.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-basics.html">
+     39.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-advanced.html">
+     39.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-in-data-science.html">
+     39.15. Python in Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-in-data-visualization.html">
+     39.16. Python in data visualization
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fsupporting-materials/unbalanced-problems.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/supporting-materials/unbalanced-problems.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/supporting-materials/unbalanced-problems.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Unbalanced problems</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="unbalanced-problems">
+<h1><span class="section-number">36. </span>Unbalanced problems<a class="headerlink" href="#unbalanced-problems" title="Permalink to this headline">#</a></h1>
+<div hidden>
+https://scikit-learn.org/stable/modules/svm.html
+<p>Extreme Rare Event Classification using Autoencoders in Keras:
+<a class="reference external" href="https://processminer.com/autoencoders-in-keras/">https://processminer.com/autoencoders-in-keras/</a></p>
+</div></section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./supporting-materials"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="semi-supervised-learning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">35. </span>Semi-supervised learning (TBD)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="automl.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">37. </span>AutoML (TBD)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Open Academy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
