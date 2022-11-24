@@ -1,5 +1,4 @@
-# Neural network 
-
+# Introduction
 
 ```{tableofcontents}
 
