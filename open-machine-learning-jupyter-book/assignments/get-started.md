@@ -25,7 +25,7 @@ To start working on the assignments, you could follow the  steps below:
 8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
 
 Starting from your second assignment, you need only follow 
-Step 5-Step 8.
+Step 5-Step 8. Note that Step 6 is optional and you can skip it without any issue.
 
 You don't need to finish all the assignments at the same time. Only the changed file will trigger the verification from GitHub after being pushed to the remote. You could also debug the code by checking the error log from the GitHub Action execution.
 
