@@ -3,19 +3,19 @@
 
 To start working on the assignments, you could follow the  steps below:
 
-1. (First time only) Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own GitHub account.
+1. [First time only] Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own GitHub account.
 ![](../../images/fork-01.jpg)
 ![](../../images/fork-02.jpg)
-2. (First time only) Create a test branch on your repo forked above, which MUST be named as `assignment`.
+2. [First time only] Create a test branch on your repo forked above, which MUST be named as `assignment`.
 ![](../../images/create_branch-01.jpg)
 ![](../../images/create_branch-02.jpg)
-3. (First time only) Enable GitHub Actions for your forked repository.
-4. (First time only) Clone the repo to your local, and switch to the `assignment` branch.
+3. [First time only] Enable GitHub Actions for your forked repository.
+4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
 ![](../../images/git_clone-01.jpg)
 ![](../../images/git_clone-02.jpg)
 ![](../../images/checkout_branch-01.jpg)
 5. Work on the assignment locally by following the instructions provided in the Jupyter notebook. Test your code by executing the corresponding notebook cells inside the assignment.
-6. Make sure that your code can pass local test, by taping in the terminal : <br>
+6. [Optional] Make sure that your code can pass local `pytest` test, by taping in the terminal : <br>
     ```shell
    pytest --nbmake <YOUR-ASSIGNMENT-JUPYTER-FILE>.ipynb
    ```
