@@ -23,13 +23,13 @@ To start working on the assignments, you could follow the below steps:
 8. Commit & push the local changes to remote once you finish the assignment.
 ![](../../images/git_commit-01.jpg)
 ![](../../images/git_push-01.jpg)
-8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
+9. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
 
 You don't need to finish all the assignments at the same time. Only the changed file will trigger the verification from GitHub after being pushed to the remote. You could also debug the code by checking the error log from the GitHub Action execution.
 
 ```{seealso}
-- [How to fork a Github repo?](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
-- [How to check Github Action result?](https://docs.github.com/en/actions/quickstart#viewing-your-workflow-results)
+- [How to fork a GitHub repo?](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
+- [How to check GitHub Action result?](https://docs.github.com/en/actions/quickstart#viewing-your-workflow-results)
 ```
 
 ## How does this work?
