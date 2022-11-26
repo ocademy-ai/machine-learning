@@ -13,13 +13,14 @@ To start working on the assignments, you could follow the below steps:
 ![](../../images/git_clone-01.jpg)
 ![](../../images/git_clone-02.jpg)
 ![](../../images/checkout_branch-01.jpg)
-4. Work on the assignment locally by following the instructions provided in the Jupyter notebook.
-5. Test your code by executing the corresponding notebook cell inside the assignment.
-6. Make sure that your code can pass local test, by taping in the terminal : <br>
+4. Enable GitHub Actions of your forked repository.
+5. Work on the assignment locally by following the instructions provided in the Jupyter notebook.
+6. Test your code by executing the corresponding notebook cell inside the assignment.
+7. Make sure that your code can pass local test, by taping in the terminal : <br>
     ```shell
    pytest --nbmake <YOUR-ASSIGNMENT-JUPYTER-FILE>.ipynb
    ```
-7. Commit & push the local changes to remote once you finish the assignment.
+8. Commit & push the local changes to remote once you finish the assignment.
 ![](../../images/git_commit-01.jpg)
 ![](../../images/git_push-01.jpg)
 8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
