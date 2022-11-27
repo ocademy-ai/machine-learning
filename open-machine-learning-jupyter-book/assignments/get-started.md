@@ -1,29 +1,31 @@
 
 # Get started
 
-To start working on the assignments, you could follow the below steps:
+To start working on the assignments, you could follow the  steps below:
 
-1. Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own GitHub account.
+1. [First time only] Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own GitHub account.
 ![](../../images/fork-01.jpg)
 ![](../../images/fork-02.jpg)
-2. Create a test branch on your repo forked above, which MUST be named as `assignment`.
+2. [First time only] Create a test branch on your repo forked above, which MUST be named as `assignment`.
 ![](../../images/create_branch-01.jpg)
 ![](../../images/create_branch-02.jpg)
-3. Clone the repo to your local, and switch to the `assignment` branch.
+3. [First time only] Enable GitHub Actions for your forked repository.
+4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
 ![](../../images/git_clone-01.jpg)
 ![](../../images/git_clone-02.jpg)
 ![](../../images/checkout_branch-01.jpg)
-4. Enable GitHub Actions of your forked repository.
-5. Work on the assignment locally by following the instructions provided in the Jupyter notebook.
-6. Test your code by executing the corresponding notebook cell inside the assignment.
-7. Make sure that your code can pass local test, by taping in the terminal : <br>
+5. Work on the assignment locally by following the instructions provided in the Jupyter notebook. Test your code by executing the corresponding notebook cells inside the assignment.
+6. [Optional] Make sure that your code can pass local `pytest` test, by taping in the terminal : <br>
     ```shell
    pytest --nbmake <YOUR-ASSIGNMENT-JUPYTER-FILE>.ipynb
    ```
-8. Commit & push the local changes to remote once you finish the assignment.
+7. Commit & push the local changes to remote once you finish the assignment.
 ![](../../images/git_commit-01.jpg)
 ![](../../images/git_push-01.jpg)
-9. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
+8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
+
+Starting from your second assignment, you need only follow 
+Step 5-Step 8. Note that Step 6 is optional and you can skip it without any issue.
 
 You don't need to finish all the assignments at the same time. Only the changed file will trigger the verification from GitHub after being pushed to the remote. You could also debug the code by checking the error log from the GitHub Action execution.
 
