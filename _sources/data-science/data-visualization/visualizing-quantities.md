@@ -39,10 +39,10 @@ There are very good 'cheat sheets' available for Matplotlib [here](https://matpl
 
 ## Build a line plot about bird wingspan values
 
-Open the file [let-us-learn-about-birds.ipynb](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assignments/data-science) with Jupyter Notebook and add a cell.
+Open the file [let-us-learn-about-birds.ipynb](../../assignments/data-science/let-us-learn-about-birds.ipynb) with Jupyter Notebook and add a cell.
 
 ```{note}
-The data is stored in the [/open-machine-learning-jupyter-book/assets/data](https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book/assets/data) folder.
+The data is stored in the `/assets/data/` folder.
 ```
 
 ```{code-cell}
