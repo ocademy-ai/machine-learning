@@ -42,7 +42,7 @@ There are very good 'cheat sheets' available for Matplotlib [here](https://matpl
 Open the file [let-us-learn-about-birds.ipynb](../../assignments/data-science/let-us-learn-about-birds.ipynb) with Jupyter Notebook and add a cell.
 
 ```{note}
-The data is stored in the `/assets/data/` folder.
+The data is stored in the [/assets/data/birds.csv](https://open-academy.github.io/machine-learning/assets/data/birds.csv) file.
 ```
 
 ```{code-cell}
