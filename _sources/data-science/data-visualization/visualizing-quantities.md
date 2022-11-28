@@ -15,7 +15,7 @@ kernelspec:
 
 # Visualizing quantities
 
-In this section you will explore how to use one of the many available Python libraries to learn how to create interesting visualizations all around the concept of quantity. Using a cleaned dataset about the birds of Minnesota, you can learn many interesting facts about local wildlife. 
+In this section, you will explore how to use one of the many available Python libraries to learn how to create interesting visualizations all around the concept of quantity. Using a cleaned dataset about the birds of Minnesota, you can learn many interesting facts about local wildlife.
 
 ## Observe wingspan with matplotlib
 
@@ -39,7 +39,7 @@ There are very good 'cheat sheets' available for Matplotlib [here](https://matpl
 
 ## Build a line plot about bird wingspan values
 
-Open the file [let-us-learn-about-birds.ipynb](../../assignments/data-science/let-us-learn-about-birds.ipynb) with Jupyter Notebook and add a cell. The data could be found <a href="../../assets/data/birds.csv">here</a>.
+Open the notebook [let-us-learn-about-birds](../../assignments/data-science/let-us-learn-about-birds.ipynb) with Jupyter Notebook and add a cell. The data could be found <a href="../../assets/data/birds.csv">here</a>.
 
 ```{code-cell}
 :tags: [output_scroll]
@@ -58,9 +58,9 @@ wingspan = birds['MaxWingspan']
 wingspan.plot()
 ```
 
-What do you notice immediately? There seems to be at least one outlier - that's quite a wingspan! A 2300 centimeter wingspan equals 23 meters - are there Pterodactyls roaming Minnesota? Let's investigate.
+What do you notice immediately? There seems to be at least one outlier - that's quite a wingspan! A 2300-centimeter wingspan equals 23 meters - are there Pterodactyls roaming Minnesota? Let's investigate.
 
-While you could  do a quick sort in Excel to find those outliers, which are probably typos, continue the visualization process by working from within the plot.
+While you could do a quick sort in Excel to find those outliers, which are probably typos, continue the visualization process by working from within the plot.
 
 Add labels to the x-axis to show what kind of birds are in question:
 
@@ -100,7 +100,7 @@ What did you discover?
 
 ## Filter your data
 
-Both the Bald Eagle and the Prairie Falcon, while probably very large birds, appear to be mislabeled, with an extra `0` added to their maximum wingspan. It's unlikely that you'll meet a Bald Eagle with a 25 meter wingspan, but if so, please let us know! Let's create a new dataframe without those two outliers:
+Both the Bald Eagle and the Prairie Falcon, while probably very large birds, appear to be mislabeled, with an extra `0` added to their maximum wingspan. It's unlikely that you'll meet a Bald Eagle with a 25-meter wingspan, but if so, please let us know! Let's create a new dataframe without those two outliers:
 
 ```{code-cell}
 plt.title('Max Wingspan in Centimeters')
@@ -147,7 +147,7 @@ birds.plot(x='Category',
 
 This bar chart, however, is unreadable because there is too much non-grouped data. You need to select only the data that you want to plot, so let's look at the length of birds based on their category.
 
-Filter your data to include only the bird's category. 
+Filter your data to include only the bird's category.
 
 ```{note}
 Notice that you use Pandas to manage the data, and then let Matplotlib do the charting.
@@ -178,9 +178,9 @@ plt.rcParams['figure.figsize'] = [6, 12]
 plt.show()
 ```
 
-Nothing is surprising here: hummingbirds have the least MaxLength compared to Pelicans or Geese. It's good when data makes logical sense!
+Nothing is surprising here: hummingbirds have the least `MaxLength` compared to Pelicans or Geese. It's good when data makes logical sense!
 
-You can create more interesting visualizations of bar charts by superimposing data. Let's superimpose Minimum and Maximum Length on a given bird category:
+You can create more interesting visualizations of bar charts by superimposing data. Let's superimpose `Minimum` and Maximum Length on a given bird category:
 
 ```{code-cell}
 minLength = birds['MinLength']
@@ -193,11 +193,11 @@ plt.barh(category, minLength)
 plt.show()
 ```
 
-In this plot, you can see the range per bird category of the Minimum Length and Maximum length. You can safely say that, given this data, the bigger the bird, the larger its length range. Fascinating!
+In this plot, you can see the range per bird category of the Minimum length and Maximum length. You can safely say that, given this data, the bigger the bird, the larger its length range. Fascinating!
 
 ## Self study
 
-This first section has given you some information about how to use Matplotlib to visualize quantities. Do some research around other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these sections, so take a look at what it can offer.
+This first section has given you some information about how to use Matplotlib to visualize quantities. Do some research on other ways to work with datasets for visualization. [Plotly](https://github.com/plotly/plotly.py) is one that we won't cover in these sections, so take a look at what it can offer.
 
 ## Your turn! 🚀
 
