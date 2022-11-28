@@ -32,6 +32,8 @@ To start working on the assignments, you could follow the  steps below:
     git push
     ```
 8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
+![](../../images/actions-1.png)
+![](../../images/actions-2.png)
 
 Starting from your second assignment, you need only follow 
 Step 5-Step 8. Note that Step 6 is optional and you can skip it without any issue.
