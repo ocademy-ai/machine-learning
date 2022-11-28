@@ -10,6 +10,7 @@ To start working on the assignments, you could follow the  steps below:
 ![](../../images/create_branch-01.jpg)
 ![](../../images/create_branch-02.jpg)
 3. [First time only] Enable GitHub Actions for your forked repository.
+![](../../images/enable_actions.png)
 4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
 ![](../../images/git_clone-01.jpg)
 ![](../../images/clone_checkout.png)
