@@ -12,7 +12,7 @@ To start working on the assignments, you could follow the  steps below:
 3. [First time only] Enable GitHub Actions for your forked repository.
 4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
 ![](../../images/git_clone-01.jpg)
-![](../../images/clone%26checkout.png)
+![](../../images/clone_checkout.png)
     ```shell
     git clone <the url just copied>
     cd machine-learning
