@@ -12,16 +12,24 @@ To start working on the assignments, you could follow the  steps below:
 3. [First time only] Enable GitHub Actions for your forked repository.
 4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
 ![](../../images/git_clone-01.jpg)
-![](../../images/git_clone-02.jpg)
-![](../../images/checkout_branch-01.jpg)
+![](../../images/clone%26checkout.png)
+    ```shell
+    git clone <the url just copied>
+    cd machine-learning
+    git checkout assignment
+    ```
 5. Work on the assignment locally by following the instructions provided in the Jupyter notebook. Test your code by executing the corresponding notebook cells inside the assignment.
+![](../../images/executing-code-cell.png)
 6. [Optional] Make sure that your code can pass local `pytest` test, by taping in the terminal : <br>
     ```shell
    pytest --nbmake <YOUR-ASSIGNMENT-JUPYTER-FILE>.ipynb
    ```
 7. Commit & push the local changes to remote once you finish the assignment.
-![](../../images/git_commit-01.jpg)
-![](../../images/git_push-01.jpg)
+![](../../images/commit_push.png)
+    ```shell
+    git commit -am '<description>'
+    git push
+    ```
 8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
 
 Starting from your second assignment, you need only follow 
