@@ -49,9 +49,7 @@ birds = pd.read_csv('../../assets/data/birds.csv')
 birds.head()
 ```
 
-This data is a mix of text and numbers
-
-Let's start by plotting some of the numeric data using a basic line plot. Suppose you wanted a view of the maximum wingspan for these interesting birds.
+This data is a mix of text and numbers. Let's start by plotting some of the numeric data using a basic line plot. Suppose you wanted a view of the maximum wingspan for these interesting birds.
 
 ```{code-cell}
 wingspan = birds['MaxWingspan'] 
