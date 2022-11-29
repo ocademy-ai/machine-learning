@@ -766,12 +766,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-science.html">
-     39.15. Python in Data Science
+     39.6. Python in Data Science
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-visualization.html">
-     39.16. Python in data visualization
+     39.7. Python in data visualization
     </a>
    </li>
   </ul>
@@ -1157,10 +1157,10 @@ title="Print to PDF"
 <p>We will use data on COVID-19 infected individuals, provided by the <a class="reference external" href="https://systems.jhu.edu/">Center for Systems Science and Engineering</a> (CSSE) at <a class="reference external" href="https://jhu.edu/">Johns Hopkins University</a>. Dataset is available in <a class="reference external" href="https://github.com/CSSEGISandData/COVID-19">this GitHub Repository</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># make figures larger</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+plt.rcParams[&quot;figure.figsize&quot;] = (10,3) # make figures larger
 </pre></div>
 </div>
 </div>
@@ -1168,12 +1168,12 @@ title="Print to PDF"
 <p>We can load the most recent data directly from GitHub using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>. If for some reason the data is not available, you can always use the copy available locally in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder - just uncomment the line below that defines <code class="docutils literal notranslate"><span class="pre">base_url</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/&quot;</span> <span class="c1"># loading from Internet</span>
-<span class="c1"># base_url = &quot;../../data/COVID/&quot; # loading from disk</span>
-<span class="n">infected_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;time_series_covid19_confirmed_global.csv&quot;</span>
-<span class="n">recovered_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;time_series_covid19_recovered_global.csv&quot;</span>
-<span class="n">deaths_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;time_series_covid19_deaths_global.csv&quot;</span>
-<span class="n">countries_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;../UID_ISO_FIPS_LookUp_Table.csv&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_url = &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/&quot; # loading from Internet
+# base_url = &quot;../../data/COVID/&quot; # loading from disk
+infected_dataset_url = base_url + &quot;time_series_covid19_confirmed_global.csv&quot;
+recovered_dataset_url = base_url + &quot;time_series_covid19_recovered_global.csv&quot;
+deaths_dataset_url = base_url + &quot;time_series_covid19_deaths_global.csv&quot;
+countries_dataset_url = base_url + &quot;../UID_ISO_FIPS_LookUp_Table.csv&quot;
 </pre></div>
 </div>
 </div>
@@ -1181,8 +1181,8 @@ title="Print to PDF"
 <p>Let’s now load the data for infected individuals and see how the data looks like:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">infected_dataset_url</span><span class="p">)</span>
-<span class="n">infected</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>infected = pd.read_csv(infected_dataset_url)
+infected.head()
 </pre></div>
 </div>
 </div>
@@ -1190,8 +1190,8 @@ title="Print to PDF"
 <p>We can see that each row of the table defines the number of infected individuals for each country and/or province, and columns correspond to dates. Similar tables can be loaded for other data, such as number of recovered and number of deaths.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recovered</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">recovered_dataset_url</span><span class="p">)</span>
-<span class="n">deaths</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">deaths_dataset_url</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>recovered = pd.read_csv(recovered_dataset_url)
+deaths = pd.read_csv(deaths_dataset_url)
 </pre></div>
 </div>
 </div>
@@ -1202,7 +1202,7 @@ title="Print to PDF"
 <p>From the table above the role of province column is not clear. Let’s see the different values that are present in <code class="docutils literal notranslate"><span class="pre">Province/State</span></code> column:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span><span class="p">[</span><span class="s1">&#39;Province/State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>infected[&#39;Province/State&#39;].value_counts()
 </pre></div>
 </div>
 </div>
@@ -1210,7 +1210,7 @@ title="Print to PDF"
 <p>From the names we can deduce that countries like Australia and China have more detailed breakdown by provinces. Let’s look for information on China to see the example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span><span class="p">[</span><span class="n">infected</span><span class="p">[</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;China&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>infected[infected[&#39;Country/Region&#39;]==&#39;China&#39;]
 </pre></div>
 </div>
 </div>
@@ -1221,11 +1221,11 @@ title="Print to PDF"
 <p>We are not interested in breaking countries down to further territories, thus we would first get rid of this breakdown and add information on all territories together, to get info for the whole country. This can be done using <code class="docutils literal notranslate"><span class="pre">groupby</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span> <span class="o">=</span> <span class="n">infected</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">recovered</span> <span class="o">=</span> <span class="n">recovered</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">deaths</span> <span class="o">=</span> <span class="n">deaths</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>infected = infected.groupby(&#39;Country/Region&#39;).sum()
+recovered = recovered.groupby(&#39;Country/Region&#39;).sum()
+deaths = deaths.groupby(&#39;Country/Region&#39;).sum()
 
-<span class="n">infected</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+infected.head()
 </pre></div>
 </div>
 </div>
@@ -1233,9 +1233,9 @@ title="Print to PDF"
 <p>You can see that due to using <code class="docutils literal notranslate"><span class="pre">groupby</span></code> all DataFrames are now indexed by Country/Region. We can thus access the data for a specific country by using <code class="docutils literal notranslate"><span class="pre">.loc</span></code>:|</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">recovered</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>infected.loc[&#39;US&#39;][2:].plot()
+recovered.loc[&#39;US&#39;][2:].plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1245,9 +1245,9 @@ title="Print to PDF"
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span><span class="s1">&#39;Long&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">recovered</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span><span class="s1">&#39;Long&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">deaths</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span><span class="s1">&#39;Long&#39;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>infected.drop(columns=[&#39;Lat&#39;,&#39;Long&#39;],inplace=True)
+recovered.drop(columns=[&#39;Lat&#39;,&#39;Long&#39;],inplace=True)
+deaths.drop(columns=[&#39;Lat&#39;,&#39;Long&#39;],inplace=True)
 </pre></div>
 </div>
 </div>
@@ -1258,23 +1258,23 @@ title="Print to PDF"
 <p>Let’s now switch to investigating a specific country. Let’s create a frame that contains the data on infections indexed by date:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mkframe</span><span class="p">(</span><span class="n">country</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span> <span class="s1">&#39;infected&#39;</span> <span class="p">:</span> <span class="n">infected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="p">,</span>
-                        <span class="s1">&#39;recovered&#39;</span> <span class="p">:</span> <span class="n">recovered</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">],</span>
-                        <span class="s1">&#39;deaths&#39;</span> <span class="p">:</span> <span class="n">deaths</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">]})</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def mkframe(country):
+    df = pd.DataFrame({ &#39;infected&#39; : infected.loc[country] ,
+                        &#39;recovered&#39; : recovered.loc[country],
+                        &#39;deaths&#39; : deaths.loc[country]})
+    df.index = pd.to_datetime(df.index)
+    return df
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">mkframe</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">)</span>
-<span class="n">df</span>
+df = mkframe(&#39;US&#39;)
+df
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df.plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1282,9 +1282,9 @@ title="Print to PDF"
 <p>Now let’s compute the number of new infected people each day. This will allow us to see the speed at which pandemic progresses. The easiest day to do it is to use <code class="docutils literal notranslate"><span class="pre">diff</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;infected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;ninfected&#39;] = df[&#39;infected&#39;].diff()
+df[&#39;ninfected&#39;].plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1292,8 +1292,8 @@ title="Print to PDF"
 <p>We can see high fluctuations in data. Let’s look closer at one of the months:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="o">==</span><span class="mi">2020</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="o">==</span><span class="mi">7</span><span class="p">)][</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[(df.index.year==2020) &amp; (df.index.month==7)][&#39;ninfected&#39;].plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1301,9 +1301,9 @@ title="Print to PDF"
 <p>It clearly looks like there are weekly fluctuations in data. Because we want to be able to see the trends, it makes sense to smooth out the curve by computing running average (i.e. for each day we will compute the average value of the previous several days):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfav&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfav&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;ninfav&#39;] = df[&#39;ninfected&#39;].rolling(window=7).mean()
+df[&#39;ninfav&#39;].plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1311,8 +1311,8 @@ title="Print to PDF"
 <p>In order to be able to compare several countries, we might want to take the country’s population into account, and compare the percentage of infected individuals with respect to country’s population. In order to get country’s population, let’s load the dataset of countries:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">countries_dataset_url</span><span class="p">)</span>
-<span class="n">countries</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>countries = pd.read_csv(countries_dataset_url)
+countries
 </pre></div>
 </div>
 </div>
@@ -1320,17 +1320,17 @@ title="Print to PDF"
 <p>Because this dataset contains information on both countries and provinces, to get the population of the whole country we need to be a little bit clever:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">countries</span><span class="p">[(</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;Country_Region&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;US&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">countries</span><span class="p">[</span><span class="s1">&#39;Province_State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>countries[(countries[&#39;Country_Region&#39;]==&#39;US&#39;) &amp; countries[&#39;Province_State&#39;].isna()]
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop</span> <span class="o">=</span> <span class="n">countries</span><span class="p">[(</span><span class="n">countries</span><span class="p">[</span><span class="s1">&#39;Country_Region&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;US&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">countries</span><span class="p">[</span><span class="s1">&#39;Province_State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()][</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pinfected&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;infected&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span> <span class="o">/</span> <span class="n">pop</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pinfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pop = countries[(countries[&#39;Country_Region&#39;]==&#39;US&#39;) &amp; countries[&#39;Province_State&#39;].isna()][&#39;Population&#39;].iloc[0]
+df[&#39;pinfected&#39;] = df[&#39;infected&#39;]*100 / pop
+df[&#39;pinfected&#39;].plot(figsize=(10,3))
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1344,9 +1344,9 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <p>Let’s compute <span class="math notranslate nohighlight">\(R_t\)</span> for our pandemic data. To do this, we will take a rolling window of 8 <code class="docutils literal notranslate"><span class="pre">ninfected</span></code> values, and apply the function to compute the ratio above:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;Rt&#39;] = df[&#39;ninfected&#39;].rolling(8).apply(lambda x: x[4:].sum()/x[:4].sum())
+df[&#39;Rt&#39;].plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1355,10 +1355,10 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <p>Let’s further look at the beginning of the pandemic. We will also limit the y-axis values to show only values below 6, in order to see better, and draw horizontal line at 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&lt;</span><span class="s2">&quot;2020-05-01&quot;</span><span class="p">][</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax = df[df.index&lt;&quot;2020-05-01&quot;][&#39;Rt&#39;].replace(np.inf,np.nan).fillna(method=&#39;pad&#39;).plot(figsize=(10,3))
+ax.set_ylim([0,6])
+ax.axhline(1,linestyle=&#39;--&#39;,color=&#39;red&#39;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1366,8 +1366,8 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <p>Another interesting indicator of the pandemic is the <strong>derivative</strong>, or <strong>daily difference</strong> in new cases. It allows us to see clearly when pandemic is increasing or declining.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;ninfected&#39;].diff().plot()
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1375,9 +1375,9 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <p>Given the fact that there are a lot of fluctuations in data caused by reporting, it makes sense to smooth the curve by running rolling average to get the overall picture. Let’s again focus on the first months of the pandemic:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&lt;</span><span class="s2">&quot;2020-06-01&quot;</span><span class="p">][</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ax=df[df.index&lt;&quot;2020-06-01&quot;][&#39;ninfected&#39;].diff().rolling(7).mean().plot()
+ax.axhline(0,linestyle=&#39;-.&#39;,color=&#39;red&#39;)
+plt.show()
 </pre></div>
 </div>
 </div>

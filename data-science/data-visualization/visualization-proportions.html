@@ -764,12 +764,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-science.html">
-     39.15. Python in Data Science
+     39.6. Python in Data Science
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-visualization.html">
-     39.16. Python in data visualization
+     39.7. Python in data visualization
     </a>
    </li>
   </ul>
@@ -1166,10 +1166,10 @@ title="Print to PDF"
 <p>Mushrooms are very interesting. Let’s import a dataset to study them:</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">mushrooms</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../assets/data/mushrooms.csv&#39;</span><span class="p">)</span>
-<span class="n">mushrooms</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import matplotlib.pyplot as plt
+mushrooms = pd.read_csv(&#39;../../assets/data/mushrooms.csv&#39;)
+mushrooms.head()
 </pre></div>
 </div>
 </div>
@@ -1344,7 +1344,7 @@ title="Print to PDF"
 <p>Right away, you notice that all the data is textual. You will have to convert this data to be able to use it in a chart. Most of the data, in fact, is represented as an object:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mushrooms</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">([</span><span class="s2">&quot;object&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(mushrooms.select_dtypes([&quot;object&quot;]).columns)
 </pre></div>
 </div>
 </div>
@@ -1363,16 +1363,16 @@ title="Print to PDF"
 <p>Take this data and convert the ‘class’ column to a category:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="n">mushrooms</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">([</span><span class="s2">&quot;object&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
-<span class="n">mushrooms</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">mushrooms</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cols = mushrooms.select_dtypes([&quot;object&quot;]).columns
+mushrooms[cols] = mushrooms[cols].astype(&#39;category&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edibleclass</span><span class="o">=</span><span class="n">mushrooms</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;class&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">edibleclass</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>edibleclass=mushrooms.groupby([&#39;class&#39;]).count()
+edibleclass
 </pre></div>
 </div>
 </div>
@@ -1503,10 +1503,10 @@ title="Print to PDF"
 <h2><span class="section-number">6.3.2. </span>Pie!<a class="headerlink" href="#pie" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Edible&#39;</span><span class="p">,</span><span class="s1">&#39;Poisonous&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">edibleclass</span><span class="p">[</span><span class="s1">&#39;population&#39;</span><span class="p">],</span><span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span><span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Edible?&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>labels=[&#39;Edible&#39;,&#39;Poisonous&#39;]
+plt.pie(edibleclass[&#39;population&#39;],labels=labels,autopct=&#39;%.1f %%&#39;)
+plt.title(&#39;Edible?&#39;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1522,8 +1522,8 @@ title="Print to PDF"
 <p>Take a look at the various habitats where mushrooms grow:</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">habitat</span><span class="o">=</span><span class="n">mushrooms</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;habitat&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">habitat</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>habitat=mushrooms.groupby([&#39;habitat&#39;]).count()
+habitat
 </pre></div>
 </div>
 </div>
@@ -1770,19 +1770,19 @@ title="Print to PDF"
 <p>Here, you are grouping your data by habitat. There are 7 listed, so use those as labels for your donut chart:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Grasses&#39;</span><span class="p">,</span><span class="s1">&#39;Leaves&#39;</span><span class="p">,</span><span class="s1">&#39;Meadows&#39;</span><span class="p">,</span><span class="s1">&#39;Paths&#39;</span><span class="p">,</span><span class="s1">&#39;Urban&#39;</span><span class="p">,</span><span class="s1">&#39;Waste&#39;</span><span class="p">,</span><span class="s1">&#39;Wood&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>labels=[&#39;Grasses&#39;,&#39;Leaves&#39;,&#39;Meadows&#39;,&#39;Paths&#39;,&#39;Urban&#39;,&#39;Waste&#39;,&#39;Wood&#39;]
 
-<span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">habitat</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
-        <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">pctdistance</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+plt.pie(habitat[&#39;class&#39;], labels=labels,
+        autopct=&#39;%1.1f%%&#39;, pctdistance=0.85)
   
-<span class="n">center_circle</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mf">0.40</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+center_circle = plt.Circle((0, 0), 0.40, fc=&#39;white&#39;)
+fig = plt.gcf()
 
-<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">center_circle</span><span class="p">)</span>
+fig.gca().add_artist(center_circle)
   
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Mushroom Habitats&#39;</span><span class="p">)</span>
+plt.title(&#39;Mushroom Habitats&#39;)
   
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1800,8 +1800,8 @@ title="Print to PDF"
 <p>Select a segment of your data to group:</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">capcolor</span><span class="o">=</span><span class="n">mushrooms</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;cap-color&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">capcolor</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>capcolor=mushrooms.groupby([&#39;cap-color&#39;]).count()
+capcolor
 </pre></div>
 </div>
 </div>
@@ -2096,24 +2096,24 @@ title="Print to PDF"
 <p>Create a waffle chart by creating labels and then grouping your data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">pywaffle</span> <span class="kn">import</span> <span class="n">Waffle</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import matplotlib.pyplot as plt
+from pywaffle import Waffle
   
-<span class="n">data</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;buff&#39;</span><span class="p">,</span> <span class="s1">&#39;cinnamon&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;amount&#39;</span><span class="p">:</span> <span class="n">capcolor</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>
-     <span class="p">}</span>
+data ={&#39;color&#39;: [&#39;brown&#39;, &#39;buff&#39;, &#39;cinnamon&#39;, &#39;green&#39;, &#39;pink&#39;, &#39;purple&#39;, &#39;red&#39;, &#39;white&#39;, &#39;yellow&#39;],
+    &#39;amount&#39;: capcolor[&#39;class&#39;]
+     }
   
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+df = pd.DataFrame(data)
   
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span>
-    <span class="n">FigureClass</span> <span class="o">=</span> <span class="n">Waffle</span><span class="p">,</span>
-    <span class="n">rows</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">amount</span><span class="p">,</span>
-    <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">color</span><span class="p">),</span>
-    <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span>
-    <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;brown&quot;</span><span class="p">,</span> <span class="s2">&quot;tan&quot;</span><span class="p">,</span> <span class="s2">&quot;maroon&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;pink&quot;</span><span class="p">,</span> <span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="s2">&quot;whitesmoke&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">],</span>
-<span class="p">)</span>
+fig = plt.figure(
+    FigureClass = Waffle,
+    rows = 100,
+    values = df.amount,
+    labels = list(df.color),
+    figsize = (30,30),
+    colors=[&quot;brown&quot;, &quot;tan&quot;, &quot;maroon&quot;, &quot;green&quot;, &quot;pink&quot;, &quot;purple&quot;, &quot;red&quot;, &quot;whitesmoke&quot;, &quot;yellow&quot;],
+)
 </pre></div>
 </div>
 </div>

@@ -764,12 +764,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-science.html">
-     39.15. Python in Data Science
+     39.6. Python in Data Science
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-visualization.html">
-     39.16. Python in data visualization
+     39.7. Python in data visualization
     </a>
    </li>
   </ul>
@@ -1188,10 +1188,10 @@ title="Print to PDF"
 <p>Open the notebook <a class="reference internal" href="../../assignments/data-science/let-us-learn-about-birds.html"><span class="doc std std-doc">let-us-learn-about-birds</span></a> with Jupyter Notebook and add a cell. The data could be found <a href="../../assets/data/birds.csv">here</a>.</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="n">birds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../assets/data/birds.csv&#39;</span><span class="p">)</span>
-<span class="n">birds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+import matplotlib.pyplot as plt
+birds = pd.read_csv(&#39;../../assets/data/birds.csv&#39;)
+birds.head()
 </pre></div>
 </div>
 </div>
@@ -1317,8 +1317,8 @@ title="Print to PDF"
 <p>This data is a mix of text and numbers. Let’s start by plotting some of the numeric data using a basic line plot. Suppose you wanted a view of the maximum wingspan for these interesting birds.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wingspan</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxWingspan&#39;</span><span class="p">]</span> 
-<span class="n">wingspan</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wingspan = birds[&#39;MaxWingspan&#39;] 
+wingspan.plot()
 </pre></div>
 </div>
 </div>
@@ -1334,16 +1334,16 @@ title="Print to PDF"
 <p>Add labels to the x-axis to show what kind of birds are in question:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Max Wingspan in Centimeters&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Wingspan (CM)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Birds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> 
-<span class="n">y</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxWingspan&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.title(&#39;Max Wingspan in Centimeters&#39;)
+plt.ylabel(&#39;Wingspan (CM)&#39;)
+plt.xlabel(&#39;Birds&#39;)
+plt.xticks(rotation=45)
+x = birds[&#39;Name&#39;] 
+y = birds[&#39;MaxWingspan&#39;]
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+plt.plot(x, y)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1354,18 +1354,18 @@ title="Print to PDF"
 <p>Even with the rotation of the labels set to 45 degrees, there are too many to read. Let’s try a different strategy: label only those outliers and set the labels within the chart. You can use a scatter chart to make more room for the labeling:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Max Wingspan in Centimeters&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Wingspan (CM)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.title(&#39;Max Wingspan in Centimeters&#39;)
+plt.ylabel(&#39;Wingspan (CM)&#39;)
+plt.tick_params(axis=&#39;both&#39;,which=&#39;both&#39;,labelbottom=False,bottom=False)
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">birds</span><span class="p">)):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxWingspan&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;bo&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxWingspan&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">),</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+for i in range(len(birds)):
+    x = birds[&#39;Name&#39;][i]
+    y = birds[&#39;MaxWingspan&#39;][i]
+    plt.plot(x, y, &#39;bo&#39;)
+    if birds[&#39;MaxWingspan&#39;][i] &gt; 500:
+        plt.text(x, y * (1 - 0.05), birds[&#39;Name&#39;][i], fontsize=12)
     
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1381,16 +1381,16 @@ title="Print to PDF"
 <p>Both the Bald Eagle and the Prairie Falcon, while probably very large birds, appear to be mislabeled, with an extra <code class="docutils literal notranslate"><span class="pre">0</span></code> added to their maximum wingspan. It’s unlikely that you’ll meet a Bald Eagle with a 25-meter wingspan, but if so, please let us know! Let’s create a new dataframe without those two outliers:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Max Wingspan in Centimeters&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Wingspan (CM)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Birds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">birds</span><span class="p">)):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxWingspan&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Bald eagle&#39;</span><span class="p">,</span> <span class="s1">&#39;Prairie falcon&#39;</span><span class="p">]:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;bo&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.title(&#39;Max Wingspan in Centimeters&#39;)
+plt.ylabel(&#39;Wingspan (CM)&#39;)
+plt.xlabel(&#39;Birds&#39;)
+plt.tick_params(axis=&#39;both&#39;,which=&#39;both&#39;,labelbottom=False,bottom=False)
+for i in range(len(birds)):
+    x = birds[&#39;Name&#39;][i]
+    y = birds[&#39;MaxWingspan&#39;][i]
+    if birds[&#39;Name&#39;][i] not in [&#39;Bald eagle&#39;, &#39;Prairie falcon&#39;]:
+        plt.plot(x, y, &#39;bo&#39;)
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1418,10 +1418,10 @@ How many are there of the various genus and orders in Linnaeus’s terminology?<
 <p>If you want to create a bar chart, you can select the data you want to focus on. Bar charts can be created from raw data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Category&#39;</span><span class="p">,</span>
-        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span>
-        <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Birds of Minnesota&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>birds.plot(x=&#39;Category&#39;,
+        kind=&#39;bar&#39;,
+        stacked=True,
+        title=&#39;Birds of Minnesota&#39;)
 </pre></div>
 </div>
 </div>
@@ -1441,9 +1441,9 @@ How many are there of the various genus and orders in Linnaeus’s terminology?<
 <p>Since there are many categories, you can display this chart vertically and tweak its height to account for all the data:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">category_count</span> <span class="o">=</span> <span class="n">birds</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
-<span class="n">category_count</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>category_count = birds.value_counts(birds[&#39;Category&#39;].values, sort=True)
+plt.rcParams[&#39;figure.figsize&#39;] = [6, 12]
+category_count.plot.barh()
 </pre></div>
 </div>
 </div>
@@ -1465,10 +1465,10 @@ How many are there of the various genus and orders in Linnaeus’s terminology?<
 <p>You can try different comparisons of grouped data by creating new axes. Try a comparison of the MaxLength of a bird, based on its category:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">maxlength</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxLength&#39;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="n">maxlength</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>maxlength = birds[&#39;MaxLength&#39;]
+plt.barh(y=birds[&#39;Category&#39;], width=maxlength)
+plt.rcParams[&#39;figure.figsize&#39;] = [6, 12]
+plt.show()
 </pre></div>
 </div>
 </div>
@@ -1480,14 +1480,14 @@ How many are there of the various genus and orders in Linnaeus’s terminology?<
 <p>You can create more interesting visualizations of bar charts by superimposing data. Let’s superimpose <code class="docutils literal notranslate"><span class="pre">Minimum</span></code> and Maximum Length on a given bird category:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minLength</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MinLength&#39;</span><span class="p">]</span>
-<span class="n">maxLength</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxLength&#39;</span><span class="p">]</span>
-<span class="n">category</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>minLength = birds[&#39;MinLength&#39;]
+maxLength = birds[&#39;MaxLength&#39;]
+category = birds[&#39;Category&#39;]
 
-<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">maxLength</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">minLength</span><span class="p">)</span>
+plt.barh(category, maxLength)
+plt.barh(category, minLength)
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+plt.show()
 </pre></div>
 </div>
 </div>

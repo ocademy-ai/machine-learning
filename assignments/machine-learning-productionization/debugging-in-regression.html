@@ -764,12 +764,12 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-science.html">
-     39.15. Python in Data Science
+     39.6. Python in Data Science
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../slides/python-programming/python-in-data-visualization.html">
-     39.16. Python in data visualization
+     39.7. Python in data visualization
     </a>
    </li>
   </ul>
@@ -1323,17 +1323,17 @@ title="Print to PDF"
   <p><strong>Copyright 2018 Google LLC.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
-<span class="c1"># you may not use this file except in compliance with the License.</span>
-<span class="c1"># You may obtain a copy of the License at</span>
-<span class="c1">#</span>
-<span class="c1"># https://www.apache.org/licenses/LICENSE-2.0</span>
-<span class="c1">#</span>
-<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
-<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
-<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
-<span class="c1"># See the License for the specific language governing permissions and</span>
-<span class="c1"># limitations under the License.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 </pre></div>
 </div>
 </div>
@@ -1357,30 +1357,30 @@ title="Print to PDF"
 <p>Load libraries and data by running the next cell. Display the first few rows to verify that the dataset loaded correctly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reset environment for a new run</span>
-<span class="o">%</span><span class="k">reset</span> -f
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Reset environment for a new run
+%reset -f
 
-<span class="c1"># Load libraries</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span> <span class="c1"># for joining file pathnames</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+# Load libraries
+from os.path import join # for joining file pathnames
+import pandas as pd
+import seaborn as sns
+import tensorflow as tf
+from tensorflow import keras
+import numpy as np
+import matplotlib.pyplot as plt
 
-<span class="c1"># Set Pandas display options</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_rows</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
+# Set Pandas display options
+pd.options.display.max_rows = 10
+pd.options.display.float_format = &#39;{:.1f}&#39;.format
 
-<span class="n">wineDf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-  <span class="s2">&quot;https://download.mlcc.google.com/mledu-datasets/winequality.csv&quot;</span><span class="p">,</span>
-  <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin-1&#39;</span><span class="p">)</span>
-<span class="n">wineDf</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fixed acidity&#39;</span><span class="p">,</span><span class="s1">&#39;volatile acidity&#39;</span><span class="p">,</span><span class="s1">&#39;citric acid&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;residual sugar&#39;</span><span class="p">,</span><span class="s1">&#39;chlorides&#39;</span><span class="p">,</span><span class="s1">&#39;free sulfur dioxide&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;total sulfur dioxide&#39;</span><span class="p">,</span><span class="s1">&#39;density&#39;</span><span class="p">,</span><span class="s1">&#39;pH&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;sulphates&#39;</span><span class="p">,</span><span class="s1">&#39;alcohol&#39;</span><span class="p">,</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span>
-<span class="n">wineDf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+wineDf = pd.read_csv(
+  &quot;https://download.mlcc.google.com/mledu-datasets/winequality.csv&quot;,
+  encoding=&#39;latin-1&#39;)
+wineDf.columns = [&#39;fixed acidity&#39;,&#39;volatile acidity&#39;,&#39;citric acid&#39;,
+                     &#39;residual sugar&#39;,&#39;chlorides&#39;,&#39;free sulfur dioxide&#39;,
+                     &#39;total sulfur dioxide&#39;,&#39;density&#39;,&#39;pH&#39;,
+                     &#39;sulphates&#39;,&#39;alcohol&#39;,&#39;quality&#39;]
+wineDf.head()
 </pre></div>
 </div>
 </div>
@@ -1391,9 +1391,9 @@ title="Print to PDF"
 <p>Before developing your ML model, you need to select features. To find informative features, check the correlation matrix by running the following cell. Which features are informative?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">corr_wineDf</span> <span class="o">=</span> <span class="n">wineDf</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr_wineDf</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>corr_wineDf = wineDf.corr()
+plt.figure(figsize=(16,10))
+sns.heatmap(corr_wineDf, annot=True)
 </pre></div>
 </div>
 </div>
@@ -1406,40 +1406,40 @@ title="Print to PDF"
 <p>First, define a function that validates data against a schema.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Define function to validate data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title Define function to validate data
 
-<span class="k">def</span> <span class="nf">test_data_schema</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">schema</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Tests that the datatypes and ranges of values in the dataset</span>
-<span class="sd">    adhere to expectations.</span>
+def test_data_schema(input_data, schema):
+  &quot;&quot;&quot;Tests that the datatypes and ranges of values in the dataset
+    adhere to expectations.
 
-<span class="sd">    Args:</span>
-<span class="sd">      input_function: Dataframe containing data to test</span>
-<span class="sd">      schema: Schema which describes the properties of the data.</span>
-<span class="sd">  &quot;&quot;&quot;</span>
+    Args:
+      input_function: Dataframe containing data to test
+      schema: Schema which describes the properties of the data.
+  &quot;&quot;&quot;
 
-  <span class="k">def</span> <span class="nf">test_dtypes</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">schema</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-      <span class="k">assert</span> <span class="n">input_data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span>
-          <span class="n">schema</span><span class="p">[</span><span class="n">column</span><span class="p">][</span><span class="s1">&#39;dtype&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">(),</span> <span class="p">(</span>
-          <span class="s2">&quot;Incorrect dtype in column &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> <span class="n">column</span>
-      <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Input dtypes are correct.&#39;</span><span class="p">)</span>
+  def test_dtypes():
+    for column in schema.keys():
+      assert input_data[column].map(type).eq(
+          schema[column][&#39;dtype&#39;]).all(), (
+          &quot;Incorrect dtype in column &#39;%s&#39;.&quot; % column
+      )
+    print(&#39;Input dtypes are correct.&#39;)
 
-  <span class="k">def</span> <span class="nf">test_ranges</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">schema</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-      <span class="n">schema_max</span> <span class="o">=</span> <span class="n">schema</span><span class="p">[</span><span class="n">column</span><span class="p">][</span><span class="s1">&#39;range&#39;</span><span class="p">][</span><span class="s1">&#39;max&#39;</span><span class="p">]</span>
-      <span class="n">schema_min</span> <span class="o">=</span> <span class="n">schema</span><span class="p">[</span><span class="n">column</span><span class="p">][</span><span class="s1">&#39;range&#39;</span><span class="p">][</span><span class="s1">&#39;min&#39;</span><span class="p">]</span>
-      <span class="c1"># Assert that data falls between schema min and max.</span>
-      <span class="k">assert</span> <span class="n">input_data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">schema_max</span><span class="p">,</span> <span class="p">(</span>
-          <span class="s2">&quot;Maximum value of column &#39;</span><span class="si">%s</span><span class="s2">&#39; is too low.&quot;</span> <span class="o">%</span> <span class="n">column</span>
-      <span class="p">)</span>
-      <span class="k">assert</span> <span class="n">input_data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="c1">#= schema_min, (</span>
-          <span class="s2">&quot;Minimum value of column &#39;</span><span class="si">%s</span><span class="s2">&#39; is too high.&quot;</span> <span class="o">%</span> <span class="n">column</span>
-      <span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data falls within specified ranges.&#39;</span><span class="p">)</span>
+  def test_ranges():
+    for column in schema.keys():
+      schema_max = schema[column][&#39;range&#39;][&#39;max&#39;]
+      schema_min = schema[column][&#39;range&#39;][&#39;min&#39;]
+      # Assert that data falls between schema min and max.
+      assert input_data[column].max() &lt;= schema_max, (
+          &quot;Maximum value of column &#39;%s&#39; is too low.&quot; % column
+      )
+      assert input_data[column].min() #= schema_min, (
+          &quot;Minimum value of column &#39;%s&#39; is too high.&quot; % column
+      )
+    print(&#39;Data falls within specified ranges.&#39;)
 
-  <span class="n">test_dtypes</span><span class="p">()</span>
-  <span class="n">test_ranges</span><span class="p">()</span>
+  test_dtypes()
+  test_ranges()
 </pre></div>
 </div>
 </div>
@@ -1447,7 +1447,7 @@ title="Print to PDF"
 <p>To define your schema, you need to understand the statistical properties of your dataset. Generate statistics on your dataset by running the following code cell:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wineDf</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wineDf.describe()
 </pre></div>
 </div>
 </div>
@@ -1461,32 +1461,32 @@ title="Print to PDF"
 <p>As an example, the values for the first column are filled out. After entering the values, run the code cell to confirm that your input data matches the schema.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_schema</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;fixed acidity&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="mf">3.8</span><span class="p">,</span>
-            <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="mf">15.9</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;volatile acidity&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="p">,</span> <span class="c1"># describe() rounds up this value, be careful</span>
-            <span class="s1">&#39;max&#39;</span><span class="p">:</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;citric acid&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="p">,</span>
-            <span class="s1">&#39;max&#39;</span><span class="p">:</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="p">,</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wine_schema = {
+    &#39;fixed acidity&#39;: {
+        &#39;range&#39;: {
+            &#39;min&#39;: 3.8,
+            &#39;max&#39;: 15.9
+        },
+        &#39;dtype&#39;: float,
+    },
+    &#39;volatile acidity&#39;: {
+        &#39;range&#39;: {
+            &#39;min&#39;: , # describe() rounds up this value, be careful
+            &#39;max&#39;:
+        },
+        &#39;dtype&#39;: ,
+    },
+    &#39;citric acid&#39;: {
+        &#39;range&#39;: {
+            &#39;min&#39;: ,
+            &#39;max&#39;:
+        },
+        &#39;dtype&#39;: ,
+    }
+}
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Validating wine data against data schema...&#39;</span><span class="p">)</span>
-<span class="n">test_data_schema</span><span class="p">(</span><span class="n">wineDf</span><span class="p">,</span> <span class="n">wine_schema</span><span class="p">)</span>
+print(&#39;Validating wine data against data schema...&#39;)
+test_data_schema(wineDf, wine_schema)
 </pre></div>
 </div>
 </div>
@@ -1495,32 +1495,32 @@ title="Print to PDF"
 <h3><span class="section-number">38.40.3.1. </span>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wine_schema</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;fixed acidity&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="mf">3.7</span><span class="p">,</span>
-            <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="mf">15.9</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;volatile acidity&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="mf">0.08</span><span class="p">,</span>  <span class="c1"># minimum value</span>
-            <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.6</span>   <span class="c1"># maximum value</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>    <span class="c1"># data type</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;citric acid&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;min&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="c1"># minimum value</span>
-            <span class="s1">&#39;max&#39;</span><span class="p">:</span> <span class="mf">1.7</span>  <span class="c1"># maximum value</span>
-        <span class="p">},</span>
-        <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>   <span class="c1"># data type</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wine_schema = {
+    &#39;fixed acidity&#39;: {
+        &#39;range&#39;: {
+            &#39;min&#39;: 3.7,
+            &#39;max&#39;: 15.9
+        },
+        &#39;dtype&#39;: float,
+    },
+    &#39;volatile acidity&#39;: {
+        &#39;range&#39;: {
+            &#39;min&#39;: 0.08,  # minimum value
+            &#39;max&#39;: 1.6   # maximum value
+        },
+        &#39;dtype&#39;: float,    # data type
+    },
+    &#39;citric acid&#39;: {
+        &#39;range&#39;: {
+            &#39;min&#39;: 0.0, # minimum value
+            &#39;max&#39;: 1.7  # maximum value
+        },
+        &#39;dtype&#39;: float,   # data type
+    }
+}
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Validating wine data against data schema...&#39;</span><span class="p">)</span>
-<span class="n">test_data_schema</span><span class="p">(</span><span class="n">wineDf</span><span class="p">,</span> <span class="n">wine_schema</span><span class="p">)</span>
+print(&#39;Validating wine data against data schema...&#39;)
+test_data_schema(wineDf, wine_schema)
 </pre></div>
 </div>
 </div>
@@ -1532,9 +1532,9 @@ title="Print to PDF"
 <p>Split the dataset into data and labels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wineFeatures</span> <span class="o">=</span> <span class="n">wineDf</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">wineFeatures</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;quality&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">wineLabels</span> <span class="o">=</span> <span class="n">wineDf</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wineFeatures = wineDf.copy(deep=True)
+wineFeatures.drop(columns=&#39;quality&#39;,inplace=True)
+wineLabels = wineDf[&#39;quality&#39;].copy(deep=True)
 </pre></div>
 </div>
 </div>
@@ -1542,14 +1542,14 @@ title="Print to PDF"
 <p>Normalize data using z-score.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalizeData</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
-  <span class="n">stdArr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-  <span class="n">meanArr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-  <span class="n">arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">arr</span><span class="o">-</span><span class="n">meanArr</span><span class="p">)</span><span class="o">/</span><span class="n">stdArr</span>
-  <span class="k">return</span> <span class="n">arr</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def normalizeData(arr):
+  stdArr = np.std(arr)
+  meanArr = np.mean(arr)
+  arr = (arr-meanArr)/stdArr
+  return arr
 
-<span class="k">for</span> <span class="n">str1</span> <span class="ow">in</span> <span class="n">wineFeatures</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-   <span class="n">wineFeatures</span><span class="p">[</span><span class="n">str1</span><span class="p">]</span> <span class="o">=</span> <span class="n">normalizeData</span><span class="p">(</span><span class="n">wineFeatures</span><span class="p">[</span><span class="n">str1</span><span class="p">])</span>
+for str1 in wineFeatures.columns:
+   wineFeatures[str1] = normalizeData(wineFeatures[str1])
 </pre></div>
 </div>
 </div>
@@ -1565,17 +1565,17 @@ title="Print to PDF"
 <p>First, set up the testing functions by running the following code cell:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import unittest
 
-<span class="k">def</span> <span class="nf">test_input_dim</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">n_rows</span><span class="p">,</span> <span class="n">n_columns</span><span class="p">):</span>
-  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_rows</span><span class="p">,</span> <span class="s2">&quot;Unexpected number of rows.&quot;</span>
-  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_columns</span><span class="p">,</span> <span class="s2">&quot;Unexpected number of columns.&quot;</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Engineered data has the expected number of rows and columns.&#39;</span><span class="p">)</span>
+def test_input_dim(df, n_rows, n_columns):
+  assert len(df) == n_rows, &quot;Unexpected number of rows.&quot;
+  assert len(df.columns) == n_columns, &quot;Unexpected number of columns.&quot;
+  print(&#39;Engineered data has the expected number of rows and columns.&#39;)
 
-<span class="k">def</span> <span class="nf">test_nulls</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-  <span class="n">dataNulls</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-  <span class="k">assert</span> <span class="n">dataNulls</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Nulls in engineered data.&quot;</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Engineered features do not contain nulls.&#39;</span><span class="p">)</span>
+def test_nulls(df):
+  dataNulls = df.isnull().sum().sum()
+  assert dataNulls == 0, &quot;Nulls in engineered data.&quot;
+  print(&#39;Engineered features do not contain nulls.&#39;)
 </pre></div>
 </div>
 </div>
@@ -1583,12 +1583,12 @@ title="Print to PDF"
 <p>Your input data had 6497 examples and 11 feature columns. Test whether your engineered data has the expected number of rows and columns by running the following cell. Confirm that the test fails if you change the values below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#@title Test dimensions of engineered data</span>
-<span class="n">wine_feature_rows</span> <span class="o">=</span> <span class="mi">6497</span> <span class="c1">#@param</span>
-<span class="n">wine_feature_cols</span> <span class="o">=</span> <span class="mi">11</span> <span class="c1">#@param</span>
-<span class="n">test_input_dim</span><span class="p">(</span><span class="n">wineFeatures</span><span class="p">,</span>
-               <span class="n">wine_feature_rows</span><span class="p">,</span>
-               <span class="n">wine_feature_cols</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#@title Test dimensions of engineered data
+wine_feature_rows = 6497 #@param
+wine_feature_cols = 11 #@param
+test_input_dim(wineFeatures,
+               wine_feature_rows,
+               wine_feature_cols)
 </pre></div>
 </div>
 </div>
@@ -1596,7 +1596,7 @@ title="Print to PDF"
 <p>Test that your engineered data does not contain nulls by running the code below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_nulls</span><span class="p">(</span><span class="n">wineFeatures</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>test_nulls(wineFeatures)
 </pre></div>
 </div>
 </div>
@@ -1607,15 +1607,15 @@ title="Print to PDF"
 <p>As described in the <a class="reference external" href="https://developers.google.com/machine-learning/testing-debugging/common/data-errors">Data Debugging</a> guidelines, before developing your model, you should check that your training and validation splits are equally representative. Assuming a training:validation split of 80:20, compare the mean and the standard deviation of the splits by running the next two code cells. Note that this comparison is not a rigorous test for statistical equivalence but simply a quick and dirty comparison of the splits.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">splitIdx</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span><span class="o">/</span><span class="mi">10</span>
-<span class="n">wineFeatures</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">splitIdx</span><span class="p">,:]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>splitIdx = wineFeatures.shape[0]*8/10
+wineFeatures.iloc[0:splitIdx,:].describe()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wineFeatures</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">splitIdx</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wineFeatures.iloc[splitIdx:-1,:].describe()
 </pre></div>
 </div>
 </div>
@@ -1624,12 +1624,12 @@ title="Print to PDF"
 <p>Run the following code cell to shuffle the data, and then recreate the features and labels from the shuffled data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shuffle data</span>
-<span class="n">wineDf</span> <span class="o">=</span> <span class="n">wineDf</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1"># Recreate features and labels</span>
-<span class="n">wineFeatures</span> <span class="o">=</span> <span class="n">wineDf</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">wineFeatures</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;quality&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">wineLabels</span> <span class="o">=</span> <span class="n">wineDf</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Shuffle data
+wineDf = wineDf.sample(frac=1).reset_index(drop=True)
+# Recreate features and labels
+wineFeatures = wineDf.copy(deep=True)
+wineFeatures.drop(columns=&#39;quality&#39;,inplace=True)
+wineLabels = wineDf[&#39;quality&#39;].copy(deep=True)
 </pre></div>
 </div>
 </div>
@@ -1642,9 +1642,9 @@ title="Print to PDF"
 <p>For a regression problem, the simplest baseline to predict the average value. Run the following code to calculate the mean-squared error (MSE) loss on the training split using the average value as a baseline. Your loss is approximately 0.75. Any model should beat this loss to justify its use.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">baselineMSE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">wineLabels</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">splitIdx</span><span class="p">]</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">wineLabels</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">splitIdx</span><span class="p">]))</span>
-<span class="n">baselineMSE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">baselineMSE</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">baselineMSE</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">baselineMSE</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>baselineMSE = np.square(wineLabels[0:splitIdx]-np.mean(wineLabels[0:splitIdx]))
+baselineMSE = np.sum(baselineMSE)/len(baselineMSE)
+print(baselineMSE)
 </pre></div>
 </div>
 </div>
@@ -1656,24 +1656,24 @@ title="Print to PDF"
 <p>First, let’s define a function to plot our loss and accuracy curves. The function will also print the final loss and accuracy. Instead of using <code class="docutils literal notranslate"><span class="pre">verbose=1</span></code>, you can call the function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Function to:</span>
-<span class="sd">   * Print final loss.</span>
-<span class="sd">   * Plot loss curves.</span>
-<span class="sd">  </span>
-<span class="sd">  Args:</span>
-<span class="sd">    trainHistory: object returned by model.fit</span>
-<span class="sd">  &quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def showRegressionResults(trainHistory):
+  &quot;&quot;&quot;Function to:
+   * Print final loss.
+   * Plot loss curves.
   
-  <span class="c1"># Print final loss</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final training loss: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final Validation loss: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+  Args:
+    trainHistory: object returned by model.fit
+  &quot;&quot;&quot;
   
-  <span class="c1"># Plot loss curves</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_loss&#39;</span><span class="p">])</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Training loss&#39;</span><span class="p">,</span><span class="s1">&#39;Validation loss&#39;</span><span class="p">],</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Loss Curves&#39;</span><span class="p">)</span>
+  # Print final loss
+  print(&quot;Final training loss: &quot; + str(trainHistory.history[&#39;loss&#39;][-1]))
+  print(&quot;Final Validation loss: &quot; + str(trainHistory.history[&#39;val_loss&#39;][-1]))
+  
+  # Plot loss curves
+  plt.plot(trainHistory.history[&#39;loss&#39;])
+  plt.plot(trainHistory.history[&#39;val_loss&#39;])
+  plt.legend([&#39;Training loss&#39;,&#39;Validation loss&#39;],loc=&#39;best&#39;)
+  plt.title(&#39;Loss Curves&#39;)
 </pre></div>
 </div>
 </div>
@@ -1682,24 +1682,24 @@ title="Print to PDF"
 <p>What do you think of the loss curve? Can you improve it? For hints and discussion, see the following text cells.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Choose feature</span>
-<span class="n">wineFeaturesSimple</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">]</span>
-<span class="c1"># Define model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="c1"># Specify the optimizer using the TF API to specify the learning rate</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train the model!</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-                         <span class="n">wineLabels</span><span class="p">,</span>
-                         <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-                         <span class="n">batch_size</span><span class="o">=</span><span class="p">,</span> <span class="c1"># set batch size here</span>
-                         <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Choose feature
+wineFeaturesSimple = wineFeatures[&#39;alcohol&#39;]
+# Define model
+model = keras.Sequential()
+model.add(keras.layers.Dense(units=1, activation=&#39;linear&#39;, input_dim=1))
+# Specify the optimizer using the TF API to specify the learning rate
+model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01),
+              loss=&#39;mse&#39;)
+# Train the model!
+trainHistory = model.fit(wineFeaturesSimple,
+                         wineLabels,
+                         epochs=50,
+                         batch_size=, # set batch size here
+                         validation_split=0.2,
+                         verbose=0)
+# Plot
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1719,24 +1719,24 @@ title="Print to PDF"
 <p>Run the following code cell to train the model using a reduced batch size of 100. Reducing the batch size leads to a greater decrease in loss per epoch. The minimum achievable loss is about 0.64. This is a significant increase over our baseline of 0.75.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Choose feature</span>
-<span class="n">wineFeaturesSimple</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">]</span>
-<span class="c1"># Define model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="c1"># Specify the optimizer using the TF API to specify the learning rate</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train the model!</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-                         <span class="n">wineLabels</span><span class="p">,</span>
-                         <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                         <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="c1"># set batch size here</span>
-                         <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Choose feature
+wineFeaturesSimple = wineFeatures[&#39;alcohol&#39;]
+# Define model
+model = keras.Sequential()
+model.add(keras.layers.Dense(units=1, activation=&#39;linear&#39;, input_dim=1))
+# Specify the optimizer using the TF API to specify the learning rate
+model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01),
+              loss=&#39;mse&#39;)
+# Train the model!
+trainHistory = model.fit(wineFeaturesSimple,
+                         wineLabels,
+                         epochs=20,
+                         batch_size=100, # set batch size here
+                         validation_split=0.2,
+                         verbose=0)
+# Plot
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1754,26 +1754,26 @@ title="Print to PDF"
 <p>What happens to your loss?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Select features</span>
-<span class="n">wineFeaturesSimple</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">]]</span> <span class="c1"># add &#39;volatile acidity&#39;</span>
-<span class="c1"># Define model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="c1"># add second layer</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-                         <span class="n">wineLabels</span><span class="p">,</span>
-                         <span class="n">epochs</span><span class="o">=</span><span class="p">,</span>
-                         <span class="n">batch_size</span><span class="o">=</span><span class="p">,</span>
-                         <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Select features
+wineFeaturesSimple = wineFeatures[[&#39;alcohol&#39;, &#39;...&#39;]] # add &#39;volatile acidity&#39;
+# Define model
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSimple.shape[1],
+                             input_dim=wineFeaturesSimple.shape[1],
+                             activation=&#39;linear&#39;))
+model.add(...) # add second layer
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(learning_rate=), loss=&#39;mse&#39;)
+# Train
+trainHistory = model.fit(wineFeaturesSimple,
+                         wineLabels,
+                         epochs=,
+                         batch_size=,
+                         validation_split=0.2,
+                         verbose=0)
+# Plot results
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1783,26 +1783,26 @@ title="Print to PDF"
 <p>Run the following code to add the second feature and the second layer. The training loss is about 0.59, a small decrease from the previous loss of 0.64.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Select features</span>
-<span class="n">wineFeaturesSimple</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">,</span> <span class="s1">&#39;volatile acidity&#39;</span><span class="p">]]</span> <span class="c1"># add second feature</span>
-<span class="c1"># Define model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span> <span class="c1"># add second layer</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-                         <span class="n">wineLabels</span><span class="p">,</span>
-                         <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                         <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                         <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Select features
+wineFeaturesSimple = wineFeatures[[&#39;alcohol&#39;, &#39;volatile acidity&#39;]] # add second feature
+# Define model
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSimple.shape[1],
+                             input_dim=wineFeaturesSimple.shape[1],
+                             activation=&#39;linear&#39;))
+model.add(keras.layers.Dense(1, activation=&#39;linear&#39;)) # add second layer
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=&#39;mse&#39;)
+# Train
+trainHistory = model.fit(wineFeaturesSimple,
+                         wineLabels,
+                         epochs=20,
+                         batch_size=100,
+                         validation_split=0.2,
+                         verbose=0)
+# Plot results
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1819,24 +1819,24 @@ title="Print to PDF"
 <p>Run the cell. Does the loss increase, decrease, or stay the same?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Define</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Fit</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-          <span class="n">wineLabels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="p">,</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="p">,</span>
-          <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Define
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSimple.shape[1],
+                             input_dim=wineFeaturesSimple.shape[1],
+                             activation=))
+model.add(keras.layers.Dense(1, activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(), loss=&#39;mse&#39;)
+# Fit
+model.fit(wineFeaturesSimple,
+          wineLabels,
+          epochs=,
+          batch_size=,
+          validation_split=0.2,
+          verbose=0)
+# Plot results
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1846,24 +1846,24 @@ title="Print to PDF"
 <p>Run the following cell to use a <code class="docutils literal notranslate"><span class="pre">relu</span></code> activation in your first hidden layer. Your loss stays about the same, perhaps declining negligibly to 0.58.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Define</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Fit</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-          <span class="n">wineLabels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-          <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Define
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSimple.shape[1],
+                             input_dim=wineFeaturesSimple.shape[1],
+                             activation=&#39;relu&#39;))
+model.add(keras.layers.Dense(1, activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(), loss=&#39;mse&#39;)
+# Fit
+model.fit(wineFeaturesSimple,
+          wineLabels,
+          epochs=20,
+          batch_size=100,
+          validation_split=0.2,
+          verbose=0)
+# Plot results
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1875,27 +1875,27 @@ title="Print to PDF"
 <p>We have two features with one hidden layer but didn’t see an improvement. At this point, it’s tempting to use all your features with a high-capacity network. However, you must resist the temptation. Instead, follow the guidance in <a class="reference external" href="https://developers.google.com/machine-learning/testing-debugging/common/optimization">Model Optimization</a> to improve model performance. For a hint and for a discussion, see the following text sections.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose features</span>
-<span class="n">wineFeaturesSimple</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">,</span> <span class="s1">&#39;volatile acidity&#39;</span><span class="p">]]</span> <span class="c1"># add features</span>
-<span class="c1"># Define</span>
-<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="c1"># Add more layers here</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-                         <span class="n">wineLabels</span><span class="p">,</span>
-                         <span class="n">epochs</span><span class="o">=</span><span class="p">,</span>
-                         <span class="n">batch_size</span><span class="o">=</span><span class="p">,</span>
-                         <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Choose features
+wineFeaturesSimple = wineFeatures[[&#39;alcohol&#39;, &#39;volatile acidity&#39;]] # add features
+# Define
+model = None
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSimple.shape[1],
+                             activation=&#39;relu&#39;,
+                             input_dim=wineFeaturesSimple.shape[1]))
+# Add more layers here
+model.add(keras.layers.Dense(1,activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(), loss=&#39;mse&#39;)
+# Train
+trainHistory = model.fit(wineFeaturesSimple,
+                         wineLabels,
+                         epochs=,
+                         batch_size=,
+                         validation_split=0.2,
+                         verbose=0)
+# Plot results
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1915,27 +1915,27 @@ title="Print to PDF"
 <p>Your loss reduces to about 0.56. That’s a minor improvement over the previous loss of 0.58. It seems that adding more features or capacity isn’t improving your model by much. Perhaps your model has a bug? In the next section, you will run a sanity check on your model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose features</span>
-<span class="n">wineFeaturesSimple</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[[</span><span class="s1">&#39;alcohol&#39;</span><span class="p">,</span><span class="s1">&#39;volatile acidity&#39;</span><span class="p">,</span><span class="s1">&#39;chlorides&#39;</span><span class="p">,</span><span class="s1">&#39;density&#39;</span><span class="p">]]</span>
-<span class="c1"># Define</span>
-<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSimple</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="c1"># Add more layers here</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSimple</span><span class="p">,</span>
-                         <span class="n">wineLabels</span><span class="p">,</span>
-                         <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                         <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                         <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Choose features
+wineFeaturesSimple = wineFeatures[[&#39;alcohol&#39;,&#39;volatile acidity&#39;,&#39;chlorides&#39;,&#39;density&#39;]]
+# Define
+model = None
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSimple.shape[1],
+                             activation=&#39;relu&#39;,
+                             input_dim=wineFeaturesSimple.shape[1]))
+# Add more layers here
+model.add(keras.layers.Dense(1,activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(), loss=&#39;mse&#39;)
+# Train
+trainHistory = model.fit(wineFeaturesSimple,
+                         wineLabels,
+                         epochs=200,
+                         batch_size=100,
+                         validation_split=0.2,
+                         verbose=0)
+# Plot results
+showRegressionResults(trainHistory)
 </pre></div>
 </div>
 </div>
@@ -1948,28 +1948,28 @@ title="Print to PDF"
 <p>In the following code, experiment with the learning rate, batch size, and number of epochs. Can you reach a low loss? Choose hyperparameter values that let you iterate quickly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose 10 examples</span>
-<span class="n">wineFeaturesSmall</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-<span class="n">wineLabelsSmall</span> <span class="o">=</span> <span class="n">wineLabels</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-<span class="c1"># Define model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSmall</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                             <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSmall</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSmall</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span> <span class="c1"># set LR</span>
-<span class="c1"># Train</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSmall</span><span class="p">,</span>
-                        <span class="n">wineLabelsSmall</span><span class="p">,</span>
-                        <span class="n">epochs</span><span class="o">=</span><span class="p">,</span>
-                        <span class="n">batch_size</span><span class="o">=</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final training loss: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Choose 10 examples
+wineFeaturesSmall = wineFeatures[0:10]
+wineLabelsSmall = wineLabels[0:10]
+# Define model
+model = None
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSmall.shape[1],
+                             activation=&#39;relu&#39;,
+                             input_dim=wineFeaturesSmall.shape[1]))
+model.add(keras.layers.Dense(wineFeaturesSmall.shape[1], activation=&#39;relu&#39;))
+model.add(keras.layers.Dense(1, activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(), loss=&#39;mse&#39;) # set LR
+# Train
+trainHistory = model.fit(wineFeaturesSmall,
+                        wineLabelsSmall,
+                        epochs=,
+                        batch_size=,
+                        verbose=0)
+# Plot results
+print(&quot;Final training loss: &quot; + str(trainHistory.history[&#39;loss&#39;][-1]))
+plt.plot(trainHistory.history[&#39;loss&#39;])
 </pre></div>
 </div>
 </div>
@@ -1985,27 +1985,27 @@ title="Print to PDF"
 <p>You get a low loss on your reduced dataset. This result means your model is probably solid and your previous results are as good as they’ll get.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose 10 examples</span>
-<span class="n">wineFeaturesSmall</span> <span class="o">=</span> <span class="n">wineFeatures</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-<span class="n">wineLabelsSmall</span> <span class="o">=</span> <span class="n">wineLabels</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-<span class="c1"># Define model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSmall</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeaturesSmall</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeaturesSmall</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span> <span class="c1"># set LR</span>
-<span class="c1"># Train</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeaturesSmall</span><span class="p">,</span>
-                        <span class="n">wineLabelsSmall</span><span class="p">,</span>
-                        <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-                        <span class="n">batch_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final training loss: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">trainHistory</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Choose 10 examples
+wineFeaturesSmall = wineFeatures[0:10]
+wineLabelsSmall = wineLabels[0:10]
+# Define model
+model = None
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeaturesSmall.shape[1], activation=&#39;relu&#39;,
+                             input_dim=wineFeaturesSmall.shape[1]))
+model.add(keras.layers.Dense(wineFeaturesSmall.shape[1], activation=&#39;relu&#39;))
+model.add(keras.layers.Dense(1, activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(0.01), loss=&#39;mse&#39;) # set LR
+# Train
+trainHistory = model.fit(wineFeaturesSmall,
+                        wineLabelsSmall,
+                        epochs=200,
+                        batch_size=10,
+                        verbose=0)
+# Plot results
+print(&quot;Final training loss: &quot; + str(trainHistory.history[&#39;loss&#39;][-1]))
+plt.plot(trainHistory.history[&#39;loss&#39;])
 </pre></div>
 </div>
 </div>
@@ -2017,22 +2017,22 @@ title="Print to PDF"
 <p>Let’s go all in and use a very complex model with all the features. For science! And to satisfy ourselves that a simple model is indeed better. Let’s use all 11 features with 3 fully-connected relu layers and a final linear layer. The next cell takes a while to run. Skip to the results in the cell after if you like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1"># Define</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeatures</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">,</span>
-                             <span class="n">input_dim</span><span class="o">=</span><span class="n">wineFeatures</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeatures</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">wineFeatures</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">))</span>
-<span class="c1"># Compile</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(),</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
-<span class="c1"># Train the model!</span>
-<span class="n">trainHistory</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wineFeatures</span><span class="p">,</span> <span class="n">wineLabels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                         <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">validation_split</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
-<span class="c1"># Plot results</span>
-<span class="n">showRegressionResults</span><span class="p">(</span><span class="n">trainHistory</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model = None
+# Define
+model = keras.Sequential()
+model.add(keras.layers.Dense(wineFeatures.shape[1], activation=&#39;relu&#39;,
+                             input_dim=wineFeatures.shape[1]))
+model.add(keras.layers.Dense(wineFeatures.shape[1], activation=&#39;relu&#39;))
+model.add(keras.layers.Dense(wineFeatures.shape[1], activation=&#39;relu&#39;))
+model.add(keras.layers.Dense(1,activation=&#39;linear&#39;))
+# Compile
+model.compile(optimizer=tf.optimizers.Adam(), loss=&#39;mse&#39;)
+# Train the model!
+trainHistory = model.fit(wineFeatures, wineLabels, epochs=100, batch_size=100,
+                         verbose=1, validation_split = 0.2)
+# Plot results
+showRegressionResults(trainHistory)
+plt.ylim(0.4,1)
 </pre></div>
 </div>
 </div>
