@@ -2,7 +2,7 @@
 
 ## Instructions
 
-You've learned about various [data ethics challenges](../../data-science/data-science-ethics.md#ethics-challenges) and seen some examples of [case studies](../../data-science/data-science-ethics.md#case-studies) reflecting data ethics challenges in real-world contexts.
+You've learned about various [data ethics challenges](../../data-science/data-science-ethics.md#ethics-challenges) and seen some examples of [case studies](../../data-science/introduction/data-science-ethics.md#case-studies) reflecting data ethics challenges in real-world contexts.
 
 In this assignment, you'll write your own case study reflecting a data ethics challenge from your own experience, or from a relevant real-world context you are familiar with. Just follow these steps:
 
@@ -18,4 +18,4 @@ One or more data ethics challenges are identified. <br/> <br/> The case study cl
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
