@@ -77,9 +77,9 @@ Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html)
 
 ### Install draw.io
 
-[draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default the draw.io execution is correctly located at the platform-appropriate path:
+[draw.io](https://www.draw.io/) is needed for generating draw.io-based diagrams in build time. Install the [draw.io desktop application](https://github.com/jgraph/drawio-desktop/releases) on your local machine. By default, the draw.io execution is correctly located at the platform-appropriate path:
 
-* Windows: `C:\Program Files\draw.io\draw.io.exe`
+* Windows: `C:\Program Files\draw.io\draw.io.exe` (Attention: Don't change the installtion path.)
 * Linux: `/opt/drawio/drawio` or `/opt/draw.io/drawio` (older versions)
 * macOS: `/Applications/draw.io.app/Contents/MacOS/draw.io`.
 
