@@ -1271,10 +1271,10 @@ Infections Estimates, and Vaccination Projections. We will use the <a class="ref
 <p>COVID-19 Projections Death Forecasting model uses the daily death total provided by <a class="reference external" href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">Johns Hopkins CSSE</a>, which is considered by experts to be the “gold standard” reference data. It sometimes uses US testing data from the <a class="reference external" href="https://covidtracking.com/">COVID Tracking Project</a> in our research and graphs. Below is a piece of sample data from CSSE.</p>
 <div class="cell tag_output_scroll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-df = pd.read_csv(&#39;../assets/data/sample_time_series_covid19_deaths_US.csv&#39;)
-df.head()
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../assets/data/sample_time_series_covid19_deaths_US.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1454,27 +1454,27 @@ df.head()
 <p>For example, because the CSSE raw data may be noisy, a smoothing algorithm is first to smooth the data. For example, if a state reports 0 death on one day and 300 deaths the next day, the data is smoothed to show 150 deaths on each day. <a class="reference external" href="http://matlab.cheme.cmu.edu/2011/10/30/smooth-transitions-between-discontinuous-functions/#:~:text=Sigmoid%20functions,-A%20sigmoid%20function&amp;text=There%20is%20no%20formal%20justification,or%20from%201%20to%20zero.">Sigmoid Function</a> is used for this process as shown in below <a class="reference external" href="https://github.com/youyanggu/yyg-seir-simulator/blob/b511187a2d4273c92235fdb79017e7a6367e2f4c/region_model.py#L9">code snippet</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def inv_sigmoid(shift=0, a=1, b=1, c=0):
-    &quot;&quot;&quot;Returns a inverse sigmoid function based on the parameters.&quot;&quot;&quot;
-    return lambda x: b * np.exp(-(a*(x-shift))) / (1 + np.exp(-(a*(x-shift)))) + c
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">inv_sigmoid</span><span class="p">(</span><span class="n">shift</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a inverse sigmoid function based on the parameters.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">b</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">shift</span><span class="p">)))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">shift</span><span class="p">))))</span> <span class="o">+</span> <span class="n">c</span>
 
-def get_transition_sigmoid(inflection_idx, inflection_rate, low_value, high_value,
-        check_values=True):
-    &quot;&quot;&quot;Returns a sigmoid function based on the specified parameters.
-    A sigmoid helps smooth the transition between low_value and high_value,
-        with the midpoint being inflection_idx.
-    inflection_rate is typically a value between 0-1, with 1 being a very steep
-        transition. We typically use 0.2-0.5 in our projections.
-    &quot;&quot;&quot;
-    if check_values:
-        assert 0 &lt; inflection_rate &lt;= 1, inflection_rate
-        assert 0 &lt; low_value &lt;= 10, low_value
-        assert 0 &lt;= high_value &lt;= 10, high_value
-    shift = inflection_idx
-    a = inflection_rate
-    b = low_value - high_value
-    c = high_value
-    return utils.inv_sigmoid(shift, a, b, c)
+<span class="k">def</span> <span class="nf">get_transition_sigmoid</span><span class="p">(</span><span class="n">inflection_idx</span><span class="p">,</span> <span class="n">inflection_rate</span><span class="p">,</span> <span class="n">low_value</span><span class="p">,</span> <span class="n">high_value</span><span class="p">,</span>
+        <span class="n">check_values</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a sigmoid function based on the specified parameters.</span>
+<span class="sd">    A sigmoid helps smooth the transition between low_value and high_value,</span>
+<span class="sd">        with the midpoint being inflection_idx.</span>
+<span class="sd">    inflection_rate is typically a value between 0-1, with 1 being a very steep</span>
+<span class="sd">        transition. We typically use 0.2-0.5 in our projections.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">check_values</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">inflection_rate</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inflection_rate</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">low_value</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">low_value</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">high_value</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">high_value</span>
+    <span class="n">shift</span> <span class="o">=</span> <span class="n">inflection_idx</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">inflection_rate</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">low_value</span> <span class="o">-</span> <span class="n">high_value</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">high_value</span>
+    <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">inv_sigmoid</span><span class="p">(</span><span class="n">shift</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

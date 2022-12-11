@@ -1133,9 +1133,9 @@ title="Print to PDF"
 <p>A full example of analyzing this dataset using <a class="reference external" href="https://docs.microsoft.com/azure/cognitive-services/text-analytics/how-tos/text-analytics-for-health/?WT.mc_id=academic-77958-bethanycheum">Text Analytics for Health</a> cognitive service is described <a class="reference external" href="https://soshnikov.com/science/analyzing-medical-papers-with-azure-and-text-analytics-for-health/">in this blog post</a>. We will discuss simplified version of this analysis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
@@ -1152,9 +1152,9 @@ import matplotlib.pyplot as plt
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = pd.read_csv(&quot;https://datascience4beginners.blob.core.windows.net/cord/metadata.csv.zip&quot;,compression=&#39;zip&#39;)
-# df = pd.read_csv(&quot;metadata.csv&quot;)
-df.head()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://datascience4beginners.blob.core.windows.net/cord/metadata.csv.zip&quot;</span><span class="p">,</span><span class="n">compression</span><span class="o">=</span><span class="s1">&#39;zip&#39;</span><span class="p">)</span>
+<span class="c1"># df = pd.read_csv(&quot;metadata.csv&quot;)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1162,9 +1162,9 @@ df.head()
 <p>We will now convert publication date column to <code class="docutils literal notranslate"><span class="pre">datetime</span></code>, and plot the histogram to see the range of publication dates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df[&#39;publish_time&#39;] = pd.to_datetime(df[&#39;publish_time&#39;])
-df[&#39;publish_time&#39;].hist()
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;publish_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;publish_time&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;publish_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1176,20 +1176,20 @@ plt.show()
 <p>Let’s see what kind of information we can easily extract from abstracts. One thing we might be interested in is to see which treatment strategies exist, and how they evolved over time. To begin with, we can manually compile the list of possible medications used to treat COVID, and also the list of diagnoses. We then go over them and search corresponding terms in the abstracts of papers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>medications = [
-    &#39;hydroxychloroquine&#39;, &#39;chloroquine&#39;, &#39;tocilizumab&#39;, &#39;remdesivir&#39;, &#39;azithromycin&#39;, 
-    &#39;lopinavir&#39;, &#39;ritonavir&#39;, &#39;dexamethasone&#39;, &#39;heparin&#39;, &#39;favipiravir&#39;, &#39;methylprednisolone&#39;]
-diagnosis = [
-    &#39;covid&#39;,&#39;sars&#39;,&#39;pneumonia&#39;,&#39;infection&#39;,&#39;diabetes&#39;,&#39;coronavirus&#39;,&#39;death&#39;
-]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">medications</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;hydroxychloroquine&#39;</span><span class="p">,</span> <span class="s1">&#39;chloroquine&#39;</span><span class="p">,</span> <span class="s1">&#39;tocilizumab&#39;</span><span class="p">,</span> <span class="s1">&#39;remdesivir&#39;</span><span class="p">,</span> <span class="s1">&#39;azithromycin&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;lopinavir&#39;</span><span class="p">,</span> <span class="s1">&#39;ritonavir&#39;</span><span class="p">,</span> <span class="s1">&#39;dexamethasone&#39;</span><span class="p">,</span> <span class="s1">&#39;heparin&#39;</span><span class="p">,</span> <span class="s1">&#39;favipiravir&#39;</span><span class="p">,</span> <span class="s1">&#39;methylprednisolone&#39;</span><span class="p">]</span>
+<span class="n">diagnosis</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;covid&#39;</span><span class="p">,</span><span class="s1">&#39;sars&#39;</span><span class="p">,</span><span class="s1">&#39;pneumonia&#39;</span><span class="p">,</span><span class="s1">&#39;infection&#39;</span><span class="p">,</span><span class="s1">&#39;diabetes&#39;</span><span class="p">,</span><span class="s1">&#39;coronavirus&#39;</span><span class="p">,</span><span class="s1">&#39;death&#39;</span>
+<span class="p">]</span>
 
-for m in medications:
-    print(f&quot; + Processing medication: {m}&quot;)
-    df[m] = df[&#39;abstract&#39;].apply(lambda x: str(x).lower().count(&#39; &#39;+m))
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">medications</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; + Processing medication: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;abstract&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">m</span><span class="p">))</span>
     
-for m in diagnosis:
-    print(f&quot; + Processing diagnosis: {m}&quot;)
-    df[m] = df[&#39;abstract&#39;].apply(lambda x: str(x).lower().count(&#39; &#39;+m))
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">diagnosis</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; + Processing diagnosis: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;abstract&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">m</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1201,17 +1201,17 @@ for m in diagnosis:
 <p>To make working with data easier, we can extract the sub-frame with only medication counts, and compute the accumulated number of occurrences. This gives is the most popular medication:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfm = df[medications]
-dfm = dfm.sum().reset_index().rename(columns={ &#39;index&#39; : &#39;Name&#39;, 0 : &#39;Count&#39;})
-dfm.sort_values(&#39;Count&#39;,ascending=False)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfm</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">medications</span><span class="p">]</span>
+<span class="n">dfm</span> <span class="o">=</span> <span class="n">dfm</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span> <span class="s1">&#39;index&#39;</span> <span class="p">:</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="mi">0</span> <span class="p">:</span> <span class="s1">&#39;Count&#39;</span><span class="p">})</span>
+<span class="n">dfm</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfm.set_index(&#39;Name&#39;).plot(kind=&#39;bar&#39;)
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfm</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1222,10 +1222,10 @@ plt.show()
 <p>In the example above we have <code class="docutils literal notranslate"><span class="pre">sum</span></code>ed all values, but we can also do the same on a monthly basis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfm = df[[&#39;publish_time&#39;]+medications].set_index(&#39;publish_time&#39;)
-dfm = dfm[(dfm.index&gt;=&quot;2020-01-01&quot;) &amp; (dfm.index&lt;=&quot;2021-07-31&quot;)]
-dfmt = dfm.groupby([dfm.index.year,dfm.index.month]).sum()
-dfmt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfm</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;publish_time&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">medications</span><span class="p">]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;publish_time&#39;</span><span class="p">)</span>
+<span class="n">dfm</span> <span class="o">=</span> <span class="n">dfm</span><span class="p">[(</span><span class="n">dfm</span><span class="o">.</span><span class="n">index</span><span class="o">&gt;=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dfm</span><span class="o">.</span><span class="n">index</span><span class="o">&lt;=</span><span class="s2">&quot;2021-07-31&quot;</span><span class="p">)]</span>
+<span class="n">dfmt</span> <span class="o">=</span> <span class="n">dfm</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">dfm</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="p">,</span><span class="n">dfm</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">dfmt</span>
 </pre></div>
 </div>
 </div>
@@ -1233,8 +1233,8 @@ dfmt
 <p>This gives us a good picture of treatment strategies. Let’s visualize it!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfmt.plot()
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfmt</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1243,15 +1243,15 @@ plt.show()
 <p>To make more sense of the data, let’s visualize just a few medicines. We will also “erase” data for January, and fill it in by some medium value, in order to make nicer plot:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>meds = [&#39;hydroxychloroquine&#39;,&#39;tocilizumab&#39;,&#39;favipiravir&#39;]
-dfmt.loc[(2020,1)] = np.nan
-dfmt.loc[(2021,1)] = np.nan
-dfmt.fillna(method=&#39;pad&#39;,inplace=True)
-fig, ax = plt.subplots(1,len(meds),figsize=(10,3))
-for i,m in enumerate(meds):
-    dfmt[m].plot(ax=ax[i])
-    ax[i].set_title(m)
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">meds</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hydroxychloroquine&#39;</span><span class="p">,</span><span class="s1">&#39;tocilizumab&#39;</span><span class="p">,</span><span class="s1">&#39;favipiravir&#39;</span><span class="p">]</span>
+<span class="n">dfmt</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="mi">2020</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">dfmt</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="mi">2021</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">dfmt</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">meds</span><span class="p">),</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">m</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">meds</span><span class="p">):</span>
+    <span class="n">dfmt</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1259,8 +1259,8 @@ plt.show()
 <p>Observe how popularity of hydroxychloroquine was on the rise in the first few months, and then started to decline, while number of mentions of favipiravir shows stable rise. Another good way to visualize relative popularity is to use <strong>stack plot</strong> (or <strong>area plot</strong> in Pandas terminology):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfmt.plot.area()
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfmt</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1268,9 +1268,9 @@ plt.show()
 <p>Even further, we can compute relative popularity in percents:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>dfmtp = dfmt.iloc[:,:].apply(lambda x: x/x.sum(), axis=1)
-dfmtp.plot.area()
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfmtp</span> <span class="o">=</span> <span class="n">dfmt</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,:]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dfmtp</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">area</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1282,21 +1282,21 @@ plt.show()
 <p>Such a map is essentially a 2D matrix, which is best represented by <strong>numpy array</strong>. We will compute this map by walking through all abstracts, and marking entities that occur there:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m = np.zeros((len(medications),len(diagnosis)))
-for a in df[&#39;abstract&#39;]:
-    x = str(a).lower()
-    for i,d in enumerate(diagnosis):
-        if &#39; &#39;+d in x:
-            for j,me in enumerate(medications):
-                if &#39; &#39;+me in x:
-                    m[j,i] += 1
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">medications</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">diagnosis</span><span class="p">)))</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;abstract&#39;</span><span class="p">]:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">diagnosis</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">d</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">me</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">medications</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">me</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                    <span class="n">m</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>m
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span>
 </pre></div>
 </div>
 </div>
@@ -1304,13 +1304,13 @@ for a in df[&#39;abstract&#39;]:
 <p>One of the ways to visualize this matrix is to draw a <strong>heatmap</strong>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.imshow(m,interpolation=&#39;nearest&#39;,cmap=&#39;hot&#39;)
-ax = plt.gca()
-ax.set_yticks(range(len(medications))) 
-ax.set_yticklabels(medications)
-ax.set_xticks(range(len(diagnosis)))
-ax.set_xticklabels(diagnosis,rotation=90)
-plt.show()
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">medications</span><span class="p">)))</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">medications</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">diagnosis</span><span class="p">)))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">diagnosis</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1332,40 +1332,40 @@ plt.show()
 <p>Generic code to draw sankey diagram is structured as a separate <code class="docutils literal notranslate"><span class="pre">sankey</span></code> function, which takes two lists (source and target categories) and co-occurence matrix. It also allows us to specify the threshold, and omit all links that are weaker than that threshold - this makes the diagram a little bit less complex.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import plotly.graph_objects as go
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 
-def sankey(cat1, cat2, m, treshold=0, h1=[], h2=[]):
-    all_nodes = cat1 + cat2
-    source_indices = list(range(len(cat1)))
-    target_indices = list(range(len(cat1),len(cat1)+len(cat2)))
+<span class="k">def</span> <span class="nf">sankey</span><span class="p">(</span><span class="n">cat1</span><span class="p">,</span> <span class="n">cat2</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">treshold</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">h1</span><span class="o">=</span><span class="p">[],</span> <span class="n">h2</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">all_nodes</span> <span class="o">=</span> <span class="n">cat1</span> <span class="o">+</span> <span class="n">cat2</span>
+    <span class="n">source_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat1</span><span class="p">)))</span>
+    <span class="n">target_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat1</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">cat1</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">cat2</span><span class="p">)))</span>
 
-    s, t, v, c = [], [], [], []
-    for i in range(len(cat1)):
-        for j in range(len(cat2)):
-            if m[i,j]&gt;treshold:
-                s.append(i)
-                t.append(len(cat1)+j)
-                v.append(m[i,j])
-                c.append(&#39;pink&#39; if i in h1 or j in h2 else &#39;lightgray&#39;)
+    <span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat1</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat2</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">&gt;</span><span class="n">treshold</span><span class="p">:</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cat1</span><span class="p">)</span><span class="o">+</span><span class="n">j</span><span class="p">)</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;pink&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">h1</span> <span class="ow">or</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">h2</span> <span class="k">else</span> <span class="s1">&#39;lightgray&#39;</span><span class="p">)</span>
 
-    fig = go.Figure(data=[go.Sankey(
-        # Define nodes
-        node = dict(
-        pad = 40,
-        thickness = 40,
-        line = dict(color = &quot;black&quot;, width = 1.0),
-        label =  all_nodes),
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">go</span><span class="o">.</span><span class="n">Sankey</span><span class="p">(</span>
+        <span class="c1"># Define nodes</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">pad</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span>
+        <span class="n">thickness</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="n">label</span> <span class="o">=</span>  <span class="n">all_nodes</span><span class="p">),</span>
 
-        # Add links
-        link = dict(
-        source =  s,
-        target =  t,
-        value =  v,
-        color = c
-    ))])
-    fig.show()
+        <span class="c1"># Add links</span>
+        <span class="n">link</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">source</span> <span class="o">=</span>  <span class="n">s</span><span class="p">,</span>
+        <span class="n">target</span> <span class="o">=</span>  <span class="n">t</span><span class="p">,</span>
+        <span class="n">value</span> <span class="o">=</span>  <span class="n">v</span><span class="p">,</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="p">))])</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-sankey(medications,diagnosis,m,500,h2=[0])
+<span class="n">sankey</span><span class="p">(</span><span class="n">medications</span><span class="p">,</span><span class="n">diagnosis</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="n">h2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

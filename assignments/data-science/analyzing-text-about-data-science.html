@@ -1126,7 +1126,7 @@ title="Print to PDF"
 <p>As a text, I will use the page on Data Science from Wikipedia:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>url = &#39;https://en.wikipedia.org/wiki/Data_science&#39;
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Data_science&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1137,10 +1137,10 @@ title="Print to PDF"
 <p>First step in every data science process is getting the data. We will use <code class="docutils literal notranslate"><span class="pre">requests</span></code> library to do that:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import requests
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 
-text = requests.get(url).content.decode(&#39;utf-8&#39;)
-print(text[:1000])
+<span class="n">text</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1152,26 +1152,26 @@ print(text[:1000])
 <p>There are many ways this can be done. We will use the simplest built-in <a class="reference external" href="https://docs.python.org/3/library/html.parser.html">HTMLParser</a> object from Python. We need to subclass the <code class="docutils literal notranslate"><span class="pre">HTMLParser</span></code> class and define the code that will collect all text inside HTML tags, except <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;style&gt;</span></code> tags.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from html.parser import HTMLParser
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
 
-class MyHTMLParser(HTMLParser):
-    script = False
-    res = &quot;&quot;
-    def handle_starttag(self, tag, attrs):
-        if tag.lower() in [&quot;script&quot;,&quot;style&quot;]:
-            self.script = True
-    def handle_endtag(self, tag):
-        if tag.lower() in [&quot;script&quot;,&quot;style&quot;]:
-            self.script = False
-    def handle_data(self, data):
-        if str.strip(data)==&quot;&quot; or self.script:
-            return
-        self.res += &#39; &#39;+data.replace(&#39;[ edit ]&#39;,&#39;&#39;)
+<span class="k">class</span> <span class="nc">MyHTMLParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">,</span><span class="s2">&quot;style&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">script</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">,</span><span class="s2">&quot;style&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">script</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">==</span><span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">script</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[ edit ]&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-parser = MyHTMLParser()
-parser.feed(text)
-text = parser.res
-print(text[:1000])
+<span class="n">parser</span> <span class="o">=</span> <span class="n">MyHTMLParser</span><span class="p">()</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">res</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1183,8 +1183,8 @@ print(text[:1000])
 <p>We will use Python library called <a class="reference external" href="https://github.com/aneesha/RAKE">RAKE</a> for keyword extraction. First, let’s install this library in case it is not present:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
-!{sys.executable} -m pip install nlp_rake
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install nlp_rake
 </pre></div>
 </div>
 </div>
@@ -1192,10 +1192,10 @@ print(text[:1000])
 <p>The main functionality is available from <code class="docutils literal notranslate"><span class="pre">Rake</span></code> object, which we can customize using some parameters. In our case, we will set the minimum length of a keyword to 5 characters, minimum frequency of a keyword in the document to 3, and maximum number of words in a keyword - to 2. Feel free to play around with other values and observe the result.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import nlp_rake
-extractor = nlp_rake.Rake(max_words=2,min_freq=3,min_chars=5)
-res = extractor.apply(text)
-res
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nlp_rake</span>
+<span class="n">extractor</span> <span class="o">=</span> <span class="n">nlp_rake</span><span class="o">.</span><span class="n">Rake</span><span class="p">(</span><span class="n">max_words</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">min_freq</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">min_chars</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">extractor</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">res</span>
 </pre></div>
 </div>
 </div>
@@ -1207,15 +1207,15 @@ res
 <p>People can interpret the data best in the visual form. Thus it often makes sense to visualize the data in order to draw some insights. We can use <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> library in Python to plot simple distribution of the keywords with their relevance:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-def plot(pair_list):
-    k,v = zip(*pair_list)
-    plt.bar(range(len(k)),v)
-    plt.xticks(range(len(k)),k,rotation=&#39;vertical&#39;)
-    plt.show()
+<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">pair_list</span><span class="p">):</span>
+    <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">pair_list</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)),</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)),</span><span class="n">k</span><span class="p">,</span><span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-plot(res)
+<span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1223,7 +1223,7 @@ plot(res)
 <p>There is, however, even better way to visualize word frequencies - using <strong>Word Cloud</strong>. We will need to install another library to plot the word cloud from our keyword list.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>!{sys.executable} -m pip install wordcloud
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!{</span>sys.executable<span class="o">}</span> -m pip install wordcloud
 </pre></div>
 </div>
 </div>
@@ -1231,12 +1231,12 @@ plot(res)
 <p><code class="docutils literal notranslate"><span class="pre">WordCloud</span></code> object is responsible for taking in either original text, or pre-computed list of words with their frequencies, and returns and image, which can then be displayed using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from wordcloud import WordCloud
-import matplotlib.pyplot as plt
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-wc = WordCloud(background_color=&#39;white&#39;,width=800,height=600)
-plt.figure(figsize=(15,7))
-plt.imshow(wc.generate_from_frequencies({ k:v for k,v in res }))
+<span class="n">wc</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">background_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wc</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">({</span> <span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">res</span> <span class="p">}))</span>
 </pre></div>
 </div>
 </div>
@@ -1244,15 +1244,15 @@ plt.imshow(wc.generate_from_frequencies({ k:v for k,v in res }))
 <p>We can also pass in the original text to <code class="docutils literal notranslate"><span class="pre">WordCloud</span></code> - let’s see if we are able to get similar result:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(15,7))
-plt.imshow(wc.generate(text))
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wc</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>wc.generate(text).to_file(&#39;images/ds_wordcloud.png&#39;)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wc</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;images/ds_wordcloud.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
