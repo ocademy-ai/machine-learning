@@ -43,7 +43,9 @@ Here, `data` can be many different things:
 
 The passed **index** is a list of axis labels. Thus, this separates into a few cases depending on what **data is**:
 
-#### From ndarray
+#### Create a Series
+
+##### From ndarray
 
 If `data` is an ndarray, **index** must be the same length as **data**. If no index is passed, one will be created having values `[0, ..., len(data) - 1]`.
 
@@ -63,9 +65,11 @@ s.index
 pd.Series(np.random.randn(5))
 ```
 
-**Note:** Pandas supports non-unique index values. If an operation that does not support duplicate index values is attempted, an exception will be raised at that time.
+```{note}
+Pandas supports non-unique index values. If an operation that does not support duplicate index values is attempted, an exception will be raised at that time.
+```
 
-#### From dict
+##### From dict
 `Series` can be instantiated from dicts:
 
 ```{code-cell}
@@ -90,9 +94,11 @@ pd.Series(d)
 pd.Series(d, index=["b", "c", "d", "a"])
 ```
 
-**Note:** NaN (not a number) is the standard missing data marker used in pandas.
+```{note}
+NaN (not a number) is the standard missing data marker used in pandas.
+```
 
-#### From scalar value
+##### From scalar value
 
 If `data` is a scalar value, an index must be provided. The value will be repeated to match the length of **index**.
 
@@ -170,60 +176,9 @@ s
 
 If a label is not contained in the index, an exception is raised:
 
-```py
+```{code-cell}
+:tags: ["raises-exception"]
 s["f"]
-```
-
-```py
----------------------------------------------------------------------------
-KeyError                                  Traceback (most recent call last)
-File ~/work/pandas/pandas/pandas/core/indexes/base.py:3803, in Index.get_loc(self, key, method, tolerance)
-   3802 try:
--> 3803     return self._engine.get_loc(casted_key)
-   3804 except KeyError as err:
-
-File ~/work/pandas/pandas/pandas/_libs/index.pyx:138, in pandas._libs.index.IndexEngine.get_loc()
-
-File ~/work/pandas/pandas/pandas/_libs/index.pyx:165, in pandas._libs.index.IndexEngine.get_loc()
-
-File ~/work/pandas/pandas/pandas/_libs/hashtable_class_helper.pxi:5745, in pandas._libs.hashtable.PyObjectHashTable.get_item()
-
-File ~/work/pandas/pandas/pandas/_libs/hashtable_class_helper.pxi:5753, in pandas._libs.hashtable.PyObjectHashTable.get_item()
-
-KeyError: 'f'
-
-The above exception was the direct cause of the following exception:
-
-KeyError                                  Traceback (most recent call last)
-Cell In [26], line 1
-----> 1 s["f"]
-
-File ~/work/pandas/pandas/pandas/core/series.py:981, in Series.__getitem__(self, key)
-    978     return self._values[key]
-    980 elif key_is_scalar:
---> 981     return self._get_value(key)
-    983 if is_hashable(key):
-    984     # Otherwise index.get_value will raise InvalidIndexError
-    985     try:
-    986         # For labels that don't resolve as scalars like tuples and frozensets
-
-File ~/work/pandas/pandas/pandas/core/series.py:1089, in Series._get_value(self, label, takeable)
-   1086     return self._values[label]
-   1088 # Similar to Index.get_value, but we do not fall back to positional
--> 1089 loc = self.index.get_loc(label)
-   1090 return self.index._get_values_for_loc(self, loc, label)
-
-File ~/work/pandas/pandas/pandas/core/indexes/base.py:3805, in Index.get_loc(self, key, method, tolerance)
-   3803     return self._engine.get_loc(casted_key)
-   3804 except KeyError as err:
--> 3805     raise KeyError(key) from err
-   3806 except TypeError:
-   3807     # If we have a listlike key, _check_indexing_error will raise
-   3808     #  InvalidIndexError. Otherwise we fall through and re-raise
-   3809     #  the TypeError.
-   3810     self._check_indexing_error(key)
-
-KeyError: 'f'
 ```
 
 Using the `Series.get()` method, a missing label will return None or specified default:
@@ -262,7 +217,9 @@ s[1:] + s[:-1]
 
 The result of an operation between unaligned `Series` will have the **union** of the indexes involved. If a label is not found in one `Series` or the other, the result will be marked as missing `NaN`. Being able to write code without doing any explicit data alignment grants immense freedom and flexibility in interactive data analysis and research. The integrated data alignment features of the pandas data structures set pandas apart from the majority of related tools for working with labeled data.
 
-**NOTE:** In general, we chose to make the default result of operations between differently indexed objects yield the **union** of the indexes in order to avoid loss of information. Having an index label, though the data is missing, is typically important information as part of a computation. You of course have the option of dropping labels with missing data via the **dropna** function.
+```{note}
+In general, we chose to make the default result of operations between differently indexed objects yield the **union** of the indexes in order to avoid loss of information. Having an index label, though the data is missing, is typically important information as part of a computation. You of course have the option of dropping labels with missing data via the **dropna** function.
+```
 
 #### Name attribute
 
@@ -308,7 +265,9 @@ Along with the data, you can optionally pass **index** (row labels) and **column
 
 If axis labels are not passed, they will be constructed from the input data based on common sense rules.
 
-#### From dict of Series or dicts
+#### Create a dataframe
+
+##### From dict of Series or dicts
 
 The resulting **index** will be the **union** of the indexes of the various Series. If there are any nested dicts, these will first be converted to Series. If no columns are passed, the columns will be the ordered list of dict keys.
 
@@ -337,7 +296,9 @@ pd.DataFrame(d, index=["d", "b", "a"], columns=["two", "three"])
 
 The row and column labels can be accessed respectively by accessing the **index** and **columns** attributes:
 
-**NOTE:** When a particular set of columns is passed along with a dict of data, the passed columns override the keys in the dict.
+```{note}
+When a particular set of columns is passed along with a dict of data, the passed columns override the keys in the dict.
+```
 
 ```{code-cell}
 df.index
@@ -347,7 +308,7 @@ df.index
 df.columns
 ```
 
-#### From dict of ndarrays / lists
+##### From dict of ndarrays / lists
 
 The ndarrays must all be the same length. If an index is passed, it must also be the same length as the arrays. If no index is passed, the result will be `range(n)`, where `n` is the array length.
 
@@ -363,7 +324,7 @@ pd.DataFrame(d)
 pd.DataFrame(d, index=["a", "b", "c", "d"])
 ```
 
-#### From structured or record array
+##### From structured or record array
 
 This case is handled identically to a dict of arrays.
 
@@ -387,9 +348,12 @@ pd.DataFrame(data, index=["first", "second"])
 pd.DataFrame(data, columns=["C", "A", "B"])
 ```
 
-**NOTE:** DataFrame is not intended to work exactly like a 2-dimensional NumPy ndarray.
+```{note}
+DataFrame is not intended to work exactly like a 2-dimensional NumPy ndarray.
+```
 
-#### From a list of dicts
+
+##### From a list of dicts
 
 ```{code-cell}
 data2 = [{"a": 1, "b": 2}, {"a": 5, "b": 10, "c": 20}]
@@ -407,7 +371,7 @@ pd.DataFrame(data2, index=["first", "second"])
 pd.DataFrame(data2, columns=["a", "b"])
 ```
 
-#### From a dict of tuples
+##### From a dict of tuples
 
 You can automatically create a MultiIndexed frame by passing a tuples dictionary.
 
@@ -423,7 +387,7 @@ pd.DataFrame(
 )
 ```
 
-#### From a Series
+##### From a Series
 
 The result will be a DataFrame with the same index as the input Series, and with one column whose name is the original name of the Series (only if no other column name provided).
 
@@ -435,7 +399,7 @@ ser = pd.Series(range(3), index=list("abc"), name="ser")
 pd.DataFrame(ser)
 ```
 
-#### From a list of namedtuples
+##### From a list of namedtuples
 
 The field names of the first `namedtuple` in the list determine the columns of the `DataFrame`. The remaining namedtuples (or tuples) are simply unpacked and their values are fed into the rows of the `DataFrame`. If any of those tuples is shorter than the first `namedtuple` then the later columns in the corresponding row are marked as missing values. If any are longer than the first `namedtuple` , a `ValueError` is raised.
 
@@ -459,7 +423,7 @@ Point3D = namedtuple("Point3D", "x y z")
 pd.DataFrame([Point3D(0, 0, 0), Point3D(0, 3, 5), Point(2, 3)])
 ```
 
-#### From a list of dataclasses
+##### From a list of dataclasses
 
 Data Classes as introduced in PEP557, can be passed into the DataFrame constructor. Passing a list of dataclasses is equivalent to passing a list of dictionaries.
 
@@ -475,42 +439,6 @@ Point = make_dataclass("Point", [("x", int), ("y", int)])
 
 ```{code-cell}
 pd.DataFrame([Point(0, 0), Point(0, 3), Point(2, 3)])
-```
-
-##### Missing data
-
-To construct a DataFrame with missing data, we use `np.nan` to represent missing values. Alternatively, you may pass a `numpy.MaskedArray` as the data argument to the DataFrame constructor, and its masked entries will be considered missing.
-
-#### Alternate constructors
-
-##### DataFrame.from_dict
-
-`DataFrame.from_dict()` takes a dict of dicts or a dict of array-like sequences and returns a DataFrame. It operates like the `DataFrame` constructor except for the `orient` parameter which is `'columns'` by default, but which can be set to `'index'` in order to use the dict keys as row labels.
-
-```{code-cell}
-pd.DataFrame.from_dict(dict([("A", [1, 2, 3]), ("B", [4, 5, 6])]))
-```
-
-If you pass `orient='index'`, the keys will be the row labels. In this case, you can also pass the desired column names:
-
-```{code-cell}
-pd.DataFrame.from_dict(
-    dict([("A", [1, 2, 3]), ("B", [4, 5, 6])]),
-    orient="index",
-    columns=["one", "two", "three"],
-)
-```
-
-##### DataFrame.from_records
-
-`DataFrame.from_records()` takes a list of tuples or an ndarray with structured dtype. It works analogously to the normal `DataFrame` constructor, except that the resulting DataFrame index may be a specific field of the structured dtype.
-
-```{code-cell}
-data
-```
-
-```{code-cell}
-pd.DataFrame.from_records(data, index="C")
 ```
 
 #### Column selection, addition, deletion
@@ -725,149 +653,700 @@ To transpose, access the `T` attribute or `DataFrame.transpose()`, similar to an
 df[:5].T
 ```
 
-#### DataFrame interoperability with NumPy functions
+## Data indexing and selection
 
-Most NumPy functions can be called directly on `Series` and `DataFrame`.
+The axis labeling information in pandas objects serves many purposes:
+
+- Identifies data (i.e. provides metadata) using known indicators, important for analysis, visualization, and interactive console display.
+- Enables automatic and explicit data alignment.
+- Allows intuitive getting and setting of subsets of the data set.
+
+In this section, we will focus on the final point: namely, how to slice, dice, and generally get and set subsets of pandas objects. The primary focus will be on Series and DataFrame as they have received more development attention in this area.
+
+```{note}
+The Python and NumPy indexing operators `[]` and attribute operator `.` provide quick and easy access to pandas data structures across a wide range of use cases. This makes interactive work intuitive, as there’s little new to learn if you already know how to deal with Python dictionaries and NumPy arrays. However, since the type of the data to be accessed isn’t known in advance, directly using standard operators has some optimization limits. For production code, we recommended that you take advantage of the optimized pandas data access methods exposed in this chapter.
+```
+
+```{warning}
+Whether a copy or a reference is returned for a setting operation, may depend on the context. This is sometimes called `chained assignment` and should be avoided.
+```
+
+### Different choices for indexing
+
+Object selection has had a number of user-requested additions in order to support more explicit location based indexing. pandas now supports three types of multi-axis indexing.
+
+- `.loc` is primarily label based, but may also be used with a boolean array. `.loc` will raise `KeyError` when the items are not found. Allowed inputs are:
+
+    - A single label, e.g. `5` or `'a'` (Note that `5` is interpreted as a label of the index. This use is not an integer position along the index.).
+
+    - A list or array of labels `['a', 'b', 'c']`.
+
+    - A slice object with labels `'a':'f'` (Note that contrary to usual Python slices, both the start and the stop are included, when present in the index!)
+
+    - A boolean array (any `NA` values will be treated as `False`).
+
+    - A `callable` function with one argument (the calling Series or DataFrame) and that returns valid output for indexing (one of the above).
+
+- `.iloc` is primarily integer position based (from `0` to `length-1` of the axis), but may also be used with a boolean array. `.iloc` will raise `IndexError` if a requested indexer is out-of-bounds, except slice indexers which allow out-of-bounds indexing. (this conforms with Python/NumPy slice semantics). Allowed inputs are:
+
+    - An integer e.g. `5`.
+
+    - A list or array of integers `[4, 3, 0]`.
+
+    - A slice object with ints `1:7`.
+
+    - A boolean array (any `NA` values will be treated as `False`).
+
+    - A `callable` function with one argument (the calling Series or DataFrame) and that returns valid output for indexing (one of the above).
+
+- `.loc`, `.iloc`, and also `[]` indexing can accept a `callable` as indexer.
+
+Getting values from an object with multi-axes selection uses the following notation (using `.loc` as an example, but the following applies to `.iloc` as well). Any of the axes accessors may be the null slice `:`. Axes left out of the specification are assumed to be `:`, e.g. `p.loc['a']` is equivalent to `p.loc['a', :]`.
+
+|**Object Type**|**Indexers**                        |
+|:--            |:-                                  |
+|Series         |`s.loc[indexer]`                    |
+|DataFrame      |`df.loc[row_indexer,column_indexer]`|
+
+### Basics
+
+As mentioned when introducing the data structures in the last section, the primary function of indexing with `[]` (a.k.a.` __getitem__` for those familiar with implementing class behavior in Python) is selecting out lower-dimensional slices. The following table shows return type values when indexing pandas objects with `[]`:
+
+
+|**Object Type**|**Selection**   |Return Value Type                |
+|:-             |:-              |:-                               |
+|Series         |`series[label]` |scalar value                     |
+|DataFrame      |`frame[colname]`|`Series` corresponding to colname|
+
+Here we construct a simple time series data set to use for illustrating the indexing functionality:
 
 ```{code-cell}
-np.exp(df)
+dates = pd.date_range('1/1/2000', periods=8)
+df = pd.DataFrame(np.random.randn(8, 4),
+                  index=dates, columns=['A', 'B', 'C', 'D'])
+df
+```
+
+```{note}
+None of the indexing functionality is time series specific unless specifically stated.
+```
+
+Thus, as per above, we have the most basic indexing using `[]`:
+
+```{code-cell}
+s = df['A']
+
+s[dates[5]]
+```
+
+You can pass a list of columns to `[]` to select columns in that order. If a column is not contained in the DataFrame, an exception will be raised. Multiple columns can also be set in this manner:
+
+```{code-cell}
+df
 ```
 
 ```{code-cell}
-np.asarray(df)
+df[['B', 'A']] = df[['A', 'B']]
+df
 ```
 
-`DataFrame` is not intended to be a drop-in replacement for ndarray as its indexing semantics and data model are quite different in places from an n-dimensional array.
+You may find this useful for applying a transform (in-place) to a subset of the columns.
 
-`Series` implements `__array_ufunc__`, which allows it to work with NumPy’s **universal functions**.
+```{warning}
+pandas aligns all AXES when setting `Series` and `DataFrame` from `.loc`, and `.iloc`.
 
-The ufunc is applied to the underlying array in a `Series`.
-
-```{code-cell}
-ser = pd.Series([1, 2, 3, 4])
-```
-
-```{code-cell}
-np.exp(ser)
-```
-
-Like other parts of the library, pandas will automatically align labeled inputs as part of a ufunc with multiple inputs. For example, using `numpy.remainder()` on two `Series` with differently ordered labels will align before the operation.
-
-```{code-cell}
-ser1 = pd.Series([1, 2, 3], index=["a", "b", "c"])
+This will not modify `df` because the column alignment is before value assignment.
 ```
 
 ```{code-cell}
-ser2 = pd.Series([1, 3, 5], index=["b", "a", "c"])
+df[['A', 'B']]
 ```
 
 ```{code-cell}
-ser1
+df.loc[:, ['B', 'A']] = df[['A', 'B']]
+df[['A', 'B']]
+```
+
+```{warning}
+The correct way to swap column values is by using raw values:
 ```
 
 ```{code-cell}
-ser2
+df.loc[:, ['B', 'A']] = df[['A', 'B']].to_numpy()
+df[['A', 'B']]
+```
+
+### Attribute access
+
+You may access an index on a `Series` or column on a `DataFrame` directly as an attribute:
+
+```{code-cell}
+sa = pd.Series([1, 2, 3], index=list('abc'))
+dfa = df.copy()
 ```
 
 ```{code-cell}
-np.remainder(ser1, ser2)
-```
-
-As usual, the union of the two indices is taken, and non-overlapping values are filled with missing values.
-
-```{code-cell}
-ser3 = pd.Series([2, 4, 6], index=["b", "c", "d"])
+sa.b
 ```
 
 ```{code-cell}
-ser3
+dfa.A
 ```
 
 ```{code-cell}
-np.remainder(ser1, ser3)
-```
-
-When a binary ufunc is applied to a `Series` and `Index`, the `Series` implementation takes precedence and a `Series` is returned.
-
-```{code-cell}
-ser = pd.Series([1, 2, 3])
+sa.a = 5
+sa
 ```
 
 ```{code-cell}
-idx = pd.Index([4, 5, 6])
+dfa.A = list(range(len(dfa.index)))  # ok if A already exists
+dfa
 ```
 
 ```{code-cell}
-np.maximum(ser, idx)
+dfa['A'] = list(range(len(dfa.index)))  # use this form to create a new column
+dfa
 ```
 
-#### Console display
+```{warning}
+- You can use this access only if the index element is a valid Python identifier, e.g. s.1 is not allowed. See here for an explanation of valid identifiers.
 
-A very large `DataFrame` will be truncated to display them in the console. You can also get a summary using `info()`.
+- The attribute will not be available if it conflicts with an existing method name, e.g. s.min is not allowed, but s['min'] is possible.
 
-```{code-cell}
-baseball = pd.read_csv("../../assets/data/baseball.csv")
+- Similarly, the attribute will not be available if it conflicts with any of the following list: index, major_axis, minor_axis, items.
+
+- In any of these cases, standard indexing will still work, e.g. s['1'], s['min'], and s['index'] will access the corresponding element or column.
 ```
 
+If you are using the IPython environment, you may also use tab-completion to see these accessible attributes.
+
+You can also assign a `dict` to a row of a `DataFrame`:
+
 ```{code-cell}
-print(baseball)
+x = pd.DataFrame({'x': [1, 2, 3], 'y': [3, 4, 5]})
+x.iloc[1] = {'x': 9, 'y': 99}
+x
 ```
 
-```{code-cell}
-baseball.info()
-```
-
-However, using `DataFrame.to_string()` will return a string representation of the `DataFrame` in tabular form, though it won’t always fit the console width:
+You can use attribute access to modify an existing element of a Series or column of a DataFrame, but be careful; if you try to use attribute access to create a new column, it creates a new attribute rather than a new column. In 0.21.0 and later, this will raise a `UserWarning`:
 
 ```{code-cell}
-print(baseball.iloc[-20:, :12].to_string())
-```
-
-Wide DataFrames will be printed across multiple rows by default:
-
-```{code-cell}
-pd.DataFrame(np.random.randn(3, 12))
-```
-
-You can change how much to print on a single row by setting the `display.width` option:
-
-```{code-cell}
-pd.set_option("display.width", 40)  # default is 80
+df = pd.DataFrame({'one': [1., 2., 3.]})
+df.two = [4, 5, 6]
 ```
 
 ```{code-cell}
-pd.DataFrame(np.random.randn(3, 12))
+df
 ```
 
-You can adjust the max width of the individual columns by setting `display.max_colwidth`:
+### Slicing ranges
+
+For now, we explain the semantics of slicing using the [] operator.
+
+With Series, the syntax works exactly as with an ndarray, returning a slice of the values and the corresponding labels:
 
 ```{code-cell}
-datafile = {
-    "filename": ["filename_01", "filename_02"],
-    "path": [
-        "media/user_name/storage/folder_01/filename_01",
-        "media/user_name/storage/folder_02/filename_02",
-    ],
-}
+s[:5]
 ```
 
 ```{code-cell}
-pd.set_option("display.max_colwidth", 30)
+s[::2]
 ```
 
 ```{code-cell}
-pd.DataFrame(datafile)
+s[::-1]
+```
+
+Note that setting works as well:
+
+```{code-cell}
+s2 = s.copy()
+s2[:5] = 0
+s2
+```
+
+With DataFrame, slicing inside of `[]` slices the rows. This is provided largely as a convenience since it is such a common operation.
+
+```{code-cell}
+df[:3]
 ```
 
 ```{code-cell}
-pd.set_option("display.max_colwidth", 100)
+df[::-1]
+```
+
+### Selection by label
+
+```{warning}
+Whether a copy or a reference is returned for a setting operation, may depend on the context. This is sometimes called `chained assignment` and should be avoided.
+```
+
+```{warning}
+`.loc` is strict when you present slicers that are not compatible (or convertible) with the index type. For example using integers in a `DatetimeIndex`. These will raise a `TypeError`.
 ```
 
 ```{code-cell}
-pd.DataFrame(datafile)
+dfl = pd.DataFrame(np.random.randn(5, 4),
+                   columns=list('ABCD'),
+                   index=pd.date_range('20130101', periods=5))
+dfl
 ```
 
-You can also disable this feature via the `expand_frame_repr` option. This will print the table in one block.
+```{code-cell}
+:tags: ["raises-exception"]
+dfl.loc[2:3]
+```
+
+```{warning}
+String likes in slicing can be convertible to the type of the index and lead to natural slicing.
+```
+
+```{code-cell}
+dfl.loc['20130102':'20130104']
+```
+
+```{warning}
+pandas will raise a `KeyError` if indexing with a list with missing labels.
+```
+
+pandas provides a suite of methods in order to have **purely label based indexing**. This is a strict inclusion based protocol. Every label asked for must be in the index, or a `KeyError` will be raised. When slicing, both the start bound **AND** the stop bound are included, if present in the index. Integers are valid labels, but they refer to the label **and not the position**.
+
+- The `.loc` attribute is the primary access method. The following are valid inputs:
+
+- A single label, e.g. `5` or `'a'` (Note that `5` is interpreted as a label of the index. This use is not an integer position along the index.).
+
+- A list or array of labels `['a', 'b', 'c']`.
+
+- A slice object with labels `'a':'f'` (Note that contrary to usual Python slices, both the start and the stop are included, when present in the index!
+
+- A boolean array.
+
+- A `callable`.
+
+```{code-cell}
+s1 = pd.Series(np.random.randn(6), index=list('abcdef'))
+s1
+```
+
+```{code-cell}
+s1.loc['c':]
+```
+
+```{code-cell}
+s1.loc['b']
+```
+
+Note that setting works as well:
+
+```{code-cell}
+s1.loc['c':] = 0
+s1
+```
+
+With a DataFrame:
+
+```{code-cell}
+df1 = pd.DataFrame(np.random.randn(6, 4),
+                   index=list('abcdef'),
+                   columns=list('ABCD'))
+df1
+```
+
+```{code-cell}
+df1.loc[['a', 'b', 'd'], :]
+```
+
+Accessing via label slices:
+
+```{code-cell}
+df1.loc['d':, 'A':'C']
+```
+
+For getting a cross section using a label (equivalent to `df.xs('a')`):
+
+```{code-cell}
+df1.loc['a']
+```
+
+For getting values with a boolean array:
+
+```{code-cell}
+df1.loc['a'] > 0
+```
+
+```{code-cell}
+df1.loc[:, df1.loc['a'] > 0]
+```
+
+NA values in a boolean array propagate as `False`:
+
+```{code-cell}
+mask = pd.array([True, False, True, False, pd.NA, False], dtype="boolean")
+mask
+```
+
+```{code-cell}
+df1[mask]
+```
+
+For getting a value explicitly:
+
+```{code-cell}
+df1.loc['a', 'A'] # this is also equivalent to ``df1.at['a','A']``
+```
+
+#### Slicing with labels
+
+When using `.loc` with slices, if both the start and the stop labels are present in the index, then elements located between the two (including them) are returned:
+
+```{code-cell}
+s = pd.Series(list('abcde'), index=[0, 3, 2, 5, 4])
+s.loc[3:5]
+```
+
+If at least one of the two is absent, but the index is sorted, and can be compared against start and stop labels, then slicing will still work as expected, by selecting labels which rank between the two:
+
+```{code-cell}
+s.sort_index()
+```
+
+```{code-cell}
+s.sort_index().loc[1:6]
+```
+
+However, if at least one of the two is absent and the index is not sorted, an error will be raised (since doing otherwise would be computationally expensive, as well as potentially ambiguous for mixed type indexes). For instance, in the above example, `s.loc[1:6]` would raise `KeyError`.
+
+```{code-cell}
+s = pd.Series(list('abcdef'), index=[0, 3, 2, 5, 4, 2])
+s.loc[3:5]
+```
+
+Also, if the index has duplicate labels and either the start or the stop label is duplicated, an error will be raised. For instance, in the above example, `s.loc[2:5]` would raise a `KeyError`.
+
+### Selection by position
+
+```{warning}
+Whether a copy or a reference is returned for a setting operation, may depend on the context. This is sometimes called `chained assignment` and should be avoided.
+```
+
+pandas provides a suite of methods in order to get purely integer based indexing. The semantics follow closely Python and NumPy slicing. These are 0-based indexing. When slicing, the start bound is included, while the upper bound is excluded. Trying to use a non-integer, even a valid label will raise an `IndexError`.
+
+The `.iloc` attribute is the primary access method. The following are valid inputs:
+
+- An integer e.g. `5`.
+
+- A list or array of integers `[4, 3, 0]`.
+
+- A slice object with ints `1:7`.
+
+- A boolean array.
+
+- A `callable`.
+
+```{code-cell}
+s1 = pd.Series(np.random.randn(5), index=list(range(0, 10, 2)))
+s1
+```
+
+```{code-cell}
+s1.iloc[:3]
+```
+
+```{code-cell}
+s1.iloc[3]
+```
+
+Note that setting works as well:
+
+```{code-cell}
+s1.iloc[:3] = 0
+s1
+```
+
+With a DataFrame:
+
+···{code-cell}
+df1 = pd.DataFrame(np.random.randn(6, 4),
+                   index=list(range(0, 12, 2)),
+                   columns=list(range(0, 8, 2)))
+df1
+```
+
+Select via integer slicing:
+
+```{code-cell}
+df1.iloc[:3]
+```
+
+```{code-cell}
+df1.iloc[1:5, 2:4]
+```
+
+Select via integer list:
+
+```{code-cell}
+df1.iloc[[1, 3, 5], [1, 3]]
+```
+
+```{code-cell}
+df1.iloc[1:3, :]
+```
+
+```{code-cell}
+df1.iloc[:, 1:3]
+```
+
+```{code-cell}
+df1.iloc[1, 1] # this is also equivalent to ``df1.iat[1,1]``
+```
+
+For getting a cross section using an integer position (equiv to `df.xs(1)`):
+
+```{code-cell}
+df1.iloc[1]
+```
+
+Out of range slice indexes are handled gracefully just as in Python/NumPy.
+
+```{code-cell}
+x = list('abcdef') # these are allowed in Python/NumPy.
+x
+```
+
+```{code-cell}
+x[4:10]
+```
+
+```{code-cell}
+x[8:10]
+```
+
+```{code-cell}
+s = pd.Series(x)
+s
+```
+
+```{code-cell}
+s.iloc[4:10]
+```
+
+```{code-cell}
+s.iloc[8:10]
+```
+
+Note that using slices that go out of bounds can result in an empty axis (e.g. an empty DataFrame being returned).
+
+```{code-cell}
+dfl = pd.DataFrame(np.random.randn(5, 2), columns=list('AB'))
+dfl
+```
+
+```{code-cell}
+dfl.iloc[:, 2:3]
+```
+
+```{code-cell}
+dfl.iloc[:, 1:3]
+```
+
+```{code-cell}
+dfl.iloc[4:6]
+```
+
+A single indexer that is out of bounds will raise an `IndexError`. A list of indexers where any element is out of bounds will raise an `IndexError`.
+
+```{code-cell}
+:tags: ["raises-exception"]
+dfl.iloc[[4, 5, 6]]
+```
+
+```{code-cell}
+:tags: ["raises-exception"]
+dfl.iloc[:, 4]
+```
+
+### Selection by callable
+
+`.loc`, `.iloc`, and also `[]` indexing can accept a `callable` as indexer. The `callable` must be a function with one argument (the calling Series or DataFrame) that returns valid output for indexing.
+
+```{code-cell}
+df1 = pd.DataFrame(np.random.randn(6, 4),
+                   index=list('abcdef'),
+                   columns=list('ABCD'))
+df1
+```
+
+```{code-cell}
+df1.loc[lambda df: df['A'] > 0, :]
+```
+
+```{code-cell}
+df1.loc[:, lambda df: ['A', 'B']]
+```
+
+```{code-cell}
+df1.iloc[:, lambda df: [0, 1]]
+```
+
+```{code-cell}
+df1[lambda df: df.columns[0]]
+```
+
+You can use callable indexing in `Series`.
+
+```{code-cell}
+df1['A'].loc[lambda s: s > 0]
+```
+
+### Combining positional and label-based indexing
+
+If you wish to get the 0th and the 2nd elements from the index in the `'A'` column, you can do:
+
+```{code-cell}
+dfd = pd.DataFrame({'A': [1, 2, 3],
+                    'B': [4, 5, 6]},
+                   index=list('abc'))
+dfd
+```
+
+```{code-cell}
+dfd.loc[dfd.index[[0, 2]], 'A']
+```
+
+This can also be expressed using `.iloc`, by explicitly getting locations on the indexers, and using positional indexing to select things.
+
+```{code-cell}
+dfd.iloc[[0, 2], dfd.columns.get_loc('A')]
+```
+
+For getting multiple indexers, using `.get_indexer`:
+
+```{code-cell}
+dfd.iloc[[0, 2], dfd.columns.get_indexer(['A', 'B'])]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Further resources
 
