@@ -106,7 +106,7 @@ Initialize the Conda env.
 # first time setup
 conda env create -f environment.yml
 # or update
-conda env update -f environment.yml      
+conda env update -f environment.yml
 ```
 
 To Mac,
