@@ -15,14 +15,6 @@ kernelspec:
 
 # Introduction
 
-```{figure} ../../../images/the-data-science-venn-diagram.png
----
-name: The data science venn diagram
----
-The data science venn diagram{cite}`TheDataScienceVennDiagram`
-
-```
-
 Clustering is a machine learning task where it looks to find objects that resemble one another and group these into groups called clusters.  What differs clustering from other approaches in machine learning, is that things happen automatically, in fact, it's fair to say it's the opposite of supervised learning. 
 
 Nigeria's diverse audience has diverse musical tastes. Using data scraped from Spotify (inspired by [this article](https://towardsdatascience.com/country-wise-visual-analysis-of-music-taste-using-spotify-api-seaborn-in-python-77f5b749b421), let's look at some music popular in Nigeria. This dataset includes data about various songs' 'danceability' score, 'acousticness', loudness, 'speechiness', popularity and energy. It will be interesting to discover patterns in this data!
