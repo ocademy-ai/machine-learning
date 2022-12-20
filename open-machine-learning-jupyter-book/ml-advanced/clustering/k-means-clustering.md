@@ -28,7 +28,7 @@ Terms you will learn about:
 - Silhouette scoring
 - Elbow method
 - Inertia
-- Variance
+- Variance 
 
 ## Introduction
 
