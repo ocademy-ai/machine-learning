@@ -16,7 +16,7 @@ kernelspec:
 
 # Introduction to clustering
 
-Clustering is a type of [Unsupervised Learning](https://wikipedia.org/wiki/Unsupervised_learning) that presumes that a dataset is unlabelled or that its inputs are not matched with predefined outputs. It uses various algorithms to sort through unlabeled data and provide groupings according to patterns it discerns in the data. 
+Clustering is a type of Unsupervised Learning that presumes that a dataset is unlabelled or that its inputs are not matched with predefined outputs. It uses various algorithms to sort through unlabeled data and provide groupings according to patterns it discerns in the data. 
 
 ### Introduction
 
@@ -36,7 +36,7 @@ Alternately, you could use it for grouping search results - by shopping links, i
 
 ## Getting started with clustering
 
-[Scikit-learn offers a large array](https://scikit-learn.org/stable/modules/clustering.html) of methods to perform clustering. The type you choose will depend on your use case. According to the documentation, each method has various benefits. Here is a simplified table of the methods supported by Scikit-learn and their appropriate use cases:
+Scikit-learn offers a large array of methods to perform clustering. The type you choose will depend on your use case. According to the documentation, each method has various benefits. Here is a simplified table of the methods supported by Scikit-learn and their appropriate use cases:
 
 | Method name                  | Use case                                                               |
 | :--------------------------- | :--------------------------------------------------------------------- |
@@ -53,34 +53,34 @@ Alternately, you could use it for grouping search results - by shopping links, i
 
 > 🎓 How we create clusters has a lot to do with how we gather up the data points into groups. Let's unpack some vocabulary:
 >
-> 🎓 ['Transductive' vs. 'inductive'](https://wikipedia.org/wiki/Transduction_(machine_learning))
+> 🎓 'Transductive' vs. 'inductive'
 > 
 > Transductive inference is derived from observed training cases that map to specific test cases. Inductive inference is derived from training cases that map to general rules which are only then applied to test cases. 
 > 
 > An example: Imagine you have a dataset that is only partially  labelled. Some things are 'records', some 'cds', and some are blank. Your job is to provide labels for the blanks. If you choose an inductive approach, you'd train a model looking for 'records' and 'cds', and apply those labels to your unlabeled data. This approach will have trouble classifying things that are actually 'cassettes'. A transductive approach, on the other hand, handles this unknown data more effectively as it works to group similar items together and then applies a label to a group. In this case, clusters might reflect 'round musical things' and 'square musical things'. 
 > 
-> 🎓 ['Non-flat' vs. 'flat' geometry](https://datascience.stackexchange.com/questions/52260/terminology-flat-geometry-in-the-context-of-clustering)
+> 🎓 'Non-flat' vs. 'flat' geometry
 > 
-> Derived from mathematical terminology, non-flat vs. flat geometry refers to the measure of distances between points by either 'flat' ([Euclidean](https://wikipedia.org/wiki/Euclidean_geometry)) or 'non-flat' (non-Euclidean) geometrical methods. 
+> Derived from mathematical terminology, non-flat vs. flat geometry refers to the measure of distances between points by either 'flat' (Euclidean) or 'non-flat' (non-Euclidean) geometrical methods. 
 >
->'Flat' in this context refers to Euclidean geometry (parts of which are taught as 'plane' geometry), and non-flat refers to non-Euclidean geometry. What does geometry have to do with machine learning? Well, as two fields that are rooted in mathematics, there must be a common way to measure distances between points in clusters, and that can be done in a 'flat' or 'non-flat' way, depending on the nature of the data. [Euclidean distances](https://wikipedia.org/wiki/Euclidean_distance) are measured as the length of a line segment between two points. [Non-Euclidean distances](https://wikipedia.org/wiki/Non-Euclidean_geometry) are measured along a curve. If your data, visualized, seems to not exist on a plane, you might need to use a specialized algorithm to handle it.
+>'Flat' in this context refers to Euclidean geometry (parts of which are taught as 'plane' geometry), and non-flat refers to non-Euclidean geometry. What does geometry have to do with machine learning? Well, as two fields that are rooted in mathematics, there must be a common way to measure distances between points in clusters, and that can be done in a 'flat' or 'non-flat' way, depending on the nature of the data. Euclidean distances are measured as the length of a line segment between two points. Non-Euclidean distances are measured along a curve. If your data, visualized, seems to not exist on a plane, you might need to use a specialized algorithm to handle it.
 >
-![Flat vs Nonflat Geometry Infographic](./images/flat-nonflat.png)
-> Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+![Flat vs Nonflat Geometry Infographic](../../../images/clustering/flat-nonflat.png)
+> Infographic by Dasani Madipalli
 > 
-> 🎓 ['Distances'](https://web.stanford.edu/class/cs345a/slides/12-clustering.pdf)
+> 🎓 'Distances
 > 
 > Clusters are defined by their distance matrix, e.g. the distances between points. This distance can be measured in a few ways. Euclidean clusters are defined by the average of the point values, and contain a 'centroid' or center point. Distances are thus measured by the distance to that centroid. Non-Euclidean distances refer to 'clustroids', the point closest to other points. Clustroids in turn can be defined in various ways.
 > 
-> 🎓 ['Constrained'](https://wikipedia.org/wiki/Constrained_clustering)
+> 🎓 'Constrained'
 > 
-> [Constrained Clustering](https://web.cs.ucdavis.edu/~davidson/Publications/ICDMTutorial.pdf) introduces 'semi-supervised' learning into this unsupervised method. The relationships between points are flagged as 'cannot link' or 'must-link' so some rules are forced on the dataset.
+> Constrained Clustering introduces 'semi-supervised' learning into this unsupervised method. The relationships between points are flagged as 'cannot link' or 'must-link' so some rules are forced on the dataset.
 >
 >An example: If an algorithm is set free on a batch of unlabelled or semi-labelled data, the clusters it produces may be of poor quality. In the example above, the clusters might group 'round music things' and 'square music things' and 'triangular things' and 'cookies'. If given some constraints, or rules to follow ("the item must be made of plastic", "the item needs to be able to produce music") this can help 'constrain' the algorithm to make better choices.
 > 
 > 🎓 'Density'
 > 
-> Data that is 'noisy' is considered to be 'dense'. The distances between points in each of its clusters may prove, on examination, to be more or less dense, or 'crowded' and thus this data needs to be analyzed with the appropriate clustering method. [This article](https://www.kdnuggets.com/2020/02/understanding-density-based-clustering.html) demonstrates the difference between using K-Means clustering vs. HDBSCAN algorithms to explore a noisy dataset with uneven cluster density.
+> Data that is 'noisy' is considered to be 'dense'. The distances between points in each of its clusters may prove, on examination, to be more or less dense, or 'crowded' and thus this data needs to be analyzed with the appropriate clustering method. This article demonstrates the difference between using K-Means clustering vs. HDBSCAN algorithms to explore a noisy dataset with uneven cluster density.
 
 ## Clustering algorithms
 
@@ -88,13 +88,13 @@ There are over 100 clustering algorithms, and their use depends on the nature of
 
 - **Hierarchical clustering**. If an object is classified by its proximity to a nearby object, rather than to one farther away, clusters are formed based on their members' distance to and from other objects. Scikit-learn's agglomerative clustering is hierarchical.
 
-   ![Hierarchical clustering Infographic](./images/hierarchical.png)
-   > Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+   ![Hierarchical clustering Infographic](../../../images/clustering/hierarchical.png)
+   > Infographic by Dasani Madipalli
 
-- **Centroid clustering**. This popular algorithm requires the choice of 'k', or the number of clusters to form, after which the algorithm determines the center point of a cluster and gathers data around that point. [K-means clustering](https://wikipedia.org/wiki/K-means_clustering) is a popular version of centroid clustering. The center is determined by the nearest mean, thus the name. The squared distance from the cluster is minimized.
+- **Centroid clustering**. This popular algorithm requires the choice of 'k', or the number of clusters to form, after which the algorithm determines the center point of a cluster and gathers data around that point. K-means clustering is a popular version of centroid clustering. The center is determined by the nearest mean, thus the name. The squared distance from the cluster is minimized.
 
-   ![Centroid clustering Infographic](./images/centroid.png)
-   > Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+   ![Centroid clustering Infographic](.../../../images/clustering/centroid.png)
+   > Infographic by Dasani Madipalli
 
 - **Distribution-based clustering**. Based in statistical modeling, distribution-based clustering centers on determining the probability that a data point belongs to a cluster, and assigning it accordingly. Gaussian mixture methods belong to this type.
 
@@ -229,7 +229,7 @@ Look at the general values of the data. Note that popularity can be '0', which s
     plt.title('Top genres',color = 'blue')
     ```
 
-    ![most popular](./images/popular.png)
+    ![most popular](../../../images/clustering/popular.png)
 
 ✅ If you'd like to see more top values, change the top `[:5]` to a bigger value, or remove it to see all.
 
@@ -248,7 +248,7 @@ Note, when the top genre is described as 'Missing', that means that Spotify did 
 
     Now recheck the genres:
 
-    ![most popular](images/all-genres.png)
+    ![most popular](../../../images/clustering/all-genres.png)
 
 1. By far, the top three genres dominate this dataset. Let's concentrate on `afro dancehall`, `afropop`, and `nigerian pop`, additionally filter the dataset to remove anything with a 0 popularity value (meaning it was not classified with a popularity in the dataset and can be considered noise for our purposes):
 
@@ -270,11 +270,11 @@ Note, when the top genre is described as 'Missing', that means that Spotify did 
     sns.heatmap(corrmat, vmax=.8, square=True)
     ```
 
-    ![correlations](images/correlation.png)
+    ![correlations](../../../images/clustering/correlation.png)
 
     The only strong correlation is between `energy` and `loudness`, which is not too surprising, given that loud music is usually pretty energetic. Otherwise, the correlations are relatively weak. It will be interesting to see what a clustering algorithm can make of this data.
 
-    > 🎓 Note that correlation does not imply causation! We have proof of correlation but no proof of causation. An [amusing web site](https://tylervigen.com/spurious-correlations) has some visuals that emphasize this point.
+    > 🎓 Note that correlation does not imply causation! We have proof of correlation but no proof of causation. An amusing web site has some visuals that emphasize this point.
 
 Is there any convergence in this dataset around a song's perceived popularity and danceability? A FacetGrid shows that there are concentric circles that line up, regardless of genre. Could it be that Nigerian tastes converge at a certain level of danceability for this genre?  
 
@@ -302,7 +302,7 @@ Are these three genres significantly different in the perception of their dancea
 
     In general, the three genres align loosely in terms of their popularity and danceability. Determining clusters in this loosely-aligned data will be a challenge:
 
-    ![distribution](images/distribution.png)
+    ![distribution](../../../images/clustering/distribution.png)
 
 1. Create a scatter plot:
 
@@ -314,7 +314,7 @@ Are these three genres significantly different in the perception of their dancea
 
     A scatterplot of the same axes shows a similar pattern of convergence
 
-    ![Facetgrid](images/facetgrid.png)
+    ![Facetgrid](../../../images/clustering/facetgrid.png)
 
 In general, for clustering, you can use scatterplots to show clusters of data, so mastering this type of visualization is very useful. In the next lesson, we will take this filtered data and use k-means clustering to discover groups in this data that see to overlap in interesting ways.
 
@@ -332,6 +332,3 @@ Before you apply clustering algorithms, as we have learned, it's a good idea to 
 
 [This helpful article](https://www.freecodecamp.org/news/8-clustering-algorithms-in-machine-learning-that-all-data-scientists-should-know/) walks you through the different ways that various clustering algorithms behave, given different data shapes.
 
-## Assignment
-
-[Research other visualizations for clustering](assignment.md)
