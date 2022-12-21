@@ -27,7 +27,9 @@ Photo by Marcela Laskoski on Unsplash
 name: A turntable
 ---
   
-In this series of sections, you will discover new ways to analyze data using clustering techniques. Clustering is particularly useful when your dataset lacks labels. If it does have labels, then classification techniques such as those you learned in previous sections might be more useful. But in cases where you are looking to group unlabelled data, clustering is a great way to discover patterns.
+In this series of lessons, you will discover new ways to analyze data using clustering techniques. Clustering is particularly useful when your dataset lacks labels. If it does have labels, then classification techniques such as those you learned in previous lessons might be more useful. But in cases where you are looking to group unlabelled data, clustering is a great way to discover patterns.
+
+> There are useful low-code tools that can help you learn about working with clustering models. Try [Azure ML for this task](https://docs.microsoft.com/learn/modules/create-clustering-model-azure-machine-learning-designer/?WT.mc_id=academic-77952-leestott)
 
 ---
 
