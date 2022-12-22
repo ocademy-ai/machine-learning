@@ -370,7 +370,9 @@ Before you apply clustering algorithms, as we have learned, it's a good idea to 
 - [clustering algorithms behave](https://www.freecodecamp.org/news/8-clustering-algorithms-in-machine-learning-that-all-data-scientists-should-know/) 
 
 ## Acknowledgments
+---
 
 Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
 
----
+
+[Research other visualizations for clustering](../../assignments/ml-advanced/clustering/introduction-to-clustering.md)
