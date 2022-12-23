@@ -18,7 +18,7 @@ kernelspec:
 
 Clustering is a type of Unsupervised Learning that presumes that a dataset is unlabelled or that its inputs are not matched with predefined outputs. It uses various algorithms to sort through unlabeled data and provide groupings according to patterns it discerns in the data. 
 
-### Introduction
+## Introduction
 
 Take a minute to think about the uses of clustering. In real life, clustering happens whenever you have a pile of laundry and need to sort out your family members' clothes. In data science, clustering happens when trying to analyze a user's preferences, or determine the characteristics of any unlabeled dataset. Clustering, in a way, helps make sense of chaos, like a sock drawer.
 
@@ -359,6 +359,21 @@ In general, for clustering, you can use scatterplots to show clusters of data, s
 ---
 
 ## Your turn! 🚀
+
+[Research other visualizations for clustering](../../assignments/ml-advanced/clustering/introduction-to-clustering.md)
+
+## Self study
+
+Before you apply clustering algorithms, as we have learned, it's a good idea to understand the nature of your dataset.There are several resources available. 
+
+- [right clustering algorithm](https://www.kdnuggets.com/2019/10/right-clustering-algorithm.html)
+- [clustering algorithms behave](https://www.freecodecamp.org/news/8-clustering-algorithms-in-machine-learning-that-all-data-scientists-should-know/) 
+
+## Acknowledgments
+---
+
+Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+
 
 [Research other visualizations for clustering](../../assignments/ml-advanced/clustering/introduction-to-clustering.md)
 

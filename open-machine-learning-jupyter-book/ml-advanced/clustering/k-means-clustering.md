@@ -225,7 +225,7 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
     plt.show()
     ```
 
-1. Check the model's accuracy:
+2. Check the model's accuracy:
 
     ```{code-cell}
     labels = kmeans.labels_
