@@ -2,12 +2,6 @@
 
 In this section, you have worked with some visualization techniques to get a grasp on plotting your data in preparation for clustering it. Scatterplots, in particular are useful for finding groups of objects. Research different ways and different libraries to create scatterplots and document your work in a notebook. You can use the data from this lesson, other lessons, or data you source yourself (please credit its source, however, in your notebook). Plot some data using scatterplots and explain what you discover.
 
-# Research other visualizations for clustering
-
-## Instructions
-
-In this lesson, you have worked with some visualization techniques to get a grasp on plotting your data in preparation for clustering it. Scatterplots, in particular are useful for finding groups of objects. Research different ways and different libraries to create scatterplots and document your work in a notebook. You can use the data from this lesson, other lessons, or data you source yourself (please credit its source, however, in your notebook). Plot some data using scatterplots and explain what you discover.
-
 ## Rubric
 
 | Criteria | Exemplary                                                      | Adequate                                                                                 | Needs Improvement                   |
@@ -15,4 +9,5 @@ In this lesson, you have worked with some visualization techniques to get a gras
 |          | A notebook is presented with five well-documented scatterplots | A notebook is presented with fewer than five scatterplots and it is less well documented | An incomplete notebook is presented |
 
 ## Acknowledgments
-Thanks to Microsoft for creating the open-source course Data Science for Beginners. It inspires the majority of the content in this chapter.
+
+Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
