@@ -52,17 +52,17 @@ Create a blank `notebook` to begin the next steps :
 
 1. import `pandas`, `matplotlib`, and `numpy` as you did in previous lessons and import the ufos spreadsheet. You can take a look at a sample data set:
 
-    ```python
+    ```{code-cell}
     import pandas as pd
     import numpy as np
     
     ufos = pd.read_csv('./data/ufos.csv')
-    ufos.head()
+    print(ufos.head())
     ```
 
 1. Convert the ufos data to a small dataframe with fresh titles. Check the unique values in the `Country` field.
 
-    ```python
+    ```{code-cell}
     ufos = pd.DataFrame({'Seconds': ufos['duration (seconds)'], 'Country': ufos['country'],'Latitude': ufos['latitude'],'Longitude': ufos['longitude']})
     
     ufos.Country.unique()
@@ -70,7 +70,7 @@ Create a blank `notebook` to begin the next steps :
 
 1. Now, you can reduce the amount of data we need to deal with by dropping any null values and only importing sightings between 1-60 seconds:
 
-    ```python
+    ```{code-cell}
     ufos.dropna(inplace=True)
     
     ufos = ufos[(ufos['Seconds'] >= 1) & (ufos['Seconds'] <= 60)]
@@ -82,23 +82,12 @@ Create a blank `notebook` to begin the next steps :
 
     ✅ LabelEncoder encodes data alphabetically
 
-    ```python
+    ```{code-cell}
     from sklearn.preprocessing import LabelEncoder
     
     ufos['Country'] = LabelEncoder().fit_transform(ufos['Country'])
     
     ufos.head()
-    ```
-
-    Your data should look like this:
-
-    ```output
-    	Seconds	Country	Latitude	Longitude
-    2	20.0	3		53.200000	-2.916667
-    3	20.0	4		28.978333	-96.645833
-    14	30.0	4		35.823889	-80.253611
-    23	60.0	4		45.582778	-122.352222
-    24	3.0		3		51.783333	-0.783333
     ```
 
 ## Exercise - build your model
@@ -107,7 +96,7 @@ Now you can get ready to train a model by dividing the data into the training an
 
 1. Select the three features you want to train on as your X vector, and the y vector will be the `Country`. You want to be able to input `Seconds`, `Latitude` and `Longitude` and get a country id to return.
 
-    ```python
+    ```{code-cell}
     from sklearn.model_selection import train_test_split
     
     Selected_features = ['Seconds','Latitude','Longitude']
@@ -120,7 +109,7 @@ Now you can get ready to train a model by dividing the data into the training an
 
 1. Train your model using logistic regression:
 
-    ```python
+    ```{code-cell}
     from sklearn.metrics import accuracy_score, classification_report
     from sklearn.linear_model import LogisticRegression
     model = LogisticRegression()
@@ -140,7 +129,7 @@ The model you created isn't very revolutionary as you should be able to infer a 
 
 Now, it's time to _pickle_ your model! You can do that in a few lines of code. Once it's _pickled_, load your pickled model and test it against a sample data array containing values for seconds, latitude and longitude,
 
-```python
+```{code-cell}
 import pickle
 model_filename = 'ufo-model.pkl'
 pickle.dump(model, open(model_filename,'wb'))
@@ -272,7 +261,7 @@ Now you can build a Flask app to call your model and return similar results, but
 
 1. In `app.py` add:
 
-    ```python
+    ```{code-cell}
     import numpy as np
     from flask import Flask, request, render_template
     import pickle
@@ -306,8 +295,10 @@ Now you can build a Flask app to call your model and return similar results, but
     if __name__ == "__main__":
         app.run(debug=True)
     ```
-
-    > 💡 Tip: when you add [`debug=True`](https://www.askpython.com/python-modules/flask/flask-debug-mode) while running the web app using Flask, any changes you make to your application will be reflected immediately without the need to restart the server. Beware! Don't enable this mode in a production app.
+    
+```{note}
+when you add [`debug=True`](https://www.askpython.com/python-modules/flask/flask-debug-mode) while running the web app using Flask, any changes you make to your application will be reflected immediately without the need to restart the server. Beware! Don't enable this mode in a production app.
+```
 
 If you run `python app.py` or `python3 app.py` - your web server starts up, locally, and you can fill out a short form to get an answer to your burning question about where UFOs have been sighted!
 
@@ -336,6 +327,6 @@ Instead of working in a notebook and importing the model to the Flask app, you c
 
 There are many ways to build a web app to consume ML models. Make a list of the ways you could use JavaScript or Python to build a web app to leverage machine learning. Consider architecture: should the model stay in the app or live in the cloud? If the latter, how would you access it? Draw out an architectural model for an applied ML web solution.
 
-## Assignment
+## Acknowledgements
 
-[Try a different model](assignment.md)
+Thanks to Microsoft for creating the open-source course ML-For-Beginners. It inspires the majority of the content in this chapter.
