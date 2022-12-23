@@ -34,9 +34,3 @@ In this series of sections, you will discover new ways to analyze data using clu
 ```{tableofcontents}
 
 ```
-
----
-
-```{bibliography}
-:filter: docname in docnames
-```
