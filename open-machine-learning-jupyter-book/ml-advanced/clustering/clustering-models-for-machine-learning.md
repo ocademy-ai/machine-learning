@@ -15,12 +15,9 @@ kernelspec:
 
 # Introduction
 
-Clustering is a Machine Learning task where it looks to find objects that resemble one another and group these into groups called clusters. What differs clustering from other approaches in machine learning, is that things happen automatically, in fact, it's fair to say it's the opposite of supervised learning. 
+Clustering is a machine learning task where it looks to find objects that resemble one another and group these into groups called clusters.  What differs clustering from other approaches in machine learning, is that things happen automatically, in fact, it's fair to say it's the opposite of supervised learning. 
 
 Nigeria's diverse audience has diverse musical tastes, let's look at some music popular in Nigeria. This dataset includes data about various songs' 'danceability' score, 'acousticness', loudness, 'speechiness', popularity and energy. It will be interesting to discover patterns in this data!
-
-```{note}
-Photo by Marcela Laskoski on Unsplash
 
 ```{figure} (../../../images/clustering/turntable.png)
 ---
