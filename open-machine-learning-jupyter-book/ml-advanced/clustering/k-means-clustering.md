@@ -15,9 +15,7 @@ kernelspec:
 
 # K-Means clustering
 
-## [Pre-lecture quiz](https://gray-sand-07a10f403.1.azurestaticapps.net/quiz/29/)
-
-In this lesson, you will learn how to create clusters using Scikit-learn and the Nigerian music dataset you imported earlier. We will cover the basics of K-Means for Clustering. Keep in mind that, as you learned in the earlier lesson, there are many ways to work with clusters and the method you use depends on your data. We will try K-Means as it's the most common clustering technique. Let's get started!
+In this section, you will learn how to create clusters using Scikit-learn and the Nigerian music dataset you imported earlier. We will cover the basics of K-Means for Clustering. Keep in mind that, as you learned in the earlier section, there are many ways to work with clusters and the method you use depends on your data. We will try K-Means as it's the most common clustering technique. Let's get started!
 
 Terms you will learn about:
 
@@ -32,9 +30,13 @@ K-Means Clustering is a method derived from the domain of signal processing. It 
 
 The clusters can be visualized as Voronoi diagrams, which include a point (or 'seed') and its corresponding region. 
 
-![voronoi diagram](../../../images/clustering/voronoi.png)
+```{note}
+infographic by Jen Looper
 
-> infographic by Jen Looper
+```{figure} (../../../images/clustering/voronoi.png)
+---
+name: voronoi diagram
+---
 
 The K-Means clustering process executes in a three-step process):
 
@@ -47,7 +49,7 @@ One drawback of using K-Means includes the fact that you will need to establish 
 
 ## Prerequisite
 
-You will work in this lesson's _notebook.ipynb_ file that includes the data import and preliminary cleaning you did in the last lesson.
+You will work in this section's _notebook.ipynb_ file that includes the data import and preliminary cleaning you did in the last section.
 
 ## Exercise - preparation
 
@@ -55,7 +57,7 @@ Start by taking another look at the songs data.
 
 1. Create a boxplot, calling `boxplot()` for each column:
 
-    ```python
+    ```{code-cell}
     plt.figure(figsize=(20,20), dpi=200)
     
     plt.subplot(4,3,1)
@@ -97,13 +99,16 @@ Start by taking another look at the songs data.
 
     This data is a little noisy: by observing each column as a boxplot, you can see outliers.
 
-    ![outliers](../../../images/clustering/boxplots.png)
+```{figure} (../../../images/clustering/boxplots.png)
+---
+name: outliers
+---
 
 You could go through the dataset and remove these outliers, but that would make the data pretty minimal.
 
 1. For now, choose which columns you will use for your clustering exercise. Pick ones with similar ranges and encode the `artist_top_genre` column as numeric data:
 
-    ```python
+    ```{code-cell}
     from sklearn.preprocessing import LabelEncoder
     le = LabelEncoder()
     
@@ -118,7 +123,7 @@ You could go through the dataset and remove these outliers, but that would make 
 
 1. Now you need to pick how many clusters to target. You know there are 3 song genres that we carved out of the dataset, so let's try 3:
 
-    ```python
+    ```{code-cell}
     from sklearn.cluster import KMeans
     
     nclusters = 3 
@@ -137,7 +142,7 @@ You see an array printed out with predicted clusters (0, 1,or 2) for each row of
 
 1. Use this array to calculate a 'silhouette score':
 
-    ```python
+    ```{code-cell}
     from sklearn import metrics
     score = metrics.silhouette_score(X, y_cluster_kmeans)
     score
@@ -153,7 +158,7 @@ Our score is **.53**, so right in the middle. This indicates that our data is no
 
 1. Import `KMeans` and start the clustering process.
 
-    ```python
+    ```{code-cell}
     from sklearn.cluster import KMeans
     wcss = []
     
@@ -166,15 +171,25 @@ Our score is **.53**, so right in the middle. This indicates that our data is no
 
     There are a few parts here that warrant explaining.
 
-    > 🎓 range: These are the iterations of the clustering process
+    ```{note}
+    🎓 range: These are the iterations of the clustering process
+    ```
 
-    > 🎓 random_state: "Determines random number generation for centroid initialization."
+    ```{note}
+    🎓 random_state: "Determines random number generation for centroid initialization."
+    ```
 
-    > 🎓 WCSS: "within-cluster sums of squares" measures the squared average distance of all the points within a cluster to the cluster centroid.
+    ```{note}
+    🎓 WCSS: "within-cluster sums of squares" measures the squared average distance of all the points within a cluster to the cluster centroid.
+    ```
 
-    > 🎓 Inertia: K-Means algorithms attempt to choose centroids to minimize 'inertia', "a measure of how internally coherent clusters are." The value is appended to the wcss variable on each iteration.
+    ```{note}
+    🎓 Inertia: K-Means algorithms attempt to choose centroids to minimize 'inertia', "a measure of how internally coherent clusters are." The value is appended to the wcss variable on each iteration.
+    ```
 
-    > 🎓 k-means++: In Scikit-learn you can use the 'k-means++' optimization, which "initializes the centroids to be (generally) distant from each other, leading to probably better results than random initialization.
+    ```{note}
+    🎓 k-means++: In Scikit-learn you can use the 'k-means++' optimization, which "initializes the centroids to be (generally) distant from each other, leading to probably better results than random initialization.
+    ```
 
 ### Elbow method
 
@@ -182,7 +197,7 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
 
 1. Use the 'elbow method' to make sure.
 
-    ```python
+    ```{code-cell}
     plt.figure(figsize=(10,5))
     sns.lineplot(range(1, 11), wcss,marker='o',color='red')
     plt.title('Elbow')
@@ -199,7 +214,7 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
 
 1. Try the process again, this time setting three clusters, and display the clusters as a scatterplot:
 
-    ```python
+    ```{code-cell}
     from sklearn.cluster import KMeans
     kmeans = KMeans(n_clusters = 3)
     kmeans.fit(X)
@@ -212,7 +227,7 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
 
 1. Check the model's accuracy:
 
-    ```python
+    ```{code-cell}
     labels = kmeans.labels_
     
     correct_labels = sum(y == labels)
@@ -224,40 +239,53 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
 
     This model's accuracy is not very good, and the shape of the clusters gives you a hint why. 
 
-    ![clusters](../../../images/clustering/clusters.png)
+```{figure} (../../../images/clustering/clusters.png)
+---
+name: clusters
+---
 
     This data is too imbalanced, too little correlated and there is too much variance between the column values to cluster well. In fact, the clusters that form are probably heavily influenced or skewed by the three genre categories we defined above. That was a learning process!
 
     In Scikit-learn's documentation, you can see that a model like this one, with clusters not very well demarcated, has a 'variance' problem:
 
-    ![problem models](../../../images/clustering/problems.png)
-    > Infographic from Scikit-learn
+```{note}
+Infographic from Scikit-learn
+
+```{figure} (../../../images/clustering/problems.png)
+---
+name: problem models
+---
 
 ## Variance
 
 Variance is defined as "the average of the squared differences from the Mean" . In the context of this clustering problem, it refers to data that the numbers of our dataset tend to diverge a bit too much from the mean. 
 
-✅ This is a great moment to think about all the ways you could correct this issue. Tweak the data a bit more? Use different columns? Use a different algorithm? Hint: Try scaling your data to normalize it and test other columns.
+```{note}
+This is a great moment to think about all the ways you could correct this issue. Tweak the data a bit more? Use different columns? Use a different algorithm? Hint: Try scaling your data to normalize it and test other columns.
+```
 
-> Try this 'variance calculator' to understand the concept a bit more.
-
+```{index} seealso: variance calculator
+```
 
 ---
 
-## 🚀Challenge
-
-Spend some time with this notebook, tweaking parameters. Can you improve the accuracy of the model by cleaning  the data more (removing outliers, for example)? You can use weights to give more weight to given data samples. What else can you do to create better clusters?
-
-Hint: Try to scale your data. There's commented code in the notebook that adds standard scaling to make the data columns resemble each other more closely in terms of range. You'll find that while the silhouette score goes down, the 'kink' in the elbow graph smooths out. This is because leaving the data unscaled allows data with less variance to carry more weight. Read a bit more on this problem [here](https://stats.stackexchange.com/questions/21222/are-mean-normalization-and-feature-scaling-needed-for-k-means-clustering/21226#21226).
-
-## [Post-lecture quiz](https://gray-sand-07a10f403.1.azurestaticapps.net/quiz/30/)
-
-## Review & Self Study
-
-Take a look at a K-Means Simulator [such as this one](https://user.ceng.metu.edu.tr/~akifakkus/courses/ceng574/k-means/). You can use this tool to visualize sample data points and determine its centroids. You can edit the data's randomness, numbers of clusters and numbers of centroids. Does this help you get an idea of how the data can be grouped?
-
-Also, take a look at [this handout on K-Means](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html) from Stanford.
-
-## Assignment
+## Your turn! 🚀
 
 [Try different clustering methods](../../assignments/ml-advanced/clustering/k-means-clustering.md)
+
+## Self study
+
+You can use this tool to visualize sample data points and determine its centroids.
+
+- [such as this one](https://user.ceng.metu.edu.tr/~akifakkus/courses/ceng574/k-means/)
+- [this handout on K-Means](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html) 
+
+## Acknowledgments
+
+Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+
+---
+
+```{bibliography}
+:filter: docname in docnames
+```
