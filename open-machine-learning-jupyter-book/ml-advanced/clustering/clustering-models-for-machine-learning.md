@@ -15,6 +15,7 @@ kernelspec:
 
 # Introduction
 
+<<<<<<< HEAD
 Clustering is a Machine Learning task where it looks to find objects that resemble one another and group these into groups called clusters. What differs clustering from other approaches in machine learning, is that things happen automatically, in fact, it's fair to say it's the opposite of supervised learning. 
 
 Nigeria's diverse audience has diverse musical tastes, let's look at some music popular in Nigeria. This dataset includes data about various songs' 'danceability' score, 'acousticness', loudness, 'speechiness', popularity and energy. It will be interesting to discover patterns in this data!
@@ -28,6 +29,19 @@ name: A turntable
 ---
   
 In this series of sections, you will discover new ways to analyze data using clustering techniques. Clustering is particularly useful when your dataset lacks labels. If it does have labels, then classification techniques such as those you learned in previous sections might be more useful. But in cases where you are looking to group unlabelled data, clustering is a great way to discover patterns.
+=======
+Clustering is a machine learning task where it looks to find objects that resemble one another and group these into groups called clusters.  What differs clustering from other approaches in machine learning, is that things happen automatically, in fact, it's fair to say it's the opposite of supervised learning. 
+
+Nigeria's diverse audience has diverse musical tastes, let's look at some music popular in Nigeria. This dataset includes data about various songs' 'danceability' score, 'acousticness', loudness, 'speechiness', popularity and energy. It will be interesting to discover patterns in this data!
+
+![A turntable](../../../images/clustering/turntable.png)
+
+> Photo by Marcela Laskoski on Unsplash
+  
+In this series of lessons, you will discover new ways to analyze data using clustering techniques. Clustering is particularly useful when your dataset lacks labels. If it does have labels, then classification techniques such as those you learned in previous lessons might be more useful. But in cases where you are looking to group unlabelled data, clustering is a great way to discover patterns.
+
+
+>>>>>>> c836bba009434bde359fb332d0800a2507cce61c
 
 ---
 
