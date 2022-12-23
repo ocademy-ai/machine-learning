@@ -286,4 +286,6 @@ Thanks to Microsoft for creating the open-source course [Data](https://github.co
 
 ---
 
-[Try different clustering methods](../../assignments/ml-advanced/clustering/k-means-clustering.md)
+```{bibliography}
+:filter: docname in docnames
+```
