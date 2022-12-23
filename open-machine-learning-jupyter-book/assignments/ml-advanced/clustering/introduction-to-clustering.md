@@ -7,3 +7,6 @@ In this section, you have worked with some visualization techniques to get a gra
 | Criteria | Exemplary                                                      | Adequate                                                                                 | Needs Improvement                   |
 | -------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
 |          | A notebook is presented with five well-documented scatterplots | A notebook is presented with fewer than five scatterplots and it is less well documented | An incomplete notebook is presented |
+
+## Acknowledgments
+Thanks to Microsoft for creating the open-source course Data Science for Beginners. It inspires the majority of the content in this chapter.
