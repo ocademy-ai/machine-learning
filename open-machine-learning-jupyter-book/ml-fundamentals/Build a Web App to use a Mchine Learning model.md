@@ -156,7 +156,7 @@ model = pickle.load(open('ufo-model.pkl','rb'))
 print(model.predict(pd.DataFrame([[50,44,-12]])))
 ```
 
-The model returns **'3'**, which is the country code for the US. Wild! 👽
+The model returns **'3'**, which is the country code for the UK. Wild! 👽
 
 ## Exercise - build a Flask app
 
