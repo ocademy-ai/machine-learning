@@ -213,6 +213,8 @@ bash ./build.sh
 bash ./build-force-all.sh
 ```
 
+Then you should be able to follow the build success message to view the book locally.
+
 To Mac,
 
 > **Warning**
