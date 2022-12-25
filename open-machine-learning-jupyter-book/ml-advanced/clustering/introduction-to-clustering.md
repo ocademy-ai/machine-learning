@@ -277,4 +277,4 @@ Before you apply clustering algorithms, as we have learned, it's a good idea to 
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.

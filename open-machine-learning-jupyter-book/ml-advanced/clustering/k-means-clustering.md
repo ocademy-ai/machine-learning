@@ -277,6 +277,4 @@ You can use this tool to visualize sample data points and determine its centroid
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
-
----
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
