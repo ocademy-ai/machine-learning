@@ -544,86 +544,62 @@ The ufunc still returns its output(s) even if you use the optional output argume
 
 ##### Math operations
 
+|Syntax|Role|
 |:-|:-|
 |`add(x1, x2, /[, out, where, casting, order, ...])`|Add arguments element-wise.|
-
 |`subtract(x1, x2, /[, out, where, casting, ...])`|Subtract arguments, element-wise.|
-
 |`multiply(x1, x2, /[, out, where, casting, ...])`|Multiply arguments element-wise.|
-
 |`matmul(x1, x2, /[, out, casting, order, ...])`|Matrix product of two arrays.|
-
 |`divide(x1, x2, /[, out, where, casting, ...])`|Divide arguments element-wise.|
-
 |`logaddexp(x1, x2, /[, out, where, casting, ...])`|Logarithm of the sum of exponentiations of the inputs.|
-
 |`negative(x, /[, out, where, casting, order, ...])`|Numerical negative, element-wise.|
-
 |`positive(x, /[, out, where, casting, order, ...])`|Numerical positive, element-wise.|
-
 |`power(x1, x2, /[, out, where, casting, ...])`|First array elements raised to powers from second array, element-wise.|
-
 |`absolute(x, /[, out, where, casting, order, ...])`|Calculate the absolute value element-wise.|
-
 |`exp(x, /[, out, where, casting, order, ...])`|Calculate the exponential of all elements in the input array.|
-
 |`log(x, /[, out, where, casting, order, ...])`|Natural logarithm, element-wise.|
-
 |`log2(x, /[, out, where, casting, order, ...])`|Base-2 logarithm of x.|
 
 ##### Trigonometric functions
 
+|Syntax|Role|
 |:-|:-|
 |`sin(x, /[, out, where, casting, order, ...])`|Trigonometric sine, element-wise.|
-
 |`cos(x, /[, out, where, casting, order, ...])`|Cosine element-wise.|
-
 |`tan(x, /[, out, where, casting, order, ...])`|Compute tangent element-wise.|
-
 |`arcsin(x, /[, out, where, casting, order, ...])`|Inverse sine, element-wise.|
-
 |`arccos(x, /[, out, where, casting, order, ...])`|Trigonometric inverse cosine, element-wise.|
-
 |`arctan(x, /[, out, where, casting, order, ...])`|Trigonometric inverse tangent, element-wise.|
 
 ##### Bit-twiddling functions
 
+|Syntax|Role|
 |:-|:-|
 |`bitwise_and(x1, x2, /[, out, where, ...])`|Compute the bit-wise AND of two arrays element-wise.|
-
 |`bitwise_or(x1, x2, /[, out, where, casting, ...])`|Compute the bit-wise OR of two arrays element-wise.
-
 |`bitwise_xor(x1, x2, /[, out, where, ...])`|Compute the bit-wise XOR of two arrays element-wise.|
-
 |`invert(x, /[, out, where, casting, order, ...])`|Compute bit-wise inversion, or bit-wise NOT, element-wise.|
 
 ##### Comparison functions
 
+|Syntax|Role|
 |:-|:-|
 |`greater(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 > x2) element-wise.|
-
 |`greater_equal(x1, x2, /[, out, where, ...])`|Return the truth value of (x1 >= x2) element-wise.|
-
 |`less(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 < x2) element-wise.|
-
 |`less_equal(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 <= x2) element-wise.|
-
 |`not_equal(x1, x2, /[, out, where, casting, ...])`|Return (x1 != x2) element-wise.|
-
 |`equal(x1, x2, /[, out, where, casting, ...])`|Return (x1 == x2) element-wise.|
 
 ```{warning}
 Do not use the Python keywords `and` and `or` to combine logical array expressions. These keywords will test the truth value of the entire array (not element-by-element as you might expect). Use the bitwise operators `&` and `|` instead.
 ```
 
+|Syntax|Role|
 |:-|:-|
-
 |`logical_and(x1, x2, /[, out, where, ...])`|Compute the truth value of x1 AND x2 element-wise.|
-
 |`logical_or(x1, x2, /[, out, where, casting, ...])`|Compute the truth value of x1 OR x2 element-wise.|
-
 |`logical_xor(x1, x2, /[, out, where, ...])`|Compute the truth value of x1 XOR x2, element-wise.|
-
 |`logical_not(x, /[, out, where, casting, ...])`|Compute the truth value of NOT x element-wise.|
 
 ```{warning}
