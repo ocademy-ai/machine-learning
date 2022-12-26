@@ -1,13 +1,9 @@
 # Regression models for Machine Learning
 
-## Regional topic: Regression models for pumpkin prices in North America 🎃
-
 In North America, pumpkins are often carved into scary faces for Halloween. Let's discover more about these fascinating vegetables!
 
 ![jack-o-lanterns](../../../images/ml-regression/jack-o-lanterns.jpg)
 > Photo by <a href="https://unsplash.com/@teutschmann?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Beth Teutschmann</a> on <a href="https://unsplash.com/s/photos/jack-o-lanterns?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
-## What you will learn
 
 [![Introduction to Regression](https://img.youtube.com/vi/5QnJtDad4iQ/0.jpg)](https://youtu.be/5QnJtDad4iQ "Regression Introduction video - Click to Watch!")
 
@@ -15,7 +11,7 @@ In North America, pumpkins are often carved into scary faces for Halloween. Let'
  Click the image above for a quick introduction video to this section
 ```
 
-The sections cover types of regression in the context of machine learning. Regression models can help determine the _relationship_ between variables. This type of model can predict values such as length, temperature, or age, thus uncovering relationships between variables as it analyzes data points.
+This part covers types of regression in the context of machine learning. Regression models can help determine the _relationship_ between variables. This type of model can predict values such as length, temperature, or age, thus uncovering relationships between variables as it analyzes data points.
 
 In this series of sections, you'll discover the differences between linear and logistic regression, and when you should prefer one over the other.
 
@@ -23,8 +19,3 @@ In this group of sections, you will get set up to begin machine learning tasks, 
 
 ```{seealso}
 There are useful low-code tools that can help you learn about working with regression models. Try [Azure ML for this task](https://docs.microsoft.com/learn/modules/create-regression-model-azure-machine-learning-designer/?WT.mc_id=academic-77952-leestott)
-```
-
-## Acknowledgments
-
-Thanks to Microsoft for creating the open-source course [ML For Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
