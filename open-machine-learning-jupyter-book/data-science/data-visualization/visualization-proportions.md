@@ -86,7 +86,7 @@ habitat
 Here, you are grouping your data by habitat. There are 7 listed, so use those as labels for your donut chart:
 
 ```{code-cell}
-labels=['Grasses','Leaves','Meadows','Paths','Urban','Waste','Wood']
+labels = ['Grasses', 'Leaves', 'Meadows', 'Paths', 'Urban', 'Waste', 'Wood']
 
 plt.pie(habitat['class'], labels=labels,
         autopct='%1.1f%%', pctdistance=0.85)
@@ -126,9 +126,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pywaffle import Waffle
   
-data ={'color': ['brown', 'buff', 'cinnamon', 'green', 'pink', 'purple', 'red', 'white', 'yellow'],
-    'amount': capcolor['class']
-     }
+data ={
+    'color': ['brown', 'buff', 'cinnamon', 'green', 'pink', 'purple', 'red', 'white', 'yellow'],
+    'amount': capcolor['class'],
+}
   
 df = pd.DataFrame(data)
   
@@ -148,7 +149,7 @@ Using a waffle chart, you can plainly see the proportions of cap colors of this 
 Pywaffle supports icons within the charts that use any icon available in [Font Awesome](https://fontawesome.com/). Do some experiments to create an even more interesting waffle chart using icons instead of squares.
 ```
 
-In this lesson, you learned three ways to visualize proportions. First, you need to group your data into categories and then decide which is the best way to display the data - pie, donut, or waffle. All are delicious and gratify the user with an instant snapshot of a dataset.
+In this section, you learned three ways to visualize proportions. First, you need to group your data into categories and then decide which is the best way to display the data - pie, donut, or waffle. All are delicious and gratify the user with an instant snapshot of a dataset.
 
 ## Self study
 
