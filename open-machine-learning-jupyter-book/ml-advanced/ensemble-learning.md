@@ -173,7 +173,7 @@ plt.ylabel('Salary')
 plt.show()
 ```
 
-### Acknowledgements
+### Acknowledgments
 
 Code is inspired by Machine Learning A-Z.
 

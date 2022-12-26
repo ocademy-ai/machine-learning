@@ -1225,128 +1225,471 @@ For getting multiple indexers, using `.get_indexer`:
 dfd.iloc[[0, 2], dfd.columns.get_indexer(['A', 'B'])]
 ```
 
+## Combining datasets: concat, merge and join
 
+### concat
 
+- Concatenate pandas objects along a particular axis.
 
+- Allows optional set logic along the other axes.
 
+- Can also add a layer of hierarchical indexing on the concatenation axis, which may be useful if the labels are the same (or overlapping) on the passed axis number.
 
+For example:
 
+Combine two `Series`.
 
+```{code-cell}
+s1 = pd.Series(['a', 'b'])
+s2 = pd.Series(['c', 'd'])
+pd.concat([s1, s2])
+```
 
+Clear the existing index and reset it in the result by setting the `ignore_index` option to `True`.
 
+```{code-cell}
+pd.concat([s1, s2], ignore_index=True)
+```
 
+Add a hierarchical index at the outermost level of the data with the `keys` option.
 
+```{code-cell}
+pd.concat([s1, s2], keys=['s1', 's2'])
+```
 
+Label the index keys you create with the `names` option.
 
+```{code-cell}
+pd.concat([s1, s2], keys=['s1', 's2'],
+          names=['Series name', 'Row ID'])
+```
 
+Combine two `DataFrame` objects with identical columns.
 
+```{code-cell}
+df1 = pd.DataFrame([['a', 1], ['b', 2]],
+                   columns=['letter', 'number'])
+df1
+```
 
+```{code-cell}
+df2 = pd.DataFrame([['c', 3], ['d', 4]],
+                   columns=['letter', 'number'])
+df2
+```
 
+```{code-cell}
+pd.concat([df1, df2])
+```
 
+Combine `DataFrame` objects with overlapping columns and return everything. Columns outside the intersection will be filled with `NaN` values.
 
+```{code-cell}
+df3 = pd.DataFrame([['c', 3, 'cat'], ['d', 4, 'dog']],
+                   columns=['letter', 'number', 'animal'])
+df3
+```
 
+```{code-cell}
+pd.concat([df1, df3], sort=False)
+```
 
+Combine DataFrame objects with overlapping columns and return only those that are shared by passing inner to the join keyword argument.
 
+```{code-cell}
+pd.concat([df1, df3], join="inner")
+```
 
+Combine `DataFrame` objects horizontally along the x axis by passing in `axis=1`.
 
+```{code-cell}
+df4 = pd.DataFrame([['bird', 'polly'], ['monkey', 'george']],
+                   columns=['animal', 'name'])
+pd.concat([df1, df4], axis=1)
+```
 
+Prevent the result from including duplicate index values with the `verify_integrity` option.
 
+```{code-cell}
+df5 = pd.DataFrame([1], index=['a'])
+df5
+```
 
+```{code-cell}
+df6 = pd.DataFrame([2], index=['a'])
+df6
+```
 
+```{code-cell}
+:tags: ["raises-exception"]
+pd.concat([df5, df6], verify_integrity=True)
+```
+    
+Append a single row to the end of a `DataFrame` object.
 
+```{code-cell}
+df7 = pd.DataFrame({'a': 1, 'b': 2}, index=[0])
+df7
+```
 
+```{code-cell}
+new_row = pd.Series({'a': 3, 'b': 4})
+new_row
+```
 
+```{code-cell}
+pd.concat([df7, new_row.to_frame().T], ignore_index=True)
+```
 
+```{note}
+`append()` has been deprecated since version 1.4.0: Use `concat()` instead. 
+```
 
+### merge
 
+- Merge DataFrame or named Series objects with a database-style join.
 
+- A named Series object is treated as a DataFrame with a single named column.
 
+- The join is done on columns or indexes. If joining columns on columns, the DataFrame indexes will be ignored. Otherwise if joining indexes on indexes or indexes on a column or columns, the index will be passed on. When performing a cross merge, no column specifications to merge on are allowed.
 
+```{warning}
+If both key columns contain rows where the key is a null value, those rows will be matched against each other. This is different from usual SQL join behaviour and can lead to unexpected results.
+```
 
+For example:
 
+```{code-cell}
+df1 = pd.DataFrame({'lkey': ['foo', 'bar', 'baz', 'foo'],
+                    'value': [1, 2, 3, 5]})
+df2 = pd.DataFrame({'rkey': ['foo', 'bar', 'baz', 'foo'],
+                    'value': [5, 6, 7, 8]})
+```
 
+```{code-cell}
+df1
+```
 
+```{code-cell}
+df2
+```
 
+Merge `df1` and `df2` on the `lkey` and `rkey` columns. The value columns have the default suffixes, `_x` and `_y`, appended.
 
+```{code-cell}
+df1.merge(df2, left_on='lkey', right_on='rkey')
+```
 
+Merge DataFrames `df1` and `df2` with specified left and right suffixes appended to any overlapping columns.
 
+```{code-cell}
+df1.merge(df2, left_on='lkey', right_on='rkey',
+          suffixes=('_left', '_right'))
+```
 
+Merge DataFrames `df1` and `df2`, but raise an exception if the DataFrames have any overlapping columns.
 
+```{code-cell}
+:tags: ["raises-exception"]
+df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=(False, False))
+```
 
+Using `how` parameter decide the type of merge to be performed.
 
+```{code-cell}
+df1 = pd.DataFrame({'a': ['foo', 'bar'], 'b': [1, 2]})
+df2 = pd.DataFrame({'a': ['foo', 'baz'], 'c': [3, 4]})
+df1
+```
 
+```{code-cell}
+df2
+```
 
+```{code-cell}
+df1.merge(df2, how='inner', on='a')
+```
 
+```{code-cell}
+df1.merge(df2, how='left', on='a')
+```
 
+```{code-cell}
+df1 = pd.DataFrame({'left': ['foo', 'bar']})
+df2 = pd.DataFrame({'right': [7, 8]})
+df1
+```
 
+```{code-cell}
+df2
+```
 
+```{code-cell}
+df1.merge(df2, how='cross')
+```
 
+### join
 
+- Join columns of another DataFrame.
 
+- Join columns with other DataFrame either on index or on a key column. Efficiently join multiple DataFrame objects by index at once by passing a list.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3', 'K4', 'K5'],
+                   'A': ['A0', 'A1', 'A2', 'A3', 'A4', 'A5']})
+df
+```
 
+```{code-cell}
+other = pd.DataFrame({'key': ['K0', 'K1', 'K2'],
+                      'B': ['B0', 'B1', 'B2']})
+other                      
+```
 
+Join DataFrames using their indexes.
 
+```{code-cell}
+df.join(other, lsuffix='_caller', rsuffix='_other')
+```
 
+If we want to join using the `key` columns, we need to set `key` to be the index in both `df` and `other`. The joined DataFrame will have `key` as its index.
 
+```{code-cell}
+df.set_index('key').join(other.set_index('key'))
+```
 
+Another option to join using the key columns is to use the `on` parameter. `DataFrame.join` always uses `other`’s index but we can use any column in `df`. This method preserves the original DataFrame’s index in the result.
 
+```{code-cell}
+df.join(other.set_index('key'), on='key')
+```
 
+Using non-unique key values shows how they are matched.
 
+```{code-cell}
+df = pd.DataFrame({'key': ['K0', 'K1', 'K1', 'K3', 'K0', 'K1'],
+                   'A': ['A0', 'A1', 'A2', 'A3', 'A4', 'A5']})
+df                   
+```
 
+```{code-cell}
+df.join(other.set_index('key'), on='key', validate='m:1')
+```
 
+## Aggregation and grouping
 
+Group DataFrame using a mapper or by a Series of columns.
 
+A groupby operation involves some combination of splitting the object, applying a function, and combining the results. This can be used to group large amounts of data and compute operations on these groups.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
+                              'Parrot', 'Parrot'],
+                   'Max Speed': [380., 370., 24., 26.]})
+df
+df.groupby(['Animal']).mean()
+```
 
+### Hierarchical Indexes
 
+We can groupby different levels of a hierarchical index using the `level` parameter:
 
+```{code-cell}
+arrays = [['Falcon', 'Falcon', 'Parrot', 'Parrot'],
+          ['Captive', 'Wild', 'Captive', 'Wild']]
+index = pd.MultiIndex.from_arrays(arrays, names=('Animal', 'Type'))
+df = pd.DataFrame({'Max Speed': [390., 350., 30., 20.]},
+                  index=index)
+df
+```
 
+```{code-cell}
+df.groupby(level=0).mean()
+```
 
+```{code-cell}
+df.groupby(level="Type").mean()
+```
 
+We can also choose to include NA in group keys or not by setting `dropna` parameter, the default setting is `True`.
 
+```{code-cell}
+l = [[1, 2, 3], [1, None, 4], [2, 1, 3], [1, 2, 2]]
+df = pd.DataFrame(l, columns=["a", "b", "c"])
+```
 
+```{code-cell}
+df.groupby(by=["b"]).sum()
+```
 
+```{code-cell}
+df.groupby(by=["b"], dropna=False).sum()
+```
 
+```{code-cell}
+l = [["a", 12, 12], [None, 12.3, 33.], ["b", 12.3, 123], ["a", 1, 1]]
+df = pd.DataFrame(l, columns=["a", "b", "c"])
+```
 
+```{code-cell}
+df.groupby(by="a").sum()
+```
 
+```{code-cell}
+df.groupby(by="a", dropna=False).sum()
+```
 
+When using `.apply()`, use `group_keys` to include or exclude the group keys. The `group_keys` argument defaults to `True` (include).
 
+```{code-cell}
+df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
+                              'Parrot', 'Parrot'],
+                   'Max Speed': [380., 370., 24., 26.]})
+df.groupby("Animal", group_keys=True).apply(lambda x: x)
+```
 
+```{code-cell}
+df.groupby("Animal", group_keys=False).apply(lambda x: x)
+```
 
+## Pivot table
 
+Create a spreadsheet-style pivot table as a DataFrame.
 
+The levels in the pivot table will be stored in MultiIndex objects (hierarchical indexes) on the index and columns of the result DataFrame.
 
+```{code-cell}
+df = pd.DataFrame({"A": ["foo", "foo", "foo", "foo", "foo",
+                         "bar", "bar", "bar", "bar"],
+                   "B": ["one", "one", "one", "two", "two",
+                         "one", "one", "two", "two"],
+                   "C": ["small", "large", "large", "small",
+                         "small", "large", "small", "small",
+                         "large"],
+                   "D": [1, 2, 2, 3, 3, 4, 5, 6, 7],
+                   "E": [2, 4, 5, 5, 6, 6, 8, 9, 9]})
+df
+```
 
+This first example aggregates values by taking the sum.
 
+```{code-cell}
+table = pd.pivot_table(df, values='D', index=['A', 'B'],
+                    columns=['C'], aggfunc=np.sum)
+table
+```
 
+We can also fill missing values using the `fill_value` parameter.
 
+```{code-cell}
+table = pd.pivot_table(df, values='D', index=['A', 'B'],
+                    columns=['C'], aggfunc=np.sum, fill_value=0)
+table
+```
 
+The next example aggregates by taking the mean across multiple columns.
 
+```{code-cell}
+table = pd.pivot_table(df, values=['D', 'E'], index=['A', 'C'],
+                    aggfunc={'D': np.mean,
+                             'E': np.mean})
+table
+```
 
+We can also calculate multiple types of aggregations for any given value column.
 
+```{code-cell}
+table = pd.pivot_table(df, values=['D', 'E'], index=['A', 'C'],
+                    aggfunc={'D': np.mean,
+                             'E': [min, max, np.mean]})
+table
+```
 
+## High-performance Pandas: eval() and query()
 
+### eval()
 
+Evaluate a string describing operations on DataFrame columns.
 
+Operates on columns only, not specific rows or elements. This allows `eval` to run arbitrary code, which can make you vulnerable to code injection if you pass user input to this function.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({'A': range(1, 6), 'B': range(10, 0, -2)})
+df
+```
 
+```{code-cell}
+df.eval('A + B')
+```
 
+Assignment is allowed though by default the original DataFrame is not modified.
 
+```{code-cell}
+df.eval('C = A + B')
+```
 
+```{code-cell}
+df
+```
 
+Use `inplace=True` to modify the original DataFrame.
 
+```{code-cell}
+df.eval('C = A + B', inplace=True)
+df
+```
 
+Multiple columns can be assigned to using multi-line expressions:
 
+```{code-cell}
+df.eval(
+    '''
+C = A + B
+D = A - B
+'''
+)
+```
 
+### query()
 
+Query the columns of a DataFrame with a boolean expression.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({'A': range(1, 6),
+                   'B': range(10, 0, -2),
+                   'C C': range(10, 5, -1)})
+df
+```
 
+```{code-cell}
+df.query('A > B')
+```
 
+The previous expression is equivalent to
+
+```{code-cell}
+df[df.A > df.B]
+```
+
+For columns with spaces in their name, you can use backtick quoting.
+
+```{code-cell}
+df.query('B == `C C`')
+```
+
+The previous expression is equivalent to
+
+```{code-cell}
+df[df.B == df['C C']]
+```
 
 ## Further resources
 

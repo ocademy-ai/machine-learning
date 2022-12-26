@@ -70,7 +70,7 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 
 If sample data is needed for the book or assignments, first try to use built-in ones from [sklearn](https://scikit-learn.org/stable/datasets.html) or [tensorflow](https://www.tensorflow.org/datasets) if possible.
 
-To introduce your own dataset, put the data file into the `./data` folder, then it could be referred to by a relative path.
+To introduce your own dataset, put the data file into the `./asserts/data` folder, then it could be referred to by a relative path. You can also add Python code, binary, and any other type of static asserts.
 
 ## Slides
 
