@@ -34,8 +34,7 @@ The clusters can be visualized as Voronoi diagrams, which include a point (or 's
 ---
 name: voronoi diagram
 ---
-voronoi diagram
-infographic by Jen Looper
+voronoi diagram infographic by Jen Looper
 ```
 
 The K-Means clustering process executes in a three-step process):
@@ -57,14 +56,16 @@ You will work in this section's _notebook.ipynb_ file that includes the data imp
 Start by taking another look at the songs data.
 
 ```{code-cell}
-!pip install seaborn
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+
+
 df = pd.read_csv("../../assets/data/nigerian-songs.csv")
 df = df[(df['artist_top_genre'] == 'afro dancehall') | (df['artist_top_genre'] == 'afropop') | (df['artist_top_genre'] == 'nigerian pop')]
 df = df[(df['popularity'] > 0)]
 top = df['artist_top_genre'].value_counts()
+
 plt.figure(figsize=(10,7))
 sns.barplot(x=top.index,y=top.values)
 plt.xticks(rotation=45)
@@ -114,7 +115,6 @@ sns.boxplot(x = 'release_date', data = df)
 ```
 
 This data is a little noisy: by observing each column as a boxplot, you can see outliers.
-
 
 You could go through the dataset and remove these outliers, but that would make the data pretty minimal.
 
@@ -262,11 +262,9 @@ Variance is defined as "the average of the squared differences from the Mean" . 
 This is a great moment to think about all the ways you could correct this issue. Tweak the data a bit more? Use different columns? Use a different algorithm? Hint: Try scaling your data to normalize it and test other columns.
 ```
 
----
-
 ## Your turn! 🚀
 
-[Try different clustering methods](../../assignments/ml-advanced/clustering/Try-different-clustering-methods.md)
+[Try different clustering methods](../../assignments/ml-advanced/clustering/try-different-clustering-methods.md)
 
 ## Self study
 
@@ -277,4 +275,4 @@ You can use this tool to visualize sample data points and determine its centroid
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Machine Learning for Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
