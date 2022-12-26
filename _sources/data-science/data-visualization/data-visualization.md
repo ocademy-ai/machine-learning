@@ -20,7 +20,7 @@ kernelspec:
 
 Visualizing data is one of the most important tasks of a data scientist. Images are worth 1000 words, and a visualization can help you identify all kinds of interesting parts of your data such as spikes, outliers, groupings, tendencies, and more, that can help you understand the story your data is trying to tell.
 
-In these five lessons, you will explore data sourced from nature and create interesting and beautiful visualizations using various techniques.
+In these five sections, you will explore data sourced from nature and create interesting and beautiful visualizations using various techniques.
 
 ---
 
