@@ -22,7 +22,7 @@ In this section, you will use a different nature-focused dataset to visualize pr
 - Waffle charts 🧇
 
 ```{seealso}
- A very interesting project called [Charticulator](https://charticulator.com) by Microsoft Research offers a free drag and drop interface for data visualizations. In one of their tutorials they also use this mushroom dataset! So you can explore the data and learn the library at the same time: [Charticulator tutorial](https://charticulator.com/tutorials/tutorial4.html).
+A very interesting project called [Charticulator](https://charticulator.com) by Microsoft Research offers a free drag and drop interface for data visualizations. In one of their tutorials they also use this mushroom dataset! So you can explore the data and learn the library at the same time: [Charticulator tutorial](https://charticulator.com/tutorials/tutorial4.html).
 ```
 
 ## Get to know your mushrooms 🍄
@@ -111,7 +111,7 @@ Now that you know how to group your data and then display it as a pie or donut, 
 
 A 'waffle' type chart is a different way to visualize quantities as a 2D array of squares. Try visualizing the different quantities of mushroom cap colors in this dataset. To do this, you need to install a helper library called [PyWaffle](https://pypi.org/project/pywaffle/) and use Matplotlib.
 
-Select a segment of your data to group:
+Select a segment of your data to group together:
 
 ```{code-cell}
 :tags: [output_scroll]

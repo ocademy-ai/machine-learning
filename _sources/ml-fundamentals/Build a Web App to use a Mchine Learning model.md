@@ -65,7 +65,7 @@ The `ufos.csv` spreadsheet includes columns about the `city`, `state` and `count
 
 Create a blank `notebook` to continue the steps below:
 
-import `pandas`, `matplotlib`, and `numpy` as you did in previous section and import the ufos spreadsheet. You can take a look at a sample data set:
+Import `pandas`, `matplotlib`, and `numpy` as you did in previous section and import the ufos spreadsheet. You can take a look at a sample data set:
 
 ```{code-cell}
 import pandas as pd
