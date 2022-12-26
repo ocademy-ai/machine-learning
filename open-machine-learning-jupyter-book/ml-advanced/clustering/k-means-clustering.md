@@ -200,9 +200,9 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
 
 1. Use the 'elbow method' to make sure.
 
-```sql
+```{code-cell}
 plt.figure(figsize=(10,5))
-sns.lineplot(range(1, 11), wcss,marker='o',color='red')
+sns.lineplot(wcss)
 plt.title('Elbow')
 plt.xlabel('Number of clusters')
 plt.ylabel('WCSS')
@@ -277,10 +277,5 @@ You can use this tool to visualize sample data points and determine its centroid
 
 ## Acknowledgments
 
-<<<<<<< HEAD
 Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
 
----
-=======
-Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
->>>>>>> f6ab48b6d452fa2c090e089a36a85ae056acdf1f
