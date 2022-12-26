@@ -65,7 +65,7 @@ The `ufos.csv` spreadsheet includes columns about the `city`, `state` and `count
 
 Create a blank `notebook` to continue the steps below:
 
-import `pandas`, `matplotlib`, and `numpy` as you did in previous section and import the ufos spreadsheet. You can take a look at a sample data set:
+Import `pandas`, `matplotlib`, and `numpy` as you did in previous section and import the ufos spreadsheet. You can take a look at a sample data set:
 
 ```{code-cell}
 import pandas as pd
@@ -347,6 +347,6 @@ Instead of working in a notebook and importing the model to the Flask app, you c
 
 There are many ways to build a web app to consume ML models. Make a list of the ways you could use JavaScript or Python to build a web app to leverage machine learning. Consider architecture: should the model stay in the app or live in the cloud? If the latter, how would you access it? Draw out an architectural model for an applied ML web solution.
 
-## Acknowledgements
+## Acknowledgments
 
 Thanks to Microsoft for creating the open-source course ML-For-Beginners. It inspires the majority of the content in this chapter.
