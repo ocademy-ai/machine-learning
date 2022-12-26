@@ -10,6 +10,6 @@ Now that you have built one web app using a trained Regression model, use one of
 | -------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | -------------------------------------- |
 | | The web app runs as expected and is deployed to the cloud | The web app contains flaws or exhibits unexpected results | The web app does not function properly |
 
-## Acknowledgements
+## Acknowledgments
 
 Thanks to Microsoft for creating the open-source course ML-For-Beginners. It inspires the majority of the content in this chapter.
