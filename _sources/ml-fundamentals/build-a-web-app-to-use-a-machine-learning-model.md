@@ -149,6 +149,7 @@ Now, it's time to _pickle_ your model! You can do that in a few lines of code. O
 
 ```{code-cell}
 import pickle
+
 model_filename = 'ufo-model.pkl'
 pickle.dump(model, open(model_filename, 'wb'))
 
