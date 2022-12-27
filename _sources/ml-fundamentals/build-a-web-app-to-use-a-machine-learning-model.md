@@ -152,7 +152,7 @@ import pickle
 model_filename = 'ufo-model.pkl'
 pickle.dump(model, open(model_filename, 'wb'))
 
-model = pickle.load(open('ufo-model.pkl', 'rb'))
+model = pickle.load(open('../assets/pickle/ufo-model.pkl', 'rb'))
 print(model.predict(pd.DataFrame([[50, 44, -12]])))
 ```
 
