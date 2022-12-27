@@ -23,9 +23,9 @@ Nigeria's diverse audience has diverse musical tastes, let's look at some music 
 ---
 name: A turntable
 ---
-A turntable
+A turntable photographed by Marcela Laskoski on Unsplash
 ```
   
-In this series of sections, you will discover new ways to analyze data using clustering techniques. Clustering is particularly useful when your dataset lacks labels. If it does have labels, then classification techniques such as those you learned in previous sections might be more useful. But in cases where you are looking to group unlabelled data, clustering is a great way to discover patterns.
+```{tableofcontents}
 
----
+```
