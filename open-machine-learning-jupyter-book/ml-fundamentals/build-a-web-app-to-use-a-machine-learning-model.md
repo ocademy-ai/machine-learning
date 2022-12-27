@@ -13,7 +13,7 @@ kernelspec:
   name: Python3
 ---
 
-# Build a Web App to use a Mchine Learning model
+# Build a web app to use a Machine Learning model
 
 In this section, you will train an ML model on a data set that's out of this world: _UFO sightings over the past century_, sourced from NUFORC's database.
 
@@ -68,6 +68,7 @@ Create a blank `notebook` to continue the steps below:
 Import `pandas`, `matplotlib`, and `numpy` as you did in previous section and import the ufos spreadsheet. You can take a look at a sample data set:
 
 ```{code-cell}
+:tags: ["output_scroll"]
 import pandas as pd
 import numpy as np
     
@@ -92,7 +93,6 @@ ufos = ufos[(ufos['Seconds'] >= 1) & (ufos['Seconds'] <= 60)]
 
 ufos.info()
 ```
-
 Import Scikit-learn's `LabelEncoder` library to convert the text values for countries to a number:
 
 
@@ -105,7 +105,7 @@ ufos.head()
 ```
 
 ```{note}
-LabelEncoder encodes data alphabetically
+LabelEncoder encodes data alphabetically.
 ```
 
 ## Exercise - build your model
@@ -150,10 +150,10 @@ Now, it's time to _pickle_ your model! You can do that in a few lines of code. O
 ```{code-cell}
 import pickle
 model_filename = 'ufo-model.pkl'
-pickle.dump(model, open(model_filename,'wb'))
+pickle.dump(model, open(model_filename, 'wb'))
 
-model = pickle.load(open('ufo-model.pkl','rb'))
-print(model.predict(pd.DataFrame([[50,44,-12]])))
+model = pickle.load(open('ufo-model.pkl', 'rb'))
+print(model.predict(pd.DataFrame([[50, 44, -12]])))
 ```
 
 The model returns **'3'**, which is the country code for the UK. Wild! 👽
@@ -188,13 +188,13 @@ flask
 
 Now, run this file by navigating to _web-app_:
 
-```output
+```bash
 cd web-app
 ```
 
 In your terminal type `pip install`, to install the libraries listed in _requirements.txt_:
 
-```output
+```bash
 pip install -r requirements.txt
 ```
 
@@ -335,13 +335,11 @@ On the `/predict` route, several things happen when the form is posted:
 
 Using a model this way, with Flask and a pickled model, is relatively straightforward. The hardest thing is to understand what shape the data is that must be sent to the model to get a prediction. That all depends on how the model was trained. This one has three data points to be input in order to get a prediction.
 
-In a professional setting, you can see how good communication is necessary between the folks who train the model and those who consume it in a web or mobile app. In our case, it's only one person, you!
-
 ---
 
 ## Your trun! 🚀 
 
-Instead of working in a notebook and importing the model to the Flask app, you could train the model right within the Flask app! Try converting your Python code in the notebook, perhaps after your data is cleaned, to train the model from within the app on a route called `train`. What are the pros and cons of pursuing this method?
+Instead of working in a notebook and importing the model to the Flask app, you could train the model right within the Flask app! Try converting your Python code in the notebook, perhaps after your data is cleaned, to train the model from within the app on a route called `train`. What are the pros and cons of pursuing this method? Practice it by following this [assignment](../assignments/ml-fundamentals/try-a-different-model.md)
 
 ## Self study
 
@@ -349,4 +347,4 @@ There are many ways to build a web app to consume ML models. Make a list of the 
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course ML-For-Beginners. It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.

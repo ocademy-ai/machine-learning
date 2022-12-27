@@ -1,8 +1,8 @@
-# Web-app
+# Try a different model
 
 ## Instructions
 
-Now that you have built one web app using a trained Regression model, use one of the models from an earlier Regression lesson to redo this web app. You can keep the style or design it differently to reflect the pumpkin data. Be careful to change the inputs to reflect your model's training method.
+Now that you have built one web app using a trained Regression model, use one of the models from an earlier Regression section to redo this web app. You can keep the style or design it differently to reflect the pumpkin data. Be careful to change the inputs to reflect your model's training method.
 
 ## Rubric
 
@@ -12,4 +12,4 @@ Now that you have built one web app using a trained Regression model, use one of
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course ML-For-Beginners. It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
