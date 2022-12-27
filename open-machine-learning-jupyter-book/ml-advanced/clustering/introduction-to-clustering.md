@@ -29,8 +29,6 @@ Interestingly, cluster analysis originated in the fields of Anthropology and Psy
 
 Alternately, you could use it for grouping search results - by shopping links, images, or reviews, for example. Clustering is useful when you have a large dataset that you want to reduce and on which you want to perform more granular analysis, so the technique can be used to learn about data before other models are constructed.
 
-<!-- Once your data is organized in clusters, you assign it a cluster Id, and this technique can be useful when preserving a dataset's privacy; you can instead refer to a data point by its cluster id, rather than by more revealing identifiable data. Can you think of other reasons why you'd refer to a cluster Id rather than other elements of the cluster to identify it? -->
-
 ## Getting started with clustering
 
 Scikit-learn offers a large array of methods to perform clustering. The type you choose will depend on your use case. According to the documentation, each method has various benefits. Here is a simplified table of the methods supported by Scikit-learn and their appropriate use cases:
@@ -47,7 +45,6 @@ Scikit-learn offers a large array of methods to perform clustering. The type you
 | OPTICS                       | non-flat geometry, uneven clusters with variable density, transductive |
 | Gaussian mixtures            | flat geometry, inductive                                               |
 | BIRCH                        | large dataset with outliers, inductive                                 |
-
 
 How we create clusters has a lot to do with how we gather up the data points into groups. Let's unpack some vocabulary:
 
@@ -66,8 +63,7 @@ Derived from mathematical terminology, non-flat vs. flat geometry refers to the 
 ---
 name: Flat vs Nonflat Geometry Infographic
 ---
-Flat vs Nonflat Geometry Infographic
-(Infographic by Dasani Madipalli)
+Flat vs Nonflat Geometry Infographic by Dasani Madipalli
 ```
 
 **Distances**
@@ -95,7 +91,7 @@ There are over 100 clustering algorithms, and their use depends on the nature of
 ---
 name: Hierarchical clustering Infographic
 ---
-Hierarchical clustering Infographic Dasani Madipalli
+Hierarchical clustering Infographic by Dasani Madipalli
 ```
 
 - **Centroid clustering**. This popular algorithm requires the choice of 'k', or the number of clusters to form, after which the algorithm determines the center point of a cluster and gathers data around that point. K-means clustering is a popular version of centroid clustering. The center is determined by the nearest mean, thus the name. The squared distance from the cluster is minimized.
@@ -119,15 +115,17 @@ Clustering as a technique is greatly aided by proper visualization, so let's get
 
 1. Open the _notebook.ipynb_ file in this folder.
 
-1. Import the `Seaborn` package for good data visualization.
+2. Import the `Seaborn` package for good data visualization.
 
-```{code-cell}
+```python
 !pip install seaborn
 ```
 
-1. Append the song data from _nigerian-songs.csv_. Load up a dataframe with some data about the songs. Get ready to explore this data by importing the libraries and dumping out the data:
+3. Append the song data from _nigerian-songs.csv_. Load up a dataframe with some data about the songs. Get ready to explore this data by importing the libraries and dumping out the data:
 
 ```{code-cell}
+:tags: ["output_scroll"]
+
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -137,21 +135,22 @@ df.head()
 
 Check the first few lines of data:
 
-1. Get some information about the dataframe, calling `info()`:
+4. Get some information about the dataframe, calling `info()`:
 
 ```{code-cell}
 df.info()
 ```
 
-1. Double-check for null values, by calling `isnull()` and verifying the sum being 0:
+5. Double-check for null values, by calling `isnull()` and verifying the sum being 0:
 
 ```{code-cell}
 df.isnull().sum()
 ```
 
-1. Describe the data:
+6. Describe the data:
 
 ```{code-cell}
+:tags: ["output_scroll"]
 df.describe()
 ```
 
@@ -161,7 +160,7 @@ If we are working with clustering, an unsupervised method that does not require 
 
 Look at the general values of the data. Note that popularity can be '0', which show songs that have no ranking. Let's remove those shortly.
 
-1. Use a barplot to find out the most popular genres:
+7. Use a barplot to find out the most popular genres:
 
 ```{code-cell}
 import seaborn as sns
@@ -179,7 +178,7 @@ If you'd like to see more top values, change the top `[:5]` to a bigger value, o
 
 Note, when the top genre is described as 'Missing', that means that Spotify did not classify it, so let's get rid of it.
 
-2. Get rid of missing data by filtering it out
+8. Get rid of missing data by filtering it out
 
 ```{code-cell}
 df = df[df['artist_top_genre'] != 'Missing']
@@ -190,7 +189,7 @@ plt.xticks(rotation=45)
 plt.title('Top genres',color = 'blue')
 ```
 
-3. By far, the top three genres dominate this dataset. Let's concentrate on `afro dancehall`, `afropop`, and `nigerian pop`, additionally filter the dataset to remove anything with a 0 popularity value (meaning it was not classified with a popularity in the dataset and can be considered noise for our purposes):
+9. By far, the top three genres dominate this dataset. Let's concentrate on `afro dancehall`, `afropop`, and `nigerian pop`, additionally filter the dataset to remove anything with a 0 popularity value (meaning it was not classified with a popularity in the dataset and can be considered noise for our purposes):
 
 ```{code-cell}
 df = df[(df['artist_top_genre'] == 'afro dancehall') | (df['artist_top_genre'] == 'afropop') | (df['artist_top_genre'] == 'nigerian pop')]
@@ -202,7 +201,7 @@ plt.xticks(rotation=45)
 plt.title('Top genres',color = 'blue')
 ```
 
-4. Do a quick test to see if the data correlates in any particularly strong way:
+10. Do a quick test to see if the data correlates in any particularly strong way:
 
 ```{code-cell}
 corrmat = df.corr()
@@ -243,14 +242,7 @@ Note that this example uses a KDE (Kernel Density Estimate) graph that represent
 
 In general, the three genres align loosely in terms of their popularity and danceability. Determining clusters in this loosely-aligned data will be a challenge:
 
-```{figure} ../../../images/clustering/distribution.png
----
-name: distribution
----
-istribution
-```
-
-1. Create a scatter plot:
+2. Create a scatter plot:
 
 ```{code-cell}
 sns.FacetGrid(df, hue="artist_top_genre") \
@@ -266,7 +258,7 @@ In general, for clustering, you can use scatterplots to show clusters of data, s
 
 ## Your turn! 🚀
 
-[Research other visualizations for clustering](../../assignments/ml-advanced/clustering/Research-other-visualizations-for-clustering.md)
+[Research other visualizations for clustering](../../assignments/ml-advanced/clustering/research-other-visualizations-for-clustering.md)
 
 ## Self study
 
@@ -277,4 +269,4 @@ Before you apply clustering algorithms, as we have learned, it's a good idea to 
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Machine Learning for Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
