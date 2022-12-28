@@ -20,11 +20,10 @@ In North America, pumpkins are often carved into scary faces for Halloween. Let'
 ![jack-o-lanterns](../../../images/ml-regression/jack-o-lanterns.jpg)
 > Photo by <a href="https://unsplash.com/@teutschmann?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Beth Teutschmann</a> on <a href="https://unsplash.com/s/photos/jack-o-lanterns?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
+```{seealso}
 <div class="yt-container">
   <iframe src="https://www.youtube.com/embed/5QnJtDad4iQ" allowfullscreen></iframe>
 </div>
-
-```{seealso}
 Click the video above for a quick introduction to this section.
 ```
 
