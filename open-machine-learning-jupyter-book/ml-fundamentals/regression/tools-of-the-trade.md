@@ -34,10 +34,8 @@ In this section, you will learn how to:
 
 ## Installations and configurations
 
-[![Setup Python with Visual Studio Code](https://img.youtube.com/vi/yyQM70vi7V8/0.jpg)](https://youtu.be/yyQM70vi7V8 "Setup Python with Visual Studio Code")
-
 ```{note}
-Click the image above for a video: using Python within VS Code.
+Click here for a video : [Setup Python with Visual Studio Code](https://youtu.be/yyQM70vi7V8), by author [Alfredo Deza](https://www.youtube.com/@alfredodeza1).
 ```
 
 1. **Install Python**. Ensure that [Python](https://www.python.org/downloads/) is installed on your computer. You will use Python for many data science and machine learning tasks. Most computer systems already include a Python installation. There are useful [Python Coding Packs](https://code.visualstudio.com/learn/educators/installers?WT.mc_id=academic-77952-leestott) available as well, to ease the setup for some users.
@@ -50,7 +48,7 @@ Click the image above for a video: using Python within VS Code.
 
 3. **Install Scikit-learn**, by following [these instructions](https://scikit-learn.org/stable/install.html). Since you need to ensure that you use Python 3, it's recommended that you use a virtual environment. Note, if you are installing this library on a M1 Mac, there are special instructions on the page linked above.
 
-1. **Install Jupyter Notebook**. You will need to [install the Jupyter package](https://pypi.org/project/jupyter/).
+4. **Install Jupyter Notebook**. You will need to [install the Jupyter package](https://pypi.org/project/jupyter/).
 
 ## Your ML authoring environment
 
