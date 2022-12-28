@@ -122,7 +122,7 @@ Now you can get ready to train a model by dividing the data into the training an
 ```{code-cell}
 from sklearn.model_selection import train_test_split
 
-Selected_features = ['Seconds','Latitude','Longitude']
+Selected_features = ['Seconds', 'Latitude', 'Longitude']
 
 X = ufos[Selected_features].values
 y = ufos['Country'].values
