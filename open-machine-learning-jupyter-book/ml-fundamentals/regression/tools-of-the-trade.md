@@ -64,9 +64,9 @@ Notebooks are an interactive environment that allow the developer to both code a
 
 ### Exercise - work with a notebook
 
-In this section, you will find the file [regression-tools.ipynb_](../../assignments/ml-fundamentals/regression-tools.ipynb).
+In this section, you will find the file [regression-tools.ipynb](../../assignments/ml-fundamentals/regression-tools.ipynb).
 
-1. Open [regression-tools.ipynb_](../../assignments/ml-fundamentals/regression-tools.ipynb) in Visual Studio Code.
+1. Open [regression-tools.ipynb](../../assignments/ml-fundamentals/regression-tools.ipynb) in Visual Studio Code.
 
    A Jupyter server will start with Python 3+ started. You will find areas of the notebook that can be `run`, pieces of code. You can run a code block, by selecting the icon that looks like a play button.
 
