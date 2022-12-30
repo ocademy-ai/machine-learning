@@ -89,7 +89,7 @@ In this section, you will find the file [regression-tools.ipynb_](../../assignme
 name: 'VS Code with a notebook open'
 width: 90%
 ---
-VS Code with a notebook open
+VS Code with a notebook open{cite}`VS_Code_with_a_notebook_open`
 ```
 
 You can interleaf your code with comments to self-document the notebook.
@@ -246,3 +246,9 @@ Assignment - [Regression with scikit-learn](../../assignments/ml-fundamentals/re
 ## Acknowledgments
 
 Thanks to Microsoft for creating the open-source course [ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
+
+---
+
+```{bibliography}
+:filter: docname in docnames
+```
