@@ -17,9 +17,13 @@ kernelspec:
 
 ## Get started with Python and Scikit-learn for regression models
 
-![Summary of regressions in a sketchnote](../../../images/ml-regression/ml-regression.png)
-
-> Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
+```{figure} ../../../images/ml-regression/ml-regression.png
+---
+name: 'Summary of regressions in a sketchnote'
+width: 90%
+---
+Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
+```
 
 ## Introduction
 
@@ -34,25 +38,25 @@ In this section, you will learn how to:
 
 ## Installations and configurations
 
-[![Setup Python with Visual Studio Code](https://img.youtube.com/vi/yyQM70vi7V8/0.jpg)](https://youtu.be/yyQM70vi7V8 "Setup Python with Visual Studio Code")
-
-```{note}
-Click the image above for a video: using Python within VS Code.
+```{seealso}
+Click here for a video : [Setup Python with Visual Studio Code](https://youtu.be/yyQM70vi7V8), by author [Alfredo Deza](https://www.youtube.com/@alfredodeza1).
 ```
 
-1. **Install Python**. Ensure that [Python](https://www.python.org/downloads/) is installed on your computer. You will use Python for many data science and machine learning tasks. Most computer systems already include a Python installation. There are useful [Python Coding Packs](https://code.visualstudio.com/learn/educators/installers?WT.mc_id=academic-77952-leestott) available as well, to ease the setup for some users.
+1 . **Install Python**. Ensure that [Python](https://www.python.org/downloads/) is installed on your computer. You will use Python for many data science and machine learning tasks. Most computer systems already include a Python installation. There are useful [Python Coding Packs](https://code.visualstudio.com/learn/educators/installers?WT.mc_id=academic-77952-leestott) available as well, to ease the setup for some users.
 
-   Some usages of Python, however, require one version of the software, whereas others require a different version. For this reason, it's useful to work within a [virtual environment](https://docs.python.org/3/library/venv.html).
+Some usages of Python, however, require one version of the software, whereas others require a different version. For this reason, it's useful to work within a [virtual environment](https://docs.python.org/3/library/venv.html).
 
-2. **Install Visual Studio Code**. Make sure you have Visual Studio Code installed on your computer. Follow these instructions to [install Visual Studio Code](https://code.visualstudio.com/) for the basic installation. You are going to use Python in Visual Studio Code in this course, so you might want to brush up on how to [configure Visual Studio Code](https://docs.microsoft.com/learn/modules/python-install-vscode?WT.mc_id=academic-77952-leestott) for Python development.
+2 . **Install Visual Studio Code**. Make sure you have Visual Studio Code installed on your computer. Follow these instructions to [install Visual Studio Code](https://code.visualstudio.com/) for the basic installation. You are going to use Python in Visual Studio Code in this course, so you might want to brush up on how to [configure Visual Studio Code](https://docs.microsoft.com/learn/modules/python-install-vscode?WT.mc_id=academic-77952-leestott) for Python development.
 
-   > Get comfortable with Python by working through this collection of [Learn modules](https://docs.microsoft.com/users/jenlooper-2911/collections/mp1pagggd5qrq7?WT.mc_id=academic-77952-leestott)
+```{note}
+Get comfortable with Python by working through this collection of [Learn modules](https://docs.microsoft.com/users/jenlooper-2911/collections/mp1pagggd5qrq7?WT.mc_id=academic-77952-leestott)
+```
 
-3. **Install Scikit-learn**, by following [these instructions](https://scikit-learn.org/stable/install.html). Since you need to ensure that you use Python 3, it's recommended that you use a virtual environment. Note, if you are installing this library on a M1 Mac, there are special instructions on the page linked above.
+3 . **Install Scikit-learn**, by following [these instructions](https://scikit-learn.org/stable/install.html). Since you need to ensure that you use Python 3, it's recommended that you use a virtual environment. Note, if you are installing this library on a M1 Mac, there are special instructions on the page linked above.
 
-1. **Install Jupyter Notebook**. You will need to [install the Jupyter package](https://pypi.org/project/jupyter/).
+4 . **Install Jupyter Notebook**. You will need to [install the Jupyter package](https://pypi.org/project/jupyter/).
 
-## Your ML authoring environment
+## Your Machine Learning authoring environment
 
 You are going to use **notebooks** to develop your Python code and create machine learning models. This type of file is a common tool for data scientists, and they can be identified by their suffix or extension `.ipynb`.
 
@@ -60,9 +64,9 @@ Notebooks are an interactive environment that allow the developer to both code a
 
 ### Exercise - work with a notebook
 
-In this section, you will find the file [_notebook.ipynb_](../../assignments/ml-fundamentals/regression-tools.ipynb).
+In this section, you will find the file [regression-tools.ipynb_](../../assignments/ml-fundamentals/regression-tools.ipynb).
 
-1. Open [_notebook.ipynb_](../../assignments/ml-fundamentals/regression-tools.ipynb) in Visual Studio Code.
+1. Open [regression-tools.ipynb_](../../assignments/ml-fundamentals/regression-tools.ipynb) in Visual Studio Code.
 
    A Jupyter server will start with Python 3+ started. You will find areas of the notebook that can be `run`, pieces of code. You can run a code block, by selecting the icon that looks like a play button.
 
@@ -80,7 +84,13 @@ In this section, you will find the file [_notebook.ipynb_](../../assignments/ml-
     hello notebook
     ```
 
-![VS Code with a notebook open](../../../images/ml-regression/notebook.jpg)
+```{figure} ../../../images/ml-regression/notebook.jpg
+---
+name: 'VS Code with a notebook open'
+width: 90%
+---
+VS Code with a notebook open{cite}`VS_Code_with_a_notebook_open`
+```
 
 You can interleaf your code with comments to self-document the notebook.
 
@@ -100,9 +110,11 @@ Scikit-learn makes it straightforward to build models and evaluate them for use.
 
 ## Exercise - your first Scikit-learn notebook
 
-> This tutorial was inspired by the [linear regression example](https://scikit-learn.org/stable/auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py) on Scikit-learn's web site.
+```{note}
+This tutorial was inspired by the [linear regression example](https://scikit-learn.org/stable/auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py) on Scikit-learn's web site.
+```
 
-In the _notebook.ipynb_ file associated to this section, clear out all the cells by pressing the 'trash can' icon.
+In the _regression-tools.ipynb_ file associated to this section, clear out all the cells by pressing the 'trash can' icon.
 
 In this section, you will work with a small dataset about diabetes that is built into Scikit-learn for learning purposes. Imagine that you wanted to test a treatment for diabetic patients. Machine Learning models might help you determine which patients would respond better to the treatment, based on combinations of variables. Even a very basic regression model, when visualized, might show information about variables that would help you organize your theoretical clinical trials.
 
@@ -148,7 +160,7 @@ This dataset includes the concept of 'sex' as a feature variable important to re
 Now, load up the X and y data.
 
 ```{note}
- Remember, this is supervised learning, and we need a named 'y' target.
+Remember, this is supervised learning, and we need a named 'y' target.
 ```
 
 In a new code cell, load the diabetes dataset by calling `load_diabetes()`. The input `return_X_y=True` signals that `X` will be a data matrix, and `y` will be the regression target.
@@ -219,8 +231,6 @@ Think a bit about what's going on here. A straight line is running through many 
 
 Congratulations, you built your first linear regression model, created a prediction with it, and displayed it in a plot!
 
----
-
 ## Self study
 
 In this tutorial, you worked with simple linear regression, rather than univariate or multiple linear regression. Read a little about the differences between these methods, or take a look at [this video](https://www.coursera.org/lecture/quantifying-relationships-regression-models/linear-vs-nonlinear-categorical-variables-ai2Ef)
@@ -231,8 +241,14 @@ Read more about the concept of regression and think about what kinds of question
 
 Plot a different variable from this dataset. Hint: edit this line: `X = X[:, np.newaxis, 2]`. Given this dataset's target, what are you able to discover about the progression of diabetes as a disease?
 
-Assignment - [regression-with-scikit](../../assignments/ml-fundamentals/regression-with-scikit-learn.md)
+Assignment - [Regression with scikit-learn](../../assignments/ml-fundamentals/regression-with-scikit-learn.md)
 
 ## Acknowledgments
 
 Thanks to Microsoft for creating the open-source course [ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
+
+---
+
+```{bibliography}
+:filter: docname in docnames
+```
