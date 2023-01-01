@@ -136,10 +136,12 @@ You can either filter out the two outlier birds we identified in the previous se
 If you want to create a bar chart, you can select the data you want to focus on. Bar charts can be created from raw data:
 
 ```{code-cell}
-birds.plot(x='Category',
-        kind='bar',
-        stacked=True,
-        title='Birds of Minnesota')
+birds.plot(
+    x='Category',
+    kind='bar',
+    stacked=True,
+    title='Birds of Minnesota'
+)
 
 ```
 

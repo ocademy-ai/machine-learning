@@ -64,7 +64,7 @@ If you follow the order presented in this table to create your class category la
 
 ```{code-cell}
 labels=['Edible','Poisonous']
-plt.pie(edibleclass['population'],labels=labels,autopct='%.1f %%')
+plt.pie(edibleclass['population'], labels=labels, autopct='%.1f %%')
 plt.title('Edible?')
 plt.show()
 ```
