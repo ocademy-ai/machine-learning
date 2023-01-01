@@ -51,7 +51,7 @@ In fact, it is not very common to be gifted a dataset that is completely ready t
 
 ## Case study: 'the pumpkin market'
 
-You will find a .csv file in the root `/assest/data/` folder called [US-pumpkins.csv](../../assets/data/US-pumpkins.csv) which includes 1757 lines of data about the market for pumpkins, sorted into groupings by city. This is raw data extracted from the [Specialty Crops Terminal Markets Standard Reports](https://www.marketnews.usda.gov/mnp/fv-report-config-step1?type=termPrice) distributed by the United States Department of Agriculture.
+You will find a .csv file in the root `/assest/data/` folder called [us-pumpkins.csv](../../assets/data/us-pumpkins.csv) which includes 1757 lines of data about the market for pumpkins, sorted into groupings by city. This is raw data extracted from the [Specialty Crops Terminal Markets Standard Reports](https://www.marketnews.usda.gov/mnp/fv-report-config-step1?type=termPrice) distributed by the United States Department of Agriculture.
 
 ### Preparing data
 
@@ -80,12 +80,14 @@ Open the [managing-data.ipynb](../../assignments/ml-fundamentals/managing-data.i
 
 ```{code-cell}
 :tags: [output_scroll]
+
 import pandas as pd
+
 pumpkins = pd.read_csv('../../assets/data/US-pumpkins.csv')
 pumpkins.head()
 ```
 
-```{seealso}
+```{note}
 What function would you use to view the last five rows?
 ```
 
@@ -171,7 +173,7 @@ Now, you can analyze the pricing per unit based on their bushel measurement. If 
 Did you notice that pumpkins sold by the half-bushel are very expensive? Can you figure out why? Hint: little pumpkins are way pricier than big ones, probably because there are so many more of them per bushel, given the unused space taken by one big hollow pie pumpkin.
 ```
 
-## Visualization Strategies
+## Visualization strategies
 
 Part of the data scientist's role is to demonstrate the quality and nature of the data they are working with. To do this, they often create interesting visualizations, or plots, graphs, and charts, showing different aspects of data. In this way, they are able to visually show relationships and gaps that are otherwise hard to uncover.
 
