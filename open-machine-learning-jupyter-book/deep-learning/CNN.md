@@ -13,15 +13,31 @@ kernelspec:
   name: python3
 ---
 
-# CNN
+# Convolutional Neural Networks
 Convolutional Neural Networks (CNNs) are responsible for the latest major breakthroughs in image recognition in the past few years.
 
 In mathematics, a convolution is a function which is applied over the output of another function. In our case, we will consider applying a matrix mutliplication (filter) across an image. See the below diagram for an example of how this may work.
-![avatar](C:\machine-learning-open-academy\images\CNN\01_intro_cnn.png#pic_center)
 
-CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters- while decreasing the layer size. See the below diagram for an example of max-pooling.
 
-![avatar](C:\machine-learning-open-academy\images\CNN\01_intro_cnn2.png##pic_center)
+```{figure} ../../images/deep-learning/CNN/01_intro_cnn.png
+---
+name: '01_intro_cnn'
+width: 90%
+---
+Illustration of matrix mutliplication (filter) in CNN
+```
+
+CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters while decreasing the layer size. See the below diagram for an example of max-pooling.
+
+
+```{figure} ../../images/deep-learning/CNN/01_intro_cnn2.png
+---
+name: '01_intro_cnn2'
+width: 90%
+---
+Illustration of max pooling
+```
+
 
 After the max pooling, there is generally an activation layer. One of the more common activation layers is the ReLU (Rectified Linear Unit).
 
@@ -30,13 +46,29 @@ Here we illustrate how to use a simple CNN with three convolutional units to pre
 
 When the script is done training the model, you should see similar output to the following graphs.
 
-![avatar](C:\machine-learning-open-academy\images\CNN\02_cnn1_loss_acc.png#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/02_cnn1_loss_acc.png
+---
+name: '02_cnn1_loss_acc.png'
+width: 90%
+---
+Train MINIST dataset with CNN: accuracy and loss
+```
+
 
 Training and test loss (left) and test batch accuracy (right).
 
-![avatar](C:\machine-learning-open-academy\images\CNN\02_cnn1_mnist_output.png#pic_center)
 
-A random set of 6 digits with actuals and predicted labels. You can see a prediction failure in the lower right box.
+```{figure} ../../images/deep-learning/CNN/02_cnn1_mnist_output.png
+---
+name: '02_cnn1_mnist_output'
+width: 90%
+---
+Train MINIST dataset with CNN: prediction output
+```
+
+
+A random set of 6 digits with actual and predicted labels. You can see a prediction failure in the lower right box.
 
 ### Code
 ```{code-cell}
@@ -234,10 +266,20 @@ for i in range(6):
 
 
 ## CIFAR-10
-Here we will build an convolutional neural network to predict the CIFAR-10 data.
+Here we will build a convolutional neural network to predict the CIFAR-10 data.
 
 The script provided will download and unzip the CIFAR-10 data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
-![avatar](C:\machine-learning-open-academy\images\CNN\03_cnn2_loss_acc.png.png#pic_center)
+
+
+
+```{figure} ../../images/deep-learning/CNN/03_cnn2_loss_acc.png
+---
+name: '03_cnn2_loss_acc.png'
+width: 90%
+---
+Train CIFAR-10 dataset with CNN: accuracy and loss
+```
+
 Here we see the training loss (left) and the test batch accuracy (right).
 
 ### Code
@@ -681,15 +723,38 @@ But there is some prerequisites
 
 The style image is
 
-![avatar](C:\machine-learning-open-academy\images\CNN\starry_night.jpg#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/starry_night.jpg
+---
+name: 'starry_night.jpg'
+width: 90%
+---
+Style image: starry night
+```
 
 The context image is
 
-![avatar](C:\machine-learning-open-academy\images\CNN\book_cover.jpg#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/book_cover.jpg
+---
+name: 'book_cover.jpg'
+width: 90%
+---
+Content image: book cover
+```
+
 
 The final result looks like
 
-![avatar](C:\machine-learning-open-academy\images\CNN\05_stylenet_ex.png#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/05_stylenet_ex.png
+---
+name: '05_stylenet_ex.png'
+width: 90%
+---
+stylenet result
+```
+
 
 ### Code
 ```{code-cell}
@@ -899,7 +964,14 @@ Note: There is no new code in this script. It originates from the TensorFlow tut
 
 Here are some potential outputs.
 
-![avatar](C:\machine-learning-open-academy\images\CNN\06_deepdream_ex.png#pic_center)
+```{figure} ../../images/deep-learning/CNN/06_deepdream_ex.png
+---
+name: '06_deepdream_ex.png'
+width: 90%
+---
+Deepdream outputs
+```
+
 
 ### Code
 ```{code-cell}
