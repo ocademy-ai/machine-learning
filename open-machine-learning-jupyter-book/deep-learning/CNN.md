@@ -59,7 +59,12 @@ Illustration of max pooling
 After the max pooling, there is generally an activation layer. One of the more common activation layers is the ReLU (Rectified Linear Unit).
 
 ## MNIST handwritten digits
-Here we illustrate how to use a simple CNN with three convolutional units to predict the MNIST handwritten digits. There is good reason why this dataset is used like the 'hello world' of image recognition, it is fairly compact while having a decent amount of training, test, and validation data. It only has one channel (black and white) and only ten possible outputs (0-9).
+Here we illustrate how to use a simple CNN with three convolutional units to predict the MNIST handwritten digits. 
+
+
+```{note}
+There is good reason why this dataset is used like the 'hello world' of image recognition, it is fairly compact while having a decent amount of training, test, and validation data. It only has one channel (black and white) and only ten possible outputs (0-9).
+```
 
 When the script is done training the model, you should see similar output to the following graphs.
 
@@ -283,6 +288,11 @@ for i in range(6):
 
 
 ## CIFAR-10
+
+```{seealso}
+Alex Krizhevsky, Vinod Nair, and Geoffrey Hinton. [CIFAR-10 and CIFAR-100 datasets](https://www.cs.toronto.edu/~kriz/cifar.html).
+```
+
 Here we will build a convolutional neural network to predict the CIFAR-10 data.
 
 The script provided will download and unzip the CIFAR-10 data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
@@ -1186,5 +1196,21 @@ if __name__=="__main__":
     sess.close()
 ```
 
+
+---
+
+## Your turn! 🚀
+
+blablabla
+
+## Self study
+
+You can refer to those YouTube videos for further study:
+- [Convolutional Neural Networks (CNNs) explained, by deeplizard](https://www.youtube.com/watch?v=YRhxdVk_sIs)
+- [Convolutional Neural Networks Explained (CNN Visualized), by Futurology — An Optimistic Future](https://www.youtube.com/watch?v=pj9-rr1wDhM)
+
+## Acknowledgments
+
+Thanks to ??? for creating the open-source course [????](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
 
 
