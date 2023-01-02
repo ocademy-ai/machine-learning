@@ -13,7 +13,20 @@ kernelspec:
   name: python3
 ---
 
+
+
 # Convolutional Neural Networks
+
+
+
+```{epigraph}
+Thanks to Convolutional Neural Network, computer vision is working far better than just two years ago, and this is enabling numerous exciting applications ranging from safe autonomous driving, to accurate face recognition, to automatic reading of radiology images.
+
+-- Andrew Ng
+```
+
+
+
 Convolutional Neural Networks (CNNs) are responsible for the latest major breakthroughs in image recognition in the past few years.
 
 In mathematics, a convolution is a function which is applied over the output of another function. In our case, we will consider applying a matrix mutliplication (filter) across an image. See the below diagram for an example of how this may work.
@@ -26,6 +39,10 @@ width: 90%
 ---
 Illustration of matrix mutliplication (filter) in CNN
 ```
+
+
+<iframe src="../conv-demo/index.html" width="105%" height="700px;" style="border:none;"></iframe>
+
 
 CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters while decreasing the layer size. See the below diagram for an example of max-pooling.
 
