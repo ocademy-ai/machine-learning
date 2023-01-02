@@ -29,17 +29,17 @@ Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 
 So far you have explored what regression is with sample data gathered from the pumpkin pricing dataset that we will use throughout this lesson. You have also visualized it using Matplotlib.
 
-Now you are ready to dive deeper into regression for ML. While visualization allows you to make sense of data, the real power of Machine Learning comes from _training models_. Models are trained on historic data to automatically capture data dependencies, and they allow you to predict outcomes for new data, which the model has not seem before.
+Now you are ready to dive deeper into regression for Machine Learning. While visualization allows you to make sense of data, the real power of Machine Learning comes from _training models_. Models are trained on historic data to automatically capture data dependencies, and they allow you to predict outcomes for new data, which the model has not seem before.
 
 In this lesson, you will learn more about two types of regression: _basic linear regression_ and _polynomial regression_, along with some of the math underlying these techniques. Those models will allow us to predict pumpkin prices depending on different input data.
 
 ```{note}
-Throughout this curriculum, we assume minimal knowledge of math, and seek to make it accessible for students coming from other fields, so watch for notes, 🧮 callouts, diagrams, and other learning tools to aid in comprehension.
+Throughout this curriculum, we assume minimal knowledge of math, and seek to make it accessible for students coming from other fields, so watch for notes, callouts, diagrams, and other learning tools to aid in comprehension.
 ```
 
 ### Prerequisite
 
-You should be familiar by now with the structure of the pumpkin data that we are examining. You can find it preloaded and pre-cleaned in this section's _notebook.ipynb_ file. In the file, the pumpkin price is displayed per bushel in a new data frame.  Make sure you can run these notebooks in kernels in Visual Studio Code.
+You should be familiar by now with the structure of the pumpkin data that we are examining. You can find it preloaded and pre-cleaned in this section's [linear and polynomial regression.ipynb](../../assignments/ml-fundamentals/linear-and-polynomial-regression.ipynb) file. In the file, the pumpkin price is displayed per bushel in a new data frame.  Make sure you can run these notebooks in kernels in Visual Studio Code.
 
 ### Preparation
 
@@ -66,7 +66,7 @@ It is typical of **Least-Squares Regression** to draw this type of line. The ter
 We do so since we want to model a line that has the least cumulative distance from all of our data points. We also square the terms before adding them since we are concerned with its magnitude rather than its direction.
 
 ```{seealso}
-**🧮 Show me the math** 
+** Show me the math ** 
  
 This line, called the _line of best fit_ can be expressed by [an equation](https://en.wikipedia.org/wiki/Simple_linear_regression):  
 
@@ -122,7 +122,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 
-pumpkins = pd.read_csv('../../assets/data/US-pumpkins.csv')
+pumpkins = pd.read_csv('../../assets/data/us-pumpkins.csv')
 
 pumpkins.head()
 ```
@@ -311,7 +311,7 @@ pipeline = make_pipeline(PolynomialFeatures(2), LinearRegression())
 pipeline.fit(X_train,y_train)
 ```
 
-Using `PolynomialFeatures(2)` means that we will include all second-degree polynomials from the input data. In our case it will just mean `DayOfYear`<sup>2</sup>, but given two input variables X and Y, this will add X<sup>2</sup>, XY and Y<sup>2</sup>. We may also use higher degree polynomials if we want.
+Using `PolynomialFeatures(2)` means that we will include all second-degree polynomials from the input data. In our case it will just mean $DayOfYear^2$, but given two input variables X and Y, this will add $X^2$, XY and $Y^2$. We may also use higher degree polynomials if we want.
 
 Pipelines can be used in the same manner as the original `LinearRegression` object, i.e. we can `fit` the pipeline, and then use `predict` to get the prediction results. Here is the graph showing test data, and the approximation curve:
 
@@ -355,17 +355,6 @@ The code below shows how we can one-hot encode a variety:
 ```{code-cell}
 pd.get_dummies(new_pumpkins['Variety'])
 ```
-
- ID | FAIRYTALE | MINIATURE | MIXED HEIRLOOM VARIETIES | PIE TYPE
-----|-----------|-----------|--------------------------|----------
-70 | 0 | 0 | 0 | 1
-71 | 0 | 0 | 0 | 1
-... | ... | ... | ... | ...
-1738 | 0 | 1 | 0 | 0
-1739 | 0 | 1 | 0 | 0
-1740 | 0 | 1 | 0 | 0
-1741 | 0 | 1 | 0 | 0
-1742 | 0 | 1 | 0 | 0
 
 To train linear regression using one-hot encoded variety as input, we just need to initialize `X` and `y` data correctly:
 
@@ -428,9 +417,9 @@ This should give us the best determination coefficient of almost 97%, and MSE=2.
 
 🏆 Well done! You created four Regression models in one lesson, and improved the model quality to 97%. In the final section on Regression, you will learn about Logistic Regression to determine categories. 
 
-## Self Study
+## Self study
 
-In this lesson we learned about Linear Regression. There are other important types of Regression. Read about Stepwise, Ridge, Lasso and Elasticnet techniques. A good course to study to learn more is the [Stanford Statistical Learning course](https://online.stanford.edu/courses/sohs-ystatslearning-statistical-learning)
+In this section we learned about Linear Regression. There are other important types of Regression. Read about Stepwise, Ridge, Lasso and Elasticnet techniques. A good course to study to learn more is the [Stanford Statistical Learning course](https://online.stanford.edu/courses/sohs-ystatslearning-statistical-learning)
 
 ## Your turn! 🚀
 
