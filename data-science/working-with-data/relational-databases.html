@@ -1488,8 +1488,8 @@ title="Print to PDF"
 <h2><span class="section-number">5.1.4. </span>Retrieving the data<a class="headerlink" href="#retrieving-the-data" title="Permalink to this headline">#</a></h2>
 <p>With our data separated into two tables, you may be wondering how we retrieve it. If we are using a relational database such as MySQL, SQL Server or Oracle, we can use a language called Structured Query Language or SQL. SQL (sometimes pronounced sequel) is a standard language used to retrieve and modify data in a relational database.</p>
 <p>To retrieve data you use the command <code class="docutils literal notranslate"><span class="pre">SELECT</span></code>. At its core, you <strong>select</strong> the columns you want to see <strong>from</strong> the table they’re contained in. If you wanted to display just the names of the cities, you could use the following:</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span><span class="w"></span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span><span class="p">;</span>
 
 <span class="c1">-- Output:</span>
 <span class="c1">-- Tokyo</span>
@@ -1503,9 +1503,9 @@ title="Print to PDF"
 <p>SQL syntax is case-insensitive, meaning <code class="docutils literal notranslate"><span class="pre">select</span></code> and <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> mean the same thing. However, depending on the type of database you are using the columns and tables might be case sensitive. As a result, it’s a best practice to always treat everything in programming like it’s case sensitive. When writing SQL queries common convention is to put the keywords in all upper-case letters.</p>
 </div>
 <p>The query above will display all cities. Let’s imagine we only wanted to display cities in New Zealand. We need some form of a filter. The SQL keyword for this is <code class="docutils literal notranslate"><span class="pre">WHERE</span></code>, or “where something is true”.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span><span class="w"></span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span><span class="w"></span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New Zealand&#39;</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">country</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;New Zealand&#39;</span><span class="p">;</span>
 
 <span class="c1">-- Output:</span>
 <span class="c1">-- Auckland</span>
@@ -1518,18 +1518,18 @@ title="Print to PDF"
 <p>In our example, we will match the <code class="docutils literal notranslate"><span class="pre">city_id</span></code> column in <code class="docutils literal notranslate"><span class="pre">rainfall</span></code> with the city_id column in <code class="docutils literal notranslate"><span class="pre">cities</span></code>. This will match the rainfall value with its respective city. The type of join we will perform is what’s called an <em>inner</em> join, meaning if any rows don’t match with anything from the other table they won’t be displayed. In our case every city has rainfall, so everything will be displayed.</p>
 <p>Let’s retrieve the rainfall for 2019 for all our cities.</p>
 <p>We’re going to do this in steps. The first step is to join the data together by indicating the columns for the seam - <code class="docutils literal notranslate"><span class="pre">city_id</span></code> as highlighted before.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city</span><span class="w"></span>
-<span class="w">    </span><span class="n">rainfall</span><span class="p">.</span><span class="n">amount</span><span class="w"></span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span><span class="w"></span>
-<span class="w">    </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">rainfall</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rainfall</span><span class="p">.</span><span class="n">city_id</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city</span>
+<span class="w">    </span><span class="n">rainfall</span><span class="p">.</span><span class="n">amount</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span>
+<span class="w">    </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">rainfall</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rainfall</span><span class="p">.</span><span class="n">city_id</span>
 </pre></div>
 </div>
 <p>We have highlighted the two columns we want, and the fact we want to join the tables together by the <code class="docutils literal notranslate"><span class="pre">city_id</span></code>. Now we can add the <code class="docutils literal notranslate"><span class="pre">WHERE</span></code> statement to filter out only year 2019.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city</span><span class="w"></span>
-<span class="w">    </span><span class="n">rainfall</span><span class="p">.</span><span class="n">amount</span><span class="w"></span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span><span class="w"></span>
-<span class="w">    </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">rainfall</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rainfall</span><span class="p">.</span><span class="n">city_id</span><span class="w"></span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">rainfall</span><span class="p">.</span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2019</span><span class="w"></span>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city</span>
+<span class="w">    </span><span class="n">rainfall</span><span class="p">.</span><span class="n">amount</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">cities</span>
+<span class="w">    </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">rainfall</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">cities</span><span class="p">.</span><span class="n">city_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rainfall</span><span class="p">.</span><span class="n">city_id</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">rainfall</span><span class="p">.</span><span class="k">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2019</span>
 
 <span class="c1">-- Output</span>
 
