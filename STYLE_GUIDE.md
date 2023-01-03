@@ -128,7 +128,7 @@ html-iframe/
 Note that we set the `width` to `105%` so that all content of `my-file.html` will be rendered correctly. Also, the `height` has to be set manually.
 
 
-## YouTube videos
+## YouTube video
 
 To include a YouTube video:
 
@@ -138,9 +138,9 @@ To include a YouTube video:
 </div>
 ```
 
-Here `YUyec4eCEiY` is the YouTube id of the video, and you should change it accordingly.
+Here `YUyec4eCEiY` is the YouTube `id` of the video, and you should change it accordingly.
 
-How does it work? In fact, the ```class="yt-container"``` is set to use the css style defined in `open-machine-learning-jupyter-book/_static/youtube.css`.
+How does it work? In fact, the ```class="yt-container"``` is set to use the css style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated html file of Jupyter book.
 
 ## Acknowledgments
 
