@@ -109,6 +109,39 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 * [How to give attribution? | Creative Commons](https://creativecommons.org/use-remix/attribution/)
 
+## HTML iframe
+
+1. Put the folder containing your `.html` file and css/js files under `assets/html-iframe/`. For example, within `assets/html-iframe/`, your might have this structure:
+```output
+html-iframe/
+    my-html-folder/
+            js/      
+            css/
+            my-file.html
+```
+
+2. To include the `my-file.html` file as an HTML `iframe` in the markdown file, simply use:
+```html
+<iframe src="../asserts/html-iframes/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
+```
+
+Note that we set the `width` to `105%` so that all content of `my-file.html` will be rendered correctly. Also, the `height` has to be set manually.
+
+
+## YouTube videos
+
+To include a YouTube video:
+
+```html
+<div class="yt-container">
+  <iframe src="https://www.youtube.com/embed/YUyec4eCEiY" allowfullscreen></iframe>
+</div>
+```
+
+Here `YUyec4eCEiY` is the YouTube id of the video, and you should change it accordingly.
+
+How does it work? In fact, the ```class="yt-container"``` is set to use the css style defined in `open-machine-learning-jupyter-book/_static/youtube.css`.
+
 ## Acknowledgments
 
 Inspired by [d2l-ai](https://github.com/d2l-ai/).
