@@ -345,7 +345,7 @@ On the `/predict` route, several things happen when the form is posted:
 
 Using a model this way, with Flask and a pickled model, is relatively straightforward. The hardest thing is to understand what shape the data is that must be sent to the model to get a prediction. That all depends on how the model was trained. This one has three data points to be input in order to get a prediction.
 
-## Your trun! 🚀
+## Your turn! 🚀
 
 Instead of working in a notebook and importing the model to the Flask app, you could train the model right within the Flask app! Try converting your Python code in the notebook, perhaps after your data is cleaned, to train the model from within the app on a route called `train`. What are the pros and cons of pursuing this method? Practice it by following this [assignment](../assignments/ml-fundamentals/try-a-different-model.md)
 
