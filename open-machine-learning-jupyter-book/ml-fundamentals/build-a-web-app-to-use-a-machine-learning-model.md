@@ -156,7 +156,7 @@ Now, it's time to _pickle_ your model! You can do that in a few lines of code. O
 ```{code-cell}
 import pickle
 
-model_filename = 'ufo-model.pkl'
+model_filename = '../assets/pickle/ufo-model.pkl'
 pickle.dump(model, open(model_filename, 'wb'))
 
 model = pickle.load(open('../assets/pickle/ufo-model.pkl', 'rb'))
@@ -179,7 +179,10 @@ web-app/
     css/
     templates/
 notebook.ipynb
-ufo-model.pkl
+../
+    assets/
+        pickle/
+            ufo-model.pkl
 ```
 
 ✅ Refer to the solution folder for a view of the finished app
@@ -295,7 +298,7 @@ import pickle
 
 app = Flask(__name__)
 
-model = pickle.load(open("./ufo-model.pkl", "rb"))
+model = pickle.load(open("../assets/pickle/ufo-model.pkl", "rb"))
 
 
 @app.route("/")
