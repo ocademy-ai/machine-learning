@@ -13,30 +13,109 @@ kernelspec:
   name: python3
 ---
 
-# CNN
+
+# Convolutional Neural Networks
+
+
+
+```{epigraph}
+Thanks to Convolutional Neural Network, computer vision is working far better than just two years ago, and this is enabling numerous exciting applications ranging from safe autonomous driving, to accurate face recognition, to automatic reading of radiology images.
+
+-- Andrew Ng
+```
+
+
+
 Convolutional Neural Networks (CNNs) are responsible for the latest major breakthroughs in image recognition in the past few years.
 
 In mathematics, a convolution is a function which is applied over the output of another function. In our case, we will consider applying a matrix mutliplication (filter) across an image. See the below diagram for an example of how this may work.
-![avatar](C:\machine-learning-open-academy\images\CNN\01_intro_cnn.png#pic_center)
 
-CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters- while decreasing the layer size. See the below diagram for an example of max-pooling.
 
-![avatar](C:\machine-learning-open-academy\images\CNN\01_intro_cnn2.png##pic_center)
+```{figure} ../../images/deep-learning/CNN/01_intro_cnn.png
+---
+name: '01_intro_cnn'
+width: 90%
+---
+Illustration of matrix mutliplication (filter) in CNN
+```
 
-After the max pooling, there is generally an activation layer. One of the more common activation layers is the ReLU (Rectified Linear Unit).
+:::{figure-md} 01_intro_cnn-dl
+<img src="../../images/deep-learning/CNN/01_intro_cnn.png" width="90%" class="bg-primary mb-1">
+
+Illustration of matrix mutliplication (filter) in CNN {cite}`reluwiki`
+:::
+
+
+
+<iframe src="../html-iframes/conv-demo/index.html" width="105%" height="700px;" style="border:none;"></iframe>
+
+
+CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters while decreasing the layer size. See the below diagram for an example of max-pooling.
+
+
+```{figure} ../../images/deep-learning/CNN/01_intro_cnn2.png
+---
+name: '01_intro_cnn2'
+width: 90%
+---
+Illustration of max pooling
+```
+
+
+:::{figure-md} 01_intro_cnn2-dl
+<img src="../../images/deep-learning/CNN/01_intro_cnn2.png" width="90%" class="bg-primary mb-1">
+
+Illustration of max pooling
+:::
+
+
+After the max pooling, there is generally an activation layer. One of the more common activation layers is the ReLU (Rectified Linear Unit) {cite}`reluwiki` .
 
 ## MNIST handwritten digits
-Here we illustrate how to use a simple CNN with three convolutional units to predict the MNIST handwritten digits. There is good reason why this dataset is used like the 'hello world' of image recognition, it is fairly compact while having a decent amount of training, test, and validation data. It only has one channel (black and white) and only ten possible outputs (0-9).
+Here we illustrate how to use a simple CNN with three convolutional units to predict the MNIST handwritten digits. 
+
+
+```{note}
+There is good reason why this dataset is used like the 'hello world' of image recognition, it is fairly compact while having a decent amount of training, test, and validation data. It only has one channel (black and white) and only ten possible outputs (0-9).
+```
 
 When the script is done training the model, you should see similar output to the following graphs.
 
-![avatar](C:\machine-learning-open-academy\images\CNN\02_cnn1_loss_acc.png#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/02_cnn1_loss_acc.png
+---
+name: '02_cnn1_loss_acc.png'
+width: 90%
+---
+Train MINIST dataset with CNN: accuracy and loss
+```
+
+:::{figure-md} 02_cnn1_loss_acc-dl
+<img src="../../images/deep-learning/CNN/02_cnn1_loss_acc.png" width="90%" class="bg-primary mb-1">
+
+Train MINIST dataset with CNN: accuracy and loss
+:::
+
 
 Training and test loss (left) and test batch accuracy (right).
 
-![avatar](C:\machine-learning-open-academy\images\CNN\02_cnn1_mnist_output.png#pic_center)
 
-A random set of 6 digits with actuals and predicted labels. You can see a prediction failure in the lower right box.
+```{figure} ../../images/deep-learning/CNN/02_cnn1_mnist_output.png
+---
+name: '02_cnn1_mnist_output'
+width: 90%
+---
+Train MINIST dataset with CNN: prediction output
+```
+
+:::{figure-md} 02_cnn1_mnist_output-dl
+<img src="../../images/deep-learning/CNN/02_cnn1_mnist_output.png" width="90%" class="bg-primary mb-1">
+
+Train MINIST dataset with CNN: prediction output
+:::
+
+
+A random set of 6 digits with actual and predicted labels. You can see a prediction failure in the lower right box.
 
 ### Code
 ```{code-cell}
@@ -234,10 +313,31 @@ for i in range(6):
 
 
 ## CIFAR-10
-Here we will build an convolutional neural network to predict the CIFAR-10 data.
+
+```{seealso}
+Alex Krizhevsky, Vinod Nair, and Geoffrey Hinton. [CIFAR-10 and CIFAR-100 datasets](https://www.cs.toronto.edu/~kriz/cifar.html).
+```
+
+Here we will build a convolutional neural network to predict the CIFAR-10 data.
 
 The script provided will download and unzip the CIFAR-10 data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
-![avatar](C:\machine-learning-open-academy\images\CNN\03_cnn2_loss_acc.png.png#pic_center)
+
+
+
+```{figure} ../../images/deep-learning/CNN/03_cnn2_loss_acc.png
+---
+name: '03_cnn2_loss_acc.png'
+width: 90%
+---
+Train CIFAR-10 dataset with CNN: accuracy and loss
+```
+
+:::{figure-md} 03_cnn2_loss_acc-dl
+<img src="../../images/deep-learning/CNN/03_cnn2_loss_acc.png" width="90%" class="bg-primary mb-1">
+
+Train CIFAR-10 dataset with CNN: accuracy and loss
+:::
+
 Here we see the training loss (left) and the test batch accuracy (right).
 
 ### Code
@@ -681,15 +781,54 @@ But there is some prerequisites
 
 The style image is
 
-![avatar](C:\machine-learning-open-academy\images\CNN\starry_night.jpg#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/starry_night.jpg
+---
+name: 'starry_night.jpg'
+width: 90%
+---
+Style image: starry night
+```
+
+:::{figure-md} starry_night-dl
+<img src="../../images/deep-learning/CNN/starry_night.jpg" width="90%" class="bg-primary mb-1">
+
+Style image: starry night
+:::
 
 The context image is
 
-![avatar](C:\machine-learning-open-academy\images\CNN\book_cover.jpg#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/book_cover.jpg
+---
+name: 'book_cover.jpg'
+width: 90%
+---
+Content image: book cover
+```
+
+:::{figure-md} book_cover-dl
+<img src="../../images/deep-learning/CNN/book_cover.jpg" width="90%" class="bg-primary mb-1">
+
+Content image: book cover
+:::
 
 The final result looks like
 
-![avatar](C:\machine-learning-open-academy\images\CNN\05_stylenet_ex.png#pic_center)
+
+```{figure} ../../images/deep-learning/CNN/05_stylenet_ex.png
+---
+name: '05_stylenet_ex.png'
+width: 90%
+---
+stylenet final result
+```
+
+:::{figure-md} 05_stylenet_ex-dl
+<img src="../../images/deep-learning/CNN/05_stylenet_ex.png" width="90%" class="bg-primary mb-1">
+
+stylenet final result
+:::
 
 ### Code
 ```{code-cell}
@@ -899,7 +1038,19 @@ Note: There is no new code in this script. It originates from the TensorFlow tut
 
 Here are some potential outputs.
 
-![avatar](C:\machine-learning-open-academy\images\CNN\06_deepdream_ex.png#pic_center)
+```{figure} ../../images/deep-learning/CNN/06_deepdream_ex.png
+---
+name: '06_deepdream_ex.png'
+width: 90%
+---
+Deepdream outputs
+```
+
+:::{figure-md} 06_deepdream_ex-dl
+<img src="../../images/deep-learning/CNN/06_deepdream_ex.png" width="90%" class="bg-primary mb-1">
+
+Deepdream outputs
+:::
 
 ### Code
 ```{code-cell}
@@ -1098,4 +1249,34 @@ if __name__=="__main__":
 ```
 
 
+---
 
+## Your turn! 🚀
+
+Assignment.
+
+## Self study
+
+You can refer to those YouTube videos for further study:
+- [Convolutional Neural Networks (CNNs) explained, by deeplizard](https://www.youtube.com/watch?v=YRhxdVk_sIs)
+- [Convolutional Neural Networks Explained (CNN Visualized), by Futurology](https://www.youtube.com/watch?v=pj9-rr1wDhM)
+
+
+## [optional] At the frontier of the research world
+
+State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning in 2020 :
+
+<div class="yt-container">
+   <iframe src="https://www.youtube.com/embed/YUyec4eCEiY" allowfullscreen></iframe>
+</div>
+
+## Acknowledgments
+
+Thanks to ??? for creating the open-source course [????](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
+
+
+---
+
+```{bibliography}
+:filter: docname in docnames
+```
