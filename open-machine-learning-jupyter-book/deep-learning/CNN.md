@@ -1253,7 +1253,7 @@ if __name__=="__main__":
 
 ## Your turn! 🚀
 
-Assignment.
+Practice the Convolutional Neural Networks by following this xxxx.
 
 ## Self study
 
@@ -1272,7 +1272,7 @@ State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning 
 
 ## Acknowledgments
 
-Thanks to ??? for creating the open-source course [????](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source course [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook). It inspires the majority of the content in this chapter.
 
 
 ---
