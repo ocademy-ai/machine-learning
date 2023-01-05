@@ -1,14 +1,11 @@
-name: release-deploy-book
+name: pr-build-book
 
 # Only run this when the master branch changes
 on:
-  push:
+  - pull_request
     branches:
-    - release
-    # If your git repository has the Jupyter Book within some-subfolder next to
-    # unrelated files, you can make this run only if a file within that specific
-    # folder has been modified.
-    #
+      - 'release/**'
+      - 'main/**'
     paths:
     - open-machine-learning-jupyter-book/**
     - .github/**
@@ -20,7 +17,7 @@ on:
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
-  deploy-book:
+  build-book:
     runs-on: ubuntu-latest
     steps:
 
@@ -58,10 +55,3 @@ jobs:
         cd ./open-machine-learning-jupyter-book/
         bash ./build.sh
       continue-on-error: false
-
-    # Push the book's HTML to github-pages
-    - name: GitHub Pages action
-      uses: peaceiris/actions-gh-pages@v3.6.1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./open-machine-learning-jupyter-book/_build/html
