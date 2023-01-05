@@ -337,7 +337,7 @@ In future lessons on classifications, you will learn how to iterate to improve y
 
 There's a lot more to unpack regarding logistic regression! But the best way to learn is to experiment. Find a dataset that lends itself to this type of analysis and build a model with it. What do you learn? tip: try [Kaggle](https://www.kaggle.com/search?q=logistic+regression+datasets) for interesting datasets.
 
-Assignment - [Retrying some regression](../../assignments/ml-fundamentals/Retrying-some-regression.md)
+Assignment - [Retrying some regression](../../assignments/ml-fundamentals/retrying-some-regression.md)
 
 ## Self study
 
