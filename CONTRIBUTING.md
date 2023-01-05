@@ -303,6 +303,13 @@ jupyter notebook
 >
 > Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
 
+### Deployment
+
+This repo maintains two active branches.
+
+1. `main` is the development branch, and it is automatically deployed to Netlify as a preview site. Please reach out to the [Admin team](https://github.com/orgs/open-academy/teams/admin) if you need to access it for testing.
+2. `release` is the production branch hosting the public available site. The merge from `main` to `release` is manually handled today.
+
 ## Code of conduct
 
 See the [code of conduct](https://github.com/open-academy/machine-learning/blob/main/CODE_OF_CONDUCT.md) for more information.
