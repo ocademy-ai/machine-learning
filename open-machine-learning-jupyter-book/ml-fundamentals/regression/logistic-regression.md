@@ -137,7 +137,7 @@ You can always take a peek at your new dataframe:
 new_pumpkins.info
 ```
 
-### Visualization - side-by-side gridPumpkin Varieties and Color
+### Visualization - side-by-side grid
 
 By now you have loaded up the [starter notebook](../../assignments/ml-fundamentals/pumpkin-varieties-and-color.ipynb) with pumpkin data once again and cleaned it so as to preserve a dataset containing a few variables, including `Color`. Let's visualize the dataframe in the notebook using a different library: [Seaborn](https://seaborn.pydata.org/index.html), which is built on Matplotlib which we used earlier.
 
