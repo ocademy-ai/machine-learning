@@ -27,7 +27,7 @@ Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 
 ## Introduction
 
-In this final section on Regression, one of the basic _classic_ ML techniques, we will take a look at Logistic Regression. You would use this technique to discover patterns to predict binary categories. Is this candy chocolate or not? Is this disease contagious or not? Will this customer choose this product or not?
+In this final section on Regression, one of the basic _classic_ Machine Learning techniques, we will take a look at Logistic Regression. You would use this technique to discover patterns to predict binary categories. Is this candy chocolate or not? Is this disease contagious or not? Will this customer choose this product or not?
 
 In this section, you will learn:
 
@@ -77,7 +77,7 @@ Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 There are other types of logistic regression, including multinomial and ordinal:
 
 - **Multinomial**, which involves having more than one category - "Orange, White, and Striped".
-- **Ordinal**, which involves ordered categories, useful if we wanted to order our outcomes logically, like our pumpkins that are ordered by a finite number of sizes (mini,sm,med,lg,xl,xxl).
+- **Ordinal**, which involves ordered categories, useful if we wanted to order our outcomes logically, like our pumpkins that are ordered by a finite number of sizes (mini, sm, med, lg, xl, xxl).
 
 ```{figure} ../../../images/ml-regression/multinomial-ordinal.png
 ---
@@ -85,6 +85,7 @@ name: 'Multinomial vs ordinal regression'
 width: 100%
 ---
 Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+```
 
 ### It's still linear
 
@@ -136,9 +137,9 @@ You can always take a peek at your new dataframe:
 new_pumpkins.info
 ```
 
-### Visualization - side-by-side grid
+### Visualization - side-by-side gridPumpkin Varieties and Color
 
-By now you have loaded up the [starter notebook](./notebook.ipynb) with pumpkin data once again and cleaned it so as to preserve a dataset containing a few variables, including `Color`. Let's visualize the dataframe in the notebook using a different library: [Seaborn](https://seaborn.pydata.org/index.html), which is built on Matplotlib which we used earlier. 
+By now you have loaded up the [pumpkin varieties and color](../../assignments/ml-fundamentals/pumpkin-varieties-and-color.ipynb) with pumpkin data once again and cleaned it so as to preserve a dataset containing a few variables, including `Color`. Let's visualize the dataframe in the notebook using a different library: [Seaborn](https://seaborn.pydata.org/index.html), which is built on Matplotlib which we used earlier.
 
 Seaborn offers some neat ways to visualize your data. For example, you can compare distributions of the data for each point in a side-by-side grid.
 
@@ -314,7 +315,7 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 y_scores = model.predict_proba(X_test)
 # calculate ROC curve
-fpr, tpr, thresholds = roc_curve(y_test, y_scores[:,1])
+fpr, tpr, thresholds = roc_curve(y_test, y_scores[:, 1])
 sns.lineplot(x=[0, 1], y=[0, 1])
 sns.lineplot(x=fpr, y=tpr)
 ```
@@ -336,11 +337,11 @@ In future lessons on classifications, you will learn how to iterate to improve y
 
 There's a lot more to unpack regarding logistic regression! But the best way to learn is to experiment. Find a dataset that lends itself to this type of analysis and build a model with it. What do you learn? tip: try [Kaggle](https://www.kaggle.com/search?q=logistic+regression+datasets) for interesting datasets.
 
+Assignment - [Retrying some regression](../../assignments/ml-fundamentals/Retrying-some-regression.md)
+
 ## Self study
 
 Read the first few pages of [this paper from Stanford](https://web.stanford.edu/~jurafsky/slp3/5.pdf) on some practical uses for logistic regression. Think about tasks that are better suited for one or the other type of regression tasks that we have studied up to this point. What would work best?
-
-Assignment - [Retrying some regression](../../assignments/ml-fundamentals/Retrying-some-regression.md)
 
 ## Acknowledgments
 
