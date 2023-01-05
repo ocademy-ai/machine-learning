@@ -1,14 +1,11 @@
-name: mainline-deploy-book
+name: pr-build-book
 
 # Only run this when the master branch changes
 on:
-  push:
+  - pull_request
     branches:
-    - main
-    # If your git repository has the Jupyter Book within some-subfolder next to
-    # unrelated files, you can make this run only if a file within that specific
-    # folder has been modified.
-    #
+      - 'release/**'
+      - 'main/**'
     paths:
     - open-machine-learning-jupyter-book/**
     - .github/**
@@ -20,7 +17,7 @@ on:
 
 # This job installs dependencies, builds the book, and pushes it to `gh-pages`
 jobs:
-  deploy-book:
+  build-book:
     runs-on: ubuntu-latest
     steps:
 
@@ -58,17 +55,3 @@ jobs:
         cd ./open-machine-learning-jupyter-book/
         bash ./build.sh
       continue-on-error: false
-
-    - name: Deploy to Netlify
-      uses: nwtgck/actions-netlify@v1.2
-      with:
-        publish-dir: './open-machine-learning-jupyter-book/_build/html'
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        deploy-message: "Deploy to netlify from GitHub Actions"
-        enable-pull-request-comment: false
-        enable-commit-comment: true
-        overwrites-pull-request-comment: true
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      timeout-minutes: 1

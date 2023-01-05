@@ -130,7 +130,7 @@ y = ufos['Country'].values
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 ```
 
- Train your model using logistic regression:
+Train your model using logistic regression:
 
 ```{code-cell}
 from sklearn.metrics import accuracy_score, classification_report
@@ -169,9 +169,9 @@ The model returns **'3'**, which is the country code for the UK. Wild! 👽
 
 Now you can build a Flask app to call your model and return similar results but in a more visually pleasing way.
 
-Start by creating a folder called **web-app** next to the _notebook.ipynb_ file where your _ufo-model.pkl_ file resides.
+Start by creating a folder called `/web-app` next to the `notebook.ipynb` file where your `ufo-model.pkl` file resides.
 
-In that folder create three more folders: **static**, with a folder **css** inside it, and **templates**. You should now have the following files and directories:
+In that folder create three more folders: `/static`, with a folder `/css` inside it, and `/templates`. You should now have the following files and directories:
 
 ```output
 web-app/
@@ -187,7 +187,7 @@ notebook.ipynb
 
 ✅ Refer to the solution folder for a view of the finished app
 
-The first file to create in _web-app_ folder is **requirements.txt** file. Like _package.json_ in a JavaScript app, this file lists dependencies required by the app. In **requirements.txt** add the lines:
+The first file to create in `/web-app` folder is `requirements.txt` file. Like `package.json` in a JavaScript app, this file lists dependencies required by the app. In `requirements.txt` add the lines:
 
 ```text
 scikit-learn
@@ -196,13 +196,13 @@ numpy
 flask
 ```
 
-Now, run this file by navigating to _web-app_:
+Now, run this file by navigating to `/web-app`:
 
 ```bash
 cd web-app
 ```
 
-In your terminal type `pip install`, to install the libraries listed in _requirements.txt_:
+In your terminal type `pip install`, to install the libraries listed in `requirements.txt`:
 
 ```bash
 pip install -r requirements.txt
@@ -210,9 +210,9 @@ pip install -r requirements.txt
 
 Now, you're ready to create three more files to finish the app:
 
-1. Create **app.py** in the root.
-2. Create **index.html** in _templates_ directory.
-3. Create **styles.css** in _static/css_ directory.
+1. Create `app.py` in the root.
+2. Create `index.html` in `/templates` directory.
+3. Create `styles.css` in `/static/css` directory.
 
 Build out the _styles.css_ file with a few styles:
 
@@ -347,12 +347,12 @@ Using a model this way, with Flask and a pickled model, is relatively straightfo
 
 ## Your turn! 🚀
 
-Instead of working in a notebook and importing the model to the Flask app, you could train the model right within the Flask app! Try converting your Python code in the notebook, perhaps after your data is cleaned, to train the model from within the app on a route called `train`. What are the pros and cons of pursuing this method? Practice it by following this [assignment](../assignments/ml-fundamentals/try-a-different-model.md)
+Instead of working in a notebook and importing the model to the Flask app, you could train the model right within the Flask app! Try converting your Python code in the notebook, perhaps after your data is cleaned, to train the model from within the app on a route called `/train`. What are the pros and cons of pursuing this method? Practice it by following this [assignment](../assignments/ml-fundamentals/try-a-different-model.md)
 
 ## Self study
 
 There are many ways to build a web app to consume ML models. Make a list of the ways you could use JavaScript or Python to build a web app to leverage machine learning. Consider architecture: should the model stay in the app or live in the cloud? If the latter, how would you access it? Draw out an architectural model for an applied ML web solution.
 
-## Acknowledgments
+## Acknowledgements
 
 Thanks to Microsoft for creating the open-source course [ML-For-Beginners](https://github.com/microsoft/ML-For-Beginners). It inspires the majority of the content in this chapter.
