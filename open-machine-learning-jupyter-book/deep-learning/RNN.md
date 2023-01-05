@@ -13,29 +13,82 @@ kernelspec:
   name: python3
 ---
 
-# RNN
-Recurrent Neural Network is mainly used in Natural Language Processing. Now let us see what it looks like.
+# Recurrent Neural Networks
 
-![RNN](C:\machine-learning-open-academy\images\RNN\rnn1.png#pic_center)
+
+```{epigraph}
+xxx
+```
+
+
+A recurrent neural network (RNN) is a type of artificial neural network which uses sequential data or time series data and it is mainly used for Natural Language Processing. Now let us see what it looks like.
+
+Sequential data is not i.i.d.
+:::{figure-md} sequential data
+<img src="../../images/deep-learning/RNN/sequential_data.png" width="90%" class="bg-primary mb-1">
+
+sequential data
+:::
+
+And the RNNs use recurrent edge to update.
+
+:::{figure-md} rnn1
+<img src="../../images/deep-learning/RNN/rnn1.png" width="90%" class="bg-primary mb-1">
+
+RNN1
+:::
+
 
 If unroll over a sequence $(x_0,x_1,x_2)$
 
-![RNN](C:\machine-learning-open-academy\images\RNN\rnn2.png#pic_center)
+:::{figure-md} rnn2
+<img src="../../images/deep-learning/RNN/rnn2.png" width="90%" class="bg-primary mb-1">
+
+RNN2
+:::
 
 Then, the input (w0,w1,...,wt) sequence of words ( 1-hot encoded ) and the output (w1,w2,...,wt+1) shifted sequence of words ( 1-hot encoded ) have the following relation.
 
-![RNN](C:\machine-learning-open-academy\images\RNN\rnn3.png#pic_center)
+:::{figure-md} rnn3
+<img src="../../images/deep-learning/RNN/rnn3.png" width="90%" class="bg-primary mb-1">
+
+RNN3
+:::
 
 The input projection is $x_t = Emb(\omega_t) = E\omega_t$, the recurrent connection is $h_t = g(W^h h_t + x_t + b^h)$, and the output projection should be $y = softmax(W^o h_t + b^o)$.
 The backpropagation of RNN is in this way:
 
-![backpropagation](C:\machine-learning-open-academy\images\RNN\rnn4.png#pic_center)
+:::{figure-md} rnn4
+<img src="../../images/deep-learning/RNN/rnn4.png" width="90%" class="bg-primary mb-1">
 
+RNN4
+:::
+
+Let's make the backpropagation process more clearly.
+
+First, we unfold a single-hidden layer RNN, and we can see the weight matrices $W_h$ in it.
+
+:::{figure-md} backpropagation
+<img src="../../images/deep-learning/RNN/bp_rnn1.png" width="90%" class="bg-primary mb-1">
+
+backpropagation for RNN
+:::
+
+Through the image, we can get the output:
+- Net input: $z_h^{<t>} = W_hx x^{<t>} + W_hh h^{<t-1>} + b_h$
+- Activation: $h^{<t>} = \sigma (z_h^{<t>})$
+- Output: $z_y^<t> = W_yh h^{<t>} + b_y$, $y^{<t>} = \sigma(z_y^{<t>})$
+
+After that, the loss is computed as the sum over all time steps: $L = \sum_{t=1}^T L^{<t>}$
+
+```{note}
 There are some key points:
 - Similar as training very deep networks with tied parameters
 - Example between $x_0$ and $y_2$: Wh is used twice
 - Usually truncate the backprop after $T$ timesteps
 - Difficulties to train long-term dependencies
+```
+
 
 ### Code
 ```{code-cell}
@@ -221,4 +274,28 @@ plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.legend(loc='upper left')
 plt.show()
+```
+
+
+---
+
+## Your turn! 🚀
+
+Practice the Recurrent Neural Networks by following this xxxx.
+
+## Self study
+
+
+## [optional] At the frontier of the research world
+
+
+## Acknowledgments
+
+Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source course [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook) and [Sebastian Raschka](https://github.com/rasbt) for creating the open-sourse [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20). It inspires the majority of the content in this chapter.
+
+
+---
+
+```{bibliography}
+:filter: docname in docnames
 ```
