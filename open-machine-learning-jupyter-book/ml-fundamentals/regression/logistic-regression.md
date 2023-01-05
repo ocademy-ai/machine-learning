@@ -139,7 +139,7 @@ new_pumpkins.info
 
 ### Visualization - side-by-side gridPumpkin Varieties and Color
 
-By now you have loaded up the [pumpkin varieties and color](../../assignments/ml-fundamentals/pumpkin-varieties-and-color.ipynb) with pumpkin data once again and cleaned it so as to preserve a dataset containing a few variables, including `Color`. Let's visualize the dataframe in the notebook using a different library: [Seaborn](https://seaborn.pydata.org/index.html), which is built on Matplotlib which we used earlier.
+By now you have loaded up the [starter notebook](../../assignments/ml-fundamentals/pumpkin-varieties-and-color.ipynb) with pumpkin data once again and cleaned it so as to preserve a dataset containing a few variables, including `Color`. Let's visualize the dataframe in the notebook using a different library: [Seaborn](https://seaborn.pydata.org/index.html), which is built on Matplotlib which we used earlier.
 
 Seaborn offers some neat ways to visualize your data. For example, you can compare distributions of the data for each point in a side-by-side grid.
 
@@ -276,25 +276,27 @@ As you might have guessed it's preferable to have a larger number of true positi
 
 How does the confusion matrix relate to precision and recall? Remember, the classification report printed above showed precision (0.83) and recall (0.98).
 
-Precision = tp / (tp + fp) = 162 / (162 + 33) = 0.8307692307692308
+$$
+Precision = \frac{tp}{tp + fp} = \frac{162}{162 + 33} = 0.8307692307692308
 
-Recall = tp / (tp + fn) = 162 / (162 + 4) = 0.9759036144578314
+Recall = \frac{tp}{tp + fn} = \frac{162}{162 + 4} = 0.9759036144578314
+$$
 
 ```{note}
 Q: According to the confusion matrix, how did the model do? A: Not too bad; there are a good number of true negatives but also several false negatives. 
 ```
 
-Let's revisit the terms we saw earlier with the help of the confusion matrix's mapping of TP/TN and FP/FN:
+Let's revisit the terms we saw earlier with the help of the confusion matrix's mapping of $\frac{TP}{TN}$ and $\frac{FP}{FN}$ :
 
-🎓 Precision: TP/(TP + FP) The fraction of relevant instances among the retrieved instances (e.g. which labels were well-labeled)
+🎓 Precision: $\frac{TP}{TP + FP}$ The fraction of relevant instances among the retrieved instances (e.g. which labels were well-labeled)
 
-🎓 Recall: TP/(TP + FN) The fraction of relevant instances that were retrieved, whether well-labeled or not
+🎓 Recall: $\frac{TP}{TP + FN}$ The fraction of relevant instances that were retrieved, whether well-labeled or not
 
-🎓 f1-score: (2 * precision * recall)/(precision + recall) A weighted average of the precision and recall, with best being 1 and worst being 0
+🎓 f1-score: $\frac{2 * precision * recall}{precision + recall}$ A weighted average of the precision and recall, with best being 1 and worst being 0
 
 🎓 Support: The number of occurrences of each label retrieved
 
-🎓 Accuracy: (TP + TN)/(TP + TN + FP + FN) The percentage of labels predicted accurately for a sample.
+🎓 Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$ The percentage of labels predicted accurately for a sample.
 
 🎓 Macro Avg: The calculation of the unweighted mean metrics for each label, not taking label imbalance into account.
 
@@ -325,7 +327,7 @@ Using Seaborn again, plot the model's [Receiving Operating Characteristic](https
 Finally, use Scikit-learn's [`roc_auc_score` API](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html?highlight=roc_auc#sklearn.metrics.roc_auc_score) to compute the actual 'Area Under the Curve' (AUC):
 
 ```{code-cell}
-auc = roc_auc_score(y_test,y_scores[:,1])
+auc = roc_auc_score(y_test,y_scores[:, 1])
 print(auc)
 ```
 
