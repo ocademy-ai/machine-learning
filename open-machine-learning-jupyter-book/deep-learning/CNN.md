@@ -31,16 +31,9 @@ Convolutional Neural Networks (CNNs) are responsible for the latest major breakt
 In mathematics, a convolution is a function which is applied over the output of another function. In our case, we will consider applying a matrix mutliplication (filter) across an image. See the below diagram for an example of how this may work.
 
 
-```{figure} ../../images/deep-learning/CNN/01_intro_cnn.png
----
-name: '01_intro_cnn'
-width: 90%
----
-Illustration of matrix mutliplication (filter) in CNN
-```
 
 :::{figure-md} 01_intro_cnn-dl
-<img src="../../images/deep-learning/CNN/01_intro_cnn.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/01_intro_cnn.png" width="90%" class="bg-white mb-1">
 
 Illustration of matrix mutliplication (filter) in CNN {cite}`reluwiki`
 :::
@@ -53,17 +46,9 @@ Illustration of matrix mutliplication (filter) in CNN {cite}`reluwiki`
 CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters while decreasing the layer size. See the below diagram for an example of max-pooling.
 
 
-```{figure} ../../images/deep-learning/CNN/01_intro_cnn2.png
----
-name: '01_intro_cnn2'
-width: 90%
----
-Illustration of max pooling
-```
-
 
 :::{figure-md} 01_intro_cnn2-dl
-<img src="../../images/deep-learning/CNN/01_intro_cnn2.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/01_intro_cnn2.png" width="90%" class="bg-white mb-1">
 
 Illustration of max pooling
 :::
@@ -82,16 +67,9 @@ There is good reason why this dataset is used like the 'hello world' of image re
 When the script is done training the model, you should see similar output to the following graphs.
 
 
-```{figure} ../../images/deep-learning/CNN/02_cnn1_loss_acc.png
----
-name: '02_cnn1_loss_acc.png'
-width: 90%
----
-Train MINIST dataset with CNN: accuracy and loss
-```
 
 :::{figure-md} 02_cnn1_loss_acc-dl
-<img src="../../images/deep-learning/CNN/02_cnn1_loss_acc.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/02_cnn1_loss_acc.png" width="90%" class="bg-white mb-1">
 
 Train MINIST dataset with CNN: accuracy and loss
 :::
@@ -100,16 +78,9 @@ Train MINIST dataset with CNN: accuracy and loss
 Training and test loss (left) and test batch accuracy (right).
 
 
-```{figure} ../../images/deep-learning/CNN/02_cnn1_mnist_output.png
----
-name: '02_cnn1_mnist_output'
-width: 90%
----
-Train MINIST dataset with CNN: prediction output
-```
 
 :::{figure-md} 02_cnn1_mnist_output-dl
-<img src="../../images/deep-learning/CNN/02_cnn1_mnist_output.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/02_cnn1_mnist_output.png" width="90%" class="bg-white mb-1">
 
 Train MINIST dataset with CNN: prediction output
 :::
@@ -323,17 +294,8 @@ Here we will build a convolutional neural network to predict the CIFAR-10 data.
 The script provided will download and unzip the CIFAR-10 data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
 
 
-
-```{figure} ../../images/deep-learning/CNN/03_cnn2_loss_acc.png
----
-name: '03_cnn2_loss_acc.png'
-width: 90%
----
-Train CIFAR-10 dataset with CNN: accuracy and loss
-```
-
 :::{figure-md} 03_cnn2_loss_acc-dl
-<img src="../../images/deep-learning/CNN/03_cnn2_loss_acc.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/03_cnn2_loss_acc.png" width="90%" class="bg-white mb-1">
 
 Train CIFAR-10 dataset with CNN: accuracy and loss
 :::
@@ -782,16 +744,8 @@ But there is some prerequisites
 The style image is
 
 
-```{figure} ../../images/deep-learning/CNN/starry_night.jpg
----
-name: 'starry_night.jpg'
-width: 90%
----
-Style image: starry night
-```
-
 :::{figure-md} starry_night-dl
-<img src="../../images/deep-learning/CNN/starry_night.jpg" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/starry_night.jpg" width="90%" class="bg-white mb-1">
 
 Style image: starry night
 :::
@@ -799,16 +753,8 @@ Style image: starry night
 The context image is
 
 
-```{figure} ../../images/deep-learning/CNN/book_cover.jpg
----
-name: 'book_cover.jpg'
-width: 90%
----
-Content image: book cover
-```
-
 :::{figure-md} book_cover-dl
-<img src="../../images/deep-learning/CNN/book_cover.jpg" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/book_cover.jpg" width="90%" class="bg-white mb-1">
 
 Content image: book cover
 :::
@@ -816,16 +762,8 @@ Content image: book cover
 The final result looks like
 
 
-```{figure} ../../images/deep-learning/CNN/05_stylenet_ex.png
----
-name: '05_stylenet_ex.png'
-width: 90%
----
-stylenet final result
-```
-
 :::{figure-md} 05_stylenet_ex-dl
-<img src="../../images/deep-learning/CNN/05_stylenet_ex.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/05_stylenet_ex.png" width="90%" class="bg-white mb-1">
 
 stylenet final result
 :::
@@ -1038,16 +976,9 @@ Note: There is no new code in this script. It originates from the TensorFlow tut
 
 Here are some potential outputs.
 
-```{figure} ../../images/deep-learning/CNN/06_deepdream_ex.png
----
-name: '06_deepdream_ex.png'
-width: 90%
----
-Deepdream outputs
-```
 
 :::{figure-md} 06_deepdream_ex-dl
-<img src="../../images/deep-learning/CNN/06_deepdream_ex.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/CNN/06_deepdream_ex.png" width="90%" class="bg-white mb-1">
 
 Deepdream outputs
 :::

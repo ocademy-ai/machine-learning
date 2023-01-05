@@ -17,15 +17,18 @@ kernelspec:
 
 
 ```{epigraph}
-xxx
+The nervous system contains many circular paths, whose activity so regenerates the excitation of any participant neuron that reference to time past becomes indefinite, although it still implies that afferent activity has realized one of a certain class of configurations over time. Precise specification of these implications by means of recursive functions, and determination of those that can be embodied in the activity of nervous nets, completes the theory.
+
+-- Warren McCulloch and Walter Pitts, 1943
 ```
 
 
 A recurrent neural network (RNN) is a type of artificial neural network which uses sequential data or time series data and it is mainly used for Natural Language Processing. Now let us see what it looks like.
 
 Sequential data is not i.i.d.
+
 :::{figure-md} sequential data
-<img src="../../images/deep-learning/RNN/sequential_data.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/RNN/sequential_data.png" width="90%" class="bg-white mb-1">
 
 sequential data
 :::
@@ -33,7 +36,7 @@ sequential data
 And the RNNs use recurrent edge to update.
 
 :::{figure-md} rnn1
-<img src="../../images/deep-learning/RNN/rnn1.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/RNN/rnn1.png" width="90%" class="bg-white mb-1">
 
 RNN1
 :::
@@ -42,7 +45,7 @@ RNN1
 If unroll over a sequence $(x_0,x_1,x_2)$
 
 :::{figure-md} rnn2
-<img src="../../images/deep-learning/RNN/rnn2.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/RNN/rnn2.png" width="90%" class="bg-white mb-1">
 
 RNN2
 :::
@@ -50,7 +53,7 @@ RNN2
 Then, the input (w0,w1,...,wt) sequence of words ( 1-hot encoded ) and the output (w1,w2,...,wt+1) shifted sequence of words ( 1-hot encoded ) have the following relation.
 
 :::{figure-md} rnn3
-<img src="../../images/deep-learning/RNN/rnn3.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/RNN/rnn3.png" width="90%" class="bg-white mb-1">
 
 RNN3
 :::
@@ -59,7 +62,7 @@ The input projection is $x_t = Emb(\omega_t) = E\omega_t$, the recurrent connect
 The backpropagation of RNN is in this way:
 
 :::{figure-md} rnn4
-<img src="../../images/deep-learning/RNN/rnn4.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/RNN/rnn4.png" width="90%" class="bg-white mb-1">
 
 RNN4
 :::
@@ -69,7 +72,7 @@ Let's make the backpropagation process more clearly.
 First, we unfold a single-hidden layer RNN, and we can see the weight matrices $W_h$ in it.
 
 :::{figure-md} backpropagation
-<img src="../../images/deep-learning/RNN/bp_rnn1.png" width="90%" class="bg-primary mb-1">
+<img src="../../images/deep-learning/RNN/bp_rnn1.png" width="90%" class="bg-white mb-1">
 
 backpropagation for RNN
 :::

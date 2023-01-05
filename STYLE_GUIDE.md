@@ -55,11 +55,24 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
     * Arial (for text), STIXGeneral (for math), 9pt（subscripts/superscripts：6pt）
     * Do not italicize numbers or parentheses in subscripts or superscripts
   * Color：
-    * Blue as background (text is black)
+    * White as background (text is black)
       * (Try to avoid) Extra Dark：3FA3FD
       * Dark：66BFFF
       * Light：B2D9FF
       * (Try to avoid) Extra Light: CFF4FF
+      
+## Figure in MarkDown
+You are recommended to use markdown for adding a figure. The corresponding markdown code is:
+
+```text
+:::{figure-md} figure_label
+<img src="path/to/your/figure/file" width="90%" class="bg-white mb-1">
+
+Caption for the Figure (markdown is supported for hyperlinks, references, etc.)
+:::
+```
+
+Typically, we set the width to `90%`. However, for some smaller figures, you could change that to other values such as `50%` or `30%`.
 
 ## Code
 
