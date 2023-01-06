@@ -278,7 +278,6 @@ plt.ylabel('Accuracy')
 plt.legend(loc='upper left')
 plt.show()
 ```
-
 ## Your turn! 🚀
 
 Practice the Recurrent Neural Networks by following this TBD.
