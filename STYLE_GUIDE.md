@@ -122,11 +122,11 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 * [How to give attribution? | Creative Commons](https://creativecommons.org/use-remix/attribution/)
 
-## HTML iframe
+## Reusable HTML snippets
 
-1. Put the folder containing your `.html` file and css/js files under `assets/html-iframe/`. For example, within `assets/html-iframe/`, your might have this structure:
+1. Put the folder containing your `.html` file and css/js files under `assets/html/`. For example, within `assets/html/`, your might have this structure:
 ```output
-html-iframe/
+html/
     my-html-folder/
             js/      
             css/
@@ -135,11 +135,9 @@ html-iframe/
 
 2. To include the `my-file.html` file as an HTML `iframe` in the markdown file, simply use:
 ```html
-<iframe src="../asserts/html-iframes/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
+<iframe src="../assets/html/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
 ```
-
 Note that we set the `width` to `105%` so that all content of `my-file.html` will be rendered correctly. Also, the `height` has to be set manually.
-
 
 ## YouTube video
 
