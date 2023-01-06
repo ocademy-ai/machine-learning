@@ -25,7 +25,7 @@ The nervous system contains many circular paths, whose activity so regenerates t
 
 A recurrent neural network (RNN) is a type of artificial neural network which uses sequential data or time series data and it is mainly used for Natural Language Processing. Now let us see what it looks like.
 
-Sequential data is not i.i.d.
+Sequential data is not [independent and identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables).
 
 :::{figure-md} sequential data
 <img src="../../images/deep-learning/RNN/sequential_data.png" width="90%" class="bg-white mb-1">
@@ -278,24 +278,19 @@ plt.ylabel('Accuracy')
 plt.legend(loc='upper left')
 plt.show()
 ```
-
-
 ---
 
 ## Your turn! 🚀
 
-Practice the Recurrent Neural Networks by following this xxxx.
+Practice the Recurrent Neural Networks by following this TBD.
 
 ## Self study
 
-
-## [optional] At the frontier of the research world
-
+TBD
 
 ## Acknowledgments
 
 Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source course [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook) and [Sebastian Raschka](https://github.com/rasbt) for creating the open-sourse [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20). It inspires the majority of the content in this chapter.
-
 
 ---
 
