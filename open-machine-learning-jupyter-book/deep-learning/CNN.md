@@ -39,9 +39,10 @@ Illustration of matrix mutliplication (filter) in CNN {cite}`reluwiki`
 :::
 
 
-
-<iframe src="../html-iframes/conv-demo/index.html" width="105%" height="700px;" style="border:none;"></iframe>
-
+<p style="text-align: center;">
+<iframe src="../html/conv-demo/index.html" width="105%" height="700px;" style="border:none;"></iframe>
+A demo of convolution function. <a href="https://cs231n.github.io/convolutional-networks/">[source]</a>
+</p>
 
 CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters while decreasing the layer size. See the below diagram for an example of max-pooling.
 
