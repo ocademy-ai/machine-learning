@@ -55,11 +55,24 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
     * Arial (for text), STIXGeneral (for math), 9pt（subscripts/superscripts：6pt）
     * Do not italicize numbers or parentheses in subscripts or superscripts
   * Color：
-    * Blue as background (text is black)
+    * White as background (text is black)
       * (Try to avoid) Extra Dark：3FA3FD
       * Dark：66BFFF
       * Light：B2D9FF
       * (Try to avoid) Extra Light: CFF4FF
+      
+## Figure in MarkDown
+You are recommended to use markdown for adding a figure. The corresponding markdown code is:
+
+```text
+:::{figure-md} figure_label
+<img src="path/to/your/figure/file" width="90%" class="bg-white mb-1">
+
+Caption for the Figure (markdown is supported for hyperlinks, references, etc.)
+:::
+```
+
+Typically, we set the width to `90%`. However, for some smaller figures, you could change that to other values such as `50%` or `30%`.
 
 ## Code
 
@@ -109,11 +122,11 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 * [How to give attribution? | Creative Commons](https://creativecommons.org/use-remix/attribution/)
 
-## HTML iframe
+## Reusable HTML snippets
 
-1. Put the folder containing your `.html` file and css/js files under `assets/html-iframe/`. For example, within `assets/html-iframe/`, your might have this structure:
+1. Put the folder containing your `.html` file and css/js files under `assets/html/`. For example, within `assets/html/`, your might have this structure:
 ```output
-html-iframe/
+html/
     my-html-folder/
             js/      
             css/
@@ -122,11 +135,9 @@ html-iframe/
 
 2. To include the `my-file.html` file as an HTML `iframe` in the markdown file, simply use:
 ```html
-<iframe src="../asserts/html-iframes/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
+<iframe src="../assets/html/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
 ```
-
 Note that we set the `width` to `105%` so that all content of `my-file.html` will be rendered correctly. Also, the `height` has to be set manually.
-
 
 ## YouTube video
 
