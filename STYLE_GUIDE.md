@@ -60,8 +60,8 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
       * Dark：66BFFF
       * Light：B2D9FF
       * (Try to avoid) Extra Light: CFF4FF
-      
-One way to add a figure is to use `figure-md`. The corresponding code is:
+
+One way to add a figure is to use `figure-md` as below:
 
 ```text
 :::{figure-md} figure_label
@@ -71,7 +71,8 @@ Caption for the figure (markdown is supported for hyperlinks, references, etc.)
 :::
 ```
 
-The other way to add a figure is to use `{figure}`. The corresponding code is:
+The other way is to use `{figure}`. For example:
+
 <pre>
 ```{figure} path/to/your/figure/file
 ---
@@ -83,9 +84,6 @@ Caption for the figure (markdown is supported for hyperlinks, references, etc.)
 </pre>
 
 Typically, we set the width to `90%`. However, for some smaller figures, you could change that to other values such as `50%` or `30%`.
-
-
-
 
 ## Code
 
@@ -135,24 +133,29 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 * [How to give attribution? | Creative Commons](https://creativecommons.org/use-remix/attribution/)
 
-## Reusable HTML snippets
+## HTML snippets
 
-1. Put the folder containing your `.html` file and css/js files under `assets/html/`. For example, within `assets/html/`, your might have this structure:
+1. Put the folder containing your HTML/CSS/Javascript files under `assets/html/`. For example:
+
 ```output
-html/
-    my-html-folder/
+assets/
+    html/
+        my-html-folder/
             js/      
             css/
-            my-file.html
+            index.html
 ```
 
-2. To include the `my-file.html` file as an HTML `iframe` in the markdown file, simply use:
+1. To include the `index.html` file as an HTML `iframe` in the Markdown file, simply use:
+
 ```html
 <p style="text-align: center;">
-<iframe src="../assets/html/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
-Caption of the iframe. <a href="source/of/the/iframe">[source]</a>
+  <iframe src="../assets/html/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
+  Caption of the iframe. <a href="source/of/the/iframe">[source]</a>
+</p>
 ```
-Note that we set the `width` to `105%` so that all content of `my-file.html` will be rendered correctly. Also, the `height` has to be set manually.
+
+Note that we may need to set the `width` to `105%` so that all content of `index.html` will be rendered correctly. Also, the `height` has to be set manually.
 
 ## YouTube video
 
@@ -166,7 +169,7 @@ To include a YouTube video:
 
 Here `YUyec4eCEiY` is the YouTube `id` of the video, and you should change it accordingly.
 
-How does it work? In fact, the ```class="yt-container"``` is set to use the css style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated html file of Jupyter book.
+How does it work? In fact, the `class="yt-container"` is set to use the CSS style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated HTML file of Jupyter book.
 
 ## Acknowledgments
 
