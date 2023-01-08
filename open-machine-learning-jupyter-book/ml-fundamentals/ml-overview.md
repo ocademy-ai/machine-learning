@@ -21,8 +21,6 @@ This introduction will give you the basics of machine learning or these things t
 - When to use and when not to use machine learning
 - Types of machine learning
 - A typical machine learning project workflow
-- Evaluation metrics
-- The challenges of training machine learning systems
 
 
 ## What is Machine Learning? 
@@ -303,7 +301,6 @@ Overall, a typical machine learning project workflow consists of:
 * Preparing data
 * Selecting and training a model
 * Performing error analysis and improving a model
-* Evaluating a model
 * Deploying a model
 
 Let's talk about each step in brief. 
@@ -417,169 +414,13 @@ If you would like to learn more about modern error analysis, I recommend you wat
 Model deployment is the last part in this workflow. When all the previous steps has gone right, and you are happy about the results of the model on the test set, the next step will be to deploy the model so that the users can start to make requests and get predictions or enhanced services. We call this process as *machine learning in action* because it what actually bring the value of machine learning.
 
 
-## Evaluation Metrics
-
-Evaluation metrics are used to measure the performance of the machine learning models. Earlier in this introduction to machine learning, we saw that most problems are either regression and classification, and they are evaluated differently. Let us start with metrics that are used for evaluating regression problems
-
-### Regression Metrics
-
-In regression tasks, the goal is to predict the continuous value. The difference between the actual value and the predicted value is called the *error*.
-
-*Error = Actual value - Predicted value*
-
-The square of the error over all samples is called Mean Squarred Error(MSE).
-
-*MSE = SQUARE(Actual value - Predicted value)/Number of Samples*
-
-***MSE Actual Formula***: 
-
-$$\frac 1n\sum_{i=1}^n(y_i-\hat{y}_i)^2$$
-
-
-Taking the square root of the mean squared error will give the Root Mean Squared Error(RMSE). RMSE is the most used regression metric. 
-
-***RMSE Actual Formula***: 
-
-$$\sqrt{\frac 1n\sum_{i=1}^n(y_i-\hat{y}_i)^2}$$
-
-There are times that you will work with the datasets containing outliers. A suitable metric for those kinds of datasets is Mean Absolute Error (MAE). As simple as calculating MSE, MAE is also the absolute of the error.
-
-*MAE = ABSOLUTE (Actual value - Predicted Value)*
-
-***MAE Actual Formula***
-
-$$\frac 1n\sum_{i=1}^n|y_i-\hat{y}_i|$$
-
-Like said, MAE is very sensitive to outliers. It is a suitable metric for all kinds of problems that are likely to have abnormal scenarios such as time series.
-
-#### Classification Metrics
-
-In classification problems, the goal is to predict the categories/class.
-
-*Accuracy* is the most commonly used metric. The accuracy shows the ability of the model in making the correct predictions. Take an example, in a horse and human classifier. If you have 250 training images for horses and the same number for humans, and the model can confidently predict 400 images, then the accuracy is 400/500 = 0.8, so your model is 80% accurate. 
-
-The accuracy is simply an indicator of how your model is in making correct predictions and it will only be useful if you have a balanced dataset (like we had 250 images for horses and 250 images for humans). 
-
-When we have a skewed dataset or when there are imbalances, we need a different perspective on how we evaluate the model. Take an example, if we have 450 images for horses and 50 images for humans, there is a chance of 90% (450/500) that the horse will be correctly predicted because the dataset is dominated by the horses. But how about humans? Well, it's obvious that the model will struggle at predicting them correctly. 
-
-This is where we introduce other metrics that can be far more useful than accuracy such as *precision*, *recall*, and *F1 score*. 
-
-*Precision* shows the percentage of the positive predictions that are actually positive. To quote [Google ML Crash Course](https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall), precision answer the following question: `What proportion of positive identifications was actually correct?`
-
-The *recall* on the other hand shows the percentage of the actual positive samples that were classified correctly. It answers the question: `What proportion of actual positives was identified correctly?`
-
-There is a tradeoff between precision and recall. Often, increasing precision will decrease recall and vice versa. To simplify things, we combine both of these two metrics into a single metric called the *F1 score*. 
-
-F1 score is the harmonic mean of precision and recall, and it shows how good the model is at classifying all classes without having to balance between precision and recall. If either precision or recall is very low, the F1 score is going to be low too.
-
-Both accuracy, precision, and recall can be calculated easily by using a [confusion matrix](https://jeande.tech/how-to-read-a-confusion-matrix). A confusion matrix shows the number of correct and incorrect predictions made by a classifier in all available classes. 
-
-More intuitively, a confusion matrix is made of 4 main elements: True negatives, false negatives, true positives, and false positives.
-
-* **True Positives(TP)**: Number of samples that are correctly classified as positive, and their actual label is positive.
-
-* **False Positives (FP)**: Number of samples that are incorrectly classified as positive, when in fact their actual label is negative.
-
-* **True Negatives (TN)**: Number of samples that are correctly classified as negative, and their actual label is negative.
-
-* **False Negatives (FN)**: Number of samples that are incorrectly classified as negative, when in fact their actual label is positive.
-
-The accuracy that we talked about is the number of correct examples over total examples. So, that is 
-
-*Accuracy = (TP + TN) / (TP + TN + FP + FN)*
-
-Precision is the model accuracy on predicting positive examples. 
-
-*Precision = TP / (TP + FP)*
-
-On the other hand, Recall is the model ability to predict the positive examples correctly. 
-
-*Recall = TP / (TP+FN)*
-
-The higher the recall and precision, the better the model is at making accurate predictions but there is a tradeoff between them. Increasing precision will reduce the recall and vice versa. 
-
-A classifier that doesn't have false positives has a precision of 1, and a classifier that doesn't have false negatives has a recall of 1. Ideally, a perfect classifier will have the precision and recall of 1.
-
-We can combine both precision and recall to get another metric called F1 Score. F1 Score is the harmonic mean of precision and recall. 
-
-*F1 Score = 2 x(precision x recall) / (precision + recall)*
-
-Take an example of the following confusion matrix. 
-
-```{figure} ../../images/ml-fundamentals/ml-overview/confusion-matrix.png
----
-name: 'confusion-matrix.png'
-width: 90%
----
-An example of confusion matrix
-```
-
-
-From the above confusion matrix:
-
-* `Accuracy = (TP + TN) / (TP + TN + FP + FN) = (71 +36)/(71+36+7+0) = 0.93 or 93%`
-* `Precision = TP / (TP + FP) = 71/(71+7) =0.91 or  91%`
-* `Recall = TP / (TP + FN) = 71/(71+0) = 1, or 100%`
-* `F1 score = 2PR / (P + R) = 2x0.91x1/(0.91+1) = 0.95, or 95%`
-
-Both accuracy, confusion matrix, precision, recall, and F1 score are implemented easily in Scikit-Learn, a machine learning framework used to build classical ML algorithms. We will learn more about Scikit-Learn in the next part.
-
-### The Challenges of Machine Learning Systems
-
-Like any other technology, machine learning has challenges. What makes machine learning different to normal software development is that it involves data and codes(model). Either of those brings its own challenges, and there is usually no clear ways of handling them.
-
-Data is the primary ingredient of machine learning, and better models are the results of better data. In real world, though, better data are rare. Most datasets are messy. They require extensive amount of time to prepare, and they can turn out to not be helpful. Also, you may have heard about data labeling. Data labeling is a challenging, time-consuming and expensive task and there are always chances of having mismatch in labels. 
-
-Even if you may have good data, you can still get poor models because it is very easy to mess up during data cleaning process. We will see some practical scenarios latter about this. 
-
-That said, models are also not perfect. Some models are computationaly expensive. Also, they tend to *underfit* and *overfit* the training data. Underfitting and overfitting deserves their own topic as they are things that we are likely to deal with. 
-
-### Underfitting and Overfitting
-
-Building a machine learning model that can fit the training data well is not a trivial task. Often, at the initial training, the model will either underfit or overfit the data. Some machine learning models take that to the extreme. Take an example, when training decision trees, it is very likely that they will overfit the data at first.
-
-There is a trade-off between underfitting/overfitting, and so it's important to understand the difference between them and how to handle each and each. Understanding and handling underfitting and overfitting is a critical task in diagonizing machine learning models.
-
-#### Underfitting (Low Bias)
-
-Underfitting happens when the model does poor on the training data. It can be caused by the fact that the model is simple for the training data or the data does not contain the things that you are trying to predict. Good data has *high predictive power*, and poor data has *low predictive power*.
-
-Here are some of the techniques that can be used to deal with underfitting:
-
-* Use complex models. If you are using linear models, try other complex models like Random forests or Support Vector Machines. Not to mention neural networks if you are dealing with unstructured data (images, texts, sounds)
-* Add more training data and use good features. Good features have high predictive power.
-* Reduce the regularization.
-* If you're using neural networks, increase the number of epochs/training iterations. If the epochs are very few, the model may not be able to learn the underlying rules in data and so it will not perform well.
-
-#### Overfitting (High Variance)
-
-Overfitting is the reverse of underfitting. An overfitted model will do well on the training data but will be poor when supplied with new data (the data that the model never saw).
-
-Overfitting is caused by using model which is too complex for the dataset and few training examples.
-
-Here are techniques to handle overfitting:
-
-* Try simple models or simplify the current model. Some machine learning algorithms can be simplified. Take an example: in neural networks, you can reduce the number of layers or neurons. Also in classical algorithms like Support Vector Machines, you can try different kernels, a linear kernel is simple than a polynomial kernel.
-  
-* Find more training data.
-* Stop the training early (also know as early stopping)
-* Use different regularization techniques like dropout(in neural networks).
-
-
-To summarize this, it is very important to be able to understand why the model is not doing well. If the model is being poor on the data it was trained on, you know it is underfitting and you know what to do about it.
-
-Also, beside improving and expanding the training data, you often have to tune hyperparameters to get a model that can generalize well. While there are techniques that simplified hyperparameter search(like [Grid search](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV), [Random search](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RandomizedSearchCV.html), [Keras Tuner](https://keras.io/keras_tuner/)), it is important to understand the hyperparameters of the model you are using so that you can know their proper search space.
-
-We are getting to the end of the introduction to machine learning. Perhaps you might have seen some unfamiliar terms or concepts. That's okay. As we go from basics to practices, things will be clear.
-
-If you would like to read some important machine learning terms, check out [Google Machine Learning Glossary](https://developers.google.com/machine-learning/glossary).
 
 
 ## Final Notes
 
 This was about introduction to machine learning basics. Machine learning is a field of computer science and a subfield of AI that is concerned with giving computers the ability to perform some tasks without being programmed explicitly, but rather learning from the data. Machine learning is already transforming industries. It is being used in areas like medicine, banking and finance, consumer electronics, autonomous vehicles, agriculture, etc...
 
-We have also learned about different types of machine learning that are supervised learning, unsupervised learning, semi-supervised learning, self-supervised learning, and reinforcement learning. Also, we saw a typical flow of machine learning projects and the challenges of training learning systems, and how to overcome them.
+We have also learned about different types of machine learning that are supervised learning, unsupervised learning and reinforcement learning. Also, we saw a typical flow of machine learning projects and the challenges of training learning systems, and how to overcome them.
 
 
 ---
