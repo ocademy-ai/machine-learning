@@ -61,18 +61,31 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
       * Light：B2D9FF
       * (Try to avoid) Extra Light: CFF4FF
       
-## Figure in MarkDown
-You are recommended to use markdown for adding a figure. The corresponding markdown code is:
+One way to add a figure is to use `figure-md`. The corresponding code is:
 
 ```text
 :::{figure-md} figure_label
 <img src="path/to/your/figure/file" width="90%" class="bg-white mb-1">
 
-Caption for the Figure (markdown is supported for hyperlinks, references, etc.)
+Caption for the figure (markdown is supported for hyperlinks, references, etc.)
 :::
 ```
 
+The other way to add a figure is to use `{figure}`. The corresponding code is:
+<pre>
+```{figure} path/to/your/figure/file
+---
+name: 'figure_label'
+width: 90%
+---
+Caption for the figure (markdown is supported for hyperlinks, references, etc.)
+```
+</pre>
+
 Typically, we set the width to `90%`. However, for some smaller figures, you could change that to other values such as `50%` or `30%`.
+
+
+
 
 ## Code
 
@@ -83,7 +96,7 @@ Typically, we set the width to `90%`. However, for some smaller figures, you cou
 
 If sample data is needed for the book or assignments, first try to use built-in ones from [sklearn](https://scikit-learn.org/stable/datasets.html) or [tensorflow](https://www.tensorflow.org/datasets) if possible.
 
-To introduce your own dataset, put the data file into the `./asserts/data` folder, then it could be referred to by a relative path. You can also add Python code, binary, and any other type of static asserts.
+To introduce your own dataset, put the data file into the `./assets/data` folder, then it could be referred to by a relative path. You can also add Python code, binary, and any other type of static asserts.
 
 ## Slides
 
@@ -135,7 +148,9 @@ html/
 
 2. To include the `my-file.html` file as an HTML `iframe` in the markdown file, simply use:
 ```html
+<p style="text-align: center;">
 <iframe src="../assets/html/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
+Caption of the iframe. <a href="source/of/the/iframe">[source]</a>
 ```
 Note that we set the `width` to `105%` so that all content of `my-file.html` will be rendered correctly. Also, the `height` has to be set manually.
 
