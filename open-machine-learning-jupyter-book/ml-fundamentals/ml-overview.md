@@ -100,10 +100,35 @@ Traditional Programming vs Deep Learning
 ```
 
 
-Approaching a facemask recognition problem with rule based programming would really be a hard problem. You would have to write lots of code that would later turn out to not work typically because your program will be tested on different kinds of facemasks and people in various scenarios and it's almost impossible to express that in rules. Whereas with machine learning, all you need is a bunch of images of people with and without facemasks, and there you are few steps away from getting an effective facemask recognizer. We will do this in practice in the later parts, specifically in the section of Deep Computer Vision. 
+Approaching a facemask recognition problem with rule based programming would really be a hard problem. You would have to write lots of code that would later turn out to not work typically because your program will be tested on different kinds of facemasks and people in various scenarios and it's almost impossible to express that in rules. Whereas with machine learning, all you need is a bunch of images of people with and without facemasks, and there you are few steps away from getting an effective facemask recognizer.
+
+
+## Applications of Machine Learning
+
+Before we step into further machine learning foundations, let's look at some of its most exciting applications. 
+
+Machine learning has transformed many industries, from banking, manufacturing, streaming, autonomous vehicles, agriculture, etc...In fact, most of the tech products and services we use daily possess some sorts of machine learning algorithms running in their backgrounds.  
+
+Here are the most commonly machine learning use cases:
+
+* **Fraud detection**: Banks and other financial organizations can use machine learning to detect frauds in real time. 
+
+* **Loan repayment prediction**: Banks can also use the historical data of their clients to predict if they will be able to repay back the loans before granting it to them. 
+
+* **diagnosing diseases and predicting the survival rate**: Machine learning is increasingly finding its value in medicine. It can assist medical professionals in diagnosing diseases in handful of minutes. Medical professionals can also use machine learning to predict the likelihood or a course of disease or survival rate(prognosis).
+
+* **Detecting defects in industry**: Some manufacturing companies use machine vision to inspect defects in the products which ultimately result in speeding up the production process, automating the inspection task, reducing the cost and human workload. You can learn more about visual inspection in [2020 State of AI-Based Machine Vision by Landing AI](https://landing.ai/wp-content/uploads/2020/11/MachineVisionSurvey.pdf). 
+
+* **Churn prediction**:  Organizations that provides some kinds of services can use machine learning to predict if a given customer is likely to opt out from the service or cancel subscription. This can help the organization to improve the customer experiences in order to retain the customers. 
+
+* **Spam detection**: Almost all email providers such as Gmail or Outlook possess the ability to detect spams from all incoming emails to protect the users from fake promotions and scams. 
+
+* **Autonomous vehicles**: Today's autonomous vehicles such as self-driving cars use machine learning and deep learning systems to navigate in the roads. Using computer vision, they can be able to detect the pedestrian and traffic lights and signs and other surrounding objects. 
+
+There are many more applications of machine learning and the list could go on. For example, a given ads agency can use machine learning to learn the kinds of things that their visitors are interested in and they can use the results to place the relevant ads on the website. Same for streaming services like YouTube and Netflix. These services uses machine learning to suggest the best media to their clients based on their interests. 
 
 ## Key terminology
-What is (supervised) machine learning? Concisely put, it is the following:
+What is machine learning? Concisely put, it is the following:
 
 - ML systems learn how to combine input to produce useful predictions on never-before-seen data.
 
@@ -165,29 +190,6 @@ A **classification** model predicts discrete values. For example, classification
 - Is a given email message spam or not spam?
 - Is this an image of a dog, a cat, or a hamster?
 
-## Applications of Machine Learning
-
-Before we step into further machine learning foundations, let's look at some of its most exciting applications. 
-
-Machine learning has transformed many industries, from banking, manufacturing, streaming, autonomous vehicles, agriculture, etc...In fact, most of the tech products and services we use daily possess some sorts of machine learning algorithms running in their backgrounds.  
-
-Here are the most commonly machine learning use cases:
-
-* **Fraud detection**: Banks and other financial organizations can use machine learning to detect frauds in real time. 
-
-* **Loan repayment prediction**: Banks can also use the historical data of their clients to predict if they will be able to repay back the loans before granting it to them. 
-
-* **diagnosing diseases and predicting the survival rate**: Machine learning is increasingly finding its value in medicine. It can assist medical professionals in diagnosing diseases in handful of minutes. Medical professionals can also use machine learning to predict the likelihood or a course of disease or survival rate(prognosis).
-
-* **Detecting defects in industry**: Some manufacturing companies use machine vision to inspect defects in the products which ultimately result in speeding up the production process, automating the inspection task, reducing the cost and human workload. You can learn more about visual inspection in [2020 State of AI-Based Machine Vision by Landing AI](https://landing.ai/wp-content/uploads/2020/11/MachineVisionSurvey.pdf). 
-
-* **Churn prediction**:  Organizations that provides some kinds of services can use machine learning to predict if a given customer is likely to opt out from the service or cancel subscription. This can help the organization to improve the customer experiences in order to retain the customers. 
-
-* **Spam detection**: Almost all email providers such as Gmail or Outlook possess the ability to detect spams from all incoming emails to protect the users from fake promotions and scams. 
-
-* **Autonomous vehicles**: Today's autonomous vehicles such as self-driving cars use machine learning and deep learning systems to navigate in the roads. Using computer vision, they can be able to detect the pedestrian and traffic lights and signs and other surrounding objects. 
-
-There are many more applications of machine learning and the list could go on. For example, a given ads agency can use machine learning to learn the kinds of things that their visitors are interested in and they can use the results to place the relevant ads on the website. Same for streaming services like YouTube and Netflix. These services uses machine learning to suggest the best media to their clients based on their interests. 
 
 ## When And When Not to Use Machine Learning
 
@@ -216,12 +218,10 @@ We talked about when you should use machine learning and when you should not, bu
 
 ## Types of Machine Learning Systems
 
-In broad, there are 5 main types of machine learning systems that are:
+In broad, there are 3 main types of machine learning systems that are:
 
 * Supervised learning
 * Unsupervised learning
-* Semi-supervised learning
-* Self-supervised learning
 * Reinforcement learning
 
 Let's review all of these types to get a high level understanding of what's they really mean. 
@@ -276,27 +276,6 @@ Unsupervised learning algorithms are primarily used for:
 
 There are many more algorithms that could also be used for those 2 tasks, but, we will cover K-Means, PCA, and t-SNE because they are commonly used. 
 
-
-### Semi-supervised learning
-
-Semi-supervised learning falls between supervised and unsupervised learning. In semi-supervised learning, a small portion of training data is labeled while the rest of the data points are not labeled. 
-
-Labeling data is one of the most challenging things in machine learning. Because it requires a skilled human, it's expensive and there are always a chance of getting the labels wrong. Thus, having a way to make use of unlabelled data can improve the results of a particular task with a minimal need of labels, and ultimately reducing the time and cost that would be needed to label all the training data. 
-
-Semi-supervised learning is most notable in problems that involve working with massive datasets like internet image searches, image and audio recognition, and webpages classification. As you would imagine for example, nobody that is responsible for a boring task of labelling millions of images that are uploaded daily on social media platforms like Instagram. Another example: According to [sitefy](https://siteefy.com/how-many-websites-are-there/), 252.000 new websites are created every day. As you can also imagine, it would not a good use of time and resources to assign a task of labelling these websites to someone when semi-supervised learning can remove such overheads. 
-
-If you would like to learn more about the motivation behind semi-supervised learning, check this [paper](https://www.cs.cmu.edu/~avrim/Papers/cotrain.pdf).
-
-### Self-supervised learning 
-
-Self-supervised learning is one of the most exciting types of machine learning that is most applicable in computer vision and robotics. While semi-supervised learning uses a small portion of labeled data, self-supervised learning uses entire unlabeled data and it does not require manual annotations, removing the need for humans in the process. 
-
-To quote this [awesome paper](https://arxiv.org/pdf/2003.05199.pdf), "producing a dataset with good labels is expensive, while unlabeled data is being generated all the time. The motivation of self-supervised learning is to make use of the large amount of unlabeled data. The main idea of self-supervised learning is to generate the labels from unlabeled data, according to the structure or characteristics of the data itself, and then train on this unsupervised data in a supervised manner."
-
-Self-supervised learning has been one of the attractive research areas in machine learning research community. In [NIPS 2016](https://www.youtube.com/watch?v=7I0Qt7GALVk&t=2639s), Yann LeCun said "If intelligence is a cake, the bulk of the cake is *self-supervised learning*, the icing on the cake is supervised learning, and the cherry on the cake is reinforcement learning (RL).”
-
-If you would like to learn more about the recent advances in self-supervised learning, check this [awesome repository](https://github.com/jason718/awesome-self-supervised-learning#survey), and [this paper](https://arxiv.org/abs/1902.06162#) for a quick survey. 
-
 ### Reinforcement Learning
 
 Reinforcement learning is a special type of machine learning that is most applicable in robotics and games. 
@@ -312,7 +291,7 @@ For many of us, we may not get the most of reinforcement learning, typically bec
 
 Let's summarize the types of machine learning systems. By far, supervised and unsupervised learning are the two commonly used types of machine learning. Semi-supervised and self-supervised learning are also getting attractions in deep learning community, but they are still in research. We will focus more those two practical types: supervised and unsupervised.
 
-## The Typical Machine Learning Workflow
+## Typical Machine Learning Workflow
 
 Although every machine learning problem is unique, they all follow a similar workflow. In this section, we will learn how to approach machine learning problems systematically.
 
@@ -432,12 +411,6 @@ Often, the improvements will not come from tuning the model, but spending time t
 When improving the data, you can create artificial data (a.k.a data augmentation). This will work well most of the time. The whole error analysis is an iterative process, keep doing it and always aim to improve the data than the model. 
 
 If you would like to learn more about modern error analysis, I recommend you watch DeepLearning.AI [event](https://www.youtube.com/watch?v=06-AZXmwHjo&t=28s) called "A Chat with Andrew on MLOps: From Model-centric to Data-centric AI."
-
-### Evaluating the Model
-
-When you have done a great job of getting a working model, it's time to evaluate it on unseen or test data, not on training data. 
-
-And when the model works well on the test set, here comes the last step. 
 
 ### Deploying a Model
 
