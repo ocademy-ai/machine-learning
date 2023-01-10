@@ -1,4 +1,4 @@
-# Machine learning : an overview
+# Machine learning overview
 
 
 ```{epigraph}
@@ -78,7 +78,7 @@ width: 90%
 A slight modification of Conway's orginal venn diagram describing the field of data science
 ```
 
-## Ordinary Programming Vs Machine Learning
+## Ordinary Programming vs Machine Learning
 
 In ordinary programming, the job of the programmer is to clearly write every single rule that makes up the task he/she is trying to accomplish. In order to get the results, she/he must write all rules that acts up on the data. 
 
@@ -177,7 +177,7 @@ A model defines the relationship between features and label. For example, a spam
 - **Training** means creating or **learning** the model. That is, you show the model labeled examples and enable the model to gradually learn the relationships between features and label.
 - **Inference** means applying the trained model to unlabeled examples. That is, you use the trained model to make useful predictions (`y'`). For example, during inference, you can predict if an email is a spam or not for new unlabeled examples.
 
-###  Regression vs. classification
+###  Regression vs classification
 
 A **regression** model predicts continuous values. For example, regression models make predictions that answer questions like the following:
 - What is the value of a house in California?
@@ -210,9 +210,9 @@ With that said, you may not use machine learning when:
 * You can solve your problem with ordinary programming or a simple heuristic methods. 
 * You want a solution that will never need to be updated. The predictions made by machine learning models decay overtime, so if you are not ready to update data and retrain models frequently, you may have to consider non machine learning techniques. 
 
-Machine learning keeps transforming things that people never thought and with its vibrant online community, we will will keep to be surprised but in the meantime, it's a safe belt to use it in problems in which the solution can be in your favor because machine learning systems are hard to maintain. 
+Machine learning keeps transforming things that people never thought and with its vibrant online community, we will keep to be surprised but in the meantime, it's a safe belt to use it in problems in which the solution can be in your favor because machine learning systems are hard to maintain. 
 
-We talked about when you should use machine learning and when you should not, but also, there are other areas where machine learning is being heavily used but with extra care and human in the loop. Example of such critical areas include medicine, self driving cars, etc...In some of those areas like self driving cars(or driver assistants), machine learning is surely a big factor but also because the cost of error made by the model can be very high, human assistance becomes important.
+We talked about when you should use machine learning and when you should not, but also, there are other areas where machine learning is being heavily used but with extra care and human in the loop. Example of such critical areas include medicine, self driving cars, etc...In some of those areas like self-driving cars(or driver assistants), machine learning is surely a big factor but also because the cost of error made by the model can be very high, human assistance becomes important.
 
 ## Types of Machine Learning Systems
 
@@ -330,7 +330,7 @@ Nowdays, there are lots of open-source datasets on platforms like Kaggle, Google
 
 That said, there are times that you will have to collect your own data, especially if you are solving a problem that no one solved before. In this case, consider the time that you will have to spend collecting data and the cost. You also do not need to wait until you have your desired data points before you can start. Embrace ML development early on so that you can learn if you (really) need more data. This idea is inspired by Andrew Ng.
 
-Also, when collecting the data, quality is better than quantity. There are times where small data but good data can outwork big poor data. The amount of data you need is going to depend on the problem you're solving and its scope, but whatever the problem is, aiming to collect good data is the way to go. If you want to learn more about the meaning of good data, read the [MIT Technology review article](https://www.technologyreview.com/2021/03/26/1021258/ai-pioneer-andrew-ng-machine-learning-business/) with Andrew Ng.
+Also, when collecting the data, quality is better than quantity. There are times when small data but good data can outwork big poor data. The amount of data you need is going to depend on the problem you're solving and its scope, but whatever the problem is, aiming to collect good data is the way to go. If you want to learn more about the meaning of good data, read the [MIT Technology review article](https://www.technologyreview.com/2021/03/26/1021258/ai-pioneer-andrew-ng-machine-learning-business/) with Andrew Ng.
 
 ### Establishing a Baseline
 
@@ -407,24 +407,12 @@ Often, the improvements will not come from tuning the model, but spending time t
 
 When improving the data, you can create artificial data (a.k.a data augmentation). This will work well most of the time. The whole error analysis is an iterative process, keep doing it and always aim to improve the data than the model. 
 
-If you would like to learn more about modern error analysis, I recommend you watch DeepLearning.AI [event](https://www.youtube.com/watch?v=06-AZXmwHjo&t=28s) called "A Chat with Andrew on MLOps: From Model-centric to Data-centric AI."
-
 ### Deploying a Model
 
 Model deployment is the last part in this workflow. When all the previous steps has gone right, and you are happy about the results of the model on the test set, the next step will be to deploy the model so that the users can start to make requests and get predictions or enhanced services. We call this process as *machine learning in action* because it what actually bring the value of machine learning.
 
-
-
-
-## Final Notes
-
-This was about introduction to machine learning basics. Machine learning is a field of computer science and a subfield of AI that is concerned with giving computers the ability to perform some tasks without being programmed explicitly, but rather learning from the data. Machine learning is already transforming industries. It is being used in areas like medicine, banking and finance, consumer electronics, autonomous vehicles, agriculture, etc...
-
-We have also learned about different types of machine learning that are supervised learning, unsupervised learning and reinforcement learning. Also, we saw a typical flow of machine learning projects and the challenges of training learning systems, and how to overcome them.
-
-
 ---
 
-## Acknowledgements
+## Acknowledgments
 
 Thanks to [Nyandwi](https://github.com/Nyandwi) for creating the open-source course [Complete Machine Learning Package](https://github.com/Nyandwi/machine_learning_complete). It inspires the majority of the content in this chapter. Some contents come from [Google Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course/framing/ml-terminology).
