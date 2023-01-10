@@ -226,7 +226,7 @@ width: 90%
 Graphical representation of classification and regression problems
 ```
 
-Supervised learning algorithms includes shallow algorithms such as linear and logistic regression, decision trees, random forests, K-Nearest Neighbors(KNN), and support vector machines(SVM). Neural networks can be both supervised(like using them for image classification) and unsupervised. 
+Supervised learning algorithms includes shallow algorithms such as linear and logistic regression, decision trees, random forests, K-Nearest Neighbors (KNN), and support vector machines (SVM). Neural networks can be both supervised(like using them for image classification) and unsupervised. 
 
 With that said, there are other advanced tasks that falls into supervised learning type such as:
 
@@ -243,7 +243,7 @@ width: 90%
 Advanced Tasks: Object detection, image segmentation, image captioning. You can test these advanced algorithms on your images using [vision-explorer](https://vision-explorer.allenai.org)
 ```
 
-Some of those tasks can involve both classification and regression. Take an example for object detection, a task of recognizing and localizing an object in an image: it involves classification(recognizing the object among many other objects) and regression(predicting the coordinates of the objects in an image to make a bounding box).
+Some of those tasks can involve both classification and regression. Take an example for object detection, a task of recognizing and localizing an object in an image: it involves classification (recognizing the object among many other objects) and regression (predicting the coordinates of the objects in an image to make a bounding box).
 
 If any of the things we are talking about sounds unfamiliar, do not worry. There is no way to explain all things at once, but as we progress, things will get clear. 
 
@@ -314,7 +314,7 @@ Nowdays, there are lots of open-source datasets on platforms like Kaggle, Google
 
 That said, there are times that you will have to collect your own data, especially if you are solving a problem that no one solved before. In this case, consider the time that you will have to spend collecting data and the cost. You also do not need to wait until you have your desired data points before you can start. Embrace ML development early on so that you can learn if you (really) need more data. This idea is inspired by Andrew Ng.
 
-Also, when collecting the data, quality is better than quantity. There are times when small data but good data can outwork big poor data. The amount of data you need is going to depend on the problem you're solving and its scope, but whatever the problem is, aiming to collect good data is the way to go. If you want to learn more about the meaning of good data, read the [MIT Technology review article](https://www.technologyreview.com/2021/03/26/1021258/ai-pioneer-andrew-ng-machine-learning-business/) with Andrew Ng.
+Also, when collecting the data, quality is better than quantity. There are times when small data but good data can outwork big poor data. The amount of data you need is going to depend on the problem you're solving and its scope, but whatever the problem is, aiming to collect good data is the way to go.
 
 ### Establishing a Baseline
 
@@ -355,7 +355,7 @@ As the next parts will cover the practical implementations of typical data prepr
 
 * **Scaling the numeric features:** Most ML models work well when the input values are scaled to small values because they can train and converge faster than they would otherwise. There are two main scaling techniques that are normalization and standardization. Normalization rescales the feautures to the values between 0 and 1 whereas standardization rescales the features to have mean of 0 and a unit standard deviation. If you are aware that your data has normal or gausian distribution, normalization can be a good choice. Otherwise, standardization will work well in many cases. 
 
-In many textbooks and courses, data preprocessing is also referred to data cleaning or data preparation. Feature engineering is also a part of data preprocessing. Feature engineering is a creative task and it requires some extra knowledge about the data and the problem as it involves creating new features from existing features.
+In many textbooks and courses, data preprocessing is also referred to data cleaning or data preparation. Feature engineering is also a part of data preprocessing. Feature engineering is a creative task and requires some extra knowledge about the data and the problem as it involves creating new features from existing features.
 
 ### Selecting and Training a Model
 
@@ -396,6 +396,10 @@ When improving the data, you can create artificial data (a.k.a data augmentation
 Model deployment is the last part in this workflow. When all the previous steps has gone right, and you are happy about the results of the model on the test set, the next step will be to deploy the model so that the users can start to make requests and get predictions or enhanced services.
 
 ---
+
+## Your turn! 🚀
+
+TBD.
 
 ## Acknowledgments
 
