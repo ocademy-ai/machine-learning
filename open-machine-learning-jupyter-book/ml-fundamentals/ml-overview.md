@@ -35,8 +35,6 @@ A more technical definition of machine learning was provided by Tom M. Mitchell 
 
 > *A computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E.*
 
-For the meaning of Mitchell definition on machine learning, check out [this Twitter thread](https://twitter.com/Jeande_d/status/1455872282899877894?s=20).
-
 Wikipedia provides a much clearer definition of machine learning: 
 
 > *Machine learning (ML) is the study of computer algorithms that improve automatically through experience and by the use of data. It is seen as a part of artificial intelligence. Machine learning algorithms build a model based on sample data, known as "training data", in order to make predictions or decisions without being explicitly programmed to do so. - Wikipedia.*
@@ -62,20 +60,6 @@ name: 'ai-ml-dl'
 width: 90%
 ---
 The difference between AI, machine learning and deep learning
-```
-
-
-Data science is also an interdisciplinary field that deals with using data to solve business problems with various techniques. A concise definition of data science was provided by Cassie Kozyrkov: *"Data Science is the science of making data useful"*. 
-
-Below illustration clearly shows what's really is data science. It is a modification of a well known [Conway's venn diagram](http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram).
-
-
-```{figure} ../../images/ml-fundamentals/ml-overview/venn-diagram.png
----
-name: 'venn-diagram.png'
-width: 90%
----
-A slight modification of Conway's orginal venn diagram describing the field of data science
 ```
 
 ## Ordinary Programming vs Machine Learning
@@ -365,7 +349,7 @@ Data preprocessing is hard because there are different types of data and the way
 
 As the next parts will cover the practical implementations of typical data preprocessing steps, let's be general about things you're likely going to deal with while manipulating the features:
 
-* **Imputing missing values:** Missing values can either be filled, removed or left as they are. There are various strategies for missing values such as mean, median, frequent imputations, backward and forward fill, and iterative imputations. The right imputation technique depends on the problem and the dataset. With the exception of tree based models, most machine learning models do not accept missing values. 
+* **Imputing missing values:** Missing values can either be filled, removed or left as they are. There are various strategies for missing values such as mean, median, frequent imputations, backward and forward fill, and iterative imputations. The right imputation technique depends on the problem and the dataset. With exception to tree based models, most machine learning models do not accept missing values. 
 
 * **Encoding categorical features:** Categorical features are all types of features that have categorical values. For example, A gender feature having the values male and female is a categorical feature. You will want to encode such types of features. The techniques for encoding them are label encoding where you can assign 0 to Male and 0 to Female, or one hot encoding where you can get the binary representations (0s and 1s) in one hot matrix. You will see this later in practice.
 
@@ -409,7 +393,7 @@ When improving the data, you can create artificial data (a.k.a data augmentation
 
 ### Deploying a Model
 
-Model deployment is the last part in this workflow. When all the previous steps has gone right, and you are happy about the results of the model on the test set, the next step will be to deploy the model so that the users can start to make requests and get predictions or enhanced services. We call this process as *machine learning in action* because it what actually bring the value of machine learning.
+Model deployment is the last part in this workflow. When all the previous steps has gone right, and you are happy about the results of the model on the test set, the next step will be to deploy the model so that the users can start to make requests and get predictions or enhanced services.
 
 ---
 
