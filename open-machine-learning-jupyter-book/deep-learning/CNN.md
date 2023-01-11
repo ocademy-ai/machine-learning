@@ -1184,7 +1184,7 @@ if __name__=="__main__":
 
 ## Your turn! 🚀
 
-Practice the Convolutional Neural Networks by following this xxxx.
+TBD.
 
 ## Self study
 
