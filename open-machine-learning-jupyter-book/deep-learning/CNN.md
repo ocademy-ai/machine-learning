@@ -1180,8 +1180,6 @@ if __name__=="__main__":
     sess.close()
 ```
 
----
-
 ## Your turn! 🚀
 
 TBD.
@@ -1192,7 +1190,7 @@ You can refer to those YouTube videos for further study:
 - [Convolutional Neural Networks (CNNs) explained, by deeplizard](https://www.youtube.com/watch?v=YRhxdVk_sIs)
 - [Convolutional Neural Networks Explained (CNN Visualized), by Futurology](https://www.youtube.com/watch?v=pj9-rr1wDhM)
 
-## [optional] Research trend
+### Research trend
 
 State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning in 2020 :
 
