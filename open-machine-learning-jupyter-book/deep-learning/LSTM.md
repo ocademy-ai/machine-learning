@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Long-Short Term Memory
+# Long-short term memory
 
 As we have learned the normal RNNs on the previous lessons, today we are going to use long-short term memory (LSTM) to fix the problems that are induced from the RNN architecture.
 
@@ -23,10 +23,11 @@ The vanilla LSTM is proposed in 2005, the paper is [Bidirectional LSTM Networks 
 
 ## Overview
 The essential problems of RNN are vanishing/exploding gradient problems.The gradient vanishing/exploding problem is a common issue in training deep neural networks. This problem occurs when the gradient of the loss function with respect to the weights of the network becomes very small or very large.
+
 There are several possibilities will bring on this kind of problem, for example:
-- a poor choice of hyper-parameters
-- a poor architecture
-- a bug in the code
+- a poor choice of hyper-parameters,
+- a poor architecture,
+- a bug in the code.
 
 Luckily, LSTM can use a memory cell for modeling long-range dependencies and avoid vanishing/exploding gradient problems.
 
@@ -35,7 +36,7 @@ First, let's see the architecture of LSTM cell.
 :::{figure-md} LSTM cell
 <img src="../../images/deep-learning/LSTM/LSTM_cell.png" width="90%" class="bg-white mb-1">
 
-Illustration of LSTM unit
+Illustration of LSTM unit {cite}`LSTM_cell`
 :::
 
 It looks like the cell of RNN, but there are still some differences between them. The same part is the direction of data, one input and two outputs. 
@@ -45,24 +46,26 @@ The $h^{t}$ is still the activation.
 :::{figure-md} LSTM cell state
 <img src="../../images/deep-learning/LSTM/cell_state.png" width="90%" class="bg-white mb-1">
 
-LSTM unit of state c
+LSTM unit of state c {cite}`LSTM_cell_state`
 :::
 
 ## Special Gates
 Then, we take a look at the inside of cell. $\bigodot$ means element-wise multiplication operator, $\bigoplus$ means element-wise addition operator and $\sigma$ means logistic sigmoid activation functions.
+
 Now, we should pay attention to 'Gates'. 
 
 The first is 'Forget Gate' $f$, and it controls which information is remembered, and which is forgotten; can reset the cell state. This function can be written as $f_t = \sigma (W_{fx}x^{<t>} + W_{fh}h^{<t-1>} + b_f)$
 
 Next, 'Input Gate' is $i_t = \sigma(W_{ix}x^{<t>} + W_{ih}h^{<t-1>} + b_i)$ and 'Input Node' is $g_t = tanh(W_{gt}x^{<t>} + W_{gh}x^{<t-1>} + b_g)$.
+
 To brief summarize the previous gates in an expression: $C^{<t>} = (C^{<t-1>} \bigodot f_t) \bigoplus (i_t \bigodot g_t)$. Since $i_t$ is 'Input Gate' and $g_t$ is 'Input Gate', $(i_t \bigodot g_t)$ is for updatting the cell state.
 
 Finally, 'Output Gate' is for updating the values of hidden units: $o_t = \sigma(W_{ox}x^{<t>} + W_{oh}x^{<t-1>} + b_o)$. So the activateion of the current time is $h^{<t>} = o_t \bigodot tanh(C^{<t>})$.
 
 ### Code
-```{code-cell}
-# Here we implement an LSTM model on all a data set of Shakespeare works.
+Here we implement an LSTM model on all a data set of Shakespeare works.
 
+```{code-cell}
 import os
 import re
 import string
@@ -75,11 +78,15 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.python.framework import ops
 ops.reset_default_graph()
+```
 
-# Start a session
+Start a session.
+```{code-cell}
 sess = tf.Session()
+```
 
-# Set RNN Parameters
+Set RNN Parameters.
+```{code-cell}
 min_word_freq = 5  # Trim the less frequent words off
 rnn_size = 128  # RNN Model size
 epochs = 10  # Number of epochs to cycle through data
@@ -90,27 +97,37 @@ embedding_size = rnn_size  # Word embedding size
 save_every = 500  # How often to save model checkpoints
 eval_every = 50  # How often to evaluate the test sentences
 prime_texts = ['thou art more', 'to be or not to', 'wherefore art thou']
+```
 
-# Download/store Shakespeare data
+Download/store Shakespeare data.
+```{code-cell}
 data_dir = 'temp'
 data_file = 'shakespeare.txt'
 model_path = 'shakespeare_model'
 full_model_dir = os.path.join(data_dir, model_path)
+```
 
-# Declare punctuation to remove, everything except hyphens and apostrophes
+Declare punctuation to remove, everything except hyphens and apostrophes.
+```{code-cell}
 punctuation = string.punctuation
 punctuation = ''.join([x for x in punctuation if x not in ['-', "'"]])
+```
 
-# Make Model Directory
+Make Model Directory.
+```{code-cell}
 if not os.path.exists(full_model_dir):
     os.makedirs(full_model_dir)
+```
 
-# Make data directory
+Make data directory.
+```{code-cell}
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
-
 print('Loading Shakespeare Data')
-# Check if file is downloaded.
+```
+
+Check if file is downloaded.
+```{code-cell}
 if not os.path.isfile(os.path.join(data_dir, data_file)):
     print('Not found, downloading Shakespeare texts from www.gutenberg.org')
     shakespeare_url = 'http://www.gutenberg.org/cache/epub/100/pg100.txt'
@@ -132,14 +149,17 @@ else:
     # If file has been saved, load from that file
     with open(os.path.join(data_dir, data_file), 'r') as file_conn:
         s_text = file_conn.read().replace('\n', '')
+```
 
-# Clean text
+Clean text.
+```{code-cell}
 print('Cleaning Text')
 s_text = re.sub(r'[{}]'.format(punctuation), ' ', s_text)
 s_text = re.sub('\s+', ' ', s_text).strip().lower()
+```
 
-
-# Build word vocabulary function
+Build word vocabulary function.
+```{code-cell}
 def build_vocab(text, min_freq):
     word_counts = collections.Counter(text.split(' '))
     # limit word counts to those more frequent than cutoff
@@ -153,17 +173,23 @@ def build_vocab(text, min_freq):
     ix_to_vocab_dict = {val: key for key, val in vocab_to_ix_dict.items()}
     
     return ix_to_vocab_dict, vocab_to_ix_dict
+```
 
-
-# Build Shakespeare vocabulary
+Build Shakespeare vocabulary.
+```{code-cell}
 print('Building Shakespeare Vocab')
 ix2vocab, vocab2ix = build_vocab(s_text, min_word_freq)
 vocab_size = len(ix2vocab) + 1
 print('Vocabulary Length = {}'.format(vocab_size))
-# Sanity Check
-assert(len(ix2vocab) == len(vocab2ix))
+```
 
-# Convert text to word vectors
+Sanity Check.
+```{code-cell}
+assert(len(ix2vocab) == len(vocab2ix))
+```
+
+Convert text to word vectors.
+```{code-cell}
 s_text_words = s_text.split(' ')
 s_text_ix = []
 for ix, x in enumerate(s_text_words):
@@ -172,9 +198,10 @@ for ix, x in enumerate(s_text_words):
     except KeyError:
         s_text_ix.append(0)
 s_text_ix = np.array(s_text_ix)
+```
 
-
-# Define LSTM RNN Model
+Define LSTM RNN Model.
+```{code-cell}
 class LSTM_Model():
     def __init__(self, embedding_size, rnn_size, batch_size, learning_rate,
                  training_seq_len, vocab_size, infer_sample=False):
@@ -263,33 +290,49 @@ class LSTM_Model():
             word = words[sample]
             out_sentence = out_sentence + ' ' + word
         return out_sentence
+```
 
-
-# Define LSTM Model
+Define LSTM Model.
+```{code-cell}
 lstm_model = LSTM_Model(embedding_size, rnn_size, batch_size, learning_rate,
                         training_seq_len, vocab_size)
+```
 
-# Tell TensorFlow we are reusing the scope for the testing
+Tell TensorFlow we are reusing the scope for the testing.
+```{code-cell}
 with tf.variable_scope(tf.get_variable_scope(), reuse=True):
     test_lstm_model = LSTM_Model(embedding_size, rnn_size, batch_size, learning_rate,
                                  training_seq_len, vocab_size, infer_sample=True)
+```
 
-
-# Create model saver
+Create model saver.
+```{code-cell}
 saver = tf.train.Saver(tf.global_variables())
+```
 
-# Create batches for each epoch
+Create batches for each epoch.
+```{code-cell}
 num_batches = int(len(s_text_ix)/(batch_size * training_seq_len)) + 1
-# Split up text indices into subarrays, of equal size
-batches = np.array_split(s_text_ix, num_batches)
-# Reshape each split into [batch_size, training_seq_len]
-batches = [np.resize(x, [batch_size, training_seq_len]) for x in batches]
+```
 
-# Initialize all variables
+Split up text indices into subarrays, of equal size.
+```{code-cell}
+batches = np.array_split(s_text_ix, num_batches)
+```
+
+Reshape each split into [batch_size, training_seq_len].
+```{code-cell}
+batches = [np.resize(x, [batch_size, training_seq_len]) for x in batches]
+```
+
+Initialize all variables.
+```{code-cell}
 init = tf.global_variables_initializer()
 sess.run(init)
+```
 
-# Train model
+Train model.
+```{code-cell}
 train_loss = []
 iteration_count = 1
 for epoch in range(epochs):
@@ -332,9 +375,10 @@ for epoch in range(epochs):
                 print(test_lstm_model.sample(sess, ix2vocab, vocab2ix, num=10, prime_text=sample))
                 
         iteration_count += 1
+```
 
-
-# Plot loss over time
+Plot loss over time.
+```{code-cell}
 plt.plot(train_loss, 'k-')
 plt.title('Sequence to Sequence Loss')
 plt.xlabel('Generation')
@@ -347,9 +391,11 @@ plt.show()
 As we did before in RNN chapter, we can stack simple LSTM layers into a more complex model.
 
 ### Code
+
+Here we implement an LSTM model on all a data set of Shakespeare works.
+We will stack multiple LSTM models for a more accurate representation of Shakespearean language. We will also use characters instead of words.
+
 ```{code-cell}
-# Here we implement an LSTM model on all a data set of Shakespeare works.
-# We will stack multiple LSTM models for a more accurate representation of Shakespearean language.  We will also use characters instead of words.
 import os
 import re
 import string
@@ -362,11 +408,15 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.python.framework import ops
 ops.reset_default_graph()
+```
 
-# Start a session
+Start a session.
+```{code-cell}
 sess = tf.Session()
+```
 
-# Set RNN Parameters
+Set RNN Parameters.
+```{code-cell}
 num_layers = 3  # Number of RNN layers stacked
 min_word_freq = 5  # Trim the less frequent words off
 rnn_size = 128  # RNN Model size, has to equal embedding size
@@ -377,27 +427,37 @@ training_seq_len = 50  # how long of a word group to consider
 save_every = 500  # How often to save model checkpoints
 eval_every = 50  # How often to evaluate the test sentences
 prime_texts = ['thou art more', 'to be or not to', 'wherefore art thou']
+```
 
-# Download/store Shakespeare data
+Download/store Shakespeare data.
+```{code-cell}
 data_dir = 'temp'
 data_file = 'shakespeare.txt'
 model_path = 'shakespeare_model'
 full_model_dir = os.path.join(data_dir, model_path)
+```
 
-# Declare punctuation to remove, everything except hyphens and apostrophes
+Declare punctuation to remove, everything except hyphens and apostrophes.
+```{code-cell}
 punctuation = string.punctuation
 punctuation = ''.join([x for x in punctuation if x not in ['-', "'"]])
+```
 
-# Make Model Directory
+Make Model Directory.
+```{code-cell}
 if not os.path.exists(full_model_dir):
     os.makedirs(full_model_dir)
+```
 
-# Make data directory
+Make data directory.
+```{code-cell}
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
+    print('Loading Shakespeare Data')
+```
 
-print('Loading Shakespeare Data')
-# Check if file is downloaded.
+Check if file is downloaded.
+```{code-cell}
 if not os.path.isfile(os.path.join(data_dir, data_file)):
     print('Not found, downloading Shakespeare texts from www.gutenberg.org')
     shakespeare_url = 'http://www.gutenberg.org/cache/epub/100/pg100.txt'
@@ -419,17 +479,22 @@ else:
     # If file has been saved, load from that file
     with open(os.path.join(data_dir, data_file), 'r') as file_conn:
         s_text = file_conn.read().replace('\n', '')
+```
 
-# Clean text
+Clean text.
+```{code-cell}
 print('Cleaning Text')
 s_text = re.sub(r'[{}]'.format(punctuation), ' ', s_text)
 s_text = re.sub('\s+', ' ', s_text).strip().lower()
+```
 
-# Split up by characters
+Split up by characters.
+```{code-cell}
 char_list = list(s_text)
+```
 
-
-# Build word vocabulary function
+Build word vocabulary function.
+```{code-cell}
 def build_vocab(characters):
     character_counts = collections.Counter(characters)
     # Create vocab --> index mapping
@@ -440,17 +505,23 @@ def build_vocab(characters):
     # Create index --> vocab mapping
     ix_to_vocab_dict = {val: key for key, val in vocab_to_ix_dict.items()}
     return ix_to_vocab_dict, vocab_to_ix_dict
+```
 
-
-# Build Shakespeare vocabulary
+Build Shakespeare vocabulary.
+```{code-cell}
 print('Building Shakespeare Vocab by Characters')
 ix2vocab, vocab2ix = build_vocab(char_list)
 vocab_size = len(ix2vocab)
 print('Vocabulary Length = {}'.format(vocab_size))
-# Sanity Check
-assert(len(ix2vocab) == len(vocab2ix))
+```
 
-# Convert text to word vectors
+Sanity Check.
+```{code-cell}
+assert(len(ix2vocab) == len(vocab2ix))
+```
+
+Convert text to word vectors.
+```{code-cell}
 s_text_ix = []
 for x in char_list:
     try:
@@ -458,9 +529,10 @@ for x in char_list:
     except KeyError:
         s_text_ix.append(0)
 s_text_ix = np.array(s_text_ix)
+```
 
-
-# Define LSTM RNN Model
+Define LSTM RNN Model.
+```{code-cell}
 class LSTM_Model():
     def __init__(self, rnn_size, num_layers, batch_size, learning_rate,
                  training_seq_len, vocab_size, infer_sample=False):
@@ -540,17 +612,20 @@ class LSTM_Model():
             char = words[sample]
             out_sentence = out_sentence + char
         return out_sentence
+```
 
-
-# Define LSTM Model
+Define LSTM Model.
+```{code-cell}
 lstm_model = LSTM_Model(rnn_size,
                         num_layers,
                         batch_size,
                         learning_rate,
                         training_seq_len,
                         vocab_size)
+```
 
-# Tell TensorFlow we are reusing the scope for the testing
+Tell TensorFlow we are reusing the scope for the testing.
+```{code-cell}
 with tf.variable_scope(tf.get_variable_scope(), reuse=True):
     test_lstm_model = LSTM_Model(rnn_size,
                                  num_layers,
@@ -559,22 +634,36 @@ with tf.variable_scope(tf.get_variable_scope(), reuse=True):
                                  training_seq_len,
                                  vocab_size,
                                  infer_sample=True)
+```
 
-# Create model saver
+Create model saver.
+```{code-cell}
 saver = tf.train.Saver(tf.global_variables())
+```
 
-# Create batches for each epoch
+Create batches for each epoch.
+```{code-cell}
 num_batches = int(len(s_text_ix)/(batch_size * training_seq_len)) + 1
-# Split up text indices into subarrays, of equal size
-batches = np.array_split(s_text_ix, num_batches)
-# Reshape each split into [batch_size, training_seq_len]
-batches = [np.resize(x, [batch_size, training_seq_len]) for x in batches]
+```
 
-# Initialize all variables
+Split up text indices into subarrays, of equal size.
+```{code-cell}
+batches = np.array_split(s_text_ix, num_batches)
+```
+
+Reshape each split into [batch_size, training_seq_len].
+```{code-cell}
+batches = [np.resize(x, [batch_size, training_seq_len]) for x in batches]
+```
+
+Initialize all variables.
+```{code-cell}
 init = tf.global_variables_initializer()
 sess.run(init)
+```
 
-# Train model
+Train model.
+```{code-cell}
 train_loss = []
 iteration_count = 1
 for epoch in range(epochs):
@@ -618,9 +707,10 @@ for epoch in range(epochs):
                 print(test_lstm_model.sample(sess, ix2vocab, vocab2ix, num=10, prime_text=sample))
                 
         iteration_count += 1
+```
 
-
-# Plot loss over time
+Plot loss over time.
+```{code-cell}
 plt.plot(train_loss, 'k-')
 plt.title('Sequence to Sequence Loss')
 plt.xlabel('Generation')
@@ -632,13 +722,9 @@ plt.show()
 
 Practice the Long-Short Term Memory Networks by following this TBD.
 
-## Self study
-
-TBD
-
 ## Acknowledgments
 
-Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source course [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook) and [Sebastian Raschka](https://github.com/rasbt) for creating the open-sourse [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20). It inspires the majority of the content in this chapter.
+Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source library [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook) and [Sebastian Raschka](https://github.com/rasbt) for creating the open-source library [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20). They inspire the majority of the content in this chapter.
 
 ---
 
