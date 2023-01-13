@@ -290,15 +290,15 @@ for i in range(6):
 Alex Krizhevsky, Vinod Nair, and Geoffrey Hinton. [CIFAR-10 and CIFAR-100 datasets](https://www.cs.toronto.edu/~kriz/cifar.html).
 ```
 
-Here we will build a convolutional neural network to predict the CIFAR-10 data.
+Here we will build a convolutional neural network to predict the `CIFAR-10` data.
 
-The script provided will download and unzip the CIFAR-10 data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
+The script provided will download and unzip the `CIFAR-10` data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
 
 
 :::{figure-md} 03_cnn2_loss_acc-dl
 <img src="../../images/deep-learning/CNN/03_cnn2_loss_acc.png" width="90%" class="bg-white mb-1">
 
-Train CIFAR-10 dataset with CNN: accuracy and loss
+Train `CIFAR-10` dataset with CNN: accuracy and loss
 :::
 
 Here we see the training loss (left) and the test batch accuracy (right).
@@ -739,7 +739,7 @@ with open(cifar_labels_file, 'w') as labels_file:
 The purpose of this script is to illustrate how to do stylenet in TensorFlow. We reference the following paper(link: https://arxiv.org/abs/1508.06576) for this algorithm.
 
 But there is some prerequisites
-- Download the VGG-verydeep-19.mat file.
+- Download the `VGG-verydeep-19.mat` file.
 - You must download two images, a style image and a content image for the algorithm to blend.
 
 The style image is
@@ -1180,12 +1180,9 @@ if __name__=="__main__":
     sess.close()
 ```
 
-
----
-
 ## Your turn! 🚀
 
-Practice the Convolutional Neural Networks by following this xxxx.
+TBD.
 
 ## Self study
 
@@ -1193,8 +1190,7 @@ You can refer to those YouTube videos for further study:
 - [Convolutional Neural Networks (CNNs) explained, by deeplizard](https://www.youtube.com/watch?v=YRhxdVk_sIs)
 - [Convolutional Neural Networks Explained (CNN Visualized), by Futurology](https://www.youtube.com/watch?v=pj9-rr1wDhM)
 
-
-## [optional] At the frontier of the research world
+### Research trend
 
 State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning in 2020 :
 
@@ -1205,7 +1201,6 @@ State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning 
 ## Acknowledgments
 
 Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source course [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook). It inspires the majority of the content in this chapter.
-
 
 ---
 
