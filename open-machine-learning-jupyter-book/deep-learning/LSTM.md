@@ -724,7 +724,7 @@ Practice the Long-Short Term Memory Networks by following this TBD.
 
 ## Acknowledgments
 
-Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source library [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook) and [Sebastian Raschka](https://github.com/rasbt) for creating the open-source library [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20). They inspire the majority of the content in this chapter.
+Thanks to [Nick](https://github.com/nfmcclure) for creating the open-source project [tensorflow_cookbook](https://github.com/nfmcclure/tensorflow_cookbook) and [Sebastian Raschka](https://github.com/rasbt) for creating the open-source project [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20). They inspire the majority of the content in this chapter.
 
 ---
 
