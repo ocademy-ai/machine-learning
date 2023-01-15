@@ -227,7 +227,7 @@ Want to explore more case studies? Check out these resources:
 
 ## Applied ethics
 
-We've talked about ethics concepts, challenges ,and case studies in real-world contexts. But how do we get started _applying_ ethical principles and practices in our projects? And how do we _operationalize_ these practices for better governance? Let's explore some real-world solutions:
+We've talked about ethics concepts, challenges, and case studies in real-world contexts. But how do we get started _applying_ ethical principles and practices in our projects? And how do we _operationalize_ these practices for better governance? Let's explore some real-world solutions:
 
 ### Professional codes
 
