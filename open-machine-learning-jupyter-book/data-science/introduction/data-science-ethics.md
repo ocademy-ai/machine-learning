@@ -21,7 +21,7 @@ Market trends tell us that by 2022, 1-in-3 large organizations will buy and sell
 
 Trends also indicate that we will create and consume over [180 zettabytes](https://www.statista.com/statistics/871513/worldwide-data-created/) of data by 2025. As **Data Scientists**, this gives us unprecedented levels of access to personal data. This means we can build behavioral profiles of users and influence decision-making in ways that create an [illusion of free choice](https://www.verywellmind.com/what-is-the-illusion-of-choice-5224973) while potentially nudging users towards outcomes we prefer. It also raises broader questions on data privacy and user protections.
 
-Data ethics are now _necessary guardrails_ for data science and engineering, helping us minimize potential harms and unintended consequences from our data-driven actions. The [Gartner Hype Cycle for AI](https://www.gartner.com/smarterwithgartner/2-megatrends-dominate-the-gartner-hype-cycle-for-artificial-intelligence-2020/) identifies relevant trends in digital ethics, responsible AI, and AI governance as key drivers for larger megatrends around the _democratization_ and _industrialization__ of AI.
+Data ethics are now _necessary guardrails_ for data science and engineering, helping us minimize potential harms and unintended consequences from our data-driven actions. The [Gartner Hype Cycle for AI](https://www.gartner.com/smarterwithgartner/2-megatrends-dominate-the-gartner-hype-cycle-for-artificial-intelligence-2020/) identifies relevant trends in digital ethics, responsible AI, and AI governance as key drivers for larger megatrends around the _democratization_ and _industrialization_ of AI.
 
 ```{figure} ../../../images/hype-cycle-for-ai.png
 ---
