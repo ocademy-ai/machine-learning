@@ -76,7 +76,7 @@ Once you have the dataset, we can start the project in Azure.
 
 ## Create an Azure ML workspace
 
-To train a model in Azure ML you first need to create an Azure ML workspace. The workspace is the top-level resource for Azure Machine Learning, providing a centralized place to work with all the artifacts you create when you use Azure Machine Learning. The workspace keeps a history of all training runs, including logs, metrics, output, and a snapshot of your scripts. You use this information to determine which training run produces the best model. [Learn more](https://docs.microsoft.com/azure/machine-learning/concept-workspace?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109)
+To train a model in Azure ML you first need to create an Azure ML workspace. The workspace is the top-level resource for Azure Machine Learning, providing a centralized place to work with all the artifacts you create when you use Azure Machine Learning. The workspace keeps a history of all training runs, including logs, metrics, output, and a snapshot of your scripts. You use this information to determine which training run produces the best model. [Learn more](https://docs.microsoft.com/azure/machine-learning/concept-workspace?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109).
 
 It is recommended to use the most up-to-date browser that's compatible with your operating system. The following browsers are supported:
 
@@ -93,7 +93,7 @@ Your Azure subscription will be charged a small amount for data storage as long 
 
 1\. Sign into the [Azure portal](https://ms.portal.azure.com/) using the Microsoft credentials associated with your Azure subscription.
 
-2\. Select **＋Create a resource**
+2\. Select **＋Create a resource**.
 
 ![workspace-1](../../../images/workspace-1.PNG)
 
@@ -101,7 +101,7 @@ Search for Machine Learning and select the Machine Learning tile
 
 ![workspace-2](../../../images/workspace-2.PNG)
 
-Click the create button
+Click the create button.
 
 ![workspace-3](../../../images/workspace-3.PNG)
 
