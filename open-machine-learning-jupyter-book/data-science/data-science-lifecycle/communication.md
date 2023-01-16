@@ -17,7 +17,7 @@ kernelspec:
 
 ## Introduction
 
-### What is Communication?
+### What is data communication?
 
 Let’s start this section by defining what it means to communicate. **To communicate is to convey or exchange information.** Information can be ideas, thoughts, feelings, messages, covert signals, data – anything that a **_sender_** (someone sending information) wants a **_receiver_** (someone receiving information) to understand. In this section, we will refer to senders as communicators and receivers as the audience.
 
