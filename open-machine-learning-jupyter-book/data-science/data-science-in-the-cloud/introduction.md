@@ -101,7 +101,9 @@ As you can see, we can leverage Cloud services in many ways to perform Data Scie
 * [Social media analysis with Azure Stream Analytics | Microsoft Learn](https://docs.microsoft.com/azure/stream-analytics/stream-analytics-twitter-sentiment-analysis-trends?ocid=AID3041109)
 * [Analyzing COVID Medical Papers with Azure and Text Analytics for Health](https://soshnikov.com/science/analyzing-medical-papers-with-azure-and-text-analytics-for-health/)
 
-[Market Research](../../assignments/data-science/market-research.md)
+## Your turn! 🚀
+
+[Market research](../../assignments/data-science/market-research.md)
 
 ## Acknowledgments
 
