@@ -97,7 +97,7 @@ Your Azure subscription will be charged a small amount for data storage as long 
 
 ![workspace-1](../../../images/workspace-1.PNG)
 
-Search for Machine Learning and select the Machine Learning tile
+Search for Machine Learning and select the Machine Learning tile.
 
 ![workspace-2](../../../images/workspace-2.PNG)
 
@@ -107,16 +107,16 @@ Click the create button.
 
 Fill in the settings as follows:
 
-- Subscription: Your Azure subscription
-- Resource group: Create or select a resource group
-- Workspace name: Enter a unique name for your workspace
-- Region: Select the geographical region closest to you
-- Storage account: Note the default new storage account that will be created for your workspace
-- Key vault: Note the default new key vault that will be created for your workspace
-- Application insights: Note the default new application insights resource that will be created for your workspace
+- Subscription: Your Azure subscription.
+- Resource group: Create or select a resource group.
+- Workspace name: Enter a unique name for your workspace.
+- Region: Select the geographical region closest to you.
+- Storage account: Note the default new storage account that will be created for your workspace.
+- Key vault: Note the default new key vault that will be created for your workspace.
+- Application insights: Note the default new application insights resource that will be created for your workspace.
 - Container registry: None (one will be created automatically the first time you deploy a model to a container)
-  ![workspace-4](../../../images/workspace-4.PNG)
-- Click the create + review and then on the create button
+  ![workspace-4](../../../images/workspace-4.PNG).
+- Click the create + review and then on the create button.
   
 3\. Wait for your workspace to be created (this can take a few minutes). Then go to it in the portal. You can find it through the Machine Learning Azure service.
 
