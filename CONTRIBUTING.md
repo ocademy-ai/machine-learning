@@ -316,4 +316,4 @@ See the [code of conduct](https://github.com/open-academy/machine-learning/blob/
 
 ## Licensing
 
-See the [LICENSE](https://github.com/open-academy/machine-learning/blob/master/LICENSE) file for this project's licensing. We will ask you to confirm the licensing of your contribution. We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
+See the LICENSE files([code](https://github.com/open-academy/machine-learning/blob/master/LICENSE-CODE), [text](https://github.com/open-academy/machine-learning/blob/master/LICENSE-TEXT)) for this project's licensing. We will ask you to confirm the licensing of your contribution. We may ask you to sign a [Contributor License Agreement (CLA)](http://en.wikipedia.org/wiki/Contributor_License_Agreement) for larger changes.
