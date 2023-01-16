@@ -15,7 +15,7 @@ kernelspec:
 
 # Introduction
 
-In this section, you will learn the fundamental principles of the Cloud, then you will see why it can be interesting for you to use Cloud services to run your data science projects and we'll look at some examples of data science projects run in the cloud.
+In this section, you will learn the fundamental principles of the cloud, then you will see why it can be interesting for you to use cloud services to run your data science projects and we'll look at some examples of data science projects run in the cloud.
 
 ## What is the cloud?
 
