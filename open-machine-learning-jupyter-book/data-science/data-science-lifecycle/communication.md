@@ -35,7 +35,7 @@ Throughout this section two different types of communication will be discussed, 
 
 When communicating data, there will be cases where you will be using one-way communication (think about presenting at a conference, or to a large group where questions won’t be asked directly after) and there will be cases where you will use two-way communication (think about using data to persuade a few stakeholders for buy-in or to convince a teammate that time and effort should be spent building something new).
 
-## Effective Communication
+## Effective communication
 
 ### Your responsibilities as a communicator
 
