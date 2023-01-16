@@ -308,7 +308,7 @@ The script should return :
 b'"{\\"result\\": [true, false]}"'
 ```
 
-Congratulations! You just consumed the model deployed and trained it on Azure ML !
+Congratulations! You just consumed the model deployed and trained it on Azure ML!
 
 ```{note}
 Once you are done with the project, don't forget to delete all the resources.
