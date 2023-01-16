@@ -15,7 +15,7 @@ kernelspec:
 
 # The "low code/no code" way
 
-## What is Azure Machine Learning?
+## What is Azure Machine Learning(ML)?
 
 The Azure cloud platform is more than 200 products and cloud services designed to help you bring new solutions to life. Data scientists expend a lot of effort exploring and pre-processing data, and trying various types of model-training algorithms to produce accurate models. These tasks are time consuming, and often make inefficient use of expensive compute hardware.
 
@@ -37,11 +37,11 @@ Azure ML provides all the tools developers and data scientists need for their ma
 
 There is no doubt that making and building projects is the best way to put your skills and knowledge to the test. In this section, we are going to explore two different ways of building a data science project for the prediction of heart failure attacks in Azure ML Studio, through Low code/No code and through the Azure ML SDK as shown in the following schema:
 
-![project-schema](../../../images/project-schema.PNG)
+![project-schema](../../../images/project-schema.png)
 
 Each way has its own pros and cons. The Low code/No code way is easier to start with as it involves interacting with a GUI (Graphical User Interface), with no prior knowledge of code required. This method enables quick testing of the project's viability and to create POC (Proof Of Concept). However, as the project grows and things need to be production ready, it is not feasible to create resources through GUI. We need to programmatically automate everything, from the creation of resources, to the deployment of a model. This is where knowing how to use the Azure ML SDK becomes crucial.
 
-|                   | Low code/No code | Azure ML SDK              |
+|                   | Low code/no code | Azure ML SDK              |
 |-------------------|------------------|---------------------------|
 | Expertise in code | Not required     | Required                  |
 | Time to develop   | Fast and easy    | Depends on code expertise |
