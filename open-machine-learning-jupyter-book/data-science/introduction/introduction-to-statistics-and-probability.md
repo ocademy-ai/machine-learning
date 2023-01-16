@@ -70,11 +70,11 @@ To help us understand the distribution of data, it is helpful to talk about **qu
 * the first quartile, or $Q1$, is a value, such that $25%$ of the data fall below it,
 * the third quartile, or $Q3$, is a value that $75%$ of the data falls below it.
 
-Graphically we can represent the relationship between median and quartiles in a diagram called the **box plot**:
+Graphically we can represent the relationship between the median and quartiles in a diagram called the **box plot**:
 
 ![](../../../images/boxplot_explanation.png)
 
-Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR,Q3+1.5*IQR]$.
+Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR, Q3+1.5*IQR]$.
 
 For the finite distribution that contains a small number of possible values, a good "typical" value is the one that appears the most frequently, which is called **mode**. It is often applied to categorical data, such as colors. Consider a situation where we have two groups of people - some that strongly prefer red, and others who prefer blue. If we code colors by numbers, the mean value for a favorite color would be somewhere in the orange-green spectrum, which does not indicate the actual preference for either group. However, the mode would be either one of the colors, or both colors, if the number of people voting for them is equal (in this case we call the sample **multimodal**).
 
