@@ -74,7 +74,7 @@ Once you have the dataset, we can start the project in Azure.
 
 ## Low code/no code training of a model in Azure ML Studio
 
-## Create an Azure ML workspace
+### Create an Azure ML workspace
 
 To train a model in Azure ML you first need to create an Azure ML workspace. The workspace is the top-level resource for Azure Machine Learning, providing a centralized place to work with all the artifacts you create when you use Azure Machine Learning. The workspace keeps a history of all training runs, including logs, metrics, output, and a snapshot of your scripts. You use this information to determine which training run produces the best model. [Learn more](https://docs.microsoft.com/azure/machine-learning/concept-workspace?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109).
 
@@ -130,7 +130,7 @@ Fill in the settings as follows:
 
 You can manage your workspace using the Azure portal, but for data scientists and Machine Learning operations engineers, Azure Machine Learning Studio provides a more focused user interface for managing workspace resources.
 
-## Compute resources
+### Compute resources
 
 Compute Resources are cloud-based resources on which you can run model training and data exploration processes. There are four kinds of compute resource you can create:
 
@@ -143,7 +143,7 @@ Compute Resources are cloud-based resources on which you can run model training 
 
 Some key factors are to consider when creating a compute resource and those choices can be critical decisions to make. 
 
-**Do you need CPU or GPU ?**
+**Do you need CPU or GPU?**
 
 A CPU (Central Processing Unit) is the electronic circuitry that executes instructions comprising a computer program. A GPU (Graphics Processing Unit) is a specialized electronic circuit that can execute graphics-related code at a very high rate. 
 
@@ -189,7 +189,7 @@ In the [Azure ML workspace](https://ml.azure.com/) that we created earlier, go t
 
 Awesome! Now that we have a Compute cluster, we need to load the data to Azure ML Studio.
 
-## Loading the dataset
+### Loading the dataset
 
 11\. In the [Azure ML workspace](https://ml.azure.com/) that we created earlier, click on "Datasets" in the left menu and click on the "+ Create dataset" button to create a dataset. Choose the "From local files" option and select the Kaggle dataset we downloaded earlier.
 ![24](../../../images/dataset-1.PNG)
@@ -223,7 +223,7 @@ Here you can see a detailed description of the best model that AutoML generated.
 
 ## Low code/no code model deployment and endpoint consumption
 
-## Model deployment
+### Model deployment
 
 The automated machine learning interface allows you to deploy the best model as a web service in a few steps. Deployment is the integration of the model so that it can make predictions based on new data and identify potential areas of opportunity. For this project, deployment to a web service means that medical applications will be able to consume the model to be able to make live predictions of their patients risk to get a heart attack.
 
@@ -241,7 +241,7 @@ In the best model description, click on the "Deploy" button.
 
 Amazing! Now that we have a model deployed, we can start the consumption of the endpoint.
 
-## Endpoint consumption
+### Endpoint consumption
 
 Click on the "Consume" tab. Here you can find the REST endpoint and a python script in the consumption option. Take some time to read the python code. 
 
