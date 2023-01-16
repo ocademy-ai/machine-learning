@@ -59,6 +59,25 @@ git clone https://github.com/<UserName>/machine-learning.git
 >
 > **There will be slight differences on different systems**
 
+### Configure GIT-SSH links
+Before you push, it's best to use SSH links to make sure the network is connected properly.For more details,please refer to [video](https://www.bilibili.com/video/BV1gF411h7bA?vd_source=b3ed65613de5a4cc19d2fa2ba5651e79).
+
+>**warning**
+>
+>When you do push operations, you may see below errors that prevent you from connecting to the remote repository, or timeout errors, especially if you are using the http protocol.
+>
+>```bash
+>Permission denied(publickey)
+>fatal:Could not read from remote repository
+>fatal:unable to access 'https://github.com/xxxxxx.git' : Recv failure: Connection was reset.
+>fatal: unable to access 'https://github.com/xxxxx.git/' : The requested URL returned error : 403
+>```
+>
+>Solution:
+>
+>1.Configure or reconfigure the SSH protocol
+>2.Try to push more times.(Because push operations do not always succeed.)
+
 ### Install Python & Conda
 
 Before you start, you will need [Python](https://wiki.python.org/moin/BeginnersGuide/Download) and [Conda](https://docs.anaconda.com/anaconda/install/) on your computer.
