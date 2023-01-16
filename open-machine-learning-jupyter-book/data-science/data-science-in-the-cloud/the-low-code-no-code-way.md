@@ -26,12 +26,12 @@ Azure ML provides all the tools developers and data scientists need for their ma
 - **Azure Machine Learning Studio**: it is a web portal in Azure Machine Learning for low-code and no-code options for model training, deployment, automation, tracking and asset management. The studio integrates with the Azure Machine Learning SDK for a seamless experience.
 - **Jupyter Notebooks**: quickly prototype and test ML models.
 - **Azure Machine Learning Designer**: allows to drag-n-drop modules to build experiments and then deploy pipelines in a low-code environment.
-- **Automated machine learning UI (AutoML)** : automates iterative tasks of machine learning model development, allowing to build ML models with high scale, efficiency, and productivity, all while sustaining model quality.
+- **Automated Machine Learning UI (AutoML)** : automates iterative tasks of machine learning model development, allowing to build Machine Learning models with high scale, efficiency, and productivity, all while sustaining model quality.
 - **Data Labelling**: an assisted ML tool to automatically label data.
-- **Machine learning extension for Visual Studio Code**: provides a full-featured development environment for building and managing ML projects.
-- **Machine learning CLI**: provides commands for managing Azure ML resources from the command line.
-- **Integration with open-source frameworks** such as PyTorch, TensorFlow, Scikit-learn and many more for training, deploying, and managing the end-to-end machine learning process.
-- **MLflow**: It is an open-source library for managing the life cycle of your machine learning experiments. **MLFlow Tracking** is a component of MLflow that logs and tracks your training run metrics and model artifacts, irrespective of your experiment's environment.
+- **Machine Learning extension for Visual Studio Code**: provides a full-featured development environment for building and managing Machine Learning projects.
+- **Machine Learning CLI**: provides commands for managing Azure ML resources from the command line.
+- **Integration with open-source frameworks** such as PyTorch, TensorFlow, Scikit-learn and many more for training, deploying, and managing the end-to-end Machine Learning process.
+- **MLflow**: It is an open-source library for managing the life cycle of your Lachine Learning experiments. **MLflow Tracking** is a component of MLflow that logs and tracks your training run metrics and model artifacts, irrespective of your experiment's environment.
 
 ## The heart failure prediction project
 
