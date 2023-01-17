@@ -59,25 +59,24 @@ git clone https://github.com/<UserName>/machine-learning.git
 > 
 > **There will be slight differences on different systems**
 
-### Configure GIT-SSH links
-Before you push, it's best to use SSH links to make sure the network is connected properly.For more details,please refer to [video](https://www.bilibili.com/video/BV1gF411h7bA?vd_source=b3ed65613de5a4cc19d2fa2ba5651e79).
+### Initialize the GIT-SSH configuration
 
 >**Warning**
 >
->When you do push operations, you may see below errors that prevent you from connecting to the remote repository, or timeout errors, especially if you are using the http protocol.
+>You may see below errors that prevent you from connecting to the remote repository, or timeout errors after you do push operations, especially if you are using the http protocol instead of the ssh protocol.
 >
 >```bash
->Permission denied(publickey)
->fatal:Could not read from remote repository
->fatal:unable to access 'https://github.com/xxxxxx.git' : Recv failure: Connection was reset.
->fatal: unable to access 'https://github.com/xxxxx.git/' : The requested URL returned error : 403
+>Permission denied (publickey).
+>fatal: Could not read from remote repository.
+>fatal: unable to access 'https://github.com/WHQWHQWHQ/machine-learning.git/': Recv failure: Connection was reset.
+>fatal: unable to access 'https://github.com/WHQWHQWHQ/machine-learning.git/': The requested URL returned error : 403.
 >```
 >
 >Solution:
 >
->1.Configure or reconfigure the SSH protocol
+>1. Configure or reconfigure the SSH protocol. For more details, please refer to [video](https://www.bilibili.com/video/BV1gF411h7bA/?buvid=XY104501687EB01C10D12AF83E9486CCE1CC5&is_story_h5=false&mid=mguZ%2BofXotL5XmZtEoSlsw%3D%3D&p=1&plat_id=116&share_from=ugc&share_medium=android&share_plat=android&share_session_id=f628ad65-ce2d-45eb-b54f-c99d7101f156&share_source=QQ&share_tag=s_i&timestamp=1673946931&unique_k=eEc0aDw&up_id=252152).
 >
->2.Try to push more times.(Because push operations do not always succeed.)
+>2. Try several times in case the push operation fails occasionally.
 
 
 ### Install Python & Conda
