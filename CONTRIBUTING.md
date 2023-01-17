@@ -56,8 +56,28 @@ git clone https://github.com/<UserName>/machine-learning.git
 ```
 
 > **Warning**
->
+> 
 > **There will be slight differences on different systems**
+
+### Initialize the GIT-SSH configuration
+
+>**Warning**
+>
+>You may see below errors that prevent you from connecting to the remote repository, or timeout errors after you do push operations, especially if you are using the http protocol instead of the ssh protocol.
+>
+>```bash
+>Permission denied (publickey).
+>fatal: Could not read from remote repository.
+>fatal: unable to access 'https://github.com/WHQWHQWHQ/machine-learning.git/': Recv failure: Connection was reset.
+>fatal: unable to access 'https://github.com/WHQWHQWHQ/machine-learning.git/': The requested URL returned error : 403.
+>```
+>
+>Solution:
+>
+>1. Configure or reconfigure the SSH protocol. For more details, please refer to [video](https://www.bilibili.com/video/BV1gF411h7bA/?buvid=XY104501687EB01C10D12AF83E9486CCE1CC5&is_story_h5=false&mid=mguZ%2BofXotL5XmZtEoSlsw%3D%3D&p=1&plat_id=116&share_from=ugc&share_medium=android&share_plat=android&share_session_id=f628ad65-ce2d-45eb-b54f-c99d7101f156&share_source=QQ&share_tag=s_i&timestamp=1673946931&unique_k=eEc0aDw&up_id=252152).
+>
+>2. Try several times in case the push operation fails occasionally.
+
 
 ### Install Python & Conda
 
@@ -112,25 +132,25 @@ conda env update -f environment.yml
 To Mac,
 
 > **Warning**
->
+> 
 > You may see below Tensorflow installation failures, especially on the ARM-based M1 Mac.
->
+> 
 > ```bash
 > ERROR: Could not find a version that satisfies the requirement tensorflow (from versions: none)
 > ERROR: No matching distribution found for tensorflow
 > ```
->
+> 
 > Solution:
->
+> 
 > 1. Comment out Tensorflow in **environment.yml**.
 > 2. Follow Apple's [official documentation](https://developer.apple.com/metal/tensorflow-plugin/) to install the Tensorflow.
 > 3. Run `conda env update -f environment.yml` again to install the remaining dependencies.
 > 4. Optional - try to uncomment the Tensorflow in **environment.yml**.
->
+> 
 > **Warning**
->
+> 
 > You may see below error when you have trouble access GitHub.
->
+> 
 > ```bash
 > error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
 > fatal: expected flush after ref listing
@@ -143,25 +163,26 @@ To Mac,
 To Windows,
 
 > **Warning**
->
+> 
 > You may see below HTTP error first.
->
+> 
 > ```bash
 > An HTTP error occurred when trying to retrieve this URL.
 > HTTP errors are often intermittent, and a simple retry will get you on your way.
 > ```
->
+> 
 > Create `.condarc` conda configuration file(This file should):
->
+> 
 > ```bash
 > conda config --set show_channel_urls yes
 > ```
->This file is in your user directory by default,for example:
->
->```C:\Users\gouha\.gitconfig```
->
+> 
+> This file is in your user directory by default,for example:
+> 
+> ```C:\Users\gouha\.gitconfig```
+> 
 > Delete initial content in `.condarc`, the add the following content to `.condarc`.
->
+> 
 > ```
 > channels:
 >   - defaults
@@ -178,11 +199,11 @@ To Windows,
 >   pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 >   simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 > ```
->
+> 
 > **Warning**
->
+> 
 > You may see below error when you have trouble access GitHub.
->
+> 
 > ```bash
 > error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
 > fatal: expected flush after ref listing
@@ -218,64 +239,63 @@ Then you should be able to follow the build success message to view the book loc
 To Mac,
 
 > **Warning**
->
+> 
 > You may encouter following problem when you program on ARM-based M1 Mac.
->
+> 
 > ```bash
 > OSError: no library called "cairo-2" was found
 > no library called "cairo" was found
 > no library called "libcairo-2" was found
 > ```
->
+> 
 > Solution:
->
+> 
 > 1. Install [Homebrew](https://brew.sh/).
 > 2. Fetch Homebrew sources:
->
+> 
 > ```bash
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 > ```bash
 > 3. Install the below missing dependencies through Homebrew:
->
+> 
 > ```bash
 > brew install cairo pango gdk-pixbuf libxml2 libxslt libffi
 > ```
->
+> 
 > 4. Find out the path of `cairo`, `glib` and `pango` installation, and export them to DYLD_LIBRARY_PATH:
->
+> 
 > ```bash
 > # for example
 > export DYLD_LIBRARY_PATH=/opt/homebrew/Cellar/cairo/1.16.0_5/lib/:/opt/homebrew/Cellar/pango/1.50.9/lib/:/opt/homebrew/Cellar/glib/2.72.3_1/lib/
 > ```
->
+> 
 > **How to find out above pathes?** Here is an example of cairo:
->
+> 
 > * Run the command `which brew`.
 > * If the response is `/opt/homebrew/bin/brew`, now we get the Homebrew root path as '/opt/homebrew/'.(**The result may depend on your OS!!**)
 > * Check if `cairo`, `glib`, `pango` are existing in `/opt/homebrew/Cellar`.
 > * Find out the lib path for above libraries, such as `/opt/homebrew/Cellar/cairo/1.16.0_5/lib`.(**The result may depend on your OS!! Remind again.**)
->
 > 5. Rerun `jupyter-book build .`
 > 6. Run `pip uninstall xcffib` if error still exists, and then try again.
 
 To Windows,
 
 > **Warning**
->
+> 
 > You may encouter following problem when you program.
->
+> 
 > ```bash
 > OSError: no library called "cairo-2" was found
 > no library called "cairo" was found
 > no library called "libcairo-2" was found
 > ```
->
+> 
 > Solution:
->
+> 
 > Download [GTK3](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases).
->
+> 
 > Run the following command.
->
+> 
 > ```bash
 > pip uninstall xcffib
 > ```
@@ -300,7 +320,7 @@ jupyter notebook
 ```
 
 > **Warning**
->
+> 
 > Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
 
 ### Deployment
