@@ -17,7 +17,7 @@ kernelspec:
 
 ## Introduction
 
-### What is Communication?
+### What is data communication?
 
 Let’s start this section by defining what it means to communicate. **To communicate is to convey or exchange information.** Information can be ideas, thoughts, feelings, messages, covert signals, data – anything that a **_sender_** (someone sending information) wants a **_receiver_** (someone receiving information) to understand. In this section, we will refer to senders as communicators and receivers as the audience.
 
@@ -35,7 +35,7 @@ Throughout this section two different types of communication will be discussed, 
 
 When communicating data, there will be cases where you will be using one-way communication (think about presenting at a conference, or to a large group where questions won’t be asked directly after) and there will be cases where you will use two-way communication (think about using data to persuade a few stakeholders for buy-in or to convince a teammate that time and effort should be spent building something new).
 
-## Effective Communication
+## Effective communication
 
 ### Your responsibilities as a communicator
 
@@ -122,10 +122,10 @@ How do you use emotion when communicating data? Below are a couple of ways.
   - Images help an audience see themselves in a situation. When you use images, you can push an audience toward the emotion that you feel they should have about your data.
 - Use Color
   - Different colors evoke different emotions. Popular colors and the emotions they evoke are below. Be aware, that colors could have different meanings in different cultures.
-    - Blue usually evokes emotions of peace and trust
-    - Green is usually related to nature and the environment
-    - Red is usually passion and excitement
-    - Yellow is usually optimism and happiness
+    - Blue usually evokes emotions of peace and trust.
+    - Green is usually related to nature and the environment.
+    - Red is usually passion and excitement.
+    - Yellow is usually optimism and happiness.
 
 ## Communication case study
 
@@ -199,7 +199,7 @@ If Emerson took approach #2, it is much more likely that the team leads will tak
 - [Infographic: Here are 15 Common Data Fallacies to Avoid (visualcapitalist.com)](https://www.visualcapitalist.com/here-are-15-common-data-fallacies-to-avoid/)
 - [Cherry Picking: When People Ignore Evidence that They Dislike – Effectiviology](https://effectiviology.com/cherry-picking/#How_to_avoid_cherry_picking)
 - [Tell Stories with Data: Communication in Data Science | by Sonali Verghese | Towards Data Science](https://towardsdatascience.com/tell-stories-with-data-communication-in-data-science-5266f7671d7)
-- [1. Communicating Data - Communicating Data with Tableau [Book] (oreilly.com)](https://www.oreilly.com/library/view/communicating-data-with/9781449372019/ch01.html)
+- [Communicating Data - Communicating Data with Tableau [Book] (oreilly.com)](https://www.oreilly.com/library/view/communicating-data-with/9781449372019/ch01.html)
 
 ## Your turn! 🚀
 
