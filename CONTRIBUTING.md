@@ -55,22 +55,21 @@ Clone your repo fork to a local machine.
 git clone https://github.com/<UserName>/machine-learning.git
 ```
 
->**Warning**
+> **Warning**
 >
->You may see below errors that prevent you from connecting to the remote repository, or timeout errors when you do push operations, especially if you are using the HTTP protocol.
+> You may see below errors that prevent you from connecting to the remote repository, or timeout errors when you do push operations, especially if you are using the HTTP protocol.
 >
->```bash
->Permission denied (publickey).
->fatal: Could not read from remote repository.
->fatal: unable to access 'https://github.com/WHQWHQWHQ/machine-learning.git/': Recv failure: Connection was reset.
->fatal: unable to access 'https://github.com/WHQWHQWHQ/machine-learning.git/': The requested URL returned error : 403.
->```
+> ```bash
+> Permission denied (publickey).
+> fatal: Could not read from remote repository.
+> fatal: unable to access 'https://github.com/<UserName>/machine-learning.git/': Recv failure: Connection was reset.
+> fatal: unable to access 'https://github.com/<UserName>/machine-learning.git/': The requested URL returned error : 403.
+> ```
 >
->Solution:
+> Solution:
 >
->1. Use [SSH protocol](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to access the repo.
->
->2. Try more times in case the push operation fails occasionally.
+> 1. Use [SSH protocol](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to access the repo.
+> 2. Try more times in case the push operation fails occasionally.
 
 ### Install Python & Conda
 
@@ -139,7 +138,7 @@ To Mac,
 > 2. Follow Apple's [official documentation](https://developer.apple.com/metal/tensorflow-plugin/) to install the Tensorflow.
 > 3. Run `conda env update -f environment.yml` again to install the remaining dependencies.
 > 4. Optional - try to uncomment the Tensorflow in **environment.yml**.
->
+
 > **Warning**
 >
 > You may see below error when you have trouble access GitHub.
@@ -192,7 +191,7 @@ To Windows,
 >   pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 >   simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 > ```
->
+
 > **Warning**
 >
 > You may see below error when you have trouble access GitHub.
