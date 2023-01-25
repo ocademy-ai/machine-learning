@@ -15,7 +15,7 @@ kernelspec:
 
 # Introduction
 
-In this section, you will learn the fundamental principles of the Cloud, then you will see why it can be interesting for you to use Cloud services to run your data science projects and we'll look at some examples of data science projects run in the cloud.
+In this section, you will learn the fundamental principles of the cloud, then you will see why it can be interesting for you to use cloud services to run your data science projects and we'll look at some examples of data science projects run in the cloud.
 
 ## What is the cloud?
 
@@ -86,10 +86,10 @@ Dmitry created a tool that analyses COVID papers. By reviewing this project, you
 
 Let's see the different steps used for this:
 
-* Extracting and pre-processing information with [Text Analytics for Health](https://docs.microsoft.com/azure/cognitive-services/text-analytics/how-tos/text-analytics-for-health?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109)
-* Using [Azure ML](https://azure.microsoft.com/services/machine-learning?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109) to parallelize the processing
-* Storing and querying information with [Cosmos DB](https://azure.microsoft.com/services/cosmos-db?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109)
-* Create an interactive dashboard for data exploration and visualization using Power BI
+* Extracting and pre-processing information with [Text Analytics for Health](https://docs.microsoft.com/azure/cognitive-services/text-analytics/how-tos/text-analytics-for-health?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109).
+* Using [Azure ML](https://azure.microsoft.com/services/machine-learning?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109) to parallelize the processing.
+* Storing and querying information with [Cosmos DB](https://azure.microsoft.com/services/cosmos-db?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109).
+* Create an interactive dashboard for data exploration and visualization using Power BI.
 
 To see the full process, visit [Dmitry’s blog](https://soshnikov.com/science/analyzing-medical-papers-with-azure-and-text-analytics-for-health/).
 
@@ -101,7 +101,9 @@ As you can see, we can leverage Cloud services in many ways to perform Data Scie
 * [Social media analysis with Azure Stream Analytics | Microsoft Learn](https://docs.microsoft.com/azure/stream-analytics/stream-analytics-twitter-sentiment-analysis-trends?ocid=AID3041109)
 * [Analyzing COVID Medical Papers with Azure and Text Analytics for Health](https://soshnikov.com/science/analyzing-medical-papers-with-azure-and-text-analytics-for-health/)
 
-[Market Research](../../assignments/data-science/market-research.md)
+## Your turn! 🚀
+
+[Market research](../../assignments/data-science/market-research.md)
 
 ## Acknowledgments
 
