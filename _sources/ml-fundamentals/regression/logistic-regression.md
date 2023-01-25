@@ -188,19 +188,19 @@ Try creating this plot, and other Seaborn plots, using other variables.
 Now that we have an idea of the relationship between the binary categories of color and the larger group of sizes, let's explore logistic regression to determine a given pumpkin's likely color.
 
 ```{seealso}
-> **🧮 Show Me The Math**
->
-> Remember how linear regression often used ordinary least squares to arrive at a value? Logistic regression relies on the concept of 'maximum likelihood' using [sigmoid functions](https://wikipedia.org/wiki/Sigmoid_function). A 'Sigmoid Function' on a plot looks like an 'S' shape. It takes a value and maps it to somewhere between 0 and 1. Its curve is also called a 'logistic curve'. Its formula looks like this:
->
->```{figure} ../../../images/ml-regression/sigmoid.png
->---
->name: 'logistic function'
->width: 70%
->---
->logistic function{cite}`logistic_function`
->```
->
-> where the sigmoid's midpoint finds itself at x's 0 point, L is the curve's maximum value, and k is the curve's steepness. If the outcome of the function is more than 0.5, the label in question will be given the class '1' of the binary choice. If not, it will be classified as '0'.
+** Show Me The Math**
+
+Remember how linear regression often used ordinary least squares to arrive at a value? Logistic regression relies on the concept of 'maximum likelihood' using [sigmoid functions](https://wikipedia.org/wiki/Sigmoid_function). A 'Sigmoid Function' on a plot looks like an 'S' shape. It takes a value and maps it to somewhere between 0 and 1. Its curve is also called a 'logistic curve'. Its formula looks like this:
+
+```{figure} ../../../images/ml-regression/sigmoid.png
+---
+name: 'logistic function'
+width: 70%
+---
+logistic function{cite}`logistic_function`
+```
+
+Where the sigmoid's midpoint finds itself at x's $0$ point, L is the curve's maximum value, and $k$ is the curve's steepness. If the outcome of the function is more than 0.5, the label in question will be given the class '1' of the binary choice. If not, it will be classified as '0'.
 ```
 
 ## Build your model
