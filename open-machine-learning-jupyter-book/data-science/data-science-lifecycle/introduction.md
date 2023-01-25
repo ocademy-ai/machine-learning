@@ -62,9 +62,9 @@ The processing stage of the lifecycle focuses on discovering patterns in the dat
 
 Common techniques used in this stage are covered in the Machine Learning sections.  Follow the links to learn more about them:
 
-- [Classification](../../ml-fundamentals/classification.md): organizing data into categories for more efficient use.
-- [Clustering](../../ml-fundamentals/clustering.md): grouping data into similar groups.
-- [Regression](../../ml-fundamentals/logistic-regression.md): determine the relationships between variables to predict or forecast values.
+- [Classification](../../ml-fundamentals/classification/introduction-to-classification.md): organizing data into categories for more efficient use.
+- [Clustering](../../ml-advanced/clustering/introduction-to-clustering.md): grouping data into similar groups.
+- [Regression](../../ml-fundamentals/regression/logistic-regression.md): determine the relationships between variables to predict or forecast values.
 
 ## Maintaining
 
