@@ -15,14 +15,13 @@ kernelspec:
 
 # Logistic regression
 
-## Logistic regression to predict categories
 
 ```{figure} ../../../images/ml-regression/logistic-linear.png
 ---
 name: 'Logistic vs. linear regression infographic'
 width: 100%
 ---
-Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+Logistic regression to predict categories. Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 ```
 
 ## Introduction
