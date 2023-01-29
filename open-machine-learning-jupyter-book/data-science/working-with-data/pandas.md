@@ -1650,9 +1650,9 @@ Multiple columns can be assigned to using multi-line expressions:
 ```{code-cell}
 df.eval(
     '''
-C = A + B
-D = A - B
-'''
+    C = A + B
+    D = A - B
+    '''
 )
 ```
 
@@ -1663,9 +1663,11 @@ Query the columns of a DataFrame with a boolean expression.
 For example:
 
 ```{code-cell}
-df = pd.DataFrame({'A': range(1, 6),
-                   'B': range(10, 0, -2),
-                   'C C': range(10, 5, -1)})
+df = pd.DataFrame({
+    'A': range(1, 6),
+    'B': range(10, 0, -2),
+    'C C': range(10, 5, -1)
+})
 df
 ```
 
