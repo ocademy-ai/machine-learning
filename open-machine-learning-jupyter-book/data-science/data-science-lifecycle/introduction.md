@@ -62,9 +62,9 @@ The processing stage of the lifecycle focuses on discovering patterns in the dat
 
 Common techniques used in this stage are covered in the Machine Learning sections.  Follow the links to learn more about them:
 
-- [Classification](../../ml-fundamentals/classification.md):  Organizing data into categories for more efficient use.
-- [Clustering](../../ml-fundamentals/clustering.md): Grouping data into similar groups.
-- [Regression](../../ml-fundamentals/logistic-regression.md): Determine the relationships between variables to predict or forecast values.
+- [Classification](../../ml-fundamentals/classification/introduction-to-classification.md): organizing data into categories for more efficient use.
+- [Clustering](../../ml-advanced/clustering/introduction-to-clustering.md): grouping data into similar groups.
+- [Regression](../../ml-fundamentals/regression/logistic-regression.md): determine the relationships between variables to predict or forecast values.
 
 ## Maintaining
 
@@ -86,7 +86,7 @@ When training your models, you may require more training data. If you’re conte
 
 ### Managing data
 
-As you work with data you may discover that some of the data needs to be cleaned using some of the techniques covered in the section focused on [data [preparation](../working-with-data/data-preparation.md) to build accurate models. When new data arrives, it will need some of the same applications to maintain consistency in quality. Some projects will involve the use of an automated tool for cleansing, aggregation, and compression before the data is moved to its final location. Azure Data Factory is an example of one of these tools.
+As you work with data you may discover that some of the data needs to be cleaned using some of the techniques covered in the section focused on [data preparation](../working-with-data/data-preparation.md) to build accurate models. When new data arrives, it will need some of the same applications to maintain consistency in quality. Some projects will involve the use of an automated tool for cleansing, aggregation, and compression before the data is moved to its final location. Azure Data Factory is an example of one of these tools.
 
 ### Securing the data
 

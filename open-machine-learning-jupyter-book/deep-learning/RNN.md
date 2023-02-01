@@ -15,15 +15,13 @@ kernelspec:
 
 # Recurrent Neural Networks
 
-
 ```{epigraph}
 The nervous system contains many circular paths, whose activity so regenerates the excitation of any participant neuron that reference to time past becomes indefinite, although it still implies that afferent activity has realized one of a certain class of configurations over time. Precise specification of these implications by means of recursive functions, and determination of those that can be embodied in the activity of nervous nets, completes the theory.
 
 -- Warren McCulloch and Walter Pitts, 1943
 ```
 
-
-A recurrent neural network (RNN) is a type of artificial neural network which uses sequential data or time series data and it is mainly used for Natural Language Processing. Now let us see what it looks like.
+A recurrent neural network (RNN) is a type of artificial neural network that uses sequential data or time series data and it is mainly used for Natural Language Processing. Now let us see what it looks like.
 
 Sequential data is not [independent and identically distributed](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables).
 
@@ -41,8 +39,7 @@ And the RNNs use recurrent edge to update.
 RNN1
 :::
 
-
-If unroll over a sequence $(x_0,x_1,x_2)$
+If unroll over a sequence $(x_0,x_1,x_2)$.
 
 :::{figure-md} rnn2
 <img src="../../images/deep-learning/RNN/rnn2.png" width="90%" class="bg-white mb-1">
@@ -78,6 +75,7 @@ backpropagation for RNN
 :::
 
 Through the image, we can get the output:
+
 - Net input: $z_h^{<t>} = W_hx x^{<t>} + W_hh h^{<t-1>} + b_h$
 - Activation: $h^{<t>} = \sigma (z_h^{<t>})$
 - Output: $z_y^<t> = W_yh h^{<t>} + b_y$, $y^{<t>} = \sigma(z_y^{<t>})$
@@ -86,14 +84,15 @@ After that, the loss is computed as the sum over all time steps: $L = \sum_{t=1}
 
 ```{note}
 There are some key points:
-- Similar as training very deep networks with tied parameters
-- Example between $x_0$ and $y_2$: Wh is used twice
-- Usually truncate the backprop after $T$ timesteps
-- Difficulties to train long-term dependencies
+
+- Similar as training very deep networks with tied parameters.
+- Example between $x_0$ and $y_2$: Wh is used twice.
+- Usually truncate the backprop after $T$ timesteps.
+- Difficulties to train long-term dependencies.
 ```
 
-
 ### Code
+
 ```{code-cell}
 # We implement an RNN in TensorFlow to predict spam/ham from texts
 
@@ -278,6 +277,7 @@ plt.ylabel('Accuracy')
 plt.legend(loc='upper left')
 plt.show()
 ```
+
 ## Your turn! 🚀
 
 Practice the Recurrent Neural Networks by following this TBD.
