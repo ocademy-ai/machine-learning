@@ -149,7 +149,7 @@ name: 'World of Data Science'
 World of Data Science{cite}`NolliHow2020`
 ```
 
-Visit [Analyzing text about data science](../../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real time.
+Visit [Analyzing text about data science](../../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real-time.
 
 * **Task 1**: Modify the code above to find out related concepts for the fields of **Big Data** and **Machine Learning**.
 * **Task 2**: Think about [Data Science scenarios](../../assignments/data-science/data-science-scenarios.md).
