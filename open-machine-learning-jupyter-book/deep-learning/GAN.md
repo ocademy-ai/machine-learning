@@ -55,14 +55,7 @@ Second is $D(G(z^{(i)}))$. This part use to predict the fake images which generd
 The aim of Generator is $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(1-D(G(z^{(i)})))$. 
 $D(G(z^{(i)}))$ is also used to predict fake images, but if it predicts badly on fake images, the probability will be close to 1, which is not same to discriminator.
 
-### Algorithm
-
-:::{figure-md} GAN algorithm
-<img src="../../images/deep-learning/GAN/algorithm.png" width="90%" class="bg-white mb-1">
-
-Algorithm of GAN
-:::
-
+### Train for convergence
 GAN converges when probabilities are close to 0.5, which means G can cheat D.
 rom a mathematical point of view, it converges when Nash-equilibrium (Game Theory concept) is reached in the minmax (zero-sum) game.
 [Nash-Equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) in Game Theory is reached when the actions of one player won't change depending on the opponent's actions.
