@@ -46,13 +46,13 @@ For the GAN, it is $\min\limits_{G} \max\limits_{D} V(D, G) = \mathbb{E}_{x \thi
 
 ### Discriminator gradient for update (gradient ascent)
 
-The aim of Discriminator is $\bigtriangledown_W_D \frac{1}{n} \sum_{i=1}^n [logD(x^{(i)}) + log(1-D(G(z^{(i)})))]$. We can split it into two parts.
+The aim of Discriminator is $\bigtriangledown_{W_D} \frac{1}{n} \sum_{i=1}^n [log D(x^{(i)}) + log (1-D(G(z^{(i)})))]$. We can split it into two parts.
 First is $D(x^{(i)})$. If it predicts well in real images, the probability will be close to 1. 
 Second is $D(G(z^{(i)}))$. This part use to predict the fake images which generdated from the generator, and if it predicts well, the probability will be close to 0.
 
 ### Generator gradient for update (gradient descent)
 
-The aim of Generator is $\bigtringledown_W_G \frac{1}{n} \sum_{i=1}^n log(1-D(G(z^{(i)})))$. 
+The aim of Generator is $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(1-D(G(z^{(i)})))$. 
 $D(G(z^{(i)}))$ is also used to predict fake images, but if it predicts badly on fake images, the probability will be close to 1, which is not same to discriminator.
 
 ### Algorithm
@@ -73,7 +73,7 @@ But not each time GAN can converge, there are some training problems:
 - Discriminator is too strong, such that the gradient for the generator vanishes and the generator can't keep up,
 - Discriminator is too weak, and the generator produces non-realistic images that fool it too easily (rare problem, though).
 
-For the third problem, replacing $\bigtringledown_W_G \frac{1}{n} \sum_{i=1}^n log(1-D(G(z^{(i)})))$ with $\bigtringledown_W_G \frac{1}{n} \sum_{i=1}^n log(D(G(z^{(i)})))$ can be a good choice.
+For the third problem, replacing $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(1-D(G(z^{(i)})))$ with $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(D(G(z^{(i)})))$ can be a good choice.
 
 ### Loss
 Discriminator:
