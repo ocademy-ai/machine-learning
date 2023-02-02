@@ -11,10 +11,17 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 * Chapters and Sections
   * Provide an overview at the beginning of each chapter.
   * Be consistent in the structure of each section.
+    * Add a copyright section at the beginning wrapped by `<detail>` if needed. E.g. <details>
+      <summary><b>LICENSE</b></summary>
+
+      MIT License
+
+      ...
+      </details>
     * `## Your turn! 🚀` for exercises/assignments.
     * `## Self study` for further reading resources.
     * `## Acknowledgments` if needed.
-    * add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
+    * Add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
   * Only capitalize the first letter.
 * Don't add the URL as plain text. Instead, add it as a [preview](https://link-previews.stephanbogner.de/).
 * Quotes - use double quotes
