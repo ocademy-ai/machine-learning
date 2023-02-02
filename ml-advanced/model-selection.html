@@ -1,0 +1,1583 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>16. Model selection &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="17. Ensemble learning" href="ensemble-learning.html" />
+    <link rel="prev" title="15. Kernel method" href="kernel-method.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/ml-overview.html">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="kernel-method.html">
+   15. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   16. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ensemble-learning.html">
+   17. Ensemble learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="unsupervised-learning.html">
+   18. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generative-models.html">
+   19. Generative models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/GAN.html">
+   22. GAN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/AutoEncoder.html">
+   24. Autoencoder (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/NLP.html">
+   26. NLP (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/time-series.html">
+   27. Time series (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/DQN.html">
+   28. DQN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-summary.html">
+   29. Summary of deep learning (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/overview.html">
+   30. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/problem-framing.html">
+   31. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/data-engineering.html">
+   32. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-training-and-evaluation.html">
+   33. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-deployment.html">
+   34. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/pytorch.html">
+   35. PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/bamboolib.html">
+   36. Bamboolib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/mito.html">
+   37. Mito
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/KNN.html">
+   38. KNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/semi-supervised-learning.html">
+   39. Semi-supervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/unbalanced-problems.html">
+   40. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/automl.html">
+   41. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../assignments/introduction.html">
+   42. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/get-started.html">
+     42.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/set-up-env/first-assignment.html">
+     42.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/set-up-env/second-assignment.html">
+     42.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-introduction.html">
+     42.4. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-basics.html">
+     42.5. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-advanced.html">
+     42.6. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-text-about-data-science.html">
+     42.7. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-scenarios.html">
+     42.8. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/write-a-data-ethics-case-study.html">
+     42.9. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/lines-scatters-and-bars.html">
+     42.10. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/apply-your-skills.html">
+     42.11. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/try-it-in-excel.html">
+     42.12. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/let-us-learn-about-birds.html">
+     42.13. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/bird-distributions.html">
+     42.14. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/dive-into-the-beehive.html">
+     42.15. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/build-your-own-custom-vis.html">
+     42.16. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/classifying-datasets.html">
+     42.17. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/small-diabetes-study.html">
+     42.18. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/introduction-to-statistics-and-probability.html">
+     42.19. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/displaying-airport-data.html">
+     42.20. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/soda-profits.html">
+     42.21. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-COVID-19-papers.html">
+     42.22. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     42.23. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-processing-in-python.html">
+     42.24. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/evaluating-data-from-a-form.html">
+     42.25. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-preparation.html">
+     42.26. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-data.html">
+     42.27. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     42.28. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/tell-a-story.html">
+     42.29. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     42.30. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/exploring-for-anwser.html">
+     42.31. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/market-research.html">
+     42.32. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     42.33. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/regression-tools.html">
+     42.34. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/managing-data.html">
+     42.35. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/exploring-visualizations.html">
+     42.36. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     42.37. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     42.38. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     42.39. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/project-plan-template.html">
+     42.40. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html">
+     42.41. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     42.42. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-classification.html">
+     42.43. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-regression.html">
+     42.44. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/try-a-different-model.html">
+     42.45. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/create-a-regression-model.html">
+     42.46. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     42.47. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/retrying-some-regression.html">
+     42.48. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     42.49. Pumpkin varieties and color
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../slides/introduction.html">
+   43. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-introduction.html">
+     43.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-basics.html">
+     43.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-advanced.html">
+     43.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-in-data-science.html">
+     43.4. Python in Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-in-data-visualization.html">
+     43.5. Python in data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/ml-overview.html">
+     43.6. Machine Learning overview
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-advanced/model-selection.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-advanced/model-selection.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ml-advanced/model-selection.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#over-fitting-and-under-fitting">
+   16.1. Over-fitting and under-fitting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     16.1.1. Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-simple-example-of-linear-regression">
+     16.1.2. A simple example of linear regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bias-variance-tradeoff">
+   16.2. Bias variance tradeoff
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#l1-and-l2-regularization">
+   16.3. L1 and L2 Regularization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-impact-of-the-value-of-lambda">
+     16.3.1. The impact of the value of
+     <span class="math notranslate nohighlight">
+      \(\lambda\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#early-stopping">
+   16.4. Early stopping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropout">
+   16.5. Dropout
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prediction-after-dropout">
+     16.5.1. Prediction after dropout
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusions">
+   16.6. Conclusions
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Model selection</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#over-fitting-and-under-fitting">
+   16.1. Over-fitting and under-fitting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     16.1.1. Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-simple-example-of-linear-regression">
+     16.1.2. A simple example of linear regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bias-variance-tradeoff">
+   16.2. Bias variance tradeoff
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#l1-and-l2-regularization">
+   16.3. L1 and L2 Regularization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-impact-of-the-value-of-lambda">
+     16.3.1. The impact of the value of
+     <span class="math notranslate nohighlight">
+      \(\lambda\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#early-stopping">
+   16.4. Early stopping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dropout">
+   16.5. Dropout
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prediction-after-dropout">
+     16.5.1. Prediction after dropout
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusions">
+   16.6. Conclusions
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="model-selection">
+<h1><span class="section-number">16. </span>Model selection<a class="headerlink" href="#model-selection" title="Permalink to this headline">#</a></h1>
+<section id="over-fitting-and-under-fitting">
+<h2><span class="section-number">16.1. </span>Over-fitting and under-fitting<a class="headerlink" href="#over-fitting-and-under-fitting" title="Permalink to this headline">#</a></h2>
+<section id="overview">
+<h3><span class="section-number">16.1.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="over-fitting-regression-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/under_over_justalright.png"><img alt="../_images/under_over_justalright.png" class="bg-primary mb-1" src="../_images/under_over_justalright.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.1 </span><span class="caption-text">Over-fitting and under-fitting in regression <span id="id1">[<a class="reference internal" href="#id60" title="Shubham Jain. An overview of regularization techniques in deep learning (with python code). URL: https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/ (visited on 2022-08-14).">Jai</a>]</span></span><a class="headerlink" href="#over-fitting-regression-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="over-fitting-classification-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/classification.png"><img alt="../_images/classification.png" class="bg-primary mb-1" src="../_images/classification.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.2 </span><span class="caption-text">Over-fitting and under-fitting in classification <span id="id2">[<a class="reference internal" href="#id68" title="Andreas Maier. URL: https://towardsdatascience.com/regularization-part-1-db408819b20f (visited on 2022-08-14).">Mai</a>]</span></span><a class="headerlink" href="#over-fitting-classification-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="a-simple-example-of-linear-regression">
+<h3><span class="section-number">16.1.2. </span>A simple example of linear regression<a class="headerlink" href="#a-simple-example-of-linear-regression" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="datapoints-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-datapoints.jpg"><img alt="../_images/bias-variance-datapoints.jpg" class="bg-primary mb-1" src="../_images/bias-variance-datapoints.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.3 </span><span class="caption-text">Training data points <span id="id3">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#datapoints-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="over-fitting-train-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-overfitting.jpg"><img alt="../_images/bias-variance-overfitting.jpg" class="bg-primary mb-1" src="../_images/bias-variance-overfitting.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.4 </span><span class="caption-text">Over-fitting model fits very well on training data <span id="id4">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#over-fitting-train-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="over-fitting-test-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-overfitting-testdata.jpg"><img alt="../_images/bias-variance-overfitting-testdata.jpg" class="bg-primary mb-1" src="../_images/bias-variance-overfitting-testdata.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.5 </span><span class="caption-text">Over-fitting model fits poorly on test data <span id="id5">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#over-fitting-test-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="under-fitting-train-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-underfitting.jpg"><img alt="../_images/bias-variance-underfitting.jpg" class="bg-primary mb-1" src="../_images/bias-variance-underfitting.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.6 </span><span class="caption-text">Under-fitting model fits poorly on training data <span id="id6">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#under-fitting-train-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="under-fitting-test-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-underfitting-test-data.jpg"><img alt="../_images/bias-variance-underfitting-test-data.jpg" class="bg-primary mb-1" src="../_images/bias-variance-underfitting-test-data.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.7 </span><span class="caption-text">Under-fitting model fits poorly on test data <span id="id7">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#under-fitting-test-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="perfect-fitting-train-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-perfect-fit.jpg"><img alt="../_images/bias-variance-perfect-fit.jpg" class="bg-primary mb-1" src="../_images/bias-variance-perfect-fit.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.8 </span><span class="caption-text">Perfect-fitting model fits well on training data <span id="id8">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#perfect-fitting-train-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="perfect-fitting-test-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/bias-variance-perfect-fit-test-data.jpg"><img alt="../_images/bias-variance-perfect-fit-test-data.jpg" class="bg-primary mb-1" src="../_images/bias-variance-perfect-fit-test-data.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.9 </span><span class="caption-text">Perfect-fitting model fits well on test data <span id="id9">[<a class="reference internal" href="#id66" title="David Praise Chukwuma Kalu. URL: https://neuraspike.com/blog/estimate-bias-variance-python/ (visited on 2022-08-14).">Kal</a>]</span></span><a class="headerlink" href="#perfect-fitting-test-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="bias-variance-tradeoff">
+<h2><span class="section-number">16.2. </span>Bias variance tradeoff<a class="headerlink" href="#bias-variance-tradeoff" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="graphicalillustration-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/graphicalillustration.png"><img alt="../_images/graphicalillustration.png" class="bg-primary mb-1" src="../_images/graphicalillustration.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.10 </span><span class="caption-text">Graphical illustration of variance and bias <span id="id10">[<a class="reference internal" href="#id70" title="Scott Fortmann-Roe. URL: http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2 (visited on 2022-08-14).">FR</a>]</span></span><a class="headerlink" href="#graphicalillustration-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="model-complexity-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/total_error.png"><img alt="../_images/total_error.png" class="bg-primary mb-1" src="../_images/total_error.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.11 </span><span class="caption-text">Model complexity v.s. error <span id="id11">[<a class="reference internal" href="#id70" title="Scott Fortmann-Roe. URL: http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2 (visited on 2022-08-14).">FR</a>]</span></span><a class="headerlink" href="#model-complexity-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="l1-and-l2-regularization">
+<h2><span class="section-number">16.3. </span>L1 and L2 Regularization<a class="headerlink" href="#l1-and-l2-regularization" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[L2\ Loss = Loss + \textcolor{red}{\lambda}\sum_{i} w_i^2\]</div>
+<div class="math notranslate nohighlight">
+\[L1\ Loss = Loss + \textcolor{red}{\lambda}\sum_{i} \lvert w \rvert\]</div>
+<figure class="align-default" id="circlesquare-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/circlesquare.png"><img alt="../_images/circlesquare.png" class="bg-primary mb-1" src="../_images/circlesquare.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.12 </span><span class="caption-text">L1 and L2 regularization <span id="id12">[<a class="reference internal" href="#id70" title="Scott Fortmann-Roe. URL: http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2 (visited on 2022-08-14).">FR</a>]</span></span><a class="headerlink" href="#circlesquare-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="explainedairegularization-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/L1L2contour.png"><img alt="../_images/L1L2contour.png" class="bg-primary mb-1" src="../_images/L1L2contour.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.13 </span><span class="caption-text">L1 and L2 regularization  <span id="id13">[<a class="reference internal" href="#id62" title="Terence Parr. URL: https://explained.ai/regularization/ (visited on 2022-08-14).">Par</a>]</span></span><a class="headerlink" href="#explainedairegularization-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="berkeley189s21-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/ridgelassoItayEvron.gif"><img alt="../_images/ridgelassoItayEvron.gif" class="bg-primary mb-1" src="../_images/ridgelassoItayEvron.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.14 </span><span class="caption-text">Different <span class="math notranslate nohighlight">\(\beta\)</span> and ellipses <span id="id14">[<a class="reference internal" href="#id63" title="Jonathan Shewchuk. URL: https://people.eecs.berkeley.edu/~jrs/189s21/ (visited on 2022-08-14).">She</a>]</span></span><a class="headerlink" href="#berkeley189s21-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="p-norm-balls-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/p-norm_balls.webp"><img alt="../_images/p-norm_balls.webp" class="bg-primary mb-1" src="../_images/p-norm_balls.webp" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.15 </span><span class="caption-text">Different p norm <span id="id15">[<a class="reference internal" href="#id73" title="Alexej. URL: https://www.r-bloggers.com/2017/03/contours-of-statistical-penalty-functions-as-gif-images/ (visited on 2022-08-14).">Ale</a>]</span></span><a class="headerlink" href="#p-norm-balls-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="elasticnet-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/elastic_net_balls.webp"><img alt="../_images/elastic_net_balls.webp" class="bg-primary mb-1" src="../_images/elastic_net_balls.webp" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.16 </span><span class="caption-text">ElasticNet <span id="id16">[<a class="reference internal" href="#id73" title="Alexej. URL: https://www.r-bloggers.com/2017/03/contours-of-statistical-penalty-functions-as-gif-images/ (visited on 2022-08-14).">Ale</a>]</span></span><a class="headerlink" href="#elasticnet-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="the-impact-of-the-value-of-lambda">
+<h3><span class="section-number">16.3.1. </span>The impact of the value of <span class="math notranslate nohighlight">\(\lambda\)</span><a class="headerlink" href="#the-impact-of-the-value-of-lambda" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="impact-of-lambda-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/lagrange-animation.gif"><img alt="../_images/lagrange-animation.gif" class="bg-primary mb-1" src="../_images/lagrange-animation.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.17 </span><span class="caption-text">The impact of the value of <span class="math notranslate nohighlight">\(\lambda\)</span>  <span id="id17">[<a class="reference internal" href="#id62" title="Terence Parr. URL: https://explained.ai/regularization/ (visited on 2022-08-14).">Par</a>]</span></span><a class="headerlink" href="#impact-of-lambda-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="early-stopping">
+<h2><span class="section-number">16.4. </span>Early stopping<a class="headerlink" href="#early-stopping" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="earlystopping-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/traintestoverfitting.png"><img alt="../_images/traintestoverfitting.png" class="bg-primary mb-1" src="../_images/traintestoverfitting.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.18 </span><span class="caption-text">Early stopping <span id="id18">[<a class="reference internal" href="#id69" title="Arden Dertat. URL: https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2 (visited on 2022-08-14).">Der</a>]</span></span><a class="headerlink" href="#earlystopping-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="dropout">
+<h2><span class="section-number">16.5. </span>Dropout<a class="headerlink" href="#dropout" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="dropout-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/dropoutgif.gif"><img alt="../_images/dropoutgif.gif" class="bg-primary mb-1" src="../_images/dropoutgif.gif" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.19 </span><span class="caption-text">Dropout <span id="id19">[<a class="reference internal" href="#id61" title="Ravi Ranjan Chaubey. URL: https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/ (visited on 2022-08-14).">Cha</a>]</span></span><a class="headerlink" href="#dropout-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="prediction-after-dropout">
+<h3><span class="section-number">16.5.1. </span>Prediction after dropout<a class="headerlink" href="#prediction-after-dropout" title="Permalink to this headline">#</a></h3>
+<figure class="align-default" id="prediction-after-dropout-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/kUc8r.jpg"><img alt="../_images/kUc8r.jpg" class="bg-primary mb-1" src="../_images/kUc8r.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.20 </span><span class="caption-text">Prediction after dropout <span id="id20">[<a class="reference internal" href="#id72" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span></span><a class="headerlink" href="#prediction-after-dropout-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>During training, p neuron activations (usually, p=0.5, so 50%) are dropped. Doing this at the testing stage is not our goal (the goal is to achieve a better generalization). From the other hand, keeping all activations will lead to an input that is unexpected to the network, more precisely, too high (50% higher) input activations for the following layer <span id="id21">[<a class="reference internal" href="#id72" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span>.</p>
+<p>Consider the neurons at the output layer. During training, each neuron usually get activations only from two neurons from the hidden layer (while being connected to four), due to dropout. Now, imagine we finished the training and remove dropout. Now activations of the output neurons will be computed based on four values from the hidden layer. This is likely to put the output neurons in unusual regime, so they will produce too large absolute values, being overexcited <span id="id22">[<a class="reference internal" href="#id72" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span>.</p>
+<p>To avoid this, the trick is to multiply the input connections’ weights of the last layer by 1-p (so, by 0.5). Alternatively, one can multiply the outputs of the hidden layer by 1-p, which is basically the same <span id="id23">[<a class="reference internal" href="#id72" title="Dmytro Prylipko. URL: https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network (visited on 2022-08-14).">Pry</a>]</span>.</p>
+</section>
+</section>
+<section id="conclusions">
+<h2><span class="section-number">16.6. </span>Conclusions<a class="headerlink" href="#conclusions" title="Permalink to this headline">#</a></h2>
+<figure class="align-default" id="training-size-matters-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/ZahidHasan.png"><img alt="../_images/ZahidHasan.png" class="bg-primary mb-1" src="../_images/ZahidHasan.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.21 </span><span class="caption-text">Training size matters <span id="id24">[<a class="reference internal" href="#id71" title="Zahid Hasan. URL: https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html (visited on 2022-08-14).">Has</a>]</span></span><a class="headerlink" href="#training-size-matters-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="steps-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/steps.png"><img alt="../_images/steps.png" class="bg-primary mb-1" src="../_images/steps.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.22 </span><span class="caption-text">How to choose a good model <span id="id25">[<a class="reference internal" href="#id71" title="Zahid Hasan. URL: https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html (visited on 2022-08-14).">Has</a>]</span></span><a class="headerlink" href="#steps-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="conclusion-ms">
+<a class="bg-primary mb-1 reference internal image-reference" href="../_images/Bias-vs.webp"><img alt="../_images/Bias-vs.webp" class="bg-primary mb-1" src="../_images/Bias-vs.webp" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.23 </span><span class="caption-text">Conclusion <span id="id26">[<a class="reference internal" href="#id67" title="EliteDataScience. URL: https://elitedatascience.com/bias-variance-tradeoff (visited on 2022-08-14).">Eli</a>]</span></span><a class="headerlink" href="#conclusion-ms" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div hidden>
+https://github.com/bhattbhavesh91/dropout-walkthrough/
+<p><a class="reference external" href="https://github.com/Coding-Lane/L2-Regularization">https://github.com/Coding-Lane/L2-Regularization</a></p>
+</div>
+<div hidden>
+TODO:
+<p>Cross validation</p>
+<p>Data Size Matters</p>
+</div>
+<div hidden>
+<p>Machine Learning Tutorial Python - 20: Bias vs Variance In Machine Learning:
+<a class="reference external" href="https://www.youtube.com/watch?v=B01qMFMAgUQ">https://www.youtube.com/watch?v=B01qMFMAgUQ</a></p>
+<p>Bias-Variance Tradeoff, Model Flexibility, Overfitting:
+<a class="reference external" href="https://www.youtube.com/watch?v=T9DEGThjDkI">https://www.youtube.com/watch?v=T9DEGThjDkI</a></p>
+<p>Bias/Variance (C2W1L02):
+<a class="reference external" href="https://www.youtube.com/watch?v=SjQyLhQIXSM">https://www.youtube.com/watch?v=SjQyLhQIXSM</a></p>
+<p>Machine Learning Tutorial Python - 17: L1 and L2 Regularization | Lasso, Ridge Regression :
+<a class="reference external" href="https://www.youtube.com/watch?v=VqKq78PVO9g">https://www.youtube.com/watch?v=VqKq78PVO9g</a></p>
+<p>Intuitive Explanation of Ridge / Lasso Regression:
+<a class="reference external" href="https://www.youtube.com/watch?v=9LNpiiKCQUo">https://www.youtube.com/watch?v=9LNpiiKCQUo</a></p>
+<p>L1 and L2 Regularization CIS 522 - Deep Learning:
+<a class="reference external" href="https://www.youtube.com/watch?v=OLl2nzOeQ68">https://www.youtube.com/watch?v=OLl2nzOeQ68</a></p>
+<p>Thierry Slides Week 6, Week 1</p>
+<p>Ridge, Lasso, Cross validation</p>
+<p>Early Stopping, Dropout,</p>
+</div>
+<hr class="docutils" />
+<div class="docutils container" id="id27">
+<dl class="citation">
+<dt class="label" id="id73"><span class="brackets">Ale</span><span class="fn-backref">(<a href="#id15">1</a>,<a href="#id16">2</a>)</span></dt>
+<dd><p>Alexej. URL: <a class="reference external" href="https://www.r-bloggers.com/2017/03/contours-of-statistical-penalty-functions-as-gif-images/">https://www.r-bloggers.com/2017/03/contours-of-statistical-penalty-functions-as-gif-images/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id61"><span class="brackets"><a class="fn-backref" href="#id19">Cha</a></span></dt>
+<dd><p>Ravi Ranjan Chaubey. URL: <a class="reference external" href="https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/">https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id69"><span class="brackets"><a class="fn-backref" href="#id18">Der</a></span></dt>
+<dd><p>Arden Dertat. URL: <a class="reference external" href="https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2">https://towardsdatascience.com/applied-deep-learning-part-4-convolutional-neural-networks-584bc134c1e2</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id67"><span class="brackets"><a class="fn-backref" href="#id26">Eli</a></span></dt>
+<dd><p>EliteDataScience. URL: <a class="reference external" href="https://elitedatascience.com/bias-variance-tradeoff">https://elitedatascience.com/bias-variance-tradeoff</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id70"><span class="brackets">FR</span><span class="fn-backref">(<a href="#id10">1</a>,<a href="#id11">2</a>,<a href="#id12">3</a>)</span></dt>
+<dd><p>Scott Fortmann-Roe. URL: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2">http://scott.fortmann-roe.com/docs/BiasVariance.html-584bc134c1e2</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id71"><span class="brackets">Has</span><span class="fn-backref">(<a href="#id24">1</a>,<a href="#id25">2</a>)</span></dt>
+<dd><p>Zahid Hasan. URL: <a class="reference external" href="https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html">https://zahidhasan.github.io/2020/10/13/bias-variance-trade-off-and-learning-curve.html</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id60"><span class="brackets"><a class="fn-backref" href="#id1">Jai</a></span></dt>
+<dd><p>Shubham Jain. An overview of regularization techniques in deep learning (with python code). URL: <a class="reference external" href="https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/">https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id66"><span class="brackets">Kal</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>,<a href="#id5">3</a>,<a href="#id6">4</a>,<a href="#id7">5</a>,<a href="#id8">6</a>,<a href="#id9">7</a>)</span></dt>
+<dd><p>David Praise Chukwuma Kalu. URL: <a class="reference external" href="https://neuraspike.com/blog/estimate-bias-variance-python/">https://neuraspike.com/blog/estimate-bias-variance-python/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id68"><span class="brackets"><a class="fn-backref" href="#id2">Mai</a></span></dt>
+<dd><p>Andreas Maier. URL: <a class="reference external" href="https://towardsdatascience.com/regularization-part-1-db408819b20f">https://towardsdatascience.com/regularization-part-1-db408819b20f</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id62"><span class="brackets">Par</span><span class="fn-backref">(<a href="#id13">1</a>,<a href="#id17">2</a>)</span></dt>
+<dd><p>Terence Parr. URL: <a class="reference external" href="https://explained.ai/regularization/">https://explained.ai/regularization/</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id72"><span class="brackets">Pry</span><span class="fn-backref">(<a href="#id20">1</a>,<a href="#id21">2</a>,<a href="#id22">3</a>,<a href="#id23">4</a>)</span></dt>
+<dd><p>Dmytro Prylipko. URL: <a class="reference external" href="https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network">https://datascience.stackexchange.com/questions/44293/how-does-dropout-work-during-testing-in-neural-network</a> (visited on 2022-08-14).</p>
+</dd>
+<dt class="label" id="id63"><span class="brackets"><a class="fn-backref" href="#id14">She</a></span></dt>
+<dd><p>Jonathan Shewchuk. URL: <a class="reference external" href="https://people.eecs.berkeley.edu/~jrs/189s21/">https://people.eecs.berkeley.edu/~jrs/189s21/</a> (visited on 2022-08-14).</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-advanced"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="kernel-method.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">15. </span>Kernel method</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="ensemble-learning.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">17. </span>Ensemble learning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

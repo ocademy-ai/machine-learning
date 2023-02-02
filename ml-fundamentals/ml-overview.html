@@ -1,0 +1,1823 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>10. Machine learning overview &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="11. Regression models for Machine Learning" href="regression/regression-models-for-machine-learning.html" />
+    <link rel="prev" title="9. Data Science in the real world" href="../data-science/data-science-in-the-wild.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-advanced/clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/kernel-method.html">
+   15. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/model-selection.html">
+   16. Model selection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/ensemble-learning.html">
+   17. Ensemble learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/unsupervised-learning.html">
+   18. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/generative-models.html">
+   19. Generative models
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/GAN.html">
+   22. GAN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/AutoEncoder.html">
+   24. Autoencoder (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/NLP.html">
+   26. NLP (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/time-series.html">
+   27. Time series (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/DQN.html">
+   28. DQN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../deep-learning/dl-summary.html">
+   29. Summary of deep learning (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/overview.html">
+   30. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/problem-framing.html">
+   31. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/data-engineering.html">
+   32. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-training-and-evaluation.html">
+   33. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-deployment.html">
+   34. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/pytorch.html">
+   35. PyTorch
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/bamboolib.html">
+   36. Bamboolib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/mito.html">
+   37. Mito
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/KNN.html">
+   38. KNN (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/semi-supervised-learning.html">
+   39. Semi-supervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/unbalanced-problems.html">
+   40. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/automl.html">
+   41. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../assignments/introduction.html">
+   42. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/get-started.html">
+     42.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/set-up-env/first-assignment.html">
+     42.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/set-up-env/second-assignment.html">
+     42.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-introduction.html">
+     42.4. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-basics.html">
+     42.5. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-advanced.html">
+     42.6. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-text-about-data-science.html">
+     42.7. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-scenarios.html">
+     42.8. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/write-a-data-ethics-case-study.html">
+     42.9. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/lines-scatters-and-bars.html">
+     42.10. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/apply-your-skills.html">
+     42.11. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/try-it-in-excel.html">
+     42.12. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/let-us-learn-about-birds.html">
+     42.13. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/bird-distributions.html">
+     42.14. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/dive-into-the-beehive.html">
+     42.15. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/build-your-own-custom-vis.html">
+     42.16. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/classifying-datasets.html">
+     42.17. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/small-diabetes-study.html">
+     42.18. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/introduction-to-statistics-and-probability.html">
+     42.19. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/displaying-airport-data.html">
+     42.20. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/soda-profits.html">
+     42.21. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-COVID-19-papers.html">
+     42.22. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     42.23. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-processing-in-python.html">
+     42.24. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/evaluating-data-from-a-form.html">
+     42.25. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-preparation.html">
+     42.26. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-data.html">
+     42.27. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     42.28. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/tell-a-story.html">
+     42.29. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     42.30. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/exploring-for-anwser.html">
+     42.31. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/market-research.html">
+     42.32. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     42.33. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/regression-tools.html">
+     42.34. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/managing-data.html">
+     42.35. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/exploring-visualizations.html">
+     42.36. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     42.37. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     42.38. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     42.39. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/project-plan-template.html">
+     42.40. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html">
+     42.41. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     42.42. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-classification.html">
+     42.43. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-regression.html">
+     42.44. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/try-a-different-model.html">
+     42.45. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/create-a-regression-model.html">
+     42.46. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     42.47. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/retrying-some-regression.html">
+     42.48. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     42.49. Pumpkin varieties and color
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../slides/introduction.html">
+   43. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-introduction.html">
+     43.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-basics.html">
+     43.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-advanced.html">
+     43.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-in-data-science.html">
+     43.4. Python in Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-in-data-visualization.html">
+     43.5. Python in data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/ml-overview.html">
+     43.6. Machine Learning overview
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-fundamentals/ml-overview.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-fundamentals/ml-overview.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/ml-fundamentals/ml-overview.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-machine-learning">
+   10.1. What is Machine Learning?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#artificial-intelligence-data-science-machine-learning-and-deep-learning">
+   10.2. Artificial Intelligence, Data Science, Machine Learning, and Deep Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ordinary-programming-vs-machine-learning">
+   10.3. Ordinary Programming vs Machine Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications-of-machine-learning">
+   10.4. Applications of Machine Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-terminology">
+   10.5. Key terminology
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#labels">
+     10.5.1. Labels
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#features">
+     10.5.2. Features
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examples">
+     10.5.3. Examples
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#models">
+     10.5.4. Models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regression-vs-classification">
+     10.5.5. Regression vs classification
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#when-and-when-not-to-use-machine-learning">
+   10.6. When And When Not to Use Machine Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#types-of-machine-learning-systems">
+   10.7. Types of Machine Learning Systems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-learning">
+     10.7.1. Supervised Learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unsupervised-learning">
+     10.7.2. Unsupervised Learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     10.7.3. Reinforcement Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#typical-machine-learning-workflow">
+   10.8. Typical Machine Learning Workflow
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-a-problem">
+     10.8.1. Defining a Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#collecting-data">
+     10.8.2. Collecting Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#establishing-a-baseline">
+     10.8.3. Establishing a Baseline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exploratory-data-analysis-eda">
+     10.8.4. Exploratory data analysis(EDA)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preprocessing">
+     10.8.5. Data Preprocessing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-and-training-a-model">
+     10.8.6. Selecting and Training a Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#performing-error-analysis">
+     10.8.7. Performing Error Analysis
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#deploying-a-model">
+     10.8.8. Deploying a Model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   10.9. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   10.10. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Machine learning overview</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-machine-learning">
+   10.1. What is Machine Learning?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#artificial-intelligence-data-science-machine-learning-and-deep-learning">
+   10.2. Artificial Intelligence, Data Science, Machine Learning, and Deep Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ordinary-programming-vs-machine-learning">
+   10.3. Ordinary Programming vs Machine Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications-of-machine-learning">
+   10.4. Applications of Machine Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-terminology">
+   10.5. Key terminology
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#labels">
+     10.5.1. Labels
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#features">
+     10.5.2. Features
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examples">
+     10.5.3. Examples
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#models">
+     10.5.4. Models
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regression-vs-classification">
+     10.5.5. Regression vs classification
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#when-and-when-not-to-use-machine-learning">
+   10.6. When And When Not to Use Machine Learning
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#types-of-machine-learning-systems">
+   10.7. Types of Machine Learning Systems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-learning">
+     10.7.1. Supervised Learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unsupervised-learning">
+     10.7.2. Unsupervised Learning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     10.7.3. Reinforcement Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#typical-machine-learning-workflow">
+   10.8. Typical Machine Learning Workflow
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-a-problem">
+     10.8.1. Defining a Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#collecting-data">
+     10.8.2. Collecting Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#establishing-a-baseline">
+     10.8.3. Establishing a Baseline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exploratory-data-analysis-eda">
+     10.8.4. Exploratory data analysis(EDA)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preprocessing">
+     10.8.5. Data Preprocessing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#selecting-and-training-a-model">
+     10.8.6. Selecting and Training a Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#performing-error-analysis">
+     10.8.7. Performing Error Analysis
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#deploying-a-model">
+     10.8.8. Deploying a Model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   10.9. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   10.10. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="machine-learning-overview">
+<h1><span class="section-number">10. </span>Machine learning overview<a class="headerlink" href="#machine-learning-overview" title="Permalink to this headline">#</a></h1>
+<blockquote class="epigraph">
+<div><p>Machine intelligence is the last invention that humanity will ever need to make.</p>
+<p class="attribution">—Nick Bostrom</p>
+</div></blockquote>
+<p>We are living in the age of the intelligent machines. In the last decade, machine learning powered systems went from beating the world-class chess players to now influencing most of our daily decisions like what we watch on streaming services like Netflix and YouTube. What is machine learning? And why is it important to be studying it now?</p>
+<p>We hear that machine learning is transforming many industries, but what exactly can we use it for? And what are the set of problems that this technology is or not suited for?</p>
+<p>This introduction will give you the basics of machine learning or these things that you will always need to know. More concretely, it will cover the high level foundational knowledge such as:</p>
+<ul class="simple">
+<li><p>What is machine learning?</p></li>
+<li><p>The difference between artificial intelligence, data science, machine learning and deep learning</p></li>
+<li><p>The difference between machine learning and ordinary programming</p></li>
+<li><p>Applications of machine learning</p></li>
+<li><p>When to use and when not to use machine learning</p></li>
+<li><p>Types of machine learning</p></li>
+<li><p>A typical machine learning project workflow</p></li>
+</ul>
+<section id="what-is-machine-learning">
+<h2><span class="section-number">10.1. </span>What is Machine Learning?<a class="headerlink" href="#what-is-machine-learning" title="Permalink to this headline">#</a></h2>
+<p>Machine learning is a new programming paradigm in which instead of explicitly programming computers to perform some tasks, we let them learn from data in order to find the underlying patterns in the data. In few words, machine learning is the science of giving the machine the ability to reason about the data.</p>
+<p>The term <a class="reference external" href="https://en.wikipedia.org/wiki/Machine_learning">machine learning</a> was coined by Arthur Samuel in 1959. At that time, Arthur defined machine learning as a:</p>
+<blockquote>
+<div><p><em>Field of study that gives computers the ability to learn without being explicitly programmed.</em></p>
+</div></blockquote>
+<p>A more technical definition of machine learning was provided by Tom M. Mitchell in 1997. Here is how Tom defined machine learning:</p>
+<blockquote>
+<div><p><em>A computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E.</em></p>
+</div></blockquote>
+<p>Wikipedia provides a much clearer definition of machine learning:</p>
+<blockquote>
+<div><p><em>Machine learning (ML) is the study of computer algorithms that improve automatically through experience and by the use of data. It is seen as a part of artificial intelligence. Machine learning algorithms build a model based on sample data, known as “training data”, in order to make predictions or decisions without being explicitly programmed to do so. - Wikipedia.</em></p>
+</div></blockquote>
+<p>What does that mean?</p>
+<p>In simple words, machine learning algorithms are trained on data rather than being programmed explicitly.</p>
+</section>
+<section id="artificial-intelligence-data-science-machine-learning-and-deep-learning">
+<h2><span class="section-number">10.2. </span>Artificial Intelligence, Data Science, Machine Learning, and Deep Learning<a class="headerlink" href="#artificial-intelligence-data-science-machine-learning-and-deep-learning" title="Permalink to this headline">#</a></h2>
+<p>AI or Artificial intelligence, data science, machine learning, and deep learning are used interchangeably, but they are quite different.</p>
+<p>AI is a branch of computer science concerned with building intelligent machines capable of performing tasks at the level of human. AI seeks to mimic human. AI is an interdisciplinary field that involves machine learning, programming, robotics, data science, etc…</p>
+<p>Machine learning on the other hand is the branch of AI and as we saw, it is concerned with giving the machine the ability to learn from data. Machine learning algorithms consists of shallow or classical algorithms such as decision trees and deep learning algorithms such as convolutional neural networks. We will learn more about these algorithms in the next parts.</p>
+<p>Deep learning is a branch of machine learning that deals with the study of artificial neural networks and it was inspired by the human brain. Classical machine learning algorithms needs a lot of feature engineering, but deep learning algorithms can extract features in huge amount of data such as images themselves.</p>
+<figure class="align-default" id="ai-ml-dl">
+<a class="reference internal image-reference" href="../_images/ai-ml-dl.png"><img alt="../_images/ai-ml-dl.png" src="../_images/ai-ml-dl.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.1 </span><span class="caption-text">The difference between AI, machine learning and deep learning</span><a class="headerlink" href="#ai-ml-dl" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="ordinary-programming-vs-machine-learning">
+<h2><span class="section-number">10.3. </span>Ordinary Programming vs Machine Learning<a class="headerlink" href="#ordinary-programming-vs-machine-learning" title="Permalink to this headline">#</a></h2>
+<p>In ordinary programming, the job of the programmer is to clearly write every single rule that makes up the task he/she is trying to accomplish. In order to get the results, she/he must write all rules that acts up on the data.</p>
+<p>Machine learning flips that. Instead of having to write the rules that makes up a particular application, we can feed data and results(or labels) to the machine learning model, and its job can be to determine the set of rules that map the data and labels.</p>
+<p>Let’s take a real world example. If you wanted to build an application that given a picture of person can determine if he/she is wearing or not wearing a facemask, you can just feed a bunch of images of people with and without facemasks to the machine learning model, and the model can learn the rules or patterns that map the images to whether they have a facemask or not.</p>
+<p>You can even extend that further and use those learned rules to recognize facemasks in the images that were never seen by the that model.</p>
+<figure class="align-default" id="traditional-ml-png">
+<a class="reference internal image-reference" href="../_images/traditional-ml.png"><img alt="../_images/traditional-ml.png" src="../_images/traditional-ml.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.2 </span><span class="caption-text">Traditional Programming vs Deep Learning</span><a class="headerlink" href="#traditional-ml-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Approaching a facemask recognition problem with rule based programming would really be a hard problem. You would have to write lots of code that would later turn out to not work typically because your program will be tested on different kinds of facemasks and people in various scenarios and it’s almost impossible to express that in rules. Whereas with machine learning, all you need is a bunch of images of people with and without facemasks, and there you are few steps away from getting an effective facemask recognizer.</p>
+</section>
+<section id="applications-of-machine-learning">
+<h2><span class="section-number">10.4. </span>Applications of Machine Learning<a class="headerlink" href="#applications-of-machine-learning" title="Permalink to this headline">#</a></h2>
+<p>Before we step into further machine learning foundations, let’s look at some of its most exciting applications.</p>
+<p>Machine learning has transformed many industries, from banking, manufacturing, streaming, autonomous vehicles, agriculture, etc…In fact, most of the tech products and services we use daily possess some sorts of machine learning algorithms running in their backgrounds.</p>
+<p>Here are the most commonly machine learning use cases:</p>
+<ul class="simple">
+<li><p><strong>Fraud detection</strong>: Banks and other financial organizations can use machine learning to detect frauds in real time.</p></li>
+<li><p><strong>Loan repayment prediction</strong>: Banks can also use the historical data of their clients to predict if they will be able to repay back the loans before granting it to them.</p></li>
+<li><p><strong>diagnosing diseases and predicting the survival rate</strong>: Machine learning is increasingly finding its value in medicine. It can assist medical professionals in diagnosing diseases in handful of minutes. Medical professionals can also use machine learning to predict the likelihood or a course of disease or survival rate(prognosis).</p></li>
+<li><p><strong>Detecting defects in industry</strong>: Some manufacturing companies use machine vision to inspect defects in the products which ultimately result in speeding up the production process, automating the inspection task, reducing the cost and human workload. You can learn more about visual inspection in <a class="reference external" href="https://landing.ai/wp-content/uploads/2020/11/MachineVisionSurvey.pdf">2020 State of AI-Based Machine Vision by Landing AI</a>.</p></li>
+<li><p><strong>Churn prediction</strong>:  Organizations that provides some kinds of services can use machine learning to predict if a given customer is likely to opt out from the service or cancel subscription. This can help the organization to improve the customer experiences in order to retain the customers.</p></li>
+<li><p><strong>Spam detection</strong>: Almost all email providers such as Gmail or Outlook possess the ability to detect spams from all incoming emails to protect the users from fake promotions and scams.</p></li>
+<li><p><strong>Autonomous vehicles</strong>: Today’s autonomous vehicles such as self-driving cars use machine learning and deep learning systems to navigate in the roads. Using computer vision, they can be able to detect the pedestrian and traffic lights and signs and other surrounding objects.</p></li>
+</ul>
+<p>There are many more applications of machine learning and the list could go on. For example, a given ads agency can use machine learning to learn the kinds of things that their visitors are interested in and they can use the results to place the relevant ads on the website. Same for streaming services like YouTube and Netflix. These services uses machine learning to suggest the best media to their clients based on their interests.</p>
+</section>
+<section id="key-terminology">
+<h2><span class="section-number">10.5. </span>Key terminology<a class="headerlink" href="#key-terminology" title="Permalink to this headline">#</a></h2>
+<p>What is machine learning? Concisely put, it is the following:</p>
+<ul class="simple">
+<li><p>ML systems learn how to combine input to produce useful predictions on never-before-seen data.</p></li>
+</ul>
+<p>Let’s explore fundamental machine learning terminology.</p>
+<section id="labels">
+<h3><span class="section-number">10.5.1. </span>Labels<a class="headerlink" href="#labels" title="Permalink to this headline">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">label</span></code> is the thing we’re predicting—the <code class="docutils literal notranslate"><span class="pre">y</span></code> variable in simple linear regression. The label could be the future price of wheat, the kind of animal shown in a picture, the meaning of an audio clip, or just about anything.</p>
+</section>
+<section id="features">
+<h3><span class="section-number">10.5.2. </span>Features<a class="headerlink" href="#features" title="Permalink to this headline">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">feature</span></code> is an input variable—the <code class="docutils literal notranslate"><span class="pre">x</span></code> variable in simple linear regression. A simple machine learning project might use a single feature, while a more sophisticated machine learning project could use millions of features, specified as:</p>
+<div class="math notranslate nohighlight">
+\[x_1, x_2, ..., x_N\]</div>
+<p>In the spam detector example, the features could include the following:</p>
+<ul class="simple">
+<li><p>words in the email text</p></li>
+<li><p>sender’s address</p></li>
+<li><p>time of day the email was sent</p></li>
+<li><p>email contains the phrase “one weird trick.”</p></li>
+</ul>
+</section>
+<section id="examples">
+<h3><span class="section-number">10.5.3. </span>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">example</span></code> is a particular instance of data, <strong><code class="docutils literal notranslate"><span class="pre">x</span></code></strong>. (We put <strong><code class="docutils literal notranslate"><span class="pre">x</span></code></strong> in boldface to indicate that it is a vector.) We break examples into two categories:</p>
+<ul class="simple">
+<li><p>labeled examples</p></li>
+<li><p>unlabeled examples</p></li>
+</ul>
+<p>A <strong><code class="docutils literal notranslate"><span class="pre">labeled</span> <span class="pre">example</span></code></strong> includes both feature(s) and the label. That is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>labeled examples: {features, label}: (x, y)
+</pre></div>
+</div>
+<p>Use labeled examples to <strong>train</strong> the model. In our spam detector example, the labeled examples would be individual emails that users have explicitly marked as “spam” or “not spam.”</p>
+<p>An <strong><code class="docutils literal notranslate"><span class="pre">unlabeled</span> <span class="pre">example</span></code></strong> contains features but not the label. That is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>unlabeled examples: {features, ?}: (x, ?)
+</pre></div>
+</div>
+<p>Once we’ve trained our model with labeled examples, we use that model to predict the label on unlabeled examples. In the spam detector, unlabeled examples are new emails that humans haven’t yet labeled.</p>
+</section>
+<section id="models">
+<h3><span class="section-number">10.5.4. </span>Models<a class="headerlink" href="#models" title="Permalink to this headline">#</a></h3>
+<p>A model defines the relationship between features and label. For example, a spam detection model might associate certain features strongly with “spam”. Let’s highlight two phases of a model’s life:</p>
+<ul class="simple">
+<li><p><strong>Training</strong> means creating or <strong>learning</strong> the model. That is, you show the model labeled examples and enable the model to gradually learn the relationships between features and label.</p></li>
+<li><p><strong>Inference</strong> means applying the trained model to unlabeled examples. That is, you use the trained model to make useful predictions (<code class="docutils literal notranslate"><span class="pre">y'</span></code>). For example, during inference, you can predict if an email is a spam or not for new unlabeled examples.</p></li>
+</ul>
+</section>
+<section id="regression-vs-classification">
+<h3><span class="section-number">10.5.5. </span>Regression vs classification<a class="headerlink" href="#regression-vs-classification" title="Permalink to this headline">#</a></h3>
+<p>A <strong>regression</strong> model predicts continuous values. For example, regression models make predictions that answer questions like the following:</p>
+<ul class="simple">
+<li><p>What is the value of a house in California?</p></li>
+<li><p>What is the probability that a user will click on this ad?</p></li>
+</ul>
+<p>A <strong>classification</strong> model predicts discrete values. For example, classification models make predictions that answer questions like the following:</p>
+<ul class="simple">
+<li><p>Is a given email message spam or not spam?</p></li>
+<li><p>Is this an image of a dog, a cat, or a hamster?</p></li>
+</ul>
+</section>
+</section>
+<section id="when-and-when-not-to-use-machine-learning">
+<h2><span class="section-number">10.6. </span>When And When Not to Use Machine Learning<a class="headerlink" href="#when-and-when-not-to-use-machine-learning" title="Permalink to this headline">#</a></h2>
+<p>Machine learning is an incredible technology and it has shown a lot of successes in solving various real world problems. However, like any other technology, machine learning is not suitable for solving all kinds of problems. It is thus equally important to know when and when not to use machine learning.</p>
+<p>When to use machine learning? Machine learning is preferred when approaching:</p>
+<ul class="simple">
+<li><p>Problems that are too complex to be solved by ordinary programming. For these kinds of problems, it’s probably safe to try machine learning. There is no way one can write all rules that can be used for recognizing facemasks or detect spam emails accurately for example.</p></li>
+<li><p>Problems that involve visual reasoning and language understanding such as image recognition, speech recognition, machine translation, etc…As we will see later, large scale perception or visual and language problems are typically handled by deep learning systems.</p></li>
+<li><p>Fast changing problems where the characteristics of the problems changes with time, and there is a need to keep the system functioning well. Machine learning is suitable for these sorts of problems because machine learning algorithms can be retrained on new data.</p></li>
+<li><p>Problems that are clear and have simple goals such as yes/no question or predicting a single continuous number such as the quantity of product likely to be consumed in a given time.  Andrew Ng., Founder of <a class="reference external" href="http://DeepLearning.AI">DeepLearning.AI</a> and Adjunct Stanford Professor likes to say that machine learning (employed for automation purpose) is likely to succeed when solving a problem that takes a human a second or less to accomplish such as detecting defects in a product. Recognizing if there is a defect in a product is very simple yes/no question and take a second or less to complete.</p></li>
+</ul>
+<p>With that said, you may not use machine learning when:</p>
+<ul class="simple">
+<li><p>You want the predictions made by your model to be fully explainable. This is because most machine learning models are considered to be <code class="docutils literal notranslate"><span class="pre">blackbox</span></code>.</p></li>
+<li><p>You do not have a reliable data for the problem you’re trying to solve. A simple example here is trying to use machine learning for predicting stocks. Stock market data is unreliable and can change in a matter of seconds without any logical reasons, and so, it’s pretty hard to for a model to learn some useful patterns from such unreliability.</p></li>
+<li><p>You can solve your problem with ordinary programming or a simple heuristic methods.</p></li>
+<li><p>You want a solution that will never need to be updated. The predictions made by machine learning models decay overtime, so if you are not ready to update data and retrain models frequently, you may have to consider non machine learning techniques.</p></li>
+</ul>
+<p>Machine learning keeps transforming things that people never thought and with its vibrant online community, we will keep to be surprised but in the meantime, it’s a safe belt to use it in problems in which the solution can be in your favor because machine learning systems are hard to maintain.</p>
+<p>We talked about when you should use machine learning and when you should not, but also, there are other areas where machine learning is being heavily used but with extra care and human in the loop. Example of such critical areas include medicine, self driving cars, etc…In some of those areas like self-driving cars(or driver assistants), machine learning is surely a big factor but also because the cost of error made by the model can be very high, human assistance becomes important.</p>
+</section>
+<section id="types-of-machine-learning-systems">
+<h2><span class="section-number">10.7. </span>Types of Machine Learning Systems<a class="headerlink" href="#types-of-machine-learning-systems" title="Permalink to this headline">#</a></h2>
+<p>In broad, there are 3 main types of machine learning systems that are:</p>
+<ul class="simple">
+<li><p>Supervised learning</p></li>
+<li><p>Unsupervised learning</p></li>
+<li><p>Reinforcement learning</p></li>
+</ul>
+<p>Let’s review all of these types to get a high level understanding of what’s they really mean.</p>
+<section id="supervised-learning">
+<h3><span class="section-number">10.7.1. </span>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Permalink to this headline">#</a></h3>
+<p>Most machine learning tasks fall into supervised learning type. As the name implies, a supervised learning model is trained with input data along with some form of guidance that we can call labels. In other words, a supervised learning model maps the input data (or X in many textbooks) to output labels (y). Labels are also known as targets and they act as a description of the input data.</p>
+<p>The example of facemask recognition that we used in above sections is a good example of supervised learning. In broad, there are 2 main kinds of supervised learning problems that are:</p>
+<ul class="simple">
+<li><p><strong>Classification problems</strong> where the task is to identify a given category from numerous categories or simply make choice between a number of categories. Another example of classification task is to identify if the incoming email is either spam or not based on the email contents.</p></li>
+<li><p><strong>Regression problems</strong> where the goal is to predict a continuous value of something. A classical example for this category is to predict the price of the used car given its features such as brand, age, number of doors, number of sits, safety level, maintenance cost, etc…</p></li>
+</ul>
+<figure class="align-default" id="class-reg-png">
+<a class="reference internal image-reference" href="../_images/class-reg.png"><img alt="../_images/class-reg.png" src="../_images/class-reg.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.3 </span><span class="caption-text">Graphical representation of classification and regression problems</span><a class="headerlink" href="#class-reg-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Supervised learning algorithms includes shallow algorithms such as linear and logistic regression, decision trees, random forests, K-Nearest Neighbors (KNN), and support vector machines (SVM). Neural networks can be both supervised(like using them for image classification) and unsupervised.</p>
+<p>With that said, there are other advanced tasks that falls into supervised learning type such as:</p>
+<ul class="simple">
+<li><p>Image captioning where the goal is to predict the caption of a given image.</p></li>
+<li><p>Object detection where the goal is to recognize the object in image and draw the bounding box around it.</p></li>
+<li><p>Image segmentation where the goal is to group the pixels that make up particular objects in the image.</p></li>
+</ul>
+<figure class="align-default" id="vision-png">
+<a class="reference internal image-reference" href="../_images/vision.png"><img alt="../_images/vision.png" src="../_images/vision.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.4 </span><span class="caption-text">Advanced Tasks: Object detection, image segmentation, image captioning. You can test these advanced algorithms on your images using <a class="reference external" href="https://vision-explorer.allenai.org">vision-explorer</a></span><a class="headerlink" href="#vision-png" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Some of those tasks can involve both classification and regression. Take an example for object detection, a task of recognizing and localizing an object in an image: it involves classification (recognizing the object among many other objects) and regression (predicting the coordinates of the objects in an image to make a bounding box).</p>
+<p>If any of the things we are talking about sounds unfamiliar, do not worry. There is no way to explain all things at once, but as we progress, things will get clear.</p>
+</section>
+<section id="unsupervised-learning">
+<h3><span class="section-number">10.7.2. </span>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this headline">#</a></h3>
+<p>Supervised learning algorithms are trained with data and labels. Conversely, unsupervised learning algorithms are trained on unlabelled data.</p>
+<p>Unsupervised learning algorithms are primarily used for:</p>
+<ul class="simple">
+<li><p>Clustering: K-Means</p></li>
+<li><p>Dimension reduction and data visualization: Principal Component Analysis(PCA), t-Distributed Stochastic Neighbor Embedding(t-SNE).</p></li>
+</ul>
+<p>There are many more algorithms that could also be used for those 2 tasks, but, we will cover K-Means, PCA, and t-SNE because they are commonly used.</p>
+</section>
+<section id="reinforcement-learning">
+<h3><span class="section-number">10.7.3. </span>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">#</a></h3>
+<p>Reinforcement learning is a special type of machine learning that is most applicable in robotics and games.</p>
+<p>In reinforcement learning, a learning system called <em>an agent</em> can perceives the environment, performs some actions, and gets <em>rewarded</em> or <em>penalized</em> depending on how it is performing. The main goal of the agent is to accumulate as much as rewards as possible.</p>
+<p>The <em>agent</em> learns the best strategy(<em>policy</em>) necessary for getting the most reward itself.</p>
+<p>Reinforcement learning holds some of the most historical AI moments. In 2016, DeepMind AlphaGo, a reinforcement learning system won Lee Sedol in <a class="reference external" href="https://en.wikipedia.org/wiki/AlphaGo_versus_Lee_Sedol">Google DeepMind Challenge Match</a>. Go is a complex board game that requires intuition, creative and strategic thinking. And Lee was one of the world-class Go players. You can watch the movie of the game between AlphaGo and Lee <a class="reference external" href="https://www.youtube.com/watch?v=WXuK6gekU1Y&amp;list=PLqYmG7hTraZBy7J_4ynYPc0Ml1RUGcLmD&amp;index=2&amp;t=147s">here</a>.</p>
+<p>For many of us, we may not get the most of reinforcement learning, typically because of limited resources and applicability, but is it a powerful thing for those who can afford it most notably employing it in robotics and games.</p>
+<p>Let’s summarize the types of machine learning systems. By far, supervised and unsupervised learning are the two commonly used types of machine learning. Semi-supervised and self-supervised learning are also getting attractions in deep learning community, but they are still in research. We will focus more those two practical types: supervised and unsupervised.</p>
+</section>
+</section>
+<section id="typical-machine-learning-workflow">
+<h2><span class="section-number">10.8. </span>Typical Machine Learning Workflow<a class="headerlink" href="#typical-machine-learning-workflow" title="Permalink to this headline">#</a></h2>
+<p>Although every machine learning problem is unique, they all follow a similar workflow. In this section, we will learn how to approach machine learning problems systematically.</p>
+<p>Overall, a typical machine learning project workflow consists of:</p>
+<ul class="simple">
+<li><p>Defining and formulating a problem</p></li>
+<li><p>Collecting data</p></li>
+<li><p>Establishing a baseline</p></li>
+<li><p>Exploratory data analysis(EDA)</p></li>
+<li><p>Preparing data</p></li>
+<li><p>Selecting and training a model</p></li>
+<li><p>Performing error analysis and improving a model</p></li>
+<li><p>Deploying a model</p></li>
+</ul>
+<p>Let’s talk about each step in brief.</p>
+<section id="defining-a-problem">
+<h3><span class="section-number">10.8.1. </span>Defining a Problem<a class="headerlink" href="#defining-a-problem" title="Permalink to this headline">#</a></h3>
+<p>Everything starts here. Problem definition is the important and the initial step in any machine learning project. This is where you make sure you understand the problem really well. Understanding the problem will give you proper intuitions about the next steps to follow such as right learning algorithms, etc. But wait, what does it mean to understand the problem?</p>
+<p>Understanding the problem is all about diving deep into the details of the problem at hand and asking the right questions. First, it’s important to narrow down the problem until you can have a simple and a well-defined goal. Here are examples of simple goals: To <em>classify</em> products into different categories, to <em>predict</em> the price of a used car given its features (such as brand, age, etc…), to <em>recognize</em> if a person is wearing a facemask, to <em>divide</em> customers into different groups that share similar behaviors, etc…As you can see, the goal can tell whether the problem is classification, regression, or clustering…</p>
+<p>At this stage, avoid vague words. The simpler you can formulate the problem, the better things will be down the hall. It’s also worth questioning if the project should be pursued. Most problems do not require machine learning.</p>
+<p>Problem definition also goes beyond determining the goal and objective of the project to thinking about the data that will be needed. Machine learning models relies on the data, and the better models comes from better data. Do you have data that contains the things you want to predict? Models are not magical things, they are mathematical functions that takes data along with labels, and determine the patterns that can be used to make predictions on unseen data. If the data does not contain meaningful information relevant to what you want to predict, you will get poor predictions.</p>
+<p>After you understand the problem and  have an idea of the data you want, the next step is to collect it.</p>
+</section>
+<section id="collecting-data">
+<h3><span class="section-number">10.8.2. </span>Collecting Data<a class="headerlink" href="#collecting-data" title="Permalink to this headline">#</a></h3>
+<p>This is usually the next stage after formulating a problem. Before we talk about collecting data, let’s even understand the meaning of data. According to <a class="reference external" href="https://en.wikipedia.org/wiki/Data">wikipedia</a>, “data are a set of values of qualitative or quantitative variables about one or more persons or objects.”</p>
+<p>There are 2 main types of data that are:</p>
+<ul class="simple">
+<li><p>Structured data that are organized in tabular or spreadsheet format. Example of tabular data includes customer records, car sales, etc…</p></li>
+<li><p>Unstructure data such as images, texts, sounds, and videos. Unstructured data are not organized as the former.</p></li>
+</ul>
+<p>Nowdays, there are lots of open-source datasets on platforms like Kaggle, Google datasets, UCL, and government websites. So, if you are solving a problem that someone solved before, it’s very likely that you will find it somewhere in those platforms, or other public sources like this <a class="reference external" href="https://github.com/awesomedata/awesome-public-datasets">repository</a>. Your job as machine learning engineer is to find the relevant data that you can use to solve the presented problem.</p>
+<p>That said, there are times that you will have to collect your own data, especially if you are solving a problem that no one solved before. In this case, consider the time that you will have to spend collecting data and the cost. You also do not need to wait until you have your desired data points before you can start. Embrace ML development early on so that you can learn if you (really) need more data. This idea is inspired by Andrew Ng.</p>
+<p>Also, when collecting the data, quality is better than quantity. There are times when small data but good data can outwork big poor data. The amount of data you need is going to depend on the problem you’re solving and its scope, but whatever the problem is, aiming to collect good data is the way to go.</p>
+</section>
+<section id="establishing-a-baseline">
+<h3><span class="section-number">10.8.3. </span>Establishing a Baseline<a class="headerlink" href="#establishing-a-baseline" title="Permalink to this headline">#</a></h3>
+<p>Without a benchmark, you won’t know how to evaluate your results properly. A baseline is the simplest model that can solve your problem with minimal requirements. It does not have to be a model. It can be an existing open source application, a statistical analysis or intuitions you get from data at a quick glance.</p>
+<p>The single most purpose of a baseline is to act as a reference point when comparing the actual model with the baseline. The ultimate goal is to beat a baseline, and sometime, if you can’t beat it, it might mean the project is not worth pursuing, or the baseline can be all you need.</p>
+</section>
+<section id="exploratory-data-analysis-eda">
+<h3><span class="section-number">10.8.4. </span>Exploratory data analysis(EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Permalink to this headline">#</a></h3>
+<p>Before manipulating the data, it is quite important to learn about the dataset. This can be overlooked, but doing it well will help you know the effective strategies to be applied while cleaning the data.</p>
+<p>Go through some values, plot some features, and try to understand the correlation between them. If the work is vision-related, visualize some images, spot what’s missing in the images. Are they diverse enough? What types of image scenarios can you add? Or what are images that can mislead the model?</p>
+<p>Here are other things that you would want to inspect in the data:</p>
+<ul class="simple">
+<li><p>Duplicate values and samples</p></li>
+<li><p>Corrupted or data with unsupported formats (ex: having an image of .txt and with 0 Kilobytes)</p></li>
+<li><p>Class imbalances</p></li>
+<li><p>Biases</p></li>
+</ul>
+<p>Before performing EDA, split the data into the training set, validation and test sets to avoid data leakage. The training set is used for training the model, validation set is used for evaluating the model performance during training to suggest improvements, and test set is for evaluating the final and best model performance. Validation and test set should have the same statistical distribution.</p>
+<p>Also, to avoid data leakage, do not touch the test set in EDA or anywhere before the model training.</p>
+</section>
+<section id="data-preprocessing">
+<h3><span class="section-number">10.8.5. </span>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">#</a></h3>
+<p>Data processing is perhaps the biggest part of any machine learning project. There is a notion that Data Scientists and Machine Learning Engineers spend more than 80% of their time preparing the data and this makes sense because the real world data are messy.</p>
+<p>In this step, it is where you convert the raw data to go in a format that can be accepted by the machine learning algorithms.</p>
+<p>Data preprocessing is hard because there are different types of data and the way you process one is different to the other. For example, in structured data, the way you process numerical features is going to be different to categorical features. Also in unstructured data, the way you manipulate images is going to be different to how you manipulate texts or sounds.</p>
+<p>As the next parts will cover the practical implementations of typical data preprocessing steps, let’s be general about things you’re likely going to deal with while manipulating the features:</p>
+<ul class="simple">
+<li><p><strong>Imputing missing values:</strong> Missing values can either be filled, removed or left as they are. There are various strategies for missing values such as mean, median, frequent imputations, backward and forward fill, and iterative imputations. The right imputation technique depends on the problem and the dataset. With exception to tree based models, most machine learning models do not accept missing values.</p></li>
+<li><p><strong>Encoding categorical features:</strong> Categorical features are all types of features that have categorical values. For example, A gender feature having the values male and female is a categorical feature. You will want to encode such types of features. The techniques for encoding them are label encoding where you can assign 0 to Male and 0 to Female, or one hot encoding where you can get the binary representations (0s and 1s) in one hot matrix. You will see this later in practice.</p></li>
+<li><p><strong>Scaling the numeric features:</strong> Most ML models work well when the input values are scaled to small values because they can train and converge faster than they would otherwise. There are two main scaling techniques that are normalization and standardization. Normalization rescales the feautures to the values between 0 and 1 whereas standardization rescales the features to have mean of 0 and a unit standard deviation. If you are aware that your data has normal or gausian distribution, normalization can be a good choice. Otherwise, standardization will work well in many cases.</p></li>
+</ul>
+<p>In many textbooks and courses, data preprocessing is also referred to data cleaning or data preparation. Feature engineering is also a part of data preprocessing. Feature engineering is a creative task and requires some extra knowledge about the data and the problem as it involves creating new features from existing features.</p>
+</section>
+<section id="selecting-and-training-a-model">
+<h3><span class="section-number">10.8.6. </span>Selecting and Training a Model<a class="headerlink" href="#selecting-and-training-a-model" title="Permalink to this headline">#</a></h3>
+<p>Selecting, creating, and training a machine learning model is the tiniest part in any typical machine learning workflow. There are different types of models but in broad, most of them falls into these categories: linear models such as linear and logistic regression, tree-based models such as decision trees, ensemble models such as random forests, and finally neural networks.</p>
+<p>Depending on your problem, you can choose any relevant model from these categories or tries many of them. But, it is worth mentioning that getting a model that can ultimately solve a given problem is no <em>free lunch scenario</em>. You have to experiment with different models to get one that works for your problem and dataset.</p>
+<p>To reduce your modelling curve, here are a few things that you can consider while choosing a machine learning model:</p>
+<ul class="simple">
+<li><p><strong>The scope of the problem:</strong> The scope or type of your problem can give a strong signal on what learning algorithm to use.  Take an example: If you are going to build an image classifier, neural networks (Convolutional Neural Networks specifically) might be your go-to algorithm.</p></li>
+<li><p><strong>The size of the dataset:</strong> Linear models tend to work well in small data problems, whereas ensemble models and neural network can work well when given huge amount of data.</p></li>
+<li><p><strong>The level of interpretability:</strong> If you want the predictions of your model to be explainable, neural networks may not help. Tree based models such as decision trees can be explainable compared to other models.</p></li>
+<li><p><strong>Training time:</strong> Complex models (neural networks and ensemble models) will take too long to train and thus draining the computation resources. On the other hand, linear models can train faster.</p></li>
+</ul>
+<p>As you can see, there is a trade-off during model selection. You want explainability, choose models that can provide that for you, most models don’t. You have a small dataset or you care about the training time, same thing, a right model for you.</p>
+</section>
+<section id="performing-error-analysis">
+<h3><span class="section-number">10.8.7. </span>Performing Error Analysis<a class="headerlink" href="#performing-error-analysis" title="Permalink to this headline">#</a></h3>
+<p>Performing error analysis will guide you throughout the process of improving the results of the model. The improvement can either be from the data or the model.</p>
+<p>One of the best ways to do error analysis is to plot the learning curve and to try noticing where the model is failing and what might be the reason, and the right actions that you can take to reduce the errors.</p>
+<p>To improve the model part, you can try different model configuration values or hyperparameters. You can also try different models to see one that works well. But also, good model comes from good data, so it’s important to spend time examining the results of the model with respect to the input data.</p>
+<p>Here are questions that you can yourself iteratively in the process error analysis:</p>
+<ul class="simple">
+<li><p>Is the model doing poorly on all classes or is it one specific class?</p></li>
+<li><p>Is it because there are not enough data points for that particular class compared to other classes?</p></li>
+<li><p>There are trade-offs and limits on how much you can do to reduce the errors. Is there a room for improvement?</p></li>
+</ul>
+<p>Often, the improvements will not come from tuning the model, but spending time to increase the number of training samples and data quality.</p>
+<p>When improving the data, you can create artificial data (a.k.a data augmentation). This will work well most of the time. The whole error analysis is an iterative process, keep doing it and always aim to improve the data than the model.</p>
+</section>
+<section id="deploying-a-model">
+<h3><span class="section-number">10.8.8. </span>Deploying a Model<a class="headerlink" href="#deploying-a-model" title="Permalink to this headline">#</a></h3>
+<p>Model deployment is the last part in this workflow. When all the previous steps has gone right, and you are happy about the results of the model on the test set, the next step will be to deploy the model so that the users can start to make requests and get predictions or enhanced services.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="your-turn">
+<h2><span class="section-number">10.9. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>TBD.</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">10.10. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://github.com/Nyandwi">Nyandwi</a> for creating the open-source course <a class="reference external" href="https://github.com/Nyandwi/machine_learning_complete">Complete Machine Learning Package</a>. It inspires the majority of the content in this chapter. Some contents come from <a class="reference external" href="https://developers.google.com/machine-learning/crash-course/framing/ml-terminology">Google Machine Learning Crash Course</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-fundamentals"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../data-science/data-science-in-the-wild.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">9. </span>Data Science in the real world</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="regression/regression-models-for-machine-learning.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Regression models for Machine Learning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
