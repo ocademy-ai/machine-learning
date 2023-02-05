@@ -11,10 +11,17 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 * Chapters and Sections
   * Provide an overview at the beginning of each chapter.
   * Be consistent in the structure of each section.
+    * Add a copyright section at the beginning wrapped by `<detail>` if needed. E.g. <details>
+      <summary><b>LICENSE</b></summary>
+
+      MIT License
+
+      ...
+      </details>
     * `## Your turn! 🚀` for exercises/assignments.
     * `## Self study` for further reading resources.
     * `## Acknowledgments` if needed.
-    * add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
+    * Add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
   * Only capitalize the first letter.
 * Don't add the URL as plain text. Instead, add it as a [preview](https://link-previews.stephanbogner.de/).
 * Quotes - use double quotes
@@ -55,11 +62,11 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
     * Arial (for text), STIXGeneral (for math), 9pt（subscripts/superscripts：6pt）
     * Do not italicize numbers or parentheses in subscripts or superscripts
   * Color：
-    * White as background (text is black)
-      * (Try to avoid) Extra Dark：3FA3FD
-      * Dark：66BFFF
-      * Light：B2D9FF
-      * (Try to avoid) Extra Light: CFF4FF
+White as the background (text is black)
+  * (Try to avoid) Extra Dark：#3FA3FD
+  * Dark：#66BFFF
+  * Light：#B2D9FF
+  * (Try to avoid) Extra Light: #CFF4FF
 
 One way to add a figure is to use `figure-md` as below:
 
@@ -106,9 +113,9 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 ## Citations
 
-1. Use [zoterobib](https://zbib.org/) to generate consistent keys for bibtex entries. Please keep the format to be consistent with zoterobib if you prefer any other bib management tools.
+1\. Use [zoterobib](https://zbib.org/) to generate consistent keys for bibtex entries. Please keep the format to be consistent with zoterobib if you prefer any other bib management tools.
 
-1. Add the bibtex entry to `references.bib` on the root directory. Such as below,
+2\. Add the bibtex entry to `references.bib` on the root directory. Such as below,
 
 ```bibtext
 @article{wood2011sequence,
@@ -123,7 +130,7 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 }
 ```
 
-3. In the text, use the following to cite the added paper:
+3\. In the text, use the following to cite the added paper:
 
 ```markdown
 {cite}`Wood.Gasthaus.Archambeau.ea.2011`
@@ -135,7 +142,7 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 ## HTML snippets
 
-1. Put the folder containing your HTML/CSS/Javascript files under `assets/html/`. For example:
+1\. Put the folder containing your HTML/CSS/Javascript files under `assets/html/`. For example:
 
 ```output
 assets/
@@ -146,7 +153,7 @@ assets/
             index.html
 ```
 
-1. To include the `index.html` file as an HTML `iframe` in the Markdown file, simply use:
+2\. To include the `index.html` file as an HTML `iframe` in the Markdown file, simply use:
 
 ```html
 <p style="text-align: center;">
@@ -169,7 +176,7 @@ To include a YouTube video:
 
 Here `YUyec4eCEiY` is the YouTube `id` of the video, and you should change it accordingly.
 
-How does it work? In fact, the `class="yt-container"` is set to use the CSS style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated HTML file of Jupyter book.
+How does it work? In fact, the `class="yt-container"` is set to use the CSS style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated HTML file of Jupyter Book.
 
 ## Acknowledgments
 
