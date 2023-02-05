@@ -15,7 +15,7 @@ kernelspec:
 
 <details>
 
-<summary><b>LICNSE</b></summary>
+<summary><b>LICENSE</b></summary>
 
 MIT License
 
