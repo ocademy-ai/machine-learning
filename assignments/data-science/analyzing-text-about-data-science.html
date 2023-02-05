@@ -1297,7 +1297,7 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="k">def</span> <span class="nf">http_get</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-  <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+  <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">____</span><span class="o">.</span><span class="n">____</span>
 
 <span class="n">text</span> <span class="o">=</span> <span class="n">http_get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">1000</span><span class="p">])</span>
@@ -1345,8 +1345,8 @@ def test_http_get_with_invalid_url():
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
 
-<span class="c1"># The HTML tags not included in the result.</span>
-<span class="n">TAGS_TO_SKIP</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">]</span>
+<span class="c1"># The HTML tags not included in the result. such as &lt;script /&gt; and &lt;style /&gt;.</span>
+<span class="n">TAGS_TO_SKIP</span> <span class="o">=</span> <span class="n">____</span>
 
 <span class="k">class</span> <span class="nc">MyHTMLParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
     <span class="c1"># The flag to track if or not to skip the current tag.</span>
@@ -1355,21 +1355,23 @@ def test_http_get_with_invalid_url():
     <span class="n">res</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     
     <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TAGS_TO_SKIP</span><span class="p">:</span> <span class="c1"># tag is in the TAGS_TO_SKIP list</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_skip</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># will skip the tag</span>
+        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="n">____</span><span class="p">:</span> <span class="c1"># tag is in the TAGS_TO_SKIP list</span>
+            <span class="n">____</span> <span class="c1"># will skip the tag</span>
 
     <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">TAGS_TO_SKIP</span><span class="p">:</span> <span class="c1"># tag is in the TAGS_TO_SKIP list</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_skip</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># finish to parse the content of the skipped tag and end the skipping</span>
+        <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="n">____</span><span class="p">:</span> <span class="c1"># tag is in the TAGS_TO_SKIP list</span>
+            <span class="n">____</span> <span class="c1"># finish to parse the content of the skipped tag and end the skipping</span>
 
     <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skip</span><span class="p">:</span> <span class="c1"># tag is skipped or the content is empty</span>
+        <span class="k">if</span> <span class="n">____</span> <span class="ow">or</span> <span class="n">____</span><span class="p">:</span> <span class="c1"># tag is skipped or the content is empty</span>
             <span class="k">return</span>
         
         <span class="c1"># Apply the specific parsing logic if appliable.</span>
         <span class="c1"># E.g. remove the Wikipedia&#39;s [ edit ] lable from the content.</span>
-        <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[ edit ]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> 
-        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parsed_data</span><span class="si">}</span><span class="s2"> &quot;</span>
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="n">____</span>
+        
+        <span class="c1"># Append the result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res</span> <span class="o">=</span> <span class="n">____</span>
 
 <span class="n">parser</span> <span class="o">=</span> <span class="n">MyHTMLParser</span><span class="p">()</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
@@ -1491,7 +1493,8 @@ class TestMyHTMLParser(unittest.TestCase):
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nlp_rake</span>
 
-<span class="n">extractor</span> <span class="o">=</span> <span class="n">nlp_rake</span><span class="o">.</span><span class="n">Rake</span><span class="p">(</span><span class="n">max_words</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_freq</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_chars</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># Extract the keywords with these conditions: max words as 2, min frequence as 3, and min characters as 5.</span>
+<span class="n">extractor</span> <span class="o">=</span> <span class="n">nlp_rake</span><span class="o">.</span><span class="n">Rake</span><span class="p">(</span><span class="n">____</span><span class="p">)</span>
 
 <span class="n">extracted_text</span> <span class="o">=</span> <span class="n">extractor</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 <span class="n">extracted_text</span>
@@ -1513,9 +1516,9 @@ class TestMyHTMLParser(unittest.TestCase):
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">pair_list</span><span class="p">):</span>
-    <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">pair_list</span><span class="p">)</span> <span class="c1"># get the keys and values o</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)),</span> <span class="n">v</span><span class="p">)</span> <span class="c1"># initialize a bar graph</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">)),</span> <span class="n">k</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span> <span class="c1"># set the ticks of the axies</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">____</span> <span class="c1"># get the keys and values from pair_list</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">)</span> <span class="c1"># initialize a bar graph with the k and v</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">)</span> <span class="c1"># set the ticks of the axies</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># show the graph</span>
 
 <span class="n">plot</span><span class="p">(</span><span class="n">extracted_text</span><span class="p">)</span>
@@ -1539,7 +1542,7 @@ class TestMyHTMLParser(unittest.TestCase):
 
 <span class="n">wc</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">background_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wc</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">({</span> <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">extracted_text</span> <span class="p">}))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wc</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">(</span><span class="n">____</span><span class="p">))</span> <span class="c1"># unpack the extracted_text as a dict</span>
 </pre></div>
 </div>
 </div>
