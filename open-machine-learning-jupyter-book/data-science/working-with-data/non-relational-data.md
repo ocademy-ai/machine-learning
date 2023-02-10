@@ -4,7 +4,7 @@ Data is not limited to relational databases. This section focuses on non-relatio
 
 ## Spreadsheets
 
-Spreadsheets are a popular way to store and explore data because it requires less work to set up and get started. In this section, you'll learn the basic components of a spreadsheet, as well as formulas and functions. The examples will be illustrated with Microsoft Excel, but most of the parts and topics will have similar names and steps in comparison to other spreadsheet software. 
+Spreadsheets are a popular way to store and explore data because it requires less work to set up and get started. In this section, you'll learn the basic components of a spreadsheet, as well as formulas and functions. The examples will be illustrated with Microsoft Excel, but most of the parts and topics will have similar names and steps in comparison to other spreadsheet software.
 
 ![An empty Microsoft Excel workbook with two worksheets](../../../images/parts-of-spreadsheet.png)
 
@@ -125,7 +125,7 @@ The fields of interest in this document are `created_at`, `id`, and `text`.
 
 ## Your turn! 🚀
 
-There is a `TwitterData.json` file that you can upload to the SampleDB database. It's recommended that you add it to a separate container. This can be done by:
+There is a [`twitter-data.json`](../../assets/data/twitter-data.json) file that you can upload to the SampleDB database. It's recommended that you add it to a separate container. This can be done by:
 
 1. Clicking the new container button in the top right
 1. Selecting the existing database (SampleDB) and creating a container id for the container
