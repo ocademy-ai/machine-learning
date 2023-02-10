@@ -57,7 +57,7 @@ This is why we need multiple tables and relationships. By breaking apart our dat
 
 ## The concepts of relationships
 
-Let's return to our data and determine how we want to split things up. We know we want to store the name and country for our cities, so this will probably work best in one table.
+Let's return to our data and determine how we want to split things up. We know we want to store the name and country of our cities, so this will probably work best in one table.
 
 | City     | Country       |
 | -------- | ------------- |
@@ -99,7 +99,7 @@ With our cities table created, let's store the rainfall. Rather than duplicating
 | 8           | 3       | 2019 | 942    |
 | 9           | 3       | 2020 | 1176   |
 
-Notice the `city_id` column inside the newly created `rainfall` table. This column contains values that reference the IDs in the `cities` table. In technical relational data terms, this is called a **foreign key**; it's a primary key from another table. You can just think of it as a reference or a pointer. `city_id` 1 references Tokyo.
+Notice the `city_id` column inside the newly created `rainfall` table. This column contains values that reference the IDs in the `cities` table. In technical relational data terms, this is called a **foreign key**; it's a primary key from another table. You can just think of it as a reference or a pointer. `city_id` 1 reference Tokyo.
 
 ```{note}
 Foreign key is frequently abbreviated as FK
@@ -155,7 +155,7 @@ FROM cities
     INNER JOIN rainfall ON cities.city_id = rainfall.city_id
 ```
 
-We have highlighted the two columns we want, and the fact we want to join the tables together by the `city_id`. Now we can add the `WHERE` statement to filter out only year 2019.
+We have highlighted the two columns we want, and the fact we want to join the tables together by the `city_id`. Now we can add the `WHERE` statement to filter out the only year 2019.
 
 ```sql
 SELECT cities.city
