@@ -94,7 +94,9 @@ import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior() 
 
 import numpy as np
+from tensorflow.examples.tutorials.mnist import input_data
 
+mnist=input_data.read_data_sets('./tf_data/VGAN/MNIST',one_hot=True)
 DATA_FOLDER = './tf_data/VGAN/MNIST'
 IMAGE_PIXELS = 28*28
 NOISE_SIZE = 100
