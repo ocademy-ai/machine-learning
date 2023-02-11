@@ -15,17 +15,15 @@ kernelspec:
 
 # Generative adversarial networks 
 
-The original purpose of GAN is to generate new data. It classically generates new images, but is applicable to wide range of domains.
-It learns the training set distribution and can generate new images that have never been seen before.
-In contrast to e.g., autoregressive models or RNNs (generating one word at a time), GANs generate the whole output all at once.
+The original purpose of Generative adversarial networks(GAN) is to generate new data. It classically generates new images, but is applicable to wide range of domains. It learns the training set distribution and can generate new images that have never been seen before. In contrast to e.g., autoregressive models or RNNs (generating one word at a time), GANs generate the whole output all at once.
 
 ```{seealso}
-GAN is proposed in 2005, the paper is [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661).
+GAN is proposed in 2005, the paper is Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio. "Generative Adversarial Networks", arxiv:1406.2661.
 ```
 
-## overview
+## Overview
 
-The structure of GAN is roughly as follows. It has two essential part, discriminator and generator. 
+The structures of GANs are roughly as follows. They have two essential part, discriminator and generator. 
 Discriminator learns to become better at distinguishing real from generated images, and generator learns to generate better images to fool the discriminator.
 
 :::{figure-md} GAN structure
@@ -34,9 +32,9 @@ Discriminator learns to become better at distinguishing real from generated imag
 Illustration of GAN structure
 :::
 
-Then, one question appears: why Are GANs Are Called Generative Models?
--The generative part comes from the fact that the model "generates" new data,
-- Usually, generative models use an approximation to compute the usually intractable distribution; here, the discriminator part does that approximation,
+Then, one question appears: why are GANs Called Generative Models?
+- The generative part comes from the fact that the model "generates" new data,
+- Most of the time, generative models use an approximation to compute the usually intractable distribution; here, the discriminator part does that approximation,
 - So, it does learn p(x).
 
 ## Training
@@ -47,8 +45,8 @@ For the GAN, it is $\min\limits_{G} \max\limits_{D} V(D, G) = \mathbb{E}_{x \thi
 ### Discriminator gradient for update (gradient ascent)
 
 The aim of Discriminator is $\bigtriangledown_{W_D} \frac{1}{n} \sum_{i=1}^n [log D(x^{(i)}) + log (1-D(G(z^{(i)})))]$. We can split it into two parts.
-First is $D(x^{(i)})$. If it predicts well in real images, the probability will be close to 1. 
-Second is $D(G(z^{(i)}))$. This part use to predict the fake images which generdated from the generator, and if it predicts well, the probability will be close to 0.
+First is $D(x^{(i)})$. If it predicts well in real images, the probability will be close to $1$. 
+Second is $D(G(z^{(i)}))$. This part use to predict the fake images which generdated from the generator, and if it predicts well, the probability will be close to $0$.
 
 ### Generator gradient for update (gradient descent)
 
@@ -56,6 +54,7 @@ The aim of Generator is $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(1-D
 $D(G(z^{(i)}))$ is also used to predict fake images, but if it predicts badly on fake images, the probability will be close to 1, which is not same to discriminator.
 
 ### Train for convergence
+
 GAN converges when probabilities are close to 0.5, which means G can cheat D.
 rom a mathematical point of view, it converges when Nash-equilibrium (Game Theory concept) is reached in the minmax (zero-sum) game.
 [Nash-Equilibrium](https://en.wikipedia.org/wiki/Nash_equilibrium) in Game Theory is reached when the actions of one player won't change depending on the opponent's actions.
@@ -69,6 +68,7 @@ But not each time GAN can converge, there are some training problems:
 For the third problem, replacing $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(1-D(G(z^{(i)})))$ with $\bigtriangledown_{W_G} \frac{1}{n} \sum_{i=1}^n log(D(G(z^{(i)})))$ can be a good choice.
 
 ### Loss
+
 Discriminator:
 - Maximize prediction probability of classifying real as real and fake as fake,
 - Remember maximizing log likelihood is the same as minimizing negative log likelihood (i.e., minimizing cross-entropy).
@@ -78,6 +78,7 @@ Generator:
 - Better: flip labels and minimize cross entropy (force the discriminator to output high probability for fake if an image is real, and high probability for real if an image is fake).
 
 ### Code
+
 Here we implement a GAN model.
 
 ```{code-cell}
@@ -115,6 +116,7 @@ def vectors_to_images(vectors):
 ```
 
 Load Data
+
 ```{code-cell}
 def mnist_data():
     compose = transforms.Compose(
@@ -133,6 +135,7 @@ num_batches = len(data_loader)
 ```
 
 Initialize Graph
+
 ```{code-cell}
 ## Discriminator
 
@@ -212,12 +215,14 @@ G_opt = tf.train.AdamOptimizer(2e-4).minimize(G_loss, var_list=G_var_list)
 ```
 
 Testing
+
 ```{code-cell}
 num_test_samples = 16
 test_noise = noise(num_test_samples, NOISE_SIZE)
 ```
 
 Inits
+
 ```{code-cell}
 num_epochs = 200
 
@@ -230,6 +235,7 @@ logger = Logger(model_name='DCGAN1', data_name='CIFAR10')
 ```
 
 Train
+
 ```{code-cell}
 # Iterate through epochs
 for epoch in range(num_epochs):
