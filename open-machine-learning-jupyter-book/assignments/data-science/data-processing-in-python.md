@@ -1,18 +1,3 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
-
 # Data processing in Python
 
 In this assignment, we will ask you to elaborate on the code we have started developing in these [challenges](https://open-academy.github.io/machine-learning/data-science/working-with-data/numpy.html#your-turn). The assignment consists of two parts:
