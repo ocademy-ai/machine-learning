@@ -95,6 +95,7 @@ Typically, we set the width to `90%`. However, for some smaller figures, you cou
 ## Code
 
 * Python - [PEP8](https://www.python.org/dev/peps/pep-0008/)
+  * You can [format the active cell on VSCode](https://stackoverflow.com/questions/65747615/how-to-format-jupyter-notebook-in-vscode) by using [black](https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0).
 * Markdown - [markdownlint](https://github.com/DavidAnson/markdownlint)
 
 ## Data
