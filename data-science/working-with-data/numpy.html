@@ -2281,7 +2281,7 @@ The buffer containing the actual elements of the array. Normally, we won’t nee
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;memory at 0x7f7560317450&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;memory at 0x7fd1ccf16450&gt;
 </pre></div>
 </div>
 </div>
@@ -3366,7 +3366,7 @@ The buffer containing the actual elements of the array. Normally, we won’t nee
 <p>NumPy slicing creates a <strong>view</strong> instead of a <strong>copy</strong> as in the case of built-in Python sequences such as string, tuple and list. Care must be taken when extracting a small portion from a large array which becomes useless after the extraction, because the small portion extracted contains a reference to the large original array whose memory will not be released until all arrays derived from it are garbage-collected. In such cases an explicit <code class="docutils literal notranslate"><span class="pre">copy()</span></code> is recommended.</p>
 </div>
 <ul class="simple">
-<li><p>The basic slice syntax is <code class="docutils literal notranslate"><span class="pre">i:j:k</span></code> where <em>i</em> is the starting index, <em>j</em> is the stopping index, and <em>k</em> is the step (<span class="math notranslate nohighlight">\(k /neq 0\)</span>). This selects the m elements (in the corresponding dimension) with index values <em>i</em>, <em>i + k</em>, <em>…</em>,* i + (m - 1) k* where <span class="math notranslate nohighlight">\(m = q + (r /neq 0)\)</span> and <em>q</em> and <em>r</em> are the quotient and remainder obtained by dividing <em>j - i</em> by <em>k</em>: <em>j - i = q k + r</em>, so that <em>i + (m - 1) k &lt; j</em>. For example:</p></li>
+<li><p>The basic slice syntax is <code class="docutils literal notranslate"><span class="pre">i:j:k</span></code> where <em>i</em> is the starting index, <em>j</em> is the stopping index, and <em>k</em> is the step (<span class="math notranslate nohighlight">\(k /neq 0\)</span>). This selects the m elements (in the corresponding dimension) with index values <em>i</em>, <em>i + k</em>, <em>…</em>,<em>i + (m - 1) k</em> where <span class="math notranslate nohighlight">\(m = q + (r /neq 0)\)</span> and <em>q</em> and <em>r</em> are the quotient and remainder obtained by dividing <em>j - i</em> by <em>k</em>: <em>j - i = q k + r</em>, so that <em>i + (m - 1) k &lt; j</em>. For example:</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4081,7 +4081,7 @@ The buffer containing the actual elements of the array. Normally, we won’t nee
 <p>The easiest way to understand a combination of multiple advanced indices may be to think in terms of the resulting shape. There are two parts to the indexing operation, the subspace defined by the basic indexing (excluding integers) and the subspace from the advanced indexing part. Two cases of index combination need to be distinguished:</p>
 <ul class="simple">
 <li><p>The advanced indices are separated by a slice, <code class="docutils literal notranslate"><span class="pre">Ellipsis</span></code> or <code class="docutils literal notranslate"><span class="pre">newaxis</span></code>. For example <code class="docutils literal notranslate"><span class="pre">x[arr1,</span> <span class="pre">:,</span> <span class="pre">arr2]</span></code>.</p></li>
-<li><p>The advanced indices are all next to each other. For example <code class="docutils literal notranslate"><span class="pre">x[...,</span> <span class="pre">arr1,</span> <span class="pre">arr2,</span> <span class="pre">:]</span></code> but not<code class="docutils literal notranslate"> <span class="pre">x[arr1,</span> <span class="pre">:,</span> <span class="pre">1]</span></code> since <code class="docutils literal notranslate"><span class="pre">1</span></code> is an advanced index in this regard.</p></li>
+<li><p>The advanced indices are all next to each other. For example <code class="docutils literal notranslate"><span class="pre">x[...,</span> <span class="pre">arr1,</span> <span class="pre">arr2,</span> <span class="pre">:]</span></code> but not<code class="docutils literal notranslate"><span class="pre">x[arr1,</span> <span class="pre">:,</span> <span class="pre">1]</span></code> since <code class="docutils literal notranslate"><span class="pre">1</span></code> is an advanced index in this regard.</p></li>
 </ul>
 <p>In the first case, the dimensions resulting from the advanced indexing operation come first in the result array, and the subspace dimensions after that. In the second case, the dimensions from the advanced indexing operations are inserted into the result array at the same spot as they were in the initial array (the latter logic is what makes simple advanced indexing behave just like slicing).</p>
 <section id="id4">
@@ -4199,7 +4199,7 @@ The buffer containing the actual elements of the array. Normally, we won’t nee
 </section>
 <section id="flat-iterator-indexing">
 <h3><span class="section-number">5.3.3.4. </span>Flat Iterator indexing<a class="headerlink" href="#flat-iterator-indexing" title="Permalink to this headline">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">x.flat</span></code> returns an iterator that will iterate over the entire array (in C-contiguous style with the last index varying the fastest). This iterator object can also be indexed using basic slicing or advanced indexing as long as the selection object is not a tuple. This should be clear from the fact that<code class="docutils literal notranslate"> <span class="pre">x.flat</span></code> is a 1-dimensional view. It can be used for integer indexing with 1-dimensional C-style-flat indices. The shape of any returned array is therefore the shape of the integer indexing object.</p>
+<p><code class="docutils literal notranslate"><span class="pre">x.flat</span></code> returns an iterator that will iterate over the entire array (in C-contiguous style with the last index varying the fastest). This iterator object can also be indexed using basic slicing or advanced indexing as long as the selection object is not a tuple. This should be clear from the fact that<code class="docutils literal notranslate"><span class="pre">x.flat</span></code> is a 1-dimensional view. It can be used for integer indexing with 1-dimensional C-style-flat indices. The shape of any returned array is therefore the shape of the integer indexing object.</p>
 </section>
 <section id="assigning-values-to-indexed-arrays">
 <h3><span class="section-number">5.3.3.5. </span>Assigning values to indexed arrays<a class="headerlink" href="#assigning-values-to-indexed-arrays" title="Permalink to this headline">#</a></h3>
