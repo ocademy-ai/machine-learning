@@ -232,10 +232,12 @@ from azureml.core.webservice import AciWebservice
 
 inference_config = InferenceConfig(entry_script=script_file_name, environment=best_run.get_environment())
 
-aciconfig = AciWebservice.deploy_configuration(cpu_cores = 1,
-                                               memory_gb = 1,
-                                               tags = {'type': "automl-heart-failure-prediction"},
-                                               description = 'Sample service for AutoML Heart Failure Prediction')
+aciconfig = AciWebservice.deploy_configuration(
+    cpu_cores = 1,
+    memory_gb = 1,
+    tags = {'type': "automl-heart-failure-prediction"},
+    description = 'Sample service for AutoML Heart Failure Prediction'
+)
 
 aci_service_name = 'automl-hf-sdk'
 aci_service = Model.deploy(ws, aci_service_name, [model], inference_config, aciconfig)
