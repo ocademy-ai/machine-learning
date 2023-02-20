@@ -52,7 +52,7 @@ You don’t have to wait until the data is thoroughly cleaned and analyzed to st
 
 ## Exploring to identify inconsistencies
 
-All the topics in this section can help identify missing or inconsistent values, but Pandas provides functions to check for some of these. [isna() or isnull()](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.isna.html) can check for missing values. One important piece of exploring these values within your data is to explore why they ended up that way in the first place. This can help you decide on what [actions to take to resolve them](../../assignments/data-science/data-preparation.ipynb).
+All the topics in this section can help identify missing or inconsistent values, but Pandas provides functions to check for some of these. [`isna()` or `isnull()`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.isna.html) can check for missing values. One important piece of exploring these values within your data is to explore why they ended up that way in the first place. This can help you decide on what [actions to take to resolve them](../../assignments/data-science/data-preparation.ipynb).
 
 ## Your turn! 🚀
 
