@@ -13,13 +13,13 @@ kernelspec:
   name: python3
 ---
 
-# image classification
+# Image classification
 
 ## What is image classification?
 
-In this chapter we will introduce the Image Classification problem, which is the task of assigning an input image one label from a fixed set of categories. This is one of the core problems in Computer Vision that, despite its simplicity, has a large variety of practical applications.
+In this chapter we will introduce the image classification problem, which is the task of assigning an input image one label from a fixed set of categories. This is one of the core problems in Computer Vision that, despite its simplicity, has a large variety of practical applications.
 
-Let me give you an example. in the image below an image classification model takes a single image and assigns probabilities to 4 labels, {cat, dog, hat, mug}. As shown in the image, keep in mind that to a computer an image is represented as one large 3-dimensional array of numbers. In this example, the cat image is 248 pixels wide, 400 pixels tall, and has three color channels Red,Green,Blue (or RGB for short). Therefore, the image consists of 248 x 400 x 3 numbers, or a total of 297,600 numbers. Each number is an integer that ranges from 0 (black) to 255 (white). Our task is to turn this quarter of a million numbers into a single label, such as “cat”.
+Let me give you an example. In the image below an image classification model takes a single image and assigns probabilities to 4 labels, {cat, dog, hat, mug}. As shown in the image, keep in mind that to a computer an image is represented as one large 3-dimensional array of numbers. In this example, the cat image is 248 pixels wide, 400 pixels tall, and has three color channels Red,Green,Blue (or RGB for short). Therefore, the image consists of 248 x 400 x 3 numbers, or a total of 297,600 numbers. Each number is an integer that ranges from 0 (black) to 255 (white). Our task is to turn this quarter of a million numbers into a single label, such as “cat”.
 
 :::{figure-md} 01_example_of_cls
 <img src="../../images/deep-learning/imgcls/01_classify_eg.png" width="90%" class="bg-white mb-1">
@@ -27,24 +27,24 @@ Let me give you an example. in the image below an image classification model tak
 Example of the image classification task
 :::
 
-The task in Image Classification is to predict a single label (or a distribution over labels as shown here to indicate our confidence) for a given image. Images are 3-dimensional arrays of integers from 0 to 255, of size Width x Height x 3. The 3 represents the three color channels Red, Green, Blue.
+The task in image classification is to predict a single label (or a distribution over labels as shown here to indicate our confidence) for a given image. Images are 3-dimensional arrays of integers from 0 to 255, of size Width x Height x 3. The 3 represents the three color channels Red, Green, Blue.
 
 ## Challenges
 
 Since this task of recognizing a visual concept (e.g. cat) is relatively trivial for a human to perform, it is worth considering the challenges involved from the perspective of a Computer Vision algorithm. As we present (an inexhaustive) list of challenges below, keep in mind the raw representation of images as a 3-D array of brightness values:
-- Viewpoint variation. A single instance of an object can be oriented in many ways with respect to the camera,
-- Scale variation. Visual classes often exhibit variation in their size (size in the real world, not only in terms of their extent in the image),
-- Deformation. Many objects of interest are not rigid bodies and can be deformed in extreme ways,
-- Occlusion. The objects of interest can be occluded. Sometimes only a small portion of an object (as little as few pixels) could be visible,
-- Illumination conditions. The effects of illumination are drastic on the pixel level,
-- Background clutter. The objects of interest may blend into their environment, making them hard to identify,
+- Viewpoint variation. A single instance of an object can be oriented in many ways with respect to the camera.
+- Scale variation. Visual classes often exhibit variation in their size (size in the real world, not only in terms of their extent in the image).
+- Deformation. Many objects of interest are not rigid bodies and can be deformed in extreme ways.
+- Occlusion. The objects of interest can be occluded. Sometimes only a small portion of an object (as little as few pixels) could be visible.
+- Illumination conditions. The effects of illumination are drastic on the pixel level.
+- Background clutter. The objects of interest may blend into their environment, making them hard to identify.
 - Intra-class variation. The classes of interest can often be relatively broad, such as chair. There are many different types of these objects, each with their own appearance.
 
 A good image classification model must be invariant to the cross product of all these variations, while simultaneously retaining sensitivity to the inter-class variations.
 
 ## Pipeline of image classification
 
-We’ve seen that the task in Image Classification is to take an array of pixels that represents a single image and assign a label to it. Our complete pipeline can be formalized as follows:
+We’ve seen that the task in image classification is to take an array of pixels that represents a single image and assign a label to it. Our complete pipeline can be formalized as follows:
 - Input: Our input consists of a set of N images, each labeled with one of K different classes. We refer to this data as the training set,
 - Learning: Our task is to use the training set to learn what every one of the classes looks like. We refer to this step as training a classifier, or learning a model,
 - Evaluation: In the end, we evaluate the quality of the classifier by asking it to predict labels for a new set of images that it has never seen before. We will then compare the true labels of these images to the ones predicted by the classifier. Intuitively, we’re hoping that a lot of the predictions match up with the true answers (which we call the ground truth).
@@ -56,9 +56,10 @@ Since image classification is a classic task for computer vision, there are seve
 ### VGGNet
 
 The VGG (Visual Geometry Group) multilayer network model has 19 more layers than AlexNet, verifying that increasing the depth in the network structure can directly affect the model performance. The design idea of VGG is to increase the depth of the network and use a small size convolutional kernel instead. As shown in the figure below, three 3×3 convolutional kernels are used to replace the 7×7 convolutional kernels in AlexNet, and two 3×3 convolutional kernels are used to replace the 5×5 convolutional kernels, which can increase the depth of the network and improve the model effect while ensuring the same perceptual field. The number of model parameters and operations can be reduced by using smaller 3×3 Filters, and the image feature information can be better retained. The specific advantages of the improvement are summarized as follows. 
-- Using small 3×3 filters to replace large convolutional kernels 
+
+- Using small 3×3 filters to replace large convolutional kernels.
 - After replacing the convolution kernel, the convolution layers have the same perceptual field. 
-- Each layer is trained by Re LU activation function and batch gradient descent after convolution operation 
+- Each layer is trained by Re LU activation function and batch gradient descent after convolution operation.
 - It is verified that increasing the network depth can improve the model performance Although, VGG has achieved good results in image classification and localization problems in 2014 due to its deeper network structure and low computational complexity, it uses 140 million parameters and is computationally intensive, which is its shortcoming.
 
 :::{figure-md} 02_VGG_structure
@@ -307,6 +308,7 @@ class RepVGG(tf.keras.Model):
 ### Resnet
 
 ResNet (Residual Network) was proposed by Kaiming He and won the 2015 ILSVRC Grand Prix with an error rate of 3.57%. In the previous network, when the model is not deep enough, its network recognition is not strong, but when the network stack (Plain Network) is very deep, the network gradient disappearance and gradient dispersion are obvious, resulting in the model's computational effectiveness but not up but down. Therefore, in view of the degradation problem of this deep network, ResNet is designed as an ultra-deep network without the gradient vanishing problem.ResNet has various types depending on the number of layers, from 18 to 1202 layers. As an example, Res Net50 consists of 49 convolutional layers and 1 fully connected layer, as shown in the figure below. This simple addition does not add additional parameters and computation to the network, but can greatly increase the training speed and improve the training effect, and this simple structure can well solve the degradation problem when the model deepens the number of layers. In this way, the network will always be in the optimal state and the performance of the network will not decrease with increasing depth.
+
 The most important part of ResNet should be the residual block, and here is the structure.
 
 :::{figure-md} 03_residual_block
@@ -672,6 +674,7 @@ class DenseNet():
 ### MobileNet
 
 MobileNets are based on a streamlined architecture that uses depth-wise separable convolutions to build light weight deep neural networks. We introduce two simple global hyper-parameters that efficiently trade off between latency and accuracy. These hyper-parameters allow the model builder to choose the right sized model for their application based on the constraints of the problem.
+
 Besides, the standard convolutional filters for normal CNNs are replaced by two layers: depthwise convolution and pointwise convolution to build a depthwise separable filter.
 
 :::{figure-md} 07_MobileNet_convolution_structure
@@ -985,8 +988,11 @@ As we said before, image classification task is mainly trained by datasets, so t
 
 ### CIFAR-10/100
 
+```{note}
 The [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. The dataset is divided into five training batches and one test batch, each with 10000 images. The test batch contains exactly 1000 randomly-selected images from each class. The training batches contain the remaining images in random order, but some training batches may contain more images from one class than another. Between them, the training batches contain exactly 5000 images from each class.
+
 The CIFAR-100 dataset is just like the CIFAR-10, except it has 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. Each image comes with a "fine" label (the class to which it belongs) and a "coarse" label (the superclass to which it belongs).
+```
 
 #### Download
 
@@ -1001,7 +1007,9 @@ wget http://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
 
 ### ImageNet-1000
 
+```{note}
 [ImageNet](https://image-net.org/) is an image dataset organized according to the WordNet hierarchy. Each meaningful concept in WordNet, possibly described by multiple words or word phrases, is called a "synonym set" or "synset". There are more than 100,000 synsets in WordNet; the majority of them are nouns (80,000+). In ImageNet, we aim to provide on average 1000 images to illustrate each synset. Images of each concept are quality-controlled and human-annotated. In its completion, we hope ImageNet will offer tens of millions of cleanly labeled and sorted images for most of the concepts in the WordNet hierarchy.
+```
 
 #### Download
 
@@ -1009,11 +1017,11 @@ If you want to download this dataset, please visit [kaggle](https://www.kaggle.c
 
 ## Standards
 
-### top-1 accuracy
+### Top-1 accuracy
 
 If your predicted label takes the largest one inside the final probability vector as the prediction result, and if the one with the highest probability in your prediction result is correctly classified, then the prediction is correct. Otherwise, the prediction is wrong.
 
-### top-5 accuracy
+### Top-5 accuracy
 
 Among the 50 classification probabilities of the test image, take the first 5 maximum classification probabilities, whether the correct label (classification) is in it or not, that is, whether it is one of these first 5, if it is, it is a successful classification.
 
