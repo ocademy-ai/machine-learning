@@ -82,7 +82,7 @@ Scikit-learn offers several different algorithms to use to classify data, depend
 
 ## Exercise - clean and balance your data
 
-The first task at hand, before starting this project, is to clean and **balance** your data to get better results. Start with the blank [delicious_asian_and_indian_cuisines.ipynb](../../assignments/ml-fundamentals/delicious_asian_and_indian_cuisines.ipynb) file.
+The first task at hand, before starting this project, is to clean and **balance** your data to get better results. Start with the blank [delicious-asian-and-indian-cuisines.ipynb](../../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.ipynb) file.
 
 The first thing to install is [imblearn](https://imbalanced-learn.org/stable/). This is a Scikit-learn package that will allow you to better balance the data (you will learn more about this task in a minute).
 
