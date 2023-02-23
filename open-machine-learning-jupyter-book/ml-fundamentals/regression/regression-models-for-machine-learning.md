@@ -20,10 +20,12 @@ In North America, pumpkins are often carved into scary faces for Halloween. Let'
 ![jack-o-lanterns](../../../images/ml-regression/jack-o-lanterns.jpg)
 > Photo by <a href="https://unsplash.com/@teutschmann?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Beth Teutschmann</a> on <a href="https://unsplash.com/s/photos/jack-o-lanterns?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
-[![Introduction to Regression](https://img.youtube.com/vi/5QnJtDad4iQ/0.jpg)](https://youtu.be/5QnJtDad4iQ "Regression Introduction video - Click to Watch!")
+<div class="yt-container">
+  <iframe src="https://www.youtube.com/embed/5QnJtDad4iQ" allowfullscreen></iframe>
+</div>
 
-```{note}
- Click the image above for a quick introduction video to this section
+```{seealso}
+Click the video above for a quick introduction to this section.
 ```
 
 This part covers types of regression in the context of machine learning. Regression models can help determine the _relationship_ between variables. This type of model can predict values such as length, temperature, or age, thus uncovering relationships between variables as it analyzes data points.
