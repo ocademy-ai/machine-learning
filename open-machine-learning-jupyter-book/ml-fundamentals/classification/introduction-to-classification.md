@@ -209,7 +209,7 @@ Everyone loves rice, garlic and ginger!
 ```{code-cell}
 :tags: [output_scroll]
 
-feature_df= df.drop(['cuisine','Unnamed: 0','rice','garlic','ginger'], axis=1)
+feature_df= df.drop(['cuisine' ,'Unnamed: 0' ,'rice' ,'garlic' ,'ginger'] , axis=1)
 labels_df = df.cuisine #.unique()
 feature_df.head()
 ```
