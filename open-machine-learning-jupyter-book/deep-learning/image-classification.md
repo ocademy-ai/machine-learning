@@ -988,32 +988,26 @@ As we said before, image classification task is mainly trained by datasets, so t
 
 ### CIFAR-10/100
 
-```{note}
 The [CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html) consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images. The dataset is divided into five training batches and one test batch, each with 10000 images. The test batch contains exactly 1000 randomly-selected images from each class. The training batches contain the remaining images in random order, but some training batches may contain more images from one class than another. Between them, the training batches contain exactly 5000 images from each class.
 
 The CIFAR-100 dataset is just like the CIFAR-10, except it has 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. Each image comes with a "fine" label (the class to which it belongs) and a "coarse" label (the superclass to which it belongs).
-```
 
-#### Download
-
-```{code-cell}
-# For Linux
+```{note}
+Download for Linux
 wget http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
 wget http://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
 
-# For Win/Mac
-# Download from the offical website
+Download for Win/Mac
+Download from the offical website
 ```
 
 ### ImageNet-1000
 
-```{note}
 [ImageNet](https://image-net.org/) is an image dataset organized according to the WordNet hierarchy. Each meaningful concept in WordNet, possibly described by multiple words or word phrases, is called a "synonym set" or "synset". There are more than 100,000 synsets in WordNet; the majority of them are nouns (80,000+). In ImageNet, we aim to provide on average 1000 images to illustrate each synset. Images of each concept are quality-controlled and human-annotated. In its completion, we hope ImageNet will offer tens of millions of cleanly labeled and sorted images for most of the concepts in the WordNet hierarchy.
-```
 
-#### Download
-
+```{note}
 If you want to download this dataset, please visit [kaggle](https://www.kaggle.com/c/imagenet-object-localization-challenge/overview/description) for more information.
+```
 
 ## Standards
 
