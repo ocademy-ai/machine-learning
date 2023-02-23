@@ -28,9 +28,11 @@ Image by [Jen Looper](https://twitter.com/jenlooper)
 Classification is a form of [supervised learning](https://wikipedia.org/wiki/Supervised_learning) that bears a lot in common with regression techniques. If machine learning is all about predicting values or names to things by using datasets, then classification generally falls into two groups: _binary classification_ and _multiclass classification_.
 
 ```{seealso}
+
 <div class="yt-container">
   <iframe src="https://www.youtube.com/embed/eg8DJYwdMyg" allowfullscreen></iframe>
 </div>
+
 Click the video above for a quick introduction to classification.
 ```
 
@@ -64,9 +66,11 @@ Take a moment to imagine a dataset about cuisines. What would a multiclass model
 ```
 
 ```{seealso}
+
 <div class="yt-container">
   <iframe src="https://www.youtube.com/embed/GuTeDbaNoEU" allowfullscreen></iframe>
 </div>
+
 Click the video above. The whole premise of the show 'Chopped' is the 'mystery basket' where chefs have to make some dish out of a random choice of ingredients. Surely a ML model would have helped!
 ```
 
@@ -78,11 +82,11 @@ Scikit-learn offers several different algorithms to use to classify data, depend
 
 ## Exercise - clean and balance your data
 
-The first task at hand, before starting this project, is to clean and **balance** your data to get better results. Start with the blank [classification_introduction.ipynb](../../assignments/ml-fundamentals/classification_introduction.ipynb) file.
+The first task at hand, before starting this project, is to clean and **balance** your data to get better results. Start with the blank [delicious_asian_and_indian_cuisines.ipynb](../../assignments/ml-fundamentals/delicious_asian_and_indian_cuisines.ipynb) file.
 
 The first thing to install is [imblearn](https://imbalanced-learn.org/stable/). This is a Scikit-learn package that will allow you to better balance the data (you will learn more about this task in a minute).
 
-1 . Import the packages you need to import your data and visualize it, also import `SMOTE` from `imblearn`.
+1\. Import the packages you need to import your data and visualize it, also import `SMOTE` from `imblearn`.
 
 ```{code-cell}
 import pandas as pd
@@ -94,7 +98,7 @@ from imblearn.over_sampling import SMOTE
 
 Now you are set up to read import the data next.
 
-2 . The next task will be to import the data:
+2\. The next task will be to import the data:
 
 ```{code-cell}
 df  = pd.read_csv('../../assets/data/cuisines.csv')
@@ -102,7 +106,7 @@ df  = pd.read_csv('../../assets/data/cuisines.csv')
 
 Using `read_csv()` will read the content of the csv file _cusines.csv_ and place it in the variable `df`.
 
-3 . Check the data's shape:
+3\. Check the data's shape:
 
 ```{code-cell}
 :tags: [output_scroll]
@@ -112,7 +116,7 @@ df.head()
 
 The first five rows look like this.
 
-4 . Get info about this data by calling `info()`:
+4\. Get info about this data by calling `info()`:
 
 ```{code-cell}
 df.info()
@@ -122,7 +126,7 @@ df.info()
 
 Now the work starts to become more interesting. Let's discover the distribution of data, per cuisine 
 
-1 . Plot the data as bars by calling `barh()`:
+1\. Plot the data as bars by calling `barh()`:
 
 ```{code-cell}
 df.cuisine.value_counts().plot.barh()
@@ -130,7 +134,7 @@ df.cuisine.value_counts().plot.barh()
 
 There are a finite number of cuisines, but the distribution of data is uneven. You can fix that! Before doing so, explore a little more. 
 
-2 . Find out how much data is available per cuisine and print it out:
+2\. Find out how much data is available per cuisine and print it out:
 
 ```{code-cell}
 thai_df = df[(df.cuisine == "thai")]
@@ -150,7 +154,7 @@ print(f'korean df: {korean_df.shape}')
 
 Now you can dig deeper into the data and learn what are the typical ingredients per cuisine. You should clean out recurrent data that creates confusion between cuisines, so let's learn about this problem.
 
-1 . Create a function `create_ingredient()` in Python to create an ingredient dataframe. This function will start by dropping an unhelpful column and sort through ingredients by their count:
+1\. Create a function `create_ingredient()` in Python to create an ingredient dataframe. This function will start by dropping an unhelpful column and sort through ingredients by their count:
 
 ```{code-cell}
 def create_ingredient_df(df):
@@ -163,42 +167,42 @@ def create_ingredient_df(df):
 
 Now you can use that function to get an idea of top ten most popular ingredients by cuisine.
 
-2 . Call `create_ingredient()` and plot it calling `barh()`:
+2\. Call `create_ingredient()` and plot it calling `barh()`:
 
 ```{code-cell}
 thai_ingredient_df = create_ingredient_df(thai_df)
 thai_ingredient_df.head(10).plot.barh()
 ```
 
-3 . Do the same for the japanese data:
+3\. Do the same for the japanese data:
 
 ```{code-cell}
 japanese_ingredient_df = create_ingredient_df(japanese_df)
 japanese_ingredient_df.head(10).plot.barh()
 ```
 
-4 . Now for the chinese ingredients:
+4\. Now for the chinese ingredients:
 
 ```{code-cell}
 chinese_ingredient_df = create_ingredient_df(chinese_df)
 chinese_ingredient_df.head(10).plot.barh()
 ```
 
-5 . Plot the indian ingredients:
+5\. Plot the indian ingredients:
 
 ```{code-cell}
 indian_ingredient_df = create_ingredient_df(indian_df)
 indian_ingredient_df.head(10).plot.barh()
 ```
 
-6 . Finally, plot the korean ingredients:
+6\. Finally, plot the korean ingredients:
 
 ```{code-cell}
 korean_ingredient_df = create_ingredient_df(korean_df)
 korean_ingredient_df.head(10).plot.barh()
 ```
 
-7 . Now, drop the most common ingredients that create confusion between distinct cuisines, by calling `drop()`:
+7\. Now, drop the most common ingredients that create confusion between distinct cuisines, by calling `drop()`:
 
 Everyone loves rice, garlic and ginger!
 
@@ -214,7 +218,7 @@ feature_df.head()
 
 Now that you have cleaned the data, use [SMOTE](https://imbalanced-learn.org/dev/references/generated/imblearn.over_sampling.SMOTE.html) - "Synthetic Minority Over-sampling Technique" - to balance it.
 
-1 . Call `fit_resample()`, this strategy generates new samples by interpolation.
+1\. Call `fit_resample()`, this strategy generates new samples by interpolation.
 
 ```{code-cell}
 oversample = SMOTE()
@@ -223,7 +227,7 @@ transformed_feature_df, transformed_label_df = oversample.fit_resample(feature_d
 
 By balancing your data, you'll have better results when classifying it. Think about a binary classification. If most of your data is one class, a ML model is going to predict that class more frequently, just because there is more data for it. Balancing the data takes any skewed data and helps remove this imbalance. 
 
-2 . Now you can check the numbers of labels per ingredient:
+2\. Now you can check the numbers of labels per ingredient:
 
 ```{code-cell}
 print(f'new label count: {transformed_label_df.value_counts()}')
@@ -232,13 +236,13 @@ print(f'old label count: {df.cuisine.value_counts()}')
 
 The data is nice and clean, balanced, and very delicious!
 
-3 . The last step is to save your balanced data, including labels and features, into a new dataframe that can be exported into a file:
+3\. The last step is to save your balanced data, including labels and features, into a new dataframe that can be exported into a file:
 
 ```{code-cell}
 transformed_df = pd.concat([transformed_label_df,transformed_feature_df],axis=1, join='outer')
 ```
 
-4 . You can take one more look at the data using `transformed_df.head()` and `transformed_df.info()`. Save a copy of this data for use in future sections:
+4\. You can take one more look at the data using `transformed_df.head()` and `transformed_df.info()`. Save a copy of this data for use in future sections:
 
 ```{code-cell}
 transformed_df.head()
@@ -250,7 +254,7 @@ transformed_df.to_csv("../../assets/data/cleaned_cuisines.csv")
 
 ## Self study
 
-This curriculum contains several interesting datasets. Dig through the `data` folders and see if any contain datasets that would be appropriate for binary or multi-class classification? What questions would you ask of this dataset?
+This curriculum contains several interesting datasets. Dig through the `/assets/data` folders and see if any contain datasets that would be appropriate for binary or multi-class classification? What questions would you ask of this dataset?
 
 ## Your turn! 🚀
 
