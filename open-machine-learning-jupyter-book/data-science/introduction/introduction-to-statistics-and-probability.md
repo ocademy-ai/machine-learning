@@ -31,6 +31,8 @@ When we talk about events, we use **random variables**. For example, the random 
 
 The random variable in the previous example is called **discrete** because it has a countable sample space, i.e. there are separate values that can be enumerated. There are cases when sample space is a range of real numbers or the whole set of real numbers. Such variables are called **continuous**. A good example is a time when the bus arrives.
 
+
+
 ## Probability distribution
 
 In the case of discrete random variables, it is easy to describe the probability of each event by a function $P(X)$. For each value $s$ from sample space $S$ it will give a number from $0$ to $1$, such that the sum of all values of $P(X=s)$ for all events would be $1$.

@@ -13,9 +13,9 @@ kernelspec:
   name: python3
 ---
 
-```{code-cell}
-:tags: [hide-input]
-<details><summary><b>LICNSE</b></summary>
+<details>
+
+<summary><b>LICENSE</b></summary>
 
 MIT License
 
@@ -40,8 +40,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 </details>
-
-```
 
 # Python programming basics
 

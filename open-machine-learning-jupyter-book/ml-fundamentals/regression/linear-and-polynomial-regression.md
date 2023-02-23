@@ -415,11 +415,11 @@ This should give us the best determination coefficient of almost 97%, and MSE=2.
 | All features Linear | 2.84 (10.5%) | 0.94 |
 | All features Polynomial | 2.23 (8.25%) | 0.97 |
 
-🏆 Well done! You created four Regression models in one lesson, and improved the model quality to 97%. In the final section on Regression, you will learn about Logistic Regression to determine categories. 
+🏆 Well done! You created four Regression models in one section and improved the model quality to 97%. In the final section on Regression, you will learn about Logistic Regression to determine categories.
 
 ## Self study
 
-In this section we learned about Linear Regression. There are other important types of Regression. Read about Stepwise, Ridge, Lasso and Elasticnet techniques. A good course to study to learn more is the [Stanford Statistical Learning course](https://online.stanford.edu/courses/sohs-ystatslearning-statistical-learning)
+In this section, we learned about Linear Regression. There are other important types of Regression. Read about Stepwise, Ridge, Lasso and Elasticnet techniques. A good course to study to learn more is the [Stanford Statistical Learning course](https://online.stanford.edu/courses/sohs-ystatslearning-statistical-learning)
 
 ## Your turn! 🚀
 

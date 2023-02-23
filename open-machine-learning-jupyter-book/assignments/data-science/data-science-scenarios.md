@@ -33,4 +33,4 @@ One was able to identify reasonable data sources, ways of storing data and possi
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.

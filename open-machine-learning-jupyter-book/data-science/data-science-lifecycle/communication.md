@@ -149,7 +149,7 @@ In the situation above, you can see that there was a significant gap between wha
 
 How could Emerson improve this approach? Context, Conflict, Climax, Closure, Conclusion
 
-**Context** - Emerson could spend the first 5 minutes introducing the entire situation and making sure that the team leads understand how the problems affect metrics that are critical to the company, like revenue.
+**Context** - Emerson could spend the first 5 minutes introducing the entire situation and making sure that the team leads to understand how the problems affect metrics that are critical to the company, like revenue.
 
 It could be laid out this way: "Currently, our app's rating in the app store is 2.5. Ratings in the app store are critical to App Store Optimization, which impacts how many users see our app in search, and how our app is viewed by prospective users. And of course, the number of users we have is tied directly to revenue."
 

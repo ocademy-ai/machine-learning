@@ -57,7 +57,19 @@ git clone https://github.com/<UserName>/machine-learning.git
 
 > **Warning**
 >
-> **There will be slight differences on different systems**
+> You may see below errors that prevent you from connecting to the remote repository, or timeout errors when you do push operations, especially if you are using the HTTP protocol.
+>
+> ```bash
+> Permission denied (publickey).
+> fatal: Could not read from remote repository.
+> fatal: unable to access 'https://github.com/<UserName>/machine-learning.git/': Recv failure: Connection was reset.
+> fatal: unable to access 'https://github.com/<UserName>/machine-learning.git/': The requested URL returned error : 403.
+> ```
+>
+> Solution:
+>
+> 1. Use [SSH protocol](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) to access the repo.
+> 2. Try more times in case the push operation fails occasionally.
 
 ### Configure GIT-SSH links
 Before you push, it's best to use SSH links to make sure the network is connected properly.For more details,please refer to [video](https://www.bilibili.com/video/BV1gF411h7bA?vd_source=b3ed65613de5a4cc19d2fa2ba5651e79).
@@ -92,7 +104,7 @@ D:\anaconda3\Scripts
 
 ### Install Jupyter Book
 
-Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version. 
+Follow the [Jupyter Book](https://jupyterbook.org/en/stable/start/overview.html) official guidance to install the latest version.
 
 ### Install draw.io
 
@@ -145,7 +157,7 @@ To Mac,
 > 2. Follow Apple's [official documentation](https://developer.apple.com/metal/tensorflow-plugin/) to install the Tensorflow.
 > 3. Run `conda env update -f environment.yml` again to install the remaining dependencies.
 > 4. Optional - try to uncomment the Tensorflow in **environment.yml**.
->
+
 > **Warning**
 >
 > You may see below error when you have trouble access GitHub.
@@ -154,9 +166,9 @@ To Mac,
 > error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
 > fatal: expected flush after ref listing
 > ```
-> 
+>
 > Solution:
-> 
+>
 > **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
 
 To Windows,
@@ -175,9 +187,10 @@ To Windows,
 > ```bash
 > conda config --set show_channel_urls yes
 > ```
->This file is in your user directory by default,for example:
 >
->```C:\Users\gouha\.gitconfig```
+> This file is in your user directory by default,for example:
+>
+> ```C:\Users\gouha\.gitconfig```
 >
 > Delete initial content in `.condarc`, the add the following content to `.condarc`.
 >
@@ -197,7 +210,7 @@ To Windows,
 >   pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 >   simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
 > ```
->
+
 > **Warning**
 >
 > You may see below error when you have trouble access GitHub.
@@ -206,9 +219,9 @@ To Windows,
 > error: RPC failed; curl 56 LibreSSL SSL_read: error:02FFF03C:system library:func(4095):Operation timed out, errno 60
 > fatal: expected flush after ref listing
 > ```
-> 
+>
 > Solution:
-> 
+>
 > **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
 
 ### Activate the Conda environment
@@ -255,7 +268,7 @@ To Mac,
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 > ```bash
 > 3. Install the below missing dependencies through Homebrew:
->
+> 
 > ```bash
 > brew install cairo pango gdk-pixbuf libxml2 libxslt libffi
 > ```
@@ -298,7 +311,7 @@ To Windows,
 > ```bash
 > pip uninstall xcffib
 > ```
-> 
+>
 > Restart the terminal and build again.
 
 ### Build the slides (optional)
