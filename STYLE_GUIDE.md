@@ -94,10 +94,9 @@ Typically, we set the width to `90%`. However, for some smaller figures, you cou
 
 ## Code
 
-* Python 
-  * Python code adheres to [Black](https://github.com/psf/black) style formatter.
-  * You can [format the active cell on VSCode](https://stackoverflow.com/questions/65747615/how-to-format-jupyter-notebook-in-vscode) by using [Black](https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0).
-  * For quick reference, here are some examples: `module_name`, `package_name`, `ClassName`, `method_name`, `ExceptionName`, `function_name`, `GLOBAL_CONSTANT_NAME`, `global_var_name`, `instance_var_name`, `function_parameter_name`, `local_var_name`
+* Python
+  * Please use [Black](https://github.com/psf/black) as the default lint formatter. You can [format the active cell on VScode](https://stackoverflow.com/questions/65747615/how-to-format-jupyter-notebook-in-vscode) by using [Black plugin](https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0).
+  * Please follow the [PEP8](https://www.python.org/dev/peps/pep-0008/) where the lint static checking does not cover, e.g. the naming convention.
 * Markdown - [markdownlint](https://github.com/DavidAnson/markdownlint)
 
 ## Data
