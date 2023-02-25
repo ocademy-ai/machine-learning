@@ -247,7 +247,7 @@ transformed_df = pd.concat([transformed_label_df,transformed_feature_df],axis=1,
 ```{code-cell}
 transformed_df.head()
 transformed_df.info()
-transformed_df.to_csv("../../assets/data/classification/cleaned_cuisines.csv")
+transformed_df.to_csv("./cleaned_cuisines.csv")
 ```
 
 ---
