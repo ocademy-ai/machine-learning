@@ -101,7 +101,7 @@ Now you are set up to read import the data next.
 2\. The next task will be to import the data:
 
 ```{code-cell}
-df  = pd.read_csv('../../assets/data/cuisines.csv')
+df  = pd.read_csv('../../assets/data/classification/cuisines.csv')
 ```
 
 Using `read_csv()` will read the content of the csv file _cusines.csv_ and place it in the variable `df`.
@@ -247,14 +247,14 @@ transformed_df = pd.concat([transformed_label_df,transformed_feature_df],axis=1,
 ```{code-cell}
 transformed_df.head()
 transformed_df.info()
-transformed_df.to_csv("../../assets/data/cleaned_cuisines.csv")
+transformed_df.to_csv("../../assets/data/classification/cleaned_cuisines.csv")
 ```
 
 ---
 
 ## Self study
 
-This curriculum contains several interesting datasets. Dig through the `/assets/data` folders and see if any contain datasets that would be appropriate for binary or multi-class classification? What questions would you ask of this dataset?
+This curriculum contains several interesting datasets. Dig through the [/data/classification](https://github.com/YinYi000/machine-learning/tree/main/open-machine-learning-jupyter-book/assets/data) folders and see if any contain datasets that would be appropriate for binary or multi-class classification? What questions would you ask of this dataset?
 
 ## Your turn! 🚀
 
