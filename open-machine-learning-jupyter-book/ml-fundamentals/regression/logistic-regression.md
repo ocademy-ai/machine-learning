@@ -15,7 +15,6 @@ kernelspec:
 
 # Logistic regression
 
-
 ```{figure} ../../../images/ml-regression/logistic-linear.png
 ---
 name: 'Logistic vs. linear regression infographic'
@@ -330,7 +329,7 @@ auc = roc_auc_score(y_test,y_scores[:, 1])
 print(auc)
 ```
 
-The result is `0.6976998904709748`. Given that the AUC ranges from 0 to 1, you want a big score, since a model that is 100% correct in its predictions will have an AUC of 1; in this case, the model is _pretty good_. 
+The result is `0.6976998904709748`. Given that the AUC ranges from 0 to 1, you want a big score, since a model that is 100% correct in its predictions will have an AUC of 1; in this case, the model is _pretty good_.
 
 In future lessons on classifications, you will learn how to iterate to improve your model's scores. But for now, congratulations! You've completed these regression sections!
 
