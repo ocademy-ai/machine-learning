@@ -188,10 +188,10 @@ List of all emojis can be found here:
 - [HTML](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
 - [Markdown](https://gist.github.com/rxaviers/7360908)
 
-| Emoji | Use case                                      | Code HTML                                  | Code Markdown                       | Rendered as                      |
-|-------|-----------------------------------------------|--------------------------------------------|-------------------------------------|----------------------------------|
+| Emoji | Use case                                      | Code HTML                              | Code Markdown                       | Rendered as                      |
+|-------|-----------------------------------------------|----------------------------------------|-------------------------------------|----------------------------------|
 | 🔗     | when referring to source of figures or texts  | ```[&#x1F517;source](your/url/here)``` | ```[:link:source](your/url/here)``` | [&#x1F517;source](your/url/here) |
-| 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! :rocket:```                  | ```Your turn! &#x1F680;```      | Your turn! 🚀                    |
+| 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! &#x1F680;```             |   ```Your turn! :rocket:```     | Your turn! 🚀                    |
 
 
 ## Acknowledgments
