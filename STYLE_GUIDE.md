@@ -182,7 +182,7 @@ How does it work? In fact, the `class="yt-container"` is set to use the CSS styl
 
 ## Emoji
 
-Emojis should be on the right place, with consistency, coherence and uniformity.
+Emojis should be put on the right place, used with consistency, coherence and uniformity.
 
 The list of all emojis can be found here: 
 - [HTML](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
