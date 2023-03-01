@@ -196,7 +196,7 @@ The list of all emojis can be found here:
 
 ## Table
 
-Whenever possible, use Table instead of Screenshot.
+Whenever possible, use Table instead of Screenshot/Figures.
 
 How to generate tables:
 - [Markdown](https://www.tablesgenerator.com/markdown_tables)
