@@ -189,13 +189,14 @@ List of all emojis can be found here:
 - [Markdown](https://gist.github.com/rxaviers/7360908)
 
 ### 🔗
-Used in source:
+Used when referring to source of figures or texts:
 <pre><code>[&#38;#x1F517;source](your/url/here)</code></pre>
 rendered as:
+
 [&#x1F517;source](your/url/here)
 
 ### 🚀
-Use in Your turn 🚀:
+Used in Your turn 🚀 (assignments):
 - Mardown: ```:rocket:```
 - HTML: ```&#38;#x1F680;```
 
