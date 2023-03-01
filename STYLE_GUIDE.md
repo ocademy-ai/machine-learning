@@ -180,6 +180,25 @@ Here `YUyec4eCEiY` is the YouTube `id` of the video, and you should change it ac
 
 How does it work? In fact, the `class="yt-container"` is set to use the CSS style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated HTML file of Jupyter Book.
 
+## Emoji
+
+Emojis should be on the right places, with coherence and conformity.
+
+List of all emojis can be found here: 
+- [HTML](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
+- [Markdown](https://gist.github.com/rxaviers/7360908)
+
+### 🔗
+Used in source:
+<pre><code>[&#38;#x1F517;source](your/url/here)</code></pre>
+rendered as:
+[&#x1F517;source](your/url/here)
+
+### 🚀
+Use in Your turn 🚀:
+- Mardown: ```:rocket:```
+- HTML: ```&#38;#x1F680;```
+
 ## Acknowledgments
 
 Inspired by [d2l-ai](https://github.com/d2l-ai/).
