@@ -190,8 +190,8 @@ List of all emojis can be found here:
 
 | Emoji | Use case                                      | Code HTML                                  | Code Markdown                       | Rendered as                      |
 |-------|-----------------------------------------------|--------------------------------------------|-------------------------------------|----------------------------------|
-| 🔗     | when referring to source of figures or texts  | ```[&#38;#x1F517;source](your/url/here)``` | ```[:link:source](your/url/here)``` | [&#x1F517;source](your/url/here) |
-| 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! :rocket:```                  | ```Your turn! &#38;#x1F680;```      | Your turn! 🚀                    |
+| 🔗     | when referring to source of figures or texts  | ```[&#x1F517;source](your/url/here)``` | ```[:link:source](your/url/here)``` | [&#x1F517;source](your/url/here) |
+| 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! :rocket:```                  | ```Your turn! &#x1F680;```      | Your turn! 🚀                    |
 
 
 ## Acknowledgments
