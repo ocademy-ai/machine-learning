@@ -87,7 +87,7 @@ So, which classifier should you choose? Often, running through several and looki
 name: 'comparison of classifiers'
 width: 90%
 ---
-Image by [Jen Looper](https://twitter.com/jenlooper)
+Comparison of classifiers [&#x1F517;source](https://github.com/microsoft/ML-For-Beginners/blob/main/4-Classification/2-Classifiers-1/images/comparison.png)
 ```
 
 ```{seealso}
@@ -102,10 +102,10 @@ A better way than wildly guessing, however, is to follow the ideas on this downl
 
 ```{figure} ../../../images/ml-fundamentals/ml-classification/cheatsheet.png
 ---
-name: 'comparison of classifiers'
+name: 'cheatsheet for multiclass problems'
 width: 90%
 ---
-Image by [Jen Looper](https://twitter.com/jenlooper)
+Cheatsheet for multiclass problems [&#x1F517;source](https://github.com/microsoft/ML-For-Beginners/blob/main/4-Classification/2-Classifiers-1/images/cheatsheet.png)
 ```
 
 ```{note}
@@ -133,11 +133,11 @@ Essentially there are two important parameters - `multi_class` and `solver` - th
 
 According to the docs, in the multiclass case, the training algorithm:
 
-- **Uses the one-vs-rest (OvR) scheme**, if the `multi_class` option is set to `ovr`
-- **Uses the cross-entropy loss**, if the `multi_class` option is set to `multinomial`. (Currently the `multinomial` option is supported only by the ‘lbfgs’, ‘sag’, ‘saga’ and ‘newton-cg’ solvers.)"
+- **Uses the one-vs-rest (OvR) scheme**, if the `multi_class` option is set to `ovr`.
+- **Uses the cross-entropy loss**, if the `multi_class` option is set to `multinomial`. (Currently the `multinomial` option is supported only by the ‘lbfgs’, ‘sag’, ‘saga’ and ‘newton-cg’ solvers.)
 
 ```{seealso}
-The 'scheme' here can either be 'ovr' (one-vs-rest) or 'multinomial'. Since logistic regression is really designed to support binary classification, these schemes allow it to better handle multiclass classification tasks. [source](https://machinelearningmastery.com/one-vs-rest-and-one-vs-one-for-multi-class-classification/)
+The 'scheme' here can either be 'ovr' (one-vs-rest) or 'multinomial'. Since logistic regression is really designed to support binary classification, these schemes allow it to better handle multiclass classification tasks. [&#x1F517;source](https://machinelearningmastery.com/one-vs-rest-and-one-vs-one-for-multi-class-classification/)
 
 The 'solver' is defined as "the algorithm to use in the optimization problem". [source](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html?highlight=logistic%20regressio#sklearn.linear_model.LogisticRegression).
 ```
@@ -149,7 +149,7 @@ Scikit-learn offers this table to explain how solvers handle different challenge
 name: 'solvers'
 width: 90%
 ---
-Image by [Jen Looper](https://twitter.com/jenlooper)
+Solvers [&#x1F517;source](https://github.com/microsoft/ML-For-Beginners/blob/main/4-Classification/2-Classifiers-1/images/solvers.png)
 ```
 
 ## Exercise - split the data
@@ -176,7 +176,7 @@ print ("Accuracy is {}".format(accuracy))
 ```
 
 ```{seealso}
-Try a different solver like `lbfgs`, which is often set as default
+Try a different solver like `lbfgs`, which is often set as default.
 ```
 
 ```{note}
@@ -193,7 +193,7 @@ print(f'cuisine: {y_test.iloc[50]}')
 ```
 
 ```{seealso}
-Try a different row number and check the results
+Try a different row number and check the results.
 ```
 
 3\. Digging deeper, you can check for the accuracy of this prediction:
@@ -221,13 +221,13 @@ print(classification_report(y_test,y_pred))
 
 ## Self Study
 
-Dig a little more into the math behind logistic regression in [this section](https://people.eecs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf)
+Dig a little more into the math behind logistic regression in [this section](https://people.eecs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf).
 
 ## Your turn! 🚀
 
 In this section, you used your cleaned data to build a machine learning model that can predict a national cuisine based on a series of ingredients. Take some time to read through the many options Scikit-learn provides to classify data. Dig deeper into the concept of 'solver' to understand what goes on behind the scenes.
 
-Assignment - [Study the solvers](../../assignments/ml-fundamentals/study-the-solvers.md)
+Assignment - [Study the solvers](../../assignments/ml-fundamentals/study-the-solvers.md).
 
 ## Acknowledgments
 
