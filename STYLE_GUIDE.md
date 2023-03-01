@@ -194,6 +194,14 @@ The list of all emojis can be found here:
 | 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! &#x1F680;```             |   ```Your turn! :rocket:```     | Your turn! 🚀                    |
 
 
+## Table
+
+Whenever possible, use Table instead of Screenshot.
+
+How to generate tables:
+- [Markdown](https://www.tablesgenerator.com/markdown_tables)
+- [HTML](https://www.tablesgenerator.com/html_tables)
+
 ## Acknowledgments
 
 Inspired by [d2l-ai](https://github.com/d2l-ai/).
