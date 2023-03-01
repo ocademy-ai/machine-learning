@@ -197,7 +197,7 @@ rendered as:
 
 ### 🚀
 Used in Your turn 🚀 (assignments):
-- Mardown: ```:rocket:```
+- Markdown: ```:rocket:```
 - HTML: ```&#38;#x1F680;```
 
 ## Acknowledgments
