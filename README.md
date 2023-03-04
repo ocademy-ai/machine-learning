@@ -2,17 +2,17 @@
 
 ## Content
 
-- Overview
-- Goals
-- Features
-- How to Enjoy Our Project
-- How to Use This Project
-- How to Contribute
-- **Contact Us**
+- [Overview](https://github.com/Appointat/machine-learning/tree/main#overview)
+- [Goals](https://github.com/Appointat/machine-learning/tree/main#Goals)
+- [Features](https://github.com/Appointat/machine-learning/tree/main#Features)
+- [How to Enjoy Our Project](https://github.com/Appointat/machine-learning/tree/main#how-to-enjoy-our-project)
+- [How to Use This Project](https://github.com/Appointat/machine-learning/tree/main#How-to-Use-This-Project)
+- [How to Contribute](https://github.com/Appointat/machine-learning/tree/main#How-to-Contribute)
+- [Contact Us](https://github.com/Appointat/machine-learning/tree/main#ontact-Us)
 
 ## **Overview**
 
-Welcome to Open Academy for ML! Our target is to provide online resources for university students and working professionals, who are preparing for or currently involved in fields such as data science, machine learning, and deep learning. The project is hosted on GitHub and is free for anyone to use and learn.
+Welcome to **Open Academy** for ML! Our target is to provide online resources for **university students and working professionals**, who are preparing for or currently involved in fields such as data science, machine learning, and deep learning. The project is hosted on GitHub and is free for anyone to use and learn.
 
 ## **Goals**
 
