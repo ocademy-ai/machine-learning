@@ -21,7 +21,7 @@ You will use this dataset with a variety of classifiers to _predict a given nati
 
 ## Exercise - predict a national cuisine
 
-1\. Working in this section's [build-classification-models](../../assignments/ml-fundamentals/build-classification-models.ipynb) folder, import that file along with the Pandas library:
+1\. Working in this section's [build-classification-models](../../assignments/ml-fundamentals/build-classification-models.ipynb) file, import that file along with the Pandas library:
 
 ```{code-cell}
 :tags: [output_scroll]
@@ -41,7 +41,7 @@ from sklearn.svm import SVC
 import numpy as np
 ```
 
-3\. Divide the X and y coordinates into two dataframes for training. `cuisine` can be the labels dataframe:
+3\. Divide the x and y coordinates into two dataframes for training. `cuisine` can be the labels dataframe:
 
 ```{code-cell}
 cuisines_label_df = cuisines_df['cuisine']
@@ -154,7 +154,7 @@ Solvers [&#x1F517;source](https://github.com/microsoft/ML-For-Beginners/blob/mai
 
 ## Exercise - split the data
 
-We can focus on logistic regression for our first training trial since you recently learned about the latter in a previous lesson.
+We can focus on logistic regression for our first training trial since you recently learned about the latter in a previous section.
 Split your data into training and testing groups by calling `train_test_split()`:
 
 ```{code-cell}
