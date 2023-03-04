@@ -54,8 +54,8 @@ Each chapter includes **theoretical concepts**, **hands-on exercises**, and **re
 1. **PREREQUISITES**
 
     1.1. [Python programming introduction](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html)
-    - [2. Python programming basics](https://open-academy.github.io/machine-learning/prerequisites/python-programming-basics.html)
-    - [3. Python programming advanced](https://open-academy.github.io/machine-learning/prerequisites/python-programming-advanced.html)
+    1.2. [Python programming basics](https://open-academy.github.io/machine-learning/prerequisites/python-programming-basics.html)
+    1.3. [Python programming advanced](https://open-academy.github.io/machine-learning/prerequisites/python-programming-advanced.html)
 2. **DATA SCIENCE**
     - [4. Introduction](https://open-academy.github.io/machine-learning/data-science/introduction/introduction.html)
     - [5. Working with data](https://open-academy.github.io/machine-learning/data-science/working-with-data/working-with-data.html)
