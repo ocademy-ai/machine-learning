@@ -33,6 +33,7 @@ It is divided into four main parts.
 - Chap 2 focuses on the data science lifecycle, from data acquisition to data visualization, and introduces the best practices for working with data in the cloud.
 - Chap 3 covers the fundamentals of machine learning, including regression, classification, and model deployment.
 - Chap 4 covers advanced machine learning techniques, such as clustering, ensemble learning, and deep learning.
+- ...
 
 Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the textbook, you will have the knowledge and skills to build and deploy machine learning models in a production environment.
 
