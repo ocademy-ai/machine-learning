@@ -1,5 +1,15 @@
 # Open A**cademy**: Offering **Online Education for Data Science, Machine Learning, and Deep Learning**
 
+## Content
+
+- Overview
+- Goals
+- Features
+- How to Enjoy Our Project
+- How to Use This Project
+- How to Contribute
+- **Contact Us**
+
 ## **Overview**
 
 Welcome to Open Academy for ML! Our target is to provide online resources for university students and working professionals, who are preparing for or currently involved in fields such as data science, machine learning, and deep learning. The project is hosted on GitHub and is free for anyone to use and learn.
@@ -23,6 +33,10 @@ This project includes the following features:
 
 ## **How to Enjoy Our Project**
 
+To use this project, simply visit the GitHub repository and explore the resources that are available. You can use the curated list of resources to find online courses, tutorials, and other materials that are relevant to your interests. You can also browse the open source code examples and projects to see how these concepts are applied in practice.
+
+If you're interested in participating in hackathons or online forums, simply join the relevant group and start contributing. These groups are open to anyone who wants to participate and are a great way to meet other students who are interested in these topics.
+
 ### Interactive Online Textbook
 
 This [Online Textbook](https://open-academy.github.io/machine-learning/intro.html) is designed to provide a comprehensive introduction to machine learning, from the fundamentals to the latest advanced techniques, with a focus on practical applications. It is intended for developers, data scientists, engineers, and anyone who wants to learn how to use machine learning to solve real-world problems.
@@ -33,7 +47,7 @@ It is divided into four main parts.
 - Chap 2 focuses on the data science lifecycle, from data acquisition to data visualization, and introduces the best practices for working with data in the cloud.
 - Chap 3 covers the fundamentals of machine learning, including regression, classification, and model deployment.
 - Chap 4 covers advanced machine learning techniques, such as clustering, ensemble learning, and deep learning.
-- ...
+- …
 
 Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the textbook, you will have the knowledge and skills to build and deploy machine learning models in a production environment.
 
@@ -104,22 +118,12 @@ We are committed to delivering high-quality and practical courses on schedule ev
 
 ### Learning Resources
 
-## **How to Use This Project**
-
-To use this project, simply visit the GitHub repository and explore the resources that are available. You can use the curated list of resources to find online courses, tutorials, and other materials that are relevant to your interests. You can also browse the open source code examples and projects to see how these concepts are applied in practice.
-
-If you're interested in participating in hackathons or online forums, simply join the relevant group and start contributing. These groups are open to anyone who wants to participate and are a great way to meet other students who are interested in these topics.
-
 ## **How to Contribute**
 
 We welcome contributions from students and educators who are passionate about data science, machine learning, and deep learning. If you'd like to contribute to the project, simply fork the repository and make your changes. You can then submit a pull request to have your changes reviewed and merged into the main repository.
 
 If you're new to open source or aren't sure where to start, don't worry! We have a guide for beginners that can help you get started. We also have a code of conduct that we ask all contributors to follow to ensure that our community is welcoming and inclusive.
 
-This open-source book has benefited from pedagogical suggestions, typo corrections, and other improvements from community contributors. Your help is valuable for making the book better for everyone.
-
-See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.
-
 ## **Contact Us**
 
-If you have any questions or comments about this project, please feel free to contact us at [your email address]. We look forward to hearing from you! What is more, if you would like to translate all or part of the curriculum, please follow our [Translations](https://github.com/open-academy/machine-learning/blob/main/TRANSLATIONS.md) guide.
+If you have any questions or comments about this project, please feel free to contact us at [your email address]. We look forward to hearing from you!
