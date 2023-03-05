@@ -1,4 +1,4 @@
-# ISSUE TEMPLATE.md for Open ML
+# ISSUE_TEMPLATE
 
 ## **Description**
 
