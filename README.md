@@ -124,6 +124,11 @@ We welcome contributions from students and educators who are passionate about da
 
 If you're new to open source or aren't sure where to start, don't worry! We have a guide for beginners that can help you get started. We also have a code of conduct that we ask all contributors to follow to ensure that our community is welcoming and inclusive.
 
+See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.****
+
 ## **Contact Us**
 
-If you have any questions or comments about this project, please feel free to contact us at [your email address]. We look forward to hearing from you!
+If you have any questions or comments about this project, please feel free to contact us by email. We look forward to hearing from you!
+
+- [zhangqi444@gmail.com](mailto:zhangqi444@gmail.com)
+- [lundechen@shu.edu.cn](mailto:lundechen@shu.edu.cn)
