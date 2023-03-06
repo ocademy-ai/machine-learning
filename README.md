@@ -45,63 +45,63 @@ It is divided into four main parts.
 - Chap 1 covers the prerequisites, including an introduction to Python programming and its advanced concepts.
 - Chap 2 focuses on the Data Science lifecycle, from data acquisition to data visualization, and introduces the best practices for working with data in the cloud.
 - Chap 3 covers the fundamentals of Machine Learning, including regression, classification, and model deployment.
-- Chap 4 covers advanced Machine Learning techniques, such as Clustering, Ensemble :earning, and Deep Learning.
+- Chap 4 covers advanced Machine Learning techniques, such as Clustering, Ensemble Learning, and Deep Learning.
 - …
 
-Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the textbook, you will have the knowledge and skills to build and deploy Machine Learning models in a production environment.
+Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the [textbook](https://open-academy.github.io/machine-learning/intro.html), you will have the knowledge and skills to build and deploy Machine Learning models in a production environment.
 
 1. **PREREQUISITES**
-    - [1. Python programming introduction](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html)
-    - [2. Python programming basics](https://open-academy.github.io/machine-learning/prerequisites/python-programming-basics.html)
-    - [3. Python programming advanced](https://open-academy.github.io/machine-learning/prerequisites/python-programming-advanced.html)
+    - 1. Python programming introduction
+    - 2. Python programming basics
+    - 3. Python programming advanced
 2. **DATA SCIENCE**
-    - [4. Introduction](https://open-academy.github.io/machine-learning/data-science/introduction/introduction.html)
-    - [5. Working with data](https://open-academy.github.io/machine-learning/data-science/working-with-data/working-with-data.html)
-    - [6. Data visualization](https://open-academy.github.io/machine-learning/data-science/data-visualization/data-visualization.html)
-    - [7. Data Science lifecycle](https://open-academy.github.io/machine-learning/data-science/data-science-lifecycle/data-science-lifecycle.html)
-    - [8. Data Science in the cloud](https://open-academy.github.io/machine-learning/data-science/data-science-in-the-cloud/data-science-in-the-cloud.html)
-    - [9. Data Science in the real world](https://open-academy.github.io/machine-learning/data-science/data-science-in-the-wild.html)
+    - 4. Introduction
+    - 5. Working with data
+    - 6. Data visualization
+    - 7. Data Science lifecycle
+    - 8. Data Science in the cloud
+    - 9. Data Science in the real world
 3. **FUNDAMENTALS OF MACHINE LEARNING**
     - [10. Machine Learning overview](https://open-academy.github.io/machine-learning/ml-fundamentals/ml-overview.html)
-    - [11. Regression models for Machine Learning](https://open-academy.github.io/machine-learning/ml-fundamentals/regression/regression-models-for-machine-learning.html)
-    - [12. Build a web app to use a Machine Learning model](https://open-academy.github.io/machine-learning/ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html)
-    - [13. Getting started with classification](https://open-academy.github.io/machine-learning/ml-fundamentals/classification/getting-started-with-classification.html)
+    - 11. Regression models for Machine Learning
+    - 12. Build a web app to use a Machine Learning model
+    - 13. Getting started with classification
 4. **ADVANCED MACHINE LEARNING**
-    - [14. Clustering models for Machine Learning](https://open-academy.github.io/machine-learning/ml-advanced/clustering/clustering-models-for-machine-learning.html)
-    - [15. Kernel method](https://open-academy.github.io/machine-learning/ml-advanced/kernel-method.html)
-    - [16. Model selection](https://open-academy.github.io/machine-learning/ml-advanced/model-selection.html)
-    - [17. Ensemble learning](https://open-academy.github.io/machine-learning/ml-advanced/ensemble-learning.html)
+    - 14. Clustering models for Machine Learning
+    - 15. Kernel method
+    - 16. Model selection
+    - 17. Ensemble learning
     - [18. Unsupervised learning (TBD)](https://open-academy.github.io/machine-learning/ml-advanced/unsupervised-learning.html)
-    - [19. Generative models](https://open-academy.github.io/machine-learning/ml-advanced/generative-models.html)
+    - 19. Generative models
 5. **DEEP LEARNING**
-    - [20. Deep learning overview (TBD)](https://open-academy.github.io/machine-learning/deep-learning/dl-overview.html)
-    - [21. Convolutional Neural Networks](https://open-academy.github.io/machine-learning/deep-learning/CNN.html)
-    - [22. Generative adversarial networks](https://open-academy.github.io/machine-learning/deep-learning/GAN.html)
-    - [23. Recurrent Neural Networks](https://open-academy.github.io/machine-learning/deep-learning/RNN.html)
-    - [24. Autoencoder (TBD)](https://open-academy.github.io/machine-learning/deep-learning/AutoEncoder.html)
-    - [25. Long-short term memory](https://open-academy.github.io/machine-learning/deep-learning/LSTM.html)
-    - [26. NLP (TBD)](https://open-academy.github.io/machine-learning/deep-learning/NLP.html)
-    - [27. Time series (TBD)](https://open-academy.github.io/machine-learning/deep-learning/time-series.html)
-    - [28. DQN (TBD)](https://open-academy.github.io/machine-learning/deep-learning/DQN.html)
-    - [29. Summary of deep learning (TBD)](https://open-academy.github.io/machine-learning/deep-learning/dl-summary.html)
-    - [30. Image classification](https://open-academy.github.io/machine-learning/deep-learning/image-classification.html)
+    - 20. Deep learning overview (TBD)
+    - 21. Convolutional Neural Networks
+    - 22. Generative adversarial networks
+    - 23. Recurrent Neural Networks
+    - 24. Autoencoder (TBD)
+    - 25. Long-short term memory
+    - 26. NLP (TBD)
+    - 27. Time series (TBD)
+    - 28. DQN (TBD)
+    - 29. Summary of deep learning (TBD)
+    - 30. Image classification
 6. **MACHINE LEARNING PRODUCTIONIZATION**
-    - [31. Overview](https://open-academy.github.io/machine-learning/machine-learning-productionization/overview.html)
-    - [32. Problem framing](https://open-academy.github.io/machine-learning/machine-learning-productionization/problem-framing.html)
-    - [33. Data engineering](https://open-academy.github.io/machine-learning/machine-learning-productionization/data-engineering.html)
-    - [34. Model training & evaluation](https://open-academy.github.io/machine-learning/machine-learning-productionization/model-training-and-evaluation.html)
-    - [35. Model deployment](https://open-academy.github.io/machine-learning/machine-learning-productionization/model-deployment.html)
+    - 31. Overview
+    - 32. Problem framing
+    - 33. Data engineering
+    - 34. Model training & evaluation
+    - 35. Model deployment
 7. **SUPPORTING MATERIALS**
-    - [36. PyTorch](https://open-academy.github.io/machine-learning/supporting-materials/pytorch.html)
-    - [37. Bamboolib](https://open-academy.github.io/machine-learning/supporting-materials/bamboolib.html)
-    - [38. Mito](https://open-academy.github.io/machine-learning/supporting-materials/mito.html)
-    - [39. KNN (TBD)](https://open-academy.github.io/machine-learning/supporting-materials/KNN.html)
-    - [40. Semi-supervised learning (TBD)](https://open-academy.github.io/machine-learning/supporting-materials/semi-supervised-learning.html)
-    - [41. Unbalanced problems](https://open-academy.github.io/machine-learning/supporting-materials/unbalanced-problems.html)
-    - [42. AutoML (TBD)](https://open-academy.github.io/machine-learning/supporting-materials/automl.html)
+    - 36. PyTorch
+    - 37. Bamboolib
+    - 38. Mito
+    - 39. KNN (TBD)
+    - 40. Semi-supervised learning (TBD)
+    - 41. Unbalanced problems
+    - 42. AutoML (TBD)
 8. **OTHERS**
-    - [43. Assignments](https://open-academy.github.io/machine-learning/assignments/introduction.html)
-    - [44. Slides](https://open-academy.github.io/machine-learning/slides/introduction.html)
+    - 43. Assignments
+    - 44. Slides
 
 ### Curriculum
 
