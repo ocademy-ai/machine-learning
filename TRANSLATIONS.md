@@ -4,7 +4,7 @@ We welcome translations for the lessons in this curriculum! Your contribution wi
 
 ### Guidelines
 
-Each lesson folder and lesson introduction folder contain folders with the translated markdown files. You can find them by looking for the two-letter language abbreviation following the ISO 639-1 standard. For example, the Chinese files are located in the `zh` folder and the French files are located in the `fr` folder.
+Each lesson folder and lesson introduction folder contain folders with the translated markdown files. You can find them by looking for the two-letter language abbreviation following the [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) standard. For example, the Chinese files are located in the `zh` folder and the French files are located in the `fr` folder.
 
 Please note that you should not translate any code in the code sample files. The only things that should be translated are the README files, assignments, and quizzes. To make sure we maintain the quality of our translated content, please do not use machine translation. We will verify translations via the community, so please only volunteer for translations in languages where you are proficient.
 
