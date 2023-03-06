@@ -52,56 +52,56 @@ Each chapter includes **theoretical concepts**, **hands-on exercises**, and **re
 
 1. **PREREQUISITES**
     - 1\. Python programming introduction
-    - 2 Python programming basics
-    - 3. Python programming advanced
+    - 2\. Python programming basics
+    - 3\. Python programming advanced
 2. **DATA SCIENCE**
-    - 4. Introduction
-    - 5. Working with data
-    - 6. Data visualization
-    - 7. Data Science lifecycle
-    - 8. Data Science in the cloud
-    - 9. Data Science in the real world
+    - 4\. Introduction
+    - 5\. Working with data
+    - 6\. Data visualization
+    - 7\. Data Science lifecycle
+    - 8\. Data Science in the cloud
+    - 9\. Data Science in the real world
 3. **FUNDAMENTALS OF MACHINE LEARNING**
-    - 10. Machine Learning overview
-    - 11. Regression models for Machine Learning
-    - 12. Build a web app to use a Machine Learning model
-    - 13. Getting started with classification
+    - 10\. Machine Learning overview
+    - 11\. Regression models for Machine Learning
+    - 12\. Build a web app to use a Machine Learning model
+    - 13\. Getting started with classification
 4. **ADVANCED MACHINE LEARNING**
-    - 14. Clustering models for Machine Learning
-    - 15. Kernel method
-    - 16. Model selection
-    - 17. Ensemble learning
-    - 18. Unsupervised learning (TBD)
-    - 19. Generative models
+    - 14\. Clustering models for Machine Learning
+    - 15\. Kernel method
+    - 16\. Model selection
+    - 17\. Ensemble learning
+    - 18\. Unsupervised learning (TBD)
+    - 19\. Generative models
 5. **DEEP LEARNING**
-    - 20. Deep learning overview (TBD)
-    - 21. Convolutional Neural Networks
-    - 22. Generative adversarial networks
-    - 23. Recurrent Neural Networks
-    - 24. Autoencoder (TBD)
-    - 25. Long-short term memory
-    - 26. NLP (TBD)
-    - 27. Time series (TBD)
-    - 28. DQN (TBD)
-    - 29. Summary of deep learning (TBD)
-    - 30. Image classification
+    - 20\. Deep learning overview (TBD)
+    - 21\. Convolutional Neural Networks
+    - 22\. Generative adversarial networks
+    - 23\. Recurrent Neural Networks
+    - 24\. Autoencoder (TBD)
+    - 25\. Long-short term memory
+    - 26\. NLP (TBD)
+    - 27\. Time series (TBD)
+    - 28\. DQN (TBD)
+    - 29\. Summary of deep learning (TBD)
+    - 30\. Image classification
 6. **MACHINE LEARNING PRODUCTIONIZATION**
-    - 31. Overview
-    - 32. Problem framing
-    - 33. Data engineering
-    - 34. Model training & evaluation
-    - 35. Model deployment
+    - 31\. Overview
+    - 32\. Problem framing
+    - 33\. Data engineering
+    - 34\. Model training & evaluation
+    - 35\. Model deployment
 7. **SUPPORTING MATERIALS**
-    - 36. PyTorch
-    - 37. Bamboolib
-    - 38. Mito
-    - 39. KNN (TBD)
-    - 40. Semi-supervised learning (TBD)
-    - 41. Unbalanced problems
-    - 42. AutoML (TBD)
+    - 36\. PyTorch
+    - 37\. Bamboolib
+    - 38\. Mito
+    - 39\. KNN (TBD)
+    - 40\. Semi-supervised learning (TBD)
+    - 41\. Unbalanced problems
+    - 42\. AutoML (TBD)
 8. **OTHERS**
-    - 43. Assignments
-    - 44. Slides
+    - 43\. Assignments
+    - 44\. Slides
 
 ### Curriculum
 
