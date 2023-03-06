@@ -51,7 +51,7 @@ It is divided into four main parts.
 Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the [textbook](https://open-academy.github.io/machine-learning/intro.html), you will have the knowledge and skills to build and deploy Machine Learning models in a production environment.
 
 1. **PREREQUISITES**
-    - 1.Python programming introduction
+    -1. Python programming introduction
     - 2. Python programming basics
     - 3. Python programming advanced
 2. **DATA SCIENCE**
