@@ -23,6 +23,6 @@ After adding your translation, add your language code to the dropdown in the cor
 
 Finally, please edit ALL the links in your translated `README.md` files to point directly to your translated quiz. For example, if the original quiz link is "https://github", and you are translating the quiz for Indonesian speakers, the new link should be "https://github?loc=id".
 
-### THANK YOU
+### Thank you
 
 We truly appreciate your efforts! With your help, we can make our material more widely accessible and help people around the world learn more about Data Science, Machine Learning, and Deep Learning.
