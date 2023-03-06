@@ -6,7 +6,7 @@
 - [Goals](https://github.com/Appointat/machine-learning/tree/main#Goals)
 - [Features](https://github.com/Appointat/machine-learning/tree/main#Features)
 - [How to enjoy our project](https://github.com/Appointat/machine-learning/tree/main#how-to-enjoy-our-project)
-- [How to contribute](https://github.com/Appointat/machine-learning/tree/main#How-to-Contribute)
+- [How to contribute](https://github.com/Appointat/machine-learning/tree/main#How-to-contribute)
 - [Contact us](https://github.com/Appointat/machine-learning/tree/main#ontact-Us)
 
 ## **Overview**
@@ -17,7 +17,7 @@ Welcome to **Open Academy** for ML! Our target is to provide online resources fo
 
 The goals of this project are:
 
-- To provide high-quality [online resources](https://github.com/Appointat/machine-learning/tree/main#How-to-Use-This-Project) that are accessible to university students who are interested in Data Science, Machine Learning, and Deep Learning.
+- To provide high-quality [online resources](https://github.com/Appointat/machine-learning/tree/main#How-to-enjoy-our-project) that are accessible to university students who are interested in Data Science, Machine Learning, and Deep Learning.
 - To create a [community](https://github.com/Appointat/machine-learning#community) of students and educators who are passionate about these topics and who can collaborate to improve the project over time.
 - To foster a culture of open source education, where students can learn from each other and from industry experts, and where educators can share their knowledge and expertise with a wider audience.
 
@@ -62,7 +62,7 @@ Each chapter includes **theoretical concepts**, **hands-on exercises**, and **re
     - 8. Data Science in the cloud
     - 9. Data Science in the real world
 3. **FUNDAMENTALS OF MACHINE LEARNING**
-    - [10. Machine Learning overview](https://open-academy.github.io/machine-learning/ml-fundamentals/ml-overview.html)
+    - 10. Machine Learning overview
     - 11. Regression models for Machine Learning
     - 12. Build a web app to use a Machine Learning model
     - 13. Getting started with classification
@@ -71,7 +71,7 @@ Each chapter includes **theoretical concepts**, **hands-on exercises**, and **re
     - 15. Kernel method
     - 16. Model selection
     - 17. Ensemble learning
-    - [18. Unsupervised learning (TBD)](https://open-academy.github.io/machine-learning/ml-advanced/unsupervised-learning.html)
+    - 18. Unsupervised learning (TBD)
     - 19. Generative models
 5. **DEEP LEARNING**
     - 20. Deep learning overview (TBD)
