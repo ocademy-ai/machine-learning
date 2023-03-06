@@ -51,7 +51,7 @@ How do you tell a story with data? There are infinite ways – but below are 6 t
 
 Each of these strategies is explained in greater detail below.
 
-### 1. Understand Your Audience, Your Channel & Your Communication Method
+### 1. Understand your audience, your channel & your communication method
 
 The way you communicate with family members is likely different than the way you communicate with your friends. You probably use different words and phrases that the people you’re speaking to are more likely to understand. You should take the same approach when communicating data. Think about who you’re communicating with. Think about their goals and the context that they have around the situation that you’re explaining to them.
 
