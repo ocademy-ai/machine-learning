@@ -11,7 +11,7 @@
 
 ## **Overview**
 
-Welcome to **Open Academy** for ML! Our target is to provide online resources for **university students and working professionals**, who are preparing for or currently involved in fields such as Data Science, Machine Learning, and Deep Learning. The project is hosted on GitHub and is free for anyone to use and learn.
+Welcome to **Open Academy** for Data Science, Machine Learning, and Deep Learning! Our target is to provide online resources for **university students and working professionals**, who are preparing for or currently involved in fields such as Data Science, Machine Learning, and Deep Learning. The project is hosted on GitHub and is free for anyone to use and learn.
 
 ## **Goals**
 
