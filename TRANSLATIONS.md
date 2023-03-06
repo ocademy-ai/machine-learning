@@ -1,4 +1,4 @@
-# **Contribute by translating lessons**
+# Contribute by translating lessons
 
 We welcome translations for the lessons in this curriculum! Your contribution will make our material accessible to more people around the world.
 
@@ -8,7 +8,7 @@ Each lesson folder and lesson introduction folder contain folders with the trans
 
 Please note that you should not translate any code in the code sample files. The only things that should be translated are the README files, assignments, and quizzes. To make sure we maintain the quality of our translated content, please do not use machine translation. We will verify translations via the community, so please only volunteer for translations in languages where you are proficient.
 
-The translated files should follow this naming convention:
+The translated files should follow this naming convention, e.g.:
 
 - README.[language].md
 - assignment.[language].md
@@ -25,4 +25,4 @@ Finally, please edit ALL the links in your translated `README.md` files to point
 
 ### THANK YOU
 
-We truly appreciate your efforts! With your help, we can make our material more widely accessible and help people around the world learn more about machine learning.
+We truly appreciate your efforts! With your help, we can make our material more widely accessible and help people around the world learn more about Data Science, Machine Learning, and Deep Learning.
