@@ -127,7 +127,7 @@ We welcome contributions from students and educators who are passionate about Da
 
 If you're new to open source or aren't sure where to start, don't worry! We have a guide for beginners that can help you get started. We also have a code of conduct that we ask all contributors to follow to ensure that our community is welcoming and inclusive.
 
-See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.****
+See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.
 
 ## **Contact Us**
 
