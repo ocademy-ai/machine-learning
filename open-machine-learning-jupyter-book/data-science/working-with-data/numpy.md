@@ -15,1675 +15,1686 @@ kernelspec:
 
 # NumPy
 
-Numpy is a library for working with tensors, i.e. multi-dimensional arrays. Array has values of the same underlying type, and it is simpler than dataframe, but it offers more mathematical operations, and creates less overhead.
+NumPy is the fundamental package for scientific computing in Python. It is a Python library that provides a multidimensional array object, various derived objects (such as masked arrays and matrices), and an assortment of routines for fast operations on arrays, including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete Fourier transforms, basic linear algebra, basic statistical operations, random simulation and much more.
 
-## The basics of NumPy arrays
+## Basic introduction to array
 
-Data manipulation in Python is nearly synonymous with NumPy array manipulation: even newer tools like **Pandas** are built around the NumPy array. This section will present several examples of using NumPy array manipulation to access data and subarrays, and to split, reshape, and join the arrays. While the types of operations shown here may seem a bit dry and pedantic, they comprise the building blocks of many other examples used throughout the book. Get to know them well!
+NumPy’s main object is the homogeneous multidimensional array. It is a table of elements (usually numbers), all of the same type, indexed by a tuple of non-negative integers. In NumPy dimensions are called axes.
 
-We'll cover a few categories of basic array manipulations here:
+For example, the array for the coordinates of a point in 3D space, `[1, 2, 1]`, has one axis. That axis has 3 elements in it, so we say it has a length of 3. In the example pictured below, the array has 2 axes. The first axis has a length of 2, the second axis has a length of 3.
 
-- Attributes of arrays: Determining the size, shape, memory consumption, and data types of arrays.
-- Indexing of arrays: Getting and setting the value of individual array elements.
-- Slicing of arrays: Getting and setting smaller subarrays within a larger array.
-- Reshaping of arrays: Changing the shape of a given array
-Joining and splitting of arrays: Combining multiple arrays into one, and splitting one array into many.
+```{code-cell}
+[[1., 0., 0.],
+ [0., 1., 2.]]
+ ```
+
+### Create a basic array
+
+To create a NumPy array, you can use the function `np.array()`.
+
+All you need to do to create a simple array is pass a list to it. If you choose to, you can also specify the type of data in your list.
+
+```{code-cell}
+import numpy as np
+a = np.array([1, 2, 3])
+a
+```
+
+Besides creating an array from a sequence of elements, you can easily create an array filled with `0`’s:
+
+```{code-cell}
+np.zeros(2)
+```
+
+Or an array filled with 1’s:
+
+```{code-cell}
+np.ones(2)
+```
+
+Or even an empty array! The function `empty` creates an array whose initial content is random and depends on the state of the memory. The reason to use `empty` over `zeros` (or something similar) is speed - just make sure to fill every element afterwards!
+
+```{code-cell}
+np.empty(2) 
+```
+
+You can create an array with a range of elements:
+
+```{code-cell}
+np.arange(4)
+```
+
+And even an array that contains a range of evenly spaced intervals. To do this, you will specify the **first number**, **last number**, and the **step size**.
+
+```{code-cell}
+np.arange(2, 9, 2)
+```
+
+You can also use `np.linspace()` to create an array with values that are spaced linearly in a specified interval:
+
+```{code-cell}
+np.linspace(0, 10, num=5)
+```
+
+While the default data type is floating point (`np.float64`), you can explicitly specify which data type you want using the `dtype` keyword.
+
+```{code-cell}
+np.ones(2, dtype=np.int64)
+```
+
+### Adding, removing, and sorting elements
+
+Sorting an element is simple with `np.sort()`. You can specify the axis, kind, and order when you call the function.
+
+If you start with this array:
+
+```{code-cell}
+arr = np.array([2, 1, 5, 3, 7, 4, 6, 8])
+```
+
+You can quickly sort the numbers in ascending order with:
+
+```{code-cell}
+np.sort(arr)
+```
+
+In addition to sort, which returns a sorted copy of an array, you can use:
+
+- `argsort`, which is an indirect sort along a specified axis,
+- `lexsort`, which is an indirect stable sort on multiple keys,
+- `searchsorted`, which will find elements in a sorted array,
+- `partition`, which is a partial sort.
+
+If you start with these arrays:
+
+```{code-cell}
+a = np.array([1, 2, 3, 4])
+b = np.array([5, 6, 7, 8])
+```
+
+You can concatenate them with `np.concatenate()`.
+
+```{code-cell}
+np.concatenate((a, b))
+```
+
+Or, if you start with these arrays:
+
+```{code-cell}
+x = np.array([[1, 2], [3, 4]])
+y = np.array([[5, 6]])
+```
+
+You can concatenate them with:
+
+```{code-cell}
+np.concatenate((x, y), axis=0)
+```
+
+In order to remove elements from an array, it’s simple to use indexing to select the elements that you want to keep.
 
 ### NumPy array attributes
 
-First let's discuss some useful array attributes. We'll start by defining three random arrays, a one-dimensional, two-dimensional, and three-dimensional array. We'll use NumPy's random number generator, which we will seed with a set value in order to ensure that the same random arrays are generated each time this code is run:
+NumPy’s array class is called `ndarray`. It is also known by the alias `array`. Note that `numpy.array` is not the same as the Standard Python Library class `array.array`, which only handles one-dimensional arrays and offers less functionality. The more important attributes of an `ndarray` object are:
+
+- ndarray.ndim
+    The number of axes (dimensions) of the array.
 
 ```{code-cell}
 import numpy as np
-np.random.seed(0)  # seed for reproducibility
-
-x1 = np.random.randint(10, size=6)  # One-dimensional array
-x2 = np.random.randint(10, size=(3, 4))  # Two-dimensional array
-x3 = np.random.randint(10, size=(3, 4, 5))  # Three-dimensional array
-```
-
-Each array has attributes `ndim` (the number of dimensions), `shape` (the size of each dimension), and `size` (the total size of the array):
-
-```{code-cell}
-print("x3 ndim: ", x3.ndim)
-print("x3 shape:", x3.shape)
-print("x3 size: ", x3.size)
-```
-
-Another useful attribute is the `dtype`, the data type of the array
-
-```{code-cell}
-print("dtype:", x3.dtype)
-```
-
-Other attributes include `itemsize`, which lists the size (in bytes) of each array element, and `nbytes`, which lists the total size (in bytes) of the array:
-
-```{code-cell}
-print("itemsize:", x3.itemsize, "bytes")
-print("nbytes:", x3.nbytes, "bytes")
-```
-
-In general, we expect that `nbytes` is equal to `itemsize` times `size`.
-
-## Computation on NumPy arrays: universal functions
-
-Up until now, we have been discussing some of the basic nuts and bolts of NumPy; in the next few sections, we will dive into the reasons that NumPy is so important in the Python data science world. Namely, it provides an easy and flexible interface to optimized computation with arrays of data.
-
-Computation on NumPy arrays can be very fast, or it can be very slow. The key to making it fast is to use vectorized operations, generally implemented through NumPy's universal functions (ufuncs). This section motivates the need for NumPy's ufuncs, which can be used to make repeated calculations on array elements much more efficient. It then introduces many of the most common and useful arithmetic ufuncs available in the NumPy package.
-
-### The wlowness of loops
-
-```{code-cell}
-import numpy as np
-np.random.seed(0)
-
-def compute_reciprocals(values):
-    output = np.empty(len(values))
-    for i in range(len(values)):
-        output[i] = 1.0 / values[i]
-    return output
-        
-values = np.random.randint(1, 10, size=5)
-compute_reciprocals(values)
-```
-
-This implementation probably feels fairly natural to someone from, say, a C or Java background. But if we measure the execution time of this code for a large input, we see that this operation is very slow, perhaps surprisingly so! We'll benchmark this with IPython's `%timeit` magic:
-
-```{code-cell}
-big_array = np.random.randint(1, 100, size=1000000)
-%timeit compute_reciprocals(big_array)
-```
-
-It takes several seconds to compute these million operations and to store the result! When even cell phones have processing speeds measured in Giga-FLOPS (i.e., billions of numerical operations per second), this seems almost absurdly slow. It turns out that the bottleneck here is not the operations themselves, but the type-checking and function dispatches that CPython must do at each cycle of the loop. Each time the reciprocal is computed, Python first examines the object's type and does a dynamic lookup of the correct function to use for that type. If we were working in compiled code instead, this type specification would be known before the code executes and the result could be computed much more efficiently.
-
-### Introducing ufuncs
-
-For many types of operations, NumPy provides a convenient interface into just this kind of statically typed, compiled routine. This is known as a vectorized operation. This can be accomplished by simply performing an operation on the array, which will then be applied to each element. This vectorized approach is designed to push the loop into the compiled layer that underlies NumPy, leading to much faster execution.
-
-Compare the results of the following two:
-
-```{code-cell}
-print(compute_reciprocals(values))
-print(1.0 / values)
-```
-
-Looking at the execution time for our big array, we see that it completes orders of magnitude faster than the Python loop:
-
-```{code-cell}
-%timeit (1.0 / big_array)
-```
-
-Vectorized operations in NumPy are implemented via ufuncs, whose main purpose is to quickly execute repeated operations on values in NumPy arrays. Ufuncs are extremely flexible – before we saw an operation between a scalar and an array, but we can also operate between two arrays:
-
-```{code-cell}
-np.arange(5) / np.arange(1, 6)
-```
-
-And ufunc operations are not limited to one-dimensional arrays–they can also act on multi-dimensional arrays as well:
-
-```{code-cell}
-x = np.arange(9).reshape((3, 3))
-2 ** x
-```
-
-Computations using vectorization through ufuncs are nearly always more efficient than their counterpart implemented using Python loops, especially as the arrays grow in size. Any time you see such a loop in a Python script, you should consider whether it can be replaced with a vectorized expression.
-
-### Exploring NumPy's ufuncs
-
-Ufuncs exist in two flavors: unary ufuncs, which operate on a single input, and binary ufuncs, which operate on two inputs. We'll see examples of both these types of functions here.
-
-#### Array arithmetic
-
-NumPy's ufuncs feel very natural to use because they make use of Python's native arithmetic operators. The standard addition, subtraction, multiplication, and division can all be used:
-
-```{code-cell}
-x = np.arange(4)
-print("x     =", x)
-print("x + 5 =", x + 5)
-print("x - 5 =", x - 5)
-print("x * 2 =", x * 2)
-print("x / 2 =", x / 2)
-print("x // 2 =", x // 2)  # floor division
-```
-
-There is also a unary ufunc for negation, and a `**` operator for exponentiation, and a `%` operator for modulus:
-
-```{code-cell}
-print("-x     = ", -x)
-print("x ** 2 = ", x ** 2)
-print("x % 2  = ", x % 2)
-```
-
-In addition, these can be strung together however you wish, and the standard order of operations is respected:
-
-```{code-cell}
--(0.5 * x + 1) ** 2
-```
-
-Each of these arithmetic operations are simply convenient wrappers around specific functions built into NumPy; for example, the `+` operator is a wrapper for the `add` function:
-
-```{code-cell}
-np.add(x, 2)
-```
-
-The following table lists the arithmetic operators implemented in NumPy:
-
-|Operator| Equivalent ufunc| Description|
-|:-|:-|:-|
-|+| `np.add`| Addition (e.g., 1 + 1 = 2)|
-|-| `np.subtract`| Subtraction (e.g., 3 - 2 = 1)|
-|-| `np.negative`| Unary negation (e.g., -2)|
-|*| `np.multiply`| Multiplication (e.g., 2 * 3 = 6)|
-|/| `np.divide`| Division (e.g., 3 / 2 = 1.5)|
-|//| `np.floor_divide`| Floor division (e.g., 3 // 2 = 1)|
-|**| `np.power`| Exponentiation (e.g., 2 ** 3 = 8)|
-|%| `np.mod`| Modulus/remainder (e.g., 9 % 4 = 1)|
-
-#### Absolute value
-
-Just as NumPy understands Python's built-in arithmetic operators, it also understands Python's built-in absolute value function:
-
-```{code-cell}
-x = np.array([-2, -1, 0, 1, 2])
-abs(x)
-```
-
-The corresponding NumPy ufunc is `np.absolute`, which is also available under the alias `np.abs`:
-
-```{code-cell}
-np.absolute(x)
+a = np.arange(15).reshape(3, 5)
+a
 ```
 
 ```{code-cell}
-np.abs(x)
+a.ndim
 ```
 
-This ufunc can also handle complex data, in which the absolute value returns the magnitude:
+- ndarray.shape
+    The dimensions of the array. This is a tuple of integers indicating the size of the array in each dimension. For a matrix with *n* rows and *m* columns, `shape` will be `(n,m)`. The length of the `shape` tuple is therefore the number of axes, `ndim`.
 
 ```{code-cell}
-x = np.array([3 - 4j, 4 - 3j, 2 + 0j, 0 + 1j])
-np.abs(x)
+a.shape
 ```
 
-#### Trigonometric functions
-
-NumPy provides a large number of useful ufuncs, and some of the most useful for the data scientist are the trigonometric functions. We'll start by defining an array of angles:
+- ndarray.size
+    The total number of elements of the array. This is equal to the product of the elements of `shape`.
 
 ```{code-cell}
-theta = np.linspace(0, np.pi, 3)
+a.size
 ```
 
-Now we can compute some trigonometric functions on these values:
+- ndarray.dtype
+    An object describing the type of the elements in the array. One can create or specify dtype’s using standard Python types. Additionally NumPy provides types of its own. numpy.int32, numpy.int16, and numpy.float64 are some examples.
 
 ```{code-cell}
-print("theta      = ", theta)
-print("sin(theta) = ", np.sin(theta))
-print("cos(theta) = ", np.cos(theta))
-print("tan(theta) = ", np.tan(theta))
-```
-
-The values are computed to within machine precision, which is why values that should be zero do not always hit exactly zero. Inverse trigonometric functions are also available:
-
-```{code-cell}
-x = [-1, 0, 1]
-print("x         = ", x)
-print("arcsin(x) = ", np.arcsin(x))
-print("arccos(x) = ", np.arccos(x))
-print("arctan(x) = ", np.arctan(x))
-```
-
-#### Exponents and logarithms
-
-Another common type of operation available in a NumPy ufunc are the exponentials:
-
-```{code-cell}
-x = [1, 2, 3]
-print("x     =", x)
-print("e^x   =", np.exp(x))
-print("2^x   =", np.exp2(x))
-print("3^x   =", np.power(3, x))
-```
-
-The inverse of the exponentials, the logarithms, are also available. The basic np.log gives the natural logarithm; if you prefer to compute the base-2 logarithm or the base-10 logarithm, these are available as well:
-
-```{code-cell}
-x = [1, 2, 4, 10]
-print("x        =", x)
-print("ln(x)    =", np.log(x))
-print("log2(x)  =", np.log2(x))
-print("log10(x) =", np.log10(x))
-```
-
-There are also some specialized versions that are useful for maintaining precision with very small input:
-
-```{code-cell}
-x = [0, 0.001, 0.01, 0.1]
-print("exp(x) - 1 =", np.expm1(x))
-print("log(1 + x) =", np.log1p(x))
-```
-
-When `x` is very small, these functions give more precise values than if the raw `np.log` or `np.exp` were to be used.
-
-#### Specialized ufuncs
-
-NumPy has many more ufuncs available, including hyperbolic trig functions, bitwise arithmetic, comparison operators, conversions from radians to degrees, rounding and remainders, and much more. A look through the NumPy documentation reveals a lot of interesting functionality.
-
-Another excellent source for more specialized and obscure ufuncs is the submodule `scipy.special`. If you want to compute some obscure mathematical function on your data, chances are it is implemented in `scipy.special`. There are far too many functions to list them all, but the following snippet shows a couple that might come up in a statistics context:
-
-```{code-cell}
-from scipy import special
+a.dtype
 ```
 
 ```{code-cell}
-# Gamma functions (generalized factorials) and related functions
-x = [1, 5, 10]
-print("gamma(x)     =", special.gamma(x))
-print("ln|gamma(x)| =", special.gammaln(x))
-print("beta(x, 2)   =", special.beta(x, 2))
+a.dtype.name
+```
+
+- ndarray.itemsize
+    The size in bytes of each element of the array. For example, an array of elements of type `float64` has `itemsize` 8 (=64/8), while one of type `complex32` has `itemsize` 4 (=32/8). It is equivalent to `ndarray.dtype.itemsize`.
+
+```{code-cell}
+a.itemsize
+```
+
+- ndarray.data
+    The buffer containing the actual elements of the array. Normally, we won’t need to use this attribute because we will access the elements in an array using indexing facilities.
+
+```{code-cell}
+a.data
+```
+
+### Reshape an array
+
+Using `arr.reshape()` will give a new shape to an array without changing the data. Just remember that when you use the reshape method, the array you want to produce needs to have the same number of elements as the original array. If you start with an array with 12 elements, you’ll need to make sure that your new array also has a total of 12 elements.
+
+If you start with this array:
+
+```{code-cell}
+a = np.arange(6)
+a
+```
+
+You can use `reshape()` to reshape your array. For example, you can reshape this array to an array with three rows and two columns:
+
+```{code-cell}
+b = a.reshape(3, 2)
+b
+```
+
+With `np.reshape`, you can specify a few optional parameters:
+
+```{code-cell}
+np.reshape(a, newshape=(1, 6), order='C')
+```
+
+`a` is the array to be reshaped.
+
+`newshape` is the new shape you want. You can specify an integer or a tuple of integers. If you specify an integer, the result will be an array of that length. The shape should be compatible with the original shape.
+
+`order:` `C` means to read/write the elements using C-like index order, `F` means to read/write the elements using Fortran-like index order, `A` means to read/write the elements in Fortran-like index order if a is Fortran contiguous in memory, C-like order otherwise. (This is an optional parameter and doesn’t need to be specified.)
+
+### Convert a 1D array into a 2D array(add a new axis to an array)
+
+You can use `np.newaxis` and `np.expand_dims` to increase the dimensions of your existing array.
+
+Using `np.newaxis` will increase the dimensions of your array by one dimension when used once. This means that a 1D array will become a 2D array, a 2D array will become a 3D array, and so on.
+
+For example, if you start with this array:
+
+```{code-cell}
+a = np.array([1, 2, 3, 4, 5, 6])
+a.shape
+```
+
+You can use `np.newaxis` to add a new axis:
+
+```{code-cell}
+a2 = a[np.newaxis, :]
+a2.shape
+```
+
+You can explicitly convert a 1D array with either a row vector or a column vector using `np.newaxis`. For example, you can convert a 1D array to a row vector by inserting an axis along the first dimension:
+
+```{code-cell}
+row_vector = a[np.newaxis, :]
+row_vector.shape
+```
+
+Or, for a column vector, you can insert an axis along the second dimension:
+
+```{code-cell}
+col_vector = a[:, np.newaxis]
+col_vector.shape
+```
+
+You can also expand an array by inserting a new axis at a specified position with `np.expand_dims`.
+
+For example, if you start with this array:
+
+```{code-cell}
+a = np.array([1, 2, 3, 4, 5, 6])
+a.shape
+```
+
+You can use np.expand_dims to add an axis at index position 1 with:
+
+```{code-cell}
+b = np.expand_dims(a, axis=1)
+b.shape
+```
+
+You can add an axis at index position 0 with:
+
+```{code-cell}
+c = np.expand_dims(a, axis=0)
+c.shape
+```
+
+### Indexing and slicing
+
+You can index and slice NumPy arrays in the same ways you can slice Python lists.
+
+```{code-cell}
+data = np.array([1, 2, 3])
 ```
 
 ```{code-cell}
-# Error function (integral of Gaussian)
-# its complement, and its inverse
-x = np.array([0, 0.3, 0.7, 1.0])
-print("erf(x)  =", special.erf(x))
-print("erfc(x) =", special.erfc(x))
-print("erfinv(x) =", special.erfinv(x))
+data[1]
 ```
 
-There are many, many more ufuncs available in both NumPy and `scipy.special`. Because the documentation of these packages is available online, a web search along the lines of "gamma function python" will generally find the relevant information.
+```{code-cell}
+data[0:2]
+```
 
-### Advanced ufunc features
+```{code-cell}
+data[1:]
+```
 
-Many NumPy users make use of ufuncs without ever learning their full set of features. We'll outline a few specialized features of ufuncs here.
+```{code-cell}
+data[-2:]
+```
 
-#### Specifying output
+You may want to take a section of your array or specific array elements to use in further analysis or additional operations. To do that, you’ll need to subset, slice, and/or index your arrays.
 
-For large calculations, it is sometimes useful to be able to specify the array where the result of the calculation will be stored. Rather than creating a temporary array, this can be used to write computation results directly to the memory location where you'd like them to be. For all ufuncs, this can be done using the out argument of the function:
+If you want to select values from your array that fulfill certain conditions, it’s straightforward with NumPy.
+
+For example, if you start with this array:
+
+```{code-cell}
+a = np.array([[1 , 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+```
+
+You can easily print all of the values in the array that are less than 5.
+
+```{code-cell}
+a[a < 5]
+```
+
+You can also select, for example, numbers that are equal to or greater than 5, and use that condition to index an array.
+
+```{code-cell}
+five_up = (a >= 5)
+a[five_up]
+```
+
+You can select elements that are divisible by 2:
+
+```{code-cell}
+divisible_by_2 = a[a%2==0]
+divisible_by_2
+```
+
+Or you can select elements that satisfy two conditions using the `&` and `|` operators:
+
+```{code-cell}
+c = a[(a > 2) & (a < 11)]
+c
+```
+
+You can also make use of the logical operators `&` and `|` in order to return boolean values that specify whether or not the values in an array fulfill a certain condition. This can be useful with arrays that contain names or other categorical values.
+
+```{code-cell}
+five_up = (a > 5) | (a == 5)
+five_up
+```
+
+You can also use `np.nonzero()` to select elements or indices from an array.
+
+Starting with this array:
+
+```{code-cell}
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+```
+
+You can use `np.nonzero()` to print the indices of elements that are, for example, less than 5:
+
+```{code-cell}
+b = np.nonzero(a < 5)
+b
+```
+
+In this example, a tuple of arrays was returned: one for each dimension. The first array represents the row indices where these values are found, and the second array represents the column indices where the values are found.
+
+If you want to generate a list of coordinates where the elements exist, you can zip the arrays, iterate over the list of coordinates, and print them. For example:
+
+```{code-cell}
+list_of_coordinates= list(zip(b[0], b[1]))
+for coord in list_of_coordinates:
+    print(coord)
+```
+
+You can also use `np.nonzero()` to print the elements in an array that are less than 5 with:
+
+```{code-cell}
+a[b]
+```
+
+If the element you’re looking for doesn’t exist in the array, then the returned array of indices will be empty. For example:
+
+```{code-cell}
+not_there = np.nonzero(a == 42)
+not_there
+```
+
+### Create an array from existing data
+
+You can easily create a new array from a section of an existing array.
+
+Let’s say you have this array:
+
+```{code-cell}
+a = np.array([1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+```
+
+You can create a new array from a section of your array any time by specifying where you want to slice your array.
+
+```{code-cell}
+arr1 = a[3:8]
+arr1
+```
+
+Here, you grabbed a section of your array from index position 3 through index position 8.
+
+You can also stack two existing arrays, both vertically and horizontally. Let’s say you have two arrays, `a1` and `a2`:
+
+```{code-cell}
+a1 = np.array([[1, 1],
+               [2, 2]])
+a2 = np.array([[3, 3],
+               [4, 4]])
+```
+
+You can stack them vertically with `vstack`:
+
+```{code-cell}
+np.vstack((a1, a2))
+```
+
+Or stack them horizontally with hstack:
+
+```{code-cell}
+np.hstack((a1, a2))
+```
+
+You can split an array into several smaller arrays using `hsplit`. You can specify either the number of equally shaped arrays to return or the columns after which the division should occur.
+
+Let’s say you have this array:
+
+```{code-cell}
+x = np.arange(1, 25).reshape(2, 12)
+x
+```
+
+If you wanted to split this array into three equally shaped arrays, you would run:
+
+```{code-cell}
+np.hsplit(x, 3)
+```
+
+If you wanted to split your array after the third and fourth column, you’d run:
+
+```{code-cell}
+np.hsplit(x, (3, 4))
+```
+
+You can use the `view` method to create a new array object that looks at the same data as the original array (a shallow copy).
+
+Views are an important NumPy concept! NumPy functions, as well as operations like indexing and slicing, will return views whenever possible. This saves memory and is faster (no copy of the data has to be made). However it’s important to be aware of this - modifying data in a view also modifies the original array!
+
+Let’s say you create this array:
+
+```{code-cell}
+a = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+```
+
+Now we create an array `b1` by slicing `a` and modify the first element of `b1`. This will modify the corresponding element in `a` as well!
+
+```{code-cell}
+b1 = a[0, :]
+b1
+```
+
+```{code-cell}
+b1[0] = 99
+b1
+```
+
+```{code-cell}
+a
+```
+
+Using the `copy` method will make a complete copy of the array and its data (a deep copy). To use this on your array, you could run:
+
+```{code-cell}
+b2 = a.copy()
+```
+
+## Array operations
+
+### Basic array operations
+
+Once you’ve created your arrays, you can start to work with them. Let’s say, for example, that you’ve created two arrays, one called `data` and one called `ones`.
+
+```{code-cell}
+data = np.array([1, 2])
+ones = np.ones(2, dtype=int)
+```
+
+You can add the arrays together with the plus sign.
+
+```{code-cell}
+data + ones
+```
+
+You can, of course, do more than just addition!
+
+```{code-cell}
+print(data - ones)
+print(data * data)
+print(data / data)
+```
+
+Basic operations are simple with NumPy. If you want to find the sum of the elements in an array, you’d use `sum()`. This works for 1D arrays, 2D arrays, and arrays in higher dimensions.
+
+```{code-cell}
+a = np.array([1, 2, 3, 4])
+a.sum()
+```
+
+To add the rows or the columns in a 2D array, you would specify the axis.
+
+If you start with this array:
+
+```{code-cell}
+b = np.array([[1, 1], [2, 2]])
+```
+
+You can sum over the axis of rows with:
+
+```{code-cell}
+b.sum(axis=0)
+```
+
+You can sum over the axis of columns with:
+
+```{code-cell}
+b.sum(axis=1)
+```
+
+### Universal functions(ufunc)
+
+A universal function (or ufunc for short) is a function that operates on ndarrays in an element-by-element fashion, supporting array broadcasting, type casting, and several other standard features. That is, a ufunc is a “vectorized” wrapper for a function that takes a fixed number of specific inputs and produces a fixed number of specific outputs.
+
+#### Available ufuncs
+
+There are currently more than 60 universal functions defined in numpy on one or more types, covering a wide variety of operations. Some of these ufuncs are called automatically on arrays when the relevant infix notation is used (e.g., `add(a, b)` is called internally when `a + b` is written and a or b is an ndarray). Nevertheless, you may still want to use the ufunc call in order to use the optional output argument(s) to place the output(s) in an object (or objects) of your choice.
+
+Recall that each ufunc operates element-by-element. Therefore, each scalar ufunc will be described as if acting on a set of scalar inputs to return a set of scalar outputs.
+
+```{note}
+The ufunc still returns its output(s) even if you use the optional output argument(s).
+```
+
+##### Math operations
+
+|Syntax|Role|
+|:-|:-|
+|`add(x1, x2, /[, out, where, casting, order, ...])`|Add arguments element-wise.|
+|`subtract(x1, x2, /[, out, where, casting, ...])`|Subtract arguments, element-wise.|
+|`multiply(x1, x2, /[, out, where, casting, ...])`|Multiply arguments element-wise.|
+|`matmul(x1, x2, /[, out, casting, order, ...])`|Matrix product of two arrays.|
+|`divide(x1, x2, /[, out, where, casting, ...])`|Divide arguments element-wise.|
+|`logaddexp(x1, x2, /[, out, where, casting, ...])`|Logarithm of the sum of exponentiations of the inputs.|
+|`negative(x, /[, out, where, casting, order, ...])`|Numerical negative, element-wise.|
+|`positive(x, /[, out, where, casting, order, ...])`|Numerical positive, element-wise.|
+|`power(x1, x2, /[, out, where, casting, ...])`|First array elements raised to powers from second array, element-wise.|
+|`absolute(x, /[, out, where, casting, order, ...])`|Calculate the absolute value element-wise.|
+|`exp(x, /[, out, where, casting, order, ...])`|Calculate the exponential of all elements in the input array.|
+|`log(x, /[, out, where, casting, order, ...])`|Natural logarithm, element-wise.|
+|`log2(x, /[, out, where, casting, order, ...])`|Base-2 logarithm of x.|
+
+##### Trigonometric functions
+
+|Syntax|Role|
+|:-|:-|
+|`sin(x, /[, out, where, casting, order, ...])`|Trigonometric sine, element-wise.|
+|`cos(x, /[, out, where, casting, order, ...])`|Cosine element-wise.|
+|`tan(x, /[, out, where, casting, order, ...])`|Compute tangent element-wise.|
+|`arcsin(x, /[, out, where, casting, order, ...])`|Inverse sine, element-wise.|
+|`arccos(x, /[, out, where, casting, order, ...])`|Trigonometric inverse cosine, element-wise.|
+|`arctan(x, /[, out, where, casting, order, ...])`|Trigonometric inverse tangent, element-wise.|
+
+##### Bit-twiddling functions
+
+|Syntax|Role|
+|:-|:-|
+|`bitwise_and(x1, x2, /[, out, where, ...])`|Compute the bit-wise AND of two arrays element-wise.|
+|`bitwise_or(x1, x2, /[, out, where, casting, ...])`|Compute the bit-wise OR of two arrays element-wise.
+|`bitwise_xor(x1, x2, /[, out, where, ...])`|Compute the bit-wise XOR of two arrays element-wise.|
+|`invert(x, /[, out, where, casting, order, ...])`|Compute bit-wise inversion, or bit-wise NOT, element-wise.|
+
+##### Comparison functions
+
+|Syntax|Role|
+|:-|:-|
+|`greater(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 > x2) element-wise.|
+|`greater_equal(x1, x2, /[, out, where, ...])`|Return the truth value of (x1 >= x2) element-wise.|
+|`less(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 < x2) element-wise.|
+|`less_equal(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 <= x2) element-wise.|
+|`not_equal(x1, x2, /[, out, where, casting, ...])`|Return (x1 != x2) element-wise.|
+|`equal(x1, x2, /[, out, where, casting, ...])`|Return (x1 == x2) element-wise.|
+
+```{warning}
+Do not use the Python keywords `and` and `or` to combine logical array expressions. These keywords will test the truth value of the entire array (not element-by-element as you might expect). Use the bitwise operators `&` and `|` instead.
+```
+
+|Syntax|Role|
+|:-|:-|
+|`logical_and(x1, x2, /[, out, where, ...])`|Compute the truth value of x1 AND x2 element-wise.|
+|`logical_or(x1, x2, /[, out, where, casting, ...])`|Compute the truth value of x1 OR x2 element-wise.|
+|`logical_xor(x1, x2, /[, out, where, ...])`|Compute the truth value of x1 XOR x2, element-wise.|
+|`logical_not(x, /[, out, where, casting, ...])`|Compute the truth value of NOT x element-wise.|
+
+```{warning}
+The bit-wise operators & and | are the proper way to perform element-by-element array comparisons. Be sure you understand the operator precedence: (a > 2) & (a < 5) is the proper syntax because a > 2 & a < 5 will result in an error due to the fact that 2 & a is evaluated first.
+```
+
+### Computation on arrays: broadcasting
+
+The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations. Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have compatible shapes. Broadcasting provides a means of vectorizing array operations so that looping occurs in C instead of Python. It does this without making needless copies of data and usually leads to efficient algorithm implementations. There are, however, cases where broadcasting is a bad idea because it leads to inefficient use of memory that slows computation.
+
+NumPy operations are usually done on pairs of arrays on an element-by-element basis. In the simplest case, the two arrays must have exactly the same shape, as in the following example:
+
+```{code-cell}
+a = np.array([1.0, 2.0, 3.0])
+b = np.array([2.0, 2.0, 2.0])
+a * b
+```
+
+NumPy’s broadcasting rule relaxes this constraint when the arrays’ shapes meet certain constraints. The simplest broadcasting example occurs when an array and a scalar value are combined in an operation:
+
+```{code-cell}
+a = np.array([1.0, 2.0, 3.0])
+b = 2.0
+a * b
+```
+
+The result is equivalent to the previous example where `b` was an array.  NumPy is smart enough to use the original scalar value without actually making copies so that broadcasting operations are as memory and computationally efficient as possible.
+
+#### General Broadcasting Rules
+
+When operating on two arrays, NumPy compares their shapes element-wise. It starts with the trailing (i.e. rightmost) dimension and works its way left. Two dimensions are compatible when
+
+- they are equal, or
+- one of them is 1.
+
+If these conditions are not met, a `ValueError: operands could not be broadcast together` exception is thrown, indicating that the arrays have incompatible shapes.
+
+Input arrays do not need to have *the same number* of dimensions. The resulting array will have the same number of dimensions as the input array with the greatest number of dimensions, where the *size* of each dimension is the largest size of the corresponding dimension among the input arrays. Note that missing dimensions are assumed to have size one.
+
+For example, if you have a `256x256x3` array of RGB values, and you want to scale each color in the image by a different value, you can multiply the image by a one-dimensional array with 3 values. Lining up the sizes of the trailing axes of these arrays according to the broadcast rules, shows that they are compatible:
+
+```py
+Image  (3d array): 256 x 256 x 3
+Scale  (1d array):             3
+Result (3d array): 256 x 256 x 3
+```
+
+When either of the dimensions compared is one, the other is used. In other words, dimensions with size 1 are stretched or “copied” to match the other.
+
+In the following example, both the `A` and `B` arrays have axes with length one that are expanded to a larger size during the broadcast operation:
+
+```py
+A      (4d array):  8 x 1 x 6 x 1
+B      (3d array):      7 x 1 x 5
+Result (4d array):  8 x 7 x 6 x 5
+```
+
+### Aggregations: min, max and everything in between
+
+NumPy also performs aggregation functions. In addition to `min`, `max`, and `sum`, you can easily run `mean` to get the average, `prod` to get the result of multiplying the elements together, `std` to get the standard deviation, and more.
+
+```{code-cell}
+data.max()
+```
+
+```{code-cell}
+data.min()
+```
+
+```{code-cell}
+data.sum()
+```
+
+Let’s start with this array, called “a”.
+
+```{code-cell}
+a = np.array([[0.45053314, 0.17296777, 0.34376245, 0.5510652],
+              [0.54627315, 0.05093587, 0.40067661, 0.55645993],
+              [0.12697628, 0.82485143, 0.26590556, 0.56917101]])
+```
+
+It’s very common to want to aggregate along a row or column. By default, every NumPy aggregation function will return the aggregate of the entire array. To find the sum or the minimum of the elements in your array, run:
+
+```{code-cell}
+a.sum()
+```
+
+Or:
+
+```{code-cell}
+a.min()
+```
+
+You can specify on which axis you want the aggregation function to be computed. For example, you can find the minimum value within each column by specifying `axis=0`.
+
+```{code-cell}
+a.min(axis=0)
+```
+
+The four values listed above correspond to the number of columns in your array. With a four-column array, you will get four values as your result.
+
+## Indexing on ndarrays
+
+ndarrays can be indexed using the standard Python `x[obj]` syntax, where `x` is the array and `obj` the selection. There are different kinds of indexing available depending on `obj`: basic indexing, advanced indexing and field access.
+
+```{note}
+In Python, `x[(exp1, exp2, ..., expN)]` is equivalent to `x[exp1, exp2, ..., expN]`; the latter is just syntactic sugar for the former.
+```
+
+### Basic indexing
+
+#### Single element indexing
+
+Single element indexing works exactly like that for other standard Python sequences. It is 0-based, and accepts negative indices for indexing from the end of the array.
+
+```{code-cell}
+x = np.arange(10)
+```
+
+```{code-cell}
+x[2]
+```
+
+```{code-cell}
+x[-2]
+```
+
+It is not necessary to separate each dimension’s index into its own set of square brackets.
+
+```{code-cell}
+x.shape = (2, 5)  # now x is 2-dimensional
+```
+
+```{code-cell}
+x[1, 3]
+```
+
+```{code-cell}
+x[1, -1]
+```
+
+Note that If one indexes a multidimensional array with fewer indices than dimensions, one gets a subdimensional array. For example:
+
+```{code-cell}
+x[0]
+```
+
+That is, each index specified selects the array corresponding to the rest of the dimensions selected. In the above example, choosing 0 means that the remaining dimension of length 5 is being left unspecified, and that what is returned is an array of that dimensionality and size. It must be noted that the returned array is a view, i.e., it is not a copy of the original, but points to the same values in memory as does the original array. In this case, the 1-D array at the first position (0) is returned. So using a single index on the returned array, results in a single element being returned. That is:
+
+```{code-cell}
+x[0][2]
+```
+
+So note that `x[0, 2] == x[0][2]` though the second case is more inefficient as a new temporary array is created after the first index that is subsequently indexed by 2.
+
+```{note}
+NumPy uses *C-order* indexing. That means that the last index usually represents the most rapidly changing memory location, unlike *Fortran* or *IDL*, where the first index represents the most rapidly changing location in memory. This difference represents a great potential for confusion.
+```
+
+#### Slicing and striding
+
+Basic slicing extends Python’s basic concept of slicing to N dimensions. Basic slicing occurs when obj is a `slice` object (constructed by `start:stop:step` notation inside of brackets), an integer, or a tuple of slice objects and integers. `Ellipsis` and `newaxis` objects can be interspersed with these as well.
+
+The simplest case of indexing with *N* integers returns an array scalar representing the corresponding item. As in Python, all indices are zero-based: for the i-th index , the valid range is $0 \leq n_i \leq d_i$  where $d_i$ is the *i*-th element of the shape of the array. Negative indices are interpreted as counting from the end of the array (i.e., if , it $n_i < 0$, it means $n_i + d_i$).
+
+All arrays generated by basic slicing are always **views** of the original array.
+
+```{note}
+NumPy slicing creates a **view** instead of a **copy** as in the case of built-in Python sequences such as string, tuple and list. Care must be taken when extracting a small portion from a large array which becomes useless after the extraction, because the small portion extracted contains a reference to the large original array whose memory will not be released until all arrays derived from it are garbage-collected. In such cases an explicit `copy()` is recommended.
+```
+
+- The basic slice syntax is `i:j:k` where *i* is the starting index, *j* is the stopping index, and *k* is the step ($k /neq 0$). This selects the m elements (in the corresponding dimension) with index values *i*, *i + k*, *…*,*i + (m - 1) k* where $m = q + (r /neq 0)$ and *q* and *r* are the quotient and remainder obtained by dividing *j - i* by *k*: *j - i = q k + r*, so that *i + (m - 1) k < j*. For example:
+
+```{code-cell}
+x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+x[1:7:2]
+```
+
+- Negative *i* and *j* are interpreted as *n + i* and *n + j* where *n* is the number of elements in the corresponding dimension. Negative *k* makes stepping go towards smaller indices. From the above example:
+
+```{code-cell}
+x[-2:10]
+```
+
+```{code-cell}
+x[-3:3:-1]
+```
+
+- Assume *n* is the number of elements in the dimension being sliced. Then, if *i* is not given it defaults to 0 for *k > 0* and *n - 1* for *k < 0*. If *j* is not given it defaults to *n* for *k > 0* and *-n-1* for *k < 0*. If *k* is not given it defaults to 1. Note that `::` is the same as : and means select all indices along this axis. From the above example:
+
+```{code-cell}
+x[5:]
+```
+
+- If the number of objects in the selection tuple is less than N, then `:` is assumed for any subsequent dimensions. For example:
+
+```{code-cell}
+x = np.array([[[1],[2],[3]], [[4],[5],[6]]])
+x.shape
+```
+
+```{code-cell}
+x[1:2]
+```
+
+- An integer, *i*, returns the same values as `i:i+1` **except** the dimensionality of the returned object is reduced by 1. In particular, a selection tuple with the *p*-th element an integer (and all other entries *:*) returns the corresponding sub-array with dimension *N - 1*. If *N = 1* then the returned object is an array scalar.
+
+- If the selection tuple has all entries : except the p-th entry which is a slice object `i:j:k`, then the returned array has dimension *N* formed by concatenating the sub-arrays returned by integer indexing of elements *i*, *i+k*, *…*, *i + (m - 1) k < j*,
+
+- Basic slicing with more than one non-`:` entry in the slicing tuple, acts like repeated application of slicing using a single non-`:` entry, where the non-`:` entries are successively taken (with all other non-`:` entries replaced by `:`). Thus, `x[ind1, ..., ind2,:]` acts like `x[ind1][..., ind2, :]` under basic slicing.
+
+**WARNING:** The The above is **not** true for advanced indexing.
+
+- You may use slicing to set values in the array, but (unlike lists) you can never grow the array. The size of the value to be set in `x[obj] = value` must be (broadcastable) to the same shape as `x[obj]`.
+
+- A slicing tuple can always be constructed as obj and used in the `x[obj]` notation. Slice objects can be used in the construction in place of the `[start:stop:step]` notation. For example, `x[1:10:5, ::-1]` can also be implemented as `obj = (slice(1, 10, 5), slice(None, None, -1))`; `x[obj]` . This can be useful for constructing generic code that works on arrays of arbitrary dimensions.
+
+#### Dimensional indexing tools
+
+There are some tools to facilitate the easy matching of array shapes with expressions and in assignments.
+
+Ellipsis expands to the number of `:` objects needed for the selection tuple to index all dimensions. In most cases, this means that the length of the expanded selection tuple is `x.ndim`. There may only be a single ellipsis present. From the above example:
+
+```{code-cell}
+x[..., 0]
+```
+
+This is equivalent to:
+
+```{code-cell}
+x[:, :, 0]
+```
+
+Each `newaxis` object in the selection tuple serves to expand the dimensions of the resulting selection by one unit-length dimension. The added dimension is the position of the `newaxis` object in the selection tuple. `newaxis` is an alias for `None`, and `None` can be used in place of this with the same result. From the above example:
+
+```{code-cell}
+x[:, np.newaxis, :, :].shape
+```
+
+```{code-cell}
+x[:, None, :, :].shape
+```
+
+This can be handy to combine two arrays in a way that otherwise would require explicit reshaping operations. For example:
 
 ```{code-cell}
 x = np.arange(5)
-y = np.empty(5)
-np.multiply(x, 10, out=y)
-print(y)
+x[:, np.newaxis] + x[np.newaxis, :]
 ```
 
-This can even be used with array views. For example, we can write the results of a computation to every other element of a specified array:
+### Advanced indexing
 
-```{code-cell}
-y = np.zeros(10)
-np.power(2, x, out=y[::2])
-print(y)
-```
-
-If we had instead written `y[::2] = 2 ** x`, this would have resulted in the creation of a temporary array to hold the results of `2 ** x`, followed by a second operation copying those values into the `y` array. This doesn't make much of a difference for such a small computation, but for very large arrays the memory savings from careful use of the `out` argument can be significant.
-
-#### Aggregates
-
-For binary ufuncs, there are some interesting aggregates that can be computed directly from the object. For example, if we'd like to reduce an array with a particular operation, we can use the `reduce` method of any ufunc. A reduce repeatedly applies a given operation to the elements of an array until only a single result remains.
-
-For example, calling `reduce` on the `add` ufunc returns the sum of all elements in the array:
-
-```{code-cell}
-x = np.arange(1, 6)
-np.add.reduce(x)
-```
-
-Similarly, calling `reduce` on the `multiply` ufunc results in the product of all array elements:
-
-```{code-cell}
-np.multiply.reduce(x)
-```
-
-If we'd like to store all the intermediate results of the computation, we can instead use accumulate:
-
-```{code-cell}
-np.add.accumulate(x)
-```
-
-```{code-cell}
-np.multiply.accumulate(x)
-```
-
-Note that for these particular cases, there are dedicated NumPy functions to compute the results (`np.sum`, `np.prod`, `np.cumsum`, `np.cumprod`).
-
-#### Outer products
-
-Finally, any ufunc can compute the output of all pairs of two different inputs using the `outer` method. This allows you, in one line, to do things like create a multiplication table:
-
-```{code-cell}
-x = np.arange(1, 6)
-np.multiply.outer(x, x)
-```
-
-## Aggregations: min, max, and everything in between
-
-Often when faced with a large amount of data, a first step is to compute summary statistics for the data in question. Perhaps the most common summary statistics are the mean and standard deviation, which allow you to summarize the "typical" values in a dataset, but other aggregates are useful as well (the sum, product, median, minimum and maximum, quantiles, etc.).
-
-NumPy has fast built-in aggregation functions for working on arrays; we'll discuss and demonstrate some of them here.
-
-### Summing the values in an array
-
-As a quick example, consider computing the sum of all values in an array. Python itself can do this using the built-in `sum` function:
-
-```{code-cell}
-import numpy as np
-```
-
-```{code-cell}
-L = np.random.random(100)
-sum(L)
-```
-
-The syntax is quite similar to that of NumPy's sum function, and the result is the same in the simplest case:
-
-```{code-cell}
-np.sum(L)
-```
-
-However, because it executes the operation in compiled code, NumPy's version of the operation is computed much more quickly:
-
-```{code-cell}
-big_array = np.random.rand(1000000)
-%timeit sum(big_array)
-%timeit np.sum(big_array)
-```
-
-Be careful, though: the sum function and the `np.sum` function are not identical, which can sometimes lead to confusion! In particular, their optional arguments have different meanings, and `np.sum` is aware of multiple array dimensions, as we will see in the following section
-
-### Minimum and maximum
-
-Similarly, Python has built-in `min` and `max` functions, used to find the minimum value and maximum value of any given array:
-
-```{code-cell}
-min(big_array), max(big_array)
-```
-
-NumPy's corresponding functions have similar syntax, and again operate much more quickly:
-
-```{code-cell}
-np.min(big_array), np.max(big_array)
-```
-
-```{code-cell}
-%timeit min(big_array)
-%timeit np.min(big_array)
-```
-
-For `min`, `max`, `sum`, and several other NumPy aggregates, a shorter syntax is to use methods of the array object itself:
-
-```{code-cell}
-print(big_array.min(), big_array.max(), big_array.sum())
-```
-
-Whenever possible, make sure that you are using the NumPy version of these aggregates when operating on NumPy arrays!
-
-### Multi dimensional aggregates
-
-One common type of aggregation operation is an aggregate along a row or column. Say you have some data stored in a two-dimensional array:
-
-```{code-cell}
-M = np.random.random((3, 4))
-print(M)
-```
-
-By default, each NumPy aggregation function will return the aggregate over the entire array:
-
-```{code-cell}
-M.sum()
-```
-
-Aggregation functions take an additional argument specifying the axis along which the aggregate is computed. For example, we can find the minimum value within each column by specifying `axis=0`:
-
-```{code-cell}
-M.min(axis=0)
-```
-
-The function returns four values, corresponding to the four columns of numbers.
-
-Similarly, we can find the maximum value within each row:
-
-```{code-cell}
-M.max(axis=1)
-```
-
-The way the axis is specified here can be confusing to users coming from other languages. The `axis` keyword specifies the dimension of the array that will be collapsed, rather than the dimension that will be returned. So specifying `axis=0` means that the first axis will be collapsed: for two-dimensional arrays, this means that values within each column will be aggregated.
-
-### Other aggregation functions
-
-NumPy provides many other aggregation functions, but we won't discuss them in detail here. Additionally, most aggregates have a `NaN`-safe counterpart that computes the result while ignoring missing values, which are marked by the special IEEE floating-point `NaN` value. Some of these `NaN`-safe functions were not added until NumPy 1.8, so they will not be available in older NumPy versions.
-
-The following table provides a list of useful aggregation functions available in NumPy:
-
-|Function Name| NaN-safe Version| Description|
-|:-|:-|:-|
-|`np.sum`| `np.nansum`| Compute sum of elements|
-|`np.prod`| `np.nanprod`| Compute product of elements|
-|`np.mean`| `np.nanmean`| Compute median of elements|
-|`np.std`| `np.nanstd`| Compute standard deviation|
-|`np.var`| `np.nanvar`| Compute variance|
-|`np.min`| `np.nanmin`| Find minimum value|
-|`np.max`| `np.nanmax`| Find maximum value|
-|`np.argmin`| `np.nanargmin`| Find index of minimum value|
-|`np.argmax`| `np.nanargmax`| Find index of maximum value|
-|`np.median`| `np.nanmedian`| Compute median of elements
-|`np.percentil`e| `np.nanpercentile`| Compute rank-based statistics of elements|
-|`np.any`| N/A| Evaluate whether any elements are true|
-|`np.all`| N/A| Evaluate whether all elements are true|
-
-## Computation on arrays: broadcasting
-
-We saw in the previous section how NumPy's universal functions can be used to vectorize operations and thereby remove slow Python loops. Another means of vectorizing operations is to use NumPy's broadcasting functionality. Broadcasting is simply a set of rules for applying binary ufuncs (e.g., addition, subtraction, multiplication, etc.) on arrays of different sizes.
-
-### Introducing broadcasting
-
-Recall that for arrays of the same size, binary operations are performed on an element-by-element basis:
-
-```{code-cell}
-import numpy as np
-```
-
-```{code-cell}
-a = np.array([0, 1, 2])
-b = np.array([5, 5, 5])
-a + b
-```
-
-Broadcasting allows these types of binary operations to be performed on arrays of different sizes–for example, we can just as easily add a scalar (think of it as a zero-dimensional array) to an array:
-
-```{code-cell}
-a + 5
-```
-
-We can think of this as an operation that stretches or duplicates the value `5` into the array `[5, 5, 5]`, and adds the results. The advantage of NumPy's broadcasting is that this duplication of values does not actually take place, but it is a useful mental model as we think about broadcasting.
-
-We can similarly extend this to arrays of higher dimension. Observe the result when we add a one-dimensional array to a two-dimensional array:
-
-```{code-cell}
-M = np.ones((3, 3))
-M
-```
-
-```{code-cell}
-M + a
-```
-
-Here the one-dimensional array `a` is stretched, or broadcast across the second dimension in order to match the shape of `M`.
-
-While these examples are relatively easy to understand, more complicated cases can involve broadcasting of both arrays. Consider the following example:
-
-```{code-cell}
-a = np.arange(3)
-b = np.arange(3)[:, np.newaxis]
-
-print(a)
-print(b)
-```
-
-```{code-cell}
-a + b
-```
-
-Just as before we stretched or broadcasted one value to match the shape of the other, here we've stretched both `a` and `b` to match a common shape, and the result is a two-dimensional array! The geometry of these examples is visualized in the following figure.
-
-![broadcasting](../../../images/broadcasting.png)
-
-The light boxes represent the broadcasted values: again, this extra memory is not actually allocated in the course of the operation, but it can be useful conceptually to imagine that it is.
-
-### Rules of broadcasting
-
-Broadcasting in NumPy follows a strict set of rules to determine the interaction between the two arrays:
-
-- Rule 1: If the two arrays differ in their number of dimensions, the shape of the one with fewer dimensions is padded with ones on its leading (left) side.
-- Rule 2: If the shape of the two arrays does not match in any dimension, the array with shape equal to 1 in that dimension is stretched to match the other shape.
-- Rule 3: If in any dimension the sizes disagree and neither is equal to 1, an error is raised.
-
-To make these rules clear, let's consider a few examples in detail.
-
-#### Broadcasting example 1
-
-Let's look at adding a two-dimensional array to a one-dimensional array:
-
-```{code-cell}
-M = np.ones((2, 3))
-a = np.arange(3)
-```
-
-Let's consider an operation on these two arrays. The shape of the arrays are:
-
-- `M.shape = (2, 3)`
-- `a.shape = (3,)`
-
-We see by rule 1 that the array a has fewer dimensions, so we pad it on the left with ones:
-
-- `M.shape -> (2, 3)`
-- `a.shape -> (1, 3)`
-
-By rule 2, we now see that the first dimension disagrees, so we stretch this dimension to match:
-
-- `M.shape -> (2, 3)`
-- `a.shape -> (2, 3)`
-
-The shapes match, and we see that the final shape will be `(2, 3)`:
-
-```{code-cell}
-M + a
-```
-
-#### Broadcasting example 2
-
-Let's take a look at an example where both arrays need to be broadcast:
-
-```{code-cell}
-a = np.arange(3).reshape((3, 1))
-b = np.arange(3)
-```
-
-Again, we'll start by writing out the shape of the arrays:
-
-- `a.shape = (3, 1)`
-- `b.shape = (3,)`
-Rule 1 says we must pad the shape of `b` with ones:
-
-- `a.shape -> (3, 1)`
-- `b.shape -> (1, 3)`
-
-And rule 2 tells us that we upgrade each of these ones to match the corresponding size of the other array:
-
-- `a.shape -> (3, 3)`
-- `b.shape -> (3, 3)`
-
-Because the result matches, these shapes are compatible. We can see this here:
-
-```{code-cell}
-a + b
-```
-
-#### Broadcasting example 3
-
-Now let's take a look at an example in which the two arrays are not compatible:
-
-```{code-cell}
-M = np.ones((3, 2))
-a = np.arange(3)
-```
-
-This is just a slightly different situation than in the first example: the matrix M is transposed. How does this affect the calculation? The shape of the arrays are:
-
-- `M.shape = (3, 2)`
-- `a.shape = (3,)`
-
-Again, rule 1 tells us that we must pad the shape of `a` with ones:
-
-- `M.shape -> (3, 2)`
-- `a.shape -> (1, 3)`
+Advanced indexing is triggered when the selection object, obj, is a non-tuple sequence object, an `ndarray` (of data type integer or bool), or a tuple with at least one sequence object or ndarray (of data type integer or bool). There are two types of advanced indexing: integer and Boolean.
 
-By rule 2, the first dimension of `a` is stretched to match that of `M`:
+Advanced indexing always returns a copy of the data (contrast with basic slicing that returns a `view`).
 
-`M.shape -> (3, 2)`
-`a.shape -> (3, 3)`
+**WARNING:** The definition of advanced indexing means that `x[(1, 2, 3),]` is fundamentally different than `x[(1, 2, 3)]`. The latter is equivalent to `x[1, 2, 3]` which will trigger basic selection while the former will trigger advanced indexing. Be sure to understand why this occurs.
 
-Now we hit rule 3–the final shapes do not match, so these two arrays are incompatible, as we can observe by attempting this operation:
+Also recognize that `x[[1, 2, 3]]` will trigger advanced indexing, whereas due to the deprecated Numeric compatibility mentioned above, `x[[1, 2, slice(None)]]` will trigger basic slicing.
 
-```py
-M + a
-```
-
-```
----------------------------------------------------------------------------
-ValueError                                Traceback (most recent call last)
-Cell In [59], line 1
-----> 1 M + a
-
-ValueError: operands could not be broadcast together with shapes (3,2) (3,) 
-```
-
-Note the potential confusion here: you could imagine making `a` and `M` compatible by, say, padding `a`'s shape with ones on the right rather than the left. But this is not how the broadcasting rules work! That sort of flexibility might be useful in some cases, but it would lead to potential areas of ambiguity. If right-side padding is what you'd like, you can do this explicitly by reshaping the array.
-
-```{code-cell}
-a[:, np.newaxis].shape
-```
-
-```{code-cell}
-M + a[:, np.newaxis]
-```
-
-Also note that while we've been focusing on the `+` operator here, these broadcasting rules apply to any binary `ufunc`. For example, here is the `logaddexp(a, b)` function, which computes `log(exp(a) + exp(b))` with more precision than the naive approach:
-
-```{code-cell}
-np.logaddexp(M, a[:, np.newaxis])
-```
-
-### Broadcasting in practice
-
-Broadcasting operations form the core of many examples we'll see throughout this book. We'll now take a look at a couple simple examples of where they can be useful.
-
-#### Centering an array
-
-In the previous section, we saw that ufuncs allow a NumPy user to remove the need to explicitly write slow Python loops. Broadcasting extends this ability. One commonly seen example is when centering an array of data. Imagine you have an array of 10 observations, each of which consists of 3 values. Using the standard convention, we'll store this in a 10×3 array:
-
-```{code-cell}
-X = np.random.random((10, 3))
-```
-
-We can compute the mean of each feature using the `mean` aggregate across the first dimension:
-
-```{code-cell}
-Xmean = X.mean(0)
-Xmean
-```
-
-And now we can center the `X` array by subtracting the mean (this is a broadcasting operation):
-
-```{code-cell}
-X_centered = X - Xmean
-```
-
-To double-check that we've done this correctly, we can check that the centered array has near zero mean:
-
-```{code-cell}
-X_centered.mean(0)
-```
-
-To within machine precision, the mean is now zero.
-
-#### Plotting a two-dimensional function
-
-One place that broadcasting is very useful is in displaying images based on two-dimensional functions. If we want to define a function z=f(x,y), broadcasting can be used to compute the function across the grid:
-
-```{code-cell}
-# x and y have 50 steps from 0 to 5
-x = np.linspace(0, 5, 50)
-y = np.linspace(0, 5, 50)[:, np.newaxis]
-
-z = np.sin(x) ** 10 + np.cos(10 + y * x) * np.cos(x)
-```
-
-We'll use Matplotlib to plot this two-dimensional array.
-
-```{code-cell}
-%matplotlib inline
-import matplotlib.pyplot as plt
-```
-
-```{code-cell}
-plt.imshow(z, origin='lower', extent=[0, 5, 0, 5],
-           cmap='viridis')
-plt.colorbar();
-```
-
-The result is a compelling visualization of the two-dimensional function.
-
-## Comparisons, masks, and boolean logic
-
-This section covers the use of Boolean masks to examine and manipulate values within NumPy arrays. Masking comes up when you want to extract, modify, count, or otherwise manipulate values in an array based on some criterion: for example, you might wish to count all values greater than a certain value, or perhaps remove all outliers that are above some threshold. In NumPy, Boolean masking is often the most efficient way to accomplish these types of tasks.
-
-### Example: counting rainy days
-
-Imagine you have a series of data that represents the amount of precipitation each day for a year in a given city. For example, here we'll load the daily rainfall statistics for the city of Seattle in 2014, using Panda:
-
-```{code-cell}
-import numpy as np
-import pandas as pd
-
-# use pandas to extract rainfall inches as a NumPy array
-rainfall = pd.read_csv('../../assets/data/Seattle2014.csv')['PRCP'].values
-inches = rainfall / 254  # 1/10mm -> inches
-inches.shape
-```
-
-The array contains 365 values, giving daily rainfall in inches from January 1 to December 31, 2014.
-
-As a first quick visualization, let's look at the histogram of rainy days, which was generated using Matplotlib:
-
-```{code-cell}
-%matplotlib inline
-import matplotlib.pyplot as plt
-import seaborn; seaborn.set()  # set plot styles
-```
-
-```{code-cell}
-plt.hist(inches, 40);
-```
-
-This histogram gives us a general idea of what the data looks like: despite its reputation, the vast majority of days in Seattle saw near zero measured rainfall in 2014. But this doesn't do a good job of conveying some information we'd like to see: for example, how many rainy days were there in the year? What is the average precipitation on those rainy days? How many days were there with more than half an inch of rain?
-
-#### Digging into the data
-
-One approach to this would be to answer these questions by hand: loop through the data, incrementing a counter each time we see values in some desired range. For reasons discussed throughout this chapter, such an approach is very inefficient, both from the standpoint of time writing code and time computing the result. We saw in Computation on NumPy Arrays: Universal Functions that NumPy's ufuncs can be used in place of loops to do fast element-wise arithmetic operations on arrays; in the same way, we can use other ufuncs to do element-wise comparisons over arrays, and we can then manipulate the results to answer the questions we have. We'll leave the data aside for right now, and discuss some general tools in NumPy to use masking to quickly answer these types of questions.
-
-### Comparison operators as ufuncs
-
-In Computation on NumPy Arrays: Universal Functions we introduced ufuncs, and focused in particular on arithmetic operators. We saw that using `+`, `-`, `*`, `/`, and others on arrays leads to element-wise operations. NumPy also implements comparison operators such as `<` (less than) and `>` (greater than) as element-wise ufuncs. The result of these comparison operators is always an array with a Boolean data type. All six of the standard comparison operations are available:
-
-```{code-cell}
-x = np.array([1, 2, 3, 4, 5])
-```
-
-```{code-cell}
-x < 3  # less than
-```
-
-```{code-cell}
-x > 3  # greater than
-```
-
-```{code-cell}
-x <= 3  # less than or equal
-```
-
-```{code-cell}
-x >= 3  # greater than or equal
-```
-
-```{code-cell}
-x != 3  # not equal
-```
-
-```{code-cell}
-x = 3  # equal
-```
-
-It is also possible to do an element-wise comparison of two arrays, and to include compound expressions:
-
-```{code-cell}
-(2 * x) == (x ** 2)
-```
-
-As in the case of arithmetic operators, the comparison operators are implemented as ufuncs in NumPy; for example, when you write `x < 3`, internally NumPy uses `np.less(x, 3)`. A summary of the comparison operators and their equivalent ufunc is shown here:
-
-|Operator| Equivalent ufunc|  Operator| Equivalent ufunc|
-|:-|:|:-|:-|
-|==| `np.equal`|  !=| `np.not_equal`|
-|<| `np.less`|  <=| `np.less_equal`|
-|>| `np.greater`|  >=| `np.greater_equal`|
-
-Just as in the case of arithmetic ufuncs, these will work on arrays of any size and shape. Here is a two-dimensional example:
-
-```{code-cell}
-rng = np.random.RandomState(0)
-x = rng.randint(10, size=(3, 4))
-x
-```
-
-```{code-cell}
-x < 6
-```
-
-In each case, the result is a Boolean array, and NumPy provides a number of straightforward patterns for working with these Boolean results.
-
-### Working with boolean arrays
-
-Given a Boolean array, there are a host of useful operations you can do.
-We'll work with `x`, the two-dimensional array we created earlier.
-
-```{code-cell}
-print(x)
-```
-
-#### Counting entries
-
-To count the number of `True` entries in a Boolean array, `np.count_nonzero` is useful:
-
-```{code-cell}
-# how many values less than 6?
-np.count_nonzero(x < 6)
-```
-
-We see that there are eight array entries that are less than 6. Another way to get at this information is to use `np.sum`; in this case, `False` is interpreted as `0`, and `True` is interpreted as `1`:
-
-```{code-cell}
-np.sum(x < 6)
-```
-
-The benefit of `sum()` is that like with other NumPy aggregation functions, this summation can be done along rows or columns as well:
+#### Integer array indexing
 
-```{code-cell}
-# how many values less than 6 in each row?
-np.sum(x < 6, axis=1)
-```
-
-This counts the number of values less than 6 in each row of the matrix.
-
-If we're interested in quickly checking whether any or all the values are true, we can use (you guessed it) `np.any` or `np.all`:
-
-```{code-cell}
-# are there any values greater than 8?
-np.any(x > 8)
-```
-
-```{code-cell}
-# are there any values less than zero?
-np.any(x < 0)
-```
-
-```{code-cell}
-# are all values less than 10?
-np.all(x < 10)
-```
-
-```{code-cell}
-# are all values equal to 6?
-np.all(x == 6)
-```
-
-np.all and np.any can be used along particular axes as well. For example:
-
-```{code-cell}
-# are all values in each row less than 4?
-np.all(x < 8, axis=1)
-```
+Integer array indexing allows selection of arbitrary items in the array based on their *N*-dimensional index. Each integer array represents a number of indices into that dimension.
 
-Here all the elements in the first and third rows are less than 8, while this is not the case for the second row.
+Negative values are permitted in the index arrays and work as they do with single indices or slices:
 
-Finally, a quick warning: as mentioned in Aggregations: Min, Max, and Everything In Between, Python has built-in `sum()`, `any()`, and `all()` functions. These have a different syntax than the NumPy versions, and in particular will fail or produce unintended results when used on multidimensional arrays. Be sure that you are using `np.sum()`, `np.any()`, and `np.all()` for these examples!
-
-#### Boolean operators
-
-We've already seen how we might count, say, all days with rain less than four inches, or all days with rain greater than two inches. But what if we want to know about all days with rain less than four inches and greater than one inch? This is accomplished through Python's bitwise logic operators, `&`, `|`, `^`, and `~`. Like with the standard arithmetic operators, NumPy overloads these as ufuncs which work element-wise on (usually Boolean) arrays.
-
-For example, we can address this sort of compound question as follows:
-
-```{code-cell}
-np.sum((inches > 0.5) & (inches < 1))
-```
-
-So we see that there are 29 days with rainfall between 0.5 and 1.0 inches.
-
-Note that the parentheses here are important–because of operator precedence rules, with parentheses removed this expression would be evaluated as follows, which results in an error:
-
-```py
-inches > (0.5 & inches) < 1
-```
-
-Using the equivalence of **A AND B** and **NOT (NOT A OR NOT B)** (which you may remember if you've taken an introductory logic course), we can compute the same result in a different manner:
-
-```{code-cell}
-np.sum(~( (inches <= 0.5) | (inches >= 1) ))
-```
-
-Combining comparison operators and Boolean operators on arrays can lead to a wide range of efficient logical operations.
-
-The following table summarizes the bitwise Boolean operators and their equivalent ufuncs:
-
-|Operator| Equivalent ufunc|  Operator| Equivalent ufunc|
-|:-|:-|:-|:-|
-|&| `np.bitwise_and`|  &#124; | `np.bitwise_or`|
-|^| `np.bitwise_xor`|  ~| `np.bitwise_not`|
-
-Using these tools, we might start to answer the types of questions we have about our weather data. Here are some examples of results we can compute when combining masking with aggregations:
-
 ```{code-cell}
-print("Number days without rain:      ", np.sum(inches == 0))
-print("Number days with rain:         ", np.sum(inches != 0))
-print("Days with more than 0.5 inches:", np.sum(inches > 0.5))
-print("Rainy days with < 0.2 inches  :", np.sum((inches > 0) &
-                                              (inches < 0.2)))
+x = np.arange(10, 1, -1)
 ```
-
-### Boolean arrays as masks
-
-In the preceding section we looked at aggregates computed directly on Boolean arrays. A more powerful pattern is to use Boolean arrays as masks, to select particular subsets of the data themselves. Returning to our `x` array from before, suppose we want an array of all values in the array that are less than, say, 5:
 
 ```{code-cell}
 x
 ```
 
-We can obtain a Boolean array for this condition easily, as we've already seen:
-
 ```{code-cell}
-x < 5
-```
-
-Now to select these values from the array, we can simply index on this Boolean array; this is known as a masking operation:
-
-```{code-cell}
-x[x < 5]
-```
-
-What is returned is a one-dimensional array filled with all the values that meet this condition; in other words, all the values in positions at which the mask array is `True`.
-
-We are then free do operate on these values as we wish. For example, we can compute some relevant statistics on our Seattle rain data:
-
-```{code-cell}
-# construct a mask of all rainy days
-rainy = (inches > 0)
-
-# construct a mask of all summer days (June 21st is the 172nd day)
-days = np.arange(365)
-summer = (days > 172) & (days < 262)
-
-print("Median precip on rainy days in 2014 (inches):   ",
-      np.median(inches[rainy]))
-print("Median precip on summer days in 2014 (inches):  ",
-      np.median(inches[summer]))
-print("Maximum precip on summer days in 2014 (inches): ",
-      np.max(inches[summer]))
-print("Median precip on non-summer rainy days (inches):",
-      np.median(inches[rainy & ~summer]))
-```
-
-By combining Boolean operations, masking operations, and aggregates, we can very quickly answer these sorts of questions for our dataset.
-
-### Aside: using the keywords `and`/`or` versus the operators `&`/`|`
-
-One common point of confusion is the difference between the keywords and and or on one hand, and the operators `&` and `|` on the other hand. When would you use one versus the other?
-
-The difference is this: `and` and `or` gauge the truth or falsehood of entire object, while `&` and `|` refer to bits within each object.
-
-When you use `and` or `or`, it's equivalent to asking Python to treat the object as a single Boolean entity. In Python, all nonzero integers will evaluate as True. Thus:
-
-```{code-cell}
-bool(42), bool(0)
+x[np.array([3, 3, 1, 8])]
 ```
 
 ```{code-cell}
-bool(42 and 0)
+x[np.array([3, 3, -3, 8])]
+```
+
+If the index values are out of bounds then an `IndexError` is thrown:
+
+```{code-cell}
+x = np.array([[1, 2], [3, 4], [5, 6]])
 ```
 
 ```{code-cell}
-bool(42 or 0)
+x[np.array([1, -1])]
 ```
 
-When you use `&` and `|` on integers, the expression operates on the bits of the element, applying the and or the or to the individual bits making up the number:
+```py
+x[np.array([3, 4])]
+```
+
+```py
+Traceback (most recent call last):
+  ...
+IndexError: index 3 is out of bounds for axis 0 with size 3
+```
+
+When the index consists of as many integer arrays as dimensions of the array being indexed, the indexing is straightforward, but different from slicing.
+
+Advanced indices always are broadcast and iterated as *one*:
+
+```py
+result[i_1, ..., i_M] == x[ind_1[i_1, ..., i_M], ind_2[i_1, ..., i_M],
+                           ..., ind_N[i_1, ..., i_M]]
+```
+
+Note that the resulting shape is identical to the (broadcast) indexing array shapes `ind_1, ..., ind_N`. If the indices cannot be broadcast to the same shape, an exception `IndexError: shape mismatch: indexing arrays could not be broadcast together with shapes...` is raised.
+
+Indexing with multidimensional index arrays tend to be more unusual uses, but they are permitted, and they are useful for some problems. We’ll start with the simplest multidimensional case:
 
 ```{code-cell}
-bin(42)
+y = np.arange(35).reshape(5, 7)
 ```
 
 ```{code-cell}
-bin(59)
+y
 ```
 
 ```{code-cell}
-bin(42 & 59)
+y[np.array([0, 2, 4]), np.array([0, 1, 2])]
+```
+
+In this case, if the index arrays have a matching shape, and there is an index array for each dimension of the array being indexed, the resultant array has the same shape as the index arrays, and the values correspond to the index set for each position in the index arrays. In this example, the first index value is 0 for both index arrays, and thus the first value of the resultant array is `y[0, 0]`. The next value is `y[2, 1]`, and the last is `y[4, 2]`.
+
+If the index arrays do not have the same shape, there is an attempt to broadcast them to the same shape. If they cannot be broadcast to the same shape, an exception is raised:
+
+```py
+y[np.array([0, 2, 4]), np.array([0, 1])]
+```
+
+```py
+Traceback (most recent call last):
+  ...
+IndexError: shape mismatch: indexing arrays could not be broadcast together with shapes (3,) (2,)
+```
+
+The broadcasting mechanism permits index arrays to be combined with scalars for other indices. The effect is that the scalar value is used for all the corresponding values of the index arrays:
+
+```{code-cell}
+y[np.array([0, 2, 4]), 1]
+```
+
+Jumping to the next level of complexity, it is possible to only partially index an array with index arrays. It takes a bit of thought to understand what happens in such cases. For example if we just use one index array with y:
+
+```{code-cell}
+y[np.array([0, 2, 4])]
+```
+
+It results in the construction of a new array where each value of the index array selects one row from the array being indexed and the resultant array has the resulting shape (number of index elements, size of row).
+
+In general, the shape of the resultant array will be the concatenation of the shape of the index array (or the shape that all the index arrays were broadcast to) with the shape of any unused dimensions (those not indexed) in the array being indexed.
+
+##### Example 1
+
+From each row, a specific element should be selected. The row index is just `[0, 1, 2]` and the column index specifies the element to choose for the corresponding row, here `[0, 1, 0]`. Using both together the task can be solved using advanced indexing:
+
+```{code-cell}
+x = np.array([[1, 2], [3, 4], [5, 6]])
+x[[0, 1, 2], [0, 1, 0]]
+```
+
+To achieve a behaviour similar to the basic slicing above, broadcasting can be used. The function `ix_` can help with this broadcasting. This is best understood with an example.
+
+##### Example 2
+
+From a $4x3$ array the corner elements should be selected using advanced indexing. Thus all elements for which the column is one of `[0, 2]` and the row is one of `[0, 3]` need to be selected. To use advanced indexing one needs to select all elements explicitly. Using the method explained previously one could write:
+
+```{code-cell}
+x = np.array([[ 0,  1,  2],
+              [ 3,  4,  5],
+              [ 6,  7,  8],
+              [ 9, 10, 11]])
+rows = np.array([[0, 0],
+                 [3, 3]], dtype=np.intp)
+columns = np.array([[0, 2],
+                    [0, 2]], dtype=np.intp)
+x[rows, columns]
+```
+
+However, since the indexing arrays above just repeat themselves, broadcasting can be used (compare operations such as `rows[:, np.newaxis] + columns`) to simplify this:
+
+```{code-cell}
+rows = np.array([0, 3], dtype=np.intp)
+columns = np.array([0, 2], dtype=np.intp)
 ```
 
 ```{code-cell}
-bin(42 | 59)
+rows[:, np.newaxis]
 ```
-
-Notice that the corresponding bits of the binary representation are compared in order to yield the result.
-
-When you have an array of Boolean values in NumPy, this can be thought of as a string of bits where `1 = True` and `0 = False`, and the result of `&` and `|` operates similarly to above:
 
 ```{code-cell}
-A = np.array([1, 0, 1, 0, 1, 0], dtype=bool)
-B = np.array([1, 1, 1, 0, 1, 1], dtype=bool)
-A | B
+x[rows[:, np.newaxis], columns]
 ```
 
-Using `or` on these arrays will try to evaluate the truth or falsehood of the entire array object, which is not a well-defined value:
+This broadcasting can also be achieved using the function `ix_`:
 
 ```{code-cell}
-A.any() or B.any()
+x[np.ix_(rows, columns)]
 ```
 
-Similarly, when doing a Boolean expression on a given array, you should use `|` or `&` rather than `or` or `and`:
+Note that without the `np.ix_` call, only the diagonal elements would be selected:
+
+```{code-cell}
+x[rows, columns]
+```
+
+This difference is the most important thing to remember about indexing with multiple advanced indices.
+
+##### Example 3
+
+A real-life example of where advanced indexing may be useful is for a color lookup table where we want to map the values of an image into RGB triples for display. The lookup table could have a shape (nlookup, 3). Indexing such an array with an image with shape (ny, nx) with dtype=np.uint8 (or any integer type so long as values are with the bounds of the lookup table) will result in an array of shape (ny, nx, 3) where a triple of RGB values is associated with each pixel location.
+
+#### Boolean array indexing
+
+This advanced indexing occurs when obj is an array object of Boolean type, such as may be returned from comparison operators. A single boolean index array is practically identical to `x[obj.nonzero()]` where, as described above, `obj.nonzero()` returns a tuple (of length `obj.ndim`) of integer index arrays showing the `True` elements of obj. However, it is faster when `obj.shape == x.shape`.
+
+If `obj.ndim == x.ndim`, `x[obj]` returns a 1-dimensional array filled with the elements of x corresponding to the `True` values of obj. The search order will be **row-major**, C-style. If obj has `True` values at entries that are outside of the bounds of x, then an index error will be raised. If obj is smaller than x it is identical to filling it with `False`.
+
+A common use case for this is filtering for desired element values. For example, one may wish to select all entries from an array which are not `NaN`:
+
+```{code-cell}
+x = np.array([[1., 2.], [np.nan, 3.], [np.nan, np.nan]])
+x[~np.isnan(x)]
+```
+
+Or wish to add a constant to all negative elements:
+
+```{code-cell}
+x = np.array([1., -1., -2., 3])
+x[x < 0] += 20
+x
+```
+
+In general if an index includes a Boolean array, the result will be identical to inserting `obj.nonzero()` into the same position and using the integer array indexing mechanism described above. `x[ind_1, boolean_array, ind_2]` is equivalent to `x[(ind_1,) + boolean_array.nonzero() + (ind_2,)]`.
+
+If there is only one Boolean array and no integer indexing array present, this is straightforward. Care must only be taken to make sure that the boolean index has exactly as many dimensions as it is supposed to work with.
+
+In general, when the boolean array has fewer dimensions than the array being indexed, this is equivalent to `x[b, ...]`, which means x is indexed by b followed by as many : as are needed to fill out the rank of x. Thus the shape of the result is one dimension containing the number of True elements of the boolean array, followed by the remaining dimensions of the array being indexed:
+
+```{code-cell}
+x = np.arange(35).reshape(5, 7)
+b = x > 20
+```
+
+```{code-cell}
+b[:, 5]
+```
+
+```{code-cell}
+x[b[:, 5]]
+```
+
+Here the 4th and 5th rows are selected from the indexed array and combined to make a 2-D array.
+
+##### Example 1
+
+From an array, select all rows which sum up to less or equal two:
+
+```{code-cell}
+x = np.array([[0, 1], [1, 1], [2, 2]])
+rowsum = x.sum(-1)
+x[rowsum <= 2, :]
+```
+
+Combining multiple Boolean indexing arrays or a Boolean with an integer indexing array can best be understood with the `obj.nonzero()` analogy. The function `ix_` also supports boolean arrays and will work without any surprises.
+
+##### Example 2
+
+Use boolean indexing to select all rows adding up to an even number. At the same time columns 0 and 2 should be selected with an advanced integer index. Using the `ix_` function this can be done with:
+
+```{code-cell}
+x = np.array([[ 0,  1,  2],
+              [ 3,  4,  5],
+              [ 6,  7,  8],
+              [ 9, 10, 11]])
+rows = (x.sum(-1) % 2) == 0
+```
+
+```{code-cell}
+rows
+```
+
+```{code-cell}
+columns = [0, 2]
+```
+
+```{code-cell}
+x[np.ix_(rows, columns)]
+```
+
+Without the n`p.ix_` call, only the diagonal elements would be selected.
+
+Or without `np.ix_` (compare the integer array examples):
+
+```{code-cell}
+rows = rows.nonzero()[0]
+x[rows[:, np.newaxis], columns]
+```
+
+##### Example 3
+
+Use a 2-D boolean array of shape (2, 3) with four True elements to select rows from a 3-D array of shape (2, 3, 5) results in a 2-D result of shape (4, 5):
+
+```{code-cell}
+x = np.arange(30).reshape(2, 3, 5)
+x
+```
+
+```{code-cell}
+b = np.array([[True, True, False], [False, True, True]])
+x[b]
+```
+
+#### Combining advanced and basic indexing
+
+When there is at least one slice (`:`), ellipsis (`...`) or `newaxis` in the index (or the array has more dimensions than there are advanced indices), then the behaviour can be more complicated. It is like concatenating the indexing result for each advanced index element.
+
+In the simplest case, there is only a single advanced index combined with a slice. For example:
+
+```{code-cell}
+y = np.arange(35).reshape(5,7)
+y[np.array([0, 2, 4]), 1:3]
+```
+
+In effect, the slice and index array operation are independent. The slice operation extracts columns with index 1 and 2, (i.e. the 2nd and 3rd columns), followed by the index array operation which extracts rows with index 0, 2 and 4 (i.e the first, third and fifth rows). This is equivalent to:
+
+```{code-cell}
+y[:, 1:3][np.array([0, 2, 4]), :]
+```
+
+A single advanced index can, for example, replace a slice and the result array will be the same. However, it is a copy and may have a different memory layout. A slice is preferable when it is possible. For example:
+
+```{code-cell}
+x = np.array([[ 0,  1,  2],
+              [ 3,  4,  5],
+              [ 6,  7,  8],
+              [ 9, 10, 11]])
+```
+
+```{code-cell}
+x[1:2, 1:3]
+```
+
+```{code-cell}
+x[1:2, [1, 2]]
+```
+
+The easiest way to understand a combination of multiple advanced indices may be to think in terms of the resulting shape. There are two parts to the indexing operation, the subspace defined by the basic indexing (excluding integers) and the subspace from the advanced indexing part. Two cases of index combination need to be distinguished:
+
+- The advanced indices are separated by a slice, `Ellipsis` or `newaxis`. For example `x[arr1, :, arr2]`.
+- The advanced indices are all next to each other. For example `x[..., arr1, arr2, :]` but not`x[arr1, :, 1]` since `1` is an advanced index in this regard.
+
+In the first case, the dimensions resulting from the advanced indexing operation come first in the result array, and the subspace dimensions after that. In the second case, the dimensions from the advanced indexing operations are inserted into the result array at the same spot as they were in the initial array (the latter logic is what makes simple advanced indexing behave just like slicing).
+
+##### Example 1
+
+Suppose `x.shape` is (10, 20, 30) and `ind` is a (2, 3, 4)-shaped indexing intp array, then `result = x[..., ind, :]` has shape (10, 2, 3, 4, 30) because the (20,)-shaped subspace has been replaced with a (2, 3, 4)-shaped broadcasted indexing subspace. If we let i, j, k loop over the (2, 3, 4)-shaped subspace then `result[..., i, j, k, :] = x[..., ind[i, j, k], :]`. This example produces the same result as `x.take(ind, axis=-2)`.
+
+##### Example 2
+
+Let `x.shape` be (10, 20, 30, 40, 50) and suppose `ind_1` and `ind_2` can be broadcast to the shape (2, 3, 4). Then `x[:, ind_1, ind_2]` has shape (10, 2, 3, 4, 40, 50) because the (20, 30)-shaped subspace from X has been replaced with the (2, 3, 4) subspace from the indices. However, `x[:, ind_1, :, ind_2]` has shape (2, 3, 4, 10, 30, 50) because there is no unambiguous place to drop in the indexing subspace, thus it is tacked-on to the beginning. It is always possible to use `.transpose()` to move the subspace anywhere desired. Note that this example cannot be replicated using `take`.
+
+##### Example 3
+
+Slicing can be combined with broadcasted boolean indices:
+
+```{code-cell}
+x = np.arange(35).reshape(5, 7)
+b = x > 20
+```
+
+```{code-cell}
+b
+```
+
+```{code-cell}
+x[b[:, 5], 1:3]
+```
+
+### Field access
+
+If the `ndarray` object is a structured array the fields of the array can be accessed by indexing the array with strings, dictionary-like.
+
+Indexing `x['field-name']` returns a new `view` to the array, which is of the same shape as x (except when the field is a sub-array) but of data type `x.dtype['field-name']` and contains only the part of the data in the specified field. Also, record array scalars can be “indexed” this way.
+
+Indexing into a structured array can also be done with a list of field names, e.g. `x[['field-name1', 'field-name2']]`. As of NumPy 1.16, this returns a view containing only those fields. In older versions of NumPy, it returned a copy. See the user guide section on `Structured arrays` for more information on multifield indexing.
+
+If the accessed field is a sub-array, the dimensions of the sub-array are appended to the shape of the result. For example:
+
+```{code-cell}
+x = np.zeros((2, 2), dtype=[('a', np.int32), ('b', np.float64, (3, 3))])
+```
+
+```{code-cell}
+x['a'].shape
+```
+
+```{code-cell}
+x['a'].dtype
+```
+
+```{code-cell}
+x['b'].shape
+```
+
+```{code-cell}
+x['b'].dtype
+```
+
+### Flat Iterator indexing
+
+`x.flat` returns an iterator that will iterate over the entire array (in C-contiguous style with the last index varying the fastest). This iterator object can also be indexed using basic slicing or advanced indexing as long as the selection object is not a tuple. This should be clear from the fact that`x.flat` is a 1-dimensional view. It can be used for integer indexing with 1-dimensional C-style-flat indices. The shape of any returned array is therefore the shape of the integer indexing object.
+
+### Assigning values to indexed arrays
+
+As mentioned, one can select a subset of an array to assign to using a single index, slices, and index and mask arrays. The value being assigned to the indexed array must be shape consistent (the same shape or broadcastable to the shape the index produces). For example, it is permitted to assign a constant to a slice:
 
 ```{code-cell}
 x = np.arange(10)
-(x > 4) & (x < 8)
+x[2:7] = 1
 ```
 
-Trying to evaluate the truth or falsehood of the entire array will give the same `ValueError` we saw previously:
+Or an array of the right size:
 
 ```{code-cell}
-(x > 4).all() and (x < 8).all()
+x[2:7] = np.arange(5)
 ```
 
-So remember this: `and` and `or` perform a single Boolean evaluation on an entire object, while `&` and `|` perform multiple Boolean evaluations on the content (the individual bits or bytes) of an object. For Boolean NumPy arrays, the latter is nearly always the desired operation.
-
-## Fancy indexing
-
-In the previous sections, we saw how to access and modify portions of arrays using simple indices (e.g., `arr[0]`), slices (e.g., `arr[:5]`), and Boolean masks (e.g., `arr[arr > 0]`). In this section, we'll look at another style of array indexing, known as fancy indexing. Fancy indexing is like the simple indexing we've already seen, but we pass arrays of indices in place of single scalars. This allows us to very quickly access and modify complicated subsets of an array's values.
-
-### Exploring fancy indexing
-
-Fancy indexing is conceptually simple: it means passing an array of indices to access multiple array elements at once. For example, consider the following array:
+Note that assignments may result in changes if assigning higher types to lower types (like floats to ints) or even exceptions (assigning complex to floats or ints):
 
 ```{code-cell}
-import numpy as np
-rand = np.random.RandomState(42)
-
-x = rand.randint(100, size=10)
-print(x)
+x[1] = 1.2
+x[1]
 ```
 
-Suppose we want to access three different elements. We could do it like this:
-
-```{code-cell}
-[x[3], x[7], x[2]]
+```py
+x[1] = 1.2j
 ```
 
-Alternatively, we can pass a single list or array of indices to obtain the same result:
-
-```{code-cell}
-ind = [3, 7, 4]
-x[ind]
+```py
+Traceback (most recent call last):
+  ...
+TypeError: can't convert complex to int
 ```
 
-When using fancy indexing, the shape of the result reflects the shape of the index arrays rather than the shape of the *array being indexed*:
+Unlike some of the references (such as array and mask indices) assignments are always made to the original data in the array (indeed, nothing else would make sense!). Note though, that some actions may not work as one may naively expect. This particular example is often surprising to people:
 
 ```{code-cell}
-ind = np.array([[3, 7],
-                [4, 5]])
-x[ind]
-```
-
-Fancy indexing also works in multiple dimensions. Consider the following array:
-
-```{code-cell}
-X = np.arange(12).reshape((3, 4))
-X
-```
-
-Like with standard indexing, the first index refers to the row, and the second to the column:
-
-```{code-cell}
-row = np.array([0, 1, 2])
-col = np.array([2, 1, 3])
-X[row, col]
-```
-
-Notice that the first value in the result is `X[0, 2]`, the second is `X[1, 1]`, and the third is `X[2, 3]`. So, for example, if we combine a column vector and a row vector within the indices, we get a two-dimensional result:
-
-```{code-cell}
-X[row[:, np.newaxis], col]
-```
-
-Here, each row value is matched with each column vector, exactly as we saw in broadcasting of arithmetic operations. For example:
-
-```{code-cell}
-row[:, np.newaxis] * col
-```
-
-It is always important to remember with fancy indexing that the return value reflects the broadcasted shape of the indices, rather than the shape of the array being indexed.
-
-### Combined indexing
-
-For even more powerful operations, fancy indexing can be combined with the other indexing schemes we've seen:
-
-```{code-cell}
-print(X)
-```
-
-We can combine fancy and simple indices:
-
-```{code-cell}
-X[2, [2, 0, 1]]
-```
-
-We can also combine fancy indexing with slicing:
-
-```{code-cell}
-X[1:, [2, 0, 1]]
-```
-
-And we can combine fancy indexing with masking:
-
-```{code-cell}
-mask = np.array([1, 0, 1, 0], dtype=bool)
-X[row[:, np.newaxis], mask]
-```
-
-All of these indexing options combined lead to a very flexible set of operations for accessing and modifying array values.
-
-### Example: selecting random points
-
-One common use of fancy indexing is the selection of subsets of rows from a matrix.
-
-For example, we might have an ***N*** by ***D*** matrix representing ***N*** points in ***D*** dimensions, such as the following points drawn from a two-dimensional normal distribution:
-
-```{code-cell}
-mean = [0, 0]
-cov = [[1, 2],
-       [2, 5]]
-X = rand.multivariate_normal(mean, cov, 100)
-X.shape
-```
-
-We can visualize these points as a scatter-plot:
-
-```{code-cell}
-%matplotlib inline
-import matplotlib.pyplot as plt
-import seaborn; seaborn.set()  # for plot styling
-
-plt.scatter(X[:, 0], X[:, 1]);
-```
-
-Let's use fancy indexing to select 20 random points. We'll do this by first choosing 20 random indices with no repeats, and use these indices to select a portion of the original array:
-
-```{code-cell}
-indices = np.random.choice(X.shape[0], 20, replace=False)
-indices
-```
-
-```{code-cell}
-selection = X[indices]  # fancy indexing here
-selection.shape
-```
-
-Now to see which points were selected, let's over-plot large circles at the locations of the selected points:
-
-```{code-cell}
-plt.scatter(X[:, 0], X[:, 1], alpha=0.3)
-plt.scatter(selection[:, 0], selection[:, 1],
-            facecolor='none', s=200);
-```
-
-This sort of strategy is often used to quickly partition datasets, as is often needed in train/test splitting for validation of statistical models, and in sampling approaches to answering statistical questions.
-
-### Modifying values with fancy indexing
-
-Just as fancy indexing can be used to access parts of an array, it can also be used to modify parts of an array.
-
-For example, imagine we have an array of indices and we'd like to set the corresponding items in an array to some value:
-
-```{code-cell}
-x = np.arange(10)
-i = np.array([2, 1, 8, 4])
-x[i] = 99
-print(x)
-```
-
-We can use any assignment-type operator for this. For example:
-
-```{code-cell}
-x[i] -= 10
-print(x)
-```
-
-Notice, though, that repeated indices with these operations can cause some potentially unexpected results. Consider the following:
-
-```{code-cell}
-x = np.zeros(10)
-x[[0, 0]] = [4, 6]
-print(x)
-```
-
-Where did the 4 go? The result of this operation is to first assign `x[0] = 4`, followed by `x[0] = 6`.
-
-The result, of course, is that `x[0]` contains the value 6.
-
-Fair enough, but consider this operation:
-
-```{code-cell}
-i = [2, 3, 3, 4, 4, 4]
-x[i] += 1
+x = np.arange(0, 50, 10)
 x
 ```
 
-You might expect that `x[3]` would contain the value 2, and `x[3]` would contain the value 3, as this is how many times each index is repeated. Why is this not the case?
-
-Conceptually, this is because `x[i] += 1` is meant as a shorthand of `x[i] = x[i] + 1`. `x[i] + 1` is evaluated, and then the result is assigned to the indices in x.
-
-With this in mind, it is not the augmentation that happens multiple times, but the assignment, which leads to the rather nonintuitive results.
-
-So what if you want the other behavior where the operation is repeated? For this, you can use the `at()` method of ufuncs (available since NumPy 1.8), and do the following:
-
 ```{code-cell}
-x = np.zeros(10)
-np.add.at(x, i, 1)
-print(x)
+x[np.array([1, 1, 3, 1])] += 1
+x
 ```
 
-The `at()` method does an in-place application of the given operator at the specified indices (here, `i`) with the specified value (here, 1).
-Another method that is similar in spirit is the `reduceat()` method of ufuncs, which you can read about in the NumPy documentation.
+Where people expect that the 1st location will be incremented by 3. In fact, it will only be incremented by 1. The reason is that a new array is extracted from the original (as a temporary) containing the values at 1, 1, 3, 1, then the value 1 is added to the temporary, and then the temporary is assigned back to the original array. Thus the value of the array at `x[1] + 1` is assigned to `x[1]` three times, rather than being incremented 3 times.
 
-### Example: binning data
+### Dealing with variable numbers of indices within programs
 
-You can use these ideas to efficiently bin data to create a histogram by hand.
-
-For example, imagine we have 1,000 values and would like to quickly find where they fall within an array of bins.
-
-We could compute it using `ufunc.at` like this:
+The indexing syntax is very powerful but limiting when dealing with a variable number of indices. For example, if you want to write a function that can handle arguments with various numbers of dimensions without having to write special case code for each number of possible dimensions, how can that be done? If one supplies to the index a tuple, the tuple will be interpreted as a list of indices. For example:
 
 ```{code-cell}
-np.random.seed(42)
-x = np.random.randn(100)
-
-# compute a histogram by hand
-bins = np.linspace(-5, 5, 20)
-counts = np.zeros_like(bins)
-
-# find the appropriate bin for each x
-i = np.searchsorted(bins, x)
-
-# add 1 to each of these bins
-np.add.at(counts, i, 1)
+z = np.arange(81).reshape(3, 3, 3, 3)
+indices = (1, 1, 1, 1)
+z[indices]
 ```
 
-The counts now reflect the number of points within each bin–in other words, a histogram:
+So one can use code to construct tuples of any number of indices and then use these within an index.
+
+Slices can be specified within programs by using the slice() function in Python. For example:
 
 ```{code-cell}
-# plot the results
-plt.plot(bins, counts, linestyle='solid');
+indices = (1, 1, 1, slice(0, 2))  # same as [1, 1, 1, 0:2]
+z[indices]
 ```
 
-Of course, it would be silly to have to do this each time you want to plot a histogram.
+Likewise, ellipsis can be specified by code by using the Ellipsis object:
 
-This is why Matplotlib provides the `plt.hist()` routine, which does the same in a single line:
+```{code-cell}
+indices = (1, Ellipsis, 1)  # same as [1, ..., 1]
+z[indices]
+```
+
+For this reason, it is possible to use the output from the `np.nonzero()` function directly as an index since it always returns a tuple of index arrays.
+
+Because of the special treatment of tuples, they are not automatically converted to an array as a list would be. As an example:
+
+```{code-cell}
+z[[1, 1, 1, 1]]  # produces a large array
+```
+
+```{code-cell}
+z[(1, 1, 1, 1)]  # returns a single value
+```
+
+## Structured arrays
+
+### Introduction
+
+Structured arrays are ndarrays whose datatype is a composition of simpler datatypes organized as a sequence of named `fields`. For example,
+
+```{code-cell}
+x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
+             dtype=[('name', 'U10'), ('age', 'i4'), ('weight', 'f4')])
+x
+```
+
+Here `x` is a one-dimensional array of length two whose datatype is a structure with three fields: 1. A string of length 10 or less named `'name'`, 2. a 32-bit integer named `'age'`, and 3. a 32-bit float named `'weight'`.
+
+If you index `x` at position 1 you get a structure:
+
+```{code-cell}
+x[1]
+```
+
+You can access and modify individual fields of a structured array by indexing with the field name:
+
+```{code-cell}
+x['age']
+```
+
+```{code-cell}
+x['age']
+```
+
+```{code-cell}
+x
+```
+
+Structured datatypes are designed to be able to mimic 'structs' in the C language, and share a similar memory layout. They are meant for interfacing with C code and for low-level manipulation of structured buffers, for example for interpreting binary blobs. For these purposes they support specialized features such as subarrays, nested datatypes, and unions, and allow control over the memory layout of the structure.
+
+Users looking to manipulate tabular data, such as stored in csv files, may find other pydata projects more suitable, such as xarray, pandas, or DataArray. These provide a high-level interface for tabular data analysis and are better optimized for that use. For instance, the C-struct-like memory layout of structured arrays in numpy can lead to poor cache behavior in comparison.
+
+### Structured datatypes
+
+A structured datatype can be thought of as a sequence of bytes of a certain length (the structure’s `itemsize`) which is interpreted as a collection of fields. Each field has a name, a datatype, and a byte offset within the structure. The datatype of a field may be any numpy datatype including other structured datatypes, and it may also be a *subarray data type* which behaves like an ndarray of a specified shape. The offsets of the fields are arbitrary, and fields may even overlap. These offsets are usually determined automatically by numpy, but can also be specified.
+
+#### Structured datatype creation
+
+Structured datatypes may be created using the function `numpy.dtype`. There are 4 alternative forms of specification which vary in flexibility and conciseness. In summary they are:
+
+- A list of tuples, one tuple per field
+
+Each tuple has the form `(fieldname, datatype, shape)` where shape is optional. `fieldname` is a string (or tuple if titles are used, see Field Titles below), `datatype` may be any object convertible to a datatype, and `shape` is a tuple of integers specifying subarray shape.
+
+```{code-cell}
+np.dtype([('x', 'f4'), ('y', np.float32), ('z', 'f4', (2, 2))])
+```
+
+If `fieldname` is the empty string `''`, the field will be given a default name of the form `f#`, where `#` is the integer index of the field, counting from 0 from the left:
+
+```{code-cell}
+np.dtype([('x', 'f4'), ('', 'i4'), ('z', 'i8')])
+```
+
+The byte offsets of the fields within the structure and the total structure itemsize are determined automatically.
+
+- A string of comma-separated dtype specifications
+
+In this shorthand notation any of the *string dtype specifications* may be used in a string and separated by commas. The itemsize and byte offsets of the fields are determined automatically, and the field names are given the default names `f0`, `f1`, etc.
+
+```{code-cell}
+np.dtype('i8, f4, S3')
+```
+
+```{code-cell}
+np.dtype('3int8, float32, (2, 3)float64')
+```
+
+- A dictionary of field parameter arrays
+
+This is the most flexible form of specification since it allows control over the byte-offsets of the fields and the itemsize of the structure.
+
+The dictionary has two required keys, '`names`' and '`formats`', and four optional keys, `'offsets'`, `'itemsize'`, `'aligned'` and '`titles`'. The values for '`names`' and '`formats`' should respectively be a list of field names and a list of dtype specifications, of the same length. The optional `'offsets'` value should be a list of integer byte-offsets, one for each field within the structure. If `'offsets'` is not given the offsets are determined automatically. The optional `'itemsize'` value should be an integer describing the total size in bytes of the dtype, which must be large enough to contain all the fields.
+
+```{code-cell}
+np.dtype({'names': ['col1', 'col2'], 'formats': ['i4', 'f4']})
+```
+
+```{code-cell}
+np.dtype({'names': ['col1', 'col2'],
+    'formats': ['i4', 'f4'],
+    'offsets': [0, 4],
+    'itemsize': 12})
+```
+
+Offsets may be chosen such that the fields overlap, though this will mean that assigning to one field may clobber any overlapping field’s data. As an exception, fields of `numpy.object_` type cannot overlap with other fields, because of the risk of clobbering the internal object pointer and then dereferencing it.
+
+The optional `'aligned'` value can be set to `True` to make the automatic offset computation use aligned offsets, as if the '`align`' keyword argument of `numpy.dtype` had been set to `True`.
+
+- A dictionary of field names
+
+The keys of the dictionary are the field names and the values are tuples specifying type and offset:
+
+```{code-cell}
+np.dtype({'col1': ('i1', 0), 'col2': ('f4', 1)})
+```
+
+#### Manipulating and Displaying Structured Datatypes
+
+The list of field names of a structured datatype can be found in the `names` attribute of the dtype object:
+
+```{code-cell}
+d = np.dtype([('x', 'i8'), ('y', 'f4')])
+d.names
+```
+
+The field names may be modified by assigning to the `names` attribute using a sequence of strings of the same length.
+
+The dtype object also has a dictionary-like attribute, `fields`, whose keys are the field names (and Field Titles, see below) and whose values are tuples containing the dtype and byte offset of each field.
+
+```{code-cell}
+d.fields
+```
+
+Both the `names` and `fields` attributes will equal `None` for unstructured arrays. The recommended way to test if a dtype is structured is with `if dt.names is not None` rather than `if dt.names`, to account for dtypes with 0 fields.
+
+The string representation of a structured datatype is shown in the ''list of tuples'' form if possible, otherwise numpy falls back to using the more general dictionary form.
+
+#### Field Titles
+
+In addition to field names, fields may also have an associated title, an alternate name, which is sometimes used as an additional description or alias for the field. The title may be used to index an array, just like a field name.
+
+To add titles when using the list-of-tuples form of dtype specification, the field name may be specified as a tuple of two strings instead of a single string, which will be the field’s title and field name respectively. For example:
+
+```{code-cell}
+np.dtype([(('my title', 'name'), 'f4')])
+```
+
+When using the first form of dictionary-based specification, the titles may be supplied as an extra `'titles'` key as described above. When using the second (discouraged) dictionary-based specification, the title can be supplied by providing a 3-element tuple `(datatype, offset, title)` instead of the usual 2-element tuple:
+
+```{code-cell}
+np.dtype({'name': ('i4', 0, 'my title')})
+```
+
+The `dtype.fields` dictionary will contain titles as keys, if any titles are used. This means effectively that a field with a title will be represented twice in the fields dictionary. The tuple values for these fields will also have a third element, the field title. Because of this, and because the `names` attribute preserves the field order while the `fields` attribute may not, it is recommended to iterate through the fields of a dtype using the `names` attribute of the dtype, which will not list titles, as in:
+
+```{code-cell}
+for name in d.names:
+    print(d.fields[name][:2])
+```
+
+### Indexing and Assignment to Structured arrays
+
+#### Assigning data to a Structured Array
+
+There are a number of ways to assign values to a structured array: Using python tuples, using scalar values, or using other structured arrays.
+
+##### Assignment from Python Native Types (Tuples)
+
+The simplest way to assign values to a structured array is using python tuples. Each assigned value should be a tuple of length equal to the number of fields in the array, and not a list or array as these will trigger numpy’s broadcasting rules. The tuple’s elements are assigned to the successive fields of the array, from left to right:
+
+```{code-cell}
+x = np.array([(1, 2, 3), (4, 5, 6)], dtype='i8, f4, f8')
+x[1] = (7, 8, 9)
+x
+```
+
+##### Assignment from Scalars
+
+A scalar assigned to a structured element will be assigned to all fields. This happens when a scalar is assigned to a structured array, or when an unstructured array is assigned to a structured array:
+
+```{code-cell}
+x = np.zeros(2, dtype='i8, f4, ?, S1')
+```
+
+```{code-cell}
+x[:] = 3
+x
+```
+
+```{code-cell}
+x[:] = np.arange(2)
+x
+```
+
+Structured arrays can also be assigned to unstructured arrays, but only if the structured datatype has just a single field:
+
+```{code-cell}
+twofield = np.zeros(2, dtype=[('A', 'i4'), ('B', 'i4')])
+onefield = np.zeros(2, dtype=[('A', 'i4')])
+```
+
+```{code-cell}
+nostruct = np.zeros(2, dtype='i4')
+```
 
 ```py
-plt.hist(x, bins, histtype='step');
+nostruct[:] = twofield
 ```
 
-This function will create a nearly identical plot to the one seen here.
-To compute the binning, `matplotlib` uses the `np.histogram` function, which does a very similar computation to what we did before. Let's compare the two here:
-
-```{code-cell}
-print("NumPy routine:")
-%timeit counts, edges = np.histogram(x, bins)
-
-print("Custom routine:")
-%timeit np.add.at(counts, np.searchsorted(bins, x), 1)
+```py
+Traceback (most recent call last):
+...
+TypeError: Cannot cast array data from dtype([('A', '<i4'), ('B', '<i4')]) to dtype('int32') according to the rule 'unsafe'
 ```
 
-Our own one-line algorithm is several times faster than the optimized algorithm in NumPy! How can this be?
-If you dig into the `np.histogram` source code (you can do this in IPython by typing `np.histogram??`), you'll see that it's quite a bit more involved than the simple search-and-count that we've done; this is because NumPy's algorithm is more flexible, and particularly is designed for better performance when the number of data points becomes large:
+##### Assignment from other Structured Arrays
+
+Assignment between two structured arrays occurs as if the source elements had been converted to tuples and then assigned to the destination elements. That is, the first field of the source array is assigned to the first field of the destination array, and the second field likewise, and so on, regardless of field names. Structured arrays with a different number of fields cannot be assigned to each other. Bytes of the destination structure which are not included in any of the fields are unaffected.
 
 ```{code-cell}
-x = np.random.randn(1000000)
-print("NumPy routine:")
-%timeit counts, edges = np.histogram(x, bins)
-
-print("Custom routine:")
-%timeit np.add.at(counts, np.searchsorted(bins, x), 1)
-```
-
-What this comparison shows is that algorithmic efficiency is almost never a simple question. An algorithm efficient for large datasets will not always be the best choice for small datasets, and vice versa.
-
-But the advantage of coding this algorithm yourself is that with an understanding of these basic methods, you could use these building blocks to extend this to do some very interesting custom behaviors.
-
-The key to efficiently using Python in data-intensive applications is knowing about general convenience routines like `np.histogram` and when they're appropriate, but also knowing how to make use of lower-level functionality when you need more pointed behavior.
-
-## Sorting arrays
-
-Up to this point we have been concerned mainly with tools to access and operate on array data with NumPy.
-
-This section covers algorithms related to sorting values in NumPy arrays.
-These algorithms are a favorite topic in introductory computer science courses: if you've ever taken one, you probably have had dreams (or, depending on your temperament, nightmares) about **insertion sorts**, **selection sorts**, **merge sorts**, **quick sorts**, **bubble sorts**, and many, many more.
-
-All are means of accomplishing a similar task: sorting the values in a list or array.
-
-For example, a simple **selection sort** repeatedly finds the minimum value from a list, and makes swaps until the list is sorted. We can code this in just a few lines of Python:
-
-```{code-cell}
-import numpy as np
-
-def selection_sort(x):
-    for i in range(len(x)):
-        swap = i + np.argmin(x[i:])
-        (x[i], x[swap]) = (x[swap], x[i])
-    return x
+a = np.zeros(3, dtype=[('a', 'i8'), ('b', 'f4'), ('c', 'S3')])
+b = np.ones(3, dtype=[('x', 'f4'), ('y', 'S3'), ('z', 'O')])
 ```
 
 ```{code-cell}
-x = np.array([2, 1, 4, 3, 5])
-selection_sort(x)
+b[:] = a
+b
 ```
 
-As any first-year computer science major will tell you, the selection sort is useful for its simplicity, but is much too slow to be useful for larger arrays.
+##### Assignment involving subarrays
 
-For a list of ***N*** values, it requires ***N*** loops, each of which does on order ***~ N*** comparisons to find the swap value.
+When assigning to fields which are subarrays, the assigned value will first be broadcast to the shape of the subarray.
 
-In terms of the "big-O" notation often used to characterize these algorithms (see Big-O Notation, selection sort averages ***$O(N^2)$***: if you double the number of items in the list, the execution time will go up by about a factor of four.
+#### Indexing Structured Arrays
 
-Even selection sort, though, is much better than my all-time favorite sorting algorithms, the **bogosort**:
+##### Accessing Individual Fields
 
-```{code-cell}
-def bogosort(x):
-    while np.any(x[:-1] > x[1:]):
-        np.random.shuffle(x)
-    return x
-```
+Individual fields of a structured array may be accessed and modified by indexing the array with the field name.
 
 ```{code-cell}
-x = np.array([2, 1, 4, 3, 5])
-bogosort(x)
-```
-
-This silly sorting method relies on pure chance: it repeatedly applies a random shuffling of the array until the result happens to be sorted. With an average scaling of ***$O(N * N!)$***, (that is $N$ times $N$ factorial) this should–quite obviously–never be used for any real computation.
-
-Fortunately, Python contains built-in sorting algorithms that are *much* more efficient than either of the simplistic algorithms just shown. We'll start by looking at the Python built-ins, and then take a look at the routines included in NumPy and optimized for NumPy arrays.
-
-### Fast sorting in NumPy: `np.sort` and `np.argsort`
-
-Although Python has built-in `sort` and `sorted` functions to work with lists, we won't discuss them here because NumPy's `np.sort` function turns out to be much more efficient and useful for our purposes. By default `np.sort` uses an ***$O(Nlog N)$***, *quicksort* algorithm, though *mergesort* and *heapsort* are also available. For most applications, the default quicksort is more than sufficient.
-
-To return a sorted version of the array without modifying the input, you can use `np.sort`:
-
-```{code-cell}
-x = np.array([2, 1, 4, 3, 5])
-np.sort(x)
-```
-
-If you prefer to sort the array in-place, you can instead use the `sort` method of arrays:
-
-```{code-cell}
-x.sort()
-print(x)
-```
-
-A related function is `argsort`, which instead returns the **indices** of the sorted elements:
-
-```{code-cell}
-x = np.array([2, 1, 4, 3, 5])
-i = np.argsort(x)
-print(i)
-```
-
-The first element of this result gives the index of the smallest element, the second value gives the index of the second smallest, and so on.
-
-These indices can then be used (via fancy indexing) to construct the sorted array if desired:
-
-```{code-cell}
-x[i]
-```
-
-#### Sorting along rows or columns
-
-A useful feature of NumPy's sorting algorithms is the ability to sort along specific rows or columns of a multidimensional array using the `axis` argument. For example:
-
-```{code-cell}
-rand = np.random.RandomState(42)
-X = rand.randint(0, 10, (4, 6))
-print(X)
+x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
+x['foo']
 ```
 
 ```{code-cell}
-# sort each column of X
-np.sort(X, axis=0)
+x['foo'] = 10
+x
+```
+
+The resulting array is a view into the original array. It shares the same memory locations and writing to the view will modify the original array.
+
+```{code-cell}
+y = x['bar']
+y[:] = 11
+x
+```
+
+This view has the same dtype and itemsize as the indexed field, so it is typically a non-structured array, except in the case of nested structures.
+
+```{code-cell}
+y.dtype, y.shape, y.strides
+```
+
+If the accessed field is a subarray, the dimensions of the subarray are appended to the shape of the result:
+
+```{code-cell}
+x = np.zeros((2, 2), dtype=[('a', np.int32), ('b', np.float64, (3, 3))])
 ```
 
 ```{code-cell}
-# sort each row of X
-np.sort(X, axis=1)
-```
-
-Keep in mind that this treats each row or column as an independent array, and any relationships between the row or column values will be lost!
-
-### Partial sorts: partitioning
-
-Sometimes we're not interested in sorting the entire array, but simply want to find the *k* smallest values in the array. NumPy provides this in the `np.partition` function. `np.partition` takes an array and a number *K*; the result is a new array with the smallest *K* values to the left of the partition, and the remaining values to the right, in arbitrary order:
-
-```{code-cell}
-x = np.array([7, 2, 3, 1, 6, 5, 4])
-np.partition(x, 3)
-```
-
-Note that the first three values in the resulting array are the three smallest in the array, and the remaining array positions contain the remaining values.Within the two partitions, the elements have arbitrary order.
-
-Similarly to sorting, we can partition along an arbitrary axis of a multidimensional array:
-
-```{code-cell}
-np.partition(X, 2, axis=1)
-```
-
-The result is an array where the first two slots in each row contain the smallest values from that row, with the remaining values filling the remaining slots.
-
-Finally, just as there is a `np.argsort` that computes indices of the sort, there is a `np.argpartition` that computes indices of the partition.We'll see this in action in the following section.
-
-### Example: k-nearest neighbors
-
-Let's quickly see how we might use this `argsort` function along multiple axes to find the nearest neighbors of each point in a set. We'll start by creating a random set of 10 points on a two-dimensional plane.Using the standard convention, we'll arrange these in a **10×2** array:
-
-```{code-cell}
-X = rand.rand(10, 2)
-```
-
-To get an idea of how these points look, let's quickly scatter plot them:
-
-```{code-cell}
-%matplotlib inline
-import matplotlib.pyplot as plt
-import seaborn; seaborn.set() # Plot styling
-plt.scatter(X[:, 0], X[:, 1], s=100);
-```
-
-Now we'll compute the distance between each pair of points. Recall that the squared-distance between two points is the sum of the squared differences in each dimension; using the efficient broadcasting and aggregation routines provided by NumPy we can compute the matrix of square distances in a single line of code:
-
-```{code-cell}
-dist_sq = np.sum((X[:, np.newaxis, :] - X[np.newaxis, :, :]) ** 2, axis=-1)
-```
-
-This operation has a lot packed into it, and it might be a bit confusing if you're unfamiliar with NumPy's broadcasting rules. When you come across code like this, it can be useful to break it down into its component steps:
-
-```{code-cell}
-# for each pair of points, compute differences in their coordinates
-differences = X[:, np.newaxis, :] - X[np.newaxis, :, :]
-differences.shape
+x['a'].shape
 ```
 
 ```{code-cell}
-# square the coordinate differences
-sq_differences = differences ** 2
-sq_differences.shape
+x['b'].shape
+```
+
+##### Accessing multiple fields
+
+One can index and assign to a structured array with a multi-field index, where the index is a list of field names.
+
+The result of indexing with a multi-field index is a view into the original array, as follows:
+
+```{code-cell}
+a = np.zeros(3, dtype=[('a', 'i4'), ('b', 'i4'), ('c', 'f4')])
+a[['a', 'c']]
+```
+
+Assignment to the view modifies the original array. The view’s fields will be in the order they were indexed. Note that unlike for single-field indexing, the dtype of the view has the same itemsize as the original array, and has fields at the same offsets as in the original array, and unindexed fields are merely missing.
+
+Assignment to an array with a multi-field index modifies the original array:
+
+```{code-cell}
+a[['a', 'c']] = (2, 3)
+a
+```
+
+This obeys the structured array assignment rules described above. For example, this means that one can swap the values of two fields using appropriate multi-field indexes:
+
+```{code-cell}
+a[['a', 'c']] = a[['c', 'a']]
+```
+
+##### Indexing with an integer to get a structured scalar
+
+Indexing a single element of a structured array (with an integer index) returns a structured scalar:
+
+```{code-cell}
+x = np.array([(1, 2., 3.)], dtype='i, f, f')
+scalar = x[0]
+scalar
 ```
 
 ```{code-cell}
-# sum the coordinate differences to get the squared distance
-dist_sq = sq_differences.sum(-1)
-dist_sq.shape
+type(scalar)
 ```
 
-Just to double-check what we are doing, we should see that the diagonal of this matrix (i.e., the set of distances between each point and itself) is all zero:
+Unlike other numpy scalars, structured scalars are mutable and act like views into the original array, such that modifying the scalar will modify the original array. Structured scalars also support access and assignment by field name:
 
 ```{code-cell}
-dist_sq.diagonal()
+x = np.array([(1, 2), (3, 4)], dtype=[('foo', 'i8'), ('bar', 'f4')])
+s = x[0]
+s['bar'] = 100
+x
 ```
 
-It checks out! With the pairwise square-distances converted, we can now use `np.argsort` to sort along each row. The leftmost columns will then give the indices of the nearest neighbors:
+Similarly to tuples, structured scalars can also be indexed with an integer:
 
 ```{code-cell}
-nearest = np.argsort(dist_sq, axis=1)
-print(nearest)
-```
-
-Notice that the first column gives the numbers 0 through 9 in order: this is due to the fact that each point's closest neighbor is itself, as we would expect.
-
-By using a full sort here, we've actually done more work than we need to in this case. If we're simply interested in the nearest $k$ neighbors, all we need is to partition each row so that the smallest $k + 1$ squared distances come first, with larger distances filling the remaining positions of the array. We can do this with the `np.argpartition` function:
-
-```{code-cell}
-K = 2
-nearest_partition = np.argpartition(dist_sq, K + 1, axis=1)
-```
-
-In order to visualize this network of neighbors, let's quickly plot the points along with lines representing the connections from each point to its two nearest neighbors:
-
-```{code-cell}
-plt.scatter(X[:, 0], X[:, 1], s=100)
-
-# draw lines from each point to its two nearest neighbors
-K = 2
-
-for i in range(X.shape[0]):
-    for j in nearest_partition[i, :K+1]:
-        # plot a line from X[i] to X[j]
-        # use some zip magic to make it happen:
-        plt.plot(*zip(X[j], X[i]), color='black')
-```
-
-Each point in the plot has lines drawn to its two nearest neighbors. At first glance, it might seem strange that some of the points have more than two lines coming out of them: this is due to the fact that if point A is one of the two nearest neighbors of point B, this does not necessarily imply that point B is one of the two nearest neighbors of point A.
-
-Although the broadcasting and row-wise sorting of this approach might seem less straightforward than writing a loop, it turns out to be a very efficient way of operating on this data in Python.
-
-You might be tempted to do the same type of operation by manually looping through the data and sorting each set of neighbors individually, but this would almost certainly lead to a slower algorithm than the vectorized version we used. The beauty of this approach is that it's written in a way that's agnostic to the size of the input data: we could just as easily compute the neighbors among 100 or 1,000,000 points in any number of dimensions, and the code would look the same.
-
-Finally, I'll note that when doing very large nearest neighbor searches, there are tree-based and/or approximate algorithms that can scale as ***$O(Nlog N)$*** or better rather than the ***$O(N^2)$*** of the brute-force algorithm. One example of this is the KD-Tree.
-
-### Aside: big-O notation
-
-Big-O notation is a means of describing how the number of operations required for an algorithm scales as the input grows in size. To use it correctly is to dive deeply into the realm of computer science theory, and to carefully distinguish it from the related small-o notation, big-***θ*** notation, big-***Ω*** notation, and probably many mutant hybrids thereof.
-
-While these distinctions add precision to statements about algorithmic scaling, outside computer science theory exams and the remarks of pedantic blog commenters, you'll rarely see such distinctions made in practice. Far more common in the data science world is a less rigid use of big-O notation: as a general (if imprecise) description of the scaling of an algorithm. With apologies to theorists and pedants, this is the interpretation we'll use throughout this book.
-
-Big-O notation, in this loose sense, tells you how much time your algorithm will take as you increase the amount of data. If you have an ***$O(N)$*** (read "order *N*") algorithm that takes 1 second to operate on a list of length *N*=1,000, then you should expect it to take roughly 5 seconds for a list of length *N*=5,000. If you have an ***$O(N^2)$*** (read "order *N* squared") algorithm that takes 1 second for *N*=1000, then you should expect it to take about 25 seconds for *N*=5000.
-
-For our purposes, the *N* will usually indicate some aspect of the size of the dataset (the number of points, the number of dimensions, etc.). When trying to analyze billions or trillions of samples, the difference between ***$O(N)$*** and ***$O(N^2)$*** can be far from trivial!
-
-Notice that the big-O notation by itself tells you nothing about the actual wall-clock time of a computation, but only about its scaling as you change *N*. Generally, for example, an ***$O(N)$*** algorithm is considered to have better scaling than an ***$O(N^2)$*** algorithm, and for good reason. But for small datasets in particular, the algorithm with better scaling might not be faster. For example, in a given problem an ***$O(N^2)$*** algorithm might take 0.01 seconds, while a "better" ***$O(N)$*** algorithm might take 1 second. Scale up *N* by a factor of 1,000, though, and the ***$O(N)$*** algorithm will win out.
-
-Even this loose version of Big-O notation can be very useful when comparing the performance of algorithms, and we'll use this notation throughout the book when talking about how algorithms scale.
-
-## Structured data: NumPy's structured arrays
-
-While often our data can be well represented by a homogeneous array of values, sometimes this is not the case. This section demonstrates the use of NumPy's **structured arrays** and **record arrays**, which provide efficient storage for compound, heterogeneous data.  While the patterns shown here are useful for simple operations, scenarios like this often lend themselves to the use of Pandas `Dataframe`.
-
-```{code-cell}
-import numpy as np
-```
-
-Imagine that we have several categories of data on a number of people (say, name, age, and weight), and we'd like to store these values for use in a Python program. It would be possible to store these in three separate arrays:
-
-```{code-cell}
-name = ['Alice', 'Bob', 'Cathy', 'Doug']
-age = [25, 45, 37, 19]
-weight = [55.0, 85.5, 68.0, 61.5]
-```
-
-But this is a bit clumsy. There's nothing here that tells us that the three arrays are related; it would be more natural if we could use a single structure to store all of this data. NumPy can handle this through structured arrays, which are arrays with compound data types.
-
-Recall that previously we created a simple array using an expression like this:
-
-```{code-cell}
-x = np.zeros(4, dtype=int)
-```
-
-We can similarly create a structured array using a compound data type specification:
-
-```{code-cell}
-# Use a compound data type for structured arrays
-data = np.zeros(4, dtype={'names':('name', 'age', 'weight'),
-                          'formats':('U10', 'i4', 'f8')})
-print(data.dtype)
-```
-
-Here `'U10'` translates to "Unicode string of maximum length 10," `'i4'` translates to "4-byte (i.e., 32 bit) integer," and `'f8'` translates to "8-byte (i.e., 64 bit) float." We'll discuss other options for these type codes in the following section.
-
-Now that we've created an empty container array, we can fill the array with our lists of values:
-
-```{code-cell}
-data['name'] = name
-data['age'] = age
-data['weight'] = weight
-print(data)
-```
-
-As we had hoped, the data is now arranged together in one convenient block of memory.
-
-The handy thing with structured arrays is that you can now refer to values either by index or by name:
-
-```{code-cell}
-# Get all names
-data['name']
+scalar = np.array([(1, 2., 3.)], dtype='i, f, f')[0]
+scalar[0]
 ```
 
 ```{code-cell}
-# Get first row of data
-data[0]
+scalar[1] = 4
+```
+
+Thus, tuples might be thought of as the native Python equivalent to numpy’s structured types, much like native python integers are the equivalent to numpy’s integer types. Structured scalars may be converted to a tuple by calling `numpy.ndarray.item`:
+
+```{code-cell}
+scalar.item(), type(scalar.item())
+```
+
+#### Viewing structured arrays containing objects
+
+In order to prevent clobbering object pointers in fields of `object` type, numpy currently does not allow views of structured arrays containing objects.
+
+#### Structure Comparison and Promotion
+
+If the dtypes of two void structured arrays are equal, testing the equality of the arrays will result in a boolean array with the dimensions of the original arrays, with elements set to `True` where all fields of the corresponding structures are equal:
+
+```{code-cell}
+a = np.array([(1, 1), (2, 2)], dtype=[('a', 'i4'), ('b', 'i4')])
+b = np.array([(1, 1), (2, 3)], dtype=[('a', 'i4'), ('b', 'i4')])
+a == b
+```
+
+NumPy will promote individual field datatypes to perform the comparison. So the following is also valid (note the `'f4'` dtype for the `'a'` field):
+
+```{code-cell}
+b = np.array([(1.0, 1), (2.5, 2)], dtype=[("a", "f4"), ("b", "i4")])
+a == b
+```
+
+To compare two structured arrays, it must be possible to promote them to a common dtype as returned by `numpy.result_type` and `np.promote_types`. This enforces that the number of fields, the field names, and the field titles must match precisely. When promotion is not possible, for example due to mismatching field names, NumPy will raise an error. Promotion between two structured dtypes results in a canonical dtype that ensures native byte-order for all fields:
+
+```{code-cell}
+np.result_type(np.dtype("i,>i"))
 ```
 
 ```{code-cell}
-# Get the name from the last row
-data[-1]['name']
+np.result_type(np.dtype("i,>i"), np.dtype("i,i"))
 ```
 
-Using Boolean masking, this even allows you to do some more sophisticated operations such as filtering on age:
+The resulting dtype from promotion is also guaranteed to be packed, meaning that all fields are ordered contiguously and any unnecessary padding is removed:
 
 ```{code-cell}
-# Get names where age is under 30
-data[data['age'] < 30]['name']
+dt = np.dtype("i1,V3,i4,V1")[["f0", "f2"]]
+dt
 ```
-
-Note that if you'd like to do any operations that are any more complicated than these, you should probably consider the Pandas package, covered in the next chapter. As we'll see, Pandas provides a `Dataframe` object, which is a structure built on NumPy arrays that offers a variety of useful data manipulation functionality similar to what we've shown here, as well as much, much more.
-
-### Creating structured arrays
-
-Structured array data types can be specified in a number of ways.
-Earlier, we saw the dictionary method:
 
 ```{code-cell}
-np.dtype({'names':('name', 'age', 'weight'),
-          'formats':('U10', 'i4', 'f8')})
+np.result_type(dt)
 ```
 
-For clarity, numerical types can be specified using Python types or NumPy `dtype`s instead:
+Note that the result prints without `offsets` or `itemsize` indicating no additional padding. If a structured dtype is created with `align=True` ensuring that `dtype.isalignedstruct` is true, this property is preserved:
 
 ```{code-cell}
-np.dtype({'names':('name', 'age', 'weight'),
-          'formats':((np.str_, 10), int, np.float32)})
+dt = np.dtype("i1,V3,i4,V1", align=True)[["f0", "f2"]]
+dt
 ```
-
-A compound type can also be specified as a list of tuples:
 
 ```{code-cell}
-np.dtype([('name', 'S10'), ('age', 'i4'), ('weight', 'f8')])
+np.result_type(dt)
 ```
-
-If the names of the types do not matter to you, you can specify the types alone in a comma-separated string:
 
 ```{code-cell}
-np.dtype('S10,i4,f8')
+np.result_type(dt).isalignedstruct
 ```
 
-The shortened string format codes may seem confusing, but they are built on simple principles.The first (optional) character is ``<`` or ``>``, which means "little endian" or "big endian," respectively, and specifies the ordering convention for significant bits.The next character specifies the type of data: characters, bytes, ints, floating points, and so on (see the table below).The last character or characters represents the size of the object in bytes.
-
-| Character        | Description           | Example                             |
-| ---------        | -----------           | -------                             |
-| `'b'`          | Byte                  | `np.dtype('b')`                   |
-| `'i'`          | Signed integer        | `np.dtype('i4') == np.int32`      |
-| `'u'`          | Unsigned integer      | `np.dtype('u1') == np.uint8`      |
-| `'f'`          | Floating point        | `np.dtype('f8') == np.int64`      |
-| `'c'`          | Complex floating point| `np.dtype('c16') == np.complex128`|
-| `'S'`, `'a'` | String                | `np.dtype('S5')`                  |
-| `'U'`          | Unicode string        | `np.dtype('U') == np.str_`        |
-| `'V'`          | Raw data (void)       | `np.dtype('V') == np.void`        |
-
-### More advanced compound types
-
-It is possible to define even more advanced compound types.
-For example, you can create a type where each element contains an array or matrix of values. Here, we'll create a data type with a `mat` component consisting of a **3×3** floating-point matrix:
+When promoting multiple dtypes, the result is aligned if any of the inputs is:
 
 ```{code-cell}
-tp = np.dtype([('id', 'i8'), ('mat', 'f8', (3, 3))])
-X = np.zeros(1, dtype=tp)
-print(X[0])
-print(X['mat'][0])
+np.result_type(np.dtype("i,i"), np.dtype("i,i", align=True))
 ```
 
-Now each element in the `X` array consists of an `id` and a **3×3** matrix. Why would you use this rather than a simple multidimensional array, or perhaps a Python dictionary? The reason is that this NumPy `dtype` directly maps onto a C structure definition, so the buffer containing the array content can be accessed directly within an appropriately written C program. If you find yourself writing a Python interface to a legacy C or Fortran library that manipulates structured data, you'll probably find structured arrays quite useful!
-
-### RecordArrays: structured arrays with a twist
-
-NumPy also provides the `np.recarray` class, which is almost identical to the structured arrays just described, but with one additional feature: fields can be accessed as attributes rather than as dictionary keys.Recall that we previously accessed the ages by writing:
-
-```{code-cell}
-data['age']
-```
-
-If we view our data as a record array instead, we can access this with slightly fewer keystrokes:
-
-```{code-cell}
-data_rec = data.view(np.recarray)
-data_rec.age
-```
-
-The downside is that for record arrays, there is some extra overhead involved in accessing the fields, even when using the same syntax. We can see this here:
-
-```{code-cell}
-%timeit data['age']
-%timeit data_rec['age']
-%timeit data_rec.age
-```
-
-Whether the more convenient notation is worth the additional overhead will depend on your own application.
-
-### On to pandas
-
-This section on structured and record arrays is purposely at the end of this chapter, because it leads so well into the next package we will cover: Pandas. Structured arrays like the ones discussed here are good to know about for certain situations, especially in case you're using NumPy arrays to map onto binary data formats in C, Fortran, or another language. For day-to-day use of structured data, the Pandas package is a much better choice, and we'll dive into a full discussion of it in the chapter that follows.
+The `<` and `>` operators always return `False` when comparing void structured arrays, and arithmetic and bitwise operations are not supported.
 
 ## Your turn! 🚀
 
@@ -1735,6 +1746,6 @@ Open [Analyzing COVID-19 papers](../../assignments/data-science/analyzing-COVID-
 
 ## Acknowledgments
 
-Thanks to Donne Martin for creating the open source course [data-science-ipython-notebooks](https://github.com/donnemartin/data-science-ipython-notebooks). It contributes the majority of the content in this chapter.
+Thanks for [NumPy user guide](https://numpy.org/doc/stable/user/index.html#user). It contributes the introduction to NumPy.
 
 Thanks to Microsoft for creating the open source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It contributes assignment section in this chapter.

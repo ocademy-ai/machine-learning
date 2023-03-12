@@ -152,7 +152,7 @@ plt.ylabel('colony yield')
 ax.figure.legend();
 ```
 
-While nothing jumps out to the eye around the year 2003, it does allow us to end this lesson on a little happier note: while there are overall a declining number of colonies, the number of colonies is stabilizing even if their yield per colony is decreasing.
+While nothing jumps out to the eye around the year 2003, it does allow us to end this section on a little happier note: while there are overall a declining number of colonies, the number of colonies is stabilizing even if their yield per colony is decreasing.
 
 Go, bees, go!
 

@@ -1,4 +1,4 @@
-name: deploy-book
+name: mainline-deploy-book
 
 # Only run this when the master branch changes
 on:
@@ -36,14 +36,14 @@ jobs:
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: '3.9'
 
     - name: Set up conda
       uses: conda-incubator/setup-miniconda@v2
       with:
         activate-environment: open-machine-learning-jupyter-book
         environment-file: ./open-machine-learning-jupyter-book/environment.yml
-        python-version: 3.9
+        python-version: '3.9'
         auto-activate-base: false
         auto-update-conda: true
 
@@ -59,9 +59,16 @@ jobs:
         bash ./build.sh
       continue-on-error: false
 
-    # Push the book's HTML to github-pages
-    - name: GitHub Pages action
-      uses: peaceiris/actions-gh-pages@v3.6.1
+    - name: Deploy to Netlify
+      uses: nwtgck/actions-netlify@v1.2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./open-machine-learning-jupyter-book/_build/html
+        publish-dir: './open-machine-learning-jupyter-book/_build/html'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy to netlify from GitHub Actions"
+        enable-pull-request-comment: false
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      timeout-minutes: 1
