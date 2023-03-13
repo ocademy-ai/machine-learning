@@ -1,4 +1,4 @@
-# Machine Learning Open Course
+# Machine Learning Open Book
 
 ```{tableofcontents}
 ```

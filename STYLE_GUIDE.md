@@ -11,10 +11,17 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 * Chapters and Sections
   * Provide an overview at the beginning of each chapter.
   * Be consistent in the structure of each section.
+    * Add a copyright section at the beginning wrapped by `<detail>` if needed. E.g. <details>
+      <summary><b>LICENSE</b></summary>
+
+      MIT License
+
+      ...
+      </details>
     * `## Your turn! 🚀` for exercises/assignments.
     * `## Self study` for further reading resources.
     * `## Acknowledgments` if needed.
-    * add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
+    * Add [bibliography](https://jupyterbook.org/en/stable/reference/cheatsheet.html?highlight=docname%20in%20docnames#citations) by using the JupyterBook built-in way.
   * Only capitalize the first letter.
 * Don't add the URL as plain text. Instead, add it as a [preview](https://link-previews.stephanbogner.de/).
 * Quotes - use double quotes
@@ -55,22 +62,48 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
     * Arial (for text), STIXGeneral (for math), 9pt（subscripts/superscripts：6pt）
     * Do not italicize numbers or parentheses in subscripts or superscripts
   * Color：
-    * Blue as background (text is black)
-      * (Try to avoid) Extra Dark：3FA3FD
-      * Dark：66BFFF
-      * Light：B2D9FF
-      * (Try to avoid) Extra Light: CFF4FF
+White as the background (text is black)
+  * (Try to avoid) Extra Dark：#3FA3FD
+  * Dark：#66BFFF
+  * Light：#B2D9FF
+  * (Try to avoid) Extra Light: #CFF4FF
+
+One way to add a figure is to use `figure-md` as below:
+
+```text
+:::{figure-md} figure_label
+<img src="path/to/your/figure/file" width="90%" class="bg-white mb-1">
+
+Caption for the figure (markdown is supported for hyperlinks, references, etc.)
+:::
+```
+
+The other way is to use `{figure}`. For example:
+
+<pre>
+```{figure} path/to/your/figure/file
+---
+name: 'figure_label'
+width: 90%
+---
+Caption for the figure (markdown is supported for hyperlinks, references, etc.)
+```
+</pre>
+
+Typically, we set the width to `90%`. However, for some smaller figures, you could change that to other values such as `50%` or `30%`.
 
 ## Code
 
-* Python - [PEP8](https://www.python.org/dev/peps/pep-0008/)
+* Python
+  * Please use [Black](https://github.com/psf/black) as the default lint formatter. You can [format the active cell on VScode](https://stackoverflow.com/questions/65747615/how-to-format-jupyter-notebook-in-vscode) by using [Black plugin](https://dev.to/adamlombard/how-to-use-the-black-python-code-formatter-in-vscode-3lo0).
+  * Please follow the [PEP8](https://www.python.org/dev/peps/pep-0008/) where the lint static checking does not cover, e.g. the naming convention.
 * Markdown - [markdownlint](https://github.com/DavidAnson/markdownlint)
 
 ## Data
 
 If sample data is needed for the book or assignments, first try to use built-in ones from [sklearn](https://scikit-learn.org/stable/datasets.html) or [tensorflow](https://www.tensorflow.org/datasets) if possible.
 
-To introduce your own dataset, put the data file into the `./data` folder, then it could be referred to by a relative path.
+To introduce your own dataset, put the data file into the `./assets/data` folder, then it could be referred to by a relative path. You can also add Python code, binary, and any other type of static asserts.
 
 ## Slides
 
@@ -82,9 +115,9 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 
 ## Citations
 
-1. Use [zoterobib](https://zbib.org/) to generate consistent keys for bibtex entries. Please keep the format to be consistent with zoterobib if you prefer any other bib management tools.
+1\. Use [zoterobib](https://zbib.org/) to generate consistent keys for bibtex entries. Please keep the format to be consistent with zoterobib if you prefer any other bib management tools.
 
-1. Add the bibtex entry to `references.bib` on the root directory. Such as below,
+2\. Add the bibtex entry to `references.bib` on the root directory. Such as below,
 
 ```bibtext
 @article{wood2011sequence,
@@ -99,7 +132,7 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 }
 ```
 
-3. In the text, use the following to cite the added paper:
+3\. In the text, use the following to cite the added paper:
 
 ```markdown
 {cite}`Wood.Gasthaus.Archambeau.ea.2011`
@@ -108,6 +141,66 @@ The project's slide source code is hosted in `open-machine-learning-jupyter-book
 ## Appendix
 
 * [How to give attribution? | Creative Commons](https://creativecommons.org/use-remix/attribution/)
+
+## HTML snippets
+
+1\. Put the folder containing your HTML/CSS/Javascript files under `assets/html/`. For example:
+
+```output
+assets/
+    html/
+        my-html-folder/
+            js/      
+            css/
+            index.html
+```
+
+2\. To include the `index.html` file as an HTML `iframe` in the Markdown file, simply use:
+
+```html
+<p style="text-align: center;">
+  <iframe src="../assets/html/my-html-folder/my-file.html" width="105%" height="700px;" style="border:none;"></iframe>
+  Caption of the iframe. <a href="source/of/the/iframe">[source]</a>
+</p>
+```
+
+Note that we may need to set the `width` to `105%` so that all content of `index.html` will be rendered correctly. Also, the `height` has to be set manually.
+
+## YouTube video
+
+To include a YouTube video:
+
+```html
+<div class="yt-container">
+  <iframe src="https://www.youtube.com/embed/YUyec4eCEiY" allowfullscreen></iframe>
+</div>
+```
+
+Here `YUyec4eCEiY` is the YouTube `id` of the video, and you should change it accordingly.
+
+How does it work? In fact, the `class="yt-container"` is set to use the CSS style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated HTML file of Jupyter Book.
+
+## Emoji
+
+Emojis should be put on the right place, used with consistency, coherence and uniformity.
+
+The list of all emojis can be found here: 
+- [HTML](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
+- [Markdown](https://gist.github.com/rxaviers/7360908)
+
+| Emoji | Use case                                      | Code HTML                              | Code Markdown                       | Rendered as                      |
+|-------|-----------------------------------------------|----------------------------------------|-------------------------------------|----------------------------------|
+| 🔗     | when referring to source of figures or texts  | ```[&#x1F517;source](your/url/here)``` | ```[:link:source](your/url/here)``` | [&#x1F517;source](your/url/here) |
+| 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! &#x1F680;```             |   ```Your turn! :rocket:```     | Your turn! 🚀                    |
+
+
+## Table
+
+Whenever possible, use Table instead of Screenshot/Figures.
+
+How to generate tables:
+- [Markdown](https://www.tablesgenerator.com/markdown_tables)
+- [HTML](https://www.tablesgenerator.com/html_tables)
 
 ## Acknowledgments
 

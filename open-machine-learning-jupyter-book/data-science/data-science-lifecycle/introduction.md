@@ -15,7 +15,7 @@ kernelspec:
 
 # Introduction to the Data Science lifecycle
 
-At this point, you've probably come to the realization that data science is a process. This process can be broken down into 5 stages:
+At this point, you've probably come to the realization that Data Science is a process. This process can be broken down into 5 stages:
 
 - Capturing
 - Processing
@@ -27,9 +27,9 @@ This section focuses on 3 parts of the life cycle: capturing, processing and mai
 
 ```{figure} ../../../images/data-science-lifecycle.jpeg
 ---
-name: 'Diagram of the data science lifecycle'
+name: 'Diagram of the Data Science lifecycle'
 ---
-Diagram of the data science lifecycle{cite}`ucb_umt_what_is_data_science`
+Diagram of the Data Science lifecycle{cite}`ucb_umt_what_is_data_science`
 ```
 
 ## Capturing
@@ -58,13 +58,13 @@ Questions a data scientist may ask about the data:
 
 ## Processing
 
-The processing stage of the lifecycle focuses on discovering patterns in the data as well as modeling. Some techniques used in the processing stage require statistical methods to uncover the patterns. Typically, this would be a tedious task for a human to do with a large data set, and will rely on computers to do the heavy lifting to speed up the process. This stage is also where data science and machine learning will intersect. As you learned in the first section, machine learning is the process of building models to understand the data. Models are a representation of the relationship between variables in the data that help predict outcomes.
+The processing stage of the lifecycle focuses on discovering patterns in the data as well as modeling. Some techniques used in the processing stage require statistical methods to uncover the patterns. Typically, this would be a tedious task for a human to do with a large data set and will rely on computers to do the heavy lifting to speed up the process. This stage is also where Data Science and machine learning will intersect. As you learned in the first section, machine learning is the process of building models to understand the data. Models are a representation of the relationship between variables in the data that help predict outcomes.
 
 Common techniques used in this stage are covered in the Machine Learning sections.  Follow the links to learn more about them:
 
-- [Classification](../../ml-fundamentals/classification.md):  Organizing data into categories for more efficient use.
-- [Clustering](../../ml-fundamentals/clustering.md): Grouping data into similar groups.
-- [Regression](../../ml-fundamentals/logistic-regression.md): Determine the relationships between variables to predict or forecast values.
+- [Classification](../../ml-fundamentals/classification/introduction-to-classification.md): organizing data into categories for more efficient use.
+- [Clustering](../../ml-advanced/clustering/introduction-to-clustering.md): grouping data into similar groups.
+- [Regression](../../ml-fundamentals/regression/logistic-regression.md): determining the relationships between variables to predict or forecast values.
 
 ## Maintaining
 
@@ -78,7 +78,7 @@ Here are some aspects of modern data storage systems that can affect these choic
 
 **On premise vs off premise vs public or private cloud**
 
-On premise refers to hosting and managing the data on your own equipment, like owning a server with hard drives that store the data, while off premise relies on equipment that you don’t own, such as a data center. The public cloud is a popular choice for storing data that requires no knowledge of how or where exactly the data is stored, where the public refers to a unified underlying infrastructure that is shared by all who use the cloud. Some organizations have strict security policies that require that they have complete access to the equipment where the data is hosted and will rely on a private cloud that provides its own cloud services. You’ll learn more about data in the cloud in [the later section](../data-science-in-the-cloud/introduction.md).
+On-premise refers to hosting and managing the data on your own equipment, like owning a server with hard drives that store the data, while off-premise relies on equipment that you don’t own, such as a data center. The public cloud is a popular choice for storing data that requires no knowledge of how or where exactly the data is stored, where the public refers to a unified underlying infrastructure that is shared by all who use the cloud. Some organizations have strict security policies that require that they have complete access to the equipment where the data is hosted and will rely on a private cloud that provides its own cloud services. You’ll learn more about data in the cloud in [the later section](../data-science-in-the-cloud/introduction.md).
 
 **Cold vs hot data**
 
@@ -86,7 +86,7 @@ When training your models, you may require more training data. If you’re conte
 
 ### Managing data
 
-As you work with data you may discover that some of the data needs to be cleaned using some of the techniques covered in the section focused on [data [preparation](../working-with-data/data-preparation.md) to build accurate models. When new data arrives, it will need some of the same applications to maintain consistency in quality. Some projects will involve the use of an automated tool for cleansing, aggregation, and compression before the data is moved to its final location. Azure Data Factory is an example of one of these tools.
+As you work with data you may discover that some of the data needs to be cleaned using some of the techniques covered in the section focused on [data preparation](../working-with-data/data-preparation.md) to build accurate models. When new data arrives, it will need some of the same applications to maintain consistency in quality. Some projects will involve the use of an automated tool for cleansing, aggregation, and compression before the data is moved to its final location. Azure Data Factory is an example of one of these tools.
 
 ### Securing the data
 

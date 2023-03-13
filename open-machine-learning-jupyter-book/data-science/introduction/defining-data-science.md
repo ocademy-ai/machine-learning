@@ -72,7 +72,7 @@ An area of Machine Learning known as artificial intelligence (AI) also relies on
 
 **Visualization**
 
-Vast amounts of data are incomprehensible to a human being, but once we create useful visualizations using that data, we can make more sense of the data, and draw some conclusions. Thus, it is important to know many ways to visualize information - something that we will cover in the [Data visualization](../data-visualization/data-visualization.md) section. Related fields also include **Infographics** and **Human-Computer** Interaction** in general.
+Vast amounts of data are incomprehensible to a human being, but once we create useful visualizations using that data, we can make more sense of the data, and draw some conclusions. Thus, it is important to know many ways to visualize information - something that we will cover in the [Data visualization](../data-visualization/data-visualization.md) section. Related fields also include **Infographics** and **Human-Computer Interaction** in general.
 
 ## Types of data
 
@@ -136,7 +136,7 @@ You may argue that this approach is not ideal, because modules can be of differe
 
 When we start analyzing the results of multiple-choice tests, we can try to determine which concepts students have difficulty understanding, and use that information to improve the content. To do that, we need to design tests in such a way that each question maps to a certain concept or chunk of knowledge.
 
-If we want to get even more complicated, we can plot the time taken for each module against the age category of students. We might find out that for some age categories it takes an inappropriately long time to complete the module, or that students drop out before completing it. This can help us provide age recommendations for the module, and minimize people's dissatisfaction from wrong expectations.
+If we want to get even more complicated, we can plot the time taken for each module against the age category of students. We might find out that for some age categories, it takes an inappropriately long time to complete the module, or that students drop out before completing it. This can help us provide age recommendations for the module, and minimize people's dissatisfaction with wrong expectations.
 
 ## Your turn! 🚀
 
@@ -156,11 +156,11 @@ Visit [Analyzing text about data science](../../assignments/data-science/analyzi
 
 ## Self study
 
-Here is a list of free/open source learning resources for [Data Science](https://github.com/open-academy/open-learning-resources/blob/main/README.md#data-science--engineering).
+Here is a list of free/open-source learning resources for [Data Science](https://github.com/open-academy/open-learning-resources/blob/main/README.md#data-science--engineering).
 
 ## Acknowledgments
 
-Thanks to Microsoft for creating the open-source course [Data](https://github.com/microsoft/Data-Science-For-Beginners) Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
+Thanks to Microsoft for creating the open-source course [Data Science for Beginners](https://github.com/microsoft/Data-Science-For-Beginners). It inspires the majority of the content in this chapter.
 
 ---
 

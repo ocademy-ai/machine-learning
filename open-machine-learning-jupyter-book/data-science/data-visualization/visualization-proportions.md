@@ -22,7 +22,7 @@ In this section, you will use a different nature-focused dataset to visualize pr
 - Waffle charts 🧇
 
 ```{seealso}
- A very interesting project called [Charticulator](https://charticulator.com) by Microsoft Research offers a free drag and drop interface for data visualizations. In one of their tutorials they also use this mushroom dataset! So you can explore the data and learn the library at the same time: [Charticulator tutorial](https://charticulator.com/tutorials/tutorial4.html).
+A very interesting project called [Charticulator](https://charticulator.com) by Microsoft Research offers a free drag and drop interface for data visualizations. In one of their tutorials they also use this mushroom dataset! So you can explore the data and learn the library at the same time: [Charticulator tutorial](https://charticulator.com/tutorials/tutorial4.html).
 ```
 
 ## Get to know your mushrooms 🍄
@@ -64,7 +64,7 @@ If you follow the order presented in this table to create your class category la
 
 ```{code-cell}
 labels=['Edible','Poisonous']
-plt.pie(edibleclass['population'],labels=labels,autopct='%.1f %%')
+plt.pie(edibleclass['population'], labels=labels, autopct='%.1f %%')
 plt.title('Edible?')
 plt.show()
 ```
@@ -86,7 +86,7 @@ habitat
 Here, you are grouping your data by habitat. There are 7 listed, so use those as labels for your donut chart:
 
 ```{code-cell}
-labels=['Grasses','Leaves','Meadows','Paths','Urban','Waste','Wood']
+labels = ['Grasses', 'Leaves', 'Meadows', 'Paths', 'Urban', 'Waste', 'Wood']
 
 plt.pie(habitat['class'], labels=labels,
         autopct='%1.1f%%', pctdistance=0.85)
@@ -111,7 +111,7 @@ Now that you know how to group your data and then display it as a pie or donut, 
 
 A 'waffle' type chart is a different way to visualize quantities as a 2D array of squares. Try visualizing the different quantities of mushroom cap colors in this dataset. To do this, you need to install a helper library called [PyWaffle](https://pypi.org/project/pywaffle/) and use Matplotlib.
 
-Select a segment of your data to group:
+Select a segment of your data to group together:
 
 ```{code-cell}
 :tags: [output_scroll]
@@ -126,9 +126,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pywaffle import Waffle
   
-data ={'color': ['brown', 'buff', 'cinnamon', 'green', 'pink', 'purple', 'red', 'white', 'yellow'],
-    'amount': capcolor['class']
-     }
+data ={
+    'color': ['brown', 'buff', 'cinnamon', 'green', 'pink', 'purple', 'red', 'white', 'yellow'],
+    'amount': capcolor['class'],
+}
   
 df = pd.DataFrame(data)
   
@@ -148,7 +149,7 @@ Using a waffle chart, you can plainly see the proportions of cap colors of this 
 Pywaffle supports icons within the charts that use any icon available in [Font Awesome](https://fontawesome.com/). Do some experiments to create an even more interesting waffle chart using icons instead of squares.
 ```
 
-In this lesson, you learned three ways to visualize proportions. First, you need to group your data into categories and then decide which is the best way to display the data - pie, donut, or waffle. All are delicious and gratify the user with an instant snapshot of a dataset.
+In this section, you learned three ways to visualize proportions. First, you need to group your data into categories and then decide which is the best way to display the data - pie, donut, or waffle. All are delicious and gratify the user with an instant snapshot of a dataset.
 
 ## Self study
 
