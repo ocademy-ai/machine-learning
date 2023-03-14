@@ -1,4 +1,4 @@
-# Parameter Play
+# Parameter play
 
 ## Instructions
 

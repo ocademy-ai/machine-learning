@@ -30,7 +30,7 @@ Previously, you learned about the various options you have when classifying data
 name: 'ML Map from Scikit-learn'
 width: 90%
 ---
-ML Map from Scikit-learn [&#x1F517;source](https://scikit-learn.org/stable/tutorial/machine_learning_map/)
+ML Map from Scikit-learn. [Ref](https://scikit-learn.org/stable/tutorial/machine_learning_map/)
 ```
 
 ### The plan
