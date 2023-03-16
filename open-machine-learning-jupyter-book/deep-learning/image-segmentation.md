@@ -136,6 +136,10 @@ An example from the dataset
 
 The model being used here is a modified U-Net. A U-Net consists of an encoder (downsampler) and decoder (upsampler). To learn robust features and reduce the number of trainable parameters, use a pretrained model—MobileNetV2—as the encoder. For the decoder, you will use the upsample block, which is already implemented in the pix2pix example in the TensorFlow Examples repo.
 
+```{note}
+The link for paper is https://arxiv.org/pdf/1505.04597.pdf.
+```
+
 As mentioned, the encoder is a pretrained MobileNetV2 model. You will use the model from tf.keras.applications. The encoder consists of specific outputs from intermediate layers in the model. Note that the encoder will not be trained during the training process.
 
 ```{code-cell}
@@ -504,6 +508,10 @@ class Network(object):
 
 ### FCN
 
+```{note}
+The link for paper is https://arxiv.org/pdf/1411.4038v2.pdf.
+```
+
 FCN is the first work to train FCNs end-to-end for pixel-wise prediction and from supervised pre-training. Semantic segmentation faces an inherent tension between semantics and location: global information resolves what while local information resolves where. Deep feature hierarchies jointly encode location and semantics in a localto-global pyramid. FCN defines a novel “skip” architecture to combine deep, coarse, semantic information and shallow, fine, appearance information.
 
 :::{figure-md} 03_display_structure_of_FCN
@@ -646,6 +654,10 @@ class FCN(Network):
 
 ### SegNet
 
+```{note}
+The link for paper is https://arxiv.org/pdf/1511.00561v3.pdf.
+```
+
 SegNet is a novel and practical deep fully convolutional neural network architecture for semantic pixel-wise segmentation. This core trainable segmentation engine consists of an encoder network, a corresponding decoder network followed by a pixel-wise classification layer. Here is the structure of SegNet:
 
 :::{figure-md} 04_display_structure_of_SegNet
@@ -746,6 +758,10 @@ class SegNet(Network):
 ```
 
 ### DeepLab V3
+
+```{note}
+The link for paper is https://arxiv.org/pdf/1706.05587v3.pdf.
+```
 
 DeepLab V3 revisits applying dilated convolution, which allows us to effectively enlarge the field of view of filters to incorporate multi-scale context, in the framework of both cascaded modules and spatial pyramid pooling. It consists of dilated convolution with various rates and batch normalization layers. DeepLab experiments with laying out the modules in cascade or in parallel.
 
