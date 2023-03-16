@@ -29,10 +29,6 @@ This tutorial uses the Oxford-IIIT Pet Dataset. The dataset consists of images o
 And it can be downloaded from [The Oxford-IIIT Pet Dataset](https://academictorrents.com/details/b18bbd9ba03d50b0f7f479acc9f4228a408cecc1).
 
 ```{code-cell}
-pip install git+https://github.com/tensorflow/examples.git
-```
-
-```{code-cell}
 import tensorflow as tf
 import tensorflow_datasets as tfds
 
@@ -47,7 +43,7 @@ import matplotlib.pyplot as plt
 dataset, info = tfds.load('oxford_iiit_pet:3.*.*', with_info=True)
 ```
 
-In addition, the image color values are normalized to the range. Finally, as mentioned above the pixels in the segmentation mask are labeled either {1, 2, 3}. For the sake of convenience, subtract 1 from the segmentation mask, resulting in labels that are : {0, 1, 2}.[0, 1]
+In addition, the image color values are normalized to the range [0, 1]. Finally, as mentioned above the pixels in the segmentation mask are labeled either {1, 2, 3}. For the sake of convenience, subtract 1 from the segmentation mask, resulting in labels that are : {0, 1, 2}.
 
 ```{code-cell}
 def normalize(input_image, input_mask):
@@ -201,7 +197,7 @@ Note that the number of filters on the last layer is set to the number of . This
 
 ### Train the model
 
-Now, all that is left to do is to compile and train the model. Since this is a multiclass classification problem, use the tf.keras.losses.CategoricalCrossentropy loss function with the argument set to , since the labels are scalar integers instead of vectors of scores for each pixel of every class.from_logitsTrue. When running inference, the label assigned to the pixel is the channel with the highest value. This is what the function is doing.create_mask.
+Now, all that is left to do is to compile and train the model. Since this is a multiclass classification problem, use the 'tf.keras.losses.CategoricalCrossentropy' loss function with the argument set to , since the labels are scalar integers instead of vectors of scores for each pixel of every class.from_logitsTrue. When running inference, the label assigned to the pixel is the channel with the highest value. This is what the function is doing.create_mask.
 
 ```{code-cell}
 OUTPUT_CLASSES = 3
@@ -962,7 +958,7 @@ TBD.
 
 ## Acknowledgments
 
-Thanks to [Yang Lu](https://github.com/luyanger1799) for creating the open-source project [Amazing-Semantic-Segmentation](https://github.com/luyanger1799/Amazing-Semantic-Segmentation), [Tensorflow_Google](https://tensorflow.google.cn/) for creating the open-source course [Image segmentation](https://tensorflow.google.cn/tutorials/images/segmentation?hl=en#next_steps). They inspire the majority of the content in this chapter.
+Thanks to [Yang Lu](https://github.com/luyanger1799) for creating the open-source project [Amazing-Semantic-Segmentation](https://github.com/luyanger1799/Amazing-Semantic-Segmentation), [tensorflow](https://github.com/tensorflow) for creating the open-source course [examples](https://github.com/tensorflow/examples). They inspire the majority of the content in this chapter.
 
 ---
 
