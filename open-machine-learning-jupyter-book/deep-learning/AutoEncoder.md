@@ -13,10 +13,100 @@ kernelspec:
   name: python3
 ---
 
-# Autoencoder (TBD)
+# Autoencoder
 
+## Overview
 
+An autoencoder is a type of artificial neural network used to learn efficient codings of unlabeled data (unsupervised learning). An autoencoder learns two functions: an encoding function that transforms the input data, and a decoding function that recreates the input data from the encoded representation. The autoencoder learns an efficient representation (encoding) for a set of data, typically for dimensionality reduction.
 
+## Unsupervised Learning
+
+Autoencoder is a kind of unsupervised learning, which means working with datasets without considering a target variable. There are some Applications and Goals for it:
+
+- Finding hidden structures in data.
+- Data compression.
+- Clustering.
+- Retrieving similar objects.
+- Exploratory data analysis.
+- Generating new examples.
+
+And for unsupervised learning, its main Principal Component Analysis (PCA) is:
+
+- Find directions of maximum variance
+
+:::{figure-md} 01_PCA1
+<img src="../../images/deep-learning/autoencoder/01_PCA1.png" width="90%" class="bg-white mb-1">
+
+Illustration of PCA
+:::
+
+- Transform features onto directions of maximum variance
+
+:::{figure-md} 02_PCA2
+<img src="../../images/deep-learning/autoencoder/02_PCA2.png" width="90%" class="bg-white mb-1">
+
+Illustration of PCA
+:::
+
+- Usually consider a subset of vectors of most variance (dimensionality reduction)
+
+:::{figure-md} 03_PCA3
+<img src="../../images/deep-learning/autoencoder/03_PCA3.png" width="90%" class="bg-white mb-1">
+
+Illustration of PCA
+:::
+
+## Fully-connected Autoencoder
+
+Here is an example of a basic fully-connected autoencoder
+
+:::{figure-md} 04_simple
+<img src="../../images/deep-learning/autoencoder/04_simple.png" width="90%" class="bg-white mb-1">
+
+Illustration of Fully Connected autoencoder
+:::
+
+```{note}
+If we don't use non-linear activation functions and minimize the MSE, this is very similar to PCA. However, the latent dimensions will not necessarily be orthogonal and will have same variance.
+```
+
+The loss function of this simple model is $L(x, x^') = ||x - x^'||^2_2 = \sum_i (x_i - x_i^')^2$.
+
+### Potential Autoencoder Applications
+
+And there are some potential autoencoder applications, for example:
+- After training, disregard the output part, we can use embedding as input to classic machine learning methods (SVM, KNN, Random Forest, ...).
+- Similar to transfer learning, we can train autoencoder on large image dataset, then fine tune encoder part on your own, smaller dataset and/or provide your own output (classification) layer.
+- Latent space can also be used for visualization (EDA, clustering), but there are better methods for that.
+
+## Convolutional Autoencoder
+
+For convolutional autoencoder, we mainly use transposed convolution construct the output, and transposed convolution (sometimes called "deconvolution") allows us to increase the size of the output feature map compared to the input feature map.
+
+The difference between regular convolution and transposed convolution can be seen from the following image.
+
+:::{figure-md} 05_diff_conv
+<img src="../../images/deep-learning/autoencoder/05_diff_conv.png" width="90%" class="bg-white mb-1">
+
+Difference between regular and transposed convolution
+:::
+
+In transposed convolutions, we stride over the output; hence, larger strides will result in larger outputs (opposite to regular convolutions); and we pad the output; hence, larger padding will result in smaller output maps.
+
+So, the whole model consists of two parts, encoder and decoder, and they are composed with regular convolution and transposed convolution respectively.
+
+:::{figure-md} 06_convmodel
+<img src="../../images/deep-learning/autoencoder/06_convmodel.png" width="90%" class="bg-white mb-1">
+
+Structure of convoluted autoencoder
+:::
+
+```{note}
+Here is some other tricks to help our training:
+1. Add dropout layers to force networks to learn redundant features.
+2. Add dropout after the input, or add noise to the input to learn to denoise images.
+3. Add L1 penalty to the loss to learn sparse feature representations.
+```
 
 ## Code
 
@@ -203,3 +293,24 @@ https://medium.datadriveninvestor.com/deep-learning-autoencoders-db265359943e
 </div>
 
 
+
+
+## Your turn! 🚀
+
+TBD.
+
+## Self study
+
+You can refer to this book chapter for further study:
+
+- [deeplearningbook](https://www.deeplearningbook.org/contents/autoencoders.html)
+
+## Acknowledgments
+
+Thanks to [Sebastian Raschka](https://github.com/rasbt) for creating the open-source project [stat453-deep-learning-ss20](https://github.com/rasbt/stat453-deep-learning-ss20) and [Aymeric Damien](https://github.com/aymericdamien) for creating the open-source project [TensorFlow-Examples](https://github.com/aymericdamien/TensorFlow-Examples/). They inspire the majority of the content in this chapter.
+
+---
+
+```{bibliography}
+:filter: docname in docnames
+```
