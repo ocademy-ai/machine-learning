@@ -89,7 +89,7 @@ In this section, you will find the file [regression-tools.ipynb](../../assignmen
 name: 'VS Code with a notebook open'
 width: 90%
 ---
-VS Code with a notebook open{cite}`VS_Code_with_a_notebook_open`
+VS Code with a notebook open{cite}"VS_Code_with_a_notebook_open"
 ```
 
 You can interleaf your code with comments to self-document the notebook.
