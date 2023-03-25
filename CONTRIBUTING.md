@@ -205,6 +205,37 @@ To Windows,
 >
 > **Change your network.** In order to proceed smoothly later, hope you can solve this problem here.
 
+> **Warning**
+> 
+> You may encounter download or run failures due to **lack of administrator privileges.**
+> 
+> ```bash
+> error: Could not install packages due to an OSError: [WinError 5] **Access denied** 。
+> Consider using the `--user` option or check the permissions.
+> ```
+> 
+> Solution:
+> 
+> Turn off administrator privileges by using the **command prompt.**
+>  1.Search for the Command Prompt application and select Run as Administrator.
+>  2.Enter the command “NET USER administrator /active:no ”and run.
+
+> **Warning**
+> 
+> When you are **building the book**, you may encounter an error when running terminal (like **powershell**).
+> 
+> ```bash
+> error: Failed building wheel for jupyter-nbextensions-configurator 
+>        or Unable to load file: C:\Users\87897\Documents\WindowsPowerShell\profile.ps1
+> ```
+> 
+> Solution:
+> 
+> Change the script execution policy: **set-ExecutionPolicy RemoteSigned**, then enter **Y**.
+> You can use the command **get-ExecutionPolicy**  to check , and if **RemoteSigned** appears, it means the modification is successful.
+> 
+
+
 ### Activate the Conda environment
 
 ```bash
