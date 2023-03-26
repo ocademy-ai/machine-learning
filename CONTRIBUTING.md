@@ -210,15 +210,17 @@ To Windows,
 > You may encounter download or run failures due to **lack of administrator privileges.**
 > 
 > ```bash
-> error: Could not install packages due to an OSError: [WinError 5] **Access denied** 。
+> error: Could not install packages due to an OSError: [WinError 5] Access denied.
 > Consider using the `--user` option or check the permissions.
 > ```
 > 
 > Solution:
 > 
 > Turn off administrator privileges by using the **command prompt.**
->  1.Search for the Command Prompt application and select Run as Administrator.
->  2.Enter the command “NET USER administrator /active:no ”and run.
+> 
+>  1. Run cmd as Administrator.
+>
+>  2. Enter the command `NET USER administrator /active:no`and run.
 
 > **Warning**
 > 
@@ -231,9 +233,9 @@ To Windows,
 > 
 > Solution:
 > 
-> Change the script execution policy: **set-ExecutionPolicy RemoteSigned**, then enter **Y**.
-> You can use the command **get-ExecutionPolicy**  to check , and if **RemoteSigned** appears, it means the modification is successful.
+> Enter the command: `set-ExecutionPolicy RemoteSigned`, then enter `Y`.
 > 
+> Tips: You can use the command `get-ExecutionPolicy`  to check , and if `RemoteSigned` appears, it means the modification is successful.
 
 
 ### Activate the Conda environment
