@@ -4,7 +4,7 @@ Data is not limited to relational databases. This section focuses on non-relatio
 
 ## Spreadsheets
 
-Spreadsheets are a popular way to store and explore data because it requires less work to set up and get started. In this section, you'll learn the basic components of a spreadsheet, as well as formulas and functions. The examples will be illustrated with Microsoft Excel, but most of the parts and topics will have similar names and steps in comparison to other spreadsheet software. 
+Spreadsheets are a popular way to store and explore data because it requires less work to set up and get started. In this section, you'll learn the basic components of a spreadsheet, as well as formulas and functions. The examples will be illustrated with Microsoft Excel, but most of the parts and topics will have similar names and steps in comparison to other spreadsheet software.
 
 ![An empty Microsoft Excel workbook with two worksheets](../../../images/parts-of-spreadsheet.png)
 
@@ -125,13 +125,13 @@ The fields of interest in this document are `created_at`, `id`, and `text`.
 
 ## Your turn! 🚀
 
-There is a `TwitterData.json` file that you can upload to the SampleDB database. It's recommended that you add it to a separate container. This can be done by:
+There is a <a href="../../assets/data/twitter-data.json">`twitter-data.json`</a> file that you can upload to the SampleDB database. It's recommended that you add it to a separate container. This can be done by:
 
 1. Clicking the new container button in the top right
-1. Selecting the existing database (SampleDB) and creating a container id for the container
-1. Setting the partition key to `/id`
-1. Clicking OK (you can ignore the rest of the information in this view as this is a small dataset running locally on your machine)
-1. Open your new container and upload the Twitter Data file with `Upload Item` button
+2. Selecting the existing database (SampleDB) and creating a container id for the container
+3. Setting the partition key to `/id`
+4. Clicking OK (you can ignore the rest of the information in this view as this is a small dataset running locally on your machine)
+5. Open your new container and upload the Twitter Data file with `Upload Item` button
 
 Try to run a few select queries to find the documents that have Microsoft in the text field. Hint: try to use the [LIKE keyword](https://docs.microsoft.com/en-us/azure/cosmos-db/sql/sql-query-keywords#using-like-with-the--wildcard-character)
 

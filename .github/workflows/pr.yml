@@ -1,0 +1,57 @@
+name: pr-build-book
+
+# Only run this when the pr created
+on:
+  pull_request:
+    branches:
+      - 'release'
+      - 'main'
+    paths:
+    - open-machine-learning-jupyter-book/**
+    - .github/**
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)    
+        required: false
+
+# This job installs dependencies, builds the book, and pushes it to `gh-pages`
+jobs:
+  build-book:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Install drawio
+      run: |
+        sudo apt -y install wget curl
+        curl -s https://api.github.com/repos/jgraph/drawio-desktop/releases/latest | grep browser_download_url | grep '\.deb' | cut -d '"' -f 4 | wget -i -
+        sudo apt -f install ./drawio-amd64-*.deb
+
+    - uses: actions/checkout@v2
+
+    # Install dependencies
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Set up conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: open-machine-learning-jupyter-book
+        environment-file: ./open-machine-learning-jupyter-book/environment.yml
+        python-version: '3.9'
+        auto-activate-base: false
+        auto-update-conda: true
+
+    - shell: bash -l {0}
+      run: |
+        conda info
+    
+    # Build the book
+    - shell: bash -l {0}
+      name: Build the book
+      run: |
+        cd ./open-machine-learning-jupyter-book/
+        bash ./build.sh
+      continue-on-error: false
