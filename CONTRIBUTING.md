@@ -207,7 +207,7 @@ To Windows,
 
 > **Warning**
 > 
-> You may encounter download or run failures due to **lack of administrator privileges.**
+> You may encounter download or run failures due to **lack of administrator privileges**.
 > 
 > ```bash
 > error: Could not install packages due to an OSError: [WinError 5] Access denied.
@@ -216,7 +216,7 @@ To Windows,
 > 
 > Solution:
 > 
-> Turn off administrator privileges by using the **command prompt.**
+> Turn off administrator privileges by using the **command prompt**.
 > 
 >  1. Run cmd as Administrator.
 >
