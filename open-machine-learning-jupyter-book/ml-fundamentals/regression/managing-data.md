@@ -45,17 +45,17 @@ Click to watch : Preparing and Visualizing data video.
 
 The question you need answered will determine what type of Machine Learning algorithms you will leverage. And the quality of the answer you get back will be heavily dependent on the nature of your data.
 
-Take a look at the [data](https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/data/US-pumpkins.csv) provided for this section. You can open this .csv file in VS Code. A quick skim immediately shows that there are blanks and a mix of strings and numeric data. There's also a strange column called 'Package' where the data is a mix between 'sacks', 'bins' and other values. The data, in fact, is a bit of a mess.
+Take a look at the [data](https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/data/us-pumpkins.csv) provided for this section. You can open this .csv file in VS Code. A quick skim immediately shows that there are blanks and a mix of strings and numeric data. There's also a strange column called 'Package' where the data is a mix between 'sacks', 'bins' and other values. The data, in fact, is a bit of a mess.
 
 In fact, it is not very common to be gifted a dataset that is completely ready to use to create a Machine Learning model out of the box. In this section, you will learn how to prepare a raw dataset using standard Python libraries. You will also learn various techniques to visualize the data.
 
 ## Case study: 'the pumpkin market'
 
-You will find a .csv file in the root `/assest/data/` folder called [us-pumpkins.csv](../../assets/data/us-pumpkins.csv) which includes 1757 lines of data about the market for pumpkins, sorted into groupings by city. This is raw data extracted from the [Specialty Crops Terminal Markets Standard Reports](https://www.marketnews.usda.gov/mnp/fv-report-config-step1?type=termPrice) distributed by the United States Department of Agriculture.
+You will find a .csv file in the root `/assets/data/` folder called <a href="../../assets/data/us-pumpkins.csv">us-pumpkins.csv</a> which includes 1757 lines of data about the market for pumpkins, sorted into groupings by city. This is raw data extracted from the [Specialty Crops Terminal Markets Standard Reports](https://www.marketnews.usda.gov/mnp/fv-report-config-step1?type=termPrice) distributed by the United States Department of Agriculture.
 
 ### Preparing data
 
-This data is in the public domain. It can be downloaded in many separate files, per city, from the USDA web site. To avoid too many separate files, we have concatenated all the city data into one spreadsheet, thus we have already _prepared_ the data a bit. Next, let's take a closer look at the data.
+This data is in the public domain. It can be downloaded in many separate files, per city, from the USDA website. To avoid too many separate files, we have concatenated all the city data into one spreadsheet, thus we have already _prepared_ the data a bit. Next, let's take a closer look at the data.
 
 ### The pumpkin data - early conclusions
 
