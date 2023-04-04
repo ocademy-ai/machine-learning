@@ -268,10 +268,10 @@ This is a great moment to think about all the ways you could correct this issue.
 
 ## Self study
 
-You can use this tool to visualize sample data points and determine its centroids.
+You can use this tool to visualize sample data points and determine their centroids.
 
 - [such as this one](https://user.ceng.metu.edu.tr/~akifakkus/courses/ceng574/k-means/)
-- [this handout on K-Means](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html) 
+- [this handout on K-Means](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
 
 ## Acknowledgments
 

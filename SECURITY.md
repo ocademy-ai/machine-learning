@@ -1,14 +1,14 @@
-Thanks for helping make Open Academy safe for everyone.
+Thanks for helping make Ocademy safe for everyone.
 
 ## Security
 
-Open Academy takes the security of our software products and services seriously, including all of the open source code repositories managed through our Open Academy organizations.
+Ocademy takes the security of our software products and services seriously, including all of the open-source code repositories managed through our Ocademy organizations.
 
 We will ensure that your finding gets passed along to the appropriate maintainers for remediation. 
 
 ## Reporting Security Issues
 
-If you believe you have found a security vulnerability in any Open Academy-owned repository, please report it to us through coordinated disclosure.
+If you believe you have found a security vulnerability in any Ocademy-owned repository, please report it to us through coordinated disclosure.
 
 **Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.**
 

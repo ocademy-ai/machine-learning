@@ -16,28 +16,21 @@ kernelspec:
 
 # Convolutional Neural Networks
 
-
-
 ```{epigraph}
 Thanks to Convolutional Neural Network, computer vision is working far better than just two years ago, and this is enabling numerous exciting applications ranging from safe autonomous driving, to accurate face recognition, to automatic reading of radiology images.
 
 -- Andrew Ng
 ```
 
-
-
 Convolutional Neural Networks (CNNs) are responsible for the latest major breakthroughs in image recognition in the past few years.
 
-In mathematics, a convolution is a function which is applied over the output of another function. In our case, we will consider applying a matrix mutliplication (filter) across an image. See the below diagram for an example of how this may work.
-
-
+In mathematics, a convolution is a function that is applied over the output of another function. In our case, we will consider applying a matrix multiplication (filter) across an image. See the below diagram for an example of how this may work.
 
 :::{figure-md} 01_intro_cnn-dl
 <img src="../../images/deep-learning/CNN/01_intro_cnn.png" width="90%" class="bg-white mb-1">
 
 Illustration of matrix mutliplication (filter) in CNN {cite}`reluwiki`
 :::
-
 
 <p style="text-align: center;">
 <iframe src="../html/conv-demo/index.html" width="105%" height="700px;" style="border:none;"></iframe>
@@ -46,20 +39,17 @@ A demo of convolution function. <a href="https://cs231n.github.io/convolutional-
 
 CNNs generally follow a structure. The main convolutional setup is (input array) -> (convolutional filter layer) -> (Pooling) -> (Activation layer). The above diagram depicts how a convolutional layer may create one feature. Generally, filters are multidimensional and end up creating many features. It is also common to have a completely separate filter-feature creator of different sizes acting on the same layer. After this convolutional filter, it is common to apply a pooling layer. This pooling may be a max-pooling or an average pooling or another aggregation. One of the key concepts here is that the pooling layer has no parameters while decreasing the layer size. See the below diagram for an example of max-pooling.
 
-
-
 :::{figure-md} 01_intro_cnn2-dl
 <img src="../../images/deep-learning/CNN/01_intro_cnn2.png" width="90%" class="bg-white mb-1">
 
 Illustration of max pooling
 :::
 
-
-After the max pooling, there is generally an activation layer. One of the more common activation layers is the ReLU (Rectified Linear Unit) {cite}`reluwiki` .
+After the max pooling, there is generally an activation layer. One of the more common activation layers is the ReLU (Rectified Linear Unit) {cite}`reluwiki`.
 
 ## MNIST handwritten digits
-Here we illustrate how to use a simple CNN with three convolutional units to predict the MNIST handwritten digits. 
 
+Here we illustrate how to use a simple CNN with three convolutional units to predict the MNIST handwritten digits. 
 
 ```{note}
 There is good reason why this dataset is used like the 'hello world' of image recognition, it is fairly compact while having a decent amount of training, test, and validation data. It only has one channel (black and white) and only ten possible outputs (0-9).
@@ -67,18 +57,13 @@ There is good reason why this dataset is used like the 'hello world' of image re
 
 When the script is done training the model, you should see similar output to the following graphs.
 
-
-
 :::{figure-md} 02_cnn1_loss_acc-dl
 <img src="../../images/deep-learning/CNN/02_cnn1_loss_acc.png" width="90%" class="bg-white mb-1">
 
 Train MINIST dataset with CNN: accuracy and loss
 :::
 
-
 Training and test loss (left) and test batch accuracy (right).
-
-
 
 :::{figure-md} 02_cnn1_mnist_output-dl
 <img src="../../images/deep-learning/CNN/02_cnn1_mnist_output.png" width="90%" class="bg-white mb-1">
@@ -86,10 +71,10 @@ Training and test loss (left) and test batch accuracy (right).
 Train MINIST dataset with CNN: prediction output
 :::
 
-
 A random set of 6 digits with actual and predicted labels. You can see a prediction failure in the lower right box.
 
 ### Code
+
 ```{code-cell}
 # In this example, we will download the MNIST handwritten
 # digits and create a simple CNN network to predict the
@@ -283,7 +268,6 @@ for i in range(6):
     frame.axes.get_yaxis().set_visible(False)
 ```
 
-
 ## CIFAR-10
 
 ```{seealso}
@@ -292,8 +276,7 @@ Alex Krizhevsky, Vinod Nair, and Geoffrey Hinton. [CIFAR-10 and CIFAR-100 datase
 
 Here we will build a convolutional neural network to predict the `CIFAR-10` data.
 
-The script provided will download and unzip the `CIFAR-10` data. Then it will start training a CNN from scratch. You should see similar output at the end to the following two graphs.
-
+The script provided will download and unzip the `CIFAR-10` data. Then it will start training a CNN from scratch. You should see similar output at the end of the following two graphs.
 
 :::{figure-md} 03_cnn2_loss_acc-dl
 <img src="../../images/deep-learning/CNN/03_cnn2_loss_acc.png" width="90%" class="bg-white mb-1">
@@ -304,6 +287,7 @@ Train `CIFAR-10` dataset with CNN: accuracy and loss
 Here we see the training loss (left) and the test batch accuracy (right).
 
 ### Code
+
 ```{code-cell}
 # In this example, we will download the CIFAR-10 images
 # and build a CNN model with dropout and regularization
@@ -611,9 +595,10 @@ plt.ylabel('Accuracy')
 plt.show()
 ```
 
+## How to fine-tune current CNN architectures?
 
-## How to Fine-tune Current CNN Architectures?
-The purpose of the script provided in this section is to download the CIFAR-10 data, and sort it out in the proper folder structure for running it through the TensorFlow fine-tuning tutorial. The script should create the following folder structure.
+The purpose of the script provided in this section is to download the CIFAR-10 data and sort it out in the proper folder structure for running it through the TensorFlow fine-tuning tutorial. The script should create the following folder structure.
+
 ```{code-cell}
 -train_dir
   |--airplane
@@ -640,6 +625,7 @@ The purpose of the script provided in this section is to download the CIFAR-10 d
 ```
 
 ### Code
+
 ```{code-cell}
 # In this script, we download the CIFAR-10 images and
 # transform/save them in the Inception Retraining Format
@@ -734,16 +720,16 @@ with open(cifar_labels_file, 'w') as labels_file:
         labels_file.write("{}\n".format(item))
 ```
 
-
 ## Stylenet / Neural-Style
-The purpose of this script is to illustrate how to do stylenet in TensorFlow. We reference the following paper(link: https://arxiv.org/abs/1508.06576) for this algorithm.
 
-But there is some prerequisites
+The purpose of this script is to illustrate how to do stylenet in TensorFlow. We reference the following [paper](https://arxiv.org/abs/1508.06576) for this algorithm.
+
+But there is some prerequisites,
+
 - Download the `VGG-verydeep-19.mat` file.
 - You must download two images, a style image and a content image for the algorithm to blend.
 
 The style image is
-
 
 :::{figure-md} starry_night-dl
 <img src="../../images/deep-learning/CNN/starry_night.jpg" width="90%" class="bg-white mb-1">
@@ -751,8 +737,7 @@ The style image is
 Style image: starry night
 :::
 
-The context image is
-
+The context image is below.
 
 :::{figure-md} book_cover-dl
 <img src="../../images/deep-learning/CNN/book_cover.jpg" width="90%" class="bg-white mb-1">
@@ -762,7 +747,6 @@ Content image: book cover
 
 The final result looks like
 
-
 :::{figure-md} 05_stylenet_ex-dl
 <img src="../../images/deep-learning/CNN/05_stylenet_ex.png" width="90%" class="bg-white mb-1">
 
@@ -770,6 +754,7 @@ stylenet final result
 :::
 
 ### Code
+
 ```{code-cell}
 # We use two images, an original image and a style image
 # and try to make the original image in the style of the style image.
@@ -977,7 +962,6 @@ Note: There is no new code in this script. It originates from the TensorFlow tut
 
 Here are some potential outputs.
 
-
 :::{figure-md} 06_deepdream_ex-dl
 <img src="../../images/deep-learning/CNN/06_deepdream_ex.png" width="90%" class="bg-white mb-1">
 
@@ -985,6 +969,7 @@ Deepdream outputs
 :::
 
 ### Code
+
 ```{code-cell}
 # Using TensorFlow for Deep Dream
 #---------------------------------------
@@ -1187,12 +1172,13 @@ TBD.
 ## Self study
 
 You can refer to those YouTube videos for further study:
+
 - [Convolutional Neural Networks (CNNs) explained, by deeplizard](https://www.youtube.com/watch?v=YRhxdVk_sIs)
 - [Convolutional Neural Networks Explained (CNN Visualized), by Futurology](https://www.youtube.com/watch?v=pj9-rr1wDhM)
 
 ### Research trend
 
-State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning in 2020 :
+State of the Art Convolutional Neural Networks (CNNs) Explained | Deep Learning in 2020:
 
 <div class="yt-container">
    <iframe src="https://www.youtube.com/embed/YUyec4eCEiY" allowfullscreen></iframe>
