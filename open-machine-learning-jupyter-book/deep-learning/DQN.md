@@ -230,71 +230,132 @@ Main categories of reinforcement learning algorithms
 
 ## Code
 
-Cartpole Game is a classical example for RL and it is built on a Markov chain model that I give illustration below.
-
-:::{figure-md} 01_cartpolegame
-<img src="../../images/deep-learning/DQN/01_cartpolegame.png" width="90%" class="bg-white mb-1">
-
-Illustration of cartpole game
-:::
-
-```{note}
-Requires tensorflow==2.1.0
-```
+This is an example of DQN discrete model.
 
 ```{code-cell}
-import numpy as np
-import gym
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Activation, Flatten
+import wandb
+import tensorflow as tf
+from tensorflow.keras.layers import Input, Dense
 from tensorflow.keras.optimizers import Adam
 
-from rl.agents.dqn import DQNAgent
-from rl.policy import BoltzmannQPolicy
-from rl.memory import SequentialMemory
+import gym
+import argparse
+import numpy as np
+from collections import deque
+import random
+
+tf.keras.backend.set_floatx('float64')
+wandb.init(name='DQN', project="deep-rl-tf2")
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--gamma', type=float, default=0.95)
+parser.add_argument('--lr', type=float, default=0.005)
+parser.add_argument('--batch_size', type=int, default=32)
+parser.add_argument('--eps', type=float, default=1.0)
+parser.add_argument('--eps_decay', type=float, default=0.995)
+parser.add_argument('--eps_min', type=float, default=0.01)
+
+args = parser.parse_args()
+
+class ReplayBuffer:
+    def __init__(self, capacity=10000):
+        self.buffer = deque(maxlen=capacity)
+    
+    def put(self, state, action, reward, next_state, done):
+        self.buffer.append([state, action, reward, next_state, done])
+    
+    def sample(self):
+        sample = random.sample(self.buffer, args.batch_size)
+        states, actions, rewards, next_states, done = map(np.asarray, zip(*sample))
+        states = np.array(states).reshape(args.batch_size, -1)
+        next_states = np.array(next_states).reshape(args.batch_size, -1)
+        return states, actions, rewards, next_states, done
+    
+    def size(self):
+        return len(self.buffer)
+
+class ActionStateModel:
+    def __init__(self, state_dim, aciton_dim):
+        self.state_dim  = state_dim
+        self.action_dim = aciton_dim
+        self.epsilon = args.eps
+        
+        self.model = self.create_model()
+    
+    def create_model(self):
+        model = tf.keras.Sequential([
+            Input((self.state_dim,)),
+            Dense(32, activation='relu'),
+            Dense(16, activation='relu'),
+            Dense(self.action_dim)
+        ])
+        model.compile(loss='mse', optimizer=Adam(args.lr))
+        return model
+    
+    def predict(self, state):
+        return self.model.predict(state)
+    
+    def get_action(self, state):
+        state = np.reshape(state, [1, self.state_dim])
+        self.epsilon *= args.eps_decay
+        self.epsilon = max(self.epsilon, args.eps_min)
+        q_value = self.predict(state)[0]
+        if np.random.random() < self.epsilon:
+            return random.randint(0, self.action_dim-1)
+        return np.argmax(q_value)
+
+    def train(self, states, targets):
+        self.model.fit(states, targets, epochs=1, verbose=0)
+    
+
+class Agent:
+    def __init__(self, env):
+        self.env = env
+        self.state_dim = self.env.observation_space.shape[0]
+        self.action_dim = self.env.action_space.n
+
+        self.model = ActionStateModel(self.state_dim, self.action_dim)
+        self.target_model = ActionStateModel(self.state_dim, self.action_dim)
+        self.target_update()
+
+        self.buffer = ReplayBuffer()
+
+    def target_update(self):
+        weights = self.model.model.get_weights()
+        self.target_model.model.set_weights(weights)
+    
+    def replay(self):
+        for _ in range(10):
+            states, actions, rewards, next_states, done = self.buffer.sample()
+            targets = self.target_model.predict(states)
+            next_q_values = self.target_model.predict(next_states).max(axis=1)
+            targets[range(args.batch_size), actions] = rewards + (1-done) * next_q_values * args.gamma
+            self.model.train(states, targets)
+    
+    def train(self, max_episodes=1000):
+        for ep in range(max_episodes):
+            done, total_reward = False, 0
+            state = self.env.reset()
+            while not done:
+                action = self.model.get_action(state)
+                next_state, reward, done, _ = self.env.step(action)
+                self.buffer.put(state, action, reward*0.01, next_state, done)
+                total_reward += reward
+                state = next_state
+            if self.buffer.size() >= args.batch_size:
+                self.replay()
+            self.target_update()
+            print('EP{} EpisodeReward={}'.format(ep, total_reward))
+            wandb.log({'Reward': total_reward})
 
 
-ENV_NAME = 'CartPole-v0'
+def main():
+    env = gym.make('CartPole-v1')
+    agent = Agent(env)
+    agent.train(max_episodes=1000)
 
-
-# Get the environment and extract the number of actions.
-env = gym.make(ENV_NAME)
-np.random.seed(123)
-env.seed(123)
-nb_actions = env.action_space.n
-
-# Next, we build a very simple model.
-model = Sequential()
-model.add(Flatten(input_shape=(1,) + env.observation_space.shape))
-model.add(Dense(16))
-model.add(Activation('relu'))
-model.add(Dense(16))
-model.add(Activation('relu'))
-model.add(Dense(16))
-model.add(Activation('relu'))
-model.add(Dense(nb_actions))
-model.add(Activation('linear'))
-print(model.summary())
-
-# Finally, we configure and compile our agent. You can use every built-in tensorflow.keras optimizer and
-# even the metrics!
-memory = SequentialMemory(limit=50000, window_length=1)
-policy = BoltzmannQPolicy()
-dqn = DQNAgent(model=model, nb_actions=nb_actions, memory=memory, nb_steps_warmup=10,
-               target_model_update=1e-2, policy=policy)
-dqn.compile(Adam(learning_rate=1e-3), metrics=['mae'])
-
-# Okay, now it's time to learn something! We visualize the training here for show, but this
-# slows down training quite a lot. You can always safely abort the training prematurely using
-# Ctrl + C.
-dqn.fit(env, nb_steps=50000, visualize=True, verbose=2)
-
-# After training is done, we save the final weights.
-dqn.save_weights(f'dqn_{ENV_NAME}_weights.h5f', overwrite=True)
-
-# Finally, evaluate our algorithm for 5 episodes.
-dqn.test(env, nb_episodes=5, visualize=True)
+if __name__ == "__main__":
+    main()
 ```
 
 ## Your turn! 🚀
@@ -309,7 +370,7 @@ You can refer to this website for further study:
 
 ## Acknowledgments
 
-Thanks to [Paderborn University - LEA](https://github.com/upb-lea) for creating the open-source course [reinforcement_learning_course_materials](https://github.com/upb-lea/reinforcement_learning_course_materials) and [YubiHunter](https://github.com/tensorneko) for creating the open-source project [keras-rl2](https://github.com/tensorneko/keras-rl2). They inspire the majority of the content in this chapter.
+Thanks to [Paderborn University - LEA](https://github.com/upb-lea) for creating the open-source course [reinforcement_learning_course_materials](https://github.com/upb-lea/reinforcement_learning_course_materials) and [River](https://github.com/marload) for creating the open-source project [DeepRL-TensorFlow2](https://github.com/marload/DeepRL-TensorFlow2). They inspire the majority of the content in this chapter.
 
 ---
 
