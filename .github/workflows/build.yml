@@ -1,0 +1,27 @@
+name: Add new sources of in to the chat model # Name of the workflow
+on:
+  push: # Trigger the workflow on push events
+    paths:
+      - '**' # Watch for changes in all paths using the wildcard '**'
+
+jobs:
+  get_links: # Define a job
+    runs-on: ubuntu-latest # Run on the latest version of Ubuntu
+    steps:
+      - name: Checkout code # Name of the step
+        uses: actions/checkout@v2 # Use the 'actions/checkout' action to check out the latest version of the repository
+      - name: Check for new files # Name of the step
+        id: new_files # Set an ID for the step to reference its output later
+        run: | # Command-line script
+          echo "Checking for new files..." # Output a message
+          if [ "$(git diff --name-only HEAD^ HEAD)" ]; then # If new files exist, do the following
+            echo "New files detected. Getting file links..." # Output a message
+            FILE_LINKS=($(git diff --name-only HEAD^ HEAD | awk '{print "https://github.com/" $1 "/blob/" $2}')) # Get the links for the new files and store them in the FILE_LINKS variable
+            echo "::set-output name=links::${FILE_LINKS[*]}" # Save the value of the FILE_LINKS variable to outputs.links to reference it later
+          else # If no new files exist, do the following
+            echo "No new files detected." # Output a message
+      - name: Save links to file # Name of the step
+        if: steps.new_files.outputs.links # Run only if the links output exists
+        run: | # Command-line script
+          echo "${{ steps.new_files.outputs.links }}" >> links.txt # Save the links output to a file named links.txt
+
