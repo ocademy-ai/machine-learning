@@ -1451,7 +1451,7 @@ limitations under the License.</p>
 <span class="sd">    Args:</span>
 <span class="sd">        df (DataFrame): a data structure</span>
 <span class="sd">        column_name (string): the column name to encode</span>
-<span class="sd">        encoded_column_name(string): the new column name for the encoded result</span>
+<span class="sd">        encoded_column_name (string): the new column name for the encoded result</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None.&quot;</span><span class="p">)</span>
@@ -1517,14 +1517,73 @@ class TestLabelEncode(unittest.TestCase):
 </div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_hot_encode</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">encoded_column_name_prefix</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="n">encoded_column_name_prefix</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforms a column in a DataFrame from a string to dummy variables.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        df (DataFrame): a data structure</span>
+<span class="sd">        column_name (string): the name of the column to be encoded</span>
+<span class="sd">        encoded_column_name_prefix (string): the prefix to be added to the names of the encoded columns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">____</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">____</span><span class="p">],</span> <span class="n">prefix</span><span class="o">=</span><span class="n">____</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<h5><font color=blue>Check result by executing below... 📝</font></h5><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+from pandas.testing import assert_frame_equal
+
+def create_test_df():
+    return pd.DataFrame({&quot;Embarked&quot;: [&quot;S&quot;, &quot;C&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;C&quot;]})
+
+
+class TestOneHotEncode(unittest.TestCase):
+    def test_one_hot_encode_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expected_result = pd.DataFrame(
+            {
+                &quot;Embarked&quot;: [&quot;S&quot;, &quot;C&quot;, &quot;Q&quot;, &quot;S&quot;, &quot;C&quot;],
+                &quot;Embarked_Val_C&quot;: [0, 1, 0, 0, 1],
+                &quot;Embarked_Val_Q&quot;: [0, 0, 1, 0, 0],
+                &quot;Embarked_Val_S&quot;: [1, 0, 0, 1, 0],
+            }
+        )
+
+        # act
+        actual_result = one_hot_encode(test_df, &quot;Embarked&quot;, &quot;Embarked_Val&quot;)
+
+        # assert
+        assert_frame_equal(actual_result, expected_df)
+
+    def test_one_hot_encode_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            one_hot_encode(None, &quot;Embarked&quot;, &quot;Embarked_Val&quot;)
+
+    def test_one_hot_encode_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            one_hot_encode(pd.DataFrame(), &quot;Embarked&quot;, &quot;Embarked_Val&quot;)
+
+    def test_one_hot_encode_invalid_column_name(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            one_hot_encode(test_df, &quot;invalid_column_name&quot;, &quot;Embarked_Val&quot;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="alert alert-info">
+<details><summary>👩‍💻 <b>Hint</b></summary>
+<p>Refer to <a href="https://pandas.pydata.org/docs/user_guide/indexing.html">indexin and selecting data on</a> <code>pandas.DataFrame</code>.<br>
+You can consider to use <code>pandas.concat</code> and <code>pandas.get_dummies</code>.</p>
+</details>
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">impute_with_mean</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">imputed_column_name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Impute the gaps with the mean.</span>
@@ -1532,7 +1591,7 @@ class TestLabelEncode(unittest.TestCase):
 <span class="sd">    Args:</span>
 <span class="sd">        df (DataFrame): a data structure</span>
 <span class="sd">        column_name (string): the column name to impute</span>
-<span class="sd">        encoded_column_name(string): the new column name for the imputed result</span>
+<span class="sd">        encoded_column_name (string): the new column name for the imputed result</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">____</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">imputed_column_name</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">____</span><span class="p">]</span><span class="o">.</span><span class="n">____</span><span class="p">()</span>
@@ -1596,8 +1655,8 @@ class TestCleanFare(unittest.TestCase):
 <span class="sd">    Args:</span>
 <span class="sd">        df (DataFrame): a data structure</span>
 <span class="sd">        column_name (string): the column name to impute</span>
-<span class="sd">        column_value_fill(string): the new column name for the imputed result</span>
-<span class="sd">        column_value(string): determine the column name typical for each passenger class by sex value</span>
+<span class="sd">        column_value_fill (string): the new column name for the imputed result</span>
+<span class="sd">        column_value (string): determine the column name typical for each passenger class by sex value</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">df</span><span class="p">[</span><span class="n">column_value_fill</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">____</span><span class="p">]</span>
     <span class="n">df</span><span class="p">[</span><span class="n">column_value_fill</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -1612,6 +1671,8 @@ class TestCleanFare(unittest.TestCase):
 <h5><font color=blue>Check result by executing below... 📝</font></h5><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+from pandas.testing import assert_frame_equal
 
 def create_test_df():
     return pd.DataFrame(
@@ -1717,8 +1778,6 @@ class TestCleanFare(unittest.TestCase):
         impute_with_median(test_df, &quot;Age&quot;, &quot;Age_median_impute&quot;, &quot;Sex_Val&quot;)
 
         # assert
-        from pandas.testing import assert_frame_equal
-
         assert_frame_equal(test_df, expected_df)
 
     def test_impute_with_median_with_none_df(self):
@@ -1801,7 +1860,7 @@ class TestCleanFare(unittest.TestCase):
 <span class="k">def</span> <span class="nf">create_sub_plot_2_grid</span><span class="p">(</span>
     <span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">plot_title</span><span class="p">,</span> <span class="n">plot_kind</span><span class="p">,</span> <span class="n">plot_color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">plot_align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span>
 <span class="p">):</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">____</span><span class="p">]</span><span class="o">.</span><span class="n">____</span><span class="p">()</span><span class="o">.</span><span class="n">____</span><span class="p">(</span>
         <span class="n">kind</span><span class="o">=</span><span class="n">plot_kind</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">plot_title</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">plot_color</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="n">plot_align</span>
     <span class="p">)</span>
 
@@ -1833,22 +1892,31 @@ class TestCleanFare(unittest.TestCase):
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="alert alert-info">
+<details><summary>👩‍💻 <b>Hint</b></summary>
+<p>Refer to <a href="https://pandas.pydata.org/docs/user_guide/indexing.html">indexin and selecting data on</a> <code>pandas.DataFrame</code>.<br>
+You can consider to use <code>pandas.Series.value_counts</code> and <code>pandas.DataFrame.plot</code>.</p>
+</details>
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the unique values of Embarked and its maximum</span>
-<span class="n">family_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;FamilySize&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">family_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;FamilySize&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
 <span class="n">family_size_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">family_sizes</span><span class="p">)</span>
 
 <span class="n">df1</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">][</span><span class="s2">&quot;FamilySize&quot;</span><span class="p">]</span>
 <span class="n">df2</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;FamilySize&quot;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">family_size_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">family_size_max</span><span class="p">),</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">____</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">family_size_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">family_size_max</span><span class="p">),</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s2">&quot;Died&quot;</span><span class="p">,</span> <span class="s2">&quot;Survived&quot;</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Survivors by Family Size&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</section>
+<div class="alert alert-info">
+<details><summary>👩‍💻 <b>Hint</b></summary>
+You can consider to use <code>numpy.sort</code> and use <code>matplotlib.pyplot.hist</code> to plot.
+</details>
+</div></section>
 <section class="tex2jax_ignore mathjax_ignore" id="normalized-plots">
 <h1><span class="section-number">39.33. </span>Normalized Plots<a class="headerlink" href="#normalized-plots" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
@@ -1856,9 +1924,9 @@ class TestCleanFare(unittest.TestCase):
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pclass_xt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">])</span>
 
 <span class="c1"># Normalize the cross tab to sum to 1:</span>
-<span class="n">pclass_xt_pct</span> <span class="o">=</span> <span class="n">pclass_xt</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">pclass_xt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">pclass_xt_pct</span> <span class="o">=</span> <span class="n">pclass_xt</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">pclass_xt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">pclass_xt_pct</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Survival Rate by Passenger Classes&quot;</span><span class="p">)</span>
+<span class="n">pclass_xt_pct</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Survival Rate by Passenger Classes&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Passenger Class&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Survival Rate&quot;</span><span class="p">)</span>
 </pre></div>
@@ -1868,9 +1936,17 @@ class TestCleanFare(unittest.TestCase):
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_survival_rate_by_gender</span><span class="p">(</span><span class="n">gender</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the survival rate for a given gender.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        gender (string): gender for prediction of survival rate</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        a DataFrame containing the survival rate of passengers of the specified gender in each passenger class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">gender_df</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">gender</span><span class="p">]</span>
     <span class="n">gender_xt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">gender_df</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">])</span>
-    <span class="n">gender_xt_pct</span> <span class="o">=</span> <span class="n">gender_xt</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">gender_xt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">gender_xt_pct</span> <span class="o">=</span> <span class="n">gender_xt</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">gender_xt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">gender_xt_pct</span>
 
 
@@ -1878,7 +1954,7 @@ class TestCleanFare(unittest.TestCase):
 <span class="n">gender_xt_pct</span> <span class="o">=</span> <span class="n">get_survival_rate_by_gender</span><span class="p">(</span><span class="s2">&quot;female&quot;</span><span class="p">)</span>
 
 
-<span class="n">gender_xt_pct</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="n">gender_xt_pct</span><span class="o">.</span><span class="n">____</span><span class="p">(</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Female Survival Rate by Passenger Class&quot;</span>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Passenger Class&quot;</span><span class="p">)</span>
@@ -1889,9 +1965,9 @@ class TestCleanFare(unittest.TestCase):
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot survival rate by Pclass)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot survival rate by Pclass</span>
 <span class="n">gender_xt_pct</span> <span class="o">=</span> <span class="n">get_survival_rate_by_gender</span><span class="p">(</span><span class="s2">&quot;male&quot;</span><span class="p">)</span>
-<span class="n">gender_xt_pct</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+<span class="n">gender_xt_pct</span><span class="o">.</span><span class="n">____</span><span class="p">(</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Male Survival Rate by Passenger Class&quot;</span>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Passenger Class&quot;</span><span class="p">)</span>
@@ -1900,7 +1976,11 @@ class TestCleanFare(unittest.TestCase):
 </div>
 </div>
 </div>
-</section>
+<div class="alert alert-info">
+<details><summary>👩‍💻 <b>Hint</b></summary>
+You can consider to use <code>pandas.DataFrame.div</code> and <code>pandas.DataFrame.plot</code>.
+</details>
+</div></section>
 <section class="tex2jax_ignore mathjax_ignore" id="scatter-plots-subplots">
 <h1><span class="section-number">39.34. </span>Scatter Plots, subplots<a class="headerlink" href="#scatter-plots-subplots" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
@@ -1909,23 +1989,32 @@ class TestCleanFare(unittest.TestCase):
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize_with_subplots</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_Histogram_of_AgeFill_segmented_by_Survived</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_number</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">column_number</span><span class="p">][</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">get_age_by_survived</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">survived</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get passenger age from survived.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        df (DataFrame): a data structure</span>
+<span class="sd">        survived (int): a binary variable indicating whether age information is to be returned</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        a Pandas Series containing the age of all passengers with the specified survival status</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">survived</span><span class="p">][</span><span class="s2">&quot;Age&quot;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">df</span>
 
 
-<span class="n">df1</span> <span class="o">=</span> <span class="n">get_Histogram_of_AgeFill_segmented_by_Survived</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">df2</span> <span class="o">=</span> <span class="n">get_Histogram_of_AgeFill_segmented_by_Survived</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">get_age_by_survived</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">get_age_by_survived</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">max_age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;AgeFill&quot;</span><span class="p">]))</span>
 
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">max_age</span> <span class="o">/</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_age</span><span class="p">),</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">____</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">max_age</span> <span class="o">/</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_age</span><span class="p">),</span> <span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s2">&quot;Died&quot;</span><span class="p">,</span> <span class="s2">&quot;Survived&quot;</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Survivors by Age Groups Histogram&quot;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
 
 <span class="c1"># Scatter plot Survived and AgeFill</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;AgeFill&quot;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;Survived&quot;</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s2">&quot;AgeFill&quot;</span><span class="p">])</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Survivors by Age Plot&quot;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Survived&quot;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
@@ -1933,16 +2022,25 @@ class TestCleanFare(unittest.TestCase):
 </div>
 </div>
 </div>
-</section>
+<div class="alert alert-info">
+<details><summary>👩‍💻 <b>Hint</b></summary>
+You can consider to use <code>matplotlib.axes.Axes.hist</code> and <code>matplotlib.axes.Axes.scatter</code>.
+</details>
+</div></section>
 <section class="tex2jax_ignore mathjax_ignore" id="kernel-density-estimation-plots">
 <h1><span class="section-number">39.35. </span>Kernel Density Estimation Plots<a class="headerlink" href="#kernel-density-estimation-plots" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the unique values of Pclass:</span>
 <span class="k">def</span> <span class="nf">get_the_unique_values_of_Pclass</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">passenger_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the column &#39;AgeFill&#39; for each unique value of pclass in the input DataFrame.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        df (DataFrame): a data structure</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">passenger_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">pclass</span> <span class="ow">in</span> <span class="n">passenger_classes</span><span class="p">:</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">AgeFill</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">Pclass</span> <span class="o">==</span> <span class="n">pclass</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">)</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;AgeFill&quot;</span><span class="p">][</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Pclass&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pclass</span><span class="p">]</span><span class="o">.</span><span class="n">____</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">)</span>
 
 
 <span class="n">get_the_unique_values_of_Pclass</span><span class="p">(</span><span class="n">df_train</span><span class="p">)</span>
@@ -1953,7 +2051,11 @@ class TestCleanFare(unittest.TestCase):
 </div>
 </div>
 </div>
-<section id="acknowledgments">
+<div class="alert alert-info">
+<details><summary>👩‍💻 <b>Hint</b></summary>
+You can consider to use <code>numpy.sort</code> and <code>pandas.DataFrame.plot</code>.<br>
+</details>
+</div><section id="acknowledgments">
 <h2><span class="section-number">39.35.1. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
 <p>Thanks to Donne Martin for creating the open-source project <a href="https://github.com/donnemartin/data-science-ipython-notebooks">data-science-ipython-notebooks</a>, which inspires the majority of the content in this chapter.</p>
 </section>
@@ -1968,16 +2070,16 @@ class TestCleanFare(unittest.TestCase):
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "my_conda1"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "my_conda1",
             path: "./assignments/data-science"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'my_conda1'</script>
     <script type="text/javascript">
         function init() {
             WaveDrom.ProcessAll();
