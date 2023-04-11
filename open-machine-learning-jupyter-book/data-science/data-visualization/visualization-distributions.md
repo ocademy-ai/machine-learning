@@ -67,7 +67,7 @@ Filter your data to get only those birds whose body mass is under 60, and show 4
 
 ```{code-cell}
 filteredBirds = birds[(birds['MaxBodyMass'] > 1) & (birds['MaxBodyMass'] < 60)]      
-filteredBirds['MaxBodyMass'].plot(kind = 'hist',bins = 40,figsize = (12,12))
+filteredBirds['MaxBodyMass'].plot(kind='hist', bins=40, figsize=(12,12))
 plt.show()     
 ```
 

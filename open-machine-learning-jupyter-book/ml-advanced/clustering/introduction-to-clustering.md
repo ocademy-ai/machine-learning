@@ -117,7 +117,7 @@ Clustering as a technique is greatly aided by proper visualization, so let's get
 
 2. Import the `Seaborn` package for good data visualization.
 
-```python
+```bash
 !pip install seaborn
 ```
 
