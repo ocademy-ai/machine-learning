@@ -1,4 +1,4 @@
-# Import Python Packages
+## Import Python Packages
 import os
 import platform
 import textwrap
@@ -20,17 +20,17 @@ from langchain.document_loaders.base import BaseLoader
 
 
 
-# OpenAI API Key
+## OpenAI API Key
 os.environ["OPENAI_API_KEY"] = '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'
 
 
 
-# Configure Chroma
+## Configure Chroma
 persist_directory = "vector-db-persist-directory"
 
 
 
-# Convert Document to Embedding
+## Convert Document to Embedding
 class OpenAcademySourcesLoader(BaseLoader):
     """Loader that uses urllib to load .txt web files."""
 
@@ -55,10 +55,18 @@ def get_openacademysources(path):
     return data
 
 
+def markdown_to_python(markdown_text):
+    # Escape quotes and backslashes in the input
+    escaped_input = markdown_text.replace("\\", "\\\\").replace("'", "\\'")
+
+    # Generate the Python string
+    python_string = f"'{escaped_input}'"
+
+    return python_string
+
+
 
 ## Load the data
-import requests
-
 # Set the defualt URL prefix
 defaultURLPrefix = "https://open-academy.github.io"
 _sources_path = '_sources_merged.md'
@@ -81,3 +89,44 @@ with open(_sources_path, 'w') as f:
         response = requests.get(url, verify=False)
         f.write(response.text)
         f.write('\n')
+
+
+# loader.load()
+_sources_data = get_openacademysources(_sources_path)
+
+# Initializing a TokenTextSplitter object to split the text into chunks of 1000 tokens with 0 token overlap
+text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)
+
+# Splitting the Romeo and Juliet text into chunks using the TokenTextSplitter object
+_sources_data_doc = text_splitter.split_documents(_sources_data)
+
+# Initializing an OpenAIEmbeddings object for word embeddings
+embeddings = OpenAIEmbeddings()
+
+# Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk
+vectordb = Chroma.from_documents(_sources_data_doc, embeddings, persist_directory=persist_directory)
+
+# This can be used to explicitly persist the data to disk. It will also be called automatically when the object is destroyed.
+vectordb.persist()
+
+
+
+## Configure LangChain QA
+romeoandjuliet_qa = ChatVectorDBChain.from_llm(OpenAI(temperature=1, model_name="gpt-3.5-turbo"), vectordb, return_source_documents=True)
+
+
+
+## start the conversation
+chat_history = [("", "")]
+count = 0
+
+# while loop for typing
+while 1:
+  markdown_text = input("\nQuery[{}]:".format(count))
+  query = markdown_to_python(markdown_text)
+  result = romeoandjuliet_qa({"question": query, "chat_history": chat_history})
+  chat_history = chat_history + [(query, result["answer"])]
+  formatted_history = "\n".join([f"Question: {q}\nAnswer: {a}" for q, a in chat_history])
+  wrapped_history = textwrap.fill(formatted_history, width=120)
+  print(wrapped_history + "\n")
+  result["answer"]
