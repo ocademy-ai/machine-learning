@@ -21,7 +21,7 @@ from langchain.document_loaders.base import BaseLoader
 
 
 ## OpenAI API Key
-os.environ["OPENAI_API_KEY"] = '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'
+os.environ["OPENAI_API_KEY"] = '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'
 
 
 
@@ -82,7 +82,7 @@ _sources_urls = [
 ]
 
 # Fetch the contents of each file and write to a local Markdown file
-with open(_sources_path, 'w') as f:
+with open(_sources_path, 'w', encoding='utf-8') as f:
     for url in _sources_urls:
         if not url.startswith(defaultURLPrefix):
           raise ValueError("file path must start with '{}'".format(defaultURLPrefix))
@@ -122,11 +122,12 @@ count = 0
 
 # while loop for typing
 while 1:
-  markdown_text = input("\nQuery[{}]:".format(count))
+  markdown_text = input("\nQuery[{}]: ".format(count))
   query = markdown_to_python(markdown_text)
   result = romeoandjuliet_qa({"question": query, "chat_history": chat_history})
+  # update chat_history
   chat_history = chat_history + [(query, result["answer"])]
-  formatted_history = "\n".join([f"Question: {q}\nAnswer: {a}" for q, a in chat_history])
+  formatted_history = "\n".join([f"Question: {q}\nAnswer: {a}\n" for q, a in chat_history])
   wrapped_history = textwrap.fill(formatted_history, width=120)
   print(wrapped_history + "\n")
   result["answer"]
