@@ -1,9 +1,8 @@
 ## Import Python Packages
 import os
-import platform
-import textwrap
+from tkinter import SEL
 import requests
-from typing import List
+from typing import List, Self
 
 import openai
 import chromadb
@@ -20,13 +19,84 @@ from langchain.document_loaders.base import BaseLoader
 
 
 
-## OpenAI API Key
-os.environ["OPENAI_API_KEY"] = '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'
+
+## chatbot agent class
+class ChatbotAgent:
+    def __init__(self, _openai_api_key: str, _sources_urls: List[str], _persist_directory: str):
+        """
+        Initializes an instance of the ChatbotAgent class.
+
+        Args:
+            openai_api_key (str): OpenAI API key.
+            sources_urls (List[str]): URLs of the files to be merged from Project Open-academy.
+            sources_path (str): Path where the merged file will be saved.
+            persist_directory (str): Directory where the Chroma vectors will be persisted.
+        """
+        # Set OpenAI API key
+        self.__openai_api_key = _openai_api_key
+        os.environ["OPENAI_API_KEY"] = self.__openai_api_key
+        self.sources_urls = _sources_urls
+        self.persist_directory = _persist_directory
+
+
+        # Fetch the contents of each file and write to a local Markdown file
+        self.__sources_path = '_sources_merged.md'
+        self.__default_url_prefix = "https://open-academy.github.io"
+        with open(self.__sources_path, "w", encoding="utf-8") as f:
+            for url in self.sources_urls:
+                if not url.startswith(self.__default_url_prefix):
+                    raise ValueError(f"file path must start with '{self.__default_url_prefix}'")
+                response = requests.get(url, verify=False)
+                f.write(response.text)
+                f.write("\n")
+
+        # Initialize the chat history
+        self.chat_history = []
+        self.query = []
+        self.reslut = []
+        self.count = 1 # count the number of times the chatbot has been called
+
+        ## Load the data
+        self.sources_data = self.get_openacademysources(self.__sources_path)
+
+        # Initializing a TokenTextSplitter object to split the text into chunks of 1000 tokens with 0 token overlap
+        text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)
+
+        # Splitting the text into chunks using the TokenTextSplitter object
+        sources_data_doc = text_splitter.split_documents(self.sources_data)
+
+        # Initializing an OpenAIEmbeddings object for word embeddings
+        embeddings = OpenAIEmbeddings()
+
+        # Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk
+        self.vectordb = Chroma.from_documents(sources_data_doc, embeddings, persist_directory=self.persist_directory)
+
+        # This can be used to explicitly persist the data to disk. It will also be called automatically when the object is destroyed.
+        self.vectordb.persist()
+
+        # Configure LangChain QA
+        self.chatbot_qa = ChatVectorDBChain.from_llm(
+            OpenAI(temperature=0, model_name="gpt-3.5-turbo"), self.vectordb, return_source_documents=True
+        )
+
+
+    # Get the data from the merged file
+    def get_openacademysources(self, path):
+        loader = OpenAcademySourcesLoader(path)
+        data = loader.load()
+        return data
 
 
 
-## Configure Chroma
-persist_directory = "vector-db-persist-directory"
+    # Convert Markdown to Python
+    def markdown_to_python(self, markdown_text):
+        # Escape quotes and backslashes in the input
+        escaped_input = markdown_text.replace("\\", "\\\\").replace("'", "\\'")
+
+        # Generate the Python string
+        python_string = f"'{escaped_input}'"
+
+        return python_string
 
 
 
@@ -47,87 +117,3 @@ class OpenAcademySourcesLoader(BaseLoader):
             text = f.read()
         metadata = {"source": self.file_path}
         return [Document(page_content=text, metadata=metadata)]
-
-
-def get_openacademysources(path):
-    loader = OpenAcademySourcesLoader(path)
-    data = loader.load()
-    return data
-
-
-def markdown_to_python(markdown_text):
-    # Escape quotes and backslashes in the input
-    escaped_input = markdown_text.replace("\\", "\\\\").replace("'", "\\'")
-
-    # Generate the Python string
-    python_string = f"'{escaped_input}'"
-
-    return python_string
-
-
-
-## Load the data
-# Set the defualt URL prefix
-defaultURLPrefix = "https://open-academy.github.io"
-_sources_path = '_sources_merged.md'
-
-# URLs of the files to be merged from Project Open-academy
-_sources_urls = [
-    # MACHINE LEARNING PRODUCTIONIZATION
-    'https://open-academy.github.io/machine-learning/_sources/machine-learning-productionization/overview.md',
-    'https://open-academy.github.io/machine-learning/_sources/machine-learning-productionization/problem-framing.md',
-    'https://open-academy.github.io/machine-learning/_sources/machine-learning-productionization/data-engineering.md',
-    'https://open-academy.github.io/machine-learning/_sources/machine-learning-productionization/model-training-and-evaluation.md',
-    'https://open-academy.github.io/machine-learning/_sources/machine-learning-productionization/model-deployment.md',
-]
-
-# Fetch the contents of each file and write to a local Markdown file
-with open(_sources_path, 'w', encoding='utf-8') as f:
-    for url in _sources_urls:
-        if not url.startswith(defaultURLPrefix):
-          raise ValueError("file path must start with '{}'".format(defaultURLPrefix))
-        response = requests.get(url, verify=False)
-        f.write(response.text)
-        f.write('\n')
-
-
-# loader.load()
-_sources_data = get_openacademysources(_sources_path)
-
-# Initializing a TokenTextSplitter object to split the text into chunks of 1000 tokens with 0 token overlap
-text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)
-
-# Splitting the Romeo and Juliet text into chunks using the TokenTextSplitter object
-_sources_data_doc = text_splitter.split_documents(_sources_data)
-
-# Initializing an OpenAIEmbeddings object for word embeddings
-embeddings = OpenAIEmbeddings()
-
-# Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk
-vectordb = Chroma.from_documents(_sources_data_doc, embeddings, persist_directory=persist_directory)
-
-# This can be used to explicitly persist the data to disk. It will also be called automatically when the object is destroyed.
-vectordb.persist()
-
-
-
-## Configure LangChain QA
-romeoandjuliet_qa = ChatVectorDBChain.from_llm(OpenAI(temperature=1, model_name="gpt-3.5-turbo"), vectordb, return_source_documents=True)
-
-
-
-## start the conversation
-chat_history = [("", "")]
-count = 0
-
-# while loop for typing
-while 1:
-  markdown_text = input("\nQuery[{}]: ".format(count))
-  query = markdown_to_python(markdown_text)
-  result = romeoandjuliet_qa({"question": query, "chat_history": chat_history})
-  # update chat_history
-  chat_history = chat_history + [(query, result["answer"])]
-  formatted_history = "\n".join([f"Question: {q}\nAnswer: {a}\n" for q, a in chat_history])
-  wrapped_history = textwrap.fill(formatted_history, width=120)
-  print(wrapped_history + "\n")
-  result["answer"]
