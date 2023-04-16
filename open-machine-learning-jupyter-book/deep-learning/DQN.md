@@ -431,7 +431,7 @@ You can refer to this website for further study:
 
 ## Acknowledgments
 
-Thanks to [Paderborn University - LEA](https://github.com/upb-lea) for creating the open-source course [reinforcement_learning_course_materials](https://github.com/upb-lea/reinforcement_learning_course_materials) and [River](https://github.com/marload) for creating the open-source project [DeepRL-TensorFlow2](https://github.com/marload/DeepRL-TensorFlow2). They inspire the majority of the content in this chapter.
+Thanks to [Paderborn University - LEA](https://github.com/upb-lea) for creating the open-source course [reinforcement_learning_course_materials](https://github.com/upb-lea/reinforcement_learning_course_materials) and [Gergely Pacsuta](https://github.com/pacsuta) for creating the open-source project [tf-nn-maze-solver](https://github.com/pacsuta/tf-nn-maze-solver). They inspire the majority of the content in this chapter.
 
 ---
 
