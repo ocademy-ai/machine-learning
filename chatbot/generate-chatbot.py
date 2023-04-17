@@ -5,10 +5,10 @@ from vectordb import ChatbotAgent
 
 
   #''' GitHub Copilot '''
-# main function	
+# main function
 def main():	
 	## OpenAI API Key
-	os.environ["OPENAI_API_KEY"] = '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'
+	os.environ["OPENAI_API_KEY"] = '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'
 	print("OpenAI API Key Set\n")
 
 	## Configure Chroma
@@ -38,7 +38,7 @@ def main():
 		chatbot_agent.query = chatbot_agent.markdown_to_python(markdown_text)
 		chatbot_agent.result = chatbot_agent.chatbot_qa({"question": chatbot_agent.query, "chat_history": chatbot_agent.chat_history})
 		chatbot_agent.count = chatbot_agent.count + 1
-		# update chat_history	
+		# update chat_history
 		chatbot_agent.chat_history = chatbot_agent.chat_history + [(chatbot_agent.query, chatbot_agent.result["answer"])]
 		# print answer
 		print("Chat Bot: {}\n".format(chatbot_agent.result["answer"]))

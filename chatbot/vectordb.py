@@ -1,8 +1,8 @@
 ## Import Python Packages
 import os
-from tkinter import SEL
+from urllib.parse import non_hierarchical
 import requests
-from typing import List, Self
+from typing import List
 
 import openai
 import chromadb
@@ -29,7 +29,6 @@ class ChatbotAgent:
         Args:
             openai_api_key (str): OpenAI API key.
             sources_urls (List[str]): URLs of the files to be merged from Project Open-academy.
-            sources_path (str): Path where the merged file will be saved.
             persist_directory (str): Directory where the Chroma vectors will be persisted.
         """
         # Set OpenAI API key
@@ -58,12 +57,8 @@ class ChatbotAgent:
 
         ## Load the data
         self.sources_data = self.get_openacademysources(self.__sources_path)
-
-        # Initializing a TokenTextSplitter object to split the text into chunks of 1000 tokens with 0 token overlap
-        text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)
-
-        # Splitting the text into chunks using the TokenTextSplitter object
-        sources_data_doc = text_splitter.split_documents(self.sources_data)
+        text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0) # Initializing a TokenTextSplitter object
+        sources_data_doc = text_splitter.split_documents(self.sources_data) # Splitting the text into chunks
 
         # Initializing an OpenAIEmbeddings object for word embeddings
         embeddings = OpenAIEmbeddings()
@@ -71,12 +66,15 @@ class ChatbotAgent:
         # Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk
         self.vectordb = Chroma.from_documents(sources_data_doc, embeddings, persist_directory=self.persist_directory)
 
-        # This can be used to explicitly persist the data to disk. It will also be called automatically when the object is destroyed.
+        # This can be used to explicitly persist the data to disk. 
+        # It will also be called automatically when the object is destroyed.
         self.vectordb.persist()
 
         # Configure LangChain QA
         self.chatbot_qa = ChatVectorDBChain.from_llm(
-            OpenAI(temperature=0, model_name="gpt-3.5-turbo"), self.vectordb, return_source_documents=True
+            OpenAI(temperature=1.2, model_name="gpt-3.5-turbo"), 
+            self.vectordb,
+            return_source_documents=True
         )
 
 
@@ -98,6 +96,45 @@ class ChatbotAgent:
 
         return python_string
 
+
+
+    def chatbot_pipeline(self, query_pipeline, choose_GPTModel = False, updateChatHistory = False):
+        # choose which GPT model
+        if choose_GPTModel:
+            result_pipeline = openai.Completion.create(
+                engine="davinci",
+                prompt = query_pipeline,
+                temperature=0.7,
+                max_tokens=150,
+                n=1,
+                stop=None,
+            ).choice[0].text.strip() # choose the first answer whose score/probability is the highest
+        else:
+            result_pipeline = self.chatbot_qa({"question": query_pipeline, "chat_history": self.chat_history})
+        
+        if updateChatHistory:
+            self.query = query_pipeline
+            self.result = result_pipeline
+            self.chat_history = self.chat_history + [(self.query, self.reslut["answer"])]
+            return self.reslut
+        else:
+            return result_pipeline
+            
+
+    # Prompt the chatbot
+    def promtp_engineering_for_non_library_content(self, query): # please do not modify the value of query
+        query_prompted = query + " Please provide a verbose answer."
+
+        result_prompted = self.chatbot_pipeline(query_prompted)
+        result_not_know_answer = []
+        result_non_library_query = []
+        result_official_keywords = []
+        result_cheeting = []
+
+        
+
+        # Return the prompted query
+        return result_prompted
 
 
 ## Convert Document to Embedding
