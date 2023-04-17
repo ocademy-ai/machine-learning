@@ -529,7 +529,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../deep-learning/DQN.html">
-   28. DQN (TBD)
+   28. Deep Q-learning
   </a>
  </li>
  <li class="toctree-l1">
@@ -815,52 +815,52 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/ml-linear-regression-1.html">
-     39.46. ML linear regression - Assignment 1
+     39.46. ML linear regression - assignment 1
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/ml-linear-regression-2.html">
-     39.47. ML linear regression - Assignment 2
+     39.47. ML linear regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/ml-logistic-regression-1.html">
+     39.48. ML logistic regression - assignment 1
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/ml-neural-network-1.html">
-     39.48. ML neural network - Assignment 1
+     39.49. ML neural network - Assignment 1
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/regression-tools.html">
-     39.49. Regression tools
+     39.50. Regression tools
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/managing-data.html">
-     39.50. Managing data
+     39.51. Managing data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/exploring-visualizations.html">
-     39.51. Exploring visualizations
+     39.52. Exploring visualizations
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/try-a-different-model.html">
-     39.52. Try a different model
+     39.53. Try a different model
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/create-a-regression-model.html">
-     39.53. Create a regression model
+     39.54. Create a regression model
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../ml-fundamentals/linear-and-polynomial-regression.html">
-     39.54. Linear and polynomial regression
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../ml-fundamentals/build-classification-models-predict-the-price-range.html">
-     39.55. Build classification models：Predict the price range
+     39.55. Linear and polynomial regression
     </a>
    </li>
    <li class="toctree-l2">
@@ -1409,9 +1409,11 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pandas.testing</span> <span class="kn">import</span> <span class="n">assert_frame_equal</span>
+<span class="kn">from</span> <span class="nn">pandas.testing</span> <span class="kn">import</span> <span class="n">assert_series_equal</span>
 
 <span class="n">ipytest</span><span class="o">.</span><span class="n">autoconfig</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># make figures larger</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># make figures larger</span>
 </pre></div>
 </div>
 </div>
@@ -1419,12 +1421,12 @@ title="Print to PDF"
 <p>We can load the most recent data directly from GitHub using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code>. If for some reason the data is not available, you can always use the copy available locally in the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder - just uncomment the line below that defines <code class="docutils literal notranslate"><span class="pre">base_url</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/&quot;</span> <span class="c1"># loading from Internet</span>
-<span class="c1"># base_url = &quot;../../data/COVID/&quot; # loading from disk</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># base_url = &quot;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/&quot;  # loading from Internet</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;../../assets/data/estimation-covid-19/&quot;</span>  <span class="c1"># loading from disk</span>
 <span class="n">infected_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;time_series_covid19_confirmed_global.csv&quot;</span>
 <span class="n">recovered_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;time_series_covid19_recovered_global.csv&quot;</span>
 <span class="n">deaths_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;time_series_covid19_deaths_global.csv&quot;</span>
-<span class="n">countries_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;../UID_ISO_FIPS_LookUp_Table.csv&quot;</span>
+<span class="n">countries_dataset_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;UID_ISO_FIPS_LookUp_Table.csv&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1453,7 +1455,7 @@ title="Print to PDF"
 <p>From the table above the role of province column is not clear. Let’s see the different values that are present in <code class="docutils literal notranslate"><span class="pre">Province/State</span></code> column:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span><span class="p">[</span><span class="s1">&#39;Province/State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infected</span><span class="p">[</span><span class="s2">&quot;Province/State&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1462,9 +1464,57 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">column_value</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">==</span><span class="n">column_value</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;column_name not found in DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column_value</span><span class="si">}</span><span class="s2"> not found in column </span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">column_value</span><span class="p">]</span>
 
-<span class="nb">filter</span><span class="p">(</span><span class="n">infected</span><span class="p">,</span> <span class="s1">&#39;Country/Region&#39;</span><span class="p">,</span> <span class="s1">&#39;China&#39;</span><span class="p">)</span>
+<span class="nb">filter</span><span class="p">(</span><span class="n">infected</span><span class="p">,</span> <span class="s2">&quot;Country/Region&quot;</span><span class="p">,</span> <span class="s2">&quot;China&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    return pd.DataFrame(
+        {&quot;numbers&quot;: [1, 2, 3, 4, 5], &quot;bools&quot;: [False, False, True, True, True]}
+    )
+
+
+class TestFilter(unittest.TestCase):
+    def test_filter_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expected_result = pd.DataFrame({&quot;numbers&quot;: [3], &quot;bools&quot;: [True]})
+
+        # act
+        result = filter(test_df, &quot;numbers&quot;, 3)
+
+        # assert
+        assert result.reset_index(drop=True).equals(expected_result)
+
+    def test_filter_with_invalid_number(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            filter(test_df, &quot;numbers&quot;, 6)
+
+    def test_filter_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            filter(None, &quot;numbers&quot;, 6)
+
+    def test_filter_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            filter(pd.DataFrame(), &quot;numbers&quot;, 6)
 </pre></div>
 </div>
 </div>
@@ -1475,16 +1525,18 @@ title="Print to PDF"
 <p>We are not interested in breaking countries down to further territories, thus we would first get rid of this breakdown and add information on all territories together, to get info for the whole country. This can be done using <code class="docutils literal notranslate"><span class="pre">groupby</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_Onecolumn_groupby_sum</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">groupby_sum</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;df cannot be None.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Column does not exist.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Column does not exist.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">column_name</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 
-<span class="n">infected</span> <span class="o">=</span> <span class="n">get_Onecolumn_groupby_sum</span><span class="p">(</span><span class="n">infected</span><span class="p">,</span> <span class="s1">&#39;Country/Region&#39;</span><span class="p">)</span>
-<span class="n">recovered</span> <span class="o">=</span> <span class="n">get_Onecolumn_groupby_sum</span><span class="p">(</span><span class="n">recovered</span><span class="p">,</span> <span class="s1">&#39;Country/Region&#39;</span><span class="p">)</span>
-<span class="n">deaths</span> <span class="o">=</span> <span class="n">get_Onecolumn_groupby_sum</span><span class="p">(</span><span class="n">deaths</span><span class="p">,</span> <span class="s1">&#39;Country/Region&#39;</span><span class="p">)</span>
+<span class="n">infected</span> <span class="o">=</span> <span class="n">groupby_sum</span><span class="p">(</span><span class="n">infected</span><span class="p">,</span> <span class="s2">&quot;Country/Region&quot;</span><span class="p">)</span>
+<span class="n">recovered</span> <span class="o">=</span> <span class="n">groupby_sum</span><span class="p">(</span><span class="n">recovered</span><span class="p">,</span> <span class="s2">&quot;Country/Region&quot;</span><span class="p">)</span>
+<span class="n">deaths</span> <span class="o">=</span> <span class="n">groupby_sum</span><span class="p">(</span><span class="n">deaths</span><span class="p">,</span> <span class="s2">&quot;Country/Region&quot;</span><span class="p">)</span>
 
 <span class="n">infected</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -1496,55 +1548,55 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
 
 def create_test_df():
-    return pd.DataFrame(
-        {
-            &#39;c1&#39;: [1, 2, 3, 4, 5], 
-            &#39;c2&#39;: [6, 7, 8, 9, 10]
-        }
-    )
+    return pd.DataFrame({&quot;c1&quot;: [1, 1, 1, 2, 2], &quot;c2&quot;: [6, 7, 8, 9, 10]})
 
-class Test_Onecolumn_groupby_sum(unittest.TestCase):
 
-    def test_get_Onecolumn_groupby_sum_happy_case(self):
+class TestGroupbySum(unittest.TestCase):
+    def test_groupby_sum_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expect_result = pd.DataFrame(data=[[21], [19]], index=[1, 2], columns=[&quot;c2&quot;])
+
+        # act
+        actual_result = groupby_sum(test_df, &quot;c1&quot;)
+
+        # assert
+        assert_frame_equal(actual_result, expect_result, check_names=False)
+
+    def test_groupby_sum_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            groupby_sum(None, &quot;c1&quot;)
+
+    def test_groupby_sum_with_invalid_column_name(self):
         # assign
         test_df = create_test_df()
 
-        # act
-        actual_result = get_Onecolumn_groupby_sum(test_df, &#39;c1&#39;)
-    
-
-        # assert
-        assert actual_result.iloc[0, 0] == 6
-
-    def test_get_Onecolumn_groupby_sum_with_none_df(self):
-        #act
+        # act &amp; assert
         with pytest.raises(Exception):
-            get_Onecolumn_groupby_sum(None, &#39;c1&#39;)
-        
-    def test_get_Onecolumn_groupby_sum_with_invalid_column_name(self):
-        #assign
-        test_df = create_test_df()
-    
-        #act
+            groupby_sum(test_df, &quot;c100&quot;)
+
+    def test_groupby_sum_with_empty_df(self):
+        # act &amp; assert
         with pytest.raises(Exception):
-            get_Onecolumn_groupby_sum(test_df, &#39;c100&#39;)
+            groupby_sum(pd.DataFrame(), &quot;c100&quot;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="alert alert-info">
 <details><summary>👩‍💻 <b>Hint</b></summary>
-<p>You can consider to use <code>pandas.DataFrame.groupby()</code> and <code>sum()</code>.</p>
+<p>You can consider to use <code>pandas.DataFrame.groupby()</code> and <code>aggregation function sum()</code>.</p>
 </details>
 </div><p>You can see that due to using <code class="docutils literal notranslate"><span class="pre">groupby</span></code> all DataFrames are now indexed by Country/Region. We can thus access the data for a specific country by using <code class="docutils literal notranslate"><span class="pre">.loc</span></code>:|</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_infected_vs_recovered</span><span class="p">():</span>
-    <span class="n">infected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-    <span class="n">recovered</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;US&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_infected_vs_recovered</span><span class="p">(</span><span class="n">column_name</span><span class="p">):</span>
+    <span class="n">infected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">column_name</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="n">recovered</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">column_name</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">plot_infected_vs_recovered</span><span class="p">()</span>
+<span class="n">plot_infected_vs_recovered</span><span class="p">(</span><span class="s2">&quot;US&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1556,15 +1608,14 @@ class Test_Onecolumn_groupby_sum(unittest.TestCase):
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drop_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;df cannot be None.&#39;</span><span class="p">)</span>
-<span class="c1">#  I want to test some invalid columns, but I can&#39;t write the code due to my poor programming skills, so I left some comments.</span>
-<span class="c1">#     if columns not in df:</span>
-<span class="c1">#         raise Exception(&#39;Columns does not exist.&#39;)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">drop_columns</span><span class="p">(</span><span class="n">infected</span><span class="p">,[</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Long&#39;</span><span class="p">])</span>
-<span class="n">drop_columns</span><span class="p">(</span><span class="n">recovered</span><span class="p">,[</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Long&#39;</span><span class="p">])</span>
-<span class="n">drop_columns</span><span class="p">(</span><span class="n">deaths</span><span class="p">,[</span><span class="s1">&#39;Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Long&#39;</span><span class="p">])</span>
+<span class="n">drop_columns</span><span class="p">(</span><span class="n">infected</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Lat&quot;</span><span class="p">,</span> <span class="s2">&quot;Long&quot;</span><span class="p">])</span>
+<span class="n">drop_columns</span><span class="p">(</span><span class="n">recovered</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Lat&quot;</span><span class="p">,</span> <span class="s2">&quot;Long&quot;</span><span class="p">])</span>
+<span class="n">drop_columns</span><span class="p">(</span><span class="n">deaths</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Lat&quot;</span><span class="p">,</span> <span class="s2">&quot;Long&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1576,44 +1627,46 @@ class Test_Onecolumn_groupby_sum(unittest.TestCase):
 def create_test_df():
     return pd.DataFrame(
         {
-            &#39;c1&#39;: [1, 2, 3, 4, 5], 
-            &#39;c2&#39;: [6, 7, 8, 9, 10],
-            &#39;c3&#39;: [11, 12, 13, 14, 15],
-            &#39;c4&#39;: [16, 17, 18, 19, 20]
+            &quot;c1&quot;: [1, 2, 3, 4, 5],
+            &quot;c2&quot;: [6, 7, 8, 9, 10],
+            &quot;c3&quot;: [11, 12, 13, 14, 15],
+            &quot;c4&quot;: [16, 17, 18, 19, 20],
         }
     )
 
-class Test_drop_columns(unittest.TestCase):
+class TestDropColumns(unittest.TestCase):
+    def test_drop_columns_with_empty_df(self):
+        # act
+        with pytest.raises(Exception):
+            drop_columns(pd.DataFrame(), &quot;c1&quot;)
 
     def test_drop_columns_happy_case(self):
         # assign
         test_df = create_test_df()
-
+        expected_result = pd.DataFrame(
+            {
+                &quot;c3&quot;: [11, 12, 13, 14, 15],
+                &quot;c4&quot;: [16, 17, 18, 19, 20],
+            }
+        )
         # act
-        drop_columns(test_df,[&#39;c1&#39;, &#39;c2&#39;])
-    
+        drop_columns(test_df, [&quot;c1&quot;, &quot;c2&quot;])
+
         # assert
-        assert test_df.iloc[0, 0] == 11
+        assert_frame_equal(test_df, expected_result)
 
     def test_drop_columns_with_none_df(self):
-        #act
+        # act &amp; assert
         with pytest.raises(Exception):
-            get_drop_columns(None,&#39;c1&#39;)
-        
-#  I want to test some invalid columns, but I can&#39;t write the code due to my poor programming skills, so I left some comments.
-#     if columns not in df:        
-#     def test_drop_columns_with_valid_and_invalid_column_name(self):
-#         #assign
-#         test_df = create_test_df()
-    
-#         #act
+            drop_columns(None, &quot;c1&quot;)
 
-#         drop_columns(test_df,[&#39;c100&#39;,&#39;c1&#39;,&#39;c2&#39;])
-        
-#         # assert
-#         assert test_df.iloc[0, 0] == 11
-        
-        
+    def test_drop_columns_with_invalid_columns_input(self):
+        # assign
+        test_df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            drop_columns(test_df, &quot;c1000&quot;)
 </pre></div>
 </div>
 </div>
@@ -1628,15 +1681,102 @@ class Test_drop_columns(unittest.TestCase):
 <p>Let’s now switch to investigating a specific country. Let’s create a frame that contains the data on infections indexed by date:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mkframe</span><span class="p">(</span><span class="n">country</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span> <span class="s1">&#39;infected&#39;</span> <span class="p">:</span> <span class="n">infected</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">]</span> <span class="p">,</span>
-                        <span class="s1">&#39;recovered&#39;</span> <span class="p">:</span> <span class="n">recovered</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">],</span>
-                        <span class="s1">&#39;deaths&#39;</span> <span class="p">:</span> <span class="n">deaths</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">country</span><span class="p">]})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mkframe</span><span class="p">(</span><span class="n">infected_df</span><span class="p">,</span> <span class="n">recovered_df</span><span class="p">,</span> <span class="n">deaths_df</span><span class="p">,</span> <span class="n">index_name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">infected_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;infected_df cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">recovered_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;recovered_df cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">deaths_df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;deaths_df cannot be None.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">index_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">infected_df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s2"> does not exist in </span><span class="si">{</span><span class="n">infected_df</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">index_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">recovered_df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s2"> does not exist in </span><span class="si">{</span><span class="n">recovered_df</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">index_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deaths_df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">index_name</span><span class="si">}</span><span class="s2"> does not exist in </span><span class="si">{</span><span class="n">deaths_df</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;infected&quot;</span><span class="p">:</span> <span class="n">infected_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index_name</span><span class="p">],</span>
+            <span class="s2">&quot;recovered&quot;</span><span class="p">:</span> <span class="n">recovered_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index_name</span><span class="p">],</span>
+            <span class="s2">&quot;deaths&quot;</span><span class="p">:</span> <span class="n">deaths_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index_name</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">mkframe</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">)</span>
-<span class="n">df</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">mkframe</span><span class="p">(</span><span class="n">infected</span><span class="p">,</span> <span class="n">recovered</span><span class="p">,</span> <span class="n">deaths</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<h5><font color=blue>Check result by executing below... 📝</font></h5><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df_1():
+    return pd.DataFrame(
+        data=[[2, 5, 9], [3, 4, 10], [9, 9, 8]],
+        columns=[&quot;1/22/20&quot;, &quot;1/23/20&quot;, &quot;1/24/20&quot;],
+        index=[&quot;US&quot;, &quot;UK&quot;, &quot;FR&quot;],
+    )
+
+def create_test_df_2():
+    return pd.DataFrame(
+        data=[[9, 9, 8], [2, 5, 9], [3, 4, 10]],
+        columns=[&quot;1/22/20&quot;, &quot;1/23/20&quot;, &quot;1/24/20&quot;],
+        index=[&quot;US&quot;, &quot;UK&quot;, &quot;FR&quot;],
+    )
+
+def create_test_df_3():
+    return pd.DataFrame(
+        data=[[3, 4, 10], [9, 9, 8], [2, 5, 9]],
+        columns=[&quot;1/22/20&quot;, &quot;1/23/20&quot;, &quot;1/24/20&quot;],
+        index=[&quot;US&quot;, &quot;UK&quot;, &quot;FR&quot;],
+    )
+
+class TestMkframe(unittest.TestCase):
+    def test_mkframe_happy_case(self):
+        # assign
+        test_df_1 = create_test_df_1()
+        test_df_2 = create_test_df_2()
+        test_df_3 = create_test_df_3()
+        expected_result = pd.DataFrame(
+            data=[[2, 9, 3], [5, 9, 4], [9, 8, 10]],
+            columns=[&quot;infected&quot;, &quot;recovered&quot;, &quot;deaths&quot;],
+            index=[&quot;2020-01-22&quot;, &quot;2020-01-23&quot;, &quot;2020-01-24&quot;],
+        )
+        expected_result.index = pd.to_datetime(expected_result.index)
+
+        # act
+        test_df = mkframe(test_df_1, test_df_2, test_df_3, &quot;US&quot;)
+
+        # assert
+        assert_frame_equal(test_df, expected_result)
+
+    def test_mkframe_with_none_df_1(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            mkframe(None, test_df_2, test_df_3, &quot;US&quot;)
+
+    def test_mkframe_with_none_df_2(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            mkframe(test_df_1, None, test_df_3, &quot;US&quot;)
+
+    def test_mkframe_with_none_df_3(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            mkframe(test_df_1, test_df_2, None, &quot;US&quot;)
+
+    def test_mkframe_with_invalid_column_name(self):
+        # assign
+        test_df_1 = create_test_df_1()
+        test_df_2 = create_test_df_2()
+        test_df_3 = create_test_df_3()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            mkframe(test_df_1, test_df_2, test_df_3, &quot;China&quot;)
 </pre></div>
 </div>
 </div>
@@ -1656,12 +1796,159 @@ class Test_drop_columns(unittest.TestCase):
 <p>Now let’s compute the number of new infected people each day. This will allow us to see the speed at which pandemic progresses. The easiest day to do it is to use <code class="docutils literal notranslate"><span class="pre">diff</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_column_to_show_by_getting_column_to_diff</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name_to_show</span> <span class="p">,</span> <span class="n">column_name_to_diff</span><span class="p">):</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">column_name_to_show</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">column_name_to_diff</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">column_name_to_show</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">append_diff_column</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">new_column</span><span class="p">,</span> <span class="n">column_to_diff</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="ow">or</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df is not a valid DataFrame&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_to_diff</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;column_name_to_diff not exist in df&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">new_column</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_column</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">new_column</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;new_column is not a valid string&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_to_diff</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">column_to_diff</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">column_to_diff</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;column_to_diff is not a valid string&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">new_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column_to_diff</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">new_column</span><span class="p">]</span>
 
-<span class="n">plot_column_to_show_by_getting_column_to_diff</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;ninfected&#39;</span><span class="p">,</span> <span class="s1">&#39;infected&#39;</span><span class="p">)</span>
+<span class="n">append_diff_column</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;ninfected&quot;</span><span class="p">,</span> <span class="s2">&quot;infected&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    return pd.DataFrame(
+        {
+            &quot;date&quot;: [
+                &quot;2022-01-01&quot;,
+                &quot;2022-01-02&quot;,
+                &quot;2022-01-03&quot;,
+                &quot;2022-01-04&quot;,
+                &quot;2022-01-05&quot;,
+                &quot;2022-01-06&quot;,
+            ],
+            &quot;column1&quot;: [1, 2, 4, 6, 9, 13],
+            &quot;column2&quot;: [1, 3, 6, 10, 15, 21],
+        }
+    )
+
+
+class TestAppendDiffColumn(unittest.TestCase):
+    def test_append_diff_column_happy_case(self):
+        # assign
+        df = create_test_df()
+        expected_result = pd.Series(
+            [np.nan, 1.0, 2.0, 2.0, 3.0, 4.0], name=&quot;new_column&quot;
+        )
+
+        # act
+        actual_result = append_diff_column(
+            df, &quot;new_column&quot;, &quot;column1&quot;
+        )
+
+        # assert
+        assert_series_equal(actual_result, expected_result)
+
+    def test_append_diff_column_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                pd.DataFrame(), &quot;new_column&quot;, &quot;column_to_diff&quot;
+            )
+
+    def test_append_diff_column_with_none_df(self):
+        # act
+        with pytest.raises(Exception):
+            append_diff_column(
+                None, &quot;new_column&quot;, &quot;column1&quot;
+            )
+
+    def test_append_diff_column_with_invalid_df_type(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                &quot;invalid_df&quot;, &quot;new_column&quot;, &quot;column_to_diff&quot;
+            )
+    
+    def test_append_diff_column_with_invalid_new_column_type(self):
+        # assign
+        df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, 123, &quot;column_to_diff&quot;
+            )   
+
+    def test_append_diff_column_with_none_new_column(self):
+        # assign
+        df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, None, &quot;column_to_diff&quot;
+            ) 
+    
+    def test_append_diff_column_with_empty_new_column(self):
+        # assign
+        df = create_test_df()
+        
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, &quot;&quot;, &quot;column_to_diff&quot;
+            ) 
+
+    def test_append_diff_column_with_none_column_to_diff(
+        self,
+    ):
+        # assign
+        df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, &quot;new_column&quot;, None
+            )
+
+    def test_append_diff_column_with_empty_column_to_diff(
+        self,
+    ):
+        # assign
+        df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, &quot;new_column&quot;, &quot;&quot;
+            )
+
+    def test_append_diff_column_with_invalid_column_to_diff_name(
+        self,
+    ):
+        # assign
+        df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, &quot;new_column&quot;, &quot;invalid_column&quot;
+            )
+
+    def test_append_diff_column_with_invalid_column_to_diff_type(
+        self,
+    ):
+        # assign
+        df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            append_diff_column(
+                df, &quot;new_column&quot;, 123
+            )
 </pre></div>
 </div>
 </div>
@@ -1673,11 +1960,58 @@ class Test_drop_columns(unittest.TestCase):
 </div><p>We can see high fluctuations in data. Let’s look closer at one of the months:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_non_infected_by_year_and_month</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span><span class="o">==</span><span class="n">year</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span><span class="o">==</span><span class="n">month</span><span class="p">)][</span><span class="s1">&#39;ninfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_ninfected_by_year_and_month</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">year</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="n">month</span><span class="p">)][</span><span class="s2">&quot;ninfected&quot;</span><span class="p">]</span>
 
-<span class="n">get_non_infected_by_year_and_month</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">filter_ninfected_by_year_and_month</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    test_df = pd.DataFrame(
+        data=[[2, 9, 3, None], [5, 9, 4, 3], [9, 8, 10, 4]],
+        columns=[&quot;infected&quot;, &quot;recovered&quot;, &quot;deaths&quot;, &quot;ninfected&quot;],
+        index=[&quot;2020-01-22&quot;, &quot;2020-01-23&quot;, &quot;2020-01-24&quot;],
+    )
+    test_df.index = pd.to_datetime(test_df.index)
+    return test_df
+
+
+class TestFilterNinfectedByYearAndMonth(unittest.TestCase):
+    def test_filter_ninfected_by_year_and_month_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expected_result = pd.Series(
+            [None, 3, 4],
+            index=pd.to_datetime([&quot;2020-01-22&quot;, &quot;2020-01-23&quot;, &quot;2020-01-24&quot;]),
+            name=&quot;ninfected&quot;,
+        )
+
+        # act
+        result = filter_ninfected_by_year_and_month(test_df, 2020, 1)
+
+        # assert
+        assert result.equals(expected_result)
+
+    def test_filter_ninfected_by_year_and_month_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            filter_ninfected_by_year_and_month(None, 2020, 1)
+
+    def test_filter_ninfected_by_year_and_month_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            filter_ninfected_by_year_and_month(pd.DataFrame, 2020, 1)
 </pre></div>
 </div>
 </div>
@@ -1688,8 +2022,8 @@ class Test_drop_columns(unittest.TestCase):
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_rolling_window</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfav&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">get_rolling_window</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;ninfected&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ninfav&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;ninfav&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_rolling_window</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;ninfected&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;ninfav&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1707,13 +2041,92 @@ class Test_drop_columns(unittest.TestCase):
 <p>Because this dataset contains information on both countries and provinces, to get the population of the whole country we need to be a little bit clever:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_by_country_region</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">country_region</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Country_Region&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">country_region</span><span class="p">)</span><span class="o">&amp;</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Province_State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_by_country_region</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">countries_and_region</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">countries_and_region</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Country_Region&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;countries_and_region name is wrong.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Country_Region&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">countries_and_region</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Province_State&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+    <span class="p">]</span>
 
-<span class="n">filter_by_country_region</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">)</span>
+<span class="n">filter_by_country_region</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
 
-<span class="c1"># Before</span>
-<span class="c1"># countries[(countries[&#39;Country_Region&#39;]==&#39;US&#39;) ____ countries[&#39;Province_State&#39;].isna()]</span>
+def create_test_df():
+    return pd.DataFrame(
+        {
+            &quot;Country_Region&quot;: [&quot;US&quot;, &quot;US&quot;, &quot;UK&quot;, &quot;FR&quot;, &quot;JP&quot;],
+            &quot;Province_State&quot;: [None, &quot;California&quot;, None, None, &quot;Tokyo&quot;],
+            &quot;Confirmed&quot;: [100, 50, 70, 80, 90],
+            &quot;Deaths&quot;: [10, 5, 7, 8, 9],
+            &quot;Recovered&quot;: [20, 10, 14, 16, 18],
+        }
+    )
+
+
+class TestFilterByCountryRegion(unittest.TestCase):
+    def test_filter_by_country_region_happy_case(self):
+        # assign
+
+        test_df = create_test_df()
+        expected_result = pd.DataFrame(
+            {
+                &quot;Country_Region&quot;: [&quot;US&quot;],
+                &quot;Province_State&quot;: [None],
+                &quot;Confirmed&quot;: [100],
+                &quot;Deaths&quot;: [10],
+                &quot;Recovered&quot;: [20],
+            }
+        )
+
+        # act
+        actual_result = filter_by_country_region(test_df, &quot;US&quot;)
+
+        # assert
+        assert_frame_equal(expected_result, actual_result)
+
+    def test_filter_by_country_region_with_nonexistent_country(self):
+        # assign
+        test_df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            filter_by_country_region(test_df, &quot;China&quot;)
+
+    def test_filter_by_country_region_with_province_state_data(self):
+        # arrange
+        test_df = create_test_df()
+        expected_output = pd.DataFrame(
+            {
+                &quot;Country_Region&quot;: [&quot;FR&quot;],
+                &quot;Province_State&quot;: [None],
+                &quot;Confirmed&quot;: [80],
+                &quot;Deaths&quot;: [8],
+                &quot;Recovered&quot;: [16],
+            },
+            index=pd.Index([3], dtype=&quot;int64&quot;),
+        )
+
+        # act
+        actual_output = filter_by_country_region(test_df, &quot;FR&quot;)
+
+        # assert
+        assert_frame_equal(expected_output, actual_output)
+
+    def test_filter_by_country_region_without_None_Province_State(self):
+        # arrange
+        test_df = create_test_df()
+
+        # act
+        result = filter_by_country_region(test_df, &quot;JP&quot;)
+
+        # assert
+        assert result.empty
 </pre></div>
 </div>
 </div>
@@ -1721,12 +2134,63 @@ class Test_drop_columns(unittest.TestCase):
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_pinfected</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">pop</span><span class="o">=</span><span class="n">filter_by_country_region</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="s1">&#39;US&#39;</span><span class="p">)[</span><span class="s1">&#39;Population&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;infected&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="n">pop</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be none&quot;</span><span class="p">)</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">filter_by_country_region</span><span class="p">(</span><span class="n">countries</span><span class="p">,</span> <span class="s2">&quot;US&quot;</span><span class="p">)[</span><span class="s2">&quot;Population&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;infected&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">pop</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pinfected&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_pinfected</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;pinfected&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;pinfected&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_pinfected</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;pinfected&quot;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;pinfected&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    return pd.DataFrame(
+        {
+            &quot;Country_Region&quot;: [&quot;US&quot;, &quot;US&quot;, &quot;Canada&quot;, &quot;Canada&quot;],
+            &quot;Province_State&quot;: [&quot;California&quot;, &quot;New York&quot;, &quot;Ontario&quot;, &quot;Quebec&quot;],
+            &quot;Population&quot;: [10000, 20000, 30000, 40000],
+            &quot;infected&quot;: [1000, 2000, 3000, 4000],
+        }
+    )
+
+
+class TestGetPinfected(unittest.TestCase):
+    def test_get_pinfected_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expected_result = pd.Series(
+            [
+                0.00030352119521741776,
+                0.0006070423904348355,
+                0.0009105635856522532,
+                0.001214084780869671,
+            ],
+            name=&quot;infected&quot;,
+        )
+
+        # act
+        actual_result = get_pinfected(test_df)
+
+        # assert
+        assert_series_equal(expected_result, actual_result, rtol=1e-3)
+
+    def test_get_pinfected_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_pinfected(None)
+
+    def test_get_pinfected_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_pinfected(pd.DataFrame())
 </pre></div>
 </div>
 </div>
@@ -1745,12 +2209,129 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_rt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">get_rolling_window</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be none&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s2"> not exist in </span><span class="si">{</span><span class="n">df</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">window</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;window cannot be negative size&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">window</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;window size too big&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Rt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_rolling_window</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">x</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;Rt&quot;</span><span class="p">]</span>
 
-<span class="n">get_rt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;ninfected&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">get_rt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;ninfected&quot;</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;Rt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    return pd.DataFrame(
+        {
+            &quot;date&quot;: pd.date_range(&quot;2022-01-01&quot;, periods=18),
+            &quot;infected&quot;: [
+                10,
+                15,
+                20,
+                30,
+                35,
+                40,
+                45,
+                50,
+                55,
+                60,
+                70,
+                80,
+                90,
+                100,
+                110,
+                120,
+                130,
+                140,
+            ],
+        }
+    )
+
+
+class TestGetRt(unittest.TestCase):
+    def test_get_rt_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expected_output = pd.Series(
+            [
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                2.2666666666666666,
+                1.9,
+                1.68,
+                1.5666666666666667,
+                1.5588235294117647,
+                1.5789473684210527,
+                1.619047619047619,
+                1.6170212765957446,
+                1.5849056603773586,
+                1.5333333333333334,
+                1.4705882352941178,
+            ],
+            dtype=np.float64,
+        )
+
+        # act
+        result = get_rt(test_df, &quot;infected&quot;, 8)
+
+        # assert
+        assert_series_equal(
+            result, expected_output, rtol=0.001, check_dtype=False, check_names=False
+        )
+
+    def test_get_rt_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_rt(None, &quot;column_name&quot;, 10)
+
+    def test_get_rt_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_rt(pd.DataFrame(), &quot;column_name&quot;, 10)
+    
+    def test_get_rt_with_invalid_column(self):
+        # assign
+        test_df = create_test_df()
+        
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_rt(test_df, &quot;invalid_column&quot;, 10)
+            
+    def test_get_rt_with_negative_window(self):
+        # assign
+        test_df = create_test_df()
+        
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_rt(test_df, &quot;infected&quot;, -1)
+
+    def test_get_rt_with_window_larger_than_data(self):
+        # assign
+        test_df = create_test_df()
+        
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_rt(test_df, &quot;infected&quot;, len(test_df) + 100)
 </pre></div>
 </div>
 </div>
@@ -1763,13 +2344,56 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <p>Let’s further look at the beginning of the pandemic. We will also limit the y-axis values to show only values below 6, in order to see better, and draw horizontal line at 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_rt_ax</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&lt;</span><span class="s2">&quot;2020-05-01&quot;</span><span class="p">][</span><span class="s1">&#39;Rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pad&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rt_with_na_filled</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be none&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="s2">&quot;2020-05-01&quot;</span><span class="p">][</span><span class="s2">&quot;Rt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;pad&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
 
-<span class="n">ax</span> <span class="o">=</span> <span class="n">get_rt_ax</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">rt_with_na_filled</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    return pd.DataFrame(
+        {&quot;Rt&quot;: [1.5, np.inf, 1.2, np.inf]},
+        index=pd.to_datetime([&quot;2020-04-29&quot;, &quot;2020-04-30&quot;, &quot;2020-05-01&quot;, &quot;2020-05-02&quot;]),
+    )
+
+
+class TestRtWithNaFilled(unittest.TestCase):
+    def test_rt_with_na_filled_happy_case(self):
+        # assign
+        test_df = create_test_df()
+        expected_result = pd.Series(
+            [1.5, 1.5], index=pd.to_datetime([&quot;2020-04-29&quot;, &quot;2020-04-30&quot;]), name=&quot;Rt&quot;
+        )
+        # act
+        result = rt_with_na_filled(test_df)
+
+        # assert
+        pd.testing.assert_series_equal(result, expected_result)
+
+    def test_rt_with_na_filled_with_none_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            rt_with_na_filled(None)
+
+    def test_rt_with_na_filled_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            rt_with_na_filled(pd.DataFrame())
 </pre></div>
 </div>
 </div>
@@ -1777,11 +2401,88 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 <p>Another interesting indicator of the pandemic is the <strong>derivative</strong>, or <strong>daily difference</strong> in new cases. It allows us to see clearly when pandemic is increasing or declining.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_df_column_diff</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_df_column_diff</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;column not exist&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
 
-<span class="n">plot_df_column_diff</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;ninfected&#39;</span><span class="p">)</span>
+<span class="n">diff_series</span> <span class="o">=</span> <span class="n">get_df_column_diff</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;ninfected&quot;</span><span class="p">)</span>
+<span class="n">diff_series</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    test_df = pd.DataFrame(
+        {
+            &quot;date&quot;: [
+                &quot;2022-01-01&quot;,
+                &quot;2022-01-02&quot;,
+                &quot;2022-01-03&quot;,
+                &quot;2022-01-04&quot;,
+                &quot;2022-01-05&quot;,
+                &quot;2022-01-06&quot;,
+            ],
+            &quot;ninfected&quot;: [100, 110, 120, 130, 140, 150],
+        }
+    )
+    test_df[&quot;date&quot;] = pd.to_datetime(test_df[&quot;date&quot;])
+    test_df.set_index(&quot;date&quot;, inplace=True)
+    return test_df
+
+
+class TestGetDfColumnDiff(unittest.TestCase):
+    def test_get_df_column_diff_happy_case(Self):
+        # assign
+        test_df = create_test_df()
+        expected_diff = pd.Series(
+            [None, 10, 10, 10, 10, 10],
+            index=pd.to_datetime(
+                [
+                    &quot;2022-01-01&quot;,
+                    &quot;2022-01-02&quot;,
+                    &quot;2022-01-03&quot;,
+                    &quot;2022-01-04&quot;,
+                    &quot;2022-01-05&quot;,
+                    &quot;2022-01-06&quot;,
+                ]
+            ),
+        )
+
+        # act
+        column_diff = get_df_column_diff(test_df, &quot;ninfected&quot;)
+
+        # assert
+        assert_series_equal(
+            column_diff, expected_diff, check_dtype=False, check_names=False
+        )
+
+    def test_get_df_column_diff_with_none_df(Self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_df_column_diff(None, &quot;ninfected&quot;)
+
+    def test_get_df_column_diff_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_df_column_diff(pd.DataFrame(), &quot;ninfected&quot;)
+
+    def test_get_df_column_diff_with_invalid_column_name(Self):
+        # assign
+        test_df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_df_column_diff(test_df, &quot;invalid_column_name&quot;)
 </pre></div>
 </div>
 </div>
@@ -1793,15 +2494,92 @@ where \)</span>I_t<span class="math notranslate nohighlight">\( is the number of
 </div><p>Given the fact that there are a lot of fluctuations in data caused by reporting, it makes sense to smooth the curve by running rolling average to get the overall picture. Let’s again focus on the first months of the pandemic:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">filter_data_before</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">&lt;</span><span class="n">datetime</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_smoothed_ax</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be None&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;df cannot be empty&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;column not exist&quot;</span><span class="p">)</span>
+    <span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="p">]</span>
+    <span class="n">df_diff</span> <span class="o">=</span> <span class="n">df_filtered</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+    <span class="n">df_rolling_mean</span> <span class="o">=</span> <span class="n">df_diff</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df_rolling_mean</span>
 
-<span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
-
-<span class="n">ax</span><span class="o">=</span><span class="n">get_rolling_window</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">filter_data_before</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;2020-06-01&#39;</span><span class="p">)),</span> <span class="s1">&#39;ninfected&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">df_rolling_mean</span> <span class="o">=</span> <span class="n">get_smoothed_ax</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s2">&quot;ninfected&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-06-01&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">df_rolling_mean</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">ipytest</span> -qq
+
+def create_test_df():
+    test_df = pd.DataFrame(
+        {
+            &quot;date&quot;: [
+                &quot;2022-01-01&quot;,
+                &quot;2022-01-02&quot;,
+                &quot;2022-01-03&quot;,
+                &quot;2022-01-04&quot;,
+                &quot;2022-01-05&quot;,
+                &quot;2022-01-06&quot;,
+            ],
+            &quot;ninfected&quot;: [100, 110, 120, 130, 140, 150],
+        }
+    )
+    test_df[&quot;date&quot;] = pd.to_datetime(test_df[&quot;date&quot;])
+    test_df.set_index(&quot;date&quot;, inplace=True)
+    return test_df
+
+
+class TestGetSmoothedAx(unittest.TestCase):
+    def test_get_smoothed_ax_happy_case(Self):
+        # assign
+        test_df = create_test_df()
+        expected_result = pd.Series(
+            [np.nan, np.nan, np.nan, 10.0, 10.0, 10],
+            index=pd.to_datetime(
+                [
+                    &quot;2022-01-01&quot;,
+                    &quot;2022-01-02&quot;,
+                    &quot;2022-01-03&quot;,
+                    &quot;2022-01-04&quot;,
+                    &quot;2022-01-05&quot;,
+                    &quot;2022-01-06&quot;,
+                ]
+            ),
+        )
+
+        # act
+        result = get_smoothed_ax(test_df, &quot;ninfected&quot;, &quot;2022-01-07&quot;, 3)
+
+        # assert
+        assert_series_equal(
+            result, expected_result, check_dtype=False, check_names=False
+        )
+
+    def test_get_smoothed_ax_with_none_df(Self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_smoothed_ax(None, &quot;ninfected&quot;, &quot;2022-01-07&quot;, 3)
+
+    def test_get_smoothed_ax_with_empty_df(self):
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_smoothed_ax(pd.DataFrame(), &quot;ninfected&quot;, &quot;2022-01-07&quot;, 3)
+
+    def test_get_smoothed_ax_with_invalid_column_name_input(Self):
+        # assign
+        test_df = create_test_df()
+
+        # act &amp; assert
+        with pytest.raises(Exception):
+            get_smoothed_ax(test_df, &quot;invalid_column_name&quot;)
 </pre></div>
 </div>
 </div>
