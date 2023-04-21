@@ -70,8 +70,13 @@ from matplotlib import pyplot as plt
 ```
 
 ```{code-cell}
+:tags: ["output_scroll"]
 telecom_data = pd.read_csv("../../assets/data/telecom_churn.csv")
 
+telecom_data.head()
+```
+
+```{code-cell}
 telecom_data.loc[telecom_data["Churn"] == False, "Customer service calls"].hist(
     label="Loyal"
 )
