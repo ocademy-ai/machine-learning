@@ -3,15 +3,31 @@ name: Add new sources of in to the chat model # Name of the workflow
 on:
   pull_request:
     branches: [ main ]
+    paths:
+      - 'open-machine-learning-jupyter-book/**'   
+
 
 jobs:
   # Define a job that checks all the md files and uploads the md_files.txt artifact
   check_md_files:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     # Checkout the repository to get access to the files
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    # Use the Get-ChildItem cmdlet to search for md files and output them to a file
+    - name: Find MD files
+      shell: powershell
+      run: |
+        Get-ChildItem -Path 'folder' -Recurse -Filter *.md | Select-Object -ExpandProperty FullName | Out-File -FilePath '\chatbot\vector-db-persist-directoryz\resources\md_files.txt'
+
+    # Upload the md_files.txt file as an artifact
+    - name: Upload MD files artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: md_files
+        path: chatbot\vector-db-persist-directory\md_files.txt
 
     # Set up Python
     - name: Set up Python
@@ -21,69 +37,14 @@ jobs:
 
     # Install dependencies
     - name: Install dependencies
+      shell: powershell
       run: |
         python -m pip install --upgrade pip
-        pip install openai chromadb langchain tiktoken
+        pip install -r chatbot\requirements.txt
 
-    # Use the find command to search for md files and output them to a file
-    - name: Find MD files
-      run: |
-        find Breadcrumbsmachine-learning/open-machine-learning-jupyter-book/machine-learning-productionization/ -type f -name "*.md" > md_files.txt
+    # Update the vector database of chatbot using Python script
+    - name: Update the vector database of chatbot
+      run: python chatbot\workflows\update_vectordb.py
 
-    # Upload the md_files.txt file as an artifact
-    - name: Upload MD files artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: md_files
-        path: md_files.txt
 
-  # Define a job that downloads the md_files.txt artifact and updates the chatbot subproject
-  update_database:
-    # Specify that this job requires the check_md_files job to complete successfully
-    needs: check_md_files
-    runs-on: ubuntu-latest
-    steps:
-    # Download the md_files.txt artifact that was uploaded by the previous job
-    - name: Download MD files artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: md_files
 
-    # Use the GitHub Scaript action to extract the paths of the md files and update the chatbot subproject
-    - name: Update database
-      uses: actions/github-script@v4
-      with:
-        # Use the default GITHUB_TOKEN secret to authenticate with GitHub
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          // Read the contents of the md_files.txt file
-          const fs = require('fs');
-          const mdFiles = fs.readFileSync('md_files.txt', 'utf8').split('\n').filter(Boolean);
-
-          // Define the path to the chatbot database file
-          const chatbotPath = 'chatbot/database.md';
-
-          // Read the current contents of the chatbot database file
-          let content = fs.readFileSync(chatbotPath, 'utf8');
-
-          // Loop through each md file path and add it to the chatbot database if it doesn't already exist
-          mdFiles.forEach(path => {
-            if (content.indexOf(path) === -1) {
-              content += `\n${path}`;
-            }
-          });
-
-          // Write the updated content back to the chatbot database file
-          fs.writeFileSync(chatbotPath, content);
-    
-    # run python script
-    - name: Check md files and update chatbot database
-      run: python your_script.py
-
-    # Commit the changes to the chatbot database file
-    - name: Commit changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -am "Update chatbot database"
-        git push

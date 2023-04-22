@@ -40,7 +40,7 @@ class ChatbotAgent:
 
         # Fetch the contents of each file and write to a local Markdown file
         self.__sources_path = '_sources_merged.md'
-        self.__default_url_prefix = "https://open-academy.github.io"
+        self.__default_url_prefix = "https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book"
         with open(self.__sources_path, "w", encoding="utf-8") as f:
             for url in self.sources_urls:
                 if not url.startswith(self.__default_url_prefix):
@@ -55,7 +55,7 @@ class ChatbotAgent:
         self.reslut = []
         self.count = 1 # count the number of times the chatbot has been called
 
-        ## Load the data
+        ## Load the data    
         self.sources_data = self.get_openacademysources(self.__sources_path)
         text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0) # Initializing a TokenTextSplitter object
         sources_data_doc = text_splitter.split_documents(self.sources_data) # Splitting the text into chunks
@@ -71,6 +71,7 @@ class ChatbotAgent:
         self.vectordb.persist()
 
         # Configure LangChain QA
+		# chatbot_qa supports qa_prompt (prompt engineering)
         self.chatbot_qa = ChatVectorDBChain.from_llm(
             OpenAI(temperature=1.2, model_name="gpt-3.5-turbo"), 
             self.vectordb,
@@ -79,6 +80,7 @@ class ChatbotAgent:
 
 
     # Get the data from the merged file
+    @classmethod
     def get_openacademysources(self, path):
         loader = OpenAcademySourcesLoader(path)
         data = loader.load()
@@ -87,6 +89,7 @@ class ChatbotAgent:
 
 
     # Convert Markdown to Python
+    @classmethod
     def markdown_to_python(self, markdown_text):
         # Escape quotes and backslashes in the input
         escaped_input = markdown_text.replace("\\", "\\\\").replace("'", "\\'")
