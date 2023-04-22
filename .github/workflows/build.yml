@@ -1,45 +1,46 @@
-name: Add new sources of input to the chat model
+name: Add new sources of input to the chat model # Name of the workflow
 
 on:
   pull_request:
     branches: [ main ]
     paths:
-      - 'open-machine-learning-jupyter-book/**'
+      - 'open-machine-learning-jupyter-book/**'   
 
 jobs:
-  update-vector-database:
-    runs-on: ubuntu-latest
+  # Define a job that checks all the md files and uploads the md_files.txt artifact
+  bluid:
+    runs-on: windows-latest
     steps:
+      # Checkout the repository to get access to the files
       - name: Checkout repository
         uses: actions/checkout@v2
 
       # Use the Get-ChildItem cmdlet to search for md files and output them to a file
       - name: Find MD files
+        shell: powershell
         run: |
-          find . -type f -name "*.md" > md_files.txt
+          Get-ChildItem -Path 'folder' -Recurse -Filter *.md | Select-Object -ExpandProperty FullName | Out-File -FilePath 'chatbot\vector-db-persist-directory\resources\md_files.txt'
 
       # Upload the md_files.txt file as an artifact
       - name: Upload MD files artifact
         uses: actions/upload-artifact@v2
         with:
           name: md_files
-          path: md_files.txt
+          path: chatbot\vector-db-persist-directory\resources\md_files.txt
 
       # Set up Python
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.11
 
       # Install dependencies
       - name: Install dependencies
+        shell: powershell
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r chatbot\requirements.txt
 
       # Update the vector database of chatbot using Python script
-      - name: Update vector database of chatbot
-        env:
-          MD_FILES: ${{ steps.find-md-files.outputs.stdout }}
-        run: |
-          python chatbot/workflows/update_vectordb.py --md_files $MD_FILES
+      - name: Update the vector database of chatbot
+        run: python chatbot\workflows\update_vectordb.py
