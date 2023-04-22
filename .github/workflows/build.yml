@@ -1,4 +1,4 @@
-name: Add new sources of in to the chat model # Name of the workflow
+name: Add new sources of input to the chat model # Name of the workflow
 
 on:
   pull_request:
@@ -6,45 +6,41 @@ on:
     paths:
       - 'open-machine-learning-jupyter-book/**'   
 
-
 jobs:
   # Define a job that checks all the md files and uploads the md_files.txt artifact
   check_md_files:
     runs-on: windows-latest
     steps:
-    # Checkout the repository to get access to the files
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      # Checkout the repository to get access to the files
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    # Use the Get-ChildItem cmdlet to search for md files and output them to a file
-    - name: Find MD files
-      shell: powershell
-      run: |
-        Get-ChildItem -Path 'folder' -Recurse -Filter *.md | Select-Object -ExpandProperty FullName | Out-File -FilePath '\chatbot\vector-db-persist-directoryz\resources\md_files.txt'
+      # Use the Get-ChildItem cmdlet to search for md files and output them to a file
+      - name: Find MD files
+        shell: powershell
+        run: |
+          Get-ChildItem -Path 'folder' -Recurse -Filter *.md | Select-Object -ExpandProperty FullName | Out-File -FilePath 'chatbot\vector-db-persist-directory\resources\md_files.txt'
 
-    # Upload the md_files.txt file as an artifact
-    - name: Upload MD files artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: md_files
-        path: chatbot\vector-db-persist-directory\md_files.txt
+      # Upload the md_files.txt file as an artifact
+      - name: Upload MD files artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: md_files
+          path: chatbot\vector-db-persist-directory\resources\md_files.txt
 
-    # Set up Python
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.11
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
 
-    # Install dependencies
-    - name: Install dependencies
-      shell: powershell
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r chatbot\requirements.txt
+      # Install dependencies
+      - name: Install dependencies
+        shell: powershell
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r chatbot\requirements.txt
 
-    # Update the vector database of chatbot using Python script
-    - name: Update the vector database of chatbot
-      run: python chatbot\workflows\update_vectordb.py
-
-
-
+      # Update the vector database of chatbot using Python script
+      - name: Update the vector database of chatbot
+        run: python chatbot\workflows\update_vectordb.py
