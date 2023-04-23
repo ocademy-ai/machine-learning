@@ -33,6 +33,7 @@ conda activate [env-created-by-step-3]
 jupyter lab
 ```
 
+![Screenshot 2023-04-23 at 4 54 20 PM](https://user-images.githubusercontent.com/5424267/233873630-de9c1b75-c635-45bd-b4d0-889f0c917301.png)
 
 
 ### Binder
