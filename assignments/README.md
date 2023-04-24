@@ -8,6 +8,10 @@ Ocademy sets up the assignment as [Test-driven Development](https://en.wikipedia
 
 There are multiple ways to do exercise with the assignment in self-paced mode. You MUST use Jupyter Lab as the runtime environment.
 
+### Binder
+
+Simply click on this [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/open-academy/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fopen-academy%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain).
+
 ### Local
 
 1\. Install Python & Conda by following [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md#install-python--conda).
@@ -36,11 +40,6 @@ jupyter lab
 ```
 
 ![Screenshot 2023-04-23 at 4 54 20 PM](https://user-images.githubusercontent.com/5424267/233873630-de9c1b75-c635-45bd-b4d0-889f0c917301.png)
-
-
-### Binder
-
-Simply click on this [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/open-academy/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fopen-academy%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain).
 
 ### GitHub
 
