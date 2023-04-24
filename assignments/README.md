@@ -11,7 +11,9 @@ There are multiple ways to do exercise with the assignment in self-paced mode. Y
 ### Local
 
 1\. Install Python & Conda by following [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md#install-python--conda).
-2\. Install Jupyter Lab by following [https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html].
+
+2\. Install Jupyter Lab by following (this)[https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html].
+
 3\. Initialize the Conda env.
 
 ```
@@ -27,7 +29,7 @@ conda env update -f environment.yml
 conda activate [env-created-by-step-3]
 ```
 
-5. Start Jupyter Lab. You are all set!
+5\. Start Jupyter Lab. You are all set!
 
 ```
 jupyter lab
