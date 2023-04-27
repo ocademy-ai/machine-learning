@@ -91,7 +91,7 @@ There are some key points:
 - Difficulties to train long-term dependencies.
 ```
 
-### Code
+## Code
 
 ```{code-cell}
 # A text classifier implemented in TensorFlow to classify SMS spam messages.
