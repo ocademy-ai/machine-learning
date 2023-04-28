@@ -15,10 +15,6 @@ kernelspec:
 
 # Kernel method
 
-```{warning}
-This book is under construction.
-```
-
 ```{admonition} Tip
 :class: tip
 Every page with code can be downloaded and run as a Jupyter notebook--just click <i class="fas fa-download"></i> at the top of the page and select '.ipynb'.
@@ -328,7 +324,7 @@ Advantages of SVM:
 2) No increase in computational complexity when mapping to higher dimensional spaces as the dimensional catastrophe and non-linear differentiability are overcome by using the kernel function approach. (Since the final decision function of the support vector machine algorithm is determined by only a small number of support vectors, the computational complexity depends on the number of support vectors rather than the dimensionality of the entire sample space).
 Disadvantages of SVMs:
 1) Support vector machine algorithms are difficult to implement for large training samples. This is because support vector algorithms solve support vectors with the help of quadratic programming, which will be designed to compute matrices of order m, so a large amount of machine memory and computing time will be consumed when the order of the matrix is large.
-(2) The classical SVM only gives algorithms for binary classification, while in data mining, it is generally necessary to solve multi-classification classification problems, and support vector machines are not ideal for solving multi-classification problems.
+2) The classical SVM only gives algorithms for binary classification, while in data mining, it is generally necessary to solve multi-classification classification problems, and support vector machines are not ideal for solving multi-classification problems.
 3) The common SVM theories nowadays use a fixed penalty factor C, but the losses caused by two kinds of errors in positive and negative samples are different.
 
 ## [Optional] Let's dive into the math of SVM ...
@@ -339,17 +335,5 @@ Disadvantages of SVMs:
 
 ## Acknowledgement
 
-[jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), which is licenced under CC-by licence.
+Some code comes from [jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), for which the code part is licenced under MIT licence.
 
-
-## Kernel PCA
-
-https://rishi-advani.com/random-projections/notebooks/html/Kernel_PCA.html
-
-<div hidden>
-
-https://slazebni.cs.illinois.edu/spring21/lec03_linear.pdf
-
-https://slazebni.cs.illinois.edu/spring21/lec05_nonlinear_classifiers.pdf
-
-</div>
