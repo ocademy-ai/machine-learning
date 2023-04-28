@@ -476,9 +476,9 @@ You can refer to these resources for further study：
 
 -	https://towardsdatascience.com/https-medium-com-vishalmorde-xgboost-algorithm-long-she-may-rein-edd9f99be63d
 
--   https://medium.com/@gabrieltseng/gradient-boosting-and-xgboost-c306c1bcfaf5
+- https://medium.com/@gabrieltseng/gradient-boosting-and-xgboost-c306c1bcfaf5
 
--   https://medium.com/mlreview/gradient-boosting-from-scratch-1e317ae4587d
+- https://medium.com/mlreview/gradient-boosting-from-scratch-1e317ae4587d
 
 ## Acknowledgments
 
