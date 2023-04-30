@@ -31,6 +31,8 @@ When we talk about events, we use **random variables**. For example, the random 
 
 The random variable in the previous example is called **discrete** because it has a countable sample space, i.e. there are separate values that can be enumerated. There are cases when sample space is a range of real numbers or the whole set of real numbers. Such variables are called **continuous**. A good example is a time when the bus arrives.
 
+
+
 ## Probability distribution
 
 In the case of discrete random variables, it is easy to describe the probability of each event by a function $P(X)$. For each value $s$ from sample space $S$ it will give a number from $0$ to $1$, such that the sum of all values of $P(X=s)$ for all events would be $1$.
@@ -70,11 +72,11 @@ To help us understand the distribution of data, it is helpful to talk about **qu
 * the first quartile, or $Q1$, is a value, such that $25%$ of the data fall below it,
 * the third quartile, or $Q3$, is a value that $75%$ of the data falls below it.
 
-Graphically we can represent the relationship between median and quartiles in a diagram called the **box plot**:
+Graphically we can represent the relationship between the median and quartiles in a diagram called the **box plot**:
 
 ![](../../../images/boxplot_explanation.png)
 
-Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR,Q3+1.5*IQR]$.
+Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR, Q3+1.5*IQR]$.
 
 For the finite distribution that contains a small number of possible values, a good "typical" value is the one that appears the most frequently, which is called **mode**. It is often applied to categorical data, such as colors. Consider a situation where we have two groups of people - some that strongly prefer red, and others who prefer blue. If we code colors by numbers, the mean value for a favorite color would be somewhere in the orange-green spectrum, which does not indicate the actual preference for either group. However, the mode would be either one of the colors, or both colors, if the number of people voting for them is equal (in this case we call the sample **multimodal**).
 

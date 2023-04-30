@@ -185,7 +185,9 @@ Look through this article on how animation can enhance your visualizations:
 
 Take a tour of the internet to discover deceptive visualizations. How does the author fool the user, and is it intentional? Try correcting the visualizations to show how they should look.
 
-Assignment - [Build your own custom visualization](../../assignments/data-science/build-your-own-custom-vis.md)
+Assignment - 
+- [Build your own custom visualization](../../assignments/data-science/build-your-own-custom-vis.md)
+- [Matplotlib applied](../../assignments/data-science/matplotlib-applied.ipynb)
 
 ## Acknowledgments
 

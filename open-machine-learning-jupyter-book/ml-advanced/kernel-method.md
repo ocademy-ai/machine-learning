@@ -15,10 +15,6 @@ kernelspec:
 
 # Kernel method
 
-```{warning}
-This book is under construction.
-```
-
 ```{admonition} Tip
 :class: tip
 Every page with code can be downloaded and run as a Jupyter notebook--just click <i class="fas fa-download"></i> at the top of the page and select '.ipynb'.
@@ -26,10 +22,15 @@ Every page with code can be downloaded and run as a Jupyter notebook--just click
 Most pages with code can be run in Google Colab --just click <i class="fas fa-rocket"></i> at the top of the page and select 'Colab'.
 ```
 
+SVMs are a powerful and flexible class of algorithms used for classification and regression. In this section, we will explore the intuition behind SVMs and their use in classification problems.
+To start with, let's understand the basic concept of SVMs. 
+Support Vector Machines (SVMs) are supervised learning algorithms that can be used for classification and regression tasks. SVMs try to find the best decision boundary that separates data points of different classes. The decision boundary is chosen such that it maximizes the margin between the data points of different classes.
+The margin is defined as the minimum distance between the decision boundary and the closest data points of each class. This makes SVMs very robust to outliers as the decision boundary is chosen based on the data that is closest to it.
+In classification problems, the goal is to find a decision boundary that separates the data into two or more classes. SVMs can be used for binary classification, where the classes are only two, or for multiclass classification, where there are more than two classes.
+
 ## Motivating Support Vector Machines
 
-Consider the simple case of a classification task, 
-in which the two classes of points are well separated:
+In this section we will consider differentiated classification: rather than modelling each category, we simply find a line or curve or flowform that separates these categories from each other.
 
 ```{code-cell}
 %matplotlib inline
@@ -49,16 +50,9 @@ X, y = make_blobs(n_samples=50, centers=2,
 plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn');
 ```
 
-A linear discriminative classifier would attempt 
-to draw a straight line separating the two sets of data, 
-and thereby create a model for classification. 
-For two-dimensional data like that shown here, 
-this is a task we could do by hand. But immediately 
-we see a problem: there is more than one possible 
-dividing line that can 
-perfectly discriminate between the two classes!
+A linear discriminant classifier may draw straight lines to separate two sets of data, but there may be multiple split lines that perfectly distinguish between the two categories. 
 
-We can draw them as follows:
+This is shown in the diagram below:
 
 
 ```{code-cell}
@@ -72,22 +66,14 @@ for m, b in [(1, 0.65), (0.5, 1.6), (-0.2, 2.9)]:
 plt.xlim(-1, 3.5);
 ```
 
-These are three very different separators which, 
-nevertheless, perfectly discriminate between these 
-samples. Depending on which you choose, a new data point 
-(e.g., the one marked by the "X" in this plot) will be 
-assigned a different label! Evidently our simple intuition 
-of "drawing a line between classes" is not enough, 
-and we need to think a bit deeper.
+All three separators are good if we want to distinguish between these samples. But they have some significant differences. In the following, I will explain these separators with an example to show the difference between them. Now, suppose you want a new data point, which is marked with an "X" in this graph. So, which separator would you choose? This is a very interesting question! Because you can choose to give this new data point a different label. It's up to you!
+Obviously we can't simply "draw a line between classes", but we do need to think a bit deeper.
+
 
 
 ## Support Vector Machines: Maximizing the _Margin_
 
-Support vector machines offer one way to improve on this. 
-The intuition is this: rather than simply drawing a 
-zero-width line between the classes, we can draw around each 
-line a margin of some width, up to the nearest point. 
-Here is an example of how this might look:
+SVM proposes a new solution algorithm which finds the nearest straight line by applying an appropriate boundary fill to each line. The following is an example of an improvement to the SVM algorithm.
 
 ```{code-cell}
 xfit = np.linspace(-1, 3.5)
@@ -101,9 +87,7 @@ for m, b, d in [(1, 0.65, 0.33), (0.5, 1.6, 0.55), (-0.2, 2.9, 0.2)]:
 
 plt.xlim(-1, 3.5);
 ```
-In support vector machines, the line that maximizes this margin 
-is the one we will choose as the optimal model. 
-Support vector machines are an example of such a maximum margin estimator.
+In SVM, the best models are those that maximise this margin, and SVM is an optimal model that achieves the maximum margin and can effectively use the boundary information in the dataset to predict the distribution of new data points, thereby improving prediction accuracy. Because of its excellent fitting ability, SVM can also be used to handle large amounts of unbalanced data.
 
 
 ## Fitting a support vector machine
@@ -127,11 +111,7 @@ SVM for Linear classification : 3D case. [source](https://www.youtube.com/watch?
 ```
 
 
-Let's see the result of an actual fit to this data: 
-we will use Scikit-learn's support vector classifier to 
-train an SVM model on this data. For the time being, 
-we will use a linear kernel and set the ```C``` parameter to a very large number 
-(we'll discuss the meaning of these in more depth momentarily).
+Now we will use a linear kernel and set the C parameter to a large size:
 
 
 ```{code-cell}
@@ -140,9 +120,7 @@ model = SVC(kernel='linear', C=1E10)
 model.fit(X, y);
 ```
 
-To better visualize what's happening here, 
-let's create a quick convenience function that 
-will plot SVM decision boundaries for us:
+Let's create a quick and easy function to draw the SVM decision boundary:
 
 ```{code-cell}
 def plot_svc_decision_function(model, ax=None, plot_support=True):
@@ -178,28 +156,15 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
 plot_svc_decision_function(model);
 ```
 
-This is the dividing line that maximizes 
-the margin between the two sets of points. 
-Notice that a few of the training points just 
-touch the margin: they are indicated by the 
-black circles in this figure. These points are 
-the pivotal elements of this fit, and are known as 
-the support vectors, and give the algorithm its name. 
-In Scikit-Learn, the identity of these points are 
-stored in the ```support_vectors_``` attribute of the classifier:
+This is a maximum expansion of the space between the two points. Note that some of the practice points just reach the boundary and are marked with black circles. Those points are important in the matching process and are called, support vectors, which is the name of this algorithm. In Skeeter-learning, the identification of these points is stored in the support_vectors_ property of the classifier at:
 
 ```{code-cell}
 model.support_vectors_
 ```
 
-A key to this classifier's success is that for the fit, only the position of the support vectors matter; 
-any points further from the margin which are on the correct side 
-do not modify the fit! Technically, this is because these points do not contribute to the loss function 
-used to fit the model, so their position and number do not matter so long as they do not cross the margin.
+One of the main points of this classification method is that just the space in which the support vector is located has a large effect on the matching result; on the correct side, no point away from the boundary can correct the match. This is due to the fact that during the fitting process those points do not affect the loss function used in the model. Theoretically, this is due to the fact that during the fitting process, those points do not affect the loss function used in the fitting process, and therefore, if they do not cross the boundary, then their location and number are irrelevant.
 
-We can see this, for example, 
-if we plot the model learned from the 
-first 60 points and first 120 points of this dataset:
+In the dataset, the first 60 points and the first 120 points are each used as the training set, and we can use this dataset to train the model.
 
 ```{code-cell}
 def plot_svm(N=10, ax=None):
@@ -223,14 +188,9 @@ for axi, N in zip(ax, [60, 120]):
     axi.set_title('N = {0}'.format(N))
 ```
 
-In the left panel, we see the model and the support vectors for 60 training points. 
-In the right panel, we have doubled the number of training points, 
-but the model has not changed: the three support vectors from the left panel are still 
-the support vectors from the right panel. This insensitivity to the exact behavior of 
-distant points is one of the strengths of the SVM model.
+ One of the strengths of the SVM model is that it is insensitive to the exact behaviour of distant points, as can be seen from the comparison between the two figures, and increases the number of training points without affecting the classification results of the model.
 
-If you are running this notebook live, 
-you can use IPython's interactive widgets to view this feature of the SVM model interactively:
+With the interactive component in IPython, you can interactively see this feature of the SVM model
 
 ```{code-cell}
 from ipywidgets import interact, fixed
@@ -250,12 +210,9 @@ Kernel SVM visualization (with a polynomial kernel). [source](https://www.youtub
 
 
 
-Where SVM becomes extremely powerful is when it is combined with _kernels_.
-The main idea is to project the data into higher-dimensional space defined by 
-polynomials and Gaussian basis functions, 
-and thereby were able to fit for nonlinear relationships with a linear classifier.
+Kernels is an "easy algorithm" that saves us from the tedious calculations in a high-dimensional space. If support vector machines and kernels are combined to project data into a high-dimensional space, making it possible to handle non-linear relationships with linear classifiers, the power of SVMs can be enormous.
 
-To motivate the need for kernels, let's look at some data that is not linearly separable:
+The following is the case for non-linearly separable data:
 
 ```{code-cell}
 from sklearn.datasets import make_circles
@@ -267,19 +224,13 @@ plt.scatter(X[:, 0], X[:, 1], c=y, s=50, cmap='autumn')
 plot_svc_decision_function(clf, plot_support=False);
 ```
 
-It is clear that no linear discrimination will ever be able to separate this data. 
-But we can  project the data into a 
-higher dimension such that a linear separator would be 
-sufficient. For example, one simple projection we could 
-use would be to compute a radial basis function centered on the middle clump:
+It is possible to project the data into higher dimensions, so that a linear partition line is sufficient. As an example, we can use a simple projection to compute a radial basis function with the centre on the middle block as follows:
 
 ```{code-cell}
 r = np.exp(-(X ** 2).sum(1))
 ```
 
-We can visualize this extra data dimension using a three-dimensional 
-plot. If you are running this notebook live, 
-you will be able to use the sliders to rotate the plot:
+This additional dimension of data can be visualised in a 3D diagram.:
 
 ```{code-cell}
 from mpl_toolkits import mplot3d
@@ -297,32 +248,9 @@ interact(plot_3D, elev=[-90, 90], azip=(-180, 180),
 ```
 
 
-We can see that with this additional dimension, 
-the data becomes trivially linearly separable, 
-by drawing a separating plane at, say, $r=0.7$.
-
-Here we had to choose and carefully tune our projection: 
-if we had not centered our radial basis function in the right location, 
-we would not have seen such clean, linearly separable results. 
-In general, the need to make such a choice is a problem: 
-we would like to somehow automatically find the best basis functions to use.
-
-One strategy to this end is to compute a basis function centered at every 
-point in the dataset, and let the SVM algorithm sift through the results. 
-This type of basis function transformation is known as a _kernel transformation_, 
-as it is based on a similarity relationship (or kernel) between each pair of points.
-
-A potential problem with this strategy—projecting $N$ points 
-into $N$ dimensions—is that it might become very computationally 
-intensive as $N$ grows large. However, because of a neat little procedure known 
-as the _kernel trick_, a fit on kernel-transformed data can be done implicitly—that is, 
-without ever building the full $N$-dimensional representation of the kernel projection! 
-This kernel trick is built into the SVM, and is one of the reasons the method is so powerful.
-
-In Scikit-Learn, we can apply kernelized 
-SVM simply by changing our linear kernel 
-to an RBF (radial basis function) kernel, 
-using the ```kernel``` model hyperparameter:
+Next we describe how to select and adjust the radial basis function centres.
+This type of basis function transformation is known as a kernel transformation, and this form of transformation solves the problem of shifting the centre of the basis function to a certain extent.
+However there is a disadvantage: there is the problem of computational overload as a new basis function needs to be computed each time. We can solve this problem with the help of the "kernel trick" applet, where we change the original linear kernel to a radial basis function kernel and then use the kernel model hyperparameters.
 
 ```{code-cell}
 clf = SVC(kernel='rbf', C=1E6)
@@ -337,23 +265,13 @@ plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
 ```
 
 
-Using this kernelized support vector machine, we learn a suitable 
-nonlinear decision boundary. 
-This kernel transformation strategy is used often in machine learning 
-to turn fast linear methods into fast nonlinear methods, especially for 
-models in which the kernel trick can be used.
+Currently, for linearly divisible data, we usually use a linear support vector machine. However, if the data is non-linear, such as a classification problem, we can transform it into a linearly divisible problem, thus improving the generalisation of the model. In this case, kernel tricks are used to transform linearly divisible problems into non-linearly divisible problems.
 
 
 
 ## Hinge loss
 
-An alternative to cross-entropy for binary 
-classification problems is the hinge loss function.
-It is primarily developed for use with 
-Support Vector Machine (SVM) models.
-
-It is intended for use with binary 
-classification where the target values are in the set {-1, 1}.
+An alternative to cross-entropy for binary classification problems is the hinge loss function. It is mainly studied for the Support Vector Machine (SVM) model. It is designed to perform binary classification of target values which in the set {-1, 1}
 
 ## RBF Kernel
 
@@ -363,12 +281,9 @@ classification where the target values are in the set {-1, 1}.
 
 ## Support Vector Regression (SVR)
 
-
-With SVR, we are basically 
-trying to decide a decision boundary at $e$ distance 
-from the original hyper plane such that data points 
-closest to the hyper plane or the support vectors are 
-within that boundary line.
+SVR regression (Squeeze-and-VectorRegression), also known as Squeeze Regression, is an optimisation problem. The basic idea is to find a regression plane such that the variables in all data sets are closest to a point on this plane, so that all points on the plane are correlated.
+Objective function:
+In SVR regression, the objective function is to minimise the two-parametric number of weights while keeping the points in each training set as far away as possible from the support vector on one side of their own category.
 
 
 ```{figure} ../../images/svm/svr1.jpeg
@@ -382,14 +297,15 @@ An illustration of support vector regression
 
 ## SVM v.s. logistic regression
 
-- SVM works well with unstructured and semi-structured data like text and images while logistic regression works with already identified independent variables.
-- SVM is based on geometrical properties of the data while logistic regression is based on statistical approaches.
-- The risk of overfitting is less in SVM, while logistic regression is vulnerable to overfitting.
-- LR gives calibrated probabilities that can be interpreted as confidence in a decision.
-- LR gives us an unconstrained, smooth objective. 
-- LR can be (straightforwardly) used within Bayesian models.
-- SVMs don’t penalize examples for which the correct decision is made with sufficient confidence. This may be good for generalization.
-- SVMs have a nice dual form, giving sparse solutions when using the kernel trick (better scalability)
+Similarities: Both are linear classification algorithms
+Differences:
+1. Different loss functions
+LR: based on the assumption of "given x and parameters, y obeys binomial distribution", derived from the maximum likelihood estimation
+SVM: standard representation of hinge loss ＋ L2 regularization, based on the principle of geometric interval maximization
+2. Support vector machines only consider local points near the interval boundary, whereas logistic regression considers the global (points far from the boundary line also play a role in determining the boundary line). Support vector machines do not cause changes in the separation hyperplane by changing the non-support vector samples
+3. SVM's loss function is self-regularising, which is why SVM is a structural risk minimisation algorithm!!! And LR must additionally add a regular term to the loss function !!! Structural risk minimisation, meaning seeking a balance between training error and model complexity to prevent overfitting.
+4. Optimization methods: LR is generally based on gradient descent, SVM on SMO
+5. For non-linear separable problems, SVM is more scalable than LR
 
 ```{seealso}
 https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-logistic-regression/
@@ -397,27 +313,19 @@ https://www.geeksforgeeks.org/differentiate-between-support-vector-machine-and-l
 
 ## SVR v.s. linear regression
 
-- One Advantage of SVR over OLSE linear regression is 
-SVR can minimize overfitting problem.
-- SVR allows non linear fitting problems as well (based on the kernel trick and the representation of the solution/model in the dual rather than in the primal),
-while Linear Regression is only for simple linear regression with straight line (may contain any number of features in both cases).
+The problem of overfitting is a very tricky one in the field of statistics. In this case, many machine learning methods, such as least squares (OLSE), will perform poorly. Support vector machines (SVR), on the other hand, can minimise the overfitting problem. SVR allows for non-linear fitting when there is enough data for training.
+A final issue to consider is OLSE linear regression. While linear regression is effective for most problems, it is not always effective for some special cases. For example, in OLSE linear regression, there is some bias in fitting the variables linearly because the model is not hyperplane. In contrast, SVR allows for non-linear fitting problems.
 
 ## Support Vector Machine Summary
-We have seen here a brief intuitive introduction to 
-the principals behind support vector machines. 
-These methods are a powerful classification method for a number of reasons:
-- Their dependence on relatively few support vectors means that they are very compact models, and take up very little memory.
-- Once the model is trained, the prediction phase is very fast.
-- Because they are affected only by points near the margin, they work well with high-dimensional data—even data with more dimensions than samples, which is a challenging regime for other algorithms.
-- Their integration with kernel methods makes them very versatile, able to adapt to many types of data.
+The basic model of SVM: is defined as a linear classifier with maximum interval on the feature space. Specifically, when linearly separable, it finds the optimal classification hyperplane for both classes of samples in the original space. When linearly indistinguishable, relaxation variables are added and samples from a low-dimensional input space are mapped to a higher-dimensional space via a non-linear mapping to make them linearly distinguishable, so that the optimal classification hyperplane can be found in that feature space.
 
-However, SVMs have several disadvantages as well:
-- The scaling with the number of samples N is $O[N^3]$ at worst, 
-or $O[N^2]$ for efficient implementations. For large numbers of training samples, this computational cost can be prohibitive.
-- The results are strongly dependent on a suitable choice for the softening parameter $C$. 
-This must be carefully chosen via cross-validation, which can be expensive as datasets grow in size.
-- The results do not have a direct probabilistic interpretation. This can be estimated via an internal 
-cross-validation (see the ```probability``` parameter of ```SVC```), but this extra estimation is costly.
+Advantages of SVM:
+1) Solves machine learning in the small sample case.
+2) No increase in computational complexity when mapping to higher dimensional spaces as the dimensional catastrophe and non-linear differentiability are overcome by using the kernel function approach. (Since the final decision function of the support vector machine algorithm is determined by only a small number of support vectors, the computational complexity depends on the number of support vectors rather than the dimensionality of the entire sample space).
+Disadvantages of SVMs:
+1) Support vector machine algorithms are difficult to implement for large training samples. This is because support vector algorithms solve support vectors with the help of quadratic programming, which will be designed to compute matrices of order m, so a large amount of machine memory and computing time will be consumed when the order of the matrix is large.
+2) The classical SVM only gives algorithms for binary classification, while in data mining, it is generally necessary to solve multi-classification classification problems, and support vector machines are not ideal for solving multi-classification problems.
+3) The common SVM theories nowadays use a fixed penalty factor C, but the losses caused by two kinds of errors in positive and negative samples are different.
 
 ## [Optional] Let's dive into the math of SVM ...
 
@@ -427,17 +335,5 @@ cross-validation (see the ```probability``` parameter of ```SVC```), but this ex
 
 ## Acknowledgement
 
-[jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), which is licenced under CC-by licence.
+Some code comes from [jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), for which the code part is licenced under MIT licence.
 
-
-## Kernel PCA
-
-https://rishi-advani.com/random-projections/notebooks/html/Kernel_PCA.html
-
-<div hidden>
-
-https://slazebni.cs.illinois.edu/spring21/lec03_linear.pdf
-
-https://slazebni.cs.illinois.edu/spring21/lec05_nonlinear_classifiers.pdf
-
-</div>

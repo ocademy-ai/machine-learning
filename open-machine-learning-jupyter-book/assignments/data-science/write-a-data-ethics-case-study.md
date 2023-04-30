@@ -2,13 +2,13 @@
 
 ## Instructions
 
-You've learned about various [data ethics challenges](../../data-science/data-science-ethics.md#ethics-challenges) and seen some examples of [case studies](../../data-science/introduction/data-science-ethics.md#case-studies) reflecting data ethics challenges in real-world contexts.
+You've learned about various [data ethics challenges](../../data-science/introduction/data-science-ethics.md#ethics-challenges) and seen some examples of [case studies](../../data-science/introduction/data-science-ethics.md#case-studies) reflecting data ethics challenges in real-world contexts.
 
 In this assignment, you'll write your own case study reflecting a data ethics challenge from your own experience, or from a relevant real-world context you are familiar with. Just follow these steps:
 
-1. **Pick a data ethics challenge**. Look at [the section examples](../../data-science/data-science-ethics.md#ethics-challenges) or explore online examples like [the Deon Checklist](https://deon.drivendata.org/examples/) to get inspiration.
+1. **Pick a data ethics challenge**. Look at [the section examples](../../data-science/introduction/data-science-ethics.md#ethics-challenges) or explore online examples like [the Deon Checklist](https://deon.drivendata.org/examples/) to get inspiration.
 2. **Describe a real-world example**. Think about a situation you have heard of (headlines, research study etc.) or experienced (local community), where this specific challenge occurred. Think about the data ethics questions related to the challenge - and discuss the potential harms or unintended consequences that arise because of this issue. Bonus points: think about potential solutions or processes that may be applied here to help eliminate or mitigate the adverse impact of this challenge.
-3. **Provide a related resources list**. Share one or more resources (links to an article, a personal blog post or image, online research paper etc.) to prove this was a real-world occurrence. Bonus points: share resources that also showcase the potential harms & consequences of the incident, or highlight positive steps taken to prevent its recurrence.
+3. **Provide a related resources list**. Share one or more resources (links to an article, a personal blog post or image, an online research paper etc.) to prove this was a real-world occurrence. Bonus points: share resources that also showcase the potential harms & consequences of the incident, or highlight positive steps taken to prevent its recurrence.
 
 ## Rubric
 

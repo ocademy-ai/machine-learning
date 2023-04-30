@@ -15,14 +15,12 @@ kernelspec:
 
 # Logistic regression
 
-## Logistic regression to predict categories
-
 ```{figure} ../../../images/ml-regression/logistic-linear.png
 ---
 name: 'Logistic vs. linear regression infographic'
 width: 100%
 ---
-Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+Logistic regression to predict categories. Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 ```
 
 ## Introduction
@@ -188,19 +186,19 @@ Try creating this plot, and other Seaborn plots, using other variables.
 Now that we have an idea of the relationship between the binary categories of color and the larger group of sizes, let's explore logistic regression to determine a given pumpkin's likely color.
 
 ```{seealso}
-> **🧮 Show Me The Math**
->
-> Remember how linear regression often used ordinary least squares to arrive at a value? Logistic regression relies on the concept of 'maximum likelihood' using [sigmoid functions](https://wikipedia.org/wiki/Sigmoid_function). A 'Sigmoid Function' on a plot looks like an 'S' shape. It takes a value and maps it to somewhere between 0 and 1. Its curve is also called a 'logistic curve'. Its formula looks like this:
->
->```{figure} ../../../images/ml-regression/sigmoid.png
->---
->name: 'logistic function'
->width: 70%
->---
->logistic function{cite}`logistic_function`
->```
->
-> where the sigmoid's midpoint finds itself at x's 0 point, L is the curve's maximum value, and k is the curve's steepness. If the outcome of the function is more than 0.5, the label in question will be given the class '1' of the binary choice. If not, it will be classified as '0'.
+
+**Show Me The Math**
+
+Remember how linear regression often used ordinary least squares to arrive at a value? Logistic regression relies on the concept of 'maximum likelihood' using [sigmoid functions](https://wikipedia.org/wiki/Sigmoid_function). A 'Sigmoid Function' on a plot looks like an 'S' shape. It takes a value and maps it to somewhere between 0 and 1. Its curve is also called a 'logistic curve'. Its formula looks like this:
+
+:::{figure-md} Logistic function
+<img src="../../../images/ml-regression/sigmoid.png" width="90%" class="bg-white mb-1">
+
+Logistic function{cite}`logistic_function`
+:::
+
+Where the sigmoid's midpoint finds itself at x's $0$ point, L is the curve's maximum value, and $k$ is the curve's steepness. If the outcome of the function is more than 0.5, the label in question will be given the class '1' of the binary choice. If not, it will be classified as '0'.
+
 ```
 
 ## Build your model
@@ -331,7 +329,7 @@ auc = roc_auc_score(y_test,y_scores[:, 1])
 print(auc)
 ```
 
-The result is `0.6976998904709748`. Given that the AUC ranges from 0 to 1, you want a big score, since a model that is 100% correct in its predictions will have an AUC of 1; in this case, the model is _pretty good_. 
+The result is `0.6976998904709748`. Given that the AUC ranges from 0 to 1, you want a big score, since a model that is 100% correct in its predictions will have an AUC of 1; in this case, the model is _pretty good_.
 
 In future lessons on classifications, you will learn how to iterate to improve your model's scores. But for now, congratulations! You've completed these regression sections!
 
