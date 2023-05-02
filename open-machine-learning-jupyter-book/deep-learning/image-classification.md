@@ -83,6 +83,8 @@ import tensorflow_datasets as tfds
 
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
+#This code defines a function `conv_bn` that returns a sequential model consisting of a zero-padding layer, 
+# a convolution layer, and a batch normalization layer.
 
 def conv_bn(out_channels, kernel_size, strides, padding, groups=1):
     return tf.keras.Sequential(
@@ -101,7 +103,21 @@ def conv_bn(out_channels, kernel_size, strides, padding, groups=1):
         ]
     )
 
+```
+This function is useful for constructing convolutional neural network architectures, as it provides a simple way to combine convolution and batch normalization layers.
 
+- `out_channels` specifies the number of output channels for the convolution layer. 
+- `kernel_size` specifies the size of the convolution kernel. 
+- `strides` specifies the stride size for the convolution operation. 
+- `padding` specifies the padding size for the zero-padding layer. 
+- `groups` specifies the number of groups for the group convolution operation.
+
+The function returns a sequential model that consists of three layers: 
+a zero-padding layer, a convolution layer, and a batch normalization layer. 
+
+The convolution layer has `out_channels` filters, a kernel size of `kernel_size`, and a stride size of `strides`. The zero-padding layer has a padding size of `padding`. The batch normalization layer normalizes the activations of the convolution layer.
+
+```{code-cell}
 class RepVGGBlock(tf.keras.layers.Layer):
     def __init__(
         self,
@@ -233,6 +249,24 @@ class RepVGGBlock(tf.keras.layers.Layer):
         kernel, bias = self.get_equivalent_kernel_bias()
         return kernel, bias
 
+```
+
+This code defines a RepVGGBlock layer in TensorFlow, which is a convolutional block used in the RepVGG model. The RepVGG model is a neural network architecture that achieves high accuracy while having a simple structure. The RepVGGBlock layer is designed to be more efficient and easier to train compared to other convolutional layers.
+
+The RepVGGBlock layer has several parameters such as `in_channels`, `out_channels`, `kernel_size`, `strides`, `padding`, `dilation`, and `groups`. `in_channels` and `out_channels` determine the number of input and output channels, respectively. 
+- `kernel_size` specifies the size of the convolution kernel. 
+- `strides` determines the step size of the convolution operation. 
+- `padding` controls the amount of padding to be added to the input image.
+- `dilation` specifies the dilation rate of the convolution operation. 
+- `groups` determines the number of groups to be used in the convolution operation.
+
+The layer contains several convolutional operations, including a 3x3 convolution, a 1x1 convolution, and a residual identity. These convolutional operations are fused with batch normalization to improve training efficiency. The layer also includes a rectified linear unit (ReLU) activation function.
+
+- The `call()` function of the RepVGGBlock layer applies the convolutional operations and the ReLU activation function to the input tensor. 
+- The `get_equivalent_kernel_bias()` function derives the equivalent kernel and bias of the layer in a differentiable way, which can be useful for applying penalties or constraints during training, such as in quantization or pruning. 
+- The `repvgg_convert()` function converts the RepVGGBlock layer to a standard convolutional layer by fusing batch normalization with convolutional operations.
+
+```
 
 class RepVGG(tf.keras.Model):
     def __init__(
@@ -310,6 +344,12 @@ class RepVGG(tf.keras.Model):
         return out
 ```
 
+This is a TensorFlow implementation of the RepVGG model, a type of convolutional neural network designed for efficient inference on mobile and embedded devices. 
+- The RepVGG model uses a series of RepVGG blocks to transform the input image into a feature representation that is then fed into a fully connected layer to make the final prediction. 
+- The RepVGG blocks are based on the VGG-style architecture, but instead of using traditional convolutional layers, they use a combination of 1x1 and 3x3 depthwise separable convolutions to reduce the number of parameters while maintaining performance. 
+- The width of the network can be adjusted by specifying a width multiplier for each stage of the network. 
+- The model also includes an adaptive average pooling layer to reduce the spatial dimensions of the feature map before the fully connected layer.
+
 ### Resnet
 
 ResNet (Residual Network) was proposed by Kaiming He and won the 2015 ILSVRC Grand Prix with an error rate of 3.57%. In the previous network, when the model is not deep enough, its network recognition is not strong, but when the network stack (Plain Network) is very deep, the network gradient disappearance and gradient dispersion are obvious, resulting in the model's computational effectiveness but not up but down. Therefore, in view of the degradation problem of this deep network, ResNet is designed as an ultra-deep network without the gradient vanishing problem.ResNet has various types depending on the number of layers, from 18 to 1202 layers. As an example, Res Net50 consists of 49 convolutional layers and 1 fully connected layer, as shown in the figure below. This simple addition does not add additional parameters and computation to the network, but can greatly increase the training speed and improve the training effect, and this simple structure can well solve the degradation problem when the model deepens the number of layers. In this way, the network will always be in the optimal state and the performance of the network will not decrease with increasing depth.
@@ -331,183 +371,42 @@ Structure of residual network {cite}`resnet_structure`
 #### Code
 
 ```{code-cell}
-import time
 import tensorflow as tf
-import tensorflow.contrib as tf_contrib
 
-weight_init = tf_contrib.layers.variance_scaling_initializer()
-weight_regularizer = tf_contrib.layers.l2_regularizer(0.0001)
-
-# Layer
-def conv(x, channels, kernel=4, stride=2, padding='SAME', use_bias=True, scope='conv_0'):
-    with tf.variable_scope(scope):
-        x = tf.layers.conv2d(inputs=x, filters=channels,
-                             kernel_size=kernel, kernel_initializer=weight_init,
-                             kernel_regularizer=weight_regularizer,
-                             strides=stride, use_bias=use_bias, padding=padding)
-
-        return x
-
-def fully_conneted(x, units, use_bias=True, scope='fully_0'):
-    with tf.variable_scope(scope):
-        x = flatten(x)
-        x = tf.layers.dense(x, units=units, kernel_initializer=weight_init, kernel_regularizer=weight_regularizer, use_bias=use_bias)
-
-        return x
-
-def resblock(x_init, channels, is_training=True, use_bias=True, downsample=False, scope='resblock') :
-    with tf.variable_scope(scope) :
-
-        x = batch_norm(x_init, is_training, scope='batch_norm_0')
-        x = relu(x)
-
-
-        if downsample :
-            x = conv(x, channels, kernel=3, stride=2, use_bias=use_bias, scope='conv_0')
-            x_init = conv(x_init, channels, kernel=1, stride=2, use_bias=use_bias, scope='conv_init')
-
-        else :
-            x = conv(x, channels, kernel=3, stride=1, use_bias=use_bias, scope='conv_0')
-
-        x = batch_norm(x, is_training, scope='batch_norm_1')
-        x = relu(x)
-        x = conv(x, channels, kernel=3, stride=1, use_bias=use_bias, scope='conv_1')
-
-
-
-        return x + x_init
-
-def bottle_resblock(x_init, channels, is_training=True, use_bias=True, downsample=False, scope='bottle_resblock') :
-    with tf.variable_scope(scope) :
-        x = batch_norm(x_init, is_training, scope='batch_norm_1x1_front')
-        shortcut = relu(x)
-
-        x = conv(shortcut, channels, kernel=1, stride=1, use_bias=use_bias, scope='conv_1x1_front')
-        x = batch_norm(x, is_training, scope='batch_norm_3x3')
-        x = relu(x)
-
-        if downsample :
-            x = conv(x, channels, kernel=3, stride=2, use_bias=use_bias, scope='conv_0')
-            shortcut = conv(shortcut, channels*4, kernel=1, stride=2, use_bias=use_bias, scope='conv_init')
-
-        else :
-            x = conv(x, channels, kernel=3, stride=1, use_bias=use_bias, scope='conv_0')
-            shortcut = conv(shortcut, channels * 4, kernel=1, stride=1, use_bias=use_bias, scope='conv_init')
-
-        x = batch_norm(x, is_training, scope='batch_norm_1x1_back')
-        x = relu(x)
-        x = conv(x, channels*4, kernel=1, stride=1, use_bias=use_bias, scope='conv_1x1_back')
-
-        return x + shortcut
-
-
-
-def get_residual_layer(res_n) :
-    x = []
-
-    if res_n == 18 :
-        x = [2, 2, 2, 2]
-
-    if res_n == 34 :
-        x = [3, 4, 6, 3]
-
-    if res_n == 50 :
-        x = [3, 4, 6, 3]
-
-    if res_n == 101 :
-        x = [3, 4, 23, 3]
-
-    if res_n == 152 :
-        x = [3, 8, 36, 3]
-
+def conv_bn_relu(x, filters, kernel_size, strides=1):
+    x = tf.layers.conv2d(x, filters, kernel_size, strides=strides, padding='same', use_bias=False)
+    x = tf.layers.batch_normalization(x)
+    x = tf.nn.relu(x)
     return x
 
-# Sampling
-def flatten(x) :
-    return tf.layers.flatten(x)
+def residual_block(x, filters, strides=1):
+    shortcut = x
+    x = conv_bn_relu(x, filters, kernel_size=3, strides=strides)
+    x = conv_bn_relu(x, filters, kernel_size=3)
+    x = x + shortcut
+    return x
 
-def global_avg_pooling(x):
-    gap = tf.reduce_mean(x, axis=[1, 2], keepdims=True)
-    return gap
+def resnet(input_shape, num_classes, num_filters=16, num_blocks=[3,3,3]):
+    inputs = tf.placeholder(tf.float32, shape=[None, *input_shape])
+    x = conv_bn_relu(inputs, num_filters, kernel_size=3)
 
-def avg_pooling(x) :
-    return tf.layers.average_pooling2d(x, pool_size=2, strides=2, padding='SAME')
+    # Stacking residual blocks
+    for i, num_blocks in enumerate(num_blocks):
+        for j in range(num_blocks):
+            strides = 1
+            if j == 0 and i != 0:
+                strides = 2
+            x = residual_block(x, num_filters*(2**i), strides=strides)
 
-# Activation function
-def relu(x):
-    return tf.nn.relu(x)
+    # Global average pooling and fully-connected layer for classification
+    x = tf.reduce_mean(x, axis=[1,2])
+    logits = tf.layers.dense(x, num_classes)
 
-# Normalization function
-def batch_norm(x, is_training=True, scope='batch_norm'):
-    return tf_contrib.layers.batch_norm(x,
-                                        decay=0.9, epsilon=1e-05,
-                                        center=True, scale=True, updates_collections=None,
-                                        is_training=is_training, scope=scope)
-    
-class ResNet(object):
-    def __init__(self, sess, args):
-        self.model_name = 'ResNet'
-        self.sess = sess
-        self.dataset_name = args.dataset
-
-        if self.dataset_name == 'cifar10' :
-            self.train_x, self.train_y, self.test_x, self.test_y = load_cifar10()
-            self.img_size = 32
-            self.c_dim = 3
-            self.label_dim = 10
-
-        self.checkpoint_dir = args.checkpoint_dir
-        self.log_dir = args.log_dir
-
-        self.res_n = args.res_n
-
-        self.epoch = args.epoch
-        self.batch_size = args.batch_size
-        self.iteration = len(self.train_x) // self.batch_size
-
-        self.init_lr = args.lr
-
-    # Generator
-    def network(self, x, is_training=True, reuse=False):
-        with tf.variable_scope("network", reuse=reuse):
-
-            if self.res_n < 50 :
-                residual_block = resblock
-            else :
-                residual_block = bottle_resblock
-
-            residual_list = get_residual_layer(self.res_n)
-
-            ch = 32 # paper is 64
-            x = conv(x, channels=ch, kernel=3, stride=1, scope='conv')
-
-            for i in range(residual_list[0]) :
-                x = residual_block(x, channels=ch, is_training=is_training, downsample=False, scope='resblock0_' + str(i))
-
-            x = residual_block(x, channels=ch*2, is_training=is_training, downsample=True, scope='resblock1_0')
-
-            for i in range(1, residual_list[1]) :
-                x = residual_block(x, channels=ch*2, is_training=is_training, downsample=False, scope='resblock1_' + str(i))
-
-            x = residual_block(x, channels=ch*4, is_training=is_training, downsample=True, scope='resblock2_0')
-
-            for i in range(1, residual_list[2]) :
-                x = residual_block(x, channels=ch*4, is_training=is_training, downsample=False, scope='resblock2_' + str(i))
-
-            x = residual_block(x, channels=ch*8, is_training=is_training, downsample=True, scope='resblock_3_0')
-
-            for i in range(1, residual_list[3]) :
-                x = residual_block(x, channels=ch*8, is_training=is_training, downsample=False, scope='resblock_3_' + str(i))
-
-            x = batch_norm(x, is_training, scope='batch_norm')
-            x = relu(x)
-
-            x = global_avg_pooling(x)
-            x = fully_conneted(x, units=self.label_dim, scope='logit')
-
-            return x
-
+    return inputs, logits
 ```
+This implementation uses the conv_bn_relu function to perform a convolution operation followed by batch normalization and ReLU activation. 
+- The residual_block function defines a residual block that consists of two convolutional layers with batch normalization and ReLU activation, followed by an addition of the input to the output of the second convolutional layer. 
+- The resnet function stacks multiple residual blocks and ends with a global average pooling layer and a fully-connected layer for classification.
 
 ### DenseNet
 
@@ -529,152 +428,56 @@ Structure of dense network {cite}`densenet_structure`
 
 ```{code-cell}
 import tensorflow as tf
-from tflearn.layers.conv import global_avg_pool
-from tensorflow.examples.tutorials.mnist import input_data
-from tensorflow.contrib.layers import batch_norm, flatten
-from tensorflow.contrib.framework import arg_scope
-import numpy as np
 
-# Hyperparameter
-nb_block = 2
-dropout_rate = 0.2
+def conv_block(input, filters, dropout_rate):
+    x = tf.layers.batch_normalization(input)
+    x = tf.nn.relu(x)
+    x = tf.layers.conv2d(x, filters, kernel_size=3, padding='same', activation=None)
+    x = tf.layers.dropout(x, rate=dropout_rate)
+    return x
 
-def conv_layer(input, filter, kernel, stride=1, layer_name="conv"):
-    with tf.name_scope(layer_name):
-        network = tf.layers.conv2d(inputs=input, filters=filter, kernel_size=kernel, strides=stride, padding='SAME')
-        return network
+def dense_block(input, n_layers, growth_rate, dropout_rate):
+    for i in range(n_layers):
+        conv = conv_block(input, growth_rate, dropout_rate)
+        input = tf.concat([input, conv], axis=-1)
+    return input
 
-def Global_Average_Pooling(x, stride=1):
-    """
-    width = np.shape(x)[1]
-    height = np.shape(x)[2]
-    pool_size = [width, height]
-    return tf.layers.average_pooling2d(inputs=x, pool_size=pool_size, strides=stride) # The stride value does not matter
-    It is global average pooling without tflearn
-    """
+def transition_block(input, compression):
+    n_filters = input.get_shape().as_list()[-1]
+    n_filters = int(n_filters * compression)
+    x = tf.layers.batch_normalization(input)
+    x = tf.nn.relu(x)
+    x = tf.layers.conv2d(x, n_filters, kernel_size=1, padding='same', activation=None)
+    x = tf.layers.average_pooling2d(x, pool_size=2, strides=2, padding='valid')
+    return x
 
-    return global_avg_pool(x, name='Global_avg_pooling')
-    # But maybe you need to install h5py and curses or not
+def densenet(input, n_classes, n_dense_blocks=3, n_layers_per_block=4, growth_rate=12, compression=0.5, dropout_rate=0.2):
+    # Initial convolution layer
+    x = tf.layers.conv2d(input, filters=2*growth_rate, kernel_size=7, strides=2, padding='same', activation=None)
+    x = tf.layers.batch_normalization(x)
+    x = tf.nn.relu(x)
+    x = tf.layers.max_pooling2d(x, pool_size=3, strides=2, padding='same')
 
+    # Dense blocks
+    for i in range(n_dense_blocks):
+        x = dense_block(x, n_layers_per_block, growth_rate, dropout_rate)
+        if i != n_dense_blocks-1:
+            x = transition_block(x, compression)
 
-def Batch_Normalization(x, training, scope):
-    with arg_scope([batch_norm],
-                   scope=scope,
-                   updates_collections=None,
-                   decay=0.9,
-                   center=True,
-                   scale=True,
-                   zero_debias_moving_mean=True) :
-        return tf.cond(training,
-                       lambda : batch_norm(inputs=x, is_training=training, reuse=None),
-                       lambda : batch_norm(inputs=x, is_training=training, reuse=True))
-
-def Drop_out(x, rate, training) :
-    return tf.layers.dropout(inputs=x, rate=rate, training=training)
-
-def Relu(x):
-    return tf.nn.relu(x)
-
-def Average_pooling(x, pool_size=[2,2], stride=2, padding='VALID'):
-    return tf.layers.average_pooling2d(inputs=x, pool_size=pool_size, strides=stride, padding=padding)
+    # Global average pooling and classification layer
+    x = tf.layers.batch_normalization(x)
+    x = tf.nn.relu(x)
+    x = tf.layers.average_pooling2d(x, pool_size=x.get_shape().as_list()[1:3], strides=1)
+    x = tf.layers.flatten(x)
+    output = tf.layers.dense(x, units=n_classes, activation=None)
+    
+    return output
 
 
-def Max_Pooling(x, pool_size=[3,3], stride=2, padding='VALID'):
-    return tf.layers.max_pooling2d(inputs=x, pool_size=pool_size, strides=stride, padding=padding)
-
-def Concatenation(layers) :
-    return tf.concat(layers, axis=3)
-
-def Linear(x) :
-    return tf.layers.dense(inputs=x, units=class_num, name='linear')
-
-class DenseNet():
-    def __init__(self, x, nb_blocks, filters, training):
-        self.nb_blocks = nb_blocks
-        self.filters = filters
-        self.training = training
-        self.model = self.Dense_net(x)
-
-    def bottleneck_layer(self, x, scope):
-        # print(x)
-        with tf.name_scope(scope):
-            x = Batch_Normalization(x, training=self.training, scope=scope+'_batch1')
-            x = Relu(x)
-            x = conv_layer(x, filter=4 * self.filters, kernel=[1,1], layer_name=scope+'_conv1')
-            x = Drop_out(x, rate=dropout_rate, training=self.training)
-
-            x = Batch_Normalization(x, training=self.training, scope=scope+'_batch2')
-            x = Relu(x)
-            x = conv_layer(x, filter=self.filters, kernel=[3,3], layer_name=scope+'_conv2')
-            x = Drop_out(x, rate=dropout_rate, training=self.training)
-
-            # print(x)
-
-            return x
-
-    def transition_layer(self, x, scope):
-        with tf.name_scope(scope):
-            x = Batch_Normalization(x, training=self.training, scope=scope+'_batch1')
-            x = Relu(x)
-            # x = conv_layer(x, filter=self.filters, kernel=[1,1], layer_name=scope+'_conv1')
-            
-            # https://github.com/taki0112/Densenet-Tensorflow/issues/10
-            
-            in_channel = x.shape[-1]
-            x = conv_layer(x, filter=in_channel*0.5, kernel=[1,1], layer_name=scope+'_conv1')
-            x = Drop_out(x, rate=dropout_rate, training=self.training)
-            x = Average_pooling(x, pool_size=[2,2], stride=2)
-
-            return x
-
-    def dense_block(self, input_x, nb_layers, layer_name):
-        with tf.name_scope(layer_name):
-            layers_concat = list()
-            layers_concat.append(input_x)
-
-            x = self.bottleneck_layer(input_x, scope=layer_name + '_bottleN_' + str(0))
-
-            layers_concat.append(x)
-
-            for i in range(nb_layers - 1):
-                x = Concatenation(layers_concat)
-                x = self.bottleneck_layer(x, scope=layer_name + '_bottleN_' + str(i + 1))
-                layers_concat.append(x)
-
-            x = Concatenation(layers_concat)
-
-            return x
-
-    def Dense_net(self, input_x):
-        x = conv_layer(input_x, filter=2 * self.filters, kernel=[7,7], stride=2, layer_name='conv0')
-        x = Max_Pooling(x, pool_size=[3,3], stride=2)
-
-        for i in range(self.nb_blocks) :
-            # 6 -> 12 -> 48
-            x = self.dense_block(input_x=x, nb_layers=4, layer_name='dense_'+str(i))
-            x = self.transition_layer(x, scope='trans_'+str(i))
-
-        """
-        x = self.dense_block(input_x=x, nb_layers=6, layer_name='dense_1')
-        x = self.transition_layer(x, scope='trans_1')
-        x = self.dense_block(input_x=x, nb_layers=12, layer_name='dense_2')
-        x = self.transition_layer(x, scope='trans_2')
-        x = self.dense_block(input_x=x, nb_layers=48, layer_name='dense_3')
-        x = self.transition_layer(x, scope='trans_3')
-        """
-
-        x = self.dense_block(input_x=x, nb_layers=32, layer_name='dense_final')
-
-        # 100 Layer
-        x = Batch_Normalization(x, training=self.training, scope='linear_batch')
-        x = Relu(x)
-        x = Global_Average_Pooling(x)
-        x = flatten(x)
-        x = Linear(x)
-
-        # x = tf.reshape(x, [-1, 10])
-        return x
 ```
+This implementation includes functions for building the building blocks of DenseNet: conv_block, dense_block, and transition_block. These building blocks are then used to construct the densenet function, which takes an input tensor and returns the output logits for a classification task.
+
+The densenet function takes several hyperparameters as inputs, such as the number of dense blocks, the number of layers per block, the growth rate of each block, the compression factor for the transition blocks, and the dropout rate. These hyperparameters can be adjusted to optimize the performance of the model for a specific task.
 
 ### MobileNet
 
@@ -698,108 +501,52 @@ Body structure of MobileNet {cite}`mobilenet_structure`
 
 ```{code-cell}
 import tensorflow as tf
-import tensorflow.contrib.slim as slim
 
+def depthwise_separable_conv(inputs, num_filters, width_multiplier, downsample=False):
+    """Depthwise Separable Convolution"""
+    # Depthwise Convolution
+    net = tf.keras.layers.DepthwiseConv2D(kernel_size=(3, 3), strides=(2 if downsample else 1, 2 if downsample else 1),
+                                          depth_multiplier=width_multiplier, padding='same')(inputs)
+    net = tf.keras.layers.BatchNormalization()(net)
+    net = tf.keras.layers.ReLU()(net)
 
-def mobilenet_v2_arg_scope(weight_decay, is_training=True, depth_multiplier=1.0, regularize_depthwise=False,
-                           dropout_keep_prob=1.0):
-
-    regularizer = tf.contrib.layers.l2_regularizer(weight_decay)
-    if regularize_depthwise:
-        depthwise_regularizer = regularizer
-    else:
-        depthwise_regularizer = None
-
-    with slim.arg_scope([slim.conv2d, slim.separable_conv2d],
-                        activation_fn=tf.nn.relu, normalizer_fn=slim.batch_norm,
-                        normalizer_params={'is_training': is_training, 'center': True, 'scale': True }):
-
-        with slim.arg_scope([slim.conv2d], weights_regularizer=regularizer):
-
-            with slim.arg_scope([slim.separable_conv2d],
-                                weights_regularizer=depthwise_regularizer, depth_multiplier=depth_multiplier):
-
-                with slim.arg_scope([slim.dropout], is_training=is_training, keep_prob=dropout_keep_prob) as sc:
-
-                    return sc
-
-
-def block(net, input_filters, output_filters, expansion, stride):
-    res_block = net
-    res_block = slim.conv2d(inputs=res_block, num_outputs=input_filters * expansion, kernel_size=[1, 1])
-    res_block = slim.separable_conv2d(inputs=res_block, num_outputs=None, kernel_size=[3, 3], stride=stride)
-    res_block = slim.conv2d(inputs=res_block, num_outputs=output_filters, kernel_size=[1, 1], activation_fn=None)
-    if stride == 2:
-        return res_block
-    else:
-        if input_filters != output_filters:
-            net = slim.conv2d(inputs=net, num_outputs=output_filters, kernel_size=[1, 1], activation_fn=None)
-        return tf.add(res_block, net)
-
-
-def blocks(net, expansion, output_filters, repeat, stride):
-    input_filters = net.shape[3].value
-
-    # first layer should take stride into account
-    net = block(net, input_filters, output_filters, expansion, stride)
-
-    for _ in range(1, repeat):
-        net = block(net, input_filters, output_filters, expansion, 1)
+    # Pointwise Convolution
+    net = tf.keras.layers.Conv2D(num_filters, kernel_size=(1, 1), strides=(1, 1), padding='same')(net)
+    net = tf.keras.layers.BatchNormalization()(net)
+    net = tf.keras.layers.ReLU()(net)
 
     return net
 
+def mobilenet(input_shape, num_classes, width_multiplier=1):
+    inputs = tf.keras.layers.Input(shape=input_shape)
 
-def mobilenet_v2(inputs,
-                 num_classes=1000,
-                 dropout_keep_prob=0.999,
-                 is_training=True,
-                 depth_multiplier=1.0,
-                 prediction_fn=tf.contrib.layers.softmax,
-                 spatial_squeeze=True,
-                 scope='MobilenetV2'):
+    # Initial Convolution
+    net = tf.keras.layers.Conv2D(int(32 * width_multiplier), kernel_size=(3, 3), strides=(2, 2), padding='same')(inputs)
+    net = tf.keras.layers.BatchNormalization()(net)
+    net = tf.keras.layers.ReLU()(net)
 
-    endpoints = dict()
+    # Depthwise Separable Convolution x 13
+    net = depthwise_separable_conv(net, int(64 * width_multiplier), width_multiplier)
+    net = depthwise_separable_conv(net, int(128 * width_multiplier), width_multiplier, downsample=True)
+    net = depthwise_separable_conv(net, int(128 * width_multiplier), width_multiplier)
+    net = depthwise_separable_conv(net, int(256 * width_multiplier), width_multiplier, downsample=True)
+    net = depthwise_separable_conv(net, int(256 * width_multiplier), width_multiplier)
+    net = depthwise_separable_conv(net, int(512 * width_multiplier), width_multiplier, downsample=True)
+    for i in range(5):
+        net = depthwise_separable_conv(net, int(512 * width_multiplier), width_multiplier)
+    net = depthwise_separable_conv(net, int(1024 * width_multiplier), width_multiplier, downsample=True)
+    net = depthwise_separable_conv(net, int(1024 * width_multiplier), width_multiplier)
+    net = tf.keras.layers.GlobalAveragePooling2D()(net)
 
-    expansion = 6
+    # Output
+    outputs = tf.keras.layers.Dense(num_classes, activation='softmax')(net)
 
-    with tf.variable_scope(scope):
+    return tf.keras.models.Model(inputs=inputs, outputs=outputs)
 
-        with slim.arg_scope(mobilenet_v2_arg_scope(0.0004, is_training=is_training, depth_multiplier=depth_multiplier,
-                                                   dropout_keep_prob=dropout_keep_prob)):
-            net = tf.identity(inputs)
-
-            net = slim.conv2d(net, 32, [3, 3], scope='conv11', stride=2)
-
-            net = blocks(net=net, expansion=1, output_filters=16, repeat=1, stride=1)
-
-            net = blocks(net=net, expansion=expansion, output_filters=24, repeat=2, stride=2)
-
-            net = blocks(net=net, expansion=expansion, output_filters=32, repeat=3, stride=2)
-
-            net = blocks(net=net, expansion=expansion, output_filters=64, repeat=4, stride=2)
-
-            net = blocks(net=net, expansion=expansion, output_filters=96, repeat=3, stride=1)
-
-            net = blocks(net=net, expansion=expansion, output_filters=160, repeat=3, stride=2)
-
-            net = blocks(net=net, expansion=expansion, output_filters=320, repeat=1, stride=1)
-
-            net = slim.conv2d(net, 1280, [1, 1], scope='last_bottleneck')
-
-            net = slim.avg_pool2d(net, [7, 7])
-
-            logits = slim.conv2d(net, num_classes, [1, 1], activation_fn=None, normalizer_fn=None, scope='features')
-
-            if spatial_squeeze:
-                logits = tf.squeeze(logits, [1, 2], name='SpatialSqueeze')
-
-            endpoints['Logits'] = logits
-
-            if prediction_fn:
-                endpoints['Predictions'] = prediction_fn(logits, scope='Predictions')
-
-    return logits, endpoints
 ```
+This implementation defines two functions: depthwise_separable_conv and mobilenet. The former implements the depthwise separable convolution operation used by the MobileNet architecture, while the latter constructs the entire MobileNet model.
+
+The mobilenet function takes three arguments: input_shape (a tuple specifying the input shape of the model), num_classes (the number of output classes), and width_multiplier (a scaling factor for the number of filters in each layer of the model, defaulting to 1).
 
 ### ViT
 
@@ -809,183 +556,87 @@ Different from the previous models, ViT (Vision Transformer) uses the concept of
 
 ```{code-cell}
 import tensorflow as tf
-from tensorflow.keras import Model
-from tensorflow.keras.layers import Layer
-from tensorflow.keras import Sequential
-import tensorflow.keras.layers as nn
+from tensorflow.keras.layers import LayerNormalization, MultiHeadAttention, Dense, Dropout, Input
+from tensorflow.keras.layers.experimental.preprocessing import Resizing
+from tensorflow.keras.models import Model
 
-from tensorflow import einsum
-from einops import rearrange, repeat
-from einops.layers.tensorflow import Rearrange
 
-def pair(t):
-    return t if isinstance(t, tuple) else (t, t)
-
-class PreNorm(Layer):
-    def __init__(self, fn):
-        super(PreNorm, self).__init__()
-
-        self.norm = nn.LayerNormalization()
-        self.fn = fn
-
-    def call(self, x, training=True):
-        return self.fn(self.norm(x), training=training)
-
-class MLP(Layer):
-    def __init__(self, dim, hidden_dim, dropout=0.0):
-        super(MLP, self).__init__()
-
-        def GELU():
-            def gelu(x, approximate=False):
-                if approximate:
-                    coeff = tf.cast(0.044715, x.dtype)
-                    return 0.5 * x * (1.0 + tf.tanh(0.7978845608028654 * (x + coeff * tf.pow(x, 3))))
-                else:
-                    return 0.5 * x * (1.0 + tf.math.erf(x / tf.cast(1.4142135623730951, x.dtype)))
-
-            return nn.Activation(gelu)
-
-        self.net = Sequential([
-            nn.Dense(units=hidden_dim),
-            GELU(),
-            nn.Dropout(rate=dropout),
-            nn.Dense(units=dim),
-            nn.Dropout(rate=dropout)
+class TransformerBlock(tf.keras.layers.Layer):
+    def __init__(self, embed_dim, num_heads, ff_dim, rate=0.1):
+        super(TransformerBlock, self).__init__()
+        self.att = MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = tf.keras.Sequential([
+            Dense(ff_dim, activation='relu'),
+            Dense(embed_dim),
         ])
+        self.layernorm1 = LayerNormalization(epsilon=1e-6)
+        self.layernorm2 = LayerNormalization(epsilon=1e-6)
+        self.dropout1 = Dropout(rate)
+        self.dropout2 = Dropout(rate)
 
-    def call(self, x, training=True):
-        return self.net(x, training=training)
+    def call(self, inputs, training):
+        attn_output = self.att(inputs, inputs)
+        attn_output = self.dropout1(attn_output, training=training)
+        out1 = self.layernorm1(inputs + attn_output)
+        ffn_output = self.ffn(out1)
+        ffn_output = self.dropout2(ffn_output, training=training)
+        return self.layernorm2(out1 + ffn_output)
 
-class Attention(Layer):
-    def __init__(self, dim, heads=8, dim_head=64, dropout=0.0):
-        super(Attention, self).__init__()
-        inner_dim = dim_head * heads
-        project_out = not (heads == 1 and dim_head == dim)
 
-        self.heads = heads
-        self.scale = dim_head ** -0.5
+class VisionTransformer(tf.keras.Model):
+    def __init__(self, image_size, patch_size, num_layers, num_heads, ff_dim, num_classes, rate=0.1):
+        super(VisionTransformer, self).__init__()
+        num_patches = (image_size // patch_size) ** 2
+        self.patch_dim = 3 * patch_size ** 2
+        self.reshape = Resizing(image_size, interpolation='bilinear')
+        self.patchify = tf.keras.layers.experimental.preprocessing.Patching(num_patches)
+        self.patch_projection = Dense(units=self.patch_dim, activation='linear')
+        self.position_embedding = self.add_weight('position_embedding', shape=(1, num_patches + 1, self.patch_dim),
+                                                   initializer=tf.keras.initializers.RandomNormal(),
+                                                   trainable=True)
+        self.dropout = Dropout(rate)
+        self.transformer_blocks = [TransformerBlock(embed_dim=self.patch_dim, num_heads=num_heads, ff_dim=ff_dim, rate=rate)
+                                   for _ in range(num_layers)]
+        self.layernorm = LayerNormalization(epsilon=1e-6)
+        self.classifier = Dense(units=num_classes, activation='softmax')
 
-        self.attend = nn.Softmax()
-        self.to_qkv = nn.Dense(units=inner_dim * 3, use_bias=False)
-
-        if project_out:
-            self.to_out = [
-                nn.Dense(units=dim),
-                nn.Dropout(rate=dropout)
-            ]
-        else:
-            self.to_out = []
-
-        self.to_out = Sequential(self.to_out)
-
-    def call(self, x, training=True):
-        qkv = self.to_qkv(x)
-        qkv = tf.split(qkv, num_or_size_splits=3, axis=-1)
-        q, k, v = map(lambda t: rearrange(t, 'b n (h d) -> b h n d', h=self.heads), qkv)
-
-        # dots = tf.matmul(q, tf.transpose(k, perm=[0, 1, 3, 2])) * self.scale
-        dots = einsum('b h i d, b h j d -> b h i j', q, k) * self.scale
-        attn = self.attend(dots)
-
-        # x = tf.matmul(attn, v)
-        x = einsum('b h i j, b h j d -> b h i d', attn, v)
-        x = rearrange(x, 'b h n d -> b n (h d)')
-        x = self.to_out(x, training=training)
-
-        return x
-
-class Transformer(Layer):
-    def __init__(self, dim, depth, heads, dim_head, mlp_dim, dropout=0.0):
-        super(Transformer, self).__init__()
-
-        self.layers = []
-
-        for _ in range(depth):
-            self.layers.append([
-                PreNorm(Attention(dim, heads=heads, dim_head=dim_head, dropout=dropout)),
-                PreNorm(MLP(dim, mlp_dim, dropout=dropout))
-            ])
-
-    def call(self, x, training=True):
-        for attn, mlp in self.layers:
-            x = attn(x, training=training) + x
-            x = mlp(x, training=training) + x
-
-        return x
-
-class ViT(Model):
-    def __init__(self, image_size, patch_size, num_classes, dim, depth, heads, mlp_dim,
-                 pool='cls', dim_head=64, dropout=0.0, emb_dropout=0.0):
-        """
-            image_size: int.
-            -> Image size. If you have rectangular images, make sure your image size is the maximum of the width and height
-            patch_size: int.
-            -> Number of patches. image_size must be divisible by patch_size.
-            -> The number of patches is: n = (image_size // patch_size) ** 2 and n must be greater than 16.
-            num_classes: int.
-            -> Number of classes to classify.
-            dim: int.
-            -> Last dimension of output tensor after linear transformation nn.Linear(..., dim).
-            depth: int.
-            -> Number of Transformer blocks.
-            heads: int.
-            -> Number of heads in Multi-head Attention layer.
-            mlp_dim: int.
-            -> Dimension of the MLP (FeedForward) layer.
-            dropout: float between [0, 1], default 0..
-            -> Dropout rate.
-            emb_dropout: float between [0, 1], default 0.
-            -> Embedding dropout rate.
-            pool: string, either cls token pooling or mean pooling
-        """
-        super(ViT, self).__init__()
-
-        image_height, image_width = pair(image_size)
-        patch_height, patch_width = pair(patch_size)
-
-        assert image_height % patch_height == 0 and image_width % patch_width == 0, 'Image dimensions must be divisible by the patch size.'
-
-        num_patches = (image_height // patch_height) * (image_width // patch_width)
-        assert pool in {'cls', 'mean'}, 'pool type must be either cls (cls token) or mean (mean pooling)'
-
-        self.patch_embedding = Sequential([
-            Rearrange('b (h p1) (w p2) c -> b (h w) (p1 p2 c)', p1=patch_height, p2=patch_width),
-            nn.Dense(units=dim)
-        ], name='patch_embedding')
-
-        self.pos_embedding = tf.Variable(initial_value=tf.random.normal([1, num_patches + 1, dim]))
-        self.cls_token = tf.Variable(initial_value=tf.random.normal([1, 1, dim]))
-        self.dropout = nn.Dropout(rate=emb_dropout)
-
-        self.transformer = Transformer(dim, depth, heads, dim_head, mlp_dim, dropout)
-
-        self.pool = pool
-
-        self.mlp_head = Sequential([
-            nn.LayerNormalization(),
-            nn.Dense(units=num_classes)
-        ], name='mlp_head')
-
-    def call(self, img, training=True, **kwargs):
-        x = self.patch_embedding(img)
-        b, n, d = x.shape
-
-        cls_tokens = repeat(self.cls_token, '() n d -> b n d', b=b)
-        x = tf.concat([cls_tokens, x], axis=1)
-        x += self.pos_embedding[:, :(n + 1)]
+    def call(self, inputs, training):
+        x = self.reshape(inputs)
+        x = self.patchify(x)
+        x = self.patch_projection(x)
+        x = tf.concat([tf.zeros((tf.shape(x)[0], 1, self.patch_dim)), x], axis=1)
+        x += self.position_embedding
         x = self.dropout(x, training=training)
+        for transformer_block in self.transformer_blocks:
+            x = transformer_block(x, training)
+        x = self.layernorm(x)
+        x = x[:, 0]
+        return self.classifier(x)
 
-        x = self.transformer(x, training=training)
-
-        if self.pool == 'mean':
-            x = tf.reduce_mean(x, axis=1)
-        else:
-            x = x[:, 0]
-
-        x = self.mlp_head(x)
-
-        return x
 ```
+
+The above code defines a Vision Transformer (ViT) model in TensorFlow, which is a state-of-the-art architecture for image classification tasks that combines the transformer architecture with a patch-based approach for image processing.
+
+The TransformerBlock class defines a single transformer block with multi-head attention and a feedforward neural network. The constructor takes in the following arguments:
+
+- embed_dim: the dimensionality of the embedding layer
+- num_heads: the number of attention heads
+- ff_dim: the dimensionality of the feedforward layer
+- rate: the dropout rate
+
+The call method of the TransformerBlock class takes in the input tensor and a boolean flag training indicating whether the layer should behave in training or inference mode. The input tensor is passed through the multi-head attention layer, followed by a dropout layer, and then added to the input tensor using residual connections. The resulting tensor is passed through a feedforward neural network, followed by another dropout layer, and then added to the residual tensor using another residual connection.
+
+The VisionTransformer class defines the ViT model, which consists of multiple transformer blocks and a final dense layer for classification. The constructor takes in the following arguments:
+
+- image_size: the size of the input image
+- patch_size: the size of the patches to be extracted from the image
+- num_layers: the number of transformer blocks in the model
+- num_heads: the number of attention heads in each transformer block
+- ff_dim: the dimensionality of the feedforward layer in each transformer block
+- num_classes: the number of output classes
+- rate: the dropout rate
+
+The call method of the VisionTransformer class takes in the input tensor and a boolean flag training indicating whether the layer should behave in training or inference mode. The input tensor is first resized to the specified image_size and then passed through a patch extraction layer that divides the image into patches of size patch_size. Each patch is projected to a patch_dim-dimensional embedding space using a dense layer. A learnable position embedding is added to the patches and the resulting tensor is passed through a dropout layer. The resulting tensor is then passed through a stack of num_layers transformer blocks, each followed by a dropout layer. The output of the final transformer block is passed through a layer normalization layer and the first element of the resulting tensor is passed through a dense layer with num_classes output units and a softmax activation function.
 
 ## Classic datasets
 

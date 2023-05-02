@@ -91,9 +91,17 @@ There are some key points:
 - Difficulties to train long-term dependencies.
 ```
 
-### Code
+## Code
 
 ```{code-cell}
+# A text classifier implemented in TensorFlow to classify SMS spam messages.
+
+# Code first downloads and processes the SMS Spam Collection dataset from the UCI Machine Learning Repository and then builds a basic Recurrent neural network (RNN) for text classification using TensorFlow.
+
+# The code first cleans and preprocesses the text, then splits it into training and test sets, followed by tokenizing and padding the training set. Next, the code uses an embedding layer to convert the tokenized text into a vector representation, which is then fed into a recurrent neural network and finally classified using a Softmax loss function.
+
+#The output of the # code is the accuracy of the classifier along with some statistics
+
 # We implement an RNN in TensorFlow to predict spam/ham from texts
 
 import os
@@ -102,9 +110,10 @@ import io
 import requests
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from zipfile import ZipFile
 from tensorflow.python.framework import ops
+tf.disable_v2_behavior()
 ops.reset_default_graph()
 
 # Start a graph
@@ -113,12 +122,12 @@ sess = tf.Session()
 # Set RNN parameters
 epochs = 20
 batch_size = 250
-max_sequence_length = 25
+max_sequence_length =25 
 rnn_size = 10
 embedding_size = 50
 min_word_frequency = 10
 learning_rate = 0.0005
-dropout_keep_prob = tf.placeholder(tf.float32)
+dropout_keep_prob = tf.placeholder(tf.float32,name='dropout_keep_prob')
 
 
 # Download or open data
@@ -160,15 +169,19 @@ def clean_text(text_string):
     text_string = text_string.lower()
     return text_string
 
-
 # Clean texts
 text_data_train = [clean_text(x) for x in text_data_train]
+#print(text_data[:5])
+print(text_data_train[:5])
 
-# Change texts into numeric vectors
-vocab_processor = tf.contrib.learn.preprocessing.VocabularyProcessor(max_sequence_length,
-                                                                     min_frequency=min_word_frequency)
-text_processed = np.array(list(vocab_processor.fit_transform(text_data_train)))
-
+# Tokenize and pad sequences
+vocab_processor = tf.keras.preprocessing.text.Tokenizer()
+vocab_processor.fit_on_texts(text_data_train)
+text_processed = vocab_processor.texts_to_sequences(text_data_train)
+max_document_length = max([len(x) for x in text_processed])
+#pads the text data to ensure all sequences have the same length (max_sequence_length).
+text_processed = tf.keras.preprocessing.sequence.pad_sequences(text_processed, maxlen=max_sequence_length, padding='post')
+print(text_processed.shape)
 # Shuffle and split data
 text_processed = np.array(text_processed)
 text_data_target = np.array([1 if x == 'ham' else 0 for x in text_data_target])
@@ -179,8 +192,9 @@ y_shuffled = text_data_target[shuffled_ix]
 # Split train/test set
 ix_cutoff = int(len(y_shuffled)*0.80)
 x_train, x_test = x_shuffled[:ix_cutoff], x_shuffled[ix_cutoff:]
+print(x_train)
 y_train, y_test = y_shuffled[:ix_cutoff], y_shuffled[ix_cutoff:]
-vocab_size = len(vocab_processor.vocabulary_)
+vocab_size = len(vocab_processor.word_counts)
 print("Vocabulary Size: {:d}".format(vocab_size))
 print("80-20 Train Test split: {:d} -- {:d}".format(len(y_train), len(y_test)))
 
@@ -189,15 +203,12 @@ x_data = tf.placeholder(tf.int32, [None, max_sequence_length])
 y_output = tf.placeholder(tf.int32, [None])
 
 # Create embedding
-embedding_mat = tf.Variable(tf.random_uniform([vocab_size, embedding_size], -1.0, 1.0))
+embedding_mat = tf.Variable(tf.random_uniform([vocab_size+1, embedding_size], -1.0, 1.0))
 embedding_output = tf.nn.embedding_lookup(embedding_mat, x_data)
 
 # Define the RNN cell
 # tensorflow change >= 1.0, rnn is put into tensorflow.contrib directory. Prior version not test.
-if tf.__version__[0] >= '1':
-    cell = tf.contrib.rnn.BasicRNNCell(num_units=rnn_size)
-else:
-    cell = tf.nn.rnn_cell.BasicRNNCell(num_units=rnn_size)
+cell = tf.nn.rnn_cell.BasicRNNCell(num_units=rnn_size)
 
 output, state = tf.nn.dynamic_rnn(cell, embedding_output, dtype=tf.float32)
 output = tf.nn.dropout(output, dropout_keep_prob)
@@ -210,15 +221,15 @@ weight = tf.Variable(tf.truncated_normal([rnn_size, 2], stddev=0.1))
 bias = tf.Variable(tf.constant(0.1, shape=[2]))
 logits_out = tf.matmul(last, weight) + bias
 
+
 # Loss function
 losses = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits_out, labels=y_output)
 loss = tf.reduce_mean(losses)
-
+print(loss)
 accuracy = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(logits_out, 1), tf.cast(y_output, tf.int64)), tf.float32))
-
+print(accuracy)
 optimizer = tf.train.RMSPropOptimizer(learning_rate)
 train_step = optimizer.minimize(loss)
-
 init = tf.global_variables_initializer()
 sess.run(init)
 
@@ -228,7 +239,6 @@ train_accuracy = []
 test_accuracy = []
 # Start training
 for epoch in range(epochs):
-
     # Shuffle training data
     shuffled_ix = np.random.permutation(np.arange(len(x_train)))
     x_train = x_train[shuffled_ix]
@@ -241,16 +251,16 @@ for epoch in range(epochs):
         max_ix = np.min([len(x_train), ((i+1) * batch_size)])
         x_train_batch = x_train[min_ix:max_ix]
         y_train_batch = y_train[min_ix:max_ix]
-        
+        max_len = max([len(x) for x in x_train_batch])
+        x_train_batch = np.array([np.pad(x, (0, max_len - len(x)), 'constant') for x in x_train_batch])
         # Run train step
         train_dict = {x_data: x_train_batch, y_output: y_train_batch, dropout_keep_prob:0.5}
         sess.run(train_step, feed_dict=train_dict)
-        
     # Run loss and accuracy for training
+    train_dict = {x_data: x_train, y_output: y_train, dropout_keep_prob:1.0}
     temp_train_loss, temp_train_acc = sess.run([loss, accuracy], feed_dict=train_dict)
     train_loss.append(temp_train_loss)
     train_accuracy.append(temp_train_acc)
-    
     # Run Eval Step
     test_dict = {x_data: x_test, y_output: y_test, dropout_keep_prob:1.0}
     temp_test_loss, temp_test_acc = sess.run([loss, accuracy], feed_dict=test_dict)
