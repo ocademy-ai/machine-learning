@@ -460,9 +460,9 @@ gcv.best_params_, gcv.best_score_
 
 Let's write the variance of a random forest as
 
-$$\large \Var f(x) = \rho(x)\sigma^2(x)$$
+$$\large Var f(x) = \rho(x)\sigma^2(x)$$
 
-$$\large \rho(x) = \Corr\left[T(x_1,\Theta_1(Z)),T(x_2,\Theta_2(Z))\right],$$
+$$\large \rho(x) = Corr\left[T(x_1,\Theta_1(Z)),T(x_2,\Theta_2(Z))\right],$$
 
 where
 
@@ -471,7 +471,7 @@ where
 * $\large T(x,\Theta_i(Z))$ is the output of the $\large i$-th tree classifier on an input vector $\large x$;
 * $\large \sigma^2(x)$ is the sample variance of any randomly selected tree:
 
-$$\large \sigma^2(x) = \Var\left[T(x,\Theta(X))\right]$$
+$$\large \sigma^2(x) = Var\left[T(x,\Theta(X))\right]$$
 
 It is easy to confuse $\large \rho(x)$ with the average correlation between the trained trees in a given random forest when we consider trees as N-vectors and calculate the average pairwise correlation between them. But this is not the case.
 
@@ -481,14 +481,18 @@ The conditional covariance of any pair of trees is equal to 0 because bootstrapp
 
 If we consider the variance of a single tree, it barely depends on the parameters of the splitting ($\large m$). But they are crucial for ensembles. The variance of a tree is much higher than the one of an ensemble. The book *The Elements of Statistical Learning (Trevor Hastie, Robert Tibshirani and Jerome Friedman)* has a great example that demonstrates this fact:
 
-![image](https://habrastorage.org/webt/ee/3a/6v/ee3a6vx_gvop_wibdscz38qazba.png)
+:::{figure-md}
+<img src="https://habrastorage.org/webt/ee/3a/6v/ee3a6vx_gvop_wibdscz38qazba.png" width="90%" class="bg-white mb-1">
+
+Comparison of Tree and Random Forest
+:::
 
 ## Bias
 
 Just as in bagging, the bias of a random forest is the same as the bias of a single tree $\large T(x,\Theta(Z))$:
 
-$$ \large \begin{array}{rcl} \Bias &=& \mu(x) - \E_Z \, f_{rf}(x) \\
-&=& \mu(x) - \E_Z \, \E_{\Theta | Z} \, T(x,\Theta(Z))\end{array}$$  
+$$ \large \begin{array}{rcl} Bias &=& \mu(x) - E_Z \, f_{rf}(x) \\
+&=& \mu(x) - E_Z \, E_{\Theta | Z} \, T(x,\Theta(Z))\end{array}$$  
 
 In absolute value, the bias is usually higher than that of an unprunned tree because randomization and sample space reduction impose their own restrictions on the model. Therefore, the improvements in prediction accuracy obtained by bagging and random forests are solely the result of variance reduction.
 
@@ -523,7 +527,11 @@ It is also worth noting that the number of the leaf $ \large T_n(x)$, where the 
 
 These new features are the result of the non-linear space splitting, and they provide information about similarity between examples. In the book *The Elements of Statistical Learning*, there is a good illustrative example that demonstrates this similarity between random forests and the k-nearest neighbors technique:
 
-![image](https://habrastorage.org/webt/4e/3e/wr/4e3ewr02gme6og-2ldnb60no9dg.png)
+:::{figure-md}
+<img src="https://habrastorage.org/webt/ee/3a/6v/ee3a6vx_gvop_wibdscz38qazba.png" width="90%" class="bg-white mb-1">
+
+Similarity between random forests and knn
+:::
 
 ## Transformation of a dataset into a high-dimensional representation
 

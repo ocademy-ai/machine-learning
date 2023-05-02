@@ -54,7 +54,11 @@ Let's say we are drawing balls from a bag one at a time. At each step, the selec
 
 By repeating this procedure $\large M$ times, we create $\large M$ *bootstrap samples* $\large X_1, \dots, X_M$. In the end, we have a sufficient number of samples and can compute various statistics of the original distribution.
 
-![image](https://habrastorage.org/webt/n0/dg/du/n0dgduav1ygc3iylumtwjcn15mu.png)
+:::{figure-md}
+<img src="https://habrastorage.org/webt/n0/dg/du/n0dgduav1ygc3iylumtwjcn15mu.png" width="90%" class="bg-white mb-1">
+
+Process of bootstrap
+:::
 
 For our example, we'll use the familiar `telecom_churn` dataset. Previously, when we discussed feature importance, we saw that one of the most important features in this dataset is the number of calls to customer service. Let's visualize the data and look at the distribution of this feature.
 
@@ -142,7 +146,12 @@ Suppose that we have a training set $\large X$. Using bootstrapping, we generate
 $$\large a(x) = \frac{1}{M}\sum_{i = 1}^M a_i(x).$$
 
 The picture below illustrates this algorithm:
-![image](https://habrastorage.org/webt/3t/ab/xy/3tabxy0j8tqqkctkc9f-89ep780.png)
+
+:::{figure-md}
+<img src="https://habrastorage.org/webt/3t/ab/xy/3tabxy0j8tqqkctkc9f-89ep780.png" width="90%" class="bg-white mb-1">
+
+Illustration of Bagging
+:::
 
 Let's consider a regression problem with base algorithms $\large b_1(x), \dots , b_n(x)$. Assume that there exists an ideal target function of true answers $\large y(x)$ defined for all inputs and that the distribution $\large p(x)$ is defined. We can then express the error for each regression function as follows:  
 
@@ -150,15 +159,16 @@ $$\large \varepsilon_i(x) = b_i(x) - y(x), \quad i = 1, \dots, n$$
 
 And the expected value of the mean squared error:  
 
-$$\large \E_x\left[\left(b_i(x) - y(x)\right)^{2}\right] = \E_x\left[\varepsilon_i^{2}(x)\right].$$
+$$\large E_x\left[\left(b_i(x) - y(x)\right)^{2}\right] = E_x\left[\varepsilon_i^{2}(x)\right]$$
 
-Then, the mean error over all regression functions will look as follows:  
-$$ \large \E_1 = \frac{1}{n} \E_x\left[ \sum_i^n \varepsilon_i^{2}(x)\right]$$
+Then, the mean error over all regression functions will look as follows:
+
+$$\large E_1 = \frac{1}{n} E_x\left[ \sum_i^n \varepsilon_i^{2}(x)\right]$$
 
 We'll assume that the errors are unbiased and uncorrelated, that is: 
 
-$$\large \begin{array}{rcl} \E_x\left[\varepsilon_i(x)\right] &=& 0, \\
-\E_x\left[\varepsilon_i(x)\varepsilon_j(x)\right] &=& 0, \quad i \neq j. \end{array}$$
+$$\large \begin{array}{rcl} E_x\left[\varepsilon_i(x)\right] &=& 0, \\
+E_x\left[\varepsilon_i(x)\varepsilon_j(x)\right] &=& 0, \quad i \neq j. \end{array}$$
 
 Now, let's construct a new regression function that will average the values from the individual functions: 
 
@@ -166,20 +176,20 @@ $$\large a(x) = \frac{1}{n}\sum_{i=1}^{n}b_i(x)$$
 
 Let's find its mean squared error:
 
-$$\large \begin{array}{rcl}\E_n &=& \E_x\left[\frac{1}{n}\sum_{i=1}^{n}b_i(x)-y(x)\right]^2 \\
-&=& \E_x\left[\frac{1}{n}\sum_{i=1}^{n}\varepsilon_i\right]^2 \\
-&=& \frac{1}{n^2}\E_x\left[\sum_{i=1}^{n}\varepsilon_i^2(x) + \sum_{i \neq j}\varepsilon_i(x)\varepsilon_j(x)\right] \\
-&=& \frac{1}{n}\E_1\end{array}$$
+$$\large \begin{array}{rcl} E_n &=& E_x\left[\frac{1}{n}\sum_{i=1}^{n}b_i(x)-y(x)\right]^2 \\
+&=&  E_x\left[\frac{1}{n}\sum_{i=1}^{n}\varepsilon_i\right]^2 \\
+&=& \frac{1}{n^2} E_x\left[\sum_{i=1}^{n}\varepsilon_i^2(x) + \sum_{i \neq j}\varepsilon_i(x)\varepsilon_j(x)\right] \\
+&=& \frac{1}{n} E_1\end{array}$$
 
 Thus, by averaging the individual answers, we reduced the mean squared error by a factor of $\large n$.
 
 From our previous section, let's recall the components that make up the total out-of-sample error:
 
 $$\large \begin{array}{rcl} 
-\Err\left(\vec{x}\right) &=& \E\left[\left(y - \hat{f}\left(\vec{x}\right)\right)^2\right] \\
-&=& \sigma^2 + f^2 + \Var\left(\hat{f}\right) + \E\left[\hat{f}\right]^2 - 2f\E\left[\hat{f}\right] \\
-&=& \left(f - \E\left[\hat{f}\right]\right)^2 + \Var\left(\hat{f}\right) + \sigma^2 \\
-&=& \Bias\left(\hat{f}\right)^2 + \Var\left(\hat{f}\right) + \sigma^2
+ Err\left(\vec{x}\right) &=&  E\left[\left(y - \hat{f}\left(\vec{x}\right)\right)^2\right] \\
+&=& \sigma^2 + f^2 +  Var\left(\hat{f}\right) + E\left[\hat{f}\right]^2 - 2fE\left[\hat{f}\right] \\
+&=& \left(f - E\left[\hat{f}\right]\right)^2 + Var\left(\hat{f}\right) + \sigma^2 \\
+&=& Bias\left(\hat{f}\right)^2 + Var\left(\hat{f}\right) + \sigma^2
 \end{array}$$
 
 Bagging reduces the variance of a classifier by decreasing the difference in error when we train the model on different datasets. In other words, bagging prevents overfitting. The efficiency of bagging comes from the fact that the individual models are quite different due to the different training data and their errors cancel each other out during voting. Additionally, outliers are likely omitted in some of the training bootstrap samples.
@@ -188,13 +198,17 @@ The `scikit-learn` library supports bagging with meta-estimators `BaggingRegress
 
 Let's examine how bagging works in practice and compare it with a decision tree. For this, we will use an example from [sklearn's documentation](http://scikit-learn.org/stable/auto_examples/ensemble/plot_bias_variance.html#sphx-glr-auto-examples-ensemble-plot-bias-variance-py).
 
-![image](https://habrastorage.org/webt/9l/gv/_o/9lgv_outzpteptakegjbpyfp2ue.png)
+:::{figure-md}
+<img src="https://habrastorage.org/webt/9l/gv/_o/9lgv_outzpteptakegjbpyfp2ue.png" width="90%" class="bg-white mb-1">
+
+Comparison of Bagging and Tree
+:::
 
 The error for the decision tree:
-$$ \large 0.0255 \, (\Err) = 0.0003 \, (\Bias^2)  + 0.0152 \, (\Var) + 0.0098 \, (\sigma^2) $$
+$$ \large 0.0255 \, (Err) = 0.0003 \, (Bias^2)  + 0.0152 \, (Var) + 0.0098 \, (\sigma^2) $$
 
 The error when using bagging:
-$$ \large 0.0196 \, (\Err) = 0.0004 \, (\Bias^2)  + 0.0092 \, (\Var) + 0.0098 \, (\sigma^2) $$  
+$$ \large 0.0196 \, (Err) = 0.0004 \, (Bias^2)  + 0.0092 \, (Var) + 0.0098 \, (\sigma^2) $$  
 
 As you can see from the graph above, the variance in the error is much lower for bagging. Remember that we have already proved this theoretically.
 
@@ -212,7 +226,11 @@ This is easy to prove. Suppose there are $\large \ell$ examples in our dataset. 
 
 Let's visualize how **O**ut-**o**f-**B**ag **E**rror (or OOBE) estimation works:
 
-<img src='https://habrastorage.org/webt/mt/zr/ox/mtzroxoyxu0xcpmsbslgwbs1vs8.png' width=70%>
+:::{figure-md}
+<img src="https://habrastorage.org/webt/mt/zr/ox/mtzroxoyxu0xcpmsbslgwbs1vs8.png" width="90%" class="bg-white mb-1">
+
+Principle of OOBE
+:::
 
 The top part of the figure above represents our original dataset. We split it into the training (left) and test (right) sets. In the left image, we draw a grid that perfectly divides our dataset according to classes. Now, we use the same grid to estimate the share of the correct answers on our test set. We can see that our classifier gave incorrect answers in those 4 cases that have not been used during training (on the left). Hence, the accuracy of our classifier is $\large \frac{11}{15}*100\% = 73.33\%$.
 

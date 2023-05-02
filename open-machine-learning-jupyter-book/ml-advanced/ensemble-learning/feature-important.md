@@ -13,15 +13,19 @@ kernelspec:
   name: python3
 ---
 
-# feature importance
+# Feature importance
 
-|It's quite often that you want to make out the exact reasons of the algorithm outputting a particular answer. Or at the very least to find out which input features contributed most to the result. With Random Forest, you can obtain such information quite easily.
+It's quite often that you want to make out the exact reasons of the algorithm outputting a particular answer. Or at the very least to find out which input features contributed most to the result. With Random Forest, you can obtain such information quite easily.
 
 ## Intuition
 
 From the picture below, it is intuitively clear that, in our credit scoring problem, *Age* is much more important than *Income*. This can be formally explained using the concept of *information gain*.
 
-<img src="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png" align='center'>
+:::{figure-md}
+<img src="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png" width="90%" class="bg-white mb-1">
+
+Example of credit scoring problem
+:::
 
 In the case of many decision trees or a random forest, the closer the mean position of a feature over all the trees to the root, the more significant it is for a given classification or regression problem. Gains in the splitting criterion, such as the *Gini impurity*, obtained at each optimal split in every tree is a measure of importance that is directly associated with the splitting feature. The value of this score is distinct for each feature and accumulates over all the trees.
 
@@ -46,8 +50,10 @@ Note that by definition ${PI}^{(t)}=0$, if variable $X_j$ isn't in tree $t$.
 
 Now, we can give the feature importance calculation for ensembles:
 * not normalized:
+
 $${PI}\left(X_j\right)=\frac{\sum_{t=1}^N {PI}^{(t)}(X_j)}{N}$$
 * normalized by the standard deviation of the differences:
+
 $$z_j=\frac{{PI}\left(X_j\right)}{\frac{\hat{\sigma}}{\sqrt{N}}}$$
 
 ## Illustrating permutation importance
