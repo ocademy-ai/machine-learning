@@ -1,12 +1,12 @@
 ## import libraries
 import os
-from re import A
 from vectordb import ChatbotAgent
 from load_data import load_data
 
-  #''' GitHub Copilot '''
+
+
 # main function
-def main():	
+def main():
 	## OpenAI API Key
 	with open(r'chatbot\OpenAI-API-key\OpenAI_API_key.txt', 'r') as f:
 		api_key = f.read().strip()

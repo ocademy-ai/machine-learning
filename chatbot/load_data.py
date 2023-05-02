@@ -61,15 +61,33 @@ def select_chapter():
 		- Model deployment: This chapter covers how to deploy machine learning models to production environments. It also discusses how to choose the appropriate deployment pattern, infrastructure, and platform for different use cases. It also covers how to manage and deliver models using model registries and pipelines.
 	'''
 	conclusion_for_ml_advanced = '''
+		About advanced machine learning topics, the book delves into various methods and techniques that expand on traditional machine learning approaches. Advanced machine learning goes beyond the basics, employing more sophisticated techniques to improve model performance and better understand complex data. The book covers the following topics and applications:
+		
+		- Ensemble Learning: This chapter discusses ensemble methods that combine multiple weak learners to create a strong learner. It introduces bagging, boosting, and stacking techniques to improve model performance by reducing variance and increasing accuracy.
+		- Generative Models: This chapter explores generative models, which learn the underlying data distribution and can generate new, realistic samples. It covers Variational Autoencoders (VAEs) and Generative Adversarial Networks (GANs) as popular examples of generative models.
+		- Kernel Methods: This chapter focuses on kernel methods, which enable complex, nonlinear decision boundaries in a computationally efficient manner. It introduces the kernel trick and its application in Support Vector Machines (SVMs) for classification and regression tasks.
+		- Model Selection: This chapter emphasizes the importance of model selection for identifying the best model that generalizes well to new data. It covers cross-validation, hyperparameter tuning, and model comparison techniques to optimize performance and select the most suitable model.
+		- Unsupervised Learning: This chapter delves into unsupervised learning algorithms that can extract patterns and structures from data without labeled information. It discusses dimensionality reduction and clustering techniques for discovering underlying data structures and reducing feature space.
+		- Clustering: This chapter discusses clustering techniques that can discover underlying structures in data and partition it into distinct groups. It covers popular clustering algorithms, such as K-Means, Hierarchical Clustering, and DBSCAN, which group similar data points based on distance or density metrics.
 	'''
 	conclusion_for_ml_fundamentals = '''
+		The chapter covers essential machine learning concepts, techniques, and applications, providing a solid foundation for understanding the field. It introduces classification, regression, and neural networks, along with parameter optimization and fairness in machine learning.
+
+		The chapter emphasizes the importance of understanding the problem and selecting appropriate models and techniques. It discusses linear and polynomial regression, logistic regression, and various classification algorithms, including decision trees, support vector machines, and ensemble methods.
+
+		- Neural networks, including convolutional and recurrent neural networks, are covered in depth, providing hands-on examples and explanations of their inner workings.
+
+		It also addresses parameter optimization techniques, including gradient descent and loss functions, to fine-tune models for better performance.
+
+		Lastly, it highlights the importance of fairness and ethics in machine learning, encouraging practitioners to consider the impact of their models on society.
+
 	'''
 	chapter_introduction = {
-		"conclusion_for_data_science": conclusion_for_data_science,
-		"conclusion_for_deep_learning": conclusion_for_deep_learning,
-		"conclusion_for_machine_learning_productionization": conclusion_for_machine_learning_productionization,
-		"conclusion_for_ml_advanced": conclusion_for_ml_advanced,
-		"conclusion_for_ml_fundamentals": conclusion_for_ml_fundamentals,
+		"[data science]": conclusion_for_data_science,
+		"[deep learning]": conclusion_for_deep_learning,
+		"[machine learning productionization]": conclusion_for_machine_learning_productionization,
+		"[ml advanced]": conclusion_for_ml_advanced,
+		"[ml fundamentals]": conclusion_for_ml_fundamentals,
 	}
 
 	for chap, intro in chapter_introduction.items():
@@ -80,4 +98,6 @@ def select_chapter():
 	for chap, intro in chapter_introduction.items():
 		print("        {}  ".format(chap))
 	chapter_selector = input("Could you please choose one chapter as the background for our conversation: ")
+	while (chapter_selector not in chapter_introduction.keys()):
+		chapter_selector = input("Could you please choose one chapter as the background for our conversation (input the right choice): ")
 	return chapter_selector
