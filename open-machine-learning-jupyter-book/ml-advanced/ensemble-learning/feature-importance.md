@@ -346,19 +346,6 @@ The picture above shows that, more often than not, customers pay great attention
 
 TBD
 
-## Self study
-
-You can refer to the following resources for further study：
-
-- Main course [site](https://mlcourse.ai), [course repo](https://github.com/Yorko/mlcourse.ai), and YouTube [channel](https://www.youtube.com/watch?v=QKTuw4PNOsU&list=PLVlY_7IJCMJeRfZ68eVfEcu-UcN9BbwiX)
-- mlcourse.ai [lecture](https://www.youtube.com/watch?v=neXJL-AqI_c) on Random Forest
-- Medium ["story"](https://medium.com/open-machine-learning-course/open-machine-learning-course-topic-5-ensembles-of-algorithms-and-random-forest-8e05246cbba7) based on this notebook
-- Course materials as a [Kaggle Dataset](https://www.kaggle.com/kashnitsky/mlcourse)
-- If you read Russian: an [article](https://habrahabr.ru/company/ods/blog/324402/) on Habrahabr with ~ the same material. And a [lecture](https://youtu.be/G0DmuuFeC30) on YouTube
-- Chapter 15 of the book “[Elements of Statistical Learning](https://statweb.stanford.edu/~tibs/ElemStatLearn/)” by Jerome H. Friedman, Robert Tibshirani, and Trevor Hastie.
-- More about practical applications of random forests and other algorithms can be found in the [official documentation](http://scikit-learn.org/stable/modules/ensemble.html) of `scikit-learn`.
-- For a more in-depth discussion of variance and decorrelation of random forests, see the [original paper](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf).
-
 ## Acknowledgments
 
 Thanks to [Yury Kashnitsky](https://www.kaggle.com/kashnitsky) for creating the open-source content [Ensembles and random forest](https://www.kaggle.com/code/kashnitsky/topic-5-ensembles-part-3-feature-importance/notebook). They inspire the majority of the content in this chapter.
