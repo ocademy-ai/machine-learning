@@ -49,7 +49,11 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - Please see the chart below for the evolution of tree-based algorithms over the years.
 
-![Evolution of tree-based algorithms](https://miro.medium.com/max/925/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg)
+:::{figure-md}
+<img src="https://miro.medium.com/max/925/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg" width="90%" class="bg-white mb-1">
+
+Evolution of tree-based algorithms
+:::
 
 ### Main features of XGBoost
 
@@ -99,7 +103,11 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - Bagging can be depicted with the following diagram：
 
-![Bagging](https://qph.fs.quoracdn.net/main-qimg-a5e99250fc4dadd401726a04f4fe2086)
+:::{figure-md}
+<img src="https://qph.fs.quoracdn.net/main-qimg-a5e99250fc4dadd401726a04f4fe2086" width="90%" class="bg-white mb-1">
+
+Process of Bagging
+:::
 
 ### Boosting
 
@@ -113,7 +121,11 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - Boosting can be depicted with the following diagram:
 
-![Boosting](https://qph.fs.quoracdn.net/main-qimg-652eb915c12a1440bb8bb4acd8329ddd)
+:::{figure-md}
+<img src="https://qph.fs.quoracdn.net/main-qimg-652eb915c12a1440bb8bb4acd8329ddd" width="90%" class="bg-white mb-1">
+
+Process of Boosting
+:::
 
 ## XGBoost algorithm intuition
 
@@ -133,7 +145,9 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - The objective of any supervised learning algorithm is to define a loss function and minimize it. The same is true for Gradient Boosting algorithm. Here, we have mean squared error (MSE) as loss-function defined as follows:
 
-![MSE](https://miro.medium.com/max/1050/1*fHenn7NVqcWvw25D3-zRiQ.png)
+$$ Loss = MSE = \sum(y_i-y_i^p)^2 $$
+
+- where $y_i = ith$ target value, $y_i^p = ith$ prediction, $L(y_i,y_i^p)$ is loss function
 
 - We want our predictions, such that our loss function (MSE) is minimum. 
 
@@ -141,7 +155,11 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - It can be depicted as follows:
 
-![MSE minimized](https://miro.medium.com/max/894/1*LLbC4TstqzXQ3hzA8wCmeg.png)
+$$ y_i^p = y_i^p + a * \sigma\sum(y_i - y_i^p)^2/\sigma y_i^p $$
+
+- which becomes, $y_i^p = y_i^p - a * 2 * \sum(y_i - y_i^p)$
+
+- where, $a$ is learning rate and $\sum(y_i-y_i^p)$ is sum of residuals
 
 - So, we are basically updating the predictions such that the sum of our residuals is close to 0 (or minimum) and predicted values are sufficiently close to actual values.
 
@@ -159,7 +177,11 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - It can be depicted with the following diagram which is taken from XGBoost’s documentation.
 
-![Gradient Boosted Trees from XGBoost Docs](https://miro.medium.com/max/912/1*TebQuJsPc7upto5dvURjSA.png)
+:::{figure-md}
+<img src="https://miro.medium.com/max/912/1*TebQuJsPc7upto5dvURjSA.png" width="90%" class="bg-white mb-1">
+
+Gradient Boosted Trees
+:::
 
 - In this case, there are 2 kinds of parameters P - **the weights at each leaf w** and **the number of leaves T in each tree** (so that in the above example, T=3 and w=[2, 0.1, -1]).
 
@@ -167,19 +189,23 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 
 - A ‘greedy’ way to do this is to consider every possible split on the remaining features (so, gender and occupation), and calculate the new loss for each split. We could then pick the tree which most reduces our loss.
 
-![New Tree minimizing loss](https://miro.medium.com/max/1456/1*ucyUhM7h_6PHC_8tEdzyXA.png)
+:::{figure-md}
+<img src="https://miro.medium.com/max/1456/1*ucyUhM7h_6PHC_8tEdzyXA.png" width="90%" class="bg-white mb-1">
+
+New Tree minimizing loss
+:::
 
 - In addition to finding the new tree structures, the weights at each node need to be calculated as well, such that the loss is minimized. Since the tree structure is now fixed, this can be done analytically now by setting the loss function = 0.
 
 - After derivation, we get the following result.
 
-![wj](https://miro.medium.com/max/424/1*W2EQO65xNDwcM0GAvLicEw@2x.png)
+$$ w_j = \frac{\sum_{i\in I_j} \frac{\partial loss}{\partial (\hat{y}=0)}}{\sum_{i\in I_j}(\frac{\partial^2 loss}{\partial (\hat{y}=0)^2})+ \lambda} $$
 
-- Where I_j is a set containing all the instances ((x, y) datapoints) at a leaf, and w_j is the weight at leaf j. 
+- Where $I_j$ is a set containing all the instances ((x, y) datapoints) at a leaf, and $w_j$ is the weight at leaf j. 
 
-- This looks more intimidating than it is; for some intuition, if we consider loss=MSE=(y-ŷ )^2, then taking the first and second gradients where ŷ =0 yields
+- This looks more intimidating than it is; for some intuition, if we consider $loss = MSE =(y-\hat{y})^2$, then taking the first and second gradients where $\hat{y} =0$ yields
 
-![Loss MSE after 1st and 2nd gradient](https://miro.medium.com/max/320/1*HirO1ayFfCoPmJKh_ZsygA@2x.png)
+$$ w_j = \frac{\sum_{i\in I_j} y}{\sum_{i\in I_j} 2 + \lambda} $$
 
 - Here, the weights effectively become the average of the true labels at each leaf (with some regularization from the λ constant).
 
@@ -461,24 +487,6 @@ plt.show()
 ## Your turn! 🚀
 
 TBD
-
-## Self study
-
-You can refer to these resources for further study：
-
--	https://www.datacamp.com/community/tutorials/xgboost-in-python
-
--	https://blog.cambridgespark.com/getting-started-with-xgboost-3ba1488bb7d4
-
--	https://towardsdatascience.com/a-beginners-guide-to-xgboost-87f5d4c30ed7
-
--	https://heartbeat.fritz.ai/boosting-your-machine-learning-models-using-xgboost-d2cabb3e948f
-
--	https://towardsdatascience.com/https-medium-com-vishalmorde-xgboost-algorithm-long-she-may-rein-edd9f99be63d
-
-- https://medium.com/@gabrieltseng/gradient-boosting-and-xgboost-c306c1bcfaf5
-
-- https://medium.com/mlreview/gradient-boosting-from-scratch-1e317ae4587d
 
 ## Acknowledgments
 
