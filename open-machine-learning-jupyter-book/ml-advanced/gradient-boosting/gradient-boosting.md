@@ -13,170 +13,407 @@ kernelspec:
   name: python3
 ---
 
-# Gradient boosting
+# Gradient Boosting
 
-## What is gradient boosting?
+:::{figure-md}
+<img src="https://habrastorage.org/web/4a9/edb/082/4a9edb082408442ea47a12b75f19d122.jpg" width="90%" class="bg-white mb-1">
 
-If you're inside the world of machine learning, it's for sure you have heard about gradient boosting algorithms such as xgboost or lightgbm. Indeed, gradient boosting represents the state-of-start for a lot of machine learning task, but how does it work? We'll try to answer this question specifically for the case of gradient boosting for trees which is the most popular case up today
+Boosting
+:::
 
-For me, understanding gradient boosting is all about undestarding its link to gradient descent. Remember gradient descent is the algorithm to minimize a loss function $L(\theta)$ by sustracting the gradient to the parameters
+Today we are going to have a look at one of the most popular and practical machine learning algorithms: gradient boosting. 
 
-$$
-\theta = \theta - \frac{\partial L(\theta)}{\partial \theta}
-$$
+## Introduction and history of boosting
+Almost everyone in machine learning has heard about gradient boosting. Many data scientists include this algorithm in their data scientist's toolbox because of the good results it yields on any given (unknown) problem.  
 
- At first glance it doesn't make much sense; trees are based on a split-gain function (Gini, entropy), not a loss function. Moreover, what would be $\theta$?
- 
- Recall $\theta = (\theta_1,\ldots,\theta_n)$ are the learned parameters we use for making predictions, which are the paramters of the loss function. In gradient boosting, we consider the loss function as a function of the predictions instead, so we want to find $\min_{p}L(y,p)$ and the way to achieve that is analogous to gradient descent, i.e, updating the predictions on the opposite direction of the gradients. But how can you update the predicitions? I mean, once the tree is built it has a fixed structure. 
- 
- Here comes the idea of additive modeling, in which you add (sequentially in this case) the predictions of several models in order to get a better performance. The first tree makes predictions on the original target, then, with the second tree, we try to minimize the loss function adding something which is not exactly minus the gradient loss, as in gradient descent, but instead we add *predictions on the gradients loss*, i.e, we fit a tree over with target the gradient loss. So, if $X,y$ represents the original data and 
-$p = \mbox{predict}(X,y)$ 
+Furthermore, XGBoost is often the standard recipe for [winning](https://github.com/dmlc/xgboost/blob/master/demo/README.md#usecases) [ML competitions](http://blog.kaggle.com/tag/xgboost/). It is so popular that the idea of stacking XGBoosts has become a meme. Moreover, boosting is an important component in [many recommender systems](https://en.wikipedia.org/wiki/Learning_to_rank#Practical_usage_by_search_engines); sometimes, it is even considered a [brand](https://yandex.com/company/technologies/matrixnet/).
+Let's look at the history and development of boosting.
 
-$$
-p = p-\mbox{predict}\left(X,\dfrac{\partial L(y,p)}{\partial p}\right)
-$$ 
+Boosting was born out of [the question:](http://www.cis.upenn.edu/~mkearns/papers/boostnote.pdf) is it possible to get one strong model from a large amount of relatively weak and simple models?   
+By saying "weak models", we do not mean simple basic models like decision trees but models with poor accuracy performance, where poor is a little bit better than random.
 
-This equation would be the *gradient descent* version of trees. Maybe this is nothing new for you, but I hope it gives you a better or new way of seeing gradient boosting.
+[A positive mathematical answer](http://www.cs.princeton.edu/~schapire/papers/strengthofweak.pdf) to this question was identified, but it took a few years to develop fully functioning algorithms based on this solution e.g. AdaBoost. These algoritms take a greedy approach: first, they build a linear combination of simple models (basic algorithms) by re-weighing the input data. Then, the model (usually a decision tree) is built on earlier incorrectly predicted objects, which are now given larger weights.  
 
-## Implementing Gradient boosting
+<spoiler title="More about AdaBoost">
+Many machine learning courses study AdaBoost - the ancestor of GBM (Gradient Boosting Machine). However, since AdaBoost merged with GBM, it has become apparent that AdaBoost is just a particular variation of GBM.  
 
-Now let's get our hands on some data and see a woking example
-
-```{code-cell}
-import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.metrics import f1_score,roc_auc_score
-import matplotlib.pyplot as plt
-import warnings
-
-warnings.filterwarnings('ignore')
-seed = 1301
-```
-
-We will work with a modified version of our familiar titanic dataset. This is a ready-to-train version: doesn't not contains missings and categorical data has been encoded.
-
-```{code-cell}
-:tags: ["output_scroll"]
-path = "../../assets/data/titanic_train_and_test.csv"
-data = pd.read_csv(path)
-
-data.head()
-```
-
-```{code-cell}
-###to get train and test
-def split_data(data,target,drop,test_size=0.2,seed=seed):
+The algorithm itself has a very clear visual interpretation and intuition for defining weights. Let's have a look at the following toy classification problem where we are going to split the data between the trees of depth 1 (also known as 'stumps') on each iteration of AdaBoost. For the first two iterations, we have the following picture:
     
-    return train_test_split(data.dropna().drop(target+drop,axis=1),
-                            data.dropna()[target],
-                            test_size=test_size,
-                            random_state = seed)
-```
+:::{figure-md}
+<img src="https://habrastorage.org/web/d28/78f/7ba/d2878f7bad0340fc8002e5ba6d0879a5.jpg" width="90%" class="bg-white mb-1">
 
-```{code-cell}
-drop,target  = ['Passengerid'],['2urvived']
-
-#split the data
-X_train,X_test,y_train,y_test = split_data(data,target,drop=drop)
-```
-
-Let's fit a base learner for the data.
-
-```{code-cell}
-tcl = DecisionTreeClassifier(max_depth=3,random_state=seed)
-tcl.fit(X_train,y_train)
-y_pred = tcl.predict(X_test)
-y_prob = tcl.predict_proba(X_test)[:,1]
-print(f"f1 score: {f1_score(y_test,y_pred):.2f}")
-print(f"AUC score: {roc_auc_score(y_test,y_prob):.2f}")
-```
-
-Now we will construct a gradient booster class implementing the previous algorithm. Let's code it first and then talk a little bit about the details.
-
-```{code-cell}
-class gradient_booster():
-    def __init__(self,loss,gradient_loss,max_depth,nu):
-        self.max_depth = max_depth #max depth of all learners
-        self.nu = nu #learning rate
-        self.loss = loss #loss function to be optimized
-        self.gradient_loss = gradient_loss #gradient of the loss function
-        self.learners = [] #list with all the learners
-        self.loss_history = [] #loss through the process
+Initial iterative process
+:::
     
-    def fit(self,X,y,epochs):
-        base_learner = DecisionTreeClassifier(max_depth=self.max_depth,random_state=seed)
-        base_learner.fit(X,y)
-        initial_probs = base_learner.predict_proba(X)[:,1]
-        
-        probs = initial_probs
-        preds = initial_probs
-        loss_history = [] 
-        self.learners = [base_learner]
-        target = y
-        
-        for i in range(epochs):
-            target = -gradient_loss(y,probs)
-            rt = DecisionTreeRegressor(max_depth=self.max_depth,random_state=seed) #regressor tree
-            rt.fit(X,target)
-            self.learners.append(rt)
-            preds += self.nu*rt.predict(X) #these are not probabilities!!!
-            probs = 1 / (1 + np.exp(-preds)) #these are probabilities
-            self.loss_history.append(loss(y,probs))
-            
-        return self
+The size of point corresponds to its weight, which was assigned for an incorrect prediction.  On each iteration, we can see that these weights are growing -- the stumps cannot cope with this problem. Although, if we take a weighted vote for the stumps, we will get the correct classifications:
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/b2b/029/d89/b2b029d898f64bbbb158e15d29595969.png" width="90%" class="bg-white mb-1">
+
+Weighting the stump
+:::
     
-    def predict_proba(self,X):
-        try:
-            preds  = self.learners[0].predict_proba(X)[:,1]
-            
-            for m in self.learners[1:]:
-                preds += self.nu*m.predict(X)
+Pseudocode:
+- Initialize sample weights $\Large w_i^{(0)} = \frac{1}{l}, i = 1, \dots, l$.
+- For all $t = 1, \dots, T$
+    * Train base algo $\Large b_t$, let $\epsilon_t$ be it's training error.
+    * $\Large \alpha_t = \frac{1}{2}ln\frac{1 - \epsilon_t}{\epsilon_t}$.
+    * Update sample weights: $\Large w_i^{(t)} = w_i^{(t-1)} e^{-\alpha_t y_i b_t(x_i)}, i = 1, \dots, l$.
+    * Normalize sample weights: $\Large w_0^{(t)} = \sum_{j = 1}^k w_j^{(t)}, w_i^{(t)} = \frac{w_i^{(t)}}{w_0^{(t)}}, i = 1, \dots, l$.
+- Return $\sum_t^{T}\alpha_tb_t$
 
-            return 1 / (1 + np.exp(-preds))
-        
-        except NotFittedError:
-            print("Model not fitted yet")
-```
+[Here](https://www.youtube.com/watch?v=k4G2VCuOMMg) is more detailed example of AdaBoost, as we iterate, we can see the weights increase, especially on the border between classes.
 
-We intenionally picked a classification problem over a regression because has some additional technical details worth understanding.
+AdaBoost works well, but [the lack](https://www.cs.princeton.edu/courses/archive/spring07/cos424/papers/boosting-survey.pdf) of explanation for why the algorithm is successful sewed the seeds of doubt. Someone considered it a super-algorithm, a silver bullet, but others were skeptical and believed AdaBoost was just overfitting. 
 
-1. Note that the base learner is a classifier tree but the next learners are regressors due to the gradients being a continuous target.
-2. The outputs of the regressor trees aren't probabilities and therefore the cumulative predictions `preds` neither are. That's why we pass them to the sigmoid function.
-3. Finally, and this stand for the general case, we added a shrinkage parameter `nu` because of the same reasons we add it to gradient descent: the gradients can become crazy and overshoot the minimum.
+The overfitting problem did indeed exist, especially when data had strong outliers. Therefore, in those types of problems, AdaBoost was unstable. Fortunately, a few professors in the statistics department at Stanford, who had created Lasso, Elastic Net, and Random Forest, started researching the algorithm. In 1999, Jerome Friedman came up with the generalization of boosting algorithms development - Gradient Boosting (Machine), also known as GBM. With this work, Friedman set up the statistical foundation for many algorithms providing the general approach of boosting for optimization in the functional space.
 
-Next we define the loss which is the classic binary deviance.
+CART, bootstrap, and many other algorithms have originated from Stanford's statistics department. In doing so, the department has solidified their names in future textbooks. These algorithms are very practical, and some recent works have yet to be widely adopted. For example, check out [glinternet](https://arxiv.org/abs/1308.2719).  
 
-```{code-cell}
-def loss(y,p):
-    return -2.0 * np.mean(y * np.log(p/(1-p)) - np.logaddexp(0.0, np.log(p/(1-p)))) 
-```
+Not many video recordings of Friedman are available. Although, there is a very interesting [interview](https://www.youtube.com/watch?v=8hupHmBVvb0) with him about the creation of CART and how they solved statistics problems (which is similar to data analysis and data science today) more than 40 years ago.
 
-```{code-cell}
-def gradient_loss(y,p):
-    return (p-y)/(p*(1-p))
-```
+There is also a great [lecture](https://www.youtube.com/watch?v=zBk3PK3g-Fc) from Hastie, a retrospective on data analysis from one of the creators of methods that we use everyday.
 
-Let's implement the booster and see how it performs
+In general, there has been a transition from engineering and algorithmic research to a full-fledged approach to building and studying algorithms. From a mathematical perspective, this is not a big change - we are still adding (or boosting) weak algorithms and enlarging our ensemble with gradual improvements for parts of the data where the model was inaccurate. But, this time, the next simple model is not just built on re-weighted objects but improves its approximation of the gradient of overall objective function. This concept greatly opens up our algorithms for imagination and extensions.
 
-```{code-cell}
-booster = gradient_booster(loss=loss,gradient_loss=gradient_loss,max_depth=3,nu=0.01)
-X, y, epochs = X_train.values, y_train.values.ravel(), 50
-booster.fit(X,y,epochs)
-y_prob = booster.predict_proba(X_test)
-y_pred = 1*(y_prob>0.5)
-print(f"f1 score: {f1_score(y_test,y_pred):.2f}")
-print(f"AUC score: {roc_auc_score(y_test,y_prob):.2f}")
-```
+:::{figure-md}
+<img src="https://habrastorage.org/webt/h2/v4/k9/h2v4k9r-4yn4jwvwz99fbss4ghi.png" width="90%" class="bg-white mb-1">
 
-Nice! We got decent increment in auc and a good amount of f1. To finish this section we'll plot the classic loss vs epochs plot to verify that the loss is decresing with every addition of a new tree.
+Comparison between various boost function
+:::
+    
+### History of GBM
 
-```{code-cell}
-fig,ax = plt.subplots(1,1,figsize=(6,6))
-plt.plot(range(epochs),booster.loss_history)
-plt.show()
-```
+It took more than 10 years after the introduction of GBM for it to become an essential part of the data science toolbox.   
+GBM was extended to apply to different statistics problems: GLMboost and GAMboost for strengthening already existing GAM models, CoxBoost for survival curves, and RankBoost and LambdaMART for ranking.   
+Many realizations of GBM also appeared under different names and on different platforms: Stochastic GBM, GBDT (Gradient Boosted Decision Trees), GBRT (Gradient Boosted Regression Trees), MART (Multiple Additive Regression Trees), and more. In addition, the ML community was very segmented and dissociated, which made it hard to track just how widespread boosting had become.  
+
+At the same time, boosting had been actively used in search ranking. This problem was rewritten in terms of a loss function that penalizes errors in the output order, so it became convenient to simply insert it into GBM. AltaVista was one of the first companies who introduced boosting to ranking. Soon, the ideas spread to Yahoo, Yandex, Bing, etc. Once this happened, boosting became one of the main algorithms that was used not only in research but also in core technologies in industry.
+
+<img src='https://habrastorage.org/web/48a/ea4/fff/48aea4fffdbe4e5f9205ba81110e6061.jpg' align='right' width=30%> ML competitions, especially Kaggle, played a major role in boosting's popularization. Now, researchers had a common platform where they could compete in different data science problems with large number of participants from around the world. With Kaggle, one could test new algorithms on the real data, giving algoritms oppurtunity to "shine", and provide full information in sharing model performance results across competition data sets. This is exactly what happened to boosting when it was used at [Kaggle](http://blog.kaggle.com/2011/12/21/score-xavier-conort-on-coming-second-in-give-me-some-credit/) (check interviews with Kaggle winners starting from 2011 who mostly used boosting). The [XGBoost](https://github.com/dmlc/xgboost) library quickly gained popularity after its appearance. XGBoost is not a new, unique algorithm; it is just an extremely effective realization of classic GBM with additional heuristics.
+
+This algorithm has gone through very typical path for ML algorithms today: mathematical problem and algorithmic crafts to successful practical applications and mass adoption years after its first appearance.
+
+## GBM algorithm
+
+### ML problem statement
+
+We are going to solve the problem of function approximation in a general supervised learning setting. We have a set of features $ \large x $ and target variables $\large y, \large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,n}$ which we use to restore the dependence $\large y = f(x) $. We restore the dependence by approximating $ \large \hat{f}(x) $ and by understanding which approximation is better when we use the loss function $ \large L(y,f) $, which we want to minimize: $ \large y \approx \hat{f}(x), \large \hat{f}(x) = \underset{f(x)}{\arg\min} \ L(y,f(x)) $  
+
+:::{figure-md}
+<img src="https://habrastorage.org/webt/le/3a/nt/le3antzue1kp18mxyxttxrsl3wg.png" width="90%" class="bg-white mb-1">
+
+Find function
+:::
+
+At this moment, we do not make any assumptions regarding the type of dependence $ \large f(x) $, the model of our approximation $ \large \hat{f}(x) $, or the distribution of the target variable ($ \large y $). We only expect that the function $ \large L(y,f) $ is differentiable. Our formula is very general; let's define it for a particular data set with a population mean $ \large \hat {f}(x) $. Our expression for minimizing the loss of the data is the following:
+    
+$$ \large  \hat{f}(x) = \underset{f(x)}{\arg\min} \ \mathbb {E} _{x,y}[L(y,f(x))]  $$
+
+Unfortunately, the number of functions $ \large f(x) $ is not just large, but its functional space is infinite-dimensional. That is why it is acceptable for us to limit the search space by some family of functions $ \large f(x, \theta), \theta \in \mathbb{R}^d $. This simplifies the objective a lot because now we have a solvable optimization of parameter values:
+    
+$$ \large \hat{f}(x) = f(x, \hat{\theta}), \\
+\large \hat{\theta} = \underset{\theta}{\arg\min} \ \mathbb {E} _{x,y}[L(y,f(x,\theta))] $$
+    
+Simple analytical solutions for finding the optimal parameters $ \large \hat{\theta} $ often do not exist, so the parameters are usually approximated iteratively. To start, we write down the empirical loss function $ \large L_{\theta}(\hat{\theta}) $ that will allow us to evaluate our parameters using our data. Additionally, let's write out our approximation $ \large \hat{\theta} $ for a number of $ \large M $ iterations as a sum:
+    
+$$ \large \hat{\theta} = \sum_{i = 1}^M \hat{\theta_i}, \\
+\large L_{\theta}(\hat{\theta}) =  \sum_{i = 1}^N L(y_i,f(x_i, \hat{\theta}))$$ 
+
+Then, the only thing left is to find a suitable, iterative algorithm to minimize $\large L_{\theta}(\hat{\theta})$. Gradient descent is the simplest and most frequently used option. We define the gradient as $\large \nabla L_{\theta}(\hat{\theta})$ and add our iterative evaluations $\large \hat{\theta_i}$ to it (since we are minimizing the loss, we add the minus sign). Our last step is to initialize our first approximation $\large \hat{\theta_0}$ and choose the number of iterations $\large M$. Let's review the steps for this inefficient and naive algorithm for approximating $\large \hat{\theta}$:
+
+1. Define the initial approximation of the parameters $\large \hat{\theta} = \hat{\theta_0}$
+2. For every iteration $\large t = 1, \dots, M$ repeat steps 3-7:
+1. Calculate the gradient of the loss function $\large \nabla L_{\theta}(\hat{\theta})$ for the current approximation $\large \hat{\theta}$:$\large \nabla L_{\theta}(\hat{\theta}) = \left[\frac{\partial L(y, f(x, \theta))}{\partial \theta}\right]_{\theta = \hat{\theta}}$
+    
+2. Set the current iterative approximation $\large \hat{\theta_t}$ based on the calculated gradient $\large \hat{\theta_t} \leftarrow −\nabla L_{\theta}(\hat{\theta})$
+3. Update the approximation of the parameters $\large \hat{\theta}$:$\large \hat{\theta} \leftarrow \hat{\theta} + \hat{\theta_t} = \sum_{i = 0}^t \hat{\theta_i} $
+3. Save the result of approximation $\large \hat{\theta}$:$\large \hat{\theta} = \sum_{i = 0}^M \hat{\theta_i} $
+4. Use the function that was found $\large \hat{f}(x) = f(x, \hat{\theta})$
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/2b5/5d6/90d/2b55d690d99e4ec0976b360aae6ce4df.jpg" width="90%" class="bg-white mb-1">
+
+Iteration steps
+:::    
+  
+### Functional gradient descent
+
+Let's imagine for a second that we can perform optimization in the function space and iteratively search for the approximations $\large \hat{f}(x)$ as functions themselves. We will express our approximation as a sum of incremental improvements, each being a function. For convenience, we will immediately start with the sum from the initial approximation $\large \hat{f_0}(x)$:$\large \hat{f}(x) = \sum_{i = 0}^M \hat{f_i}(x)$
+
+Nothing has happened yet; we have only decided that we will search for our approximation $\large \hat{f}(x)$ not as a big model with plenty of parameters (as an example, neural network), but as a sum of functions, pretending we move in functional space.
+
+In order to accomplish this task, we need to limit our search by some function family $\large \hat{f}(x) = h(x, \theta)$. There are a few issues here -- first of all, the sum of models can be more complicated than any model from this family; secondly, the general objective is still in functional space. Let's note that, on every step, we will need to select an optimal coefficient $\large \rho \in \mathbb{R}$. For step $\large t$, the problem is the following:
+    
+$$\large \hat{f}(x) = \sum_{i = 0}^{t-1} \hat{f_i}(x), \\
+\large (\rho_t,\theta_t) = \underset{\rho,\theta}{\arg\min} \ \mathbb {E} _{x,y}[L(y,\hat{f}(x) +  \rho \cdot h(x, \theta))], \\
+\large \hat{f_t}(x) = \rho_t \cdot h(x, \theta_t)$$
+
+Here is where the magic happens. We have defined all of our objectives in general terms, as if we could have trained any kind of model $\large h(x, \theta)$ for any type of loss functions $\large L(y, f(x, \theta))$. In practice, this is extremely difficult, but, fortunately, there is a simple way to solve this task.
+
+Knowing the expression of loss function's gradient, we can calculate its value on our data. So, let's train the models such that our predictions will be more correlated with this gradient (with a minus sign). In other words, we will use least squares to correct the predictions with these residuals. For classification, regression, and ranking tasks, we will minimize the squared difference between pseudo-residuals $\large r$ and our predictions. For step $\large t$, the final problem looks like the following:
+
+$$ \large \hat{f}(x) = \sum_{i = 0}^{t-1} \hat{f_i}(x), \\
+\large r_{it} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)}, \quad \mbox{for } i=1,\ldots,n ,\\
+\large \theta_t = \underset{\theta}{\arg\min} \ \sum_{i = 1}^{n} (r_{it} - h(x_i, \theta))^2, \\
+\large \rho_t = \underset{\rho}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \hat{f}(x_i) + \rho \cdot h(x_i, \theta_t))$$
+
+:::{figure-md}
+<img src="https://habrastorage.org/webt/ep/vc/jp/epvcjpm8jzr9amwbkekdz-h-sjo.jpeg" width="90%" class="bg-white mb-1">
+
+Regression for you
+:::   
+
+### Friedman's classic GBM algorithm
+
+We can now define the classic GBM algorithm suggested by Jerome Friedman in 1999. It is a supervised algorithm that has the following components:
+
+- dataset $\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,n}$;
+- number of iterations $\large M$;
+- choice of loss function $\large L(y, f)$ with a defined gradient;
+- choice of function family of base algorithms $\large h(x, \theta)$ with the training procedure;
+- additional hyperparameters $\large h(x, \theta)$ (for example, in decision trees, the tree depth);
+
+The only thing left is the initial approximation $\large f_0(x)$. For simplicity, for an initial approximation, a constant value $\large \gamma$ is used. The constant value, as well as the optimal coefficient $\large \rho $, are identified via binary search or another line search algorithm over the initial loss function (not a gradient). So, we have our GBM algorithm described as follows:
+
+1. Initialize GBM with constant value $\large \hat{f}(x) = \hat{f}_0, \hat{f}_0 = \gamma,  \gamma \in \mathbb{R}$
+$\large \hat{f}_0 = \underset{\gamma}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \gamma)$
+2. For each iteration $\large t = 1, \dots, M$, repeat:
+1. Calculate pseudo-residuals $\large r_t$:
+$\large r_{it} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)}, \quad \mbox{for } i=1,\ldots,n$
+2. Build new base algorithm $\large h_t(x)$ as regression on pseudo-residuals $\large \left\{ (x_i, r_{it}) \right\}_{i=1, \ldots,n}$
+3. Find optimal coefficient $\large \rho_t $ at $\large h_t(x)$ regarding initial loss function
+$\large \rho_t = \underset{\rho}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \hat{f}(x_i) +  \rho \cdot h(x_i, \theta))$
+4. Save $\large \hat{f_t}(x) = \rho_t \cdot h_t(x)$
+5. Update current approximation $\large \hat{f}(x)$:
+$\large \hat{f}(x) \leftarrow \hat{f}(x) + \hat{f_t}(x) = \sum_{i = 0}^{t} \hat{f_i}(x)$
+3. Compose final GBM model $\large \hat{f}(x)$:
+$\large \hat{f}(x) = \sum_{i = 0}^M \hat{f_i}(x) $
+4. Conquer Kaggle and the rest of the world
+    
+### Step-By-Step example: How GBM Works
+
+Let's see an example of how GBM works. In this toy example, we will restore a noisy function $\large y = cos(x) + \epsilon, \epsilon \sim \mathcal{N}(0, \frac{1}{5}), x \in [-5,5]$.
+    
+:::{figure-md}
+<img src="https://habrastorage.org/web/9fe/04d/7ba/9fe04d7ba5a645d49fc6aa3e875c8c41.jpg" width="90%" class="bg-white mb-1">
+
+Regression problem
+:::     
+
+This is a regression problem with a real-valued target, so we will choose to use the mean squared error loss function. We will generate 300 pairs of observations and approximate them with decision trees of depth 2. Let's put together everything we need to use GBM:
+- Toy data $\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,300}$ ✓
+- Number of iterations $\large M = 3$ ✓;
+- The mean squared error loss function $\large L(y, f) = (y-f)^2$ ✓
+- Gradient of $\large L(y, f) = L_2$ loss is just residuals $\large r = (y - f)$ ✓;
+- Decision trees as base algorithms $\large h(x)$ ✓;
+- Hyperparameters of the decision trees: trees depth is equal to 2 ✓;
+
+For the mean squared error, both initialization $\large \gamma$ and coefficients $\large \rho_t$ are simple. We will initialize GBM with the average value $\large \gamma = \frac{1}{n} \cdot \sum_{i = 1}^n y_i$, and set all coefficients $\large \rho_t$ to 1.
+
+We will run GBM and draw two types of graphs: the current approximation $\large \hat{f}(x)$ (blue graph) and every tree $\large \hat{f_t}(x)$ built on its pseudo-residuals (green graph). The graph's number corresponds to the iteration number:
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/edb/328/98a/edb32898ad014d8d95782759d11f63fb.png" width="90%" class="bg-white mb-1">
+
+Current approximation and every tree
+:::    
+
+By the second iteration, our trees have recovered the basic form of the function. However, at the first iteration, we see that the algorithm has built only the "left branch" of the function ($\large x \in [-5, -4]$). This was due to the fact that our trees simply did not have enough depth to build a symmetrical branch at once, and it focused on the left branch with the larger error. Therefore, the right branch appeared only after the second iteration.
+
+The rest of the process goes as expected -- on every step, our pseudo-residuals decreased, and GBM approximated the original function better and better with each iteration. However, by construction, trees cannot approximate a continuous function, which means that GBM is not ideal in this example. To play with GBM function approximations, you can use the awesome interactive demo in this blog called [Brilliantly wrong](http://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html):
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/779/3e0/e66/7793e0e66b7d4871b6391a94cd5d4cf2.jpg" width="90%" class="bg-white mb-1">
+
+How GBM Works
+:::
+
+## Loss functions
+
+If we want to solve a classification problem instead of regression, what would change? We only need to choose a suitable loss function $\large L(y, f)$. This is the most important, high-level moment that determines exactly how we will optimize and what characteristics we can expect in the final model.
+
+As a rule, we do not need to invent this ourselves – researchers have already done it for us. Today, we will explore loss functions for the two most common objectives: regression $\large y \in \mathbb{R}$ and binary classification $\large y \in \left\{-1, 1\right\}$. 
+
+### Regression loss functions
+
+Let's start with a regression problem for $\large y \in \mathbb{R}$. In order to choose the appropriate loss function, we need to consider which of the properties of the conditional distribution $\large (y|x)$ we want to restore. The most common options are:
+
+- $\large L(y, f) = (y - f)^2$ a.k.a. $\large L_2$ loss or Gaussian loss. It is the classical conditional mean, which is the simplest and most common case. If we do not have any additional information or requirements for a model to be robust, we can use the Gaussian loss.
+- $\large L(y, f) = |y - f|$ a.k.a. $\large L_1$ loss or Laplacian loss. At the first glance, this function does not seem to be differentiable, but it actually defines the conditional median. Median, as we know, is robust to outliers, which is why this loss function is better in some cases. The penalty for big variations is not as heavy as it is in $\large L_2$.
+- $ \large \begin{equation}  L(y, f) =\left\{   \begin{array}{@{}ll@{}}     (1 - \alpha) \cdot |y - f|, & \text{if}\ y-f \leq 0 \\     \alpha \cdot |y - f|, & \text{if}\ y-f >0  \end{array}\right. \end{equation}, \alpha \in (0,1)
+$ a.k.a. $\large L_q$ loss or Quantile loss.  Instead of median, it uses quantiles. For example, $\large \alpha = 0.75$ corresponds to the 75%-quantile. We can see that this function is asymmetric and penalizes the observations which are on the right side of the defined quantile.
+    
+:::{figure-md}
+<img src="https://habrastorage.org/web/6d5/e3a/09c/6d5e3a09c703491b947fde851e412ac0.png" width="90%" class="bg-white mb-1">
+
+Asymmetric function
+:::     
+
+Let's use loss function $\large L_q$ on our data. The goal is to restore the conditional 75%-quantile of cosine. Let us put everyting together for GBM:
+- Toy data $\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,300}$ ✓
+- A number of iterations $\large M = 3$ ✓;
+- Loss function for quantiles $ \large \begin{equation}   L_{0.75}(y, f) =\left\{
+\begin{array}{@{}ll@{}}    0.25 \cdot |y - f|, & \text{if}\ y-f \leq 0 \\     0.75 \cdot |y - f|, & \text{if}\ y-f >0   \end{array}\right. \end{equation} $ ✓;
+- Gradient $\large L_{0.75}(y, f)$ - function weighted by $\large \alpha = 0.75$. We are going to train tree-based model for classification:
+$\large r_{i} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)} = $
+$\large = \alpha I(y_i > \hat{f}(x_i) ) - (1 - \alpha)I(y_i \leq \hat{f}(x_i) ), \quad \mbox{for } i=1,\ldots,300$ ✓;
+- Decision tree as a basic algorithm $\large h(x)$ ✓;
+- Hyperparameter of trees: depth =  2 ✓;
+
+For our initial approximation, we will take the needed quantile of $\large y$. However, we do not know anything about optimal coefficients $\large \rho_t$, so we'll use standard line search. The results are the following:
+    
+:::{figure-md}
+<img src="https://habrastorage.org/web/0e6/7dd/614/0e67dd614076499e91c8c4238457ae4d.png" width="90%" class="bg-white mb-1">
+
+Standard line search
+:::     
+
+We can observe that, on each iteration, $\large r_{i} $ take only 2 possible values, but GBM is still able to restore our initial function.
+
+The overall results of GBM with quantile loss function are the same as the results with quadratic loss function offset by $\large \approx 0.135$. But if we were to use the 90%-quantile, we would not have enough data due to the fact that classes would become unbalanced. We need to remember this when we deal with non-standard problems.
+    
+For regression tasks, many loss functions have been developed, some of them with extra properties. For example, they can be robust like in the [Huber loss function](https://en.wikipedia.org/wiki/Huber_loss). For a small number of outliers, the loss function works as $\large L_2$, but after a defined threshold, the function changes to $\large L_1$. This allows for decreasing the effect of outliers and focusing on the overall picture.
+
+We can illustrate this with the following example. Data is generated from the function  $\large y = \frac{sin(x)}{x}$ with added noise, a mixture from normal and Bernulli distributions. We show the functions on graphs A-D and the relevant GBM on F-H (graph E represents the initial function):
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/130/05b/222/13005b222e8a4eb68c3936216c05e276.jpg" width="90%" class="bg-white mb-1">
+
+Functions and relevant GBM
+:::     
+
+
+In this example, we used splines as the base algorithm. See, it does not always have to be trees for boosting?
+
+We can clearly see the difference between the functions $\large L_2$, $\large L_1$, and Huber loss. If we choose optimal parameters for the Huber loss, we can get the best possible approximation among all our options. The difference can be seen as well in the 10%, 50%, and 90%-quantiles.
+
+Unfortunately, Huber loss function is supported only by very few popular libraries/packages; h2o supports it, but XGBoost does not. It is relevant to other things that are more exotic like [conditional expectiles](https://www.slideshare.net/charthur/quantile-and-expectile-regression), but it may still be interesting knowledge.
+</spoiler>    
+    
+### Classification loss functions
+
+Now, let's look at the binary classification problem $\large y \in \left\{-1, 1\right\}$. We saw that GBM can even optimize non-differentiable loss functions. Technically, it is possible to solve this problem with a regression $\large L_2$ loss, but it wouldn't be correct.
+
+The distribution of the target variable requires us to use log-likehood, so we need to have different loss functions for targets multiplied by their predictions:  $\large y \cdot f$. The most common choices would be the following:
+
+- $\large L(y, f) = log(1 + exp(-2yf))$ a.k.a. Logistic loss or Bernoulli loss. This has an interesting property that penalizes even correctly predicted classes, which helps not only helps to optimize loss but also to move the classes apart further, even if all classes are predicted correctly.
+- $\large L(y, f) = exp(-yf)$ a.k.a. AdaBoost loss. The classic AdaBoost is equivalent to GBM with this loss function. Conceptually, this function is very similar to logistic loss, but it has a bigger exponential penalization if the prediction is wrong.
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/bf5/9de/dcf/bf59dedcfd9d49b18e89ce342b09ce69.png" width="90%" class="bg-white mb-1">
+
+AdaBoost and logistic
+:::     
+
+Let's generate some new toy data for our classification problem. As a basis, we will take our noisy cosine, and we will use the sign function for classes of the target variable. Our toy data looks like the following (jitter-noise is added for clarity):
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/e72/513/78b/e7251378bf6d459ab1aeea7a1f1996a1.jpg" width="90%" class="bg-white mb-1">
+
+Toy data
+:::     
+
+We will use logistic loss to look for what we actually boost. So, again, we put together what we will use for GBM:
+- Toy data $\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,300}, y_i \in \left\{-1, 1\right\}$ ✓
+- Number of iterations $\large M = 3$ ✓;
+- Logistic loss as the loss function, its gradient is computed the following way:
+$\large r_{i} = \frac{2 \cdot y_i}{1 + exp(2 \cdot y_i \cdot \hat{f}(x_i)) }, \quad \mbox{for } i=1,\ldots,300$ ✓;
+- Decision trees as base algorithms $\large h(x)$ ✓;
+- Hyperparameters of the decision trees: tree's depth is equal to 2 ✓;
+
+This time, the initialization of the algorithm is a little bit harder. First, our classes are imbalanced  (63% versus 37%). Second, there is no known analytical formula for the initialization of our loss function, so we have to look for $\large \hat{f_0} = \gamma$ via search:
+    
+:::{figure-md}
+<img src="https://habrastorage.org/web/f8a/054/702/f8a05470271448d9bc0d4dc3e524a571.png" width="90%" class="bg-white mb-1">
+
+Initialization of algorithm
+:::     
+
+Our optimal initial approximation is around -0.273. You could have guessed that it was negative because it is more profitable to predict everything as the most popular class, but there is no formula for the exact value. Now let's finally start GBM, and look what actually happens under the hood:
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/7b4/ab0/5fa/7b4ab05fa0a543bfad94950e47f91568.png" width="90%" class="bg-white mb-1">
+
+Result of GBM
+:::    
+
+The algorithm successfully restored the separation between our classes. You can see how the "lower" areas are separating because the trees are more confident in the correct prediction of the negative class and how the two steps of mixed classes are forming. It is clear that we have a lot of correctly classified observations and some amount of observations with large errors that appeared due to the noise in the data.
+    
+### Weights
+
+Sometimes, there is a situation where we want a more specific loss function for our problem. For example, in financial time series, we may want to give bigger weight to large movements in the time series; for churn prediction, it is more useful to predict the churn of clients with high LTV (or lifetime value: how much money a client will bring in the future).
+    
+:::{figure-md}
+<img src="https://habrastorage.org/web/0c0/ad0/3a4/0c0ad03a4c4b46bfa5bcd5101678c9c4.jpg" width="90%" class="bg-white mb-1">
+
+Statistical learning
+:::      
+
+The statistical warrior would invent their own loss function, write out the gradient for it (for more effective training, include the Hessian), and carefully check whether this function satisfies the required properties. However, there is a high probability of making a mistake somewhere, running up against computational difficulties, and spending an inordinate amount of time on research.
+
+In lieu of this, a very simple instrument was invented (which is rarely remembered in practice): weighing observations and assigning weight functions. The simplest example of such weighting is the setting of weights for class balance. In general, if we know that some subset of data, both in the input variables $\large x$ and in the target variable $\large y$, has greater importance for our model, then we just assign them a larger weight $\large w(x,y)$. The main goal is to fulfill the general requirements for weights:
+
+$$ \large w_i \in \mathbb{R}, \\
+\large w_i \geq 0 \quad \mbox{for } i=1,\ldots,n, \\
+\large \sum_{i = 1}^n w_i > 0 $$
+
+Weights can significantly reduce the time spent adjusting the loss function for the task we are solving and also encourages experiments with the target models' properties. Assigning these weights is entirely a function of creativity. We simply add scalar weights:
+
+$$ \large L_{w}(y,f) = w \cdot L(y,f), \\
+\large r_{it} =   - w_i \cdot \left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)}, \quad \mbox{for } i=1,\ldots,n$$
+
+It is clear that, for arbitrary weights, we do not know the statistical properties of our model. Often, linking the weights to the values $\large y$ can be too complicated. For example, the usage of weights proportional to $\large |y|$ in $\large L_1$ loss function is not equivalent to $\large L_2$ loss because the gradient will not take into account the values of the predictions themselves: $\large \hat{f}(x)$.
+
+We mention all of this so that we can understand our possibilities better. Let's create some very exotic weights for our toy data. We will define a strongly asymmetric weight function as follows:
+
+$$ \large \begin{equation} w(x) =\left\{   \begin{array}{@{}ll@{}}     0.1, & \text{if}\ x \leq 0 \\     0.1 + |cos(x)|, & \text{if}\ x >0 \end{array}\right. \end{equation} $$
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/8c2/1b1/aa4/8c21b1aa47134f7aa46b15ef910369b2.png" width="90%" class="bg-white mb-1">
+
+Asymmetric weight function
+:::    
+
+With these weights, we expect to get two properties: less detailing for negative values of $\large x$ and the form of the function, similar to the initial cosine. We take the other GBM's tunings from our previous example with classification including the line search for optimal coefficients. Let's look what we've got:
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/afc/cca/72a/afccca72a0774990b685de37b0fe9d9f.png" width="90%" class="bg-white mb-1">
+
+Adjusted result of GBM
+:::      
+
+We achieved the result that we expected. First, we can see how strongly the pseudo-residuals differ; on the initial iteration, they look almost like the original cosine. Second, the left part of the function's graph was often ignored in favor of the right one, which had larger weights. Third, the function that we got on the third iteration received enough attention and started looking similar to the original cosine (also started to slightly overfit).
+
+Weights are a powerful but risky tool that we can use to control the properties of our model. If you want to optimize your loss function, it is worth trying to solve a more simple problem first but add weights to the observations at your discretion.
+    
+## Conclusion
+
+Today, we learned the theory behind gradient boosting. GBM is not just some specific algorithm but a common methodology for building ensembles of models. In addition, this methodology is sufficiently flexible and expandable -- it is possible to train a large number of models, taking into consideration different loss-functions with a variety of weighting functions.
+
+Practice and ML competitions show that, in standard problems (except for image, audio, and very sparse data), GBM is often the most effective algorithm (not to mention stacking and high-level ensembles, where GBM is almost always a part of them).  Also, there are many adaptations of GBM [for Reinforcement Learning](https://arxiv.org/abs/1603.04119) (Minecraft, ICML 2016). By the way, the Viola-Jones algorithm, which is still used in computer vision, [is based on AdaBoost](https://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework#Learning_algorithm).
+
+In this article, we intentionally omitted questions concerning GBM’s regularization, stochasticity, and hyper-parameters. It was not accidental that we used a small number of iterations $\large M = 3$ throughout. If we used 30 trees instead of 3 and trained the GBM as described, the result would not be that predictable:
+    
+:::{figure-md}
+<img src="https://habrastorage.org/webt/td/bj/ob/tdbjobmhfaurd8smg5rn-xhnazw.png" width="90%" class="bg-white mb-1">
+
+Good fit
+:::     
+
+:::{figure-md}
+<img src="https://habrastorage.org/webt/gm/b9/rg/gmb9rgaai9zmmljuteuxbexd_iq.png" width="90%" class="bg-white mb-1">
+
+Overfitting
+:::     
+
+:::{figure-md}
+<img src="https://habrastorage.org/web/27f/0f5/3be/27f0f53be9424cb1afaffb9a0e32909f.jpg" width="90%" class="bg-white mb-1">
+
+Gradient Boosting Interactive Playground
+:::      
+
+You can go to the [Gradient Boosting Interactive Playground](http://arogozhnikov.github.io/2016/07/05/gradient_boosting_playground.html) to learn more.
 
 ## Your turn! 🚀
 
@@ -184,6 +421,4 @@ TBD
 
 ## Acknowledgments
 
-Thanks to Alexis Moraga for creating the open-source course [Understanding Gradient Boosting](https://www.kaggle.com/code/senoratiramisu/understanding-gradient-boosting). It inspires the majority of the content in this chapter.
-
-
+Thanks to [Yury Kashnitsky](https://www.kaggle.com/kashnitsky) for creating the open-source course [Gradient Boosting](https://www.kaggle.com/code/kashnitsky/topic-10-gradient-boosting/notebook). It inspires the majority of the content in this chapter.  
