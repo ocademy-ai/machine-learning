@@ -194,6 +194,36 @@ assert number <= 5
 assert number <= 6
 ```
 
+### Try it out
+
+Let's write a Python program to calculate the discriminant value. It calculates the roots of a quadratic equation of the form ax^2 + bx + c = 0, where a, b, and c are arbitrary numeric values.
+
+The discriminant value is calculated by using the formula (b^2 - 4ac). The discriminant value is used to determine the number of roots of the quadratic equation.
+
+If the discriminant is positive, there are two real solutions to the equation. The program prints the discriminant value and the message "Two Solutions." If the discriminant is zero, there is one real solution to the equation. The program prints the discriminant value and the message "One Solution."
+
+If the discriminant is negative, there are no real solutions to the equation. The program prints the discriminant value and the message "No Real Solutions."
+
+```{code-cell}
+def calculate_discriminant(a, b, c):
+    dis = (b**2) - (4*a*c)
+    if dis > 0:
+        print("Two Solutions. Discriminant value is:", dis)
+    elif dis == 0:
+        print("One Solution. Discriminant value is:", dis)
+    elif dis < 0:
+        print("No Real Solutions. Discriminant value is:", dis)
+
+a = 1
+b = 2
+c = 3
+
+calculate_discriminant(a, b, c)
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=def%20calculate_discriminant%28a,%20b,%20c%29%3A%0A%20%20%20%20dis%20%3D%20%28b**2%29%20-%20%284*a*c%29%0A%20%20%20%20if%20dis%20%3E%200%3A%0A%20%20%20%20%20%20%20%20print%28%22Two%20Solutions.%20Discriminant%20value%20is%3A%22,%20dis%29%0A%20%20%20%20elif%20dis%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20print%28%22One%20Solution.%20Discriminant%20value%20is%3A%22,%20dis%29%0A%20%20%20%20elif%20dis%20%3C%200%3A%0A%20%20%20%20%20%20%20%20print%28%22No%20Real%20Solutions.%20Discriminant%20value%20is%3A%22,%20dis%29%0A%0Aa%20%3D%201%0Ab%20%3D%202%0Ac%20%3D%203%0A%0Acalculate_discriminant%28a,%20b,%20c%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+
 ## Data types
 
 In programming, data type is an important concept. Variables can store data of different types, and different types can do different things. Python has the following data types built in by default, in these categories:
