@@ -1,0 +1,1976 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>15.3. Feature importance &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="16. Introduction to Gradient Boosting" href="../gradient-boosting/introduction-to-gradient-boosting.html" />
+    <link rel="prev" title="15.2. Random forest" href="random-forest.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-overview.html">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="bagging.html">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../gradient-boosting/introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../gradient-boosting/xgboost.html">
+     16.1. XGBoost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../unsupervised-learning.html">
+   17. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../model-selection.html">
+   19. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/GAN.html">
+   22. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/AutoEncoder.html">
+   24. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/DQN.html">
+   27. Deep Q-learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-summary.html">
+   28. Summary of deep learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/difussion-model.html">
+   31. Diffusion Model
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/overview.html">
+   32. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/problem-framing.html">
+   33. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+   34. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-training-and-evaluation.html">
+   35. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-deployment.html">
+   36. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/unbalanced-problems.html">
+   37. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/automl.html">
+   38. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../assignments/introduction.html">
+   39. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/get-started.html">
+     39.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/first-assignment.html">
+     39.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/second-assignment.html">
+     39.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/project-plan-template.html">
+     39.4. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-introduction.html">
+     39.5. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-basics.html">
+     39.6. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-advanced.html">
+     39.7. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-text-about-data-science.html">
+     39.8. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-scenarios.html">
+     39.9. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/write-a-data-ethics-case-study.html">
+     39.10. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/lines-scatters-and-bars.html">
+     39.11. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/apply-your-skills.html">
+     39.12. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/try-it-in-excel.html">
+     39.13. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/let-us-learn-about-birds.html">
+     39.14. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/bird-distributions.html">
+     39.15. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/dive-into-the-beehive.html">
+     39.16. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/build-your-own-custom-vis.html">
+     39.17. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/classifying-datasets.html">
+     39.18. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/small-diabetes-study.html">
+     39.19. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/introduction-to-statistics-and-probability.html">
+     39.20. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/displaying-airport-data.html">
+     39.21. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/soda-profits.html">
+     39.22. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-COVID-19-papers.html">
+     39.23. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     39.24. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-processing-in-python.html">
+     39.25. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/evaluating-data-from-a-form.html">
+     39.26. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-preparation.html">
+     39.27. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-data.html">
+     39.28. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     39.29. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/matplotlib-applied.html">
+     39.30. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/tell-a-story.html">
+     39.36. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     39.37. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/exploring-for-anwser.html">
+     39.38. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/market-research.html">
+     39.39. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     39.40. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     39.41. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     39.42. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-iris.html">
+     39.43. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-mnist-digits.html">
+     39.44. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     39.45. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-1.html">
+     39.46. ML linear regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-2.html">
+     39.47. ML linear regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-logistic-regression-1.html">
+     39.48. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-neural-network-1.html">
+     39.49. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-tools.html">
+     39.50. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/managing-data.html">
+     39.51. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/exploring-visualizations.html">
+     39.52. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/try-a-different-model.html">
+     39.53. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/create-a-regression-model.html">
+     39.54. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     39.55. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/retrying-some-regression.html">
+     39.56. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     39.57. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     39.58. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/explore-classification-methods.html">
+     39.59. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     39.60. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     39.61. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     39.62. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/decision-trees.html">
+     39.63. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/data-engineering.html">
+     39.64. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     39.65. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-classification.html">
+     39.66. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-regression.html">
+     39.67. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/study-the-solvers.html">
+     39.68. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-models.html">
+     39.69. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-model.html">
+     39.70. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/parameter-play.html">
+     39.71. Parameter play
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../slides/introduction.html">
+   40. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-introduction.html">
+     40.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-basics.html">
+     40.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-advanced.html">
+     40.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-introduction.html">
+     40.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/relational-vs-non-relational-database.html">
+     40.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/numpy-and-pandas.html">
+     40.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-visualization.html">
+     40.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-lifecycle.html">
+     40.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-the-cloud.html">
+     40.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-real-world.html">
+     40.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/ml-overview.html">
+     40.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/linear-regression.html">
+     40.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/logistic-regression.html">
+     40.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/neural-network.html">
+     40.14. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/build-an-ml-web-app.html">
+     40.15. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/unsupervised-learning.html">
+     40.16. Unsupervised learning
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-advanced/ensemble-learning/feature-importance.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ml-advanced/ensemble-learning/feature-importance.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/ml-advanced/ensemble-learning/feature-importance.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intuition">
+   15.3.1. Intuition
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#permutation-importance">
+     15.3.1.1. Permutation importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#illustrating-permutation-importance">
+   15.3.2. Illustrating permutation importance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sklearn-random-forest-feature-importance">
+   15.3.3. Sklearn Random Forest Feature Importance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practical-example">
+   15.3.4. Practical example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   15.3.5. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   15.3.6. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Feature importance</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intuition">
+   15.3.1. Intuition
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#permutation-importance">
+     15.3.1.1. Permutation importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#illustrating-permutation-importance">
+   15.3.2. Illustrating permutation importance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sklearn-random-forest-feature-importance">
+   15.3.3. Sklearn Random Forest Feature Importance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#practical-example">
+   15.3.4. Practical example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   15.3.5. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   15.3.6. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="feature-importance">
+<h1><span class="section-number">15.3. </span>Feature importance<a class="headerlink" href="#feature-importance" title="Permalink to this headline">#</a></h1>
+<p>It’s quite often that you want to make out the exact reasons of the algorithm outputting a particular answer. Or at the very least to find out which input features contributed most to the result. With Random Forest, you can obtain such information quite easily.</p>
+<section id="intuition">
+<h2><span class="section-number">15.3.1. </span>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">#</a></h2>
+<p>From the picture below, it is intuitively clear that, in our credit scoring problem, <em>Age</em> is much more important than <em>Income</em>. This can be formally explained using the concept of <em>information gain</em>.</p>
+<figure class="align-default" id="id1">
+<a class="bg-white mb-1 reference internal image-reference" href="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png"><img alt="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png" class="bg-white mb-1" src="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 15.7 </span><span class="caption-text">Example of credit scoring problem</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In the case of many decision trees or a random forest, the closer the mean position of a feature over all the trees to the root, the more significant it is for a given classification or regression problem. Gains in the splitting criterion, such as the <em>Gini impurity</em>, obtained at each optimal split in every tree is a measure of importance that is directly associated with the splitting feature. The value of this score is distinct for each feature and accumulates over all the trees.</p>
+<p>Let’s go a little deeper into the details.</p>
+<p>There exist a lot of methods to assess feature importances. Leo Breinman in his works suggested to evaluate the importance of a variable by measuring decrease of accuracy of the forest when the variable is randomly permuted or decrease of impurity of a nodes where the given variable is used for splitting. The former method is often called <strong>permutation importance</strong>. The latter method is used in <code class="docutils literal notranslate"><span class="pre">sklearn</span></code>.</p>
+<section id="permutation-importance">
+<h3><span class="section-number">15.3.1.1. </span>Permutation importance<a class="headerlink" href="#permutation-importance" title="Permalink to this headline">#</a></h3>
+<p>Inspired by this <a class="reference external" href="https://www.researchgate.net/publication/5231126_Conditional_Variable_Importance_for_Random_Forests">article</a>.
+The average reduction in accuracy caused by a variable is determined during the calculation of the out-of-bag error. The greater the reduction in accuracy due to an exclusion or permutation of the variable, the higher its <em>importance score</em>. For this reason, variables with a greater average reduction in accuracy are generally more significant for classification.</p>
+<p>The rationale for calculating permutation importance is the following: By randomly permuting the predictor variable <span class="math notranslate nohighlight">\(X_j\)</span>, its original association with the response <span class="math notranslate nohighlight">\(Y\)</span> is broken. When the permuted variable <span class="math notranslate nohighlight">\(X_j\)</span>, together with all the others non-permuted variables, is used the response for the out-of-bag observations, the prediction <em>accuracy</em> decreases substantially if the original <span class="math notranslate nohighlight">\(X_j\)</span> was associated with response. Thus, as a measure of variable importance, the difference in prediction accuracy before and after permuting is used.</p>
+<p>More formally: denote <span class="math notranslate nohighlight">\(\overline{\mathfrak{B}}^{(t)}\)</span> as the out-of-bag sample for a tree <span class="math notranslate nohighlight">\(t\)</span>, for <span class="math notranslate nohighlight">\(t\in\{1, ..., N\}\)</span> where <span class="math notranslate nohighlight">\(N\)</span> is the number of trees in ensemble. Then the permutation importance of variable <span class="math notranslate nohighlight">\(X_j\)</span> in tree <span class="math notranslate nohighlight">\(t\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[{PI}^{(t)}\left(X_j\right)=\frac{\sum_{i\in\overline{\mathfrak{B}}^{(t)}}I\left(y_i=\hat{y}_i^{(t)}\right)}{\left|\overline{\mathfrak{B}}^{(t)}\right|}-\frac{\sum_{i\in\overline{\mathfrak{B}}^{(t)}}I\left(y_i=\hat{y}_{i,\pi_j}^{(t)}\right)}{\left|\overline{\mathfrak{B}}^{(t)}\right|}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{y}_i^{(t)}=f^{(t)}(\mathbf{x}_i)\)</span> is the predicted class for observation <span class="math notranslate nohighlight">\(i\)</span> before and <span class="math notranslate nohighlight">\(\hat{y}_{i, \pi_j}^{(t)}=f^{(t)}(\mathbf{x}_{i,\pi_j})\)</span> is the predicted class for observation <span class="math notranslate nohighlight">\(i\)</span> after permuting <span class="math notranslate nohighlight">\(X_j\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}_{i,\pi_j}=\left(x_{i,1}, ..., x_{i,j-1},x_{\pi_j(i),j},x_{i,j+1},...,x_{i,p}\right)\)</span></p>
+<p>Note that by definition <span class="math notranslate nohighlight">\({PI}^{(t)}=0\)</span>, if variable <span class="math notranslate nohighlight">\(X_j\)</span> isn’t in tree <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>Now, we can give the feature importance calculation for ensembles:</p>
+<ul class="simple">
+<li><p>not normalized:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[{PI}\left(X_j\right)=\frac{\sum_{t=1}^N {PI}^{(t)}(X_j)}{N}\]</div>
+<ul class="simple">
+<li><p>normalized by the standard deviation of the differences:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[z_j=\frac{{PI}\left(X_j\right)}{\frac{\hat{\sigma}}{\sqrt{N}}}\]</div>
+</section>
+</section>
+<section id="illustrating-permutation-importance">
+<h2><span class="section-number">15.3.2. </span>Illustrating permutation importance<a class="headerlink" href="#illustrating-permutation-importance" title="Permalink to this headline">#</a></h2>
+<p>Let’s assume that we have a toy dataset with 10 instances. Target variable can be either <strong>‘N’</strong> or <strong>‘P’</strong>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|c|c|c|c|c|c|c|c|c}
+  \text{Instances}, i &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8 &amp; 9 &amp; 10 &amp; \\ 
+  \hline
+  y_i &amp; N &amp; P &amp; P &amp; N &amp; N &amp; P &amp; N &amp; N &amp; N &amp; P \\
+ \end{array}\end{split}\]</div>
+<p>We build an ensemble of 5 trees <span class="math notranslate nohighlight">\(t\)</span>, for <span class="math notranslate nohighlight">\(t\in\{1, ..., 5\}\)</span>. For each tree we get out-of-bag sample (denoted <span class="math notranslate nohighlight">\(\overline{\mathfrak{B}}^{(t)}\)</span> above). For example for the first tree out-of-bag sample consists of instances # 2, 4, 5, and 6.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|c|c|c|c|c|c|c|c|c}
+  \text{Tree 1} &amp; \text{Bootstrap-sample 1} &amp; 10 &amp; 9 &amp; 7 &amp; 8 &amp; 1 &amp; 3 &amp; 9 &amp; 10 &amp; 10 &amp; 7\\
+  \hline
+  \text{Tree 2} &amp; \text{Bootstrap-sample 2} &amp; 4 &amp; 8 &amp; 5 &amp; 8 &amp; 3 &amp; 9 &amp; 2 &amp; 6 &amp; 1 &amp; 6\\
+  \hline
+  \text{Tree 3} &amp; \text{Bootstrap-sample 3} &amp; 6 &amp; 2 &amp; 6 &amp; 10 &amp; 2 &amp; 10 &amp; 3 &amp; 6 &amp; 5 &amp; 1\\
+  \hline
+  \text{Tree 4} &amp; \text{Bootstrap-sample 4} &amp; 6 &amp; 7 &amp; 8 &amp; 10 &amp; 6 &amp; 10 &amp; 9 &amp; 10 &amp; 8 &amp; 2\\
+  \hline
+  \text{Tree 5} &amp; \text{Bootstrap-sample 5} &amp; 5 &amp; 8 &amp; 1 &amp; 8 &amp; 5 &amp; 7 &amp; 10 &amp; 1 &amp; 10 &amp; 9\\
+ \end{array}\end{split}\]</div>
+<p>Thus, out-of-bag samples for each tree <span class="math notranslate nohighlight">\(t\)</span> are</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|cccc}
+  \text{Tree}, t &amp; \overline{\mathfrak{B}}^{(t)} \\
+  \hline
+  \text{Tree 1} &amp; 2 &amp; 4 &amp; 5 &amp; 6\\
+  \hline
+  \text{Tree 2} &amp; 7 &amp; 10\\
+  \hline
+  \text{Tree 3} &amp; 4 &amp; 7 &amp; 8 &amp; 9\\
+  \hline
+  \text{Tree 4} &amp; 1 &amp; 3 &amp; 4 &amp; 5\\
+  \hline
+  \text{Tree 5} &amp; 2 &amp; 3 &amp; 4 &amp; 6\\
+  \hline
+ \end{array}\end{split}\]</div>
+<p>Suppose that we have four features <span class="math notranslate nohighlight">\(X_j\)</span>, <span class="math notranslate nohighlight">\(j\in\{1, 2, 3, 4\}\)</span> and we’d like to compute <em>permutation importance</em> for <span class="math notranslate nohighlight">\(X_2\)</span>. First, for each out-of-bag sample we compute <em>accuracy</em> of the model before and after permutation of the values of <span class="math notranslate nohighlight">\(X_2\)</span>.</p>
+<p>For instance, before permutation for <span class="math notranslate nohighlight">\(\overline{\mathfrak{B}}^{(1)}\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|cccc|cc|c}
+   &amp; X_1 &amp; \color{red}{X_2} &amp; X_3 &amp; X_4 &amp; y_i &amp; \hat{y}_i &amp; I\left(y_i=\hat{y}_i\right)\\
+  \hline
+  \textbf{2} &amp; 1 &amp; \color{red}2 &amp; 11 &amp; 101 &amp; \textbf{P} &amp; \textbf{P} &amp; 1\\
+  \hline
+  \textbf{4} &amp; 2 &amp; \color{red}3 &amp; 12 &amp; 102 &amp; \textbf{N} &amp; \textbf{P} &amp; 0\\
+  \hline
+  \textbf{5} &amp; 3 &amp; \color{red}5 &amp; 13 &amp; 103 &amp; \textbf{N} &amp; \textbf{N} &amp; 1\\
+  \hline
+      \textbf{6} &amp; 4 &amp; \color{red}7 &amp; 14 &amp; 104 &amp; \textbf{P} &amp; \textbf{P} &amp; 1\\
+ \end{array}\end{split}\]</div>
+<p>Thus, the accuracy before permutation is <span class="math notranslate nohighlight">\(3/4=0.75\)</span>.</p>
+<p>After permutation for <span class="math notranslate nohighlight">\(\overline{\mathfrak{B}}^{(1)}\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|cccc|cc|c}
+   &amp; X_1 &amp; \color{red}{X_2} &amp; X_3 &amp; X_4 &amp; y_i &amp; \hat{y}_i &amp; I\left(y_i=\hat{y}_i\right)\\
+  \hline
+  \textbf{2} &amp; 1 &amp; \color{red}5 &amp; 11 &amp; 101 &amp; \textbf{P} &amp; \textbf{P} &amp; 0\\
+  \hline
+  \textbf{4} &amp; 2 &amp; \color{red}7 &amp; 12 &amp; 102 &amp; \textbf{N} &amp; \textbf{P} &amp; 0\\
+  \hline
+  \textbf{5} &amp; 3 &amp; \color{red}2 &amp; 13 &amp; 103 &amp; \textbf{N} &amp; \textbf{N} &amp; 1\\
+  \hline
+      \textbf{6} &amp; 4 &amp; \color{red}3 &amp; 14 &amp; 104 &amp; \textbf{P} &amp; \textbf{P} &amp; 1\\
+ \end{array}\end{split}\]</div>
+<p>The accuracy after permutation is <span class="math notranslate nohighlight">\(2/4=0.50\)</span>.</p>
+<p>Then the difference between accuracies is computed.</p>
+<p>The above mentioned steps are to be done for each out-of-bag sample <span class="math notranslate nohighlight">\(\overline{\mathfrak{B}}^{(t)}\)</span>. To get not normalized <em>permutation importance</em> we sum all computed differences and divide by the number of trees. Normalization is done by dividing <em>not normalized permutation importance</em> by standard error.</p>
+</section>
+<section id="sklearn-random-forest-feature-importance">
+<h2><span class="section-number">15.3.3. </span>Sklearn Random Forest Feature Importance<a class="headerlink" href="#sklearn-random-forest-feature-importance" title="Permalink to this headline">#</a></h2>
+<p>Inspired by <a class="reference external" href="https://medium.com/&#64;srnghn/the-mathematics-of-decision-trees-random-forest-and-feature-importance-in-scikit-learn-and-spark-f2861df67e3">this</a> article.
+Sklearn library uses another approach to determine feature importance. The rationale for that method is that the more gain in information the node (with splitting feature <span class="math notranslate nohighlight">\(X_j\)</span>) provides, the higher its importance.</p>
+<p>The average reduction in the Gini impurity – or MSE for regression – represents the contribution of each feature to the homogeneity of nodes and leaves in the resulting Random Forest model. Each time a selected feature is used for splitting, the Gini impurity of the child nodes is calculated and compared with that of the original node.</p>
+<p>Gini impurity is a score of homogeneity with the range from  0  (homogeneous) to  1  (heterogeneous). The changes in the value of the splitting criterion are accumulated for each feature and normalized at the end of the calculation. A higher reduction in the Gini impurity signals that splitting results by this feature results in nodes with higher purity.</p>
+<p>The algorithm of obtaining feature importance may be represented with the following sequence of steps:</p>
+<ol class="simple">
+<li><p>For each tree <span class="math notranslate nohighlight">\(t\)</span> in ensemble <span class="math notranslate nohighlight">\(t\in\{1,...,N\}\)</span>:</p></li>
+</ol>
+<p>1.1.  for each node <span class="math notranslate nohighlight">\(i\)</span> calculate the reduction in impurity (or MSE, or entropy) as <span class="math notranslate nohighlight">\({RI}_i^{(t)}=w_i^{(t)}\cdot I_i^{(t)} - w_{LEFT_i}^{(t)}\cdot I_{LEFT_i}^{(t)}-w_{RIGHT_i}^{(t)}\cdot I_{RIGHT_i}^{(t)}\)</span>, where:
+- <span class="math notranslate nohighlight">\(w_i^{(t)}\)</span>, <span class="math notranslate nohighlight">\(w_{LEFT_i}^{(t)}\)</span>, and <span class="math notranslate nohighlight">\(w_{RIGHT_i}^{(t)}\)</span> are respectively weighted number of samples reaching   node <span class="math notranslate nohighlight">\(i\)</span> in tree <span class="math notranslate nohighlight">\(t\)</span>, and its left <span class="math notranslate nohighlight">\(LEFT_i\)</span> and right <span class="math notranslate nohighlight">\(RIGHT_i\)</span> children
+- <span class="math notranslate nohighlight">\(I_i^{(t)}\)</span>, <span class="math notranslate nohighlight">\(I_{LEFT_i}^{(t)}\)</span>,   <span class="math notranslate nohighlight">\(I_{RIGHT_i}^{(t)}\)</span> are impurity of the nodes. For leaves <span class="math notranslate nohighlight">\({RI}_i^{(t)}\)</span> is equal to 0.</p>
+<p>1.2.  for each feature <span class="math notranslate nohighlight">\(j\)</span> calculate its importance in that particular tree as</p>
+<div class="math notranslate nohighlight">
+\[{FI}_j^{(t)}=\frac{\sum_{i:\text{node }i\text{ splits on feature } j}{RI}_i^{(t)}}{\sum_{i\in\text{all nodes}}{RI}_i^{(t)}}\]</div>
+<p>That means that in numerator we sum the reduction in impurity only in those nodes where feature <span class="math notranslate nohighlight">\(j\)</span> is situated.
+2. Calculate the average feature importances over all trees in ensemble:</p>
+<div class="math notranslate nohighlight">
+\[{FI}_j=\frac{\sum_{t=1}^N {FI}_j^{(t)}}{N}\]</div>
+<p>Those are pretty confusing formulas so let’s demonstrate each step with the Iris Dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">iris_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../assets/data/iris.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SepalLength</th>
+      <th>SepalWidth</th>
+      <th>PetalLength</th>
+      <th>PetalWidth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Since our aim is just to demonstrate the sequence of steps in calculating feature importances we’ll transform the <code class="docutils literal notranslate"><span class="pre">target</span></code> variable as for classifying Iris Virginica One-To-All.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">&#39;Iris-setosa&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Iris-versicolor&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Iris-virginica&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="n">target</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0      0
+1      0
+2      0
+3      0
+4      0
+      ..
+145    1
+146    1
+147    1
+148    1
+149    1
+Name: Name, Length: 150, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Creating Random Forest. For reproducibility, we set <code class="docutils literal notranslate"><span class="pre">random_state=17</span></code>. For the sake of simplicity we set the number of trees to 3 and limit the depth of trees in ensemble to be not greater than 3.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+
+<span class="n">rfc</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">rfc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After fitting list of all the trees are stored in <code class="docutils literal notranslate"><span class="pre">estimators_</span></code> property.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree_list</span> <span class="o">=</span> <span class="n">rfc</span><span class="o">.</span><span class="n">estimators_</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Visualizing trees</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span>
+    <span class="n">tree_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">],</span>
+    <span class="n">node_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature-importance_10_0.png" src="../../_images/feature-importance_10_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span>
+    <span class="n">tree_list</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">],</span>
+    <span class="n">node_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature-importance_11_0.png" src="../../_images/feature-importance_11_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">plot_tree</span><span class="p">(</span>
+    <span class="n">tree_list</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">feature_names</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+    <span class="n">class_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">],</span>
+    <span class="n">node_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/feature-importance_12_0.png" src="../../_images/feature-importance_12_0.png" />
+</div>
+</div>
+<p>Let’s start from the first tree and <code class="docutils literal notranslate"><span class="pre">Sepal</span> <span class="pre">length</span> <span class="pre">(cm)</span></code> feature. This feature is located in two nodes: the root (#0) and the rightmost node (#4). The reduction in impurity for these nodes are:</p>
+<div class="math notranslate nohighlight">
+\[{RI}_{{SL}_1}^{(1)}=\frac{150}{150}\cdot 0.482578 - \frac{63}{150}\cdot 0.061476 - \frac{87}{150}\cdot 0.436517 = 0.203578\]</div>
+<div class="math notranslate nohighlight">
+\[{RI}_{{SL}_2}^{(1)}=\frac{56}{150}\cdot 0.035077 - \frac{7}{150}\cdot 0.244898 - \frac{49}{150}\cdot 0 = 0.001667\]</div>
+<p>Note: The impurity for each node was recalculated to gain more accuracy than given in the picture.</p>
+<p>By doing the same calculations we get the following reduction in impurity for <code class="docutils literal notranslate"><span class="pre">Petal</span> <span class="pre">width</span> <span class="pre">(cm)</span></code>, and <code class="docutils literal notranslate"><span class="pre">Petal</span> <span class="pre">width</span> <span class="pre">(cm)</span></code> features:</p>
+<div class="math notranslate nohighlight">
+\[{RI}_{PL}^{(1)}=0.035785\]</div>
+<div class="math notranslate nohighlight">
+\[{RI}_{{PW}_1}^{(1)}=0.025820\]</div>
+<div class="math notranslate nohighlight">
+\[{RI}_{{PW}_2}^{(1)}=0.193633\]</div>
+<p>Summarizing all numbers in table</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|cc}
+  \text{Feature}, j &amp; \text{Total }RI_j^{(1)} &amp; {FI}_j^{(1)}\\ 
+  \hline
+  SL &amp; 0.205244 &amp; 0.445716\\
+  SW &amp; 0.000000 &amp; 0.000000\\
+  PL &amp; 0.035785 &amp; 0.077712\\
+  PW &amp; 0.219453 &amp; 0.476572\\
+  \hline
+  \sum &amp; 0.460483
+ \end{array}\end{split}\]</div>
+<p>After performing the same calculations for the second and third tree we average the results for features:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c|ccc|c}
+  \text{Feature}, j &amp; {FI}_j^{(1)}&amp; {FI}_j^{(2)}&amp; {FI}_j^{(3)} &amp; {FI}_j\\ 
+  \hline
+  SL &amp; 0.445716 &amp; 0.000000 &amp; 0.000000 &amp; 0.148572\\
+  SW &amp; 0.000000 &amp; 0.039738 &amp; 0.000000 &amp; 0.013246\\
+  PL &amp; 0.077712 &amp; 0.844925 &amp; 0.162016 &amp; 0.361551\\
+  PW &amp; 0.476572 &amp; 0.115337 &amp; 0.837984 &amp; 0.476631\\
+ \end{array}\end{split}\]</div>
+<p>Let’s compare our result with those stored in the <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code> attribute.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">feature_names</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rfc</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[5.1, 3.5, 1.4, 0.2]
+[0.14857187 0.01324612 0.36155096 0.47663104]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Voila!</p>
+</section>
+<section id="practical-example">
+<h2><span class="section-number">15.3.4. </span>Practical example<a class="headerlink" href="#practical-example" title="Permalink to this headline">#</a></h2>
+<p>Let’s consider the results of a survey given to visitors of hostels listed on <a class="reference external" href="http://Booking.com">Booking.com</a> and <a class="reference external" href="http://TripAdvisor.com">TripAdvisor.com</a>. Our features here are the average ratings for different categories including service quality, room condition, value for money, etc. Our target variable is the hostel’s overall rating on the website.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+
+<span class="n">hostel_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../assets/data/hostel_factors.csv&quot;</span><span class="p">)</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Staff&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f2&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Hostel booking&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f3&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Check-in and check-out&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f4&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Room condition&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f5&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Shared kitchen condition&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f6&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Shared space condition&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f7&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Extra services&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f8&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;General conditions &amp; conveniences&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f9&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Value for money&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;f10&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Customer Co-creation&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">forest</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">hostel_data</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;hostel&quot;</span><span class="p">,</span> <span class="s2">&quot;rating&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">hostel_data</span><span class="p">[</span><span class="s2">&quot;rating&quot;</span><span class="p">])</span>
+<span class="n">importances</span> <span class="o">=</span> <span class="n">forest</span><span class="o">.</span><span class="n">feature_importances_</span>
+
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">importances</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># Plot the feature importancies of the forest</span>
+<span class="n">num_to_plot</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">feature_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">ind</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">[:</span><span class="n">num_to_plot</span><span class="p">]]</span>
+
+<span class="c1"># Print the feature ranking</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Feature ranking:&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_to_plot</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">. </span><span class="si">%s</span><span class="s2"> </span><span class="si">%f</span><span class="s2"> &quot;</span>
+        <span class="o">%</span> <span class="p">(</span><span class="n">f</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">features</span><span class="p">[</span><span class="s2">&quot;f&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">feature_indices</span><span class="p">[</span><span class="n">f</span><span class="p">])],</span> <span class="n">importances</span><span class="p">[</span><span class="n">indices</span><span class="p">[</span><span class="n">f</span><span class="p">]])</span>
+    <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Feature Importance&quot;</span><span class="p">)</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+    <span class="nb">range</span><span class="p">(</span><span class="n">num_to_plot</span><span class="p">),</span>
+    <span class="n">importances</span><span class="p">[</span><span class="n">indices</span><span class="p">[:</span><span class="n">num_to_plot</span><span class="p">]],</span>
+    <span class="n">color</span><span class="o">=</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_to_plot</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_to_plot</span><span class="p">)]),</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ticks</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_to_plot</span><span class="p">),</span> <span class="n">feature_indices</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_to_plot</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="s2">&quot;f&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">feature_indices</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Feature ranking:
+1. Staff 0.183150 
+2. Value for money 0.147704 
+3. Shared space condition 0.128188 
+4. Extra services 0.116819 
+5. Customer Co-creation 0.105748 
+6. General conditions &amp; conveniences 0.088730 
+7. Shared kitchen condition 0.074776 
+8. Check-in and check-out 0.061881 
+9. Hostel booking 0.053899 
+10. Room condition 0.039105 
+</pre></div>
+</div>
+<img alt="../../_images/feature-importance_16_1.png" src="../../_images/feature-importance_16_1.png" />
+</div>
+</div>
+<p>The picture above shows that, more often than not, customers pay great attention to staff and the price-quality ratio. This couple of factors affects the resulting overall rating the most. The difference between these two features and other features is not very large, so we can conclude that exclusion of any of these features will lead to a reduction of model’s accuracy. However, based on our analysis, we can recommend hostel owners to focus primarily on staff training and price-to-quality ratio.</p>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">15.3.5. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>TBD</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">15.3.6. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://www.kaggle.com/kashnitsky">Yury Kashnitsky</a> for creating the open-source content <a class="reference external" href="https://www.kaggle.com/code/kashnitsky/topic-5-ensembles-part-3-feature-importance/notebook">Ensembles and random forest</a>. They inspire the majority of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-advanced/ensemble-learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="random-forest.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">15.2. </span>Random forest</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../gradient-boosting/introduction-to-gradient-boosting.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">16. </span>Introduction to Gradient Boosting</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

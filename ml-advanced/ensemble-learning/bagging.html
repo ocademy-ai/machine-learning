@@ -1,0 +1,1893 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>15.1. Bagging &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="15.2. Random forest" href="random-forest.html" />
+    <link rel="prev" title="15. Getting started with ensemble learning" href="getting-started-with-ensemble-learning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-overview.html">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="feature-importance.html">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../gradient-boosting/introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../gradient-boosting/xgboost.html">
+     16.1. XGBoost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../unsupervised-learning.html">
+   17. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../model-selection.html">
+   19. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/GAN.html">
+   22. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/AutoEncoder.html">
+   24. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/DQN.html">
+   27. Deep Q-learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-summary.html">
+   28. Summary of deep learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/difussion-model.html">
+   31. Diffusion Model
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/overview.html">
+   32. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/problem-framing.html">
+   33. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+   34. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-training-and-evaluation.html">
+   35. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-deployment.html">
+   36. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/unbalanced-problems.html">
+   37. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/automl.html">
+   38. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../assignments/introduction.html">
+   39. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/get-started.html">
+     39.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/first-assignment.html">
+     39.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/second-assignment.html">
+     39.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/project-plan-template.html">
+     39.4. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-introduction.html">
+     39.5. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-basics.html">
+     39.6. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-advanced.html">
+     39.7. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-text-about-data-science.html">
+     39.8. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-scenarios.html">
+     39.9. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/write-a-data-ethics-case-study.html">
+     39.10. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/lines-scatters-and-bars.html">
+     39.11. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/apply-your-skills.html">
+     39.12. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/try-it-in-excel.html">
+     39.13. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/let-us-learn-about-birds.html">
+     39.14. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/bird-distributions.html">
+     39.15. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/dive-into-the-beehive.html">
+     39.16. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/build-your-own-custom-vis.html">
+     39.17. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/classifying-datasets.html">
+     39.18. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/small-diabetes-study.html">
+     39.19. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/introduction-to-statistics-and-probability.html">
+     39.20. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/displaying-airport-data.html">
+     39.21. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/soda-profits.html">
+     39.22. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-COVID-19-papers.html">
+     39.23. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     39.24. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-processing-in-python.html">
+     39.25. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/evaluating-data-from-a-form.html">
+     39.26. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-preparation.html">
+     39.27. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-data.html">
+     39.28. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     39.29. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/matplotlib-applied.html">
+     39.30. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/tell-a-story.html">
+     39.36. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     39.37. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/exploring-for-anwser.html">
+     39.38. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/market-research.html">
+     39.39. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     39.40. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     39.41. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     39.42. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-iris.html">
+     39.43. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-mnist-digits.html">
+     39.44. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     39.45. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-1.html">
+     39.46. ML linear regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-2.html">
+     39.47. ML linear regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-logistic-regression-1.html">
+     39.48. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-neural-network-1.html">
+     39.49. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-tools.html">
+     39.50. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/managing-data.html">
+     39.51. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/exploring-visualizations.html">
+     39.52. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/try-a-different-model.html">
+     39.53. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/create-a-regression-model.html">
+     39.54. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     39.55. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/retrying-some-regression.html">
+     39.56. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     39.57. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     39.58. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/explore-classification-methods.html">
+     39.59. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     39.60. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     39.61. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     39.62. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/decision-trees.html">
+     39.63. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/data-engineering.html">
+     39.64. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     39.65. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-classification.html">
+     39.66. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-regression.html">
+     39.67. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/study-the-solvers.html">
+     39.68. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-models.html">
+     39.69. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-model.html">
+     39.70. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/parameter-play.html">
+     39.71. Parameter play
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../slides/introduction.html">
+   40. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-introduction.html">
+     40.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-basics.html">
+     40.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-advanced.html">
+     40.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-introduction.html">
+     40.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/relational-vs-non-relational-database.html">
+     40.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/numpy-and-pandas.html">
+     40.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-visualization.html">
+     40.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-lifecycle.html">
+     40.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-the-cloud.html">
+     40.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-real-world.html">
+     40.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/ml-overview.html">
+     40.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/linear-regression.html">
+     40.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/logistic-regression.html">
+     40.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/neural-network.html">
+     40.14. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/build-an-ml-web-app.html">
+     40.15. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/unsupervised-learning.html">
+     40.16. Unsupervised learning
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/bagging.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/bagging.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-advanced/ensemble-learning/bagging.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/bagging.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ml-advanced/ensemble-learning/bagging.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/ml-advanced/ensemble-learning/bagging.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ensembles">
+   15.1.1. Ensembles
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bootstrapping">
+   15.1.2. Bootstrapping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   15.1.3. Bagging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#out-of-bag-error">
+   15.1.4. Out of bag error
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   15.1.5. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   15.1.6. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Bagging</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ensembles">
+   15.1.1. Ensembles
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bootstrapping">
+   15.1.2. Bootstrapping
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   15.1.3. Bagging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#out-of-bag-error">
+   15.1.4. Out of bag error
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   15.1.5. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   15.1.6. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="bagging">
+<h1><span class="section-number">15.1. </span>Bagging<a class="headerlink" href="#bagging" title="Permalink to this headline">#</a></h1>
+<p>In previous sections, we explored different classification algorithms as well as techniques that can be used to properly validate and evaluate the quality of your models.</p>
+<p>Now, suppose that we have chosen the best possible model for a particular problem and are struggling to further improve its accuracy. In this case, we would need to apply some more advanced machine learning techniques that are collectively referred to as <em>ensembles</em>.</p>
+<p>An <em>ensemble</em> is a set of elements that collectively contribute to a whole. A familiar example is a musical ensemble, which blends the sounds of several musical instruments to create harmony, or architectural ensembles, which are a set of buildings designed as a unit. In ensembles, the (whole) harmonious outcome is more important than the performance of any individual part.</p>
+<section id="ensembles">
+<h2><span class="section-number">15.1.1. </span>Ensembles<a class="headerlink" href="#ensembles" title="Permalink to this headline">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Condorcet%27s_jury_theorem">Condorcet’s jury theorem</a> (1784) is about an ensemble in some sense. It states that, if each member of the jury makes an independent judgment and the probability of the correct decision by each juror is more than 0.5, then the probability of the correct decision by the whole jury increases with the total number of jurors and tends to one. On the other hand, if the probability of being right is less than 0.5 for each juror, then the probability of the correct decision by the whole jury decreases with the number of jurors and tends to zero.</p>
+<p>Let’s write an analytic expression for this theorem:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\large N\)</span> is the total number of jurors;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\large m\)</span> is a minimal number of jurors that would make a majority, that is <span class="math notranslate nohighlight">\(\large m = floor(N/2) + 1\)</span>;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\large {N \choose i}\)</span> is the number of <span class="math notranslate nohighlight">\(\large i\)</span>-combinations from a set with <span class="math notranslate nohighlight">\(\large N\)</span> elements.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\large p\)</span> is the probability of the correct decision by a juror;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\large \mu\)</span> is the probability of the correct decision by the whole jury.</p></li>
+</ul>
+<p>Then:</p>
+<div class="math notranslate nohighlight">
+\[ \large \mu = \sum_{i=m}^{N}{N\choose i}p^i(1-p)^{N-i} \]</div>
+<p>It can be seen that if <span class="math notranslate nohighlight">\(\large p &gt; 0.5\)</span>, then <span class="math notranslate nohighlight">\(\large \mu &gt; p\)</span>. In addition, if <span class="math notranslate nohighlight">\(\large N \rightarrow \infty \)</span>, then <span class="math notranslate nohighlight">\(\large \mu \rightarrow 1\)</span>.</p>
+<p>Let’s look at another example of ensembles: an observation known as <a class="reference external" href="https://en.wikipedia.org/wiki/Wisdom_of_the_crowd">Wisdom of the crowd</a>. <img src="https://habrastorage.org/webt/zg/hw/b7/zghwb7oztkmv840odqkjpink1vw.png" align="right" width=15% height=15%> In 1906, <a class="reference external" href="https://en.wikipedia.org/wiki/Francis_Galton">Francis Galton</a> visited a country fair in Plymouth where he saw a contest being held for farmers.   800 participants tried to estimate the weight of a slaughtered bull. The real weight of the bull was 1198 pounds. Although none of the farmers could guess the exact weight of the animal, the average of their predictions was 1197 pounds.</p>
+<p>A similar idea for error reduction was adopted in the field of Machine Learning.</p>
+</section>
+<section id="bootstrapping">
+<h2><span class="section-number">15.1.2. </span>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline">#</a></h2>
+<p><em>Bagging</em> (also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Bootstrap_aggregating">Bootstrap aggregation</a>) is one of the first and most basic ensemble techniques. It was proposed by <a class="reference external" href="https://en.wikipedia.org/wiki/Leo_Breiman">Leo Breiman</a> in 1994. Bagging is based on the statistical method of <a class="reference external" href="https://en.wikipedia.org/wiki/Bootstrapping_%28statistics%29">bootstrapping</a>, which makes the evaluation of many statistics of complex models feasible.</p>
+<p>The bootstrap method goes as follows. Let there be a sample <span class="math notranslate nohighlight">\(\large X\)</span> of size <span class="math notranslate nohighlight">\(\large N\)</span>. We can make a new sample from the original sample by drawing <span class="math notranslate nohighlight">\(\large N\)</span> elements from the latter randomly and uniformly, with replacement. In other words, we select a random element from the original sample of size <span class="math notranslate nohighlight">\(\large N\)</span> and do this <span class="math notranslate nohighlight">\(\large N\)</span> times. All elements are equally likely to be selected, thus each element is drawn with the equal probability <span class="math notranslate nohighlight">\(\large \frac{1}{N}\)</span>.</p>
+<p>Let’s say we are drawing balls from a bag one at a time. At each step, the selected ball is put back into the bag so that the next selection is made equiprobably i.e. from the same number of balls <span class="math notranslate nohighlight">\(\large N\)</span>. Note that, because we put the balls back, there may be duplicates in the new sample. Let’s call this new sample <span class="math notranslate nohighlight">\(\large X_1\)</span>.</p>
+<p>By repeating this procedure <span class="math notranslate nohighlight">\(\large M\)</span> times, we create <span class="math notranslate nohighlight">\(\large M\)</span> <em>bootstrap samples</em> <span class="math notranslate nohighlight">\(\large X_1, \dots, X_M\)</span>. In the end, we have a sufficient number of samples and can compute various statistics of the original distribution.</p>
+<figure class="align-default" id="id2">
+<a class="bg-white mb-1 reference internal image-reference" href="https://habrastorage.org/webt/n0/dg/du/n0dgduav1ygc3iylumtwjcn15mu.png"><img alt="https://habrastorage.org/webt/n0/dg/du/n0dgduav1ygc3iylumtwjcn15mu.png" class="bg-white mb-1" src="https://habrastorage.org/webt/n0/dg/du/n0dgduav1ygc3iylumtwjcn15mu.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 15.1 </span><span class="caption-text">Process of bootstrap</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For our example, we’ll use the familiar <code class="docutils literal notranslate"><span class="pre">telecom_churn</span></code> dataset. Previously, when we discussed feature importance, we saw that one of the most important features in this dataset is the number of calls to customer service. Let’s visualize the data and look at the distribution of this feature.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+
+<span class="c1"># Graphics in retina format are more sharp and legible</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">telecom_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../assets/data/telecom_churn.csv&quot;</span><span class="p">)</span>
+
+<span class="n">telecom_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Account length</th>
+      <th>Area code</th>
+      <th>International plan</th>
+      <th>Voice mail plan</th>
+      <th>Number vmail messages</th>
+      <th>Total day minutes</th>
+      <th>Total day calls</th>
+      <th>Total day charge</th>
+      <th>Total eve minutes</th>
+      <th>Total eve calls</th>
+      <th>Total eve charge</th>
+      <th>Total night minutes</th>
+      <th>Total night calls</th>
+      <th>Total night charge</th>
+      <th>Total intl minutes</th>
+      <th>Total intl calls</th>
+      <th>Total intl charge</th>
+      <th>Customer service calls</th>
+      <th>Churn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>KS</td>
+      <td>128</td>
+      <td>415</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>25</td>
+      <td>265.1</td>
+      <td>110</td>
+      <td>45.07</td>
+      <td>197.4</td>
+      <td>99</td>
+      <td>16.78</td>
+      <td>244.7</td>
+      <td>91</td>
+      <td>11.01</td>
+      <td>10.0</td>
+      <td>3</td>
+      <td>2.70</td>
+      <td>1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>OH</td>
+      <td>107</td>
+      <td>415</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>26</td>
+      <td>161.6</td>
+      <td>123</td>
+      <td>27.47</td>
+      <td>195.5</td>
+      <td>103</td>
+      <td>16.62</td>
+      <td>254.4</td>
+      <td>103</td>
+      <td>11.45</td>
+      <td>13.7</td>
+      <td>3</td>
+      <td>3.70</td>
+      <td>1</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NJ</td>
+      <td>137</td>
+      <td>415</td>
+      <td>No</td>
+      <td>No</td>
+      <td>0</td>
+      <td>243.4</td>
+      <td>114</td>
+      <td>41.38</td>
+      <td>121.2</td>
+      <td>110</td>
+      <td>10.30</td>
+      <td>162.6</td>
+      <td>104</td>
+      <td>7.32</td>
+      <td>12.2</td>
+      <td>5</td>
+      <td>3.29</td>
+      <td>0</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>OH</td>
+      <td>84</td>
+      <td>408</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>0</td>
+      <td>299.4</td>
+      <td>71</td>
+      <td>50.90</td>
+      <td>61.9</td>
+      <td>88</td>
+      <td>5.26</td>
+      <td>196.9</td>
+      <td>89</td>
+      <td>8.86</td>
+      <td>6.6</td>
+      <td>7</td>
+      <td>1.78</td>
+      <td>2</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>OK</td>
+      <td>75</td>
+      <td>415</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>0</td>
+      <td>166.7</td>
+      <td>113</td>
+      <td>28.34</td>
+      <td>148.3</td>
+      <td>122</td>
+      <td>12.61</td>
+      <td>186.9</td>
+      <td>121</td>
+      <td>8.41</td>
+      <td>10.1</td>
+      <td>3</td>
+      <td>2.73</td>
+      <td>3</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">telecom_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">telecom_data</span><span class="p">[</span><span class="s2">&quot;Churn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Customer service calls&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Loyal&quot;</span>
+<span class="p">)</span>
+<span class="n">telecom_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">telecom_data</span><span class="p">[</span><span class="s2">&quot;Churn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Customer service calls&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Churn&quot;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of calls&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/bagging_3_0.png" src="../../_images/bagging_3_0.png" />
+</div>
+</div>
+<p>Looks like loyal customers make fewer calls to customer service than those who eventually leave. Now, it might be a good idea to estimate the average number of customer service calls in each group. Since our dataset is small, we would not get a good estimate by simply calculating the mean of the original sample. We will be better off applying the bootstrap method. Let’s generate 1000 new bootstrap samples from our original population and produce an interval estimate of the mean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_bootstrap_samples</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate bootstrap samples using the bootstrap method.&quot;&quot;&quot;</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">samples</span>
+
+
+<span class="k">def</span> <span class="nf">stat_intervals</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Produce an interval estimate.&quot;&quot;&quot;</span>
+    <span class="n">boundaries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="p">[</span><span class="mi">100</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">boundaries</span>
+
+
+<span class="c1"># Save the data about the loyal and former customers to split the dataset</span>
+<span class="n">loyal_calls</span> <span class="o">=</span> <span class="n">telecom_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">telecom_data</span><span class="p">[</span><span class="s2">&quot;Churn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Customer service calls&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">churn_calls</span> <span class="o">=</span> <span class="n">telecom_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">telecom_data</span><span class="p">[</span><span class="s2">&quot;Churn&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Customer service calls&quot;</span>
+<span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Set the seed for reproducibility of the results</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Generate the samples using bootstrapping and calculate the mean for each of them</span>
+<span class="n">loyal_mean_scores</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">get_bootstrap_samples</span><span class="p">(</span><span class="n">loyal_calls</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">churn_mean_scores</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">get_bootstrap_samples</span><span class="p">(</span><span class="n">churn_calls</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># Print the resulting interval estimates</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Service calls from loyal: mean interval&quot;</span><span class="p">,</span> <span class="n">stat_intervals</span><span class="p">(</span><span class="n">loyal_mean_scores</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Service calls from churn: mean interval&quot;</span><span class="p">,</span> <span class="n">stat_intervals</span><span class="p">(</span><span class="n">churn_mean_scores</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Service calls from loyal: mean interval [1.4077193  1.49473684]
+Service calls from churn: mean interval [2.0621118  2.39761905]
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the interpretation of confidence intervals, you can address this <a class="reference external" href="https://www.graphpad.com/guides/prism/7/statistics/stat_more_about_confidence_interval.htm?toc=0&amp;printWindow">concise note</a> or any course on statistics. It’s not correct to say that a confidence interval contains 95% of values. Note that the interval for the loyal customers is narrower, which is reasonable since they make fewer calls (0, 1 or 2) in comparison with the churned clients who call until they are fed up and decide to switch providers.</p>
+</section>
+<section id="id1">
+<h2><span class="section-number">15.1.3. </span>Bagging<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<p>Now that you’ve grasped the idea of bootstrapping, we can move on to <em>bagging</em>.</p>
+<p>Suppose that we have a training set <span class="math notranslate nohighlight">\(\large X\)</span>. Using bootstrapping, we generate samples <span class="math notranslate nohighlight">\(\large X_1, \dots, X_M\)</span>. Now, for each bootstrap sample, we train its own classifier <span class="math notranslate nohighlight">\(\large a_i(x)\)</span>. The final classifier will average the outputs from all these individual classifiers. In the case of classification, this technique corresponds to voting:
+$<span class="math notranslate nohighlight">\(\large a(x) = \frac{1}{M}\sum_{i = 1}^M a_i(x).\)</span>$</p>
+<p>The picture below illustrates this algorithm:</p>
+<figure class="align-default" id="id3">
+<a class="bg-white mb-1 reference internal image-reference" href="https://habrastorage.org/webt/3t/ab/xy/3tabxy0j8tqqkctkc9f-89ep780.png"><img alt="https://habrastorage.org/webt/3t/ab/xy/3tabxy0j8tqqkctkc9f-89ep780.png" class="bg-white mb-1" src="https://habrastorage.org/webt/3t/ab/xy/3tabxy0j8tqqkctkc9f-89ep780.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 15.2 </span><span class="caption-text">Illustration of Bagging</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s consider a regression problem with base algorithms <span class="math notranslate nohighlight">\(\large b_1(x), \dots , b_n(x)\)</span>. Assume that there exists an ideal target function of true answers <span class="math notranslate nohighlight">\(\large y(x)\)</span> defined for all inputs and that the distribution <span class="math notranslate nohighlight">\(\large p(x)\)</span> is defined. We can then express the error for each regression function as follows:</p>
+<div class="math notranslate nohighlight">
+\[\large \varepsilon_i(x) = b_i(x) - y(x), \quad i = 1, \dots, n\]</div>
+<p>And the expected value of the mean squared error:</p>
+<div class="math notranslate nohighlight">
+\[\large E_x\left[\left(b_i(x) - y(x)\right)^{2}\right] = E_x\left[\varepsilon_i^{2}(x)\right]\]</div>
+<p>Then, the mean error over all regression functions will look as follows:</p>
+<div class="math notranslate nohighlight">
+\[\large E_1 = \frac{1}{n} E_x\left[ \sum_i^n \varepsilon_i^{2}(x)\right]\]</div>
+<p>We’ll assume that the errors are unbiased and uncorrelated, that is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\large \begin{array}{rcl} E_x\left[\varepsilon_i(x)\right] &amp;=&amp; 0, \\
+E_x\left[\varepsilon_i(x)\varepsilon_j(x)\right] &amp;=&amp; 0, \quad i \neq j. \end{array}\end{split}\]</div>
+<p>Now, let’s construct a new regression function that will average the values from the individual functions:</p>
+<div class="math notranslate nohighlight">
+\[\large a(x) = \frac{1}{n}\sum_{i=1}^{n}b_i(x)\]</div>
+<p>Let’s find its mean squared error:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\large \begin{array}{rcl} E_n &amp;=&amp; E_x\left[\frac{1}{n}\sum_{i=1}^{n}b_i(x)-y(x)\right]^2 \\
+&amp;=&amp;  E_x\left[\frac{1}{n}\sum_{i=1}^{n}\varepsilon_i\right]^2 \\
+&amp;=&amp; \frac{1}{n^2} E_x\left[\sum_{i=1}^{n}\varepsilon_i^2(x) + \sum_{i \neq j}\varepsilon_i(x)\varepsilon_j(x)\right] \\
+&amp;=&amp; \frac{1}{n} E_1\end{array}\end{split}\]</div>
+<p>Thus, by averaging the individual answers, we reduced the mean squared error by a factor of <span class="math notranslate nohighlight">\(\large n\)</span>.</p>
+<p>From our previous section, let’s recall the components that make up the total out-of-sample error:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\large \begin{array}{rcl} 
+ Err\left(\vec{x}\right) &amp;=&amp;  E\left[\left(y - \hat{f}\left(\vec{x}\right)\right)^2\right] \\
+&amp;=&amp; \sigma^2 + f^2 +  Var\left(\hat{f}\right) + E\left[\hat{f}\right]^2 - 2fE\left[\hat{f}\right] \\
+&amp;=&amp; \left(f - E\left[\hat{f}\right]\right)^2 + Var\left(\hat{f}\right) + \sigma^2 \\
+&amp;=&amp; Bias\left(\hat{f}\right)^2 + Var\left(\hat{f}\right) + \sigma^2
+\end{array}\end{split}\]</div>
+<p>Bagging reduces the variance of a classifier by decreasing the difference in error when we train the model on different datasets. In other words, bagging prevents overfitting. The efficiency of bagging comes from the fact that the individual models are quite different due to the different training data and their errors cancel each other out during voting. Additionally, outliers are likely omitted in some of the training bootstrap samples.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> library supports bagging with meta-estimators <code class="docutils literal notranslate"><span class="pre">BaggingRegressor</span></code> and <code class="docutils literal notranslate"><span class="pre">BaggingClassifier</span></code>. You can use most of the algorithms as a base.</p>
+<p>Let’s examine how bagging works in practice and compare it with a decision tree. For this, we will use an example from <a class="reference external" href="http://scikit-learn.org/stable/auto_examples/ensemble/plot_bias_variance.html#sphx-glr-auto-examples-ensemble-plot-bias-variance-py">sklearn’s documentation</a>.</p>
+<figure class="align-default" id="id4">
+<a class="bg-white mb-1 reference internal image-reference" href="https://habrastorage.org/webt/9l/gv/_o/9lgv_outzpteptakegjbpyfp2ue.png"><img alt="https://habrastorage.org/webt/9l/gv/_o/9lgv_outzpteptakegjbpyfp2ue.png" class="bg-white mb-1" src="https://habrastorage.org/webt/9l/gv/_o/9lgv_outzpteptakegjbpyfp2ue.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 15.3 </span><span class="caption-text">Comparison of Bagging and Tree</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The error for the decision tree:</p>
+<div class="math notranslate nohighlight">
+\[ \large 0.0255 \, (Err) = 0.0003 \, (Bias^2)  + 0.0152 \, (Var) + 0.0098 \, (\sigma^2) \]</div>
+<p>The error when using bagging:</p>
+<div class="math notranslate nohighlight">
+\[ \large 0.0196 \, (Err) = 0.0004 \, (Bias^2)  + 0.0092 \, (Var) + 0.0098 \, (\sigma^2) \]</div>
+<p>As you can see from the graph above, the variance in the error is much lower for bagging. Remember that we have already proved this theoretically.</p>
+<p>Bagging is effective on small datasets. Dropping even a small part of training data leads to constructing substantially different base classifiers. If you have a large dataset, you would generate bootstrap samples of a much smaller size.</p>
+<p>The example above is unlikely to be applicable to any real work. This is because we made a strong assumption that our individual errors are uncorrelated. More often than not, this is way too optimistic for real-world applications. When this assumption is false, the reduction in error will not be as significant. In the following sections, we will discuss some more sophisticated ensemble methods, which enable more accurate predictions in real-world problems.</p>
+</section>
+<section id="out-of-bag-error">
+<h2><span class="section-number">15.1.4. </span>Out of bag error<a class="headerlink" href="#out-of-bag-error" title="Permalink to this headline">#</a></h2>
+<p>In case of Random Forest, there is no need to use cross-validation or hold-out samples in order to get an unbiased error estimation. Why? Because, in ensemble techniques, the error estimation takes place internally.</p>
+<p>Random trees are constructed using different bootstrap samples of the original dataset. Approximately 37% of inputs are left out of a particular bootstrap sample and are not used in the construction of the <span class="math notranslate nohighlight">\(\large k\)</span>-th tree.</p>
+<p>This is easy to prove. Suppose there are <span class="math notranslate nohighlight">\(\large \ell\)</span> examples in our dataset. At each step, each data point has equal probability of ending up in a bootstrap sample with replacement, probability <span class="math notranslate nohighlight">\(\large\frac{1}{\ell}.\)</span> The probability that there is no such bootstrap sample that contains a particular dataset element (i.e. it has been omitted <span class="math notranslate nohighlight">\(\large \ell\)</span> times) equals <span class="math notranslate nohighlight">\(\large (1 - \frac{1}{\ell})^\ell\)</span>. When <span class="math notranslate nohighlight">\(\large \ell \rightarrow +\infty\)</span>, it becomes equal to the <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_limits">Second Remarkable Limit</a> <span class="math notranslate nohighlight">\(\large \frac{1}{e}\)</span>. Then, the probability of selecting a specific example is <span class="math notranslate nohighlight">\(\large \approx  1 - \frac{1}{e} \approx 63\%\)</span>.</p>
+<p>Let’s visualize how <strong>O</strong>ut-<strong>o</strong>f-<strong>B</strong>ag <strong>E</strong>rror (or OOBE) estimation works:</p>
+<figure class="align-default" id="id5">
+<a class="bg-white mb-1 reference internal image-reference" href="https://habrastorage.org/webt/mt/zr/ox/mtzroxoyxu0xcpmsbslgwbs1vs8.png"><img alt="https://habrastorage.org/webt/mt/zr/ox/mtzroxoyxu0xcpmsbslgwbs1vs8.png" class="bg-white mb-1" src="https://habrastorage.org/webt/mt/zr/ox/mtzroxoyxu0xcpmsbslgwbs1vs8.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 15.4 </span><span class="caption-text">Principle of OOBE</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The top part of the figure above represents our original dataset. We split it into the training (left) and test (right) sets. In the left image, we draw a grid that perfectly divides our dataset according to classes. Now, we use the same grid to estimate the share of the correct answers on our test set. We can see that our classifier gave incorrect answers in those 4 cases that have not been used during training (on the left). Hence, the accuracy of our classifier is <span class="math notranslate nohighlight">\(\large \frac{11}{15}*100\% = 73.33\%\)</span>.</p>
+<p>To sum up, each base algorithm is trained on <span class="math notranslate nohighlight">\(\large \approx 63\%\)</span> of the original examples. It can be validated on the remaining <span class="math notranslate nohighlight">\(\large \approx 37\%\)</span>. The Out-of-Bag estimate is nothing more than the mean estimate of the base algorithms on those <span class="math notranslate nohighlight">\(\large \approx 37\%\)</span> of inputs that were left out of training.</p>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">15.1.5. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>TBD</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">15.1.6. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://www.kaggle.com/kashnitsky">Yury Kashnitsky</a> for creating the open-source content <a class="reference external" href="https://www.kaggle.com/code/kashnitsky/topic-5-ensembles-part-1-bagging/notebook">Ensembles and random forest</a>. They inspire the majority of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-advanced/ensemble-learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="getting-started-with-ensemble-learning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">15. </span>Getting started with ensemble learning</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="random-forest.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">15.2. </span>Random forest</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

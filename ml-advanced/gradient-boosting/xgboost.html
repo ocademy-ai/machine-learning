@@ -1,0 +1,2740 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>16.1. XGBoost &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="17. Unsupervised learning (TBD)" href="../unsupervised-learning.html" />
+    <link rel="prev" title="16. Introduction to Gradient Boosting" href="introduction-to-gradient-boosting.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-overview.html">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ensemble-learning/getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ensemble-learning/bagging.html">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ensemble-learning/random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ensemble-learning/feature-importance.html">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     16.1. XGBoost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../unsupervised-learning.html">
+   17. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../model-selection.html">
+   19. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/GAN.html">
+   22. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/AutoEncoder.html">
+   24. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/DQN.html">
+   27. Deep Q-learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-summary.html">
+   28. Summary of deep learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/difussion-model.html">
+   31. Diffusion Model
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/overview.html">
+   32. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/problem-framing.html">
+   33. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+   34. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-training-and-evaluation.html">
+   35. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-deployment.html">
+   36. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/unbalanced-problems.html">
+   37. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/automl.html">
+   38. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../assignments/introduction.html">
+   39. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/get-started.html">
+     39.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/first-assignment.html">
+     39.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/second-assignment.html">
+     39.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/project-plan-template.html">
+     39.4. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-introduction.html">
+     39.5. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-basics.html">
+     39.6. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-advanced.html">
+     39.7. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-text-about-data-science.html">
+     39.8. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-scenarios.html">
+     39.9. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/write-a-data-ethics-case-study.html">
+     39.10. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/lines-scatters-and-bars.html">
+     39.11. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/apply-your-skills.html">
+     39.12. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/try-it-in-excel.html">
+     39.13. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/let-us-learn-about-birds.html">
+     39.14. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/bird-distributions.html">
+     39.15. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/dive-into-the-beehive.html">
+     39.16. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/build-your-own-custom-vis.html">
+     39.17. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/classifying-datasets.html">
+     39.18. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/small-diabetes-study.html">
+     39.19. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/introduction-to-statistics-and-probability.html">
+     39.20. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/displaying-airport-data.html">
+     39.21. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/soda-profits.html">
+     39.22. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-COVID-19-papers.html">
+     39.23. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     39.24. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-processing-in-python.html">
+     39.25. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/evaluating-data-from-a-form.html">
+     39.26. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-preparation.html">
+     39.27. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-data.html">
+     39.28. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     39.29. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/matplotlib-applied.html">
+     39.30. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/tell-a-story.html">
+     39.36. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     39.37. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/exploring-for-anwser.html">
+     39.38. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/market-research.html">
+     39.39. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     39.40. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     39.41. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     39.42. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-iris.html">
+     39.43. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-mnist-digits.html">
+     39.44. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     39.45. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-1.html">
+     39.46. ML linear regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-2.html">
+     39.47. ML linear regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-logistic-regression-1.html">
+     39.48. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-neural-network-1.html">
+     39.49. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-tools.html">
+     39.50. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/managing-data.html">
+     39.51. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/exploring-visualizations.html">
+     39.52. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/try-a-different-model.html">
+     39.53. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/create-a-regression-model.html">
+     39.54. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     39.55. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/retrying-some-regression.html">
+     39.56. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     39.57. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     39.58. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/explore-classification-methods.html">
+     39.59. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     39.60. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     39.61. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     39.62. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/decision-trees.html">
+     39.63. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/data-engineering.html">
+     39.64. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     39.65. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-classification.html">
+     39.66. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-regression.html">
+     39.67. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/study-the-solvers.html">
+     39.68. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-models.html">
+     39.69. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-model.html">
+     39.70. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/parameter-play.html">
+     39.71. Parameter play
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../slides/introduction.html">
+   40. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-introduction.html">
+     40.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-basics.html">
+     40.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-advanced.html">
+     40.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-introduction.html">
+     40.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/relational-vs-non-relational-database.html">
+     40.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/numpy-and-pandas.html">
+     40.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-visualization.html">
+     40.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-lifecycle.html">
+     40.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-the-cloud.html">
+     40.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-real-world.html">
+     40.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/ml-overview.html">
+     40.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/linear-regression.html">
+     40.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/logistic-regression.html">
+     40.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/neural-network.html">
+     40.14. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/build-an-ml-web-app.html">
+     40.15. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/unsupervised-learning.html">
+     40.16. Unsupervised learning
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/xgboost.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/xgboost.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-advanced/gradient-boosting/xgboost.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/xgboost.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ml-advanced/gradient-boosting/xgboost.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/ml-advanced/gradient-boosting/xgboost.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-to-xgboost-algorithm">
+   16.1.1. Introduction to XGBoost Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evolution-of-tree-based-algorithms">
+     16.1.1.1. Evolution of tree-based algorithms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#main-features-of-xgboost">
+     16.1.1.2. Main features of XGBoost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bagging-vs-boosting">
+   16.1.2. Bagging Vs Boosting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bagging">
+     16.1.2.1. Bagging
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#boosting">
+     16.1.2.2. Boosting
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#xgboost-algorithm-intuition">
+   16.1.3. XGBoost algorithm intuition
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-boosting">
+     16.1.3.1. Gradient boosting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-boosted-trees">
+     16.1.3.2. Gradient Boosted Trees
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extreme-gradient-boosting-xgboost">
+     16.1.3.3. Extreme gradient boosting (XGBoost)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementing-xgboost-in-python">
+   16.1.4. Implementing XGBoost in Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-libraries">
+     16.1.4.1. Load libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-dataset">
+     16.1.4.2. Read dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eda">
+     16.1.4.3. EDA
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#shape-of-dataset">
+       16.1.4.3.1. Shape of dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#preview-dataset">
+       16.1.4.3.2. Preview dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#summary-of-dataset">
+       16.1.4.3.3. Summary of dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#summary-statistics-of-dataset">
+       16.1.4.3.4. Summary statistics of dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-for-missing-values">
+       16.1.4.3.5. Check for missing values
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#declare-feature-vector-and-target-variable">
+     16.1.4.4. Declare feature vector and target variable
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#split-data-into-separate-training-and-test-set">
+     16.1.4.5. Split data into separate training and test set
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-the-xgboost-classifier">
+     16.1.4.6. Train the XGBoost Classifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-predictions-with-xgboost-classifier">
+     16.1.4.7. Make predictions with XGBoost classifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-accuracy-score">
+     16.1.4.8. Check accuracy score
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-fold-cross-validation-using-xgboost">
+   16.1.5. k-fold Cross Validation using XGBoost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feature-importance-with-xgboost">
+   16.1.6. Feature importance with XGBoost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results-and-conclusion">
+   16.1.7. Results and conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   16.1.8. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   16.1.9. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>XGBoost</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-to-xgboost-algorithm">
+   16.1.1. Introduction to XGBoost Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evolution-of-tree-based-algorithms">
+     16.1.1.1. Evolution of tree-based algorithms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#main-features-of-xgboost">
+     16.1.1.2. Main features of XGBoost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bagging-vs-boosting">
+   16.1.2. Bagging Vs Boosting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bagging">
+     16.1.2.1. Bagging
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#boosting">
+     16.1.2.2. Boosting
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#xgboost-algorithm-intuition">
+   16.1.3. XGBoost algorithm intuition
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-boosting">
+     16.1.3.1. Gradient boosting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-boosted-trees">
+     16.1.3.2. Gradient Boosted Trees
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extreme-gradient-boosting-xgboost">
+     16.1.3.3. Extreme gradient boosting (XGBoost)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementing-xgboost-in-python">
+   16.1.4. Implementing XGBoost in Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-libraries">
+     16.1.4.1. Load libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-dataset">
+     16.1.4.2. Read dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eda">
+     16.1.4.3. EDA
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#shape-of-dataset">
+       16.1.4.3.1. Shape of dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#preview-dataset">
+       16.1.4.3.2. Preview dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#summary-of-dataset">
+       16.1.4.3.3. Summary of dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#summary-statistics-of-dataset">
+       16.1.4.3.4. Summary statistics of dataset
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#check-for-missing-values">
+       16.1.4.3.5. Check for missing values
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#declare-feature-vector-and-target-variable">
+     16.1.4.4. Declare feature vector and target variable
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#split-data-into-separate-training-and-test-set">
+     16.1.4.5. Split data into separate training and test set
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-the-xgboost-classifier">
+     16.1.4.6. Train the XGBoost Classifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-predictions-with-xgboost-classifier">
+     16.1.4.7. Make predictions with XGBoost classifier
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-accuracy-score">
+     16.1.4.8. Check accuracy score
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#k-fold-cross-validation-using-xgboost">
+   16.1.5. k-fold Cross Validation using XGBoost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#feature-importance-with-xgboost">
+   16.1.6. Feature importance with XGBoost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results-and-conclusion">
+   16.1.7. Results and conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   16.1.8. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   16.1.9. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="xgboost">
+<h1><span class="section-number">16.1. </span>XGBoost<a class="headerlink" href="#xgboost" title="Permalink to this headline">#</a></h1>
+<p>As we all know that a lot of competitions were won using only one algorithm - <strong>XGBoost</strong>. It is one of the most popular machine learning algorithm these days. It works well for both types of tasks - regression and classification.</p>
+<p>So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoost model with Python.</p>
+<section id="introduction-to-xgboost-algorithm">
+<h2><span class="section-number">16.1.1. </span>Introduction to XGBoost Algorithm<a class="headerlink" href="#introduction-to-xgboost-algorithm" title="Permalink to this headline">#</a></h2>
+<ul>
+<li><p><strong>XGBoost</strong> stands for <strong>Extreme Gradient Boosting.</strong></p></li>
+<li><p>It is a performant machine learning library based on the paper <a class="reference external" href="https://statweb.stanford.edu/~jhf/ftp/trebst.pdf">Greedy Function Approximation: A Gradient Boosting Machine, by Friedman</a></p></li>
+<li><p>It is an open source machine learning library providing a high-performance implementation of gradient boosted decision trees.</p></li>
+<li><p>It is originally written in C++ and is comparatively faster than other ensemble classifiers.</p></li>
+<li><p>It belongs to a family of boosting algorithms and uses the <strong>gradient boosting (GBM)</strong> framework at its core.</p></li>
+<li><p>XGBoost implements a <a class="reference external" href="https://en.wikipedia.org/wiki/Gradient_boosting">Gradient Boosting algorithm</a> based on decision trees.</p></li>
+<li><p>So, to understand XGBoost completely, we need to understand <strong>Gradient Boosting Algorithm</strong> (discussed later).</p></li>
+<li><p>Please follow the links below for more in-depth discussion on XGBoost.</p>
+<p><a class="reference external" href="https://xgboost.readthedocs.io/en/latest/">XGBoost Official Documentation</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/XGBoost">XGBoost from Wikipedia</a></p>
+</li>
+</ul>
+<section id="evolution-of-tree-based-algorithms">
+<h3><span class="section-number">16.1.1.1. </span>Evolution of tree-based algorithms<a class="headerlink" href="#evolution-of-tree-based-algorithms" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The tree based algorithms have evolved over the years.</p></li>
+<li><p>XGBoost belongs to a family of tree-based algorithms.</p></li>
+<li><p>Please see the chart below for the evolution of tree-based algorithms over the years.</p></li>
+</ul>
+<figure class="align-default" id="id1">
+<a class="bg-white mb-1 reference internal image-reference" href="https://miro.medium.com/max/925/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg"><img alt="https://miro.medium.com/max/925/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg" class="bg-white mb-1" src="https://miro.medium.com/max/925/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.2 </span><span class="caption-text">Evolution of tree-based algorithms</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="main-features-of-xgboost">
+<h3><span class="section-number">16.1.1.2. </span>Main features of XGBoost<a class="headerlink" href="#main-features-of-xgboost" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The primary reasons we should use this algorithm are its <strong>accuracy</strong>, <strong>efficiency</strong> and <strong>feasibility</strong>.</p></li>
+<li><p>It is a linear model and a <a class="reference external" href="https://en.wikipedia.org/wiki/Decision_tree_learning">tree learning</a> algorithm that does parallel computations on a single machine.</p></li>
+<li><p>It also has extra features for doing cross validation and computing feature importance.</p></li>
+<li><p>Given below are some of the main features of the model:</p>
+<ul>
+<li><p><strong>Sparsity</strong> : It accepts sparse input for tree booster and linear booster.</p></li>
+<li><p><strong>Customization</strong> : It supports customized objective and evaluation functions.</p></li>
+<li><p><strong>DMatrix</strong> : Its optimized data structure that improves its performance and efficiency.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="bagging-vs-boosting">
+<h2><span class="section-number">16.1.2. </span>Bagging Vs Boosting<a class="headerlink" href="#bagging-vs-boosting" title="Permalink to this headline">#</a></h2>
+<ul>
+<li><p>To know bagging and boosting, we need to know ensemble methods.</p></li>
+<li><p>Ensemble methods combine several decision trees to produce better predictive performance than utilizing a single decision tree.</p></li>
+<li><p>The main principle behind the ensemble model is that a group of weak learners come together to form a strong learner.</p></li>
+<li><p>Now, we will talk about two techniques to perform ensemble decision trees. These are as follows:</p>
+<ul class="simple">
+<li><p>Bagging</p></li>
+<li><p>Boosting</p></li>
+</ul>
+</li>
+<li><p>You can follow the link below for more in-depth discussion on Bagging and Boosting.</p>
+<p><a class="reference external" href="https://www.kaggle.com/prashant111/bagging-vs-boosting">Bagging vs Boosting</a></p>
+</li>
+</ul>
+<section id="bagging">
+<h3><span class="section-number">16.1.2.1. </span>Bagging<a class="headerlink" href="#bagging" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Bagging (or Bootstrap Aggregation), is a simple and very powerful ensemble method.</p></li>
+<li><p>Bagging is the application of the Bootstrap procedure to a high-variance machine learning algorithm, typically decision trees.</p></li>
+<li><p>The idea behind bagging is combining the results of multiple models (for instance, all decision trees) to get a generalized result.</p></li>
+<li><p>Bagging technique uses these subsets (bags) to get a fair idea of the distribution (complete set). The size of subsets created for bagging may be less than the original set.</p></li>
+<li><p>Bagging had each model run independently and then aggregate the outputs at the end without preference to any model.</p></li>
+<li><p>Bagging can be depicted with the following diagram：</p></li>
+</ul>
+<figure class="align-default" id="id2">
+<a class="bg-white mb-1 reference internal image-reference" href="https://qph.fs.quoracdn.net/main-qimg-a5e99250fc4dadd401726a04f4fe2086"><img alt="https://qph.fs.quoracdn.net/main-qimg-a5e99250fc4dadd401726a04f4fe2086" class="bg-white mb-1" src="https://qph.fs.quoracdn.net/main-qimg-a5e99250fc4dadd401726a04f4fe2086" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.3 </span><span class="caption-text">Process of Bagging</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="boosting">
+<h3><span class="section-number">16.1.2.2. </span>Boosting<a class="headerlink" href="#boosting" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Boosting is a sequential process, where each subsequent model attempts to correct the errors of the previous model. The succeeding models are dependent on the previous model.</p></li>
+<li><p>In this technique, learners are learned sequentially with early learners fitting simple models to the data and then analyzing data for errors. In other words, we fit consecutive trees (random sample) and at every step, the goal is to solve for net error from the prior tree.</p></li>
+<li><p>When an input is misclassified by a hypothesis, its weight is increased so that next hypothesis is more likely to classify it correctly. By combining the whole set at the end converts weak learners into better performing model.</p></li>
+<li><p>Boosting is another ensemble technique to create a collection of models.</p></li>
+<li><p>Boosting can be depicted with the following diagram:</p></li>
+</ul>
+<figure class="align-default" id="id3">
+<a class="bg-white mb-1 reference internal image-reference" href="https://qph.fs.quoracdn.net/main-qimg-652eb915c12a1440bb8bb4acd8329ddd"><img alt="https://qph.fs.quoracdn.net/main-qimg-652eb915c12a1440bb8bb4acd8329ddd" class="bg-white mb-1" src="https://qph.fs.quoracdn.net/main-qimg-652eb915c12a1440bb8bb4acd8329ddd" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.4 </span><span class="caption-text">Process of Boosting</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="xgboost-algorithm-intuition">
+<h2><span class="section-number">16.1.3. </span>XGBoost algorithm intuition<a class="headerlink" href="#xgboost-algorithm-intuition" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>XGBoost is a powerful and lightning fast machine learning library. It’s commonly used to win some professional level competitions.</p></li>
+<li><p>It’s an intimidating algorithm, especially because of the number of large parameters that XGBoost provides.</p></li>
+<li><p>Also, there is some confusion regarding gradient boosting, gradient boosted trees and XGBoost.</p></li>
+<li><p>So, in this section, we will discuss - <strong>gradient boosting</strong>, <strong>gradient boosted trees</strong> and <strong>XGBoost</strong>. The purpose of this section is to clarify these concepts.</p></li>
+</ul>
+<section id="gradient-boosting">
+<h3><span class="section-number">16.1.3.1. </span>Gradient boosting<a class="headerlink" href="#gradient-boosting" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Gradient boosting is a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees.</p></li>
+<li><p>It builds the model in a stage-wise fashion like other boosting methods do and it generalizes them by allowing optimization of an arbitrary differentiable loss function.</p></li>
+<li><p>The objective of any supervised learning algorithm is to define a loss function and minimize it. The same is true for Gradient Boosting algorithm. Here, we have mean squared error (MSE) as loss-function defined as follows:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ Loss = MSE = \sum(y_i-y_i^p)^2 \]</div>
+<ul class="simple">
+<li><p>where <span class="math notranslate nohighlight">\(y_i = ith\)</span> target value, <span class="math notranslate nohighlight">\(y_i^p = ith\)</span> prediction, <span class="math notranslate nohighlight">\(L(y_i,y_i^p)\)</span> is loss function</p></li>
+<li><p>We want our predictions, such that our loss function (MSE) is minimum.</p></li>
+<li><p>By using gradient descent and updating our predictions based on a learning rate, we can find the values where MSE is minimum.</p></li>
+<li><p>It can be depicted as follows:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ y_i^p = y_i^p + a * \sigma\sum(y_i - y_i^p)^2/\sigma y_i^p \]</div>
+<ul class="simple">
+<li><p>which becomes, <span class="math notranslate nohighlight">\(y_i^p = y_i^p - a * 2 * \sum(y_i - y_i^p)\)</span></p></li>
+<li><p>where, <span class="math notranslate nohighlight">\(a\)</span> is learning rate and <span class="math notranslate nohighlight">\(\sum(y_i-y_i^p)\)</span> is sum of residuals</p></li>
+<li><p>So, we are basically updating the predictions such that the sum of our residuals is close to 0 (or minimum) and predicted values are sufficiently close to actual values.</p></li>
+<li><p>Now, we train our second model on the gradient of the error with respect to the loss predictions of the first model. Thus, we should correct the mistakes of the first model.</p></li>
+<li><p>This is the core of gradient boosting, and what allows many simple models to compensate for each other’s weaknesses to better fit the data.</p></li>
+<li><p>Gradient Boosting is an iterative procedure. So, we will repeat the above process over and over again. Each time we fit a new model to the gradient of the error of the updated sum of models.</p></li>
+<li><p>So, gradient boosting is a method for optimizing the function F, but it doesn’t really care about h (since nothing about the optimization of h is defined). This means that any base model h can be used to construct F.</p></li>
+</ul>
+</section>
+<section id="gradient-boosted-trees">
+<h3><span class="section-number">16.1.3.2. </span>Gradient Boosted Trees<a class="headerlink" href="#gradient-boosted-trees" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Gradient boosted trees consider the special case where the simple model h is a decision tree.</p></li>
+<li><p>It can be depicted with the following diagram which is taken from XGBoost’s documentation.</p></li>
+</ul>
+<figure class="align-default" id="id4">
+<a class="bg-white mb-1 reference internal image-reference" href="https://miro.medium.com/max/912/1*TebQuJsPc7upto5dvURjSA.png"><img alt="https://miro.medium.com/max/912/1*TebQuJsPc7upto5dvURjSA.png" class="bg-white mb-1" src="https://miro.medium.com/max/912/1*TebQuJsPc7upto5dvURjSA.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.5 </span><span class="caption-text">Gradient Boosted Trees</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>In this case, there are 2 kinds of parameters P - <strong>the weights at each leaf w</strong> and <strong>the number of leaves T in each tree</strong> (so that in the above example, T=3 and w=[2, 0.1, -1]).</p></li>
+<li><p>When building a decision tree, a challenge is to decide how to split a current leaf. For instance, in the above image, how could we add another layer to the (age &gt; 15) leaf.</p></li>
+<li><p>A ‘greedy’ way to do this is to consider every possible split on the remaining features (so, gender and occupation), and calculate the new loss for each split. We could then pick the tree which most reduces our loss.</p></li>
+</ul>
+<figure class="align-default" id="id5">
+<a class="bg-white mb-1 reference internal image-reference" href="https://miro.medium.com/max/1456/1*ucyUhM7h_6PHC_8tEdzyXA.png"><img alt="https://miro.medium.com/max/1456/1*ucyUhM7h_6PHC_8tEdzyXA.png" class="bg-white mb-1" src="https://miro.medium.com/max/1456/1*ucyUhM7h_6PHC_8tEdzyXA.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.6 </span><span class="caption-text">New Tree minimizing loss</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p>In addition to finding the new tree structures, the weights at each node need to be calculated as well, such that the loss is minimized. Since the tree structure is now fixed, this can be done analytically now by setting the loss function = 0.</p></li>
+<li><p>After derivation, we get the following result.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ w_j = \frac{\sum_{i\in I_j} \frac{\partial loss}{\partial (\hat{y}=0)}}{\sum_{i\in I_j}(\frac{\partial^2 loss}{\partial (\hat{y}=0)^2})+ \lambda} \]</div>
+<ul class="simple">
+<li><p>Where <span class="math notranslate nohighlight">\(I_j\)</span> is a set containing all the instances ((x, y) datapoints) at a leaf, and <span class="math notranslate nohighlight">\(w_j\)</span> is the weight at leaf j.</p></li>
+<li><p>This looks more intimidating than it is; for some intuition, if we consider <span class="math notranslate nohighlight">\(loss = MSE =(y-\hat{y})^2\)</span>, then taking the first and second gradients where <span class="math notranslate nohighlight">\(\hat{y} =0\)</span> yields</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ w_j = \frac{\sum_{i\in I_j} y}{\sum_{i\in I_j} 2 + \lambda} \]</div>
+<ul class="simple">
+<li><p>Here, the weights effectively become the average of the true labels at each leaf (with some regularization from the λ constant).</p></li>
+</ul>
+</section>
+<section id="extreme-gradient-boosting-xgboost">
+<h3><span class="section-number">16.1.3.3. </span>Extreme gradient boosting (XGBoost)<a class="headerlink" href="#extreme-gradient-boosting-xgboost" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>XGBoost is one of the fastest implementations of gradient boosted trees. It does this by tackling one of the major inefficiencies of gradient boosted trees.</p></li>
+<li><p>Consider the case where there are thousands of features, and therefore thousands of possible splits. Now, if we consider the potential loss for all possible splits to create a new branch we have thousands of potential splits and losses.</p></li>
+<li><p>XGBoost tackles this inefficiency by looking at the distribution of features across all data points in a leaf and using this information to reduce the search space of possible feature splits.</p></li>
+<li><p>Although XGBoost implements a few regularization tricks, this speed up is by far the most useful feature of the library, allowing many hyperparameter settings to be investigated quickly.</p></li>
+<li><p>This is helpful because there are many hyperparameters to tune which are designed to limit overfitting.</p></li>
+</ul>
+</section>
+</section>
+<section id="implementing-xgboost-in-python">
+<h2><span class="section-number">16.1.4. </span>Implementing XGBoost in Python<a class="headerlink" href="#implementing-xgboost-in-python" title="Permalink to this headline">#</a></h2>
+<section id="load-libraries">
+<h3><span class="section-number">16.1.4.1. </span>Load libraries<a class="headerlink" href="#load-libraries" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="read-dataset">
+<h3><span class="section-number">16.1.4.2. </span>Read dataset<a class="headerlink" href="#read-dataset" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;../../assets/data/wholesale_customers_data.csv&#39;</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eda">
+<h3><span class="section-number">16.1.4.3. </span>EDA<a class="headerlink" href="#eda" title="Permalink to this headline">#</a></h3>
+<section id="shape-of-dataset">
+<h4><span class="section-number">16.1.4.3.1. </span>Shape of dataset<a class="headerlink" href="#shape-of-dataset" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>I will start off by checking the shape of the dataset.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(440, 8)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that there are 440 instances and 8 attributes in the dataset.</p>
+</section>
+<section id="preview-dataset">
+<h4><span class="section-number">16.1.4.3.2. </span>Preview dataset<a class="headerlink" href="#preview-dataset" title="Permalink to this headline">#</a></h4>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Channel</th>
+      <th>Region</th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicassen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>3</td>
+      <td>12669</td>
+      <td>9656</td>
+      <td>7561</td>
+      <td>214</td>
+      <td>2674</td>
+      <td>1338</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>3</td>
+      <td>7057</td>
+      <td>9810</td>
+      <td>9568</td>
+      <td>1762</td>
+      <td>3293</td>
+      <td>1776</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>3</td>
+      <td>6353</td>
+      <td>8808</td>
+      <td>7684</td>
+      <td>2405</td>
+      <td>3516</td>
+      <td>7844</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>3</td>
+      <td>13265</td>
+      <td>1196</td>
+      <td>4221</td>
+      <td>6404</td>
+      <td>507</td>
+      <td>1788</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2</td>
+      <td>3</td>
+      <td>22615</td>
+      <td>5410</td>
+      <td>7198</td>
+      <td>3915</td>
+      <td>1777</td>
+      <td>5185</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>We can see that <code class="docutils literal notranslate"><span class="pre">Channel</span></code> variable contains values as 1 and 2.</p></li>
+<li><p>These two values classify the customers from two different channels as</p>
+<ul>
+<li><p>1 for Horeca (Hotel/Retail/Café) customers and</p></li>
+<li><p>2 for Retail channel (nominal) customers.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="summary-of-dataset">
+<h4><span class="section-number">16.1.4.3.3. </span>Summary of dataset<a class="headerlink" href="#summary-of-dataset" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 440 entries, 0 to 439
+Data columns (total 8 columns):
+ #   Column            Non-Null Count  Dtype
+---  ------            --------------  -----
+ 0   Channel           440 non-null    int64
+ 1   Region            440 non-null    int64
+ 2   Fresh             440 non-null    int64
+ 3   Milk              440 non-null    int64
+ 4   Grocery           440 non-null    int64
+ 5   Frozen            440 non-null    int64
+ 6   Detergents_Paper  440 non-null    int64
+ 7   Delicassen        440 non-null    int64
+dtypes: int64(8)
+memory usage: 27.6 KB
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="summary-statistics-of-dataset">
+<h4><span class="section-number">16.1.4.3.4. </span>Summary statistics of dataset<a class="headerlink" href="#summary-statistics-of-dataset" title="Permalink to this headline">#</a></h4>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Channel</th>
+      <th>Region</th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicassen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+      <td>440.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1.322727</td>
+      <td>2.543182</td>
+      <td>12000.297727</td>
+      <td>5796.265909</td>
+      <td>7951.277273</td>
+      <td>3071.931818</td>
+      <td>2881.493182</td>
+      <td>1524.870455</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.468052</td>
+      <td>0.774272</td>
+      <td>12647.328865</td>
+      <td>7380.377175</td>
+      <td>9503.162829</td>
+      <td>4854.673333</td>
+      <td>4767.854448</td>
+      <td>2820.105937</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>55.000000</td>
+      <td>3.000000</td>
+      <td>25.000000</td>
+      <td>3.000000</td>
+      <td>3.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>1.000000</td>
+      <td>2.000000</td>
+      <td>3127.750000</td>
+      <td>1533.000000</td>
+      <td>2153.000000</td>
+      <td>742.250000</td>
+      <td>256.750000</td>
+      <td>408.250000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>8504.000000</td>
+      <td>3627.000000</td>
+      <td>4755.500000</td>
+      <td>1526.000000</td>
+      <td>816.500000</td>
+      <td>965.500000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>2.000000</td>
+      <td>3.000000</td>
+      <td>16933.750000</td>
+      <td>7190.250000</td>
+      <td>10655.750000</td>
+      <td>3554.250000</td>
+      <td>3922.000000</td>
+      <td>1820.250000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>2.000000</td>
+      <td>3.000000</td>
+      <td>112151.000000</td>
+      <td>73498.000000</td>
+      <td>92780.000000</td>
+      <td>60869.000000</td>
+      <td>40827.000000</td>
+      <td>47943.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="check-for-missing-values">
+<h4><span class="section-number">16.1.4.3.5. </span>Check for missing values<a class="headerlink" href="#check-for-missing-values" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Channel             0
+Region              0
+Fresh               0
+Milk                0
+Grocery             0
+Frozen              0
+Detergents_Paper    0
+Delicassen          0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that there are no missing values in the dataset.</p>
+</section>
+</section>
+<section id="declare-feature-vector-and-target-variable">
+<h3><span class="section-number">16.1.4.4. </span>Declare feature vector and target variable<a class="headerlink" href="#declare-feature-vector-and-target-variable" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Channel&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Now, let’s take a look at feature vector(X) and target variable(y).</p></li>
+</ul>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Region</th>
+      <th>Fresh</th>
+      <th>Milk</th>
+      <th>Grocery</th>
+      <th>Frozen</th>
+      <th>Detergents_Paper</th>
+      <th>Delicassen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>12669</td>
+      <td>9656</td>
+      <td>7561</td>
+      <td>214</td>
+      <td>2674</td>
+      <td>1338</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>7057</td>
+      <td>9810</td>
+      <td>9568</td>
+      <td>1762</td>
+      <td>3293</td>
+      <td>1776</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>6353</td>
+      <td>8808</td>
+      <td>7684</td>
+      <td>2405</td>
+      <td>3516</td>
+      <td>7844</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>13265</td>
+      <td>1196</td>
+      <td>4221</td>
+      <td>6404</td>
+      <td>507</td>
+      <td>1788</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>22615</td>
+      <td>5410</td>
+      <td>7198</td>
+      <td>3915</td>
+      <td>1777</td>
+      <td>5185</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    2
+1    2
+2    2
+3    1
+4    2
+Name: Channel, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can see that the y label contain values as 1 and 2.</p></li>
+<li><p>We will need to convert it into 0 and 1 for further analysis.</p></li>
+<li><p>We will do it as follows:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># convert labels into binary values</span>
+
+<span class="n">y</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">y</span><span class="p">[</span><span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># again preview the y label</span>
+
+<span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    0
+1    0
+2    0
+3    1
+4    0
+Name: Channel, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Now, we will convert the dataset into an optimized data structure called <strong>Dmatrix</strong> that XGBoost supports and gives it acclaimed performance and efficiency gains.</p></li>
+<li><p>We will do it as follows:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import XGBoost</span>
+<span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="nn">xgb</span>
+
+
+<span class="c1"># define data_dmatrix</span>
+<span class="n">data_dmatrix</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">DMatrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">X</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="split-data-into-separate-training-and-test-set">
+<h3><span class="section-number">16.1.4.5. </span>Split data into separate training and test set<a class="headerlink" href="#split-data-into-separate-training-and-test-set" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># split X and y into training and testing sets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train-the-xgboost-classifier">
+<h3><span class="section-number">16.1.4.6. </span>Train the XGBoost Classifier<a class="headerlink" href="#train-the-xgboost-classifier" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>In order to train the XGBoost classifier, we need to know different parameters that XGBoost provides.</p></li>
+<li><p>We will discuss these parameters in later sections.</p></li>
+<li><p>Now, its time to train the XGBoost Classifier.</p></li>
+<li><p>We will proceed as follows:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import XGBClassifier</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>
+
+
+<span class="c1"># declare parameters</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;objective&#39;</span><span class="p">:</span><span class="s1">&#39;binary:logistic&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+            <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span><span class="mi">100</span>
+        <span class="p">}</span>         
+           
+          
+<span class="c1"># instantiate the classifier </span>
+<span class="n">xgb_clf</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+
+<span class="c1"># fit the classifier to the training data</span>
+<span class="n">xgb_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>XGBClassifier(alpha=10, base_score=0.5, booster=&#x27;gbtree&#x27;, callbacks=None,
+              colsample_bylevel=1, colsample_bynode=1, colsample_bytree=1,
+              early_stopping_rounds=None, enable_categorical=False,
+              eval_metric=None, gamma=0, gpu_id=-1, grow_policy=&#x27;depthwise&#x27;,
+              importance_type=None, interaction_constraints=&#x27;&#x27;,
+              learning_rate=1.0, max_bin=256, max_cat_to_onehot=4,
+              max_delta_step=0, max_depth=4, max_leaves=0, min_child_weight=1,
+              missing=nan, monotone_constraints=&#x27;()&#x27;, n_estimators=100,
+              n_jobs=0, num_parallel_tree=1, predictor=&#x27;auto&#x27;, random_state=0,
+              reg_alpha=10, ...)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">XGBClassifier</label><div class="sk-toggleable__content"><pre>XGBClassifier(alpha=10, base_score=0.5, booster=&#x27;gbtree&#x27;, callbacks=None,
+              colsample_bylevel=1, colsample_bynode=1, colsample_bytree=1,
+              early_stopping_rounds=None, enable_categorical=False,
+              eval_metric=None, gamma=0, gpu_id=-1, grow_policy=&#x27;depthwise&#x27;,
+              importance_type=None, interaction_constraints=&#x27;&#x27;,
+              learning_rate=1.0, max_bin=256, max_cat_to_onehot=4,
+              max_delta_step=0, max_depth=4, max_leaves=0, min_child_weight=1,
+              missing=nan, monotone_constraints=&#x27;()&#x27;, n_estimators=100,
+              n_jobs=0, num_parallel_tree=1, predictor=&#x27;auto&#x27;, random_state=0,
+              reg_alpha=10, ...)</pre></div></div></div></div></div></div></div>
+</div>
+<p>we can view the parameters of the xgb trained model as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">xgb_clf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>XGBClassifier(alpha=10, base_score=0.5, booster=&#39;gbtree&#39;, callbacks=None,
+              colsample_bylevel=1, colsample_bynode=1, colsample_bytree=1,
+              early_stopping_rounds=None, enable_categorical=False,
+              eval_metric=None, gamma=0, gpu_id=-1, grow_policy=&#39;depthwise&#39;,
+              importance_type=None, interaction_constraints=&#39;&#39;,
+              learning_rate=1.0, max_bin=256, max_cat_to_onehot=4,
+              max_delta_step=0, max_depth=4, max_leaves=0, min_child_weight=1,
+              missing=nan, monotone_constraints=&#39;()&#39;, n_estimators=100,
+              n_jobs=0, num_parallel_tree=1, predictor=&#39;auto&#39;, random_state=0,
+              reg_alpha=10, ...)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="make-predictions-with-xgboost-classifier">
+<h3><span class="section-number">16.1.4.7. </span>Make predictions with XGBoost classifier<a class="headerlink" href="#make-predictions-with-xgboost-classifier" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make predictions on test data</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">xgb_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="check-accuracy-score">
+<h3><span class="section-number">16.1.4.8. </span>Check accuracy score<a class="headerlink" href="#check-accuracy-score" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute and print accuracy score</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;XGBoost model accuracy score: </span><span class="si">{0:0.4f}</span><span class="s1">&#39;</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>XGBoost model accuracy score: 0.8864
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that XGBoost obtain accuracy score of 88.64%.</p>
+</section>
+</section>
+<section id="k-fold-cross-validation-using-xgboost">
+<h2><span class="section-number">16.1.5. </span>k-fold Cross Validation using XGBoost<a class="headerlink" href="#k-fold-cross-validation-using-xgboost" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>To build more robust models with XGBoost, we should always perform k-fold cross validation.</p></li>
+<li><p>In this way, we ensure that the original training dataset is used for both training and validation.</p></li>
+<li><p>Also, each entry is used for validation just once.</p></li>
+<li><p>XGBoost supports k-fold cross validation using the cv() method.</p></li>
+<li><p>In this method, we will specify several parameters which are as follows:</p>
+<ul>
+<li><p><strong>nfolds</strong> - This parameter specifies the number of cross-validation sets we want to build.</p></li>
+<li><p><strong>num_boost_round</strong> - It denotes the number of trees we build.</p></li>
+<li><p><strong>metrics</strong> - It is the performance evaluation metrics to be considered during CV.</p></li>
+<li><p><strong>as_pandas</strong> - It is used to return the results in a pandas DataFrame.</p></li>
+<li><p><strong>early_stopping_rounds</strong> - This parameter stops training of the model early if the hold-out metric does not improve for a given number of rounds.</p></li>
+<li><p><strong>seed</strong> - This parameter is used for reproducibility of results.</p></li>
+</ul>
+</li>
+</ul>
+<p>We can use these parameters to build a k-fold cross-validation model by calling XGBoost’s CV() method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">cv</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;objective&quot;</span><span class="p">:</span><span class="s2">&quot;binary:logistic&quot;</span><span class="p">,</span><span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+                <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+
+<span class="n">xgb_cv</span> <span class="o">=</span> <span class="n">cv</span><span class="p">(</span><span class="n">dtrain</span><span class="o">=</span><span class="n">data_dmatrix</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">nfold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">num_boost_round</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="s2">&quot;auc&quot;</span><span class="p">,</span> <span class="n">as_pandas</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><strong>xgb_cv</strong> contains train and test auc metrics for each boosting round.</p></li>
+<li><p>Let’s preview <strong>xgb_cv</strong>.</p></li>
+</ul>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xgb_cv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>train-auc-mean</th>
+      <th>train-auc-std</th>
+      <th>test-auc-mean</th>
+      <th>test-auc-std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.943324</td>
+      <td>0.006457</td>
+      <td>0.934649</td>
+      <td>0.014371</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.948799</td>
+      <td>0.003750</td>
+      <td>0.940217</td>
+      <td>0.016186</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.951123</td>
+      <td>0.002962</td>
+      <td>0.934832</td>
+      <td>0.013417</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.952655</td>
+      <td>0.007380</td>
+      <td>0.938874</td>
+      <td>0.008080</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.950791</td>
+      <td>0.008281</td>
+      <td>0.930808</td>
+      <td>0.013547</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="feature-importance-with-xgboost">
+<h2><span class="section-number">16.1.6. </span>Feature importance with XGBoost<a class="headerlink" href="#feature-importance-with-xgboost" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>XGBoost provides a way to examine the importance of each feature in the original dataset within the model.</p></li>
+<li><p>It involves counting the number of times each feature is split on across all boosting trees in the model.</p></li>
+<li><p>Then we visualize the result as a bar graph, with the features ordered according to how many times they appear.</p></li>
+<li><p>We will proceed as follows:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xgb</span><span class="o">.</span><span class="n">plot_importance</span><span class="p">(</span><span class="n">xgb_clf</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/xgboost_39_0.png" src="../../_images/xgboost_39_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1600x1200 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>We can see that the feature <code class="docutils literal notranslate"><span class="pre">Delicassesn</span></code> has been given the highest importance score among all the features.</p></li>
+<li><p>Based upon this importance score, we can select the features with highest importance score and discard the redundant ones.</p></li>
+<li><p>Thus XGBoost also gives us a way to do feature selection.</p></li>
+</ul>
+</section>
+<section id="results-and-conclusion">
+<h2><span class="section-number">16.1.7. </span>Results and conclusion<a class="headerlink" href="#results-and-conclusion" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>In this kernel, we implement XGBoost with Python and Scikit-Learn to classify the customers from two different channels as Horeca (Hotel/Retail/Café) customers or Retail channel (nominal) customers.</p></li>
+<li><p>The y labels contain values as 1 and 2. We have converted them into 0 and 1 for further analysis.</p></li>
+<li><p>We have trained the XGBoost classifier and found the accuracy score to be 88.64%.</p></li>
+<li><p>We have performed k-fold cross-validation with XGBoost.</p></li>
+<li><p>We have find the most important feature in XGBoost. We did it using the plot_importance() function in XGBoost that helps us to achieve this task.</p></li>
+</ul>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">16.1.8. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>TBD</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">16.1.9. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://www.kaggle.com/prashant111">Prashant Banerjee</a> for creating the open-source course <a class="reference external" href="https://www.kaggle.com/code/prashant111/xgboost-k-fold-cv-feature-importance">XGBoost + k-fold CV + Feature Importance</a>. It inspires the majority of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-advanced/gradient-boosting"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="introduction-to-gradient-boosting.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">16. </span>Introduction to Gradient Boosting</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../unsupervised-learning.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">17. </span>Unsupervised learning (TBD)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

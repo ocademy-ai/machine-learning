@@ -1,0 +1,2419 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>31. Diffusion Model &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="32. Overview" href="../machine-learning-productionization/overview.html" />
+    <link rel="prev" title="30. Image segmentation" href="image-segmentation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/ml-overview.html">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-fundamentals/classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-fundamentals/classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-advanced/clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-advanced/ensemble-learning/getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/ensemble-learning/bagging.html">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/ensemble-learning/random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/ensemble-learning/feature-importance.html">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ml-advanced/gradient-boosting/introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ml-advanced/gradient-boosting/xgboost.html">
+     16.1. XGBoost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/unsupervised-learning.html">
+   17. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ml-advanced/model-selection.html">
+   19. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="GAN.html">
+   22. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="AutoEncoder.html">
+   24. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DQN.html">
+   27. Deep Q-learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dl-summary.html">
+   28. Summary of deep learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   31. Diffusion Model
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/overview.html">
+   32. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/problem-framing.html">
+   33. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/data-engineering.html">
+   34. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-training-and-evaluation.html">
+   35. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../machine-learning-productionization/model-deployment.html">
+   36. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/unbalanced-problems.html">
+   37. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../supporting-materials/automl.html">
+   38. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../assignments/introduction.html">
+   39. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/get-started.html">
+     39.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/set-up-env/first-assignment.html">
+     39.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/set-up-env/second-assignment.html">
+     39.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/project-plan-template.html">
+     39.4. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-introduction.html">
+     39.5. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-basics.html">
+     39.6. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/prerequisites/python-programming-advanced.html">
+     39.7. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-text-about-data-science.html">
+     39.8. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-scenarios.html">
+     39.9. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/write-a-data-ethics-case-study.html">
+     39.10. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/lines-scatters-and-bars.html">
+     39.11. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/apply-your-skills.html">
+     39.12. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/try-it-in-excel.html">
+     39.13. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/let-us-learn-about-birds.html">
+     39.14. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/bird-distributions.html">
+     39.15. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/dive-into-the-beehive.html">
+     39.16. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/build-your-own-custom-vis.html">
+     39.17. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/classifying-datasets.html">
+     39.18. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/small-diabetes-study.html">
+     39.19. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/introduction-to-statistics-and-probability.html">
+     39.20. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/displaying-airport-data.html">
+     39.21. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/soda-profits.html">
+     39.22. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-COVID-19-papers.html">
+     39.23. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     39.24. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-processing-in-python.html">
+     39.25. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/evaluating-data-from-a-form.html">
+     39.26. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-preparation.html">
+     39.27. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/analyzing-data.html">
+     39.28. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     39.29. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/matplotlib-applied.html">
+     39.30. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/tell-a-story.html">
+     39.36. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     39.37. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/exploring-for-anwser.html">
+     39.38. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/market-research.html">
+     39.39. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     39.40. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     39.41. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     39.42. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/ml-overview-iris.html">
+     39.43. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/ml-overview-mnist-digits.html">
+     39.44. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     39.45. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/ml-linear-regression-1.html">
+     39.46. ML linear regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/ml-linear-regression-2.html">
+     39.47. ML linear regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/ml-logistic-regression-1.html">
+     39.48. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/ml-neural-network-1.html">
+     39.49. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/regression-tools.html">
+     39.50. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/managing-data.html">
+     39.51. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/exploring-visualizations.html">
+     39.52. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/try-a-different-model.html">
+     39.53. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/create-a-regression-model.html">
+     39.54. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     39.55. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/retrying-some-regression.html">
+     39.56. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     39.57. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     39.58. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/explore-classification-methods.html">
+     39.59. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     39.60. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     39.61. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     39.62. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-advanced/ensemble-learning/decision-trees.html">
+     39.63. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/data-engineering.html">
+     39.64. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     39.65. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-classification.html">
+     39.66. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/machine-learning-productionization/debugging-in-regression.html">
+     39.67. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/study-the-solvers.html">
+     39.68. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/build-classification-models.html">
+     39.69. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/build-classification-model.html">
+     39.70. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assignments/ml-fundamentals/parameter-play.html">
+     39.71. Parameter play
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../slides/introduction.html">
+   40. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-introduction.html">
+     40.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-basics.html">
+     40.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/python-programming/python-programming-advanced.html">
+     40.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/data-science-introduction.html">
+     40.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/relational-vs-non-relational-database.html">
+     40.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/numpy-and-pandas.html">
+     40.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/data-visualization.html">
+     40.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/data-science-lifecycle.html">
+     40.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/data-science-in-the-cloud.html">
+     40.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/data-science/data-science-in-real-world.html">
+     40.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/ml-overview.html">
+     40.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/linear-regression.html">
+     40.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/logistic-regression.html">
+     40.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/neural-network.html">
+     40.14. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-fundamentals/build-an-ml-web-app.html">
+     40.15. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../slides/ml-advanced/unsupervised-learning.html">
+     40.16. Unsupervised learning
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/deep-learning/difussion-model.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/deep-learning/difussion-model.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fdeep-learning/difussion-model.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/deep-learning/difussion-model.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/deep-learning/difussion-model.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/deep-learning/difussion-model.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background">
+   31.1. Background
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#expectation">
+     31.1.1. Expectation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#definition">
+       31.1.1.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#properties">
+       31.1.1.2. Properties
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#variance">
+     31.1.2. Variance
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       31.1.2.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       31.1.2.2. Properties
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#re-parameterization-trick">
+     31.1.3. Re-parameterization trick
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-expectation">
+       31.1.3.1. Mean (Expectation)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       31.1.3.2. Variance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kl-divergence">
+     31.1.4. KL Divergence
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       31.1.4.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jensen-s-inequality">
+       31.1.4.2. Jensen’s inequality
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#properties-of-kl-divergence">
+       31.1.4.3. Properties of KL Divergence
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evidence-lower-bound-elbo">
+     31.1.5. Evidence lower bound (ELBO)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       31.1.5.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       31.1.5.2. Properties
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-and-reverse-process">
+     31.1.6. Forward and Reverse process
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noise-schedule">
+     31.1.7. Noise schedule
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#linear-schedule">
+       31.1.7.1. Linear schedule
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cosine-schedule">
+       31.1.7.2. Cosine schedule
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code">
+   31.2. Code
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-libraries">
+     31.2.1. Import Libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#configuration">
+     31.2.2. Configuration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-loading">
+     31.2.3. Data Loading
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preprocessing">
+     31.2.4. Data Preprocessing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-augmentation">
+     31.2.5. Data Augmentation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data">
+     31.2.6. Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#linear-schedule-beta">
+     31.2.7. Linear schedule-beta
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-the-alphas">
+     31.2.8. Define the alphas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#getting-a-sample-x-t">
+     31.2.9. Getting a sample
+     <span class="math notranslate nohighlight">
+      \((x_t)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling">
+     31.2.10. Modeling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training">
+     31.2.11. Training
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#testing">
+       31.2.11.1. Testing
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gif-output">
+       31.2.11.2. GIF output
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   31.3. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   31.4. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Diffusion Model</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background">
+   31.1. Background
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#expectation">
+     31.1.1. Expectation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#definition">
+       31.1.1.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#properties">
+       31.1.1.2. Properties
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#variance">
+     31.1.2. Variance
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       31.1.2.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       31.1.2.2. Properties
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#re-parameterization-trick">
+     31.1.3. Re-parameterization trick
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-expectation">
+       31.1.3.1. Mean (Expectation)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       31.1.3.2. Variance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kl-divergence">
+     31.1.4. KL Divergence
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       31.1.4.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#jensen-s-inequality">
+       31.1.4.2. Jensen’s inequality
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#properties-of-kl-divergence">
+       31.1.4.3. Properties of KL Divergence
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evidence-lower-bound-elbo">
+     31.1.5. Evidence lower bound (ELBO)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id5">
+       31.1.5.1. Definition
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id6">
+       31.1.5.2. Properties
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-and-reverse-process">
+     31.1.6. Forward and Reverse process
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#noise-schedule">
+     31.1.7. Noise schedule
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#linear-schedule">
+       31.1.7.1. Linear schedule
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cosine-schedule">
+       31.1.7.2. Cosine schedule
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#code">
+   31.2. Code
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#import-libraries">
+     31.2.1. Import Libraries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#configuration">
+     31.2.2. Configuration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-loading">
+     31.2.3. Data Loading
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-preprocessing">
+     31.2.4. Data Preprocessing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-augmentation">
+     31.2.5. Data Augmentation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data">
+     31.2.6. Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#linear-schedule-beta">
+     31.2.7. Linear schedule-beta
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-the-alphas">
+     31.2.8. Define the alphas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#getting-a-sample-x-t">
+     31.2.9. Getting a sample
+     <span class="math notranslate nohighlight">
+      \((x_t)\)
+     </span>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modeling">
+     31.2.10. Modeling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training">
+     31.2.11. Training
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#testing">
+       31.2.11.1. Testing
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#gif-output">
+       31.2.11.2. GIF output
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   31.3. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   31.4. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="diffusion-model">
+<h1><span class="section-number">31. </span>Diffusion Model<a class="headerlink" href="#diffusion-model" title="Permalink to this headline">#</a></h1>
+<section id="background">
+<h2><span class="section-number">31.1. </span>Background<a class="headerlink" href="#background" title="Permalink to this headline">#</a></h2>
+<p>Before we learn the diffusion model, we have to know some background knowledge in statistics. Perhaps you already have a good mastery of them, let’s review them together.</p>
+<section id="expectation">
+<h3><span class="section-number">31.1.1. </span>Expectation<a class="headerlink" href="#expectation" title="Permalink to this headline">#</a></h3>
+<section id="definition">
+<h4><span class="section-number">31.1.1.1. </span>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">#</a></h4>
+<p>In probability theory, expectation (also called expected value, mean, average) is a generalization of the weighted average.</p>
+<p><span class="math notranslate nohighlight">\(E[X] = x_1 p_1 + x_2 p2 + ... +x_n p_n = \sum_{i=1}^n x_i p_1\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(p_i\)</span> are i-th a possible outcome and its probability, respectively.</p>
+</section>
+<section id="properties">
+<h4><span class="section-number">31.1.1.2. </span>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(E[aX]=aE[X]\)</span> where a is a constant value.</p></li>
+<li><p><span class="math notranslate nohighlight">\(E[X+b]=E[X]+b\)</span> where b is a constant value.</p></li>
+<li><p><span class="math notranslate nohighlight">\(E[X+Y]=E[X]+E[Y]\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="variance">
+<h3><span class="section-number">31.1.2. </span>Variance<a class="headerlink" href="#variance" title="Permalink to this headline">#</a></h3>
+<p>Variance is a measure of dispersion, meaning it is a measure of how far a set of numbers is spread out from their average value.</p>
+<section id="id1">
+<h4><span class="section-number">31.1.2.1. </span>Definition<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<p>The variance of a random variable <span class="math notranslate nohighlight">\(X\)</span> is the expected value of the squared deviation from the expectation of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</section>
+<section id="id2">
+<h4><span class="section-number">31.1.2.2. </span>Properties<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Var[X]=E[X^2]−E[X]^2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Var[aX]=a^2 Var[X]\)</span> where a is a constant value.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Var[X+b]=Var[X]\)</span> where b is a constant value.</p></li>
+<li><p><span class="math notranslate nohighlight">\(Var[X+Y]=Var[X]+Var[Y]\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="re-parameterization-trick">
+<h3><span class="section-number">31.1.3. </span>Re-parameterization trick<a class="headerlink" href="#re-parameterization-trick" title="Permalink to this headline">#</a></h3>
+<p>When we sample data from a probability distribution, backpropagation the gradient is not possible because it is a stochastic process. To make it trainable, the re-parameterization trick is useful.</p>
+<p>Let us assume that <span class="math notranslate nohighlight">\(z\)</span> is sampled data from a gaussian distribution which the mean is <span class="math notranslate nohighlight">\(\mu\)</span> and the variance is <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Then, the mean and variance of <span class="math notranslate nohighlight">\(z\)</span> would be <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. Therefore, <span class="math notranslate nohighlight">\(z\)</span> can be written as follows.</p>
+<p><span class="math notranslate nohighlight">\(z = N(\mu, \sigma^2 I) = \mu + \sigma \odot \epsilon\)</span>, where <span class="math notranslate nohighlight">\(\epsilon \thicksim N(0, I)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\odot\)</span> refers to element-wise product.</p>
+<p>The mean and variance of <span class="math notranslate nohighlight">\(z\)</span> correspond to <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>, respectively.</p>
+<section id="mean-expectation">
+<h4><span class="section-number">31.1.3.1. </span>Mean (Expectation)<a class="headerlink" href="#mean-expectation" title="Permalink to this headline">#</a></h4>
+<p><span class="math notranslate nohighlight">\(E[z] = E[\mu+\sigma \odot \epsilon] = E[\mu] + \sigma E[\epsilon] = \mu\)</span></p>
+<p>The expectation of <span class="math notranslate nohighlight">\(\epsilon\)</span> is 0 by definition.</p>
+</section>
+<section id="id3">
+<h4><span class="section-number">31.1.3.2. </span>Variance<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p><span class="math notranslate nohighlight">\(Var[z] = Var[\mu + \sigma \odot \epsilon] = Var[\sigma \odot \epsilon] = \sigma^2 Var[\epsilon] = \sigma^2\)</span></p>
+<p>The variance of \epsilon is 1 by definition.</p>
+</section>
+</section>
+<section id="kl-divergence">
+<h3><span class="section-number">31.1.4. </span>KL Divergence<a class="headerlink" href="#kl-divergence" title="Permalink to this headline">#</a></h3>
+<p>In mathematical statistics, the Kullback–Leibler divergence (relative entropy), is a type of statistical distance.</p>
+<section id="id4">
+<h4><span class="section-number">31.1.4.1. </span>Definition<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
+<ol class="simple">
+<li><p>Discrete probability distribution</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(D_{KL}(P||Q) = \sum_{x \in X} P(x) log \frac{P(x)}{Q(x)}\)</span>,where <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are discrete probability distributions.</p>
+<ol class="simple">
+<li><p>Continuous probability distribution</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(D_{KL} (P||Q) = \int _{− \infty}^{\infty} p(x) log \frac{p(x)}{q(x)}dx\)</span>, where <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> denote the probability densities of <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+</section>
+<section id="jensen-s-inequality">
+<h4><span class="section-number">31.1.4.2. </span>Jensen’s inequality<a class="headerlink" href="#jensen-s-inequality" title="Permalink to this headline">#</a></h4>
+<p>In mathematics, Jensen’s inequality relates the value of a convex (or concave) function of an integral to the integral of the function.</p>
+<ul class="simple">
+<li><p>Convex function: <span class="math notranslate nohighlight">\(f(E[X]) \leqq E[f(X)]\)</span>;</p></li>
+<li><p>Concave function: <span class="math notranslate nohighlight">\(f(E[X]) \geqq E[f(X)]\)</span>.</p></li>
+</ul>
+</section>
+<section id="properties-of-kl-divergence">
+<h4><span class="section-number">31.1.4.3. </span>Properties of KL Divergence<a class="headerlink" href="#properties-of-kl-divergence" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>KL Divergence is always non-negative;</p></li>
+<li><p>The cross-entropy is always larger than the entropy;</p></li>
+<li><p>Two univariate normal distributions <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\(Q\)</span> are simplified to <span class="math notranslate nohighlight">\(D_{KL}(P||Q) = log \frac{\sigma_q}{\sigma_p} + \frac{\sigma^2_p + (\mu_p − \mu_q)^2}{2\sigma^2_q} − \frac{1}{2}\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="evidence-lower-bound-elbo">
+<h3><span class="section-number">31.1.5. </span>Evidence lower bound (ELBO)<a class="headerlink" href="#evidence-lower-bound-elbo" title="Permalink to this headline">#</a></h3>
+<p>In variational Bayesian methods, the evidence lower bound (often abbreviated ELBO) is a useful lower bound on the log-likelihood of some observed data.</p>
+<section id="id5">
+<h4><span class="section-number">31.1.5.1. </span>Definition<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p><span class="math notranslate nohighlight">\(ELBO := E_{z∼q_{\phi}}[log \frac{pθ(x,z)}{q_{\phi}(z)}]\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(p_{\theta}(x, z)\)</span> is joint distribution of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span>. <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> are parameters.</p>
+<p>ELBO is used to obtain the lower bound of the evidence (or log evidence). The evidence is the likelihood function evaluated at a fixed <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(evidence := log p_{\theta}(x)\)</span></p>
+</section>
+<section id="id6">
+<h4><span class="section-number">31.1.5.2. </span>Properties<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>The evidence is always larger than ELBO;</p></li>
+<li><p>KL Divergence between <span class="math notranslate nohighlight">\(p_{\theta}(z|x)\)</span> and <span class="math notranslate nohighlight">\(q_{\phi}(z)\)</span> equals <span class="math notranslate nohighlight">\(evidence−ELBO\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="forward-and-reverse-process">
+<h3><span class="section-number">31.1.6. </span>Forward and Reverse process<a class="headerlink" href="#forward-and-reverse-process" title="Permalink to this headline">#</a></h3>
+<p>The diffusion models make data into a gaussian noise (latent vector) and restore it again. The former is called the forward process, and the latter is called the reverse process.</p>
+<p>In the forward process, we add a gaussian noise to the data step by step (usually hundreds of steps). The transform of an individual step is defined as follows.</p>
+<p><span class="math notranslate nohighlight">\(x_t = q(x_t|x_{t−1}) = N(x_t, \sqrt{1−\beta_t}x_{t−1}, \beta_t I)\)</span></p>
+<p>In the reverse process, we restore image from a gaussian noise (a latent vector). If <span class="math notranslate nohighlight">\(\beta_t\)</span> is small enough, the reverse <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t)\)</span> will also be gaussian. It is noteworthy that the reverse process is tractable when conditioned on <span class="math notranslate nohighlight">\(x_0\)</span>.</p>
+<figure class="align-default" id="structure">
+<a class="bg-white mb-1 reference internal image-reference" href="../_images/01_structure.png"><img alt="../_images/01_structure.png" class="bg-white mb-1" src="../_images/01_structure.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 31.1 </span><span class="caption-text">Forward and Backward process of diffusion model <span id="id7">[<a class="reference internal" href="#id85" title="Ajay Jain Jonathan Ho and Pieter Abbeel. Denoising diffusion probabilistic models. URL: https://arxiv.org/abs/2006.11239 (visited on 2023).">JHA</a>]</span></span><a class="headerlink" href="#structure" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="noise-schedule">
+<h3><span class="section-number">31.1.7. </span>Noise schedule<a class="headerlink" href="#noise-schedule" title="Permalink to this headline">#</a></h3>
+<p>In diffusion models, the noise schedule define the methodology for iteratively adding noise to an image or for updating a sample based on model outputs. I’ll introduce two type of schedules which are linear schedule and cosine schedule. The linear and cosine schedule were introduced by <a class="reference external" href="https://arxiv.org/abs/2006.11239">Denoising Diffusion Probabilistic Models</a> and <a class="reference external" href="https://arxiv.org/abs/2006.11239">Improved Denoising Diffusion Probabilistic Models</a>, respectively.</p>
+<section id="linear-schedule">
+<h4><span class="section-number">31.1.7.1. </span>Linear schedule<a class="headerlink" href="#linear-schedule" title="Permalink to this headline">#</a></h4>
+<p>In the linear schedule, <span class="math notranslate nohighlight">\(\beta_t\)</span> changes linearly.</p>
+<figure class="align-default" id="linear">
+<a class="bg-white mb-1 reference internal image-reference" href="../_images/02_linear.png"><img alt="../_images/02_linear.png" class="bg-white mb-1" src="../_images/02_linear.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 31.2 </span><span class="caption-text">Illustration of linear schedule</span><a class="headerlink" href="#linear" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="cosine-schedule">
+<h4><span class="section-number">31.1.7.2. </span>Cosine schedule<a class="headerlink" href="#cosine-schedule" title="Permalink to this headline">#</a></h4>
+<p>Alex Nichol and Prafulla Dhariwal proposed the cosine schedule to prevent an image from turning into noise too quickly. They construct a different noise schedule in terms of <span class="math notranslate nohighlight">\(\overline{\alpha_t}\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\overline{\alpha_t} = \frac{f(t)}{f(0)}\)</span>, <span class="math notranslate nohighlight">\(f(t) = cos(\frac{\frac{t}{T} + s}{1+s} \frac{\pi}{2})^2\)</span>. By definition, the <span class="math notranslate nohighlight">\(\beta_t\)</span> equals <span class="math notranslate nohighlight">\(1 - \frac{\overline{\alpha_t}}{\overline{\alpha_{t-1}}}\)</span>.</p>
+<figure class="align-default" id="cosine">
+<a class="bg-white mb-1 reference internal image-reference" href="../_images/03_cosine.png"><img alt="../_images/03_cosine.png" class="bg-white mb-1" src="../_images/03_cosine.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 31.3 </span><span class="caption-text">Illustration of cosine schedule</span><a class="headerlink" href="#cosine" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
+<section id="code">
+<h2><span class="section-number">31.2. </span>Code<a class="headerlink" href="#code" title="Permalink to this headline">#</a></h2>
+<section id="import-libraries">
+<h3><span class="section-number">31.2.1. </span>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span><span class="c1">### Tensorflow import from creating and training model</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="c1">### Numpy import for math computations</span>
+<span class="kn">import</span> <span class="nn">cv2</span><span class="c1">### Opencv import for image processing</span>
+<span class="kn">import</span> <span class="nn">time</span><span class="c1">### time import for measuring training time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> <span class="c1">### for plots</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span><span class="c1">### for animations</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Model</span><span class="c1">### To define Tensorflow models</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Layer</span><span class="c1">### To define Tensorflow layers</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Reshape</span><span class="p">,</span> <span class="n">Conv2DTranspose</span><span class="p">,</span> <span class="n">Add</span><span class="p">,</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">MaxPool2D</span><span class="p">,</span> <span class="n">Dense</span><span class="p">,</span>
+                                     <span class="n">Flatten</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">BatchNormalization</span><span class="p">,</span> <span class="n">Input</span><span class="p">,</span> <span class="n">MultiHeadAttention</span><span class="p">)</span><span class="c1">### Different Tensorflow layers</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span><span class="c1">### The Adam optimizer, which we&#39;ll be using for training our model</span>
+<span class="kn">import</span> <span class="nn">tensorflow_addons</span> <span class="k">as</span> <span class="nn">tfa</span><span class="c1">### Used for working with Tensorflow addons</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="configuration">
+<h3><span class="section-number">31.2.2. </span>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">TIME_STEPS</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">IM_SHAPE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">N_HEADS</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">ATTN_DIM</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">N_GROUPS</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">N_RESNETS</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">LEARNING_RATE</span> <span class="o">=</span> <span class="mf">2e-4</span>
+<span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">FACTOR</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-loading">
+<h3><span class="section-number">31.2.3. </span>Data Loading<a class="headerlink" href="#data-loading" title="Permalink to this headline">#</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The dataset can be downloaded from <a class="reference external" href="https://www.kaggle.com/datasets/jessicali9530/celeba-dataset">here</a>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ds_train</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">image_dataset_from_directory</span><span class="p">(</span>
+    <span class="s2">&quot;../assets/data/img_align_celeba&quot;</span><span class="p">,</span> <span class="n">label_mode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="n">IM_SHAPE</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">IM_SHAPE</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-preprocessing">
+<h3><span class="section-number">31.2.4. </span>Data Preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mf">127.5</span> <span class="o">-</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-augmentation">
+<h3><span class="section-number">31.2.5. </span>Data Augmentation<a class="headerlink" href="#data-augmentation" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">augmentation</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">random_flip_left_right</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data">
+<h3><span class="section-number">31.2.6. </span>Data<a class="headerlink" href="#data" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ds_train</span>
+    <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">preprocess</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">augmentation</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">unbatch</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">buffer_size</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">reshuffle_each_iteration</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">,</span><span class="n">drop_remainder</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">prefetch</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">AUTOTUNE</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="linear-schedule-beta">
+<h3><span class="section-number">31.2.7. </span>Linear schedule-beta<a class="headerlink" href="#linear-schedule-beta" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linear_beta_schedule</span><span class="p">(</span><span class="n">timesteps</span><span class="p">):</span>
+    <span class="n">beta_start</span> <span class="o">=</span> <span class="mf">0.0001</span>
+    <span class="n">beta_end</span> <span class="o">=</span> <span class="mf">0.02</span>
+    <span class="c1">### tf.linspace(start,stop,num,...) method outputs **num** values from **start** to **stop**</span>
+    <span class="c1">### Check out the documentation @ https://www.tensorflow.org/api_docs/python/tf/linspace</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">beta_start</span><span class="p">,</span> <span class="n">beta_end</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">)</span>
+
+
+<span class="c1"># define beta schedule</span>
+<span class="n">betas</span> <span class="o">=</span> <span class="n">linear_beta_schedule</span><span class="p">(</span><span class="n">TIME_STEPS</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">betas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="define-the-alphas">
+<h3><span class="section-number">31.2.8. </span>Define the alphas<a class="headerlink" href="#define-the-alphas" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alphas</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">betas</span>
+<span class="n">alphas_cumprod</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">cumprod</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">### the cumprod method, is a cummulative product function.i.e. </span>
+<span class="c1">### if x = [1,2,3,4], then tf.math.cumprod(x) = [1,1*2,1*2*3,1*2*3*4]</span>
+
+<span class="c1"># calculations for diffusion q(x_t | x_{t-1}) and others</span>
+<span class="n">sqrt_alphas_cumprod</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">alphas_cumprod</span><span class="p">)</span>
+<span class="n">sqrt_one_minus_alphas_cumprod</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alphas_cumprod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="getting-a-sample-x-t">
+<h3><span class="section-number">31.2.9. </span>Getting a sample <span class="math notranslate nohighlight">\((x_t)\)</span><a class="headerlink" href="#getting-a-sample-x-t" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x_shape</span><span class="p">):</span>
+    <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="p">,)</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_shape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">output</span>
+    
+<span class="k">def</span> <span class="nf">q_sample</span><span class="p">(</span><span class="n">x_start</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">noise</span><span class="p">):</span>
+    
+    <span class="n">sqrt_alphas_cumprod_t</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">sqrt_alphas_cumprod</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x_start</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">sqrt_one_minus_alphas_cumprod_t</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">sqrt_one_minus_alphas_cumprod</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x_start</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="n">out_sample</span> <span class="o">=</span> <span class="n">sqrt_alphas_cumprod_t</span> <span class="o">*</span> <span class="n">x_start</span> <span class="o">+</span> <span class="n">sqrt_one_minus_alphas_cumprod_t</span> <span class="o">*</span> <span class="n">noise</span><span class="c1">### x_start=x_0, noise = z</span>
+    <span class="k">return</span> <span class="n">out_sample</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modeling">
+<h3><span class="section-number">31.2.10. </span>Modeling<a class="headerlink" href="#modeling" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PositionalEmbeddings</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">dim</span>
+
+    <span class="k">def</span> <span class="nf">get_timestep_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        From Fairseq.</span>
+<span class="sd">        Build sinusoidal embeddings.</span>
+<span class="sd">        This matches the implementation in tensor2tensor, but differs slightly</span>
+<span class="sd">        from the description in Section 3.5 of &quot;Attention Is All You Need&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">half_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_dim</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">emb</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">10000.</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">half_dim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">emb</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">half_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="n">emb</span><span class="p">)</span>
+        <span class="n">emb</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">timesteps</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">emb</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">emb</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">emb</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">emb</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">embedding_dim</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">emb</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">emb</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">emb</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_timestep_embedding</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_dim</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">filters</span><span class="p">,</span><span class="n">n_groups</span><span class="p">,</span><span class="n">temb</span><span class="p">):</span>
+    <span class="n">previous</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,)(</span><span class="n">x</span><span class="p">)</span> <span class="c1">### Convolution layer with padding same, so that the resolution remains the same</span>
+    
+    <span class="c1">### temb represents the time embedding.</span>
+    <span class="c1">### It is passed into the silu activation function and a Dense Layer(Which can change the the embedding dimension )</span>
+    <span class="c1">### We also reshape the time embedding to match the output of 2d convnets.</span>
+    <span class="n">x</span> <span class="o">+=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">filters</span><span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">silu</span><span class="p">(</span><span class="n">temb</span><span class="p">))[:,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,:]</span>
+    
+    <span class="c1">### Group Normalization is used.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">silu</span><span class="p">(</span><span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GroupNormalization</span><span class="p">(</span><span class="n">n_groups</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)(</span><span class="n">x</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,)(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># Project residual</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,)(</span><span class="n">previous</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">residual</span><span class="p">])</span>  <span class="c1"># Add back residual</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">im_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="n">n_resnets</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">n_groups</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">attn_dim</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span><span class="n">n_heads</span><span class="o">=</span><span class="mi">4</span><span class="p">,):</span>
+    <span class="n">input_1</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">im_shape</span><span class="p">)</span><span class="c1">### image input</span>
+    <span class="n">input_2</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">())</span><span class="c1">### time input</span>
+    <span class="n">t_dim</span> <span class="o">=</span> <span class="n">im_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">16</span>
+
+    <span class="c1"># Entry block</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">input_1</span><span class="p">)</span>
+    <span class="n">temb</span> <span class="o">=</span> <span class="n">PositionalEmbeddings</span><span class="p">(</span><span class="n">t_dim</span><span class="p">)(</span><span class="n">input_2</span><span class="p">)</span><span class="c1">### Create embeddings from the time input_2</span>
+    <span class="n">temb</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">t_dim</span><span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">gelu</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">t_dim</span><span class="p">)(</span><span class="n">temb</span><span class="p">)))</span><span class="c1">### pass the embedding into the gelu activation function</span>
+    
+    <span class="n">hs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="c1">### variable used for storing each resolution level output, in the downward path, to be concatenated to the inputs of the upward path. </span>
+    
+    <span class="c1">### Downward Path</span>
+    <span class="k">for</span> <span class="n">filters</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">]:</span><span class="c1">### for every resolution level (32,64,128,256), represent the depth they map to resolutions of (32,16,8,4)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_resnets</span><span class="p">):</span><span class="c1">### we go through each resnet block per resolution level</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">filters</span><span class="p">,</span><span class="n">n_groups</span><span class="p">,</span><span class="n">temb</span><span class="p">)</span><span class="c1">### resblock</span>
+            <span class="c1">### if the resolution=16 (coinciding with a depth=64), we make the resnet output features attend to each other.</span>
+            <span class="c1">### Note how the attention axes = (1,2). This corresponds to the height and width dimensions.</span>
+            <span class="c1">### Feel free to Check the documentation out :) https://www.tensorflow.org/api_docs/python/tf/keras/layers/MultiHeadAttention.</span>
+            <span class="c1">### query = key = value = x. </span>
+            <span class="c1">### We again use Group Normalization.</span>
+            <span class="k">if</span> <span class="n">filters</span> <span class="o">==</span> <span class="mi">64</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GroupNormalization</span><span class="p">(</span><span class="n">groups</span><span class="o">=</span><span class="n">n_groups</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)(</span>
+                    <span class="n">MultiHeadAttention</span><span class="p">(</span><span class="n">num_heads</span><span class="o">=</span><span class="n">n_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">attn_dim</span><span class="p">,</span> <span class="n">attention_axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">)(</span><span class="n">query</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">x</span><span class="p">))</span>
+        <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="c1">### append the output features to hs</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span><span class="c1">### Downsampling in order to move to the next resolution level</span>
+
+    
+    <span class="c1">### Bottleneck</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,</span><span class="n">n_groups</span><span class="p">,</span><span class="n">temb</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GroupNormalization</span><span class="p">(</span><span class="n">groups</span><span class="o">=</span><span class="n">n_groups</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)(</span>
+      <span class="n">MultiHeadAttention</span><span class="p">(</span><span class="n">num_heads</span><span class="o">=</span><span class="n">n_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">attn_dim</span><span class="p">,</span> <span class="n">attention_axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">)(</span><span class="n">query</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">256</span><span class="p">,</span><span class="n">n_groups</span><span class="p">,</span><span class="n">temb</span><span class="p">)</span>
+
+    
+    <span class="c1">### Upward path</span>
+    <span class="k">for</span> <span class="n">filters</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span><span class="mi">32</span><span class="p">]:</span>
+        <span class="c1">### we resize x, to match with the shape of feature outputs (hs) in the downward path</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">resize_with_pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">hs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">hs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">hs</span><span class="o">.</span><span class="n">pop</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_resnets</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">filters</span><span class="p">,</span><span class="n">n_groups</span><span class="p">,</span><span class="n">temb</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">filters</span> <span class="o">==</span> <span class="mi">64</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">tfa</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">GroupNormalization</span><span class="p">(</span><span class="n">groups</span><span class="o">=</span><span class="n">n_groups</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)(</span>
+                  <span class="n">MultiHeadAttention</span><span class="p">(</span><span class="n">num_heads</span><span class="o">=</span><span class="n">n_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">attn_dim</span><span class="p">,</span> <span class="n">attention_axes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">)(</span><span class="n">query</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">x</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">filters</span> <span class="o">!=</span> <span class="mi">32</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="n">filters</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">strides</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),)(</span><span class="n">x</span><span class="p">)</span><span class="c1">### Upsampling</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">res_block</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="n">n_groups</span><span class="p">,</span><span class="n">temb</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># Define the model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">([</span><span class="n">input_1</span><span class="p">,</span><span class="n">input_2</span><span class="p">],</span> <span class="n">outputs</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;unet&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+<span class="n">model</span><span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">im_shape</span><span class="o">=</span><span class="n">IM_SHAPE</span><span class="p">,</span><span class="n">n_resnets</span><span class="o">=</span><span class="n">N_RESNETS</span><span class="p">,</span><span class="n">n_groups</span><span class="o">=</span><span class="n">N_GROUPS</span><span class="p">,</span><span class="n">attn_dim</span><span class="o">=</span><span class="n">ATTN_DIM</span><span class="p">,</span><span class="n">n_heads</span><span class="o">=</span><span class="n">N_HEADS</span><span class="p">,)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="training">
+<h3><span class="section-number">31.2.11. </span>Training<a class="headerlink" href="#training" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LRSchedule</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">schedules</span><span class="o">.</span><span class="n">LearningRateSchedule</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_lr</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_lr</span> <span class="o">=</span> <span class="n">init_lr</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">init_lr</span><span class="o">*</span><span class="p">(</span><span class="mi">100000</span><span class="o">/</span><span class="p">(</span><span class="n">step</span><span class="o">+</span><span class="mi">100000</span><span class="p">))</span>
+
+<span class="n">OPTIMIZER</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">LRSchedule</span><span class="p">(</span><span class="mf">1e-4</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">custom_loss</span><span class="p">(</span><span class="n">denoise_model</span><span class="p">,</span> <span class="n">x_start</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1">### Our custom loss function takes in the predicted noise and compares (using the Huber Loss) it with the actual noise</span>
+    <span class="c1">### Huber Loss with a default value for delta as 1.0 Check out the documentation: https://www.tensorflow.org/api_docs/python/tf/keras/losses/Huber</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">Huber</span><span class="p">()</span>
+    <span class="n">noise</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">x_start</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">stddev</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">### noise=epsilon=z</span>
+    <span class="n">x_noisy</span> <span class="o">=</span> <span class="n">q_sample</span><span class="p">(</span><span class="n">x_start</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">noise</span><span class="p">)</span><span class="c1">### x_t using the q_sample method</span>
+    <span class="n">predicted_noise</span> <span class="o">=</span> <span class="n">denoise_model</span><span class="p">([</span><span class="n">x_noisy</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span><span class="c1">### model takes in the x_t and t and outputs noise</span>
+    <span class="k">return</span> <span class="n">h</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span><span class="n">predicted_noise</span><span class="p">)</span>
+
+<span class="c1">### custom training block</span>
+<span class="c1">### You can use tf.function to make graphs out of your programs. It is a transformation tool that creates Python-independent dataflow graphs </span>
+<span class="c1">### out of your Python code. This will help you create performant and portable models.</span>
+<span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+<span class="k">def</span> <span class="nf">training_block</span><span class="p">(</span><span class="n">x_batch</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">recorder</span><span class="p">:</span>
+        <span class="c1">### for every element in the batch, we generate t randomly</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">((</span><span class="n">BATCH_SIZE</span><span class="p">,),</span><span class="n">minval</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">maxval</span><span class="o">=</span><span class="n">TIME_STEPS</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">custom_loss</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">x_batch</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="n">partial_derivatives</span> <span class="o">=</span> <span class="n">recorder</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span>
+    <span class="n">OPTIMIZER</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">partial_derivatives</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">))</span><span class="c1">### gradient descent</span>
+    <span class="k">return</span> <span class="n">loss</span>
+    
+<span class="k">def</span> <span class="nf">neuralearn</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">):</span>
+        <span class="n">init_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">x_batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">):</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">training_block</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
+            <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+      
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;: Training Loss-----&gt;&quot;</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time Elapsed: ---&gt; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">init_time</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; s&#39;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training Complete!!!!&quot;</span><span class="p">)</span>
+
+<span class="n">neuralearn</span><span class="p">(</span><span class="n">EPOCHS</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="testing">
+<h4><span class="section-number">31.2.11.1. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sqrt_recip_alphas</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">alphas</span><span class="p">)</span>
+<span class="n">alphas_cumprod_prev</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,)),</span><span class="n">alphas_cumprod</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="c1">### alpha_t-1_bar = alphas_cumprod_prev</span>
+
+<span class="n">posterior_variance</span> <span class="o">=</span> <span class="n">betas</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alphas_cumprod_prev</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alphas_cumprod</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">p_sample</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t_index</span><span class="p">):</span>
+  
+    <span class="n">betas_t</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">betas</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="c1">### betas_t = 1-alphas_t</span>
+    <span class="n">sqrt_one_minus_alphas_cumprod_t</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">sqrt_one_minus_alphas_cumprod</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="c1">### square root of 1-alpha_t_bar</span>
+    <span class="n">sqrt_recip_alphas_t</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">sqrt_recip_alphas</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="c1">### 1/square root of alpha_t</span>
+
+    <span class="n">model_mean</span> <span class="o">=</span> <span class="n">sqrt_recip_alphas_t</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">betas_t</span> <span class="o">*</span> <span class="n">model</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span> <span class="o">/</span> <span class="n">sqrt_one_minus_alphas_cumprod_t</span><span class="p">)</span><span class="c1">### equation 4 of algorithm 2 above</span>
+
+    <span class="k">if</span> <span class="n">t_index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">model_mean</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">posterior_variance_t</span> <span class="o">=</span> <span class="n">extract</span><span class="p">(</span><span class="n">posterior_variance</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="c1">### sigma_t</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model_mean</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">posterior_variance_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">noise</span>
+        
+<span class="n">imgs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span><span class="n">IM_SHAPE</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">IM_SHAPE</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">IM_SHAPE</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">TIME_STEPS</span><span class="p">)):</span><span class="c1">### we go backwards from t = 1000 to t = 0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">p_sample</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">img</span><span class="p">,</span><span class="n">tf</span><span class="o">.</span><span class="n">fill</span><span class="p">((</span><span class="mi">1</span><span class="p">,),</span><span class="n">i</span><span class="p">,),</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">imgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">imgs</span><span class="p">[</span><span class="mi">999</span><span class="p">])[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gif-output">
+<h4><span class="section-number">31.2.11.2. </span>GIF output<a class="headerlink" href="#gif-output" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">random_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ims</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">TIME_STEPS</span><span class="p">):</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">imgs</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="n">random_index</span><span class="p">],</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ims</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">im</span><span class="p">])</span>
+    <span class="n">ims</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">im</span><span class="p">])</span>
+
+<span class="n">animate</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ims</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">repeat_delay</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">animate</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;diffusion.gif&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">31.3. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>TBD.</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">31.4. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://github.com/phykn">Kwangnam Yu</a> for creating the open-source project <a class="reference external" href="https://github.com/phykn/diffusion_models_tutorial">diffusion_models_tutorial</a> and <a class="reference external" href="https://www.kaggle.com/">kaggle</a> for creating the open-source course <a class="reference external" href="https://www.kaggle.com/code/folefac/denoising-diffusion-models-with-tensorflow#3.-The-Celeb-A-Dataset-%F0%9F%92%BE">Denoising Diffusion Models with TensorFlow</a>. They inspire the majority of the content in this chapter.</p>
+<hr class="docutils" />
+<div class="docutils container" id="id8">
+<dl class="citation">
+<dt class="label" id="id85"><span class="brackets"><a class="fn-backref" href="#id7">JHA</a></span></dt>
+<dd><p>Ajay Jain Jonathan Ho and Pieter Abbeel. Denoising diffusion probabilistic models. URL: <a class="reference external" href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a> (visited on 2023).</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./deep-learning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="image-segmentation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">30. </span>Image segmentation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../machine-learning-productionization/overview.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">32. </span>Overview</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
