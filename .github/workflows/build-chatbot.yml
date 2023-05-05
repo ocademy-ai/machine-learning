@@ -1,15 +1,26 @@
 name: Updater of source links in online book # Name of the workflow
 
 on:
-  pull_request:
+  push:
+    branches:
+    - main
+    - release
     paths:
     - open-machine-learning-jupyter-book/**
+    - .github/**
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)
+        required: false
+
 
 jobs:
   # Define a job that checks all the md files and uploads the md_files.txt artifact
   build-chatbot:
     runs-on: ubuntu-latest
     steps:
+    
       # Checkout the repository to get access to the files
       - name: Checkout repository
         uses: actions/checkout@v2
