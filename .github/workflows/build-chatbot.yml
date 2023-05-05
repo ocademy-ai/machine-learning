@@ -1,0 +1,31 @@
+name: Updater of source links in online book # Name of the workflow
+
+on:
+  pull_request:
+    paths:
+    - open-machine-learning-jupyter-book/**
+
+jobs:
+  # Define a job that checks all the md files and uploads the md_files.txt artifact
+  build-chatbot:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository to get access to the files
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Update the vector database of chatbot using Python script
+      - name: Update the vector database of chatbot
+        run: python chatbot\workflows\source_link_updater.py
