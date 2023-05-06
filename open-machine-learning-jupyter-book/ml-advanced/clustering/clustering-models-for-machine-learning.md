@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 ---
 jupytext:
   cell_metadata_filter: -all
@@ -32,6 +29,3 @@ A turntable photographed by Marcela Laskoski on Unsplash
 ```{tableofcontents}
 
 ```
-=======
->>>>>>> fc18b843e94c1d2eb3f00b0092b1ac83baa6e89b
->>>>>>> ec057330ff60e1d9dee1fd2653fe385ce0c02b83
