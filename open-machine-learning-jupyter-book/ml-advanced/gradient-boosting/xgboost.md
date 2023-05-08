@@ -27,7 +27,7 @@ To reach peak accuracy, XGBoost models require more knowledge and  _model tuning
 XGBoost is an implementation of the **Gradient Boosted Decision Trees** algorithm (scikit-learn has another version of this algorithm, but XGBoost has some technical advantages.)  What is **Gradient Boosted Decision Trees**?  We'll walk through a diagram.
 
 :::{figure-md}
-<img src="https://i.imgur.com/e7MIgXk.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/xgboost/Gradient_boosted_decision_trees.png" width="90%" class="bg-white mb-1">
 
 Gradient Boosted Decision Trees
 :::
@@ -51,7 +51,7 @@ from sklearn.impute import SimpleImputer
 import warnings
 
 warnings.filterwarnings('ignore')
-data = pd.read_csv('../../assets/data/train.csv')
+data = pd.read_csv('../../assets/data/house_sale.csv')
 data.dropna(axis=0, subset=['SalePrice'], inplace=True)
 y = data.SalePrice
 X = data.drop(['SalePrice'], axis=1).select_dtypes(exclude=['object'])

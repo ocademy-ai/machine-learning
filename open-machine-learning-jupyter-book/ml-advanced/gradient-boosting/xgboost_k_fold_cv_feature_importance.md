@@ -50,7 +50,7 @@ So, in this kernel, we will discuss XGBoost and develop a simple baseline XGBoos
 - Please see the chart below for the evolution of tree-based algorithms over the years.
 
 :::{figure-md}
-<img src="https://miro.medium.com/max/925/1*QJZ6W-Pck_W7RlIDwUIN9Q.jpeg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/xgboost_k_fold_cv_feature_importance/Evolution_of_tree_based_algorithms.jpg" width="90%" class="bg-white mb-1">
 
 Evolution of tree-based algorithms
 :::
@@ -104,7 +104,7 @@ Evolution of tree-based algorithms
 - Bagging can be depicted with the following diagram：
 
 :::{figure-md}
-<img src="https://qph.fs.quoracdn.net/main-qimg-a5e99250fc4dadd401726a04f4fe2086" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/xgboost_k_fold_cv_feature_importance/Process_of_bagging.webp" width="90%" class="bg-white mb-1">
 
 Process of Bagging
 :::
@@ -122,7 +122,7 @@ Process of Bagging
 - Boosting can be depicted with the following diagram:
 
 :::{figure-md}
-<img src="https://qph.fs.quoracdn.net/main-qimg-652eb915c12a1440bb8bb4acd8329ddd" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/xgboost_k_fold_cv_feature_importance/Process_of_boosting.webp" width="90%" class="bg-white mb-1">
 
 Process of Boosting
 :::
@@ -178,7 +178,7 @@ $$ y_i^p = y_i^p + a * \sigma\sum(y_i - y_i^p)^2/\sigma y_i^p $$
 - It can be depicted with the following diagram which is taken from XGBoost’s documentation.
 
 :::{figure-md}
-<img src="https://miro.medium.com/max/912/1*TebQuJsPc7upto5dvURjSA.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/xgboost_k_fold_cv_feature_importance/Gradient_boosted_trees.png" width="90%" class="bg-white mb-1">
 
 Gradient Boosted Trees
 :::
@@ -190,7 +190,7 @@ Gradient Boosted Trees
 - A ‘greedy’ way to do this is to consider every possible split on the remaining features (so, gender and occupation), and calculate the new loss for each split. We could then pick the tree which most reduces our loss.
 
 :::{figure-md}
-<img src="https://miro.medium.com/max/1456/1*ucyUhM7h_6PHC_8tEdzyXA.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/xgboost_k_fold_cv_feature_importance/New_tree_minimizing_loss.png" width="90%" class="bg-white mb-1">
 
 New Tree minimizing loss
 :::

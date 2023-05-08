@@ -16,7 +16,7 @@ kernelspec:
 # Gradient Boosting
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/4a9/edb/082/4a9edb082408442ea47a12b75f19d122.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Boosting.jpg" width="90%" class="bg-white mb-1">
 
 Boosting
 :::
@@ -40,15 +40,15 @@ Many machine learning courses study AdaBoost - the ancestor of GBM (Gradient Boo
 The algorithm itself has a very clear visual interpretation and intuition for defining weights. Let's have a look at the following toy classification problem where we are going to split the data between the trees of depth 1 (also known as 'stumps') on each iteration of AdaBoost. For the first two iterations, we have the following picture:
     
 :::{figure-md}
-<img src="https://habrastorage.org/web/d28/78f/7ba/d2878f7bad0340fc8002e5ba6d0879a5.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Initial_iterative_process.jpg" width="90%" class="bg-white mb-1">
 
 Initial iterative process
 :::
     
 The size of point corresponds to its weight, which was assigned for an incorrect prediction.  On each iteration, we can see that these weights are growing -- the stumps cannot cope with this problem. Although, if we take a weighted vote for the stumps, we will get the correct classifications:
-
+    
 :::{figure-md}
-<img src="https://habrastorage.org/web/b2b/029/d89/b2b029d898f64bbbb158e15d29595969.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Weighting_the_stump" width="90%" class="bg-white mb-1">
 
 Weighting the stump
 :::
@@ -77,7 +77,7 @@ There is also a great [lecture](https://www.youtube.com/watch?v=zBk3PK3g-Fc) fro
 In general, there has been a transition from engineering and algorithmic research to a full-fledged approach to building and studying algorithms. From a mathematical perspective, this is not a big change - we are still adding (or boosting) weak algorithms and enlarging our ensemble with gradual improvements for parts of the data where the model was inaccurate. But, this time, the next simple model is not just built on re-weighted objects but improves its approximation of the gradient of overall objective function. This concept greatly opens up our algorithms for imagination and extensions.
 
 :::{figure-md}
-<img src="https://habrastorage.org/webt/h2/v4/k9/h2v4k9r-4yn4jwvwz99fbss4ghi.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Comparison_between_various_boost_function.png" width="90%" class="bg-white mb-1">
 
 Comparison between various boost function
 :::
@@ -101,7 +101,7 @@ This algorithm has gone through very typical path for ML algorithms today: mathe
 We are going to solve the problem of function approximation in a general supervised learning setting. We have a set of features $ \large x $ and target variables $\large y, \large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,n}$ which we use to restore the dependence $\large y = f(x) $. We restore the dependence by approximating $ \large \hat{f}(x) $ and by understanding which approximation is better when we use the loss function $ \large L(y,f) $, which we want to minimize: $ \large y \approx \hat{f}(x), \large \hat{f}(x) = \underset{f(x)}{\arg\min} \ L(y,f(x)) $  
 
 :::{figure-md}
-<img src="https://habrastorage.org/webt/le/3a/nt/le3antzue1kp18mxyxttxrsl3wg.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Find_function.png" width="90%" class="bg-white mb-1">
 
 Find function
 :::
@@ -132,7 +132,7 @@ Then, the only thing left is to find a suitable, iterative algorithm to minimize
 4. Use the function that was found $\large \hat{f}(x) = f(x, \hat{\theta})$
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/2b5/5d6/90d/2b55d690d99e4ec0976b360aae6ce4df.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Iteration_steps.jpg" width="90%" class="bg-white mb-1">
 
 Iteration steps
 :::    
@@ -159,7 +159,7 @@ $$ \large \hat{f}(x) = \sum_{i = 0}^{t-1} \hat{f_i}(x), \\
 \large \rho_t = \underset{\rho}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \hat{f}(x_i) + \rho \cdot h(x_i, \theta_t))$$
 
 :::{figure-md}
-<img src="https://habrastorage.org/webt/ep/vc/jp/epvcjpm8jzr9amwbkekdz-h-sjo.jpeg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Regression_for_you.jpg" width="90%" class="bg-white mb-1">
 
 Regression for you
 :::   
@@ -196,7 +196,7 @@ $\large \hat{f}(x) = \sum_{i = 0}^M \hat{f_i}(x) $
 Let's see an example of how GBM works. In this toy example, we will restore a noisy function $\large y = cos(x) + \epsilon, \epsilon \sim \mathcal{N}(0, \frac{1}{5}), x \in [-5,5]$.
     
 :::{figure-md}
-<img src="https://habrastorage.org/web/9fe/04d/7ba/9fe04d7ba5a645d49fc6aa3e875c8c41.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Regression_problem.jpg" width="90%" class="bg-white mb-1">
 
 Regression problem
 :::     
@@ -214,7 +214,7 @@ For the mean squared error, both initialization $\large \gamma$ and coefficients
 We will run GBM and draw two types of graphs: the current approximation $\large \hat{f}(x)$ (blue graph) and every tree $\large \hat{f_t}(x)$ built on its pseudo-residuals (green graph). The graph's number corresponds to the iteration number:
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/edb/328/98a/edb32898ad014d8d95782759d11f63fb.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Current_approximation_and_every_tree.png" width="90%" class="bg-white mb-1">
 
 Current approximation and every tree
 :::    
@@ -224,7 +224,7 @@ By the second iteration, our trees have recovered the basic form of the function
 The rest of the process goes as expected -- on every step, our pseudo-residuals decreased, and GBM approximated the original function better and better with each iteration. However, by construction, trees cannot approximate a continuous function, which means that GBM is not ideal in this example. To play with GBM function approximations, you can use the awesome interactive demo in this blog called [Brilliantly wrong](http://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html):
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/779/3e0/e66/7793e0e66b7d4871b6391a94cd5d4cf2.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/How_GBM_works.jpg" width="90%" class="bg-white mb-1">
 
 How GBM Works
 :::
@@ -245,7 +245,7 @@ Let's start with a regression problem for $\large y \in \mathbb{R}$. In order to
 $ a.k.a. $\large L_q$ loss or Quantile loss.  Instead of median, it uses quantiles. For example, $\large \alpha = 0.75$ corresponds to the 75%-quantile. We can see that this function is asymmetric and penalizes the observations which are on the right side of the defined quantile.
     
 :::{figure-md}
-<img src="https://habrastorage.org/web/6d5/e3a/09c/6d5e3a09c703491b947fde851e412ac0.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Asymmetric_function.png" width="90%" class="bg-white mb-1">
 
 Asymmetric function
 :::     
@@ -264,7 +264,7 @@ $\large = \alpha I(y_i > \hat{f}(x_i) ) - (1 - \alpha)I(y_i \leq \hat{f}(x_i) ),
 For our initial approximation, we will take the needed quantile of $\large y$. However, we do not know anything about optimal coefficients $\large \rho_t$, so we'll use standard line search. The results are the following:
     
 :::{figure-md}
-<img src="https://habrastorage.org/web/0e6/7dd/614/0e67dd614076499e91c8c4238457ae4d.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Standard_line_search.png" width="90%" class="bg-white mb-1">
 
 Standard line search
 :::     
@@ -278,7 +278,7 @@ For regression tasks, many loss functions have been developed, some of them with
 We can illustrate this with the following example. Data is generated from the function  $\large y = \frac{sin(x)}{x}$ with added noise, a mixture from normal and Bernulli distributions. We show the functions on graphs A-D and the relevant GBM on F-H (graph E represents the initial function):
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/130/05b/222/13005b222e8a4eb68c3936216c05e276.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Functions_and_relevant_GBM.jpg" width="90%" class="bg-white mb-1">
 
 Functions and relevant GBM
 :::     
@@ -301,7 +301,7 @@ The distribution of the target variable requires us to use log-likehood, so we n
 - $\large L(y, f) = exp(-yf)$ a.k.a. AdaBoost loss. The classic AdaBoost is equivalent to GBM with this loss function. Conceptually, this function is very similar to logistic loss, but it has a bigger exponential penalization if the prediction is wrong.
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/bf5/9de/dcf/bf59dedcfd9d49b18e89ce342b09ce69.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/AdaBoost_and_logistic.png" width="90%" class="bg-white mb-1">
 
 AdaBoost and logistic
 :::     
@@ -309,7 +309,7 @@ AdaBoost and logistic
 Let's generate some new toy data for our classification problem. As a basis, we will take our noisy cosine, and we will use the sign function for classes of the target variable. Our toy data looks like the following (jitter-noise is added for clarity):
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/e72/513/78b/e7251378bf6d459ab1aeea7a1f1996a1.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Toy_data.jpg" width="90%" class="bg-white mb-1">
 
 Toy data
 :::     
@@ -325,7 +325,7 @@ $\large r_{i} = \frac{2 \cdot y_i}{1 + exp(2 \cdot y_i \cdot \hat{f}(x_i)) }, \q
 This time, the initialization of the algorithm is a little bit harder. First, our classes are imbalanced  (63% versus 37%). Second, there is no known analytical formula for the initialization of our loss function, so we have to look for $\large \hat{f_0} = \gamma$ via search:
     
 :::{figure-md}
-<img src="https://habrastorage.org/web/f8a/054/702/f8a05470271448d9bc0d4dc3e524a571.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Initialization_of_algorithm.png" width="90%" class="bg-white mb-1">
 
 Initialization of algorithm
 :::     
@@ -333,7 +333,7 @@ Initialization of algorithm
 Our optimal initial approximation is around -0.273. You could have guessed that it was negative because it is more profitable to predict everything as the most popular class, but there is no formula for the exact value. Now let's finally start GBM, and look what actually happens under the hood:
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/7b4/ab0/5fa/7b4ab05fa0a543bfad94950e47f91568.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Result_of_GBM.png" width="90%" class="bg-white mb-1">
 
 Result of GBM
 :::    
@@ -345,7 +345,7 @@ The algorithm successfully restored the separation between our classes. You can 
 Sometimes, there is a situation where we want a more specific loss function for our problem. For example, in financial time series, we may want to give bigger weight to large movements in the time series; for churn prediction, it is more useful to predict the churn of clients with high LTV (or lifetime value: how much money a client will bring in the future).
     
 :::{figure-md}
-<img src="https://habrastorage.org/web/0c0/ad0/3a4/0c0ad03a4c4b46bfa5bcd5101678c9c4.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Statistical_learning.jpg" width="90%" class="bg-white mb-1">
 
 Statistical learning
 :::      
@@ -370,7 +370,7 @@ We mention all of this so that we can understand our possibilities better. Let's
 $$ \large \begin{equation} w(x) =\left\{   \begin{array}{@{}ll@{}}     0.1, & \text{if}\ x \leq 0 \\     0.1 + |cos(x)|, & \text{if}\ x >0 \end{array}\right. \end{equation} $$
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/8c2/1b1/aa4/8c21b1aa47134f7aa46b15ef910369b2.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Asymmetric_weight_function.png" width="90%" class="bg-white mb-1">
 
 Asymmetric weight function
 :::    
@@ -378,7 +378,7 @@ Asymmetric weight function
 With these weights, we expect to get two properties: less detailing for negative values of $\large x$ and the form of the function, similar to the initial cosine. We take the other GBM's tunings from our previous example with classification including the line search for optimal coefficients. Let's look what we've got:
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/afc/cca/72a/afccca72a0774990b685de37b0fe9d9f.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Adjusted_result_of_GBM.png" width="90%" class="bg-white mb-1">
 
 Adjusted result of GBM
 :::      
@@ -396,19 +396,19 @@ Practice and ML competitions show that, in standard problems (except for image, 
 In this article, we intentionally omitted questions concerning GBM’s regularization, stochasticity, and hyper-parameters. It was not accidental that we used a small number of iterations $\large M = 3$ throughout. If we used 30 trees instead of 3 and trained the GBM as described, the result would not be that predictable:
     
 :::{figure-md}
-<img src="https://habrastorage.org/webt/td/bj/ob/tdbjobmhfaurd8smg5rn-xhnazw.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Good_fit.png" width="90%" class="bg-white mb-1">
 
 Good fit
 :::     
 
 :::{figure-md}
-<img src="https://habrastorage.org/webt/gm/b9/rg/gmb9rgaai9zmmljuteuxbexd_iq.png" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Overfitting.png" width="90%" class="bg-white mb-1">
 
 Overfitting
 :::     
 
 :::{figure-md}
-<img src="https://habrastorage.org/web/27f/0f5/3be/27f0f53be9424cb1afaffb9a0e32909f.jpg" width="90%" class="bg-white mb-1">
+<img src="../../../images/ml-advanced/gradient_boosting/Gradient_boosting_interactive_playground.jpg" width="90%" class="bg-white mb-1">
 
 Gradient Boosting Interactive Playground
 :::      
