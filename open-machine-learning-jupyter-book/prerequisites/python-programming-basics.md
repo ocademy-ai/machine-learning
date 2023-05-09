@@ -20,6 +20,7 @@ kernelspec:
 MIT License
 
 Copyright (c) 2018 Oleksii Trekhleb
+Copyright (c) 2018 Real Python
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -194,7 +195,7 @@ assert number <= 5
 assert number <= 6
 ```
 
-### Try it out
+### Visualize it out
 
 Let's write a Python program to calculate the discriminant value. It calculates the roots of a quadratic equation of the form ax^2 + bx + c = 0, where a, b, and c are arbitrary numeric values.
 
@@ -222,7 +223,6 @@ calculate_discriminant(a, b, c)
 ```
 
 <iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=def%20calculate_discriminant%28a,%20b,%20c%29%3A%0A%20%20%20%20dis%20%3D%20%28b**2%29%20-%20%284*a*c%29%0A%20%20%20%20if%20dis%20%3E%200%3A%0A%20%20%20%20%20%20%20%20print%28%22Two%20Solutions.%20Discriminant%20value%20is%3A%22,%20dis%29%0A%20%20%20%20elif%20dis%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20print%28%22One%20Solution.%20Discriminant%20value%20is%3A%22,%20dis%29%0A%20%20%20%20elif%20dis%20%3C%200%3A%0A%20%20%20%20%20%20%20%20print%28%22No%20Real%20Solutions.%20Discriminant%20value%20is%3A%22,%20dis%29%0A%0Aa%20%3D%201%0Ab%20%3D%202%0Ac%20%3D%203%0A%0Acalculate_discriminant%28a,%20b,%20c%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
-
 
 ## Data types
 
@@ -360,6 +360,8 @@ assert 2 ** 7 == 128  # 2 to the power of 7
 assert 4 * 3.75 - 1 == 14.0
 ```
 
+[comment]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/python-and-operator/)
+
 ### Strings and their methods
 
 Besides numbers, Python can also manipulate strings, which can be expressed in several ways. They can be enclosed in single quotes `''` or double quotes `""` with the same result.
@@ -443,11 +445,10 @@ assert word[-2:] == 'on'  # Characters from the second-last (included) to the en
 
 One way to remember how slices work is to think of the indices as pointing between characters, with the left edge of the first character numbered 0. Then the right edge of the last character of a string of `n` characters has index `n`, for example:
 
- 
 |   | P |   | y |   | t |   | h |   | o |   | n |   |
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |  0|   |  1|   |  2|   |  3|   |  4|   |  5|   |  6|
-| -6|   | -5|   | -4|   | -3|   | -2|   | -1|   
+| -6|   | -5|   | -4|   | -3|   | -2|   | -1|
 
 Attempting to use an index that is too large will result in an error.
 
@@ -652,9 +653,10 @@ table_string = ''
 for name, phone in table_data.items():
     table_string += f'{name:7}==>{phone:7d}'
 
-assert table_string == ('Sjoerd ==>   4127'
-                        'Jack   ==>   4098'
-                        'Dcab   ==>   7678')
+assert table_string == (
+    'Sjoerd ==>   4127'
+    'Jack   ==>   4098'
+    'Dcab   ==>   7678')
 ```
 
 ##### The string format() method
@@ -712,6 +714,47 @@ formatted_string = 'Jack: {Jack:d}; Sjoerd: {Sjoerd:d}; Dcab: {Dcab:d}'.format(*
 assert formatted_string == 'Jack: 4098; Sjoerd: 4127; Dcab: 8637678'
 ```
 
+#### Visualize it out
+
+In this example, every augmented assignment adds a new syllable to the final word using the += operator. The concatenation technique is used in a for loop to construct a string from several strings in a list or any other iterable:
+
+```{code-cell}
+def concatenate(iterable, sep=" "):
+    sentence = iterable[0]
+    for word in iterable[1:]:
+        sentence += (sep + word)
+    return sentence
+
+
+concatenate(["Hello,", "World!", "I", "am", "a", "Pythonista!"])
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=def%20concatenate%28iterable,%20sep%3D%22%20%22%29%3A%0A%20%20%20%20sentence%20%3D%20iterable%5B0%5D%0A%20%20%20%20for%20word%20in%20iterable%5B1%3A%5D%3A%0A%20%20%20%20%20%20%20%20sentence%20%2B%3D%20%28sep%20%2B%20word%29%0A%20%20%20%20return%20sentence%0A%0A%0Aconcatenate%28%5B%22Hello,%22,%20%22World!%22,%20%22I%22,%20%22am%22,%20%22a%22,%20%22Pythonista!%22%5D%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+Here, a more comprehensive example of using this concatenation tool is when you need to generate a separator string to use in tabular outputs. For example, say you’ve read a CSV file with information about people into a list of lists.
+
+You can use the star operator (*) to concatenate strings in Python. In this context, this operator is known as the repeated concatenation operator. It works by repeating a string a certain number of times.
+
+```{code-cell}
+def display_table(data):
+    max_len = max(len(header) for header in data[0])
+    sep = "-" * max_len
+    for row in data:
+        print("|".join(header.ljust(max_len) for header in row))
+        if row == data[0]:
+            print("|".join(sep for _ in row))
+
+data = [
+   ["Name", "Age", "Hometown"],
+   ["Alice", "25", "New York"],
+   ["Bob", "30", "Los Angeles"],
+   ["Charlie", "35", "Chicago"]
+]
+display_table(data)
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=def%20display_table%28data%29%3A%0A%20%20%20%20max_len%20%3D%20max%28len%28header%29%20for%20header%20in%20data%5B0%5D%29%0A%20%20%20%20sep%20%3D%20%22-%22%20*%20max_len%0A%20%20%20%20for%20row%20in%20data%3A%0A%20%20%20%20%20%20%20%20print%28%22%7C%22.join%28header.ljust%28max_len%29%20for%20header%20in%20row%29%29%0A%20%20%20%20%20%20%20%20if%20row%20%3D%3D%20data%5B0%5D%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20print%28%22%7C%22.join%28sep%20for%20_%20in%20row%29%29%0A%0Adata%20%3D%20%5B%0A%20%20%20%5B%22Name%22,%20%22Age%22,%20%22Hometown%22%5D,%0A%20%20%20%5B%22Alice%22,%20%2225%22,%20%22New%20York%22%5D,%0A%20%20%20%5B%22Bob%22,%20%2230%22,%20%22Los%20Angeles%22%5D,%0A%20%20%20%5B%22Charlie%22,%20%2235%22,%20%22Chicago%22%5D%0A%5D%0Adisplay_table%28data%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
 ### Lists and their methods (including list comprehensions)
 
 Python knows several compound data types, used to group together other values. The most versatile is the list, which can be written as a list of comma-separated values (items) between square brackets. Lists might contain items of different types, but usually, the items all have the same type.
@@ -728,7 +771,7 @@ Lists are very similar to arrays. They can contain any type of variable, and the
 
 Here is an example of how to build a list.
 
-```{code-cell} 
+```{code-cell}
 squares = [1, 4, 9, 16, 25]
 
 assert isinstance(squares, list)
@@ -1100,6 +1143,120 @@ assert list(zip(*matrix)) == [
 ]
 ```
 
+#### Visualize it out
+
+So far, you’ve seen a few tools and techniques to either reverse lists in place or create reversed copies of existing lists. Most of the time, these tools and techniques are the way to go when it comes to reversing lists in Python. For example, Your first approach to iterating over a list in reverse order might be to use reversed().
+
+```{code-cell}
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+for digit in reversed(digits):
+    print(digit)
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=digits%20%3D%20%5B0,%201,%202,%203,%204,%205,%206,%207,%208,%209%5D%0A%0Afor%20digit%20in%20reversed%28digits%29%3A%0A%20%20%20%20print%28digit%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+The second approach to reverse iteration is to use the extended slicing syntax you saw before.
+
+```{code-cell}
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+for digit in digits[::-1]:
+    print(digit)
+
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=digits%20%3D%20%5B0,%201,%202,%203,%204,%205,%206,%207,%208,%209%5D%0A%0Afor%20digit%20in%20digits%5B%3A%3A-1%5D%3A%0A%20%20%20%20print%28digit%29%0A&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+##### Basic reverse by hand
+
+However, if you ever need to reverse lists by hand, then it’d be beneficial for you to understand the logic behind the process.
+
+```{code-cell}
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+def reversed_list(a_list):
+    result = []
+    for item in a_list:
+        result = [item] + result
+    return result
+
+
+reversed_list(digits)
+```
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=digits%20%3D%20%5B0,%201,%202,%203,%204,%205,%206,%207,%208,%209%5D%0A%0Adef%20reversed_list%28a_list%29%3A%0A%20%20%20%20result%20%3D%20%5B%5D%0A%20%20%20%20for%20item%20in%20a_list%3A%0A%20%20%20%20%20%20%20%20result%20%3D%20%5Bitem%5D%20%2B%20result%0A%20%20%20%20return%20result%0A%0A%0Areversed_list%28digits%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+Every iteration of the for loop takes a subsequent item from a_list and creates a new list that results from concatenating [item] and result, which initially holds an empty list. The newly created list is reassigned to result. This function doesn’t modify a_list.
+
+##### Insert
+
+```{note}
+Note: The example above uses a wasteful technique because it creates several lists only to throw them away in the next iteration.
+```
+
+```{code-cell}
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+def reversed_list(a_list):
+    result = []
+    for item in a_list:
+        result.insert(0, item)
+    return result
+
+
+reversed_list(digits)
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=digits%20%3D%20%5B0,%201,%202,%203,%204,%205,%206,%207,%208,%209%5D%0A%0Adef%20reversed_list%28a_list%29%3A%0A%20%20%20%20result%20%3D%20%5B%5D%0A%20%20%20%20for%20item%20in%20a_list%3A%0A%20%20%20%20%20%20%20%20result.insert%280,%20item%29%0A%20%20%20%20return%20result%0A%0A%0Areversed_list%28digits%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+The call to .insert() inside the loop inserts subsequent items at the 0 index of result. At the end of the loop, you get a new list with the items of a_list in reverse order.
+
+Using .insert() like in the above example has a significant drawback. Insert operations at the left end of Python lists are known to be inefficient regarding execution time. That’s because Python needs to move all the items one step back to insert the new item at the first position.
+
+##### Recursion
+
+You can also use recursion to reverse your lists. Recursion is when you define a function that calls itself. This creates a loop that can become infinite if you don’t provide a base case that produces a result without calling the function again.
+
+You need the base case to end the recursive loop. When it comes to reversing lists, the base case would be reached when the recursive calls get to the end of the input list. You also need to define the recursive case, which reduces all successive cases toward the base case and, therefore, to the loop’s end.
+
+Here’s how you can define a recursive function to return a reversed copy of a given list:
+
+```{code-cell}
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+def reversed_list(a_list):
+    if len(a_list) == 0:  # Base case
+        return a_list
+    else:
+        # print(a_list)
+        # Recursive case
+        return reversed_list(a_list[1:]) + a_list[:1]
+
+
+reversed_list(digits)
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=digits%20%3D%20%5B0,%201,%202,%203,%204,%205,%206,%207,%208,%209%5D%0A%0Adef%20reversed_list%28a_list%29%3A%0A%20%20%20%20if%20len%28a_list%29%20%3D%3D%200%3A%20%20%23%20Base%20case%0A%20%20%20%20%20%20%20%20return%20a_list%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20print%28a_list%29%0A%20%20%20%20%20%20%20%20%23%20Recursive%20case%0A%20%20%20%20%20%20%20%20return%20reversed_list%28a_list%5B1%3A%5D%29%20%2B%20a_list%5B%3A1%5D%0A%0A%0Areversed_list%28digits%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+Inside reversed_list(), you first check the base case, in which the input list is empty and makes the function return. The else clause provides the recursive case, which is a call to reversed_list() itself but with a slice of the original list, a_list[1:]. This slice contains all the items in a_list except for the first item, which is then added as a single-item list (a_list[:1]) to the result of the recursive call.
+
+##### List comprehension
+
+If you’re working with lists in Python, then you probably want to consider using a list comprehension. This tool is quite popular in the Python space because it represents the Pythonic way to process lists.
+
+Here’s an example of how to use a list comprehension to create a reversed list:
+
+```{code-cell}
+digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+last_index = len(digits) - 1
+
+[digits[i] for i in range(last_index, -1, -1)]
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=digits%20%3D%20%5B0,%201,%202,%203,%204,%205,%206,%207,%208,%209%5D%0Alast_index%20%3D%20len%28digits%29%20-%201%0A%0A%5Bdigits%5Bi%5D%20for%20i%20in%20range%28last_index,%20-1,%20-1%29%5D&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+The magic in this list comprehension comes from the call to range(). In this case, range() returns indices from len(digits) - 1 back to 0. This makes the comprehension loop iterate over the items in digits in reverse, creating a new reversed list in the process.
+
 ### Tuples
 
 A tuple is a collection that is ordered and unchangeable. In Python, tuples are written with
@@ -1203,6 +1360,8 @@ first_number, second_number = second_number, first_number
 assert first_number == 456
 assert second_number == 123
 ```
+
+[comment1]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/)
 
 ### Sets and their methods
 
@@ -1309,6 +1468,8 @@ word = {char for char in 'abracadabra' if char not in 'abc'}
 assert word == {'r', 'd'}
 ```
 
+[comment2]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/)
+
 ### Dictionaries
 
 A dictionary is a collection that is unordered, changeable and indexed. In Python, dictionaries are written with curly brackets, and they have keys and values.
@@ -1402,6 +1563,67 @@ assert dictionary_for_string_keys['guido'] == 4127
 assert dictionary_for_string_keys['jack'] == 4098
 ```
 
+#### Visualize it out
+
+So far, you’ve seen the more basic ways of accessing through a dictionary in Python. Now it’s time to see how you can perform some actions with the items of a dictionary during iteration. Let’s look at some real-world examples.
+
+```{note}
+Note: Later on in this article, you’ll see another way of solving these very same problems by using other Python tools.
+```
+
+##### Turning keys into values and vice versa
+
+Suppose you have a dictionary and for some reason need to turn keys into values and vice versa. In this situation, you can use a for loop to iterate through the dictionary and build the new dictionary by using the keys as values and vice versa:
+
+```{code-cell}
+a_dict = {'one': 1, 'two': 2, 'thee': 3, 'four': 4}
+new_dict = {}
+for key, value in a_dict.items():
+    new_dict[value] = key
+
+new_dict
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=a_dict%20%3D%20%7B'one'%3A%201,%20'two'%3A%202,%20'thee'%3A%203,%20'four'%3A%204%7D%0Anew_dict%20%3D%20%7B%7D%0Afor%20key,%20value%20in%20a_dict.items%28%29%3A%0A%20%20%20%20new_dict%5Bvalue%5D%20%3D%20key%0A%0Anew_dict%0A&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+The expression new_dict[value] = key did all the work for you by turning the keys into values and using the values as keys. For this code to work, the data stored in the original values must be of a hashable data type.
+
+##### Filtering Items
+Sometimes you’ll be in situations where you have a dictionary and you want to create a new one to store only the data that satisfies a given condition. You can do this with an if statement inside a for loop as follows:
+
+```{code-cell}
+a_dict = {'one': 1, 'two': 2, 'thee': 3, 'four': 4}
+new_dict = {}  # Create a new empty dictionary
+for key, value in a_dict.items():
+    # If value satisfies the condition, then store it in new_dict
+    if value <= 2:
+        new_dict[key] = value
+
+new_dict
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=a_dict%20%3D%20%7B'one'%3A%201,%20'two'%3A%202,%20'thee'%3A%203,%20'four'%3A%204%7D%0Anew_dict%20%3D%20%7B%7D%20%20%23%20Create%20a%20new%20empty%20dictionary%0Afor%20key,%20value%20in%20a_dict.items%28%29%3A%0A%20%20%20%20%23%20If%20value%20satisfies%20the%20condition,%20then%20store%20it%20in%20new_dict%0A%20%20%20%20if%20value%20%3C%3D%202%3A%0A%20%20%20%20%20%20%20%20new_dict%5Bkey%5D%20%3D%20value%0A%0Anew_dict%0A&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+In this example, you’ve filtered out the items with a value greater than 2. Now new_dict only contains the items that satisfy the condition value <= 2. This is one possible solution for this kind of problem. Later on, you’ll see a more Pythonic and readable way to get the same result.
+
+##### Doing Some Calculations
+It’s also common to need to do some calculations while you iterate through a dictionary in Python. Suppose you’ve stored the data for your company’s sales in a dictionary, and now you want to know the total income of the year.
+
+To solve this problem you could define a variable with an initial value of zero. Then, you can accumulate every value of your dictionary in that variable:
+
+```{code-cell}
+incomes = {'apple': 5600.00, 'orange': 3500.00, 'banana': 5000.00}
+total_income = 0.00
+for value in incomes.values():
+    total_income += value  # Accumulate the values in total_income
+
+total_income
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=incomes%20%3D%20%7B'apple'%3A%205600.00,%20'orange'%3A%203500.00,%20'banana'%3A%205000.00%7D%0Atotal_income%20%3D%200.00%0Afor%20value%20in%20incomes.values%28%29%3A%0A%20%20%20%20total_income%20%2B%3D%20value%20%20%23%20Accumulate%20the%20values%20in%20total_income%0A%0Atotal_income%0A&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+
+Here, you’ve iterated through incomes and sequentially accumulated its values in total_income as you wanted to do. The expression total_income += value does the magic, and at the end of the loop, you’ll get the total income of the year. Note that total_income += value is equivalent to total_income = total_income + value.
+
 ### Type casting
 
 There may be times when you want to specify a type to a variable. This can be done with **casting**. Python is an object-orientated language, and as such it uses classes to define data types, including its primitive types. Casting in Python is therefore done using constructor functions.
@@ -1453,4 +1675,4 @@ Here is a list of free/open source learning resources for advanced [Python progr
 
 ## Acknowledgments
 
-Thanks to [Oleksii Trekhleb](https://github.com/trekhleb) who helped create this awesome open source project [learn-python](https://github.com/trekhleb/learn-python) for Python learning. It contributes the majority of the content in this chapter.
+Thanks to [learn-python](https://github.com/trekhleb/learn-python) by [Oleksii Trekhleb](https://github.com/trekhleb) and [Real Python](https://realpython.com/). They contribute the majority of the content in this chapter.
