@@ -25,8 +25,8 @@ from langchain.chains.question_answering import load_qa_chain
 
 # chatbot agent
 class ChatbotAgent:
-    def __init__(self, openai_api_key: str, sources_urls: List[str], persist_directory: str):
-        """
+	def __init__(self, openai_api_key: str, sources_urls: List[str], persist_directory: str):
+		"""
         Initializes an instance of the ChatbotAgent class.
 
         :param openai_api_key (str): OpenAI API key.
@@ -96,6 +96,7 @@ class ChatbotAgent:
             chain_type="map_reduce", 
             retriever=self.vectordb.as_retriever()
         )
+		
         # chain type: refine
         self.chatbot_qa_retrieval_refine_chain_type = RetrievalQA.from_chain_type(
             llm=OpenAI(temperature=1.2, model_name="gpt-3.5-turbo"), 
@@ -165,7 +166,7 @@ class ChatbotAgent:
 
     # Prompt the chatbot, chain type: refine.
     def chatbot_qa_retrieval_refine_chain_type_with_prompt(self):
-        # question template
+        # inital template
         initial_template = """
             Context information is below.
             ---------------------
