@@ -23,7 +23,6 @@ for folder in folders:
             folder_md_files.append(f"'https://github.com/open-academy/machine-learning/tree/main/{md_file}',\n")
 
     file_content += ''.join(folder_md_files)
-    #file_content += '\n'
 
     if folder_md_files:
         with open(r'chatbot\vector-db-persist-directory\resources\{}.txt'.format(folder), 'w') as f:
