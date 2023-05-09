@@ -10,7 +10,6 @@ def load_data():
 			if file.endswith('.txt'):
 				file_name_without_extension = os.path.splitext(file)[0]
 				sections_list.append(file_name_without_extension)
-	
 
 	chapter_selector = select_chapter()
 	chapter_selector = "ml-advanced"
@@ -28,7 +27,7 @@ def load_data():
 
 
 def select_chapter():
-	# Add a function to select a chapter
+	# Add a function to select a chapter.
 	conclusion_for_data_science = '''
 		
 	'''
@@ -48,7 +47,7 @@ def select_chapter():
 		- NLP: Natural Language Processing, a field of computer science that deals with understanding and generating natural language using deep learning or other methods. NLP can be used for sentiment analysis, machine translation, question answering, etc.
 		- RNN: Recurrent Neural Network, a type of neural network that can process sequential data by having loops or connections between its hidden units. RNN can learn from temporal patterns and context information. RNN can be used for natural language processing, speech recognition, time series analysis, etc.
 		time-series: A tutorial on how to use RNNs for time series analysis tasks, such as forecasting or anomaly detection. It also explains how to use TensorFlow and Keras libraries to build and train RNN models in Python.
-		'''
+	'''
 	conclusion_for_machine_learning_productionization = '''
 		About machine learning productionization, the book talks about different topics and applications of machine learning, which is a branch of artificial intelligence that uses statistical techniques to give computers the ability to learn from data without being explicitly programmed. 
 		Machine learning productionization is the process of developing and integrating machine learning models into a live setting where they generate value for the business, and then continuously improving them. 
@@ -80,7 +79,6 @@ def select_chapter():
 		It also addresses parameter optimization techniques, including gradient descent and loss functions, to fine-tune models for better performance.
 
 		Lastly, it highlights the importance of fairness and ethics in machine learning, encouraging practitioners to consider the impact of their models on society.
-
 	'''
 	chapter_introduction = {
 		"[data science]": conclusion_for_data_science,
