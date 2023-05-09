@@ -1,4 +1,3 @@
-## Import Python Packages
 import os
 import requests
 from typing import List
@@ -24,26 +23,24 @@ from langchain.chains.question_answering import load_qa_chain
 
 
 
-
-## chatbot agent class
+# chatbot agent
 class ChatbotAgent:
     def __init__(self, _openai_api_key: str, _sources_urls: List[str], _persist_directory: str):
         """
         Initializes an instance of the ChatbotAgent class.
 
-        Args:
-            openai_api_key (str): OpenAI API key.
-            sources_urls (List[str]): URLs of the files to be merged from Project Open-academy.
-            persist_directory (str): Directory where the Chroma vectors will be persisted.
+        :param openai_api_key (str): OpenAI API key.
+	:param sources_urls (List[str]): URLs of the files to be merged from Project Open-academy.
+	:param persist_directory (str): Directory where the Chroma vectors will be persisted.
         """
-        # Set OpenAI API key
+        # Set OpenAI API key.
         self.__openai_api_key = _openai_api_key
         os.environ["OPENAI_API_KEY"] = self.__openai_api_key
         self.sources_urls = _sources_urls
         self.persist_directory = _persist_directory
 
 
-        # Fetch the contents of each file and write to a local Markdown file
+        # Fetch the contents of each file and write to a local Markdown file.
         self.__sources_path = r'\chatbot\vector-db-persist-directory\sources_merged.md'
         self.__default_url_prefix = "https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book"
         with open(self.__sources_path, "w", encoding="utf-8") as f:
@@ -55,47 +52,37 @@ class ChatbotAgent:
                 f.write("\n")
 
 
-        # Initialize the chat history
+        # Initialize the chat history.
         self.chat_history = []
         self.query = ""
         self.result = ""
-        self.count = 1 # count the number of times the chatbot has been called
+        self.count = 1  # Count the number of times the chatbot has been called.
 
 
-        ## Load the data    
+        # Load the data.
         self.sources_data = self.get_openacademysources(self.__sources_path)
-        text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0) # Initializing a TokenTextSplitter object
-        sources_data_doc = text_splitter.split_documents(self.sources_data) # Splitting the text into chunks
+        text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)  # Initialize a TokenTextSplitter object.
+        sources_data_doc = text_splitter.split_documents(self.sources_data)  # Split the text into chunks.
 
 
-        # Initializing an OpenAIEmbeddings object for word embeddings
+        # Initialize an OpenAIEmbeddings object for word embeddings.
         embeddings = OpenAIEmbeddings()
 
 
-        # Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk
+        # Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk.
         self.vectordb = Chroma.from_documents(sources_data_doc, embeddings, persist_directory=self.persist_directory)
-        #self.vectordb = Chroma.from_texts(sources_data_doc, embeddings, metadatas=[{"source": str(i)} for i in range(len(sources_data_doc))]).as_retriever()
-        # Another method of the data preparation
-        #self.vectordb_2 = Chroma.from_texts(
-        #    sources_data_doc, 
-        #    embeddings, 
-        #    metadatas = [{"source": str(i)} for i in range(len(sources_data_doc))], persist_directory=self.persist_directory
-        #).as_retriever()
-
-        # This can be used to explicitly persist the data to disk. 
-        # It will also be called automatically when the object is destroyed.
         self.vectordb.persist()
 
 
-        # Find the similar text in vectordb with query
+        # Find the similar text in vectordb with query.
         if self.query != "":
             self.similarity_doc_search = self.vectordb.similarity_search_with_score(query=self.query)
         else:
             self.similarity_doc_search = ""
 
 
-        # Configure LangChain QA
-		# chatbot_qa supports qa_prompt (prompt engineering) and qa (no prompt engineering)
+        # Configure LangChain QA.
+	# The chatbot_qa supports qa_prompt (prompt engineering) and qa (no prompt engineering).
         self.chatbot_qa = ChatVectorDBChain.from_llm(
             OpenAI(temperature=1.2, model_name="gpt-3.5-turbo"), 
             self.vectordb,
@@ -123,8 +110,11 @@ class ChatbotAgent:
         )
 
 
-    # promtp chatbot, chain type: stuff
+    # Promtp the chatbot, chain type: stuff.
     def chatbot_qa_retrieval_stuff_chain_type_with_prompt(self):
+	"""
+	
+	"""
         template = """Given the following extracted parts of a long document and a question, create a final answer with references ("SOURCES"). 
             If you don't know the answer, just say that you don't know. Don't try to make up an answer.
             ALWAYS return a "SOURCES" part in your answer.
@@ -135,17 +125,16 @@ class ChatbotAgent:
             {summaries}
             =========
             FINAL ANSWER IN ENGLISH:"""
-        PROMPT = PromptTemplate(template=template, input_variables=["summaries", "question"]) # parameter the prompt template
+        PROMPT = PromptTemplate(template=template, input_variables=["summaries", "question"])  # Parameter the prompt template.
         chain = load_qa_with_sources_chain(
             llm=OpenAI(temperature=0, model_name="gpt-3.5-turbo"),
             chain_type="stuff",
             promt=PROMPT
         )
         return chain({"input_documents": self.vectordb, "question": self.query}, return_only_outputs=True)
-        # {'output_text': '\nI don't know what the president said about Justice Breyer.\nSOURCES: 30, 31, 33'}
 
 
-    # prompt chatbot, chain type: map_reduce
+    # Prompt the chatbot, chain type: map_reduce.
     def chatbot_qa_retrieval_map_reduce_chain_type_with_prompt(self):
         # question template
         question_template = """Use the following portion of a long document to see if any of the text is relevant to answer the question. 
@@ -153,9 +142,9 @@ class ChatbotAgent:
             {context}
             Question: {question}
             Relevant text, if any, in English:"""
-        QUESTION_PROMPT = PromptTemplate(template=question_template, input_variables=["context", "question"]) # parameter the prompt template
+        QUESTION_PROMPT = PromptTemplate(template=question_template, input_variables=["context", "question"])  # parameter the prompt template
 
-        # answer/combine template
+        # combine template
         combine_template = """
             Given the following extracted parts of a long document and a question, create a final answer with references ("SOURCES"). 
             If you don't know the answer, just say that you don't know. Don't try to make up an answer.
@@ -167,7 +156,7 @@ class ChatbotAgent:
             {summaries}
             =========
             FINAL ANSWER IN ENGLISH:"""
-        COMBINE_PROMPT = PromptTemplate(template=combine_template, input_variables=["summaries", "question"]) # parameter the prompt template
+        COMBINE_PROMPT = PromptTemplate(template=combine_template, input_variables=["summaries", "question"])  # parameter the prompt template
 
         chain = load_qa_with_sources_chain(
             # If batch_size is too high, it could cause rate limiting errors.
@@ -179,19 +168,13 @@ class ChatbotAgent:
         )
         doc_relevant_tuple = self.vectordb.similarity_search_with_score(self.query)
         docs_relevant = ([doc[0] for doc in doc_relevant_tuple])
-        #print(docs_relevant[0].page_content)
 
         return chain({"input_documents": [docs_relevant[0]], "question": self.query}, return_only_outputs=True)
-        #{'intermediate_steps': ["\nTonight I would like to honor someone who has dedicated his life to serving this country: Justice Stephen Breyer - an Army veteran, constitutional scholar, and outgoing justice of the United States Supreme Court. Justice Breyer, thank you for your service.",
-        #  ' Not relevant.',
-        #  ' Non relevant.',
-        #  " There is no relevant text."],
-        # 'output_text': ' I do not know the answer. SOURCES: 30, 31, 33, 20.'}
 
 
-    # prompt chatbot, chain type: refine
+    # Prompt the chatbot, chain type: refine.
     def chatbot_qa_retrieval_refine_chain_type_with_prompt(self):
-        # prompt question template
+        # question template
         initial_template = """
             Context information is below.
             ---------------------
@@ -204,7 +187,7 @@ class ChatbotAgent:
             template=initial_template,
         )
 
-        # prompt refine template
+        # refine template
         refine_template = """
             The original question is as follows: {question}
             We have provided an existing answer, including sources: {existing_answer}
@@ -233,26 +216,26 @@ class ChatbotAgent:
         return chain({"input_documents": self.vectordb, "question": self.query}, return_only_outputs=True)
 
 
-    # Get the data from the merged file
+    # Get the data from the merged file.
     def get_openacademysources(self, path):
         loader = OpenAcademySourcesLoader(path)
         data = loader.load()
         return data
 
 
-    # Convert Markdown to Python
+    # Convert Markdown to Python.
     def markdown_to_python(self, markdown_text):
-        # Escape quotes and backslashes in the input
+        # Escape quotes and backslashes in the input.
         escaped_input = markdown_text.replace("\\", "\\\\").replace("'", "\\'")
 
-        # Generate the Python string
+        # Generate the Python string.
         python_string = f"'{escaped_input}'"
 
         return python_string
 
 
     def chatbot_pipeline(self, query_pipeline, choose_GPTModel = False, updateChatHistory = False):
-        # choose which GPT model
+        # Choose which GPT model.
         if choose_GPTModel:
             result_pipeline = openai.Completion.create(
                 engine="davinci",
@@ -261,7 +244,7 @@ class ChatbotAgent:
                 max_tokens=150,
                 n=1,
                 stop=None,
-            ).choice[0].text.strip() # choose the first answer whose score/probability is the highest
+            ).choice[0].text.strip()  # Choose the first answer whose score/probability is the highest.
         else:
             result_pipeline = self.chatbot_qa({"question": query_pipeline, "chat_history": self.chat_history})
         
@@ -275,30 +258,26 @@ class ChatbotAgent:
             
 
 
-    # Prompt the chatbot for map_reduce chain type
+    # Prompt the chatbot for map_reduce chain type.
     def promtp_engineering_for_map_reduce_chain_type(self):
         self.chatbot_qchatbot_qa_retrieval_map_reduce_chain_type({"input_documents": self.vectordb, "question": self.query}, return_only_outputs=True)
-        # {'output_text': ' The president thanked Justice Breyer for his service.\nSOURCES: 30-pl'}
 
 
-    # Prompt the chatbot for non libary content
-    def promtp_engineering_for_non_library_content(self, query): # please do not modify the value of query
+    # Prompt the chatbot for non libary content.
+    def promtp_engineering_for_non_library_content(self, query):  # Please do not modify the value of query.
         query_prompted = query + " Please provide a verbose answer."
 
         result_prompted = self.chatbot_pipeline(query_prompted)
-        result_not_know_answer = []
-        result_non_library_query = []
-        result_official_keywords = []
-        result_cheeting = []
-        # 
-        #
-        #
-        # Return the prompted query
+        result_not_know_answer = []  # To be done.
+        result_non_library_query = []  # To be done.
+        result_official_keywords = []  # To be done.
+        result_cheeting = []  # To be done.
+        
         return result_prompted
 
 
 
-## Convert Document to Embedding
+# Convert Document to Embedding.
 class OpenAcademySourcesLoader(BaseLoader):
     """Loader that uses urllib to load .txt web files."""
 
