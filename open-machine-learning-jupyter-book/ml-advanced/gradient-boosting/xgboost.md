@@ -84,17 +84,17 @@ print("Mean Absolute Error : " + str(mean_absolute_error(predictions, test_y)))
 
 ## Model Tuning
 
-### n_estimators and early_stopping_rounds
+### `n_estimators and early_stopping_rounds`
 
-XGBoost has a few parameters that can dramatically affect your model's accuracy and training speed.  The first parameters you should understand are: `n_estimators and early_stopping_rounds`
+XGBoost has a few parameters that can dramatically affect your model's accuracy and training speed.  The first parameters you should understand are: `n_estimators and early_stopping_rounds`.
 
-**n_estimators** specifies how many times to go through the modeling cycle described above.  
+`n_estimators` specifies how many times to go through the modeling cycle described above.  
 
-In the [underfitting vs overfitting graph](http://i.imgur.com/2q85n9s.png), n_estimators moves you further to the right.  Too low a value causes underfitting, which is inaccurate predictions on both training data and new data. Too large a value causes overfitting, which is accurate predictions on training data, but inaccurate predictions on new data (which is what we care about). You can experiment with your dataset to find the ideal.  Typical values range from 100-1000, though this depends a lot on the **learning rate** discussed below.
+In the [underfitting vs overfitting graph](http://i.imgur.com/2q85n9s.png), n_estimators moves you further to the right.  Too low a value causes underfitting, which is inaccurate predictions on both training data and new data. Too large a value causes overfitting, which is accurate predictions on training data, but inaccurate predictions on new data (which is what we care about). You can experiment with your dataset to find the ideal.  Typical values range from 100-1000, though this depends a lot on the `learning rate` discussed below.
 
-The argument **early_stopping_rounds** offers a way to automatically find the ideal value. Early stopping causes the model to stop iterating when the validation score stops improving, even if we aren't at the hard stop for n_estimators.  It's smart to set a high value for **n_estimators** and then use **early_stopping_rounds** to find the optimal time to stop iterating.
+The argument `early_stopping_rounds` offers a way to automatically find the ideal value. Early stopping causes the model to stop iterating when the validation score stops improving, even if we aren't at the hard stop for n_estimators.  It's smart to set a high value for `n_estimators` and then use `early_stopping_rounds` to find the optimal time to stop iterating.
 
-Since random chance sometimes causes a single round where validation scores don't improve, you need to specify a number for how many rounds of straight deterioration to allow before stopping.  **early_stopping_rounds = 5** is a reasonable value.  Thus we stop after 5 straight rounds of deteriorating validation scores.
+Since random chance sometimes causes a single round where validation scores don't improve, you need to specify a number for how many rounds of straight deterioration to allow before stopping.  `early_stopping_rounds = 5` is a reasonable value.  Thus we stop after 5 straight rounds of deteriorating validation scores.
 
 Here is the code to fit with early_stopping:
 
@@ -104,14 +104,14 @@ my_model.fit(train_X, train_y, early_stopping_rounds=5,
              eval_set=[(test_X, test_y)], verbose=False)
 ```
 
-When using **early_stopping_rounds**, you need to set aside some of your data for checking the number of rounds to use.  If you later want to fit a model with all of your data, set **n_estimators** to whatever value you found to be optimal when run with early stopping.
+When using `early_stopping_rounds`, you need to set aside some of your data for checking the number of rounds to use.  If you later want to fit a model with all of your data, set `n_estimators` to whatever value you found to be optimal when run with early stopping.
 
 ### learning_rate
 Here's a subtle but important trick for better XGBoost models:
 
 Instead of getting predictions by simply adding up the predictions from each component model, we will multiply the predictions from each model by a small number before adding them in.  This means each tree we add to the ensemble helps us less.  In practice, this reduces the model's propensity to overfit.
 
-So, you can use a higher value of **n_estimators** without overfitting.  If you use early stopping, the appropriate number of trees will be set automatically.
+So, you can use a higher value of `n_estimators` without overfitting.  If you use early stopping, the appropriate number of trees will be set automatically.
 
 In general, a small learning rate (and large number of estimators) will yield more accurate XGBoost models, though it will also take the model longer to train since it does more iterations through the cycle.
 
@@ -123,8 +123,8 @@ my_model.fit(train_X, train_y, early_stopping_rounds=5,
              eval_set=[(test_X, test_y)], verbose=False)
 ```
 
-### n_jobs
-On larger datasets where runtime is a consideration, you can use parallelism to build your models faster.  It's common to set the parameter **n_jobs** equal to the number of cores on your machine.  On smaller datasets, this won't help. 
+### `n_jobs`
+On larger datasets where runtime is a consideration, you can use parallelism to build your models faster.  It's common to set the parameter `n_jobs` equal to the number of cores on your machine.  On smaller datasets, this won't help. 
 
 The resulting model won't be any better, so micro-optimizing for fitting time is typically nothing but a distraction. But, it's useful in large datasets where you would otherwise spend a long time waiting during the `fit` command.
 

@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Gradient boosting instance
+# Gradient boosting example
 
 ## What is gradient boosting?
 
