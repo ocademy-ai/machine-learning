@@ -25,7 +25,7 @@ from langchain.chains.question_answering import load_qa_chain
 
 # chatbot agent
 class ChatbotAgent:
-    def __init__(self, _openai_api_key: str, _sources_urls: List[str], _persist_directory: str):
+    def __init__(self, openai_api_key: str, sources_urls: List[str], persist_directory: str):
         """
         Initializes an instance of the ChatbotAgent class.
 
@@ -34,19 +34,19 @@ class ChatbotAgent:
 	:param persist_directory (str): Directory where the Chroma vectors will be persisted.
         """
         # Set OpenAI API key.
-        self.__openai_api_key = _openai_api_key
-        os.environ["OPENAI_API_KEY"] = self.__openai_api_key
-        self.sources_urls = _sources_urls
-        self.persist_directory = _persist_directory
+        self._openai_api_key = openai_api_key
+        os.environ["OPENAI_API_KEY"] = self._openai_api_key
+        self.sources_urls = sources_urls
+        self.persist_directory = persist_directory
 
 
         # Fetch the contents of each file and write to a local Markdown file.
-        self.__sources_path = r'\chatbot\vector-db-persist-directory\sources_merged.md'
-        self.__default_url_prefix = "https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book"
-        with open(self.__sources_path, "w", encoding="utf-8") as f:
+        self._sources_path = r'\chatbot\vector-db-persist-directory\sources_merged.md'
+        self._default_url_prefix = "https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book"
+        with open(self._sources_path, "w", encoding="utf-8") as f:
             for url in self.sources_urls:
-                if not url.startswith(self.__default_url_prefix):
-                    raise ValueError(f"file path must start with '{self.__default_url_prefix}'")
+                if not url.startswith(self._default_url_prefix):
+                    raise ValueError(f"file path must start with '{self._default_url_prefix}'")
                 response = requests.get(url, verify=False)
                 f.write(response.text)
                 f.write("\n")
@@ -60,7 +60,7 @@ class ChatbotAgent:
 
 
         # Load the data.
-        self.sources_data = self.get_openacademysources(self.__sources_path)
+        self.sources_data = self.get_openacademysources(self._sources_path)
         text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)  # Initialize a TokenTextSplitter object.
         sources_data_doc = text_splitter.split_documents(self.sources_data)  # Split the text into chunks.
 
