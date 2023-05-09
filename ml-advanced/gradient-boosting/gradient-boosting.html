@@ -1,0 +1,2031 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>16.1. Gradient Boosting &#8212; Machine Learning Open Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "open-academy/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="16.2. Gradient boosting example" href="gradient-boosting-example.html" />
+    <link rel="prev" title="16. Introduction to Gradient Boosting" href="introduction-to-gradient-boosting.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Machine Learning Open Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/pandas.html">
+     5.4. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualizing-quantities.html">
+     6.1. Visualizing quantities
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-distributions.html">
+     6.2. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-proportions.html">
+     6.3. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-relationships.html">
+     6.4. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/meaningful-visualizations.html">
+     6.5. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  FUNDAMENTALS OF MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-overview.html">
+   10. Machine learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+   12. Build a web app to use a Machine Learning model
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/classification/getting-started-with-classification.html">
+   13. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/introduction-to-classification.html">
+     13.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/more-classifiers.html">
+     13.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/yet-other-classifiers.html">
+     13.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/applied-ml-build-a-web-app.html">
+     13.4. Applied Machine Learning : build a web app
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../ensemble-learning/getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ensemble-learning/bagging.html">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ensemble-learning/random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../ensemble-learning/feature-importance.html">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     16.1. Gradient Boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="gradient-boosting-example.html">
+     16.2. Gradient boosting example
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="xgboost.html">
+     16.3. XGBoost
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="xgboost-k-fold-cv-feature-importance.html">
+     16.4. XGBoost + k-fold CV + Feature Importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../unsupervised-learning.html">
+   17. Unsupervised learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../model-selection.html">
+   19. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-overview.html">
+   20. Deep learning overview (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/CNN.html">
+   21. Convolutional Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/GAN.html">
+   22. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/RNN.html">
+   23. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/AutoEncoder.html">
+   24. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/LSTM.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/DQN.html">
+   27. Deep Q-learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-summary.html">
+   28. Summary of deep learning (TBD)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/difussion-model.html">
+   31. Diffusion Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/object-detection.html">
+   32. Object detection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING PRODUCTIONIZATION
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/overview.html">
+   33. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/problem-framing.html">
+   34. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+   35. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-training-and-evaluation.html">
+   36. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-deployment.html">
+   37. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  SUPPORTING MATERIALS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/unbalanced-problems.html">
+   38. Unbalanced problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../supporting-materials/automl.html">
+   39. AutoML (TBD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../assignments/introduction.html">
+   40. Assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/get-started.html">
+     40.1. Get started
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/first-assignment.html">
+     40.2. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/second-assignment.html">
+     40.3. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/project-plan-template.html">
+     40.4. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-introduction.html">
+     40.5. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-basics.html">
+     40.6. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-advanced.html">
+     40.7. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-text-about-data-science.html">
+     40.8. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-scenarios.html">
+     40.9. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/write-a-data-ethics-case-study.html">
+     40.10. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/lines-scatters-and-bars.html">
+     40.11. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/apply-your-skills.html">
+     40.12. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/try-it-in-excel.html">
+     40.13. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/let-us-learn-about-birds.html">
+     40.14. Let’s learn about birds
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/bird-distributions.html">
+     40.15. Bird distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/dive-into-the-beehive.html">
+     40.16. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/build-your-own-custom-vis.html">
+     40.17. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/classifying-datasets.html">
+     40.18. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/small-diabetes-study.html">
+     40.19. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/introduction-to-statistics-and-probability.html">
+     40.20. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/displaying-airport-data.html">
+     40.21. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/soda-profits.html">
+     40.22. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-COVID-19-papers.html">
+     40.23. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     40.24. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-processing-in-python.html">
+     40.25. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/evaluating-data-from-a-form.html">
+     40.26. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-preparation.html">
+     40.27. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-data.html">
+     40.28. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     40.29. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/matplotlib-applied.html">
+     40.30. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/tell-a-story.html">
+     40.36. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     40.37. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/exploring-for-anwser.html">
+     40.38. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/market-research.html">
+     40.39. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     40.40. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     40.41. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     40.42. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-iris.html">
+     40.43. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-mnist-digits.html">
+     40.44. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     40.45. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-1.html">
+     40.46. ML linear regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-linear-regression-2.html">
+     40.47. ML linear regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-logistic-regression-1.html">
+     40.48. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-neural-network-1.html">
+     40.49. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-tools.html">
+     40.50. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/managing-data.html">
+     40.51. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/exploring-visualizations.html">
+     40.52. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/try-a-different-model.html">
+     40.53. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/create-a-regression-model.html">
+     40.54. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     40.55. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/retrying-some-regression.html">
+     40.56. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     40.57. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     40.58. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/explore-classification-methods.html">
+     40.59. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/support_vector_machines_for_regression.html">
+     40.60. Support Vector Machines (SVM) - Intro and SVM for Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/support_vector_machines_for_classification.html">
+     40.61. Support Vector Machines (SVM) - Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/decision_trees_for_regression.html">
+     40.62. Decision Trees - Intro and Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/decision_trees_for_classification.html">
+     40.63. Decision Trees - Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/kernel-method/kernel-method-assignment-1.html">
+     40.64. Kernel method assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     40.87. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     40.88. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     40.89. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/decision-trees.html">
+     40.90. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/gradient-boosting/hyperparameter-tuning-gradient-boosting.html">
+     40.91. Hyperparameter tuning gradient boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/data-engineering.html">
+     40.92. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     40.93. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-classification.html">
+     40.94. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-regression.html">
+     40.95. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/study-the-solvers.html">
+     40.96. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-models.html">
+     40.97. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-model.html">
+     40.98. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/parameter-play.html">
+     40.99. Parameter play
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../slides/introduction.html">
+   41. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-introduction.html">
+     41.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-basics.html">
+     41.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-advanced.html">
+     41.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-introduction.html">
+     41.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/relational-vs-non-relational-database.html">
+     41.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/numpy-and-pandas.html">
+     41.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-visualization.html">
+     41.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-lifecycle.html">
+     41.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-the-cloud.html">
+     41.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-real-world.html">
+     41.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/ml-overview.html">
+     41.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/linear-regression.html">
+     41.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/logistic-regression.html">
+     41.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/neural-network.html">
+     41.14. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/build-an-ml-web-app.html">
+     41.15. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/unsupervised-learning.html">
+     41.16. Unsupervised learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/kernel-method.html">
+     41.17. Kernel method
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/open-academy/machine-learning/main?urlpath=tree/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/open-academy/machine-learning/blob/main/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning//issues/new?title=Issue%20on%20page%20%2Fml-advanced/gradient-boosting/gradient-boosting.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/ml-advanced/gradient-boosting/gradient-boosting.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../../_sources/ml-advanced/gradient-boosting/gradient-boosting.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-and-history-of-boosting">
+   16.1.1. Introduction and history of boosting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#history-of-gbm">
+     16.1.1.1. History of GBM
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gbm-algorithm">
+   16.1.2. GBM algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ml-problem-statement">
+     16.1.2.1. ML problem statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functional-gradient-descent">
+     16.1.2.2. Functional gradient descent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#friedman-s-classic-gbm-algorithm">
+     16.1.2.3. Friedman’s classic GBM algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-by-step-example-how-gbm-works">
+     16.1.2.4. Step-By-Step example: How GBM Works
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loss-functions">
+   16.1.3. Loss functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regression-loss-functions">
+     16.1.3.1. Regression loss functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-loss-functions">
+     16.1.3.2. Classification loss functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#weights">
+     16.1.3.3. Weights
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   16.1.4. Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   16.1.5. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   16.1.6. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Gradient Boosting</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction-and-history-of-boosting">
+   16.1.1. Introduction and history of boosting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#history-of-gbm">
+     16.1.1.1. History of GBM
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gbm-algorithm">
+   16.1.2. GBM algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ml-problem-statement">
+     16.1.2.1. ML problem statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functional-gradient-descent">
+     16.1.2.2. Functional gradient descent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#friedman-s-classic-gbm-algorithm">
+     16.1.2.3. Friedman’s classic GBM algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-by-step-example-how-gbm-works">
+     16.1.2.4. Step-By-Step example: How GBM Works
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loss-functions">
+   16.1.3. Loss functions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regression-loss-functions">
+     16.1.3.1. Regression loss functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-loss-functions">
+     16.1.3.2. Classification loss functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#weights">
+     16.1.3.3. Weights
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   16.1.4. Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   16.1.5. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   16.1.6. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="gradient-boosting">
+<h1><span class="section-number">16.1. </span>Gradient Boosting<a class="headerlink" href="#gradient-boosting" title="Permalink to this headline">#</a></h1>
+<figure class="align-default" id="id1">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Boosting.jpg"><img alt="../../_images/Boosting.jpg" class="bg-white mb-1" src="../../_images/Boosting.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.2 </span><span class="caption-text">Boosting</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Today we are going to have a look at one of the most popular and practical machine learning algorithms: gradient boosting.</p>
+<section id="introduction-and-history-of-boosting">
+<h2><span class="section-number">16.1.1. </span>Introduction and history of boosting<a class="headerlink" href="#introduction-and-history-of-boosting" title="Permalink to this headline">#</a></h2>
+<p>Almost everyone in machine learning has heard about gradient boosting. Many data scientists include this algorithm in their data scientist’s toolbox because of the good results it yields on any given (unknown) problem.</p>
+<p>Furthermore, XGBoost is often the standard recipe for <a class="reference external" href="https://github.com/dmlc/xgboost/blob/master/demo/README.md#usecases">winning</a> <a class="reference external" href="http://blog.kaggle.com/tag/xgboost/">ML competitions</a>. It is so popular that the idea of stacking XGBoosts has become a meme. Moreover, boosting is an important component in <a class="reference external" href="https://en.wikipedia.org/wiki/Learning_to_rank#Practical_usage_by_search_engines">many recommender systems</a>; sometimes, it is even considered a <a class="reference external" href="https://yandex.com/company/technologies/matrixnet/">brand</a>.
+Let’s look at the history and development of boosting.</p>
+<p>Boosting was born out of <a class="reference external" href="http://www.cis.upenn.edu/~mkearns/papers/boostnote.pdf">the question:</a> is it possible to get one strong model from a large amount of relatively weak and simple models?<br />
+By saying “weak models”, we do not mean simple basic models like decision trees but models with poor accuracy performance, where poor is a little bit better than random.</p>
+<p><a class="reference external" href="http://www.cs.princeton.edu/~schapire/papers/strengthofweak.pdf">A positive mathematical answer</a> to this question was identified, but it took a few years to develop fully functioning algorithms based on this solution e.g. AdaBoost. These algoritms take a greedy approach: first, they build a linear combination of simple models (basic algorithms) by re-weighing the input data. Then, the model (usually a decision tree) is built on earlier incorrectly predicted objects, which are now given larger weights.</p>
+<spoiler title="More about AdaBoost">
+Many machine learning courses study AdaBoost - the ancestor of GBM (Gradient Boosting Machine). However, since AdaBoost merged with GBM, it has become apparent that AdaBoost is just a particular variation of GBM.  
+<p>The algorithm itself has a very clear visual interpretation and intuition for defining weights. Let’s have a look at the following toy classification problem where we are going to split the data between the trees of depth 1 (also known as ‘stumps’) on each iteration of AdaBoost. For the first two iterations, we have the following picture:</p>
+<figure class="align-default" id="id2">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Initial_iterative_process.jpg"><img alt="../../_images/Initial_iterative_process.jpg" class="bg-white mb-1" src="../../_images/Initial_iterative_process.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.3 </span><span class="caption-text">Initial iterative process</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The size of point corresponds to its weight, which was assigned for an incorrect prediction.  On each iteration, we can see that these weights are growing – the stumps cannot cope with this problem. Although, if we take a weighted vote for the stumps, we will get the correct classifications:</p>
+<figure class="align-default" id="id3">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Weighting_the_stump"><img alt="../../_images/Weighting_the_stump" class="bg-white mb-1" src="../../_images/Weighting_the_stump" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.4 </span><span class="caption-text">Weighting the stump</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Pseudocode:</p>
+<ul class="simple">
+<li><p>Initialize sample weights <span class="math notranslate nohighlight">\(\Large w_i^{(0)} = \frac{1}{l}, i = 1, \dots, l\)</span>.</p></li>
+<li><p>For all <span class="math notranslate nohighlight">\(t = 1, \dots, T\)</span></p>
+<ul>
+<li><p>Train base algo <span class="math notranslate nohighlight">\(\Large b_t\)</span>, let <span class="math notranslate nohighlight">\(\epsilon_t\)</span> be it’s training error.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Large \alpha_t = \frac{1}{2}ln\frac{1 - \epsilon_t}{\epsilon_t}\)</span>.</p></li>
+<li><p>Update sample weights: <span class="math notranslate nohighlight">\(\Large w_i^{(t)} = w_i^{(t-1)} e^{-\alpha_t y_i b_t(x_i)}, i = 1, \dots, l\)</span>.</p></li>
+<li><p>Normalize sample weights: <span class="math notranslate nohighlight">\(\Large w_0^{(t)} = \sum_{j = 1}^k w_j^{(t)}, w_i^{(t)} = \frac{w_i^{(t)}}{w_0^{(t)}}, i = 1, \dots, l\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Return <span class="math notranslate nohighlight">\(\sum_t^{T}\alpha_tb_t\)</span></p></li>
+</ul>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=k4G2VCuOMMg">Here</a> is more detailed example of AdaBoost, as we iterate, we can see the weights increase, especially on the border between classes.</p>
+<p>AdaBoost works well, but <a class="reference external" href="https://www.cs.princeton.edu/courses/archive/spring07/cos424/papers/boosting-survey.pdf">the lack</a> of explanation for why the algorithm is successful sewed the seeds of doubt. Someone considered it a super-algorithm, a silver bullet, but others were skeptical and believed AdaBoost was just overfitting.</p>
+<p>The overfitting problem did indeed exist, especially when data had strong outliers. Therefore, in those types of problems, AdaBoost was unstable. Fortunately, a few professors in the statistics department at Stanford, who had created Lasso, Elastic Net, and Random Forest, started researching the algorithm. In 1999, Jerome Friedman came up with the generalization of boosting algorithms development - Gradient Boosting (Machine), also known as GBM. With this work, Friedman set up the statistical foundation for many algorithms providing the general approach of boosting for optimization in the functional space.</p>
+<p>CART, bootstrap, and many other algorithms have originated from Stanford’s statistics department. In doing so, the department has solidified their names in future textbooks. These algorithms are very practical, and some recent works have yet to be widely adopted. For example, check out <a class="reference external" href="https://arxiv.org/abs/1308.2719">glinternet</a>.</p>
+<p>Not many video recordings of Friedman are available. Although, there is a very interesting <a class="reference external" href="https://www.youtube.com/watch?v=8hupHmBVvb0">interview</a> with him about the creation of CART and how they solved statistics problems (which is similar to data analysis and data science today) more than 40 years ago.</p>
+<p>There is also a great <a class="reference external" href="https://www.youtube.com/watch?v=zBk3PK3g-Fc">lecture</a> from Hastie, a retrospective on data analysis from one of the creators of methods that we use everyday.</p>
+<p>In general, there has been a transition from engineering and algorithmic research to a full-fledged approach to building and studying algorithms. From a mathematical perspective, this is not a big change - we are still adding (or boosting) weak algorithms and enlarging our ensemble with gradual improvements for parts of the data where the model was inaccurate. But, this time, the next simple model is not just built on re-weighted objects but improves its approximation of the gradient of overall objective function. This concept greatly opens up our algorithms for imagination and extensions.</p>
+<figure class="align-default" id="id4">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Comparison_between_various_boost_function.png"><img alt="../../_images/Comparison_between_various_boost_function.png" class="bg-white mb-1" src="../../_images/Comparison_between_various_boost_function.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.5 </span><span class="caption-text">Comparison between various boost function</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="history-of-gbm">
+<h3><span class="section-number">16.1.1.1. </span>History of GBM<a class="headerlink" href="#history-of-gbm" title="Permalink to this headline">#</a></h3>
+<p>It took more than 10 years after the introduction of GBM for it to become an essential part of the data science toolbox.<br />
+GBM was extended to apply to different statistics problems: GLMboost and GAMboost for strengthening already existing GAM models, CoxBoost for survival curves, and RankBoost and LambdaMART for ranking.<br />
+Many realizations of GBM also appeared under different names and on different platforms: Stochastic GBM, GBDT (Gradient Boosted Decision Trees), GBRT (Gradient Boosted Regression Trees), MART (Multiple Additive Regression Trees), and more. In addition, the ML community was very segmented and dissociated, which made it hard to track just how widespread boosting had become.</p>
+<p>At the same time, boosting had been actively used in search ranking. This problem was rewritten in terms of a loss function that penalizes errors in the output order, so it became convenient to simply insert it into GBM. AltaVista was one of the first companies who introduced boosting to ranking. Soon, the ideas spread to Yahoo, Yandex, Bing, etc. Once this happened, boosting became one of the main algorithms that was used not only in research but also in core technologies in industry.</p>
+<p><a class="reference internal" href="https://habrastorage.org/web/48a/ea4/fff/48aea4fffdbe4e5f9205ba81110e6061.jpg"><img alt="https://habrastorage.org/web/48a/ea4/fff/48aea4fffdbe4e5f9205ba81110e6061.jpg" class="align-right" src="https://habrastorage.org/web/48a/ea4/fff/48aea4fffdbe4e5f9205ba81110e6061.jpg" style="width: 30%;" /></a> ML competitions, especially Kaggle, played a major role in boosting’s popularization. Now, researchers had a common platform where they could compete in different data science problems with large number of participants from around the world. With Kaggle, one could test new algorithms on the real data, giving algoritms oppurtunity to “shine”, and provide full information in sharing model performance results across competition data sets. This is exactly what happened to boosting when it was used at <a class="reference external" href="http://blog.kaggle.com/2011/12/21/score-xavier-conort-on-coming-second-in-give-me-some-credit/">Kaggle</a> (check interviews with Kaggle winners starting from 2011 who mostly used boosting). The <a class="reference external" href="https://github.com/dmlc/xgboost">XGBoost</a> library quickly gained popularity after its appearance. XGBoost is not a new, unique algorithm; it is just an extremely effective realization of classic GBM with additional heuristics.</p>
+<p>This algorithm has gone through very typical path for ML algorithms today: mathematical problem and algorithmic crafts to successful practical applications and mass adoption years after its first appearance.</p>
+</section>
+</section>
+<section id="gbm-algorithm">
+<h2><span class="section-number">16.1.2. </span>GBM algorithm<a class="headerlink" href="#gbm-algorithm" title="Permalink to this headline">#</a></h2>
+<section id="ml-problem-statement">
+<h3><span class="section-number">16.1.2.1. </span>ML problem statement<a class="headerlink" href="#ml-problem-statement" title="Permalink to this headline">#</a></h3>
+<p>We are going to solve the problem of function approximation in a general supervised learning setting. We have a set of features <span class="math notranslate nohighlight">\( \large x \)</span> and target variables <span class="math notranslate nohighlight">\(\large y, \large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,n}\)</span> which we use to restore the dependence <span class="math notranslate nohighlight">\(\large y = f(x) \)</span>. We restore the dependence by approximating <span class="math notranslate nohighlight">\( \large \hat{f}(x) \)</span> and by understanding which approximation is better when we use the loss function <span class="math notranslate nohighlight">\( \large L(y,f) \)</span>, which we want to minimize: <span class="math notranslate nohighlight">\( \large y \approx \hat{f}(x), \large \hat{f}(x) = \underset{f(x)}{\arg\min} \ L(y,f(x)) \)</span></p>
+<figure class="align-default" id="id5">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Find_function.png"><img alt="../../_images/Find_function.png" class="bg-white mb-1" src="../../_images/Find_function.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.6 </span><span class="caption-text">Find function</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>At this moment, we do not make any assumptions regarding the type of dependence <span class="math notranslate nohighlight">\( \large f(x) \)</span>, the model of our approximation <span class="math notranslate nohighlight">\( \large \hat{f}(x) \)</span>, or the distribution of the target variable (<span class="math notranslate nohighlight">\( \large y \)</span>). We only expect that the function <span class="math notranslate nohighlight">\( \large L(y,f) \)</span> is differentiable. Our formula is very general; let’s define it for a particular data set with a population mean <span class="math notranslate nohighlight">\( \large \hat {f}(x) \)</span>. Our expression for minimizing the loss of the data is the following:</p>
+<div class="math notranslate nohighlight">
+\[ \large  \hat{f}(x) = \underset{f(x)}{\arg\min} \ \mathbb {E} _{x,y}[L(y,f(x))]  \]</div>
+<p>Unfortunately, the number of functions <span class="math notranslate nohighlight">\( \large f(x) \)</span> is not just large, but its functional space is infinite-dimensional. That is why it is acceptable for us to limit the search space by some family of functions <span class="math notranslate nohighlight">\( \large f(x, \theta), \theta \in \mathbb{R}^d \)</span>. This simplifies the objective a lot because now we have a solvable optimization of parameter values:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \large \hat{f}(x) = f(x, \hat{\theta}), \\
+\large \hat{\theta} = \underset{\theta}{\arg\min} \ \mathbb {E} _{x,y}[L(y,f(x,\theta))] \end{split}\]</div>
+<p>Simple analytical solutions for finding the optimal parameters <span class="math notranslate nohighlight">\( \large \hat{\theta} \)</span> often do not exist, so the parameters are usually approximated iteratively. To start, we write down the empirical loss function <span class="math notranslate nohighlight">\( \large L_{\theta}(\hat{\theta}) \)</span> that will allow us to evaluate our parameters using our data. Additionally, let’s write out our approximation <span class="math notranslate nohighlight">\( \large \hat{\theta} \)</span> for a number of <span class="math notranslate nohighlight">\( \large M \)</span> iterations as a sum:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \large \hat{\theta} = \sum_{i = 1}^M \hat{\theta_i}, \\
+\large L_{\theta}(\hat{\theta}) =  \sum_{i = 1}^N L(y_i,f(x_i, \hat{\theta}))\end{split}\]</div>
+<p>Then, the only thing left is to find a suitable, iterative algorithm to minimize <span class="math notranslate nohighlight">\(\large L_{\theta}(\hat{\theta})\)</span>. Gradient descent is the simplest and most frequently used option. We define the gradient as <span class="math notranslate nohighlight">\(\large \nabla L_{\theta}(\hat{\theta})\)</span> and add our iterative evaluations <span class="math notranslate nohighlight">\(\large \hat{\theta_i}\)</span> to it (since we are minimizing the loss, we add the minus sign). Our last step is to initialize our first approximation <span class="math notranslate nohighlight">\(\large \hat{\theta_0}\)</span> and choose the number of iterations <span class="math notranslate nohighlight">\(\large M\)</span>. Let’s review the steps for this inefficient and naive algorithm for approximating <span class="math notranslate nohighlight">\(\large \hat{\theta}\)</span>:</p>
+<ol class="simple">
+<li><p>Define the initial approximation of the parameters <span class="math notranslate nohighlight">\(\large \hat{\theta} = \hat{\theta_0}\)</span></p></li>
+<li><p>For every iteration <span class="math notranslate nohighlight">\(\large t = 1, \dots, M\)</span> repeat steps 3-7:</p></li>
+<li><p>Calculate the gradient of the loss function <span class="math notranslate nohighlight">\(\large \nabla L_{\theta}(\hat{\theta})\)</span> for the current approximation <span class="math notranslate nohighlight">\(\large \hat{\theta}\)</span>:<span class="math notranslate nohighlight">\(\large \nabla L_{\theta}(\hat{\theta}) = \left[\frac{\partial L(y, f(x, \theta))}{\partial \theta}\right]_{\theta = \hat{\theta}}\)</span></p></li>
+<li><p>Set the current iterative approximation <span class="math notranslate nohighlight">\(\large \hat{\theta_t}\)</span> based on the calculated gradient <span class="math notranslate nohighlight">\(\large \hat{\theta_t} \leftarrow −\nabla L_{\theta}(\hat{\theta})\)</span></p></li>
+<li><p>Update the approximation of the parameters <span class="math notranslate nohighlight">\(\large \hat{\theta}\)</span>:<span class="math notranslate nohighlight">\(\large \hat{\theta} \leftarrow \hat{\theta} + \hat{\theta_t} = \sum_{i = 0}^t \hat{\theta_i} \)</span></p></li>
+<li><p>Save the result of approximation <span class="math notranslate nohighlight">\(\large \hat{\theta}\)</span>:<span class="math notranslate nohighlight">\(\large \hat{\theta} = \sum_{i = 0}^M \hat{\theta_i} \)</span></p></li>
+<li><p>Use the function that was found <span class="math notranslate nohighlight">\(\large \hat{f}(x) = f(x, \hat{\theta})\)</span></p></li>
+</ol>
+<figure class="align-default" id="id6">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Iteration_steps.jpg"><img alt="../../_images/Iteration_steps.jpg" class="bg-white mb-1" src="../../_images/Iteration_steps.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.7 </span><span class="caption-text">Iteration steps</span><a class="headerlink" href="#id6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="functional-gradient-descent">
+<h3><span class="section-number">16.1.2.2. </span>Functional gradient descent<a class="headerlink" href="#functional-gradient-descent" title="Permalink to this headline">#</a></h3>
+<p>Let’s imagine for a second that we can perform optimization in the function space and iteratively search for the approximations <span class="math notranslate nohighlight">\(\large \hat{f}(x)\)</span> as functions themselves. We will express our approximation as a sum of incremental improvements, each being a function. For convenience, we will immediately start with the sum from the initial approximation <span class="math notranslate nohighlight">\(\large \hat{f_0}(x)\)</span>:<span class="math notranslate nohighlight">\(\large \hat{f}(x) = \sum_{i = 0}^M \hat{f_i}(x)\)</span></p>
+<p>Nothing has happened yet; we have only decided that we will search for our approximation <span class="math notranslate nohighlight">\(\large \hat{f}(x)\)</span> not as a big model with plenty of parameters (as an example, neural network), but as a sum of functions, pretending we move in functional space.</p>
+<p>In order to accomplish this task, we need to limit our search by some function family <span class="math notranslate nohighlight">\(\large \hat{f}(x) = h(x, \theta)\)</span>. There are a few issues here – first of all, the sum of models can be more complicated than any model from this family; secondly, the general objective is still in functional space. Let’s note that, on every step, we will need to select an optimal coefficient <span class="math notranslate nohighlight">\(\large \rho \in \mathbb{R}\)</span>. For step <span class="math notranslate nohighlight">\(\large t\)</span>, the problem is the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\large \hat{f}(x) = \sum_{i = 0}^{t-1} \hat{f_i}(x), \\
+\large (\rho_t,\theta_t) = \underset{\rho,\theta}{\arg\min} \ \mathbb {E} _{x,y}[L(y,\hat{f}(x) +  \rho \cdot h(x, \theta))], \\
+\large \hat{f_t}(x) = \rho_t \cdot h(x, \theta_t)\end{split}\]</div>
+<p>Here is where the magic happens. We have defined all of our objectives in general terms, as if we could have trained any kind of model <span class="math notranslate nohighlight">\(\large h(x, \theta)\)</span> for any type of loss functions <span class="math notranslate nohighlight">\(\large L(y, f(x, \theta))\)</span>. In practice, this is extremely difficult, but, fortunately, there is a simple way to solve this task.</p>
+<p>Knowing the expression of loss function’s gradient, we can calculate its value on our data. So, let’s train the models such that our predictions will be more correlated with this gradient (with a minus sign). In other words, we will use least squares to correct the predictions with these residuals. For classification, regression, and ranking tasks, we will minimize the squared difference between pseudo-residuals <span class="math notranslate nohighlight">\(\large r\)</span> and our predictions. For step <span class="math notranslate nohighlight">\(\large t\)</span>, the final problem looks like the following:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \large \hat{f}(x) = \sum_{i = 0}^{t-1} \hat{f_i}(x), \\
+\large r_{it} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)}, \quad \mbox{for } i=1,\ldots,n ,\\
+\large \theta_t = \underset{\theta}{\arg\min} \ \sum_{i = 1}^{n} (r_{it} - h(x_i, \theta))^2, \\
+\large \rho_t = \underset{\rho}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \hat{f}(x_i) + \rho \cdot h(x_i, \theta_t))\end{split}\]</div>
+<figure class="align-default" id="id7">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Regression_for_you.jpg"><img alt="../../_images/Regression_for_you.jpg" class="bg-white mb-1" src="../../_images/Regression_for_you.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.8 </span><span class="caption-text">Regression for you</span><a class="headerlink" href="#id7" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="friedman-s-classic-gbm-algorithm">
+<h3><span class="section-number">16.1.2.3. </span>Friedman’s classic GBM algorithm<a class="headerlink" href="#friedman-s-classic-gbm-algorithm" title="Permalink to this headline">#</a></h3>
+<p>We can now define the classic GBM algorithm suggested by Jerome Friedman in 1999. It is a supervised algorithm that has the following components:</p>
+<ul class="simple">
+<li><p>dataset <span class="math notranslate nohighlight">\(\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,n}\)</span>;</p></li>
+<li><p>number of iterations <span class="math notranslate nohighlight">\(\large M\)</span>;</p></li>
+<li><p>choice of loss function <span class="math notranslate nohighlight">\(\large L(y, f)\)</span> with a defined gradient;</p></li>
+<li><p>choice of function family of base algorithms <span class="math notranslate nohighlight">\(\large h(x, \theta)\)</span> with the training procedure;</p></li>
+<li><p>additional hyperparameters <span class="math notranslate nohighlight">\(\large h(x, \theta)\)</span> (for example, in decision trees, the tree depth);</p></li>
+</ul>
+<p>The only thing left is the initial approximation <span class="math notranslate nohighlight">\(\large f_0(x)\)</span>. For simplicity, for an initial approximation, a constant value <span class="math notranslate nohighlight">\(\large \gamma\)</span> is used. The constant value, as well as the optimal coefficient <span class="math notranslate nohighlight">\(\large \rho \)</span>, are identified via binary search or another line search algorithm over the initial loss function (not a gradient). So, we have our GBM algorithm described as follows:</p>
+<ol class="simple">
+<li><p>Initialize GBM with constant value <span class="math notranslate nohighlight">\(\large \hat{f}(x) = \hat{f}_0, \hat{f}_0 = \gamma,  \gamma \in \mathbb{R}\)</span>
+<span class="math notranslate nohighlight">\(\large \hat{f}_0 = \underset{\gamma}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \gamma)\)</span></p></li>
+<li><p>For each iteration <span class="math notranslate nohighlight">\(\large t = 1, \dots, M\)</span>, repeat:</p></li>
+<li><p>Calculate pseudo-residuals <span class="math notranslate nohighlight">\(\large r_t\)</span>:
+<span class="math notranslate nohighlight">\(\large r_{it} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)}, \quad \mbox{for } i=1,\ldots,n\)</span></p></li>
+<li><p>Build new base algorithm <span class="math notranslate nohighlight">\(\large h_t(x)\)</span> as regression on pseudo-residuals <span class="math notranslate nohighlight">\(\large \left\{ (x_i, r_{it}) \right\}_{i=1, \ldots,n}\)</span></p></li>
+<li><p>Find optimal coefficient <span class="math notranslate nohighlight">\(\large \rho_t \)</span> at <span class="math notranslate nohighlight">\(\large h_t(x)\)</span> regarding initial loss function
+<span class="math notranslate nohighlight">\(\large \rho_t = \underset{\rho}{\arg\min} \ \sum_{i = 1}^{n} L(y_i, \hat{f}(x_i) +  \rho \cdot h(x_i, \theta))\)</span></p></li>
+<li><p>Save <span class="math notranslate nohighlight">\(\large \hat{f_t}(x) = \rho_t \cdot h_t(x)\)</span></p></li>
+<li><p>Update current approximation <span class="math notranslate nohighlight">\(\large \hat{f}(x)\)</span>:
+<span class="math notranslate nohighlight">\(\large \hat{f}(x) \leftarrow \hat{f}(x) + \hat{f_t}(x) = \sum_{i = 0}^{t} \hat{f_i}(x)\)</span></p></li>
+<li><p>Compose final GBM model <span class="math notranslate nohighlight">\(\large \hat{f}(x)\)</span>:
+<span class="math notranslate nohighlight">\(\large \hat{f}(x) = \sum_{i = 0}^M \hat{f_i}(x) \)</span></p></li>
+<li><p>Conquer Kaggle and the rest of the world</p></li>
+</ol>
+</section>
+<section id="step-by-step-example-how-gbm-works">
+<h3><span class="section-number">16.1.2.4. </span>Step-By-Step example: How GBM Works<a class="headerlink" href="#step-by-step-example-how-gbm-works" title="Permalink to this headline">#</a></h3>
+<p>Let’s see an example of how GBM works. In this toy example, we will restore a noisy function <span class="math notranslate nohighlight">\(\large y = cos(x) + \epsilon, \epsilon \sim \mathcal{N}(0, \frac{1}{5}), x \in [-5,5]\)</span>.</p>
+<figure class="align-default" id="id8">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Regression_problem.jpg"><img alt="../../_images/Regression_problem.jpg" class="bg-white mb-1" src="../../_images/Regression_problem.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.9 </span><span class="caption-text">Regression problem</span><a class="headerlink" href="#id8" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This is a regression problem with a real-valued target, so we will choose to use the mean squared error loss function. We will generate 300 pairs of observations and approximate them with decision trees of depth 2. Let’s put together everything we need to use GBM:</p>
+<ul class="simple">
+<li><p>Toy data <span class="math notranslate nohighlight">\(\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,300}\)</span> ✓</p></li>
+<li><p>Number of iterations <span class="math notranslate nohighlight">\(\large M = 3\)</span> ✓;</p></li>
+<li><p>The mean squared error loss function <span class="math notranslate nohighlight">\(\large L(y, f) = (y-f)^2\)</span> ✓</p></li>
+<li><p>Gradient of <span class="math notranslate nohighlight">\(\large L(y, f) = L_2\)</span> loss is just residuals <span class="math notranslate nohighlight">\(\large r = (y - f)\)</span> ✓;</p></li>
+<li><p>Decision trees as base algorithms <span class="math notranslate nohighlight">\(\large h(x)\)</span> ✓;</p></li>
+<li><p>Hyperparameters of the decision trees: trees depth is equal to 2 ✓;</p></li>
+</ul>
+<p>For the mean squared error, both initialization <span class="math notranslate nohighlight">\(\large \gamma\)</span> and coefficients <span class="math notranslate nohighlight">\(\large \rho_t\)</span> are simple. We will initialize GBM with the average value <span class="math notranslate nohighlight">\(\large \gamma = \frac{1}{n} \cdot \sum_{i = 1}^n y_i\)</span>, and set all coefficients <span class="math notranslate nohighlight">\(\large \rho_t\)</span> to 1.</p>
+<p>We will run GBM and draw two types of graphs: the current approximation <span class="math notranslate nohighlight">\(\large \hat{f}(x)\)</span> (blue graph) and every tree <span class="math notranslate nohighlight">\(\large \hat{f_t}(x)\)</span> built on its pseudo-residuals (green graph). The graph’s number corresponds to the iteration number:</p>
+<figure class="align-default" id="id9">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Current_approximation_and_every_tree.png"><img alt="../../_images/Current_approximation_and_every_tree.png" class="bg-white mb-1" src="../../_images/Current_approximation_and_every_tree.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.10 </span><span class="caption-text">Current approximation and every tree</span><a class="headerlink" href="#id9" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>By the second iteration, our trees have recovered the basic form of the function. However, at the first iteration, we see that the algorithm has built only the “left branch” of the function (<span class="math notranslate nohighlight">\(\large x \in [-5, -4]\)</span>). This was due to the fact that our trees simply did not have enough depth to build a symmetrical branch at once, and it focused on the left branch with the larger error. Therefore, the right branch appeared only after the second iteration.</p>
+<p>The rest of the process goes as expected – on every step, our pseudo-residuals decreased, and GBM approximated the original function better and better with each iteration. However, by construction, trees cannot approximate a continuous function, which means that GBM is not ideal in this example. To play with GBM function approximations, you can use the awesome interactive demo in this blog called <a class="reference external" href="http://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html">Brilliantly wrong</a>:</p>
+<figure class="align-default" id="id10">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/How_GBM_works.jpg"><img alt="../../_images/How_GBM_works.jpg" class="bg-white mb-1" src="../../_images/How_GBM_works.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.11 </span><span class="caption-text">How GBM Works</span><a class="headerlink" href="#id10" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="loss-functions">
+<h2><span class="section-number">16.1.3. </span>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">#</a></h2>
+<p>If we want to solve a classification problem instead of regression, what would change? We only need to choose a suitable loss function <span class="math notranslate nohighlight">\(\large L(y, f)\)</span>. This is the most important, high-level moment that determines exactly how we will optimize and what characteristics we can expect in the final model.</p>
+<p>As a rule, we do not need to invent this ourselves – researchers have already done it for us. Today, we will explore loss functions for the two most common objectives: regression <span class="math notranslate nohighlight">\(\large y \in \mathbb{R}\)</span> and binary classification <span class="math notranslate nohighlight">\(\large y \in \left\{-1, 1\right\}\)</span>.</p>
+<section id="regression-loss-functions">
+<h3><span class="section-number">16.1.3.1. </span>Regression loss functions<a class="headerlink" href="#regression-loss-functions" title="Permalink to this headline">#</a></h3>
+<p>Let’s start with a regression problem for <span class="math notranslate nohighlight">\(\large y \in \mathbb{R}\)</span>. In order to choose the appropriate loss function, we need to consider which of the properties of the conditional distribution <span class="math notranslate nohighlight">\(\large (y|x)\)</span> we want to restore. The most common options are:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\large L(y, f) = (y - f)^2\)</span> a.k.a. <span class="math notranslate nohighlight">\(\large L_2\)</span> loss or Gaussian loss. It is the classical conditional mean, which is the simplest and most common case. If we do not have any additional information or requirements for a model to be robust, we can use the Gaussian loss.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\large L(y, f) = |y - f|\)</span> a.k.a. <span class="math notranslate nohighlight">\(\large L_1\)</span> loss or Laplacian loss. At the first glance, this function does not seem to be differentiable, but it actually defines the conditional median. Median, as we know, is robust to outliers, which is why this loss function is better in some cases. The penalty for big variations is not as heavy as it is in <span class="math notranslate nohighlight">\(\large L_2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \large \begin{equation}  L(y, f) =\left\{   \begin{array}{&#64;{}ll&#64;{}}     (1 - \alpha) \cdot |y - f|, &amp; \text{if}\ y-f \leq 0 \\     \alpha \cdot |y - f|, &amp; \text{if}\ y-f &gt;0  \end{array}\right. \end{equation}, \alpha \in (0,1)
+\)</span> a.k.a. <span class="math notranslate nohighlight">\(\large L_q\)</span> loss or Quantile loss.  Instead of median, it uses quantiles. For example, <span class="math notranslate nohighlight">\(\large \alpha = 0.75\)</span> corresponds to the 75%-quantile. We can see that this function is asymmetric and penalizes the observations which are on the right side of the defined quantile.</p></li>
+</ul>
+<figure class="align-default" id="id11">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Asymmetric_function.png"><img alt="../../_images/Asymmetric_function.png" class="bg-white mb-1" src="../../_images/Asymmetric_function.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.12 </span><span class="caption-text">Asymmetric function</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s use loss function <span class="math notranslate nohighlight">\(\large L_q\)</span> on our data. The goal is to restore the conditional 75%-quantile of cosine. Let us put everyting together for GBM:</p>
+<ul class="simple">
+<li><p>Toy data <span class="math notranslate nohighlight">\(\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,300}\)</span> ✓</p></li>
+<li><p>A number of iterations <span class="math notranslate nohighlight">\(\large M = 3\)</span> ✓;</p></li>
+<li><p>Loss function for quantiles <span class="math notranslate nohighlight">\( \large \begin{equation}   L_{0.75}(y, f) =\left\{
+\begin{array}{&#64;{}ll&#64;{}}    0.25 \cdot |y - f|, &amp; \text{if}\ y-f \leq 0 \\     0.75 \cdot |y - f|, &amp; \text{if}\ y-f &gt;0   \end{array}\right. \end{equation} \)</span> ✓;</p></li>
+<li><p>Gradient <span class="math notranslate nohighlight">\(\large L_{0.75}(y, f)\)</span> - function weighted by <span class="math notranslate nohighlight">\(\large \alpha = 0.75\)</span>. We are going to train tree-based model for classification:
+<span class="math notranslate nohighlight">\(\large r_{i} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)} = \)</span>
+<span class="math notranslate nohighlight">\(\large = \alpha I(y_i &gt; \hat{f}(x_i) ) - (1 - \alpha)I(y_i \leq \hat{f}(x_i) ), \quad \mbox{for } i=1,\ldots,300\)</span> ✓;</p></li>
+<li><p>Decision tree as a basic algorithm <span class="math notranslate nohighlight">\(\large h(x)\)</span> ✓;</p></li>
+<li><p>Hyperparameter of trees: depth =  2 ✓;</p></li>
+</ul>
+<p>For our initial approximation, we will take the needed quantile of <span class="math notranslate nohighlight">\(\large y\)</span>. However, we do not know anything about optimal coefficients <span class="math notranslate nohighlight">\(\large \rho_t\)</span>, so we’ll use standard line search. The results are the following:</p>
+<figure class="align-default" id="id12">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Standard_line_search.png"><img alt="../../_images/Standard_line_search.png" class="bg-white mb-1" src="../../_images/Standard_line_search.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.13 </span><span class="caption-text">Standard line search</span><a class="headerlink" href="#id12" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We can observe that, on each iteration, <span class="math notranslate nohighlight">\(\large r_{i} \)</span> take only 2 possible values, but GBM is still able to restore our initial function.</p>
+<p>The overall results of GBM with quantile loss function are the same as the results with quadratic loss function offset by <span class="math notranslate nohighlight">\(\large \approx 0.135\)</span>. But if we were to use the 90%-quantile, we would not have enough data due to the fact that classes would become unbalanced. We need to remember this when we deal with non-standard problems.</p>
+<p>For regression tasks, many loss functions have been developed, some of them with extra properties. For example, they can be robust like in the <a class="reference external" href="https://en.wikipedia.org/wiki/Huber_loss">Huber loss function</a>. For a small number of outliers, the loss function works as <span class="math notranslate nohighlight">\(\large L_2\)</span>, but after a defined threshold, the function changes to <span class="math notranslate nohighlight">\(\large L_1\)</span>. This allows for decreasing the effect of outliers and focusing on the overall picture.</p>
+<p>We can illustrate this with the following example. Data is generated from the function  <span class="math notranslate nohighlight">\(\large y = \frac{sin(x)}{x}\)</span> with added noise, a mixture from normal and Bernulli distributions. We show the functions on graphs A-D and the relevant GBM on F-H (graph E represents the initial function):</p>
+<figure class="align-default" id="id13">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Functions_and_relevant_GBM.jpg"><img alt="../../_images/Functions_and_relevant_GBM.jpg" class="bg-white mb-1" src="../../_images/Functions_and_relevant_GBM.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.14 </span><span class="caption-text">Functions and relevant GBM</span><a class="headerlink" href="#id13" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In this example, we used splines as the base algorithm. See, it does not always have to be trees for boosting?</p>
+<p>We can clearly see the difference between the functions <span class="math notranslate nohighlight">\(\large L_2\)</span>, <span class="math notranslate nohighlight">\(\large L_1\)</span>, and Huber loss. If we choose optimal parameters for the Huber loss, we can get the best possible approximation among all our options. The difference can be seen as well in the 10%, 50%, and 90%-quantiles.</p>
+<p>Unfortunately, Huber loss function is supported only by very few popular libraries/packages; h2o supports it, but XGBoost does not. It is relevant to other things that are more exotic like <a class="reference external" href="https://www.slideshare.net/charthur/quantile-and-expectile-regression">conditional expectiles</a>, but it may still be interesting knowledge.
+</spoiler></p>
+</section>
+<section id="classification-loss-functions">
+<h3><span class="section-number">16.1.3.2. </span>Classification loss functions<a class="headerlink" href="#classification-loss-functions" title="Permalink to this headline">#</a></h3>
+<p>Now, let’s look at the binary classification problem <span class="math notranslate nohighlight">\(\large y \in \left\{-1, 1\right\}\)</span>. We saw that GBM can even optimize non-differentiable loss functions. Technically, it is possible to solve this problem with a regression <span class="math notranslate nohighlight">\(\large L_2\)</span> loss, but it wouldn’t be correct.</p>
+<p>The distribution of the target variable requires us to use log-likehood, so we need to have different loss functions for targets multiplied by their predictions:  <span class="math notranslate nohighlight">\(\large y \cdot f\)</span>. The most common choices would be the following:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\large L(y, f) = log(1 + exp(-2yf))\)</span> a.k.a. Logistic loss or Bernoulli loss. This has an interesting property that penalizes even correctly predicted classes, which helps not only helps to optimize loss but also to move the classes apart further, even if all classes are predicted correctly.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\large L(y, f) = exp(-yf)\)</span> a.k.a. AdaBoost loss. The classic AdaBoost is equivalent to GBM with this loss function. Conceptually, this function is very similar to logistic loss, but it has a bigger exponential penalization if the prediction is wrong.</p></li>
+</ul>
+<figure class="align-default" id="id14">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/AdaBoost_and_logistic.png"><img alt="../../_images/AdaBoost_and_logistic.png" class="bg-white mb-1" src="../../_images/AdaBoost_and_logistic.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.15 </span><span class="caption-text">AdaBoost and logistic</span><a class="headerlink" href="#id14" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Let’s generate some new toy data for our classification problem. As a basis, we will take our noisy cosine, and we will use the sign function for classes of the target variable. Our toy data looks like the following (jitter-noise is added for clarity):</p>
+<figure class="align-default" id="id15">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Toy_data.jpg"><img alt="../../_images/Toy_data.jpg" class="bg-white mb-1" src="../../_images/Toy_data.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.16 </span><span class="caption-text">Toy data</span><a class="headerlink" href="#id15" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We will use logistic loss to look for what we actually boost. So, again, we put together what we will use for GBM:</p>
+<ul class="simple">
+<li><p>Toy data <span class="math notranslate nohighlight">\(\large \left\{ (x_i, y_i) \right\}_{i=1, \ldots,300}, y_i \in \left\{-1, 1\right\}\)</span> ✓</p></li>
+<li><p>Number of iterations <span class="math notranslate nohighlight">\(\large M = 3\)</span> ✓;</p></li>
+<li><p>Logistic loss as the loss function, its gradient is computed the following way:
+<span class="math notranslate nohighlight">\(\large r_{i} = \frac{2 \cdot y_i}{1 + exp(2 \cdot y_i \cdot \hat{f}(x_i)) }, \quad \mbox{for } i=1,\ldots,300\)</span> ✓;</p></li>
+<li><p>Decision trees as base algorithms <span class="math notranslate nohighlight">\(\large h(x)\)</span> ✓;</p></li>
+<li><p>Hyperparameters of the decision trees: tree’s depth is equal to 2 ✓;</p></li>
+</ul>
+<p>This time, the initialization of the algorithm is a little bit harder. First, our classes are imbalanced  (63% versus 37%). Second, there is no known analytical formula for the initialization of our loss function, so we have to look for <span class="math notranslate nohighlight">\(\large \hat{f_0} = \gamma\)</span> via search:</p>
+<figure class="align-default" id="id16">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Initialization_of_algorithm.png"><img alt="../../_images/Initialization_of_algorithm.png" class="bg-white mb-1" src="../../_images/Initialization_of_algorithm.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.17 </span><span class="caption-text">Initialization of algorithm</span><a class="headerlink" href="#id16" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Our optimal initial approximation is around -0.273. You could have guessed that it was negative because it is more profitable to predict everything as the most popular class, but there is no formula for the exact value. Now let’s finally start GBM, and look what actually happens under the hood:</p>
+<figure class="align-default" id="id17">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Result_of_GBM.png"><img alt="../../_images/Result_of_GBM.png" class="bg-white mb-1" src="../../_images/Result_of_GBM.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.18 </span><span class="caption-text">Result of GBM</span><a class="headerlink" href="#id17" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The algorithm successfully restored the separation between our classes. You can see how the “lower” areas are separating because the trees are more confident in the correct prediction of the negative class and how the two steps of mixed classes are forming. It is clear that we have a lot of correctly classified observations and some amount of observations with large errors that appeared due to the noise in the data.</p>
+</section>
+<section id="weights">
+<h3><span class="section-number">16.1.3.3. </span>Weights<a class="headerlink" href="#weights" title="Permalink to this headline">#</a></h3>
+<p>Sometimes, there is a situation where we want a more specific loss function for our problem. For example, in financial time series, we may want to give bigger weight to large movements in the time series; for churn prediction, it is more useful to predict the churn of clients with high LTV (or lifetime value: how much money a client will bring in the future).</p>
+<figure class="align-default" id="id18">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Statistical_learning.jpg"><img alt="../../_images/Statistical_learning.jpg" class="bg-white mb-1" src="../../_images/Statistical_learning.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.19 </span><span class="caption-text">Statistical learning</span><a class="headerlink" href="#id18" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The statistical warrior would invent their own loss function, write out the gradient for it (for more effective training, include the Hessian), and carefully check whether this function satisfies the required properties. However, there is a high probability of making a mistake somewhere, running up against computational difficulties, and spending an inordinate amount of time on research.</p>
+<p>In lieu of this, a very simple instrument was invented (which is rarely remembered in practice): weighing observations and assigning weight functions. The simplest example of such weighting is the setting of weights for class balance. In general, if we know that some subset of data, both in the input variables <span class="math notranslate nohighlight">\(\large x\)</span> and in the target variable <span class="math notranslate nohighlight">\(\large y\)</span>, has greater importance for our model, then we just assign them a larger weight <span class="math notranslate nohighlight">\(\large w(x,y)\)</span>. The main goal is to fulfill the general requirements for weights:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \large w_i \in \mathbb{R}, \\
+\large w_i \geq 0 \quad \mbox{for } i=1,\ldots,n, \\
+\large \sum_{i = 1}^n w_i &gt; 0 \end{split}\]</div>
+<p>Weights can significantly reduce the time spent adjusting the loss function for the task we are solving and also encourages experiments with the target models’ properties. Assigning these weights is entirely a function of creativity. We simply add scalar weights:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \large L_{w}(y,f) = w \cdot L(y,f), \\
+\large r_{it} =   - w_i \cdot \left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f(x)=\hat{f}(x)}, \quad \mbox{for } i=1,\ldots,n\end{split}\]</div>
+<p>It is clear that, for arbitrary weights, we do not know the statistical properties of our model. Often, linking the weights to the values <span class="math notranslate nohighlight">\(\large y\)</span> can be too complicated. For example, the usage of weights proportional to <span class="math notranslate nohighlight">\(\large |y|\)</span> in <span class="math notranslate nohighlight">\(\large L_1\)</span> loss function is not equivalent to <span class="math notranslate nohighlight">\(\large L_2\)</span> loss because the gradient will not take into account the values of the predictions themselves: <span class="math notranslate nohighlight">\(\large \hat{f}(x)\)</span>.</p>
+<p>We mention all of this so that we can understand our possibilities better. Let’s create some very exotic weights for our toy data. We will define a strongly asymmetric weight function as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \large \begin{equation} w(x) =\left\{   \begin{array}{&#64;{}ll&#64;{}}     0.1, &amp; \text{if}\ x \leq 0 \\     0.1 + |cos(x)|, &amp; \text{if}\ x &gt;0 \end{array}\right. \end{equation} \end{split}\]</div>
+<figure class="align-default" id="id19">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Asymmetric_weight_function.png"><img alt="../../_images/Asymmetric_weight_function.png" class="bg-white mb-1" src="../../_images/Asymmetric_weight_function.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.20 </span><span class="caption-text">Asymmetric weight function</span><a class="headerlink" href="#id19" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>With these weights, we expect to get two properties: less detailing for negative values of <span class="math notranslate nohighlight">\(\large x\)</span> and the form of the function, similar to the initial cosine. We take the other GBM’s tunings from our previous example with classification including the line search for optimal coefficients. Let’s look what we’ve got:</p>
+<figure class="align-default" id="id20">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Adjusted_result_of_GBM.png"><img alt="../../_images/Adjusted_result_of_GBM.png" class="bg-white mb-1" src="../../_images/Adjusted_result_of_GBM.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.21 </span><span class="caption-text">Adjusted result of GBM</span><a class="headerlink" href="#id20" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We achieved the result that we expected. First, we can see how strongly the pseudo-residuals differ; on the initial iteration, they look almost like the original cosine. Second, the left part of the function’s graph was often ignored in favor of the right one, which had larger weights. Third, the function that we got on the third iteration received enough attention and started looking similar to the original cosine (also started to slightly overfit).</p>
+<p>Weights are a powerful but risky tool that we can use to control the properties of our model. If you want to optimize your loss function, it is worth trying to solve a more simple problem first but add weights to the observations at your discretion.</p>
+</section>
+</section>
+<section id="conclusion">
+<h2><span class="section-number">16.1.4. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>Today, we learned the theory behind gradient boosting. GBM is not just some specific algorithm but a common methodology for building ensembles of models. In addition, this methodology is sufficiently flexible and expandable – it is possible to train a large number of models, taking into consideration different loss-functions with a variety of weighting functions.</p>
+<p>Practice and ML competitions show that, in standard problems (except for image, audio, and very sparse data), GBM is often the most effective algorithm (not to mention stacking and high-level ensembles, where GBM is almost always a part of them).  Also, there are many adaptations of GBM <a class="reference external" href="https://arxiv.org/abs/1603.04119">for Reinforcement Learning</a> (Minecraft, ICML 2016). By the way, the Viola-Jones algorithm, which is still used in computer vision, <a class="reference external" href="https://en.wikipedia.org/wiki/Viola%E2%80%93Jones_object_detection_framework#Learning_algorithm">is based on AdaBoost</a>.</p>
+<p>In this article, we intentionally omitted questions concerning GBM’s regularization, stochasticity, and hyper-parameters. It was not accidental that we used a small number of iterations <span class="math notranslate nohighlight">\(\large M = 3\)</span> throughout. If we used 30 trees instead of 3 and trained the GBM as described, the result would not be that predictable:</p>
+<figure class="align-default" id="id21">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Good_fit.png"><img alt="../../_images/Good_fit.png" class="bg-white mb-1" src="../../_images/Good_fit.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.22 </span><span class="caption-text">Good fit</span><a class="headerlink" href="#id21" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id22">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Overfitting.png"><img alt="../../_images/Overfitting.png" class="bg-white mb-1" src="../../_images/Overfitting.png" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.23 </span><span class="caption-text">Overfitting</span><a class="headerlink" href="#id22" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="id23">
+<a class="bg-white mb-1 reference internal image-reference" href="../../_images/Gradient_boosting_interactive_playground.jpg"><img alt="../../_images/Gradient_boosting_interactive_playground.jpg" class="bg-white mb-1" src="../../_images/Gradient_boosting_interactive_playground.jpg" style="width: 90%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16.24 </span><span class="caption-text">Gradient Boosting Interactive Playground</span><a class="headerlink" href="#id23" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>You can go to the <a class="reference external" href="http://arogozhnikov.github.io/2016/07/05/gradient_boosting_playground.html">Gradient Boosting Interactive Playground</a> to learn more.</p>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">16.1.5. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>TBD</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">16.1.6. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://www.kaggle.com/kashnitsky">Yury Kashnitsky</a> for creating the open-source course <a class="reference external" href="https://www.kaggle.com/code/kashnitsky/topic-10-gradient-boosting/notebook">Gradient Boosting</a>. It inspires the majority of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "open-academy/machine-learning",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml-advanced/gradient-boosting"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="introduction-to-gradient-boosting.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">16. </span>Introduction to Gradient Boosting</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="gradient-boosting-example.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">16.2. </span>Gradient boosting example</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2022.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

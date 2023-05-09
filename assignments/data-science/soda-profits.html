@@ -491,8 +491,23 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/gradient-boosting.html">
+     16.1. Gradient Boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/gradient-boosting-example.html">
+     16.2. Gradient boosting example
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../../ml-advanced/gradient-boosting/xgboost.html">
-     16.1. XGBoost
+     16.3. XGBoost
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/xgboost-k-fold-cv-feature-importance.html">
+     16.4. XGBoost + k-fold CV + Feature Importance
     </a>
    </li>
   </ul>
@@ -1281,7 +1296,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/assignments/data-science/soda-profits.md"
+        <a href="https://github.com/open-academy/machine-learning/edit/main/open-machine-learning-jupyter-book/assignments/data-science/soda-profits.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1313,23 +1328,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../_sources/assignments/data-science/soda-profits.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1337,7 +1335,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1391,13 +1389,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#rubric">
-   40.22.2. Rubric
+  <a class="reference internal nav-link" href="#loading-data">
+   40.22.2. Loading data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assignment">
+   40.22.3. Assignment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#acknowledgments">
-   40.22.3. Acknowledgments
+   40.22.4. Acknowledgments
   </a>
  </li>
 </ul>
@@ -1425,13 +1428,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#rubric">
-   40.22.2. Rubric
+  <a class="reference internal nav-link" href="#loading-data">
+   40.22.2. Loading data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assignment">
+   40.22.3. Assignment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#acknowledgments">
-   40.22.3. Acknowledgments
+   40.22.4. Acknowledgments
   </a>
  </li>
 </ul>
@@ -1448,50 +1456,75 @@ title="Print to PDF"
 <h1><span class="section-number">40.22. </span>Soda profits<a class="headerlink" href="#soda-profits" title="Permalink to this headline">#</a></h1>
 <section id="instructions">
 <h2><span class="section-number">40.22.1. </span>Instructions<a class="headerlink" href="#instructions" title="Permalink to this headline">#</a></h2>
-<p>The <a href="../../assets/data/coca-cola-co.csv">Coca-Cola Co spreadsheet</a><span id="id1">[<a class="reference internal" href="#id55" title="CocaCola excel. URL: https://www.kaggle.com/datasets/yiyiwang0826/cocacola-excel (visited on 2022-10-08).">coc</a>]</span> is missing some calculations. Your task is to:</p>
+<p>The <a href="../../assets/data/coca-cola-co.csv">Coca-Cola Co spreadsheet</a><span id="id1">[]</span> is missing some calculations.</p>
+</section>
+<section id="loading-data">
+<h2><span class="section-number">40.22.2. </span>Loading data<a class="headerlink" href="#loading-data" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">pip</span> install ipython-sql
+<span class="o">%</span><span class="k">load_ext</span> sql
+<span class="kn">from</span> <span class="nn">sqlalchemy.engine</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">from</span> <span class="nn">pandas.io</span> <span class="kn">import</span> <span class="n">sql</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">sql</span> sqlite:///../../assets/data/coca_cola_co.sqlite 
+<span class="c1"># loading from disk</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="assignment">
+<h2><span class="section-number">40.22.3. </span>Assignment<a class="headerlink" href="#assignment" title="Permalink to this headline">#</a></h2>
+<p>Create queries to return the following information:</p>
 <ol class="simple">
 <li><p>Calculate the Gross profits of FY ‘15, ‘16, ‘17, and ‘18.</p>
 <ul class="simple">
 <li><p>Gross Profit = Net Operating revenues - Cost of goods sold.</p></li>
 </ul>
 </li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+    SELECT year, &quot;Net Operating Revenues&quot; - &quot;Cost of Goods Sold&quot; AS &quot;Gross Profit&quot;
+    FROM &quot;coca-cola-co&quot;
+    WHERE year IN (&#39;15&#39;, &#39;16&#39;, &#39;17&#39;, &#39;18&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
 <li><p>Calculate the average of all the gross profits. Try to do this with a function.</p>
 <ul class="simple">
 <li><p>Average = Sum of gross profits divided by the number of fiscal years (10).</p></li>
 <li><p>Documentation of the <a class="reference external" href="https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6">AVERAGE function</a>.</p></li>
 </ul>
 </li>
-<li><p>This is an csv file, but it should be editable in any spreadsheet platform.</p></li>
 </ol>
-</section>
-<section id="rubric">
-<h2><span class="section-number">40.22.2. </span>Rubric<a class="headerlink" href="#rubric" title="Permalink to this headline">#</a></h2>
-<table class="colwidths-auto table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Exemplary</p></th>
-<th class="head"><p>Adequate</p></th>
-<th class="head"><p>Needs Improvement</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>—</p></td>
-<td><p>—</p></td>
-<td><p>–</p></td>
-</tr>
-</tbody>
-</table>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+    SELECT AVG(&quot;Gross Profit&quot;) AS &quot;Average Gross Profit&quot;
+    FROM (
+    SELECT &quot;Net Operating Revenues&quot; - &quot;Cost of Goods Sold&quot; AS &quot;Gross Profit&quot;
+    FROM &quot;coca-cola-co&quot;
+    ) AS &quot;All Gross Profits&quot;;
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="acknowledgments">
-<h2><span class="section-number">40.22.3. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
-<p>Thanks to Microsoft for creating the open-source course <a class="reference external" href="https://github.com/microsoft/Data-Science-For-Beginners">Data Science for Beginners</a>. It inspires the majority of the content in this chapter.</p>
-<hr class="docutils" />
-<div class="docutils container" id="id2">
-<dl class="citation">
-<dt class="label" id="id55"><span class="brackets"><a class="fn-backref" href="#id1">coc</a></span></dt>
-<dd><p>CocaCola excel. URL: <a class="reference external" href="https://www.kaggle.com/datasets/yiyiwang0826/cocacola-excel">https://www.kaggle.com/datasets/yiyiwang0826/cocacola-excel</a> (visited on 2022-10-08).</p>
-</dd>
-</dl>
-</div>
+<h2><span class="section-number">40.22.4. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to Microsoft for creating the open-source course <a class="reference external" href="https://github.com/microsoft/Data-Science-For-Beginners">Data Science for Beginners</a> and author <a class="reference external" href="https://github.com/paladique">Jasmine Greenaway</a>. They inspires the majority of the content in this chapter.</p>
 </section>
 </section>
 
@@ -1504,16 +1537,16 @@ title="Print to PDF"
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "myconda_1"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "myconda_1",
             path: "./assignments/data-science"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'myconda_1'</script>
     <script type="text/javascript">
         function init() {
             WaveDrom.ProcessAll();
