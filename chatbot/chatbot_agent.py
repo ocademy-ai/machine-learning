@@ -36,15 +36,15 @@ class ChatbotAgent:
         # Set OpenAI API key.
         self._openai_api_key = openai_api_key
         os.environ["OPENAI_API_KEY"] = self._openai_api_key
-        self.sources_urls = sources_urls
-        self.persist_directory = persist_directory
+        self._sources_urls = sources_urls
+        self._persist_directory = persist_directory
 
 
         # Fetch the contents of each file and write to a local Markdown file.
         self._sources_path = r'\chatbot\vector-db-persist-directory\sources_merged.md'
         self._default_url_prefix = "https://github.com/open-academy/machine-learning/tree/main/open-machine-learning-jupyter-book"
         with open(self._sources_path, "w", encoding="utf-8") as f:
-            for url in self.sources_urls:
+            for url in self._sources_urls:
                 if not url.startswith(self._default_url_prefix):
                     raise ValueError(f"file path must start with '{self._default_url_prefix}'")
                 response = requests.get(url, verify=False)
@@ -60,7 +60,7 @@ class ChatbotAgent:
 
 
         # Load the data.
-        self.sources_data = self.get_openacademysources(self._sources_path)
+        self.sources_data = self.get_embeddings(self._sources_path)
         text_splitter = TokenTextSplitter(chunk_size=1000, chunk_overlap=0)  # Initialize a TokenTextSplitter object.
         sources_data_doc = text_splitter.split_documents(self.sources_data)  # Split the text into chunks.
 
@@ -70,7 +70,7 @@ class ChatbotAgent:
 
 
         # Generating Chroma vectors from the text chunks using the OpenAIEmbeddings object and persisting them to disk.
-        self.vectordb = Chroma.from_documents(sources_data_doc, embeddings, persist_directory=self.persist_directory)
+        self.vectordb = Chroma.from_documents(sources_data_doc, embeddings, persist_directory=self._persist_directory)
         self.vectordb.persist()
 
 
@@ -217,8 +217,8 @@ class ChatbotAgent:
 
 
     # Get the data from the merged file.
-    def get_openacademysources(self, path):
-        loader = OpenAcademySourcesLoader(path)
+    def get_Embeddings(self, path):
+        loader = EmbeddingsLoader(path)
         data = loader.load()
         return data
 
@@ -278,9 +278,12 @@ class ChatbotAgent:
 
 
 # Convert Document to Embedding.
-class OpenAcademySourcesLoader(BaseLoader):
-    """Loader that uses urllib to load .txt web files."""
-
+class EmbeddingsLoader(BaseLoader):
+    """
+    Loader that uses urllib to load .txt web files.
+    
+    :param BaseLoader: a specifyed class in ChromaDB
+    """
     def __init__(self, file_path: str):
         """Initialize with file path."""
         if not file_path.endswith(".md"):
