@@ -1361,7 +1361,7 @@ assert first_number == 456
 assert second_number == 123
 ```
 
-[comment]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/)
+[comment1]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/)
 
 ### Sets and their methods
 
@@ -1468,7 +1468,7 @@ word = {char for char in 'abracadabra' if char not in 'abc'}
 assert word == {'r', 'd'}
 ```
 
-[comment]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/)
+[comment2]: <> (TODO: add visualization code example, e.g. some sample code from https://realpython.com/)
 
 ### Dictionaries
 
