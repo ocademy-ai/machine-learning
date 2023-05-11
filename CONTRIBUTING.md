@@ -237,6 +237,80 @@ To Windows,
 > 
 > Tips: You can use the command `get-ExecutionPolicy`  to check , and if `RemoteSigned` appears, it means the modification is successful.
 
+### Configure ssh public and private keys
+Follow the [ Atlassian Git SSH](https://www.atlassian.com/git/tutorials/git-ssh) official guidance to learn about Git and SSH.
+Then open github, go to the configuration page, select SSH and GPG keys, select New SSH key, then use the text tool to open the id_rsa.pub file that was generated earlier, copy the contents to the input box below the key, define a name for the key, and save it.
+
+To change all of your local protocols to SSH, you can do the following:
+
+> 1. Open the command line terminal and go to the directory in your local repository.
+> 
+> 2. Enter the following command to view the current remote repository address:
+>
+> ```bash
+> git remote -v
+> ```
+>
+> The output should look something like:
+>
+> ```bash
+> origin  http://github.com/<username>/<repository>.git (fetch)
+> origin  http://github.com/<username>/<repository>.git (push)
+> ```
+> 
+> 3. copy the SSH URL from GitHub (format:git@github.com:<username>/<repository>.git)
+>
+> 4. Enter the following command to change the URL of the remote repository to the SSH URL:
+> 
+> ```bash
+> git remote set-url origin git@github.com:<username>/<repository>.git
+> ```
+>
+> 5. Updated upstream remote repository link:
+> 
+> ```bash
+> git remote set-url upstream git@github.com:open-academy/machine-learning.git
+> ```
+> 
+> **Warning**
+> You may encouter following problem when you configure SSH.
+>
+> ```bash
+> HP@DESKTOP-H1SBMME MINGW64 ~/.ssh
+> $ ~/.ssh/config
+> bash: /c/Users/HP/.ssh/config: No such file or directory
+> ```
+> 
+> Solution:
+>
+> 1. To create the file using the Git Bash terminal, you can use the following command to create an empty SSH config file in your home directory:
+> 
+> ```bash
+> touch ~/.ssh/config
+> ```
+>
+> 2. add the following to SSH config file
+>
+> ```bash
+> Host github.com
+> HostName github.com
+> User git
+> IdentityFile ~/.ssh/id_rsa
+> ```
+>
+> **Warning**
+> You may encouter following problem when you use git push.
+>
+> ```bash
+> ssh: connect to host github.com port 22: Connection refused
+> fatal: Could not read from remote repository.
+> Please make sure you have the correct access rights
+> and the repository exists.
+> ```
+>
+> Solution:
+> 
+> Make sure you configured SSH correctly
 
 ### Activate the Conda environment
 
