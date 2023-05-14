@@ -1,2 +1,1 @@
-jupyter-book build .
-bash ./post-build.sh
+jupyter-book build . -W --keep-going
