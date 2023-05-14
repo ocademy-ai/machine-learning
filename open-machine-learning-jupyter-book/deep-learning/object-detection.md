@@ -314,7 +314,7 @@ class CenternessNet(tf.keras.layers.Layer):
 Similar to image classification, Transformer is also used in object detection task, and the classical one is DEtection TRansformer(DETR).
 
 :::{figure-md} 07_DETR
-<img src="../../images/deep-learning/objdet/07_DETR.png" width="90%" class="bg-white mb-1">
+<img src="../../images/deep-learning/objdet/07_detr.png" width="90%" class="bg-white mb-1">
 
 Structure of DETR {cite}`detr_structure`
 :::
