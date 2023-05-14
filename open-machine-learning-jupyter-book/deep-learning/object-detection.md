@@ -245,11 +245,14 @@ def maskrcnn_upXconv_head(feature, num_category, num_convs, norm=None):
 
 FCOS (Fully Convolutional One-Stage Object Detection) is a one-stage object detection algorithm that uses a fully convolutional architecture to detect objects. It is a simple and effective method for object detection that does not require region proposal networks (RPNs) or anchor boxes.
 
+<!---
 :::{figure-md} 05_fcos
 <img src="../../images/deep-learning/objdet/05_fcos.png" width="90%" class="bg-white mb-1">
 
 The structure of FCOS {cite}`fcos_structure`
 :::
+
+--->
 
 ```{note}
 We can see the paper [here](https://arxiv.org/pdf/1904.01355v5.pdf).
@@ -313,11 +316,13 @@ class CenternessNet(tf.keras.layers.Layer):
 
 Similar to image classification, Transformer is also used in object detection task, and the classical one is DEtection TRansformer(DETR).
 
+<!---
 :::{figure-md} 07_DETR
 <img src="../../images/deep-learning/objdet/07_detr.png" width="90%" class="bg-white mb-1">
 
 Structure of DETR {cite}`detr_structure`
 :::
+--->
 
 ```{note}
 We can see the paper [here](https://arxiv.org/pdf/2005.12872v3.pdf).
