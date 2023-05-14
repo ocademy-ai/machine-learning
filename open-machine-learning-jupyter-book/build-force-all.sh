@@ -1,2 +1,2 @@
-jupyter-book build --all .
-bash ./post-build.sh
+jupyter-book clean -a .
+jupyter-book build --all -W --keep-going . 
