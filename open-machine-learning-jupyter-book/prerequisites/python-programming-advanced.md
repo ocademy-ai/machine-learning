@@ -63,19 +63,17 @@ An `if … elif … elif …` sequence is a substitute for the switch or case st
 ```
 
 ```{code-cell}
-number = 15
-conclusion = ''
+age = 18
 
-if number < 0:
-    conclusion = 'Number is less than zero'
-elif number == 0:
-    conclusion = 'Number equals to zero'
-elif number < 1:
-    conclusion = 'Number is greater than zero but less than one'
-else:
-    conclusion = 'Number bigger than or equal to one'
 
-assert conclusion == 'Number bigger than or equal to one'
+if age >= 0 and age <= 9:
+    print("You are a child!")
+elif age > 9 and age <= 18:
+    print("You are an adolescent!")
+elif age > 18 and age <= 65:
+    print("You are an adult!")
+elif age > 65:
+    print("Golden ages!")
 ```
 
 ### The for statement (and range() function)
