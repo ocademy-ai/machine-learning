@@ -19,7 +19,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 </details>
 
-# Amazon SageMaker MLOps Workshop Warm-up
+# Amazon sagemaker mlops workshop warm-up
 
 ## Instructions
 
