@@ -63,20 +63,21 @@ An `if … elif … elif …` sequence is a substitute for the switch or case st
 ```
 
 ```{code-cell}
-number = 15
-conclusion = ''
+def get_age_group(age):
+    if age >= 0 and age <= 9:
+        print("You are a child!")
+    elif age > 9 and age <= 18:
+        print("You are an adolescent!")
+    elif age > 18 and age <= 65:
+        print("You are an adult!")
+    else: # age > 65
+        print("Golden ages!")
 
-if number < 0:
-    conclusion = 'Number is less than zero'
-elif number == 0:
-    conclusion = 'Number equals to zero'
-elif number < 1:
-    conclusion = 'Number is greater than zero but less than one'
-else:
-    conclusion = 'Number bigger than or equal to one'
-
-assert conclusion == 'Number bigger than or equal to one'
+get_age_group(3)
+get_age_group(50)
 ```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=def%20get_age_group%28age%29%3A%0A%20%20%20%20if%20age%20%3E%3D%200%20and%20age%20%3C%3D%209%3A%0A%20%20%20%20%20%20%20%20print%28%22You%20are%20a%20child!%22%29%0A%20%20%20%20elif%20age%20%3E%209%20and%20age%20%3C%3D%2018%3A%0A%20%20%20%20%20%20%20%20print%28%22You%20are%20an%20adolescent!%22%29%0A%20%20%20%20elif%20age%20%3E%2018%20and%20age%20%3C%3D%2065%3A%0A%20%20%20%20%20%20%20%20print%28%22You%20are%20an%20adult!%22%29%0A%20%20%20%20else%3A%20%23%20age%20%3E%2065%0A%20%20%20%20%20%20%20%20print%28%22Golden%20ages!%22%29%0A%0Aget_age_group%283%29%0Aget_age_group%2850%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=0&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
 
 ### The for statement (and range() function)
 
@@ -122,6 +123,22 @@ for number in range(5):
 
 assert iterated_numbers == [0, 1, 2, 3, 4]
 ```
+
+Let's see a more complex example about how to find the prims by in an embedded `for` loops.
+
+```{code-cell}
+# find primes using a for-else construct
+for n in range(2, 10):
+    x_range = range(2, n)
+    for x in x_range:
+        if n % x == 0:
+            break
+    else:
+        # loop fell through without finding a factor
+        print(n)
+```
+
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=%23%20find%20primes%20using%20a%20for-else%20construct%0Afor%20n%20in%20range%282,%2010%29%3A%0A%20%20%20%20x_range%20%3D%20range%282,%20n%29%0A%20%20%20%20for%20x%20in%20x_range%3A%0A%20%20%20%20%20%20%20%20if%20n%20%25%20x%20%3D%3D%200%3A%0A%20%20%20%20%20%20%20%20%20%20%20%20break%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20loop%20fell%20through%20without%20finding%20a%20factor%0A%20%20%20%20%20%20%20%20print%28n%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=30&heapPrimitives=nevernest&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
 
 To iterate over the indices of a sequence, you can combine `range()` and `len()` as follows:
 
@@ -180,7 +197,6 @@ To loop over two or more sequences at the same time, the entries can be paired w
 We say such an object is iterable, that is, suitable as a target for functions and constructs that expect something from which they can obtain successive items until the supply is exhausted. We have seen that the for statement is such an iterator. The function `list()` is another; it creates lists from iterables:
 
 The given end point is never part of the generated sequence; `range(10)` generates 10 values, the legal indices for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a different increment (even negative; sometimes this is called the ‘step’):
-
 
 ```{code-cell}
 assert list(range(5)) == [0, 1, 2, 3, 4]
@@ -1618,3 +1634,5 @@ Here is a list of free/open-source learning resources for advanced [Python progr
 ## Acknowledgments
 
 Thanks to [Oleksii Trekhleb](https://github.com/trekhleb) who helped create this awesome open source project [learn-python](https://github.com/trekhleb/learn-python) for Python learning. It contributes the majority of the content in this chapter.
+
+Thanks to [pythontutor](https://pythontutor.com/) for providing the ability to visualize the code execution. It also contributes some code to this chapter.
