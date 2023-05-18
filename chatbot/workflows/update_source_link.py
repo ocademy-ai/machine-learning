@@ -1,5 +1,5 @@
 import os
-
+from prep_data import prep_data
 
 
 path = 'open-machine-learning-jupyter-book'
