@@ -27,3 +27,6 @@ for folder in folders:
     if folder_md_files:
         with open(r'chatbot\vector-db-persist-directory\resources\{}.txt'.format(folder), 'w') as f:
             f.write(file_content)
+
+# Update the embeddings of text
+# prep_data()
