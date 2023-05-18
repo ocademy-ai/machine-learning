@@ -458,3 +458,5 @@ Try to [write some simple Python code](../assignments/prerequisites/python-progr
 ## Acknowledgments
 
 Thanks to [Asabeneh](https://github.com/Asabeneh) who helped create this awesome open-source project [30-Days-Of-Python](https://github.com/Asabeneh/30-Days-Of-Python/blob/master/readme.md) for Python learning. It contributes the majority of the content in this chapter.
+
+Thanks to [pythontutor](https://pythontutor.com/) for providing the ability to visualize the code execution. It also contributes some code to this chapter.
