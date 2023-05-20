@@ -21,6 +21,8 @@ jobs:
       # Checkout the repository to get access to the files.
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-deepth: 0 # Fetch complete history.
 
       # Set up Node.js 16.x.
       - name: Setup Node.js environment
@@ -40,6 +42,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Get changed files.
+      - name: Get changed files
+        id: getfile
+        run: |
+          echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep 'open-machine-learning-jupyter-book' | grep '\.md$')"
+      
+      # Write changed files to a text file.
+      - name: Write changed files to a text file
+        run: |
+          for file in ${{ steps.getfile.outputs.files }}; do
+            echo "https://github.com/open-academy/machine-learning/blob/${{ github.ref }}/${file}" >> ./chatbot/vector-db-presist-directory/resources-new/changed_file.txt
+          done
+      
+      # Commit and push changes.
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add ./chatbot/vector-db-presist-directory/resources-new/changed_file.txt
+          git commit -m "Update changed files list" -a
+          git push
+
+      # Set up OpenAI API Key.
       - name: Set up OpenAI API Key
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
