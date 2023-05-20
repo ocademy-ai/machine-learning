@@ -29,4 +29,4 @@ for folder in folders:
             f.write(file_content)
 
 # Update the embeddings of text
-# prep_data()
+ prep_data()

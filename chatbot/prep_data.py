@@ -136,9 +136,7 @@ def prep_data():
 
 
 def get_emmbedings(text):
-	with open(r'chatbot\OpenAI-API-key\OpenAI_API_key.txt', 'r') as f:
-		openai_api_key = f.read().strip()
-	openai.api_key = openai_api_key
+	openai.api_key = os.getenv('OPENAI_API_KEY')
 	embedded_query = openai.Embedding.create(
             input=text,
             model="text-embedding-ada-002",
