@@ -1,5 +1,6 @@
 import os
 import warnings
+from dotenv import load_dotenv
 
 import pandas as pd
 import re
@@ -19,6 +20,9 @@ def prep_data():
 	:param DataFrame: A pandas DataFrame of book data, with columns 'id', 'title', 'content',
     'link', 'inline_link_list', 'inline_title_list', and 'inline_content_list'.
 	"""
+	# Load the OpenAI API key from the .env file.
+	load_dotenv()
+
 	book_data = [] # Create an empty list to store book data.
 	id = 0 # Set an initial value for the ID counter.
 
