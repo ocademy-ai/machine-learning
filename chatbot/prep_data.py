@@ -20,11 +20,10 @@ def prep_data():
 	:param DataFrame: A pandas DataFrame of book data, with columns 'id', 'title', 'content',
     'link', 'inline_link_list', 'inline_title_list', and 'inline_content_list'.
 	"""
-
 	book_data = [] # Create an empty list to store book data.
 	id = 0 # Set an initial value for the ID counter.
 
-	input_directory = './chatbot/vector-db-persist-directory/resources/' # Set the defualt directory.
+	input_directory = r'TraceTalk\vector-db-persist-directory\resources' # Set the defualt directory.
 	
 	for file in os.listdir(input_directory):
 		if file.endswith('.txt'):
@@ -62,7 +61,6 @@ def prep_data():
 					for inline_title, inline_link in inline_links_list:
 						if inline_link.endswith(('.exe', '.zip', '.rar')):
 							continue
-						print(inline_link)
 						try:
 							inline_content_request = requests.get(inline_link)
 							inline_content = inline_content_request.text if md_content_request.status_code == 200 else ''
@@ -78,6 +76,7 @@ def prep_data():
 					book_data.append({
 						'id': id,
 						'title': md_title,
+						'title_vector': get_emmbedings(md_title),
 						'content': text, # Further optimization can be done by splitting files to reduce text volume.
 						'content_vector': get_emmbedings(text), # Further optimization can be done by splitting files to reduce text volume.
 						'link': converted_link,
@@ -90,17 +89,17 @@ def prep_data():
 	book_data_df = pd.DataFrame(book_data)
 
 	# Idex client.
-	client = QdrantClient(path=r'chatbot\vector-db-persist-directory\Qdrant')
+	client = QdrantClient(path=r'TraceTalk\vector-db-persist-directory\Qdrant')
 	
 	# Upsert the data into the collection of the Qdrant database.
 	vector_size = 1536
 	client.recreate_collection(
 		collection_name='Articles',
 		vectors_config={
-			#'title': rest.VectorParams(
-			#	distance=rest.Distance.COSINE,
-			#	size=vector_size,
-			#),
+			'title': rest.VectorParams(
+				distance=rest.Distance.COSINE,
+				size=vector_size,
+			),
 			'content': rest.VectorParams(
 				distance=rest.Distance.COSINE,
 				size=vector_size,
@@ -122,7 +121,7 @@ def prep_data():
             rest.PointStruct(
                 id=row['id'],
                 vector={
-                    #'title': get_emmbedings(row['title']),
+                    'title': row['title_vector'],
                     'content': row['content_vector'],
                     #'inline_title_vector': row['inline_title_list'],
                     #'inline_content_vector': row['inline_content_list'],
@@ -134,7 +133,6 @@ def prep_data():
     )
 	
 	return book_data_df
-
 
 
 
