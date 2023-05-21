@@ -61,15 +61,6 @@ jobs:
             echo "https://github.com/open-academy/machine-learning/blob/${{ github.ref }}/${file}" >> ./chatbot/vector-db-persist-directory/resources-new/changed_file.txt
           done
           echo  "hello" >> ./chatbot/vector-db-persist-directory/resources-new/changed_file.txt
-      
-      # Commit and push changes.
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git diff --cached --quiet || git add ./chatbot/vector-db-persist-directory/resources-new/changed_file.txt
-          git diff --cached --quiet || git commit -m "Update changed files list" -a
-          git diff --cached --quiet || git push
 
       # Set up OpenAI API Key.
       - name: Set up OpenAI API Key
@@ -80,3 +71,12 @@ jobs:
       # Update the vector database of chatbot using Python script.
       - name: Update the vector database of chatbot
         run: python -m chatbot.workflows.update_source_link.py
+        
+      # Commit and push changes.
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git diff --cached --quiet || git add ./chatbot/vector-db-persist-directory/resources-new/changed_file.txt
+          git diff --cached --quiet || git commit -m "Update changed files list" -a
+          git diff --cached --quiet || git push
