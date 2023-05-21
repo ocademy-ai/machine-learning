@@ -20,8 +20,6 @@ def prep_data():
 	:param DataFrame: A pandas DataFrame of book data, with columns 'id', 'title', 'content',
     'link', 'inline_link_list', 'inline_title_list', and 'inline_content_list'.
 	"""
-	# Load the OpenAI API key from the .env file.
-	load_dotenv()
 
 	book_data = [] # Create an empty list to store book data.
 	id = 0 # Set an initial value for the ID counter.
@@ -140,6 +138,8 @@ def prep_data():
 
 
 def get_emmbedings(text):
+	# Load the OpenAI API key from the .env file.
+	load_dotenv()
 	openai.api_key = os.getenv('OPENAI_API_KEY')
 	embedded_query = openai.Embedding.create(
             input=text,
