@@ -26,7 +26,7 @@ def prep_data():
 	book_data = [] # Create an empty list to store book data.
 	id = 0 # Set an initial value for the ID counter.
 
-	input_directory = r'.\chatbot\vector-db-persist-directory\resources' # Set the defualt directory.
+	input_directory = './chatbot/vector-db-persist-directory/resources/' # Set the defualt directory.
 	
 	for file in os.listdir(input_directory):
 		if file.endswith('.txt'):
