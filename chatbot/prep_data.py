@@ -23,7 +23,7 @@ def prep_data():
 	book_data = [] # Create an empty list to store book data.
 	id = 0 # Set an initial value for the ID counter.
 
-	input_directory = r'TraceTalk\vector-db-persist-directory\resources' # Set the defualt directory.
+	input_directory = r'chatbot\vector-db-persist-directory\resources' # Set the defualt directory.
 	
 	for file in os.listdir(input_directory):
 		if file.endswith('.txt'):
@@ -89,7 +89,7 @@ def prep_data():
 	book_data_df = pd.DataFrame(book_data)
 
 	# Idex client.
-	client = QdrantClient(path=r'TraceTalk\vector-db-persist-directory\Qdrant')
+	client = QdrantClient(path=r'chatbot\vector-db-persist-directory\Qdrant')
 	
 	# Upsert the data into the collection of the Qdrant database.
 	vector_size = 1536
