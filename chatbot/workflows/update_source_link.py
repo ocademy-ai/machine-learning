@@ -2,6 +2,8 @@ import os
 from ..prep_data import prep_data
 
 
+
+# Update the source links.
 path = 'open-machine-learning-jupyter-book'
 folders = []
 md_files = []
@@ -28,5 +30,6 @@ for folder in folders:
         with open(r'chatbot\vector-db-persist-directory\resources\{}.txt'.format(folder), 'w') as f:
             f.write(file_content)
 
+
 # Update the embeddings of text
- prep_data()
+prep_data()
