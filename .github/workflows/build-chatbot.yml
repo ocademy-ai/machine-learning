@@ -39,6 +39,7 @@ jobs:
       # Install dependencies.
       - name: Install dependencies
         run: |
+          npm install dotenv
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
@@ -47,9 +48,6 @@ jobs:
         id: getfile
         run: |
           echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep 'open-machine-learning-jupyter-book' | grep '\.md$')"
-      
-      - name: List directory contents
-        run: ls -la ./chatbot/vector-db-persist-directory
 
       # Write changed files to a text file.
       - name: Write changed files to a text file
