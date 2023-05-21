@@ -137,9 +137,10 @@ def prep_data():
 
 
 
+
 def get_emmbedings(text):
 	# Load the OpenAI API key from the .env file.
-	load_dotenv()
+	# load_dotenv()
 	openai.api_key = os.getenv('OPENAI_API_KEY')
 	embedded_query = openai.Embedding.create(
             input=text,
