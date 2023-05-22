@@ -16,7 +16,7 @@ for root, dirs, files in os.walk(path):
             folders.append(dir)
 
 for folder in folders:
-    file_content = f"#### {folder}:\n"
+    file_content = ""
     folder_md_files = []
 
     for md_file in md_files:
