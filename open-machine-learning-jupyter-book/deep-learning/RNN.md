@@ -131,7 +131,7 @@ dropout_keep_prob = tf.placeholder(tf.float32,name='dropout_keep_prob')
 
 
 # Download or open data
-data_dir = 'temp'
+data_dir = 'tmp'
 data_file = 'text_data.txt'
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
