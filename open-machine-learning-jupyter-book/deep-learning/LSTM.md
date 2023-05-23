@@ -97,7 +97,7 @@ prime_texts = ['thou art more', 'to be or not to', 'wherefore art thou']
 
 Download/store Shakespeare data.
 ```{code-cell}
-data_dir = 'temp'
+data_dir = 'tmp'
 data_file = 'shakespeare.txt'
 model_path = 'shakespeare_model'
 full_model_dir = os.path.join(data_dir, model_path)
