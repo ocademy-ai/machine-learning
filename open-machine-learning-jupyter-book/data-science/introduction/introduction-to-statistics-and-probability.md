@@ -304,7 +304,8 @@ Use the sample code in the notebook to test another hypothesis:
 2. First basemen are taller than third basemen
 3. Shortstops are taller than second basemen
 
-Task - [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
+- [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
+- [Introduction to probability and statistics](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
 
 ## Self study
 
