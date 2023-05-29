@@ -44,7 +44,7 @@ Classification uses various algorithms to determine other ways of determining a 
 ```
 
 <p style="text-align: center;">
-<iframe src="D:\2023\machine-learning\open-machine-learning-jupyter-book\assets\html\playground_demo\playground_uva_2.html" width="105%" height="700px;" style="border:none;"  scrolling="auto"></iframe>
+<iframe src="../../assets/html/playground_demo/playground_uva_2.html" width="105%" height="700px;" style="border:none;"  scrolling="auto"></iframe>
 A demo of Neural Network Playground. <a href="https://github.com/tensorflow/playground">[source]</a>
 </p>
 
