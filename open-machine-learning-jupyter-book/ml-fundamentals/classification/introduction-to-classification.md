@@ -43,6 +43,11 @@ Click the video above for a quick introduction to classification.
 Classification uses various algorithms to determine other ways of determining a data point's label or class. Let's work with this cuisine data to see whether, by observing a group of ingredients, we can determine its cuisine of origin.
 ```
 
+<p style="text-align: center;">
+<iframe src="../../html/tf-playground/classification.html" width="105%" height="700px;" style="border:none;"  scrolling="auto"></iframe>
+A demo of Neural Network Playground. <a href="https://github.com/tensorflow/playground">[source]</a>
+</p>
+
 ## Introduction
 
 Classification is one of the fundamental activities of the machine learning researcher and data scientist. From basic classification of a binary value ("is this email spam or not?"), to complex image classification and segmentation using computer vision, it's always useful to be able to sort data into classes and ask questions of it.
