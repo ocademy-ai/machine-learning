@@ -46,30 +46,30 @@ jupyter lab
 To start working on the assignments, you could follow the  steps below:
 
 1. [First time only] Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own GitHub account.
-![](../../images/fork-01.jpg)
-![](../../images/fork-02.jpg)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/fork-01.jpg)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/fork-02.jpg)
 2. [First time only] Create a test branch on your repo forked above, which MUST be named as `assignment`.
-![](../../images/create_branch-01.jpg)
-![](../../images/create_branch-02.jpg)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/create_branch-01.jpg)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/create_branch-02.jpg)
 3. [First time only] Enable GitHub Actions for your forked repository.
-![](../../images/enable_actions.png)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/enable_actions.png)
 4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
-![](../../images/git_clone-01.jpg)
-![](../../images/clone_checkout.png)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/git_clone-01.jpg)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/clone_checkout.png)
     ```shell
     git clone <the url just copied>
     cd machine-learning
     git checkout assignment
     ```
 5. Work on the assignment locally by following the instructions provided in the Jupyter notebook. Test your code by executing the corresponding notebook cells inside the assignment.
-![](../../images/executing-code-cell.png)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/executing-code-cell.png)
 6. [Optional] Make sure that your code can pass local `pytest` test, by taping in the terminal : <br>
     ```shell
    pytest --nbmake <YOUR-ASSIGNMENT-JUPYTER-FILE>.ipynb
    ```
 
 7. Commit & push the local changes to remote once you finish the assignment.
-![](../../images/commit_push.png)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/commit_push.png)
 
     ```shell
     git commit -am '<description>'
@@ -77,8 +77,8 @@ To start working on the assignments, you could follow the  steps below:
     ```
 
 8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
-![](../../images/actions-1.png)
-![](../../images/actions-2.png)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/actions-1.png)
+![](https://raw.githubusercontent.com/open-academy/machine-learning/main/images/actions-2.png)
 
 Starting from your second assignment, you need only follow
 Step 5-Step 8. Note that Step 6 is optional and you can skip it without any issue.
