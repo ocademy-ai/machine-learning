@@ -73,6 +73,11 @@ Train MINIST dataset with CNN: prediction output
 
 A random set of 6 digits with actual and predicted labels. You can see a prediction failure in the lower right box.
 
+<p style="text-align: center;">
+<iframe src="../html/cnn-vis/cnn.html" width="105%" height="700px;" style="border:none;"  scrolling="yes"></iframe>
+A demo of CNN. <a href="https://adamharley.com/nn_vis/cnn/3d.html">[source]</a>
+</p>
+
 ### Code
 
 ```{code-cell}
