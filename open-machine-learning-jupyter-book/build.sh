@@ -1,4 +1,5 @@
 rm -rf ./assignments/prerequisites
 cp -r ../assignments .
 
-jupyter-book build . -W --keep-going
+jupyter-book clean -a .
+jupyter-book build --all -W --keep-going . 
