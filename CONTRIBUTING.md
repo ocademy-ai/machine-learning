@@ -354,9 +354,10 @@ To Mac,
 >
 > ```bash
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-> ```bash
+> ```
+>
 > 3. Install the below missing dependencies through Homebrew:
-> 
+>
 > ```bash
 > brew install cairo pango gdk-pixbuf libxml2 libxslt libffi
 > ```
