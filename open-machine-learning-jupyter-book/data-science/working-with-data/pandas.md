@@ -386,7 +386,7 @@ pd.DataFrame(
     }
 )
 ```
-
+<iframe width="800" height="500" frameborder="0" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Apd.DataFrame%28%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%28%22a%22,%20%22b%22%29%3A%20%7B%28%22A%22,%20%22B%22%29%3A%201,%20%28%22A%22,%20%22C%22%29%3A%202%7D,%0A%20%20%20%20%20%20%20%20%28%22a%22,%20%22a%22%29%3A%20%7B%28%22A%22,%20%22C%22%29%3A%203,%20%28%22A%22,%20%22B%22%29%3A%204%7D,%0A%20%20%20%20%20%20%20%20%28%22a%22,%20%22c%22%29%3A%20%7B%28%22A%22,%20%22B%22%29%3A%205,%20%28%22A%22,%20%22C%22%29%3A%206%7D,%0A%20%20%20%20%20%20%20%20%28%22b%22,%20%22a%22%29%3A%20%7B%28%22A%22,%20%22C%22%29%3A%207,%20%28%22A%22,%20%22B%22%29%3A%208%7D,%0A%20%20%20%20%20%20%20%20%28%22b%22,%20%22b%22%29%3A%20%7B%28%22A%22,%20%22D%22%29%3A%209,%20%28%22A%22,%20%22B%22%29%3A%2010%7D,%0A%20%20%20%20%7D%0A%20%20%20%20%0A%29&d=2023-05-21&lang=py&v=v1"> </iframe>
 ##### From a Series
 
 The result will be a DataFrame with the same index as the input Series, and with one column whose name is the original name of the Series (only if no other column name provided).
@@ -1387,6 +1387,8 @@ df1.merge(df2, left_on='lkey', right_on='rkey',
           suffixes=('_left', '_right'))
 ```
 
+<iframe width="800" height="500" frameborder="0" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+
 Merge DataFrames `df1` and `df2`, but raise an exception if the DataFrames have any overlapping columns.
 
 ```{code-cell}
@@ -1460,6 +1462,8 @@ If we want to join using the `key` columns, we need to set `key` to be the index
 df.set_index('key').join(other.set_index('key'))
 ```
 
+<iframe width="800" height="500" frameborder="0" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+
 Another option to join using the key columns is to use the `on` parameter. `DataFrame.join` always uses `other`’s index but we can use any column in `df`. This method preserves the original DataFrame’s index in the result.
 
 ```{code-cell}
@@ -1493,6 +1497,8 @@ df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
 df
 df.groupby(['Animal']).mean()
 ```
+
+<iframe width="800" height="500" frameborder="0" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'Animal'%3A%20%5B'Falcon',%20'Falcon',%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Max%20Speed'%3A%20%5B380.,%20370.,%2024.,%2026.%5D%7D%29%0Adf%0Adf.groupby%28%5B'Animal'%5D%29.mean%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
 
 ### Hierarchical Indexes
 
@@ -1529,6 +1535,8 @@ df.groupby(by=["b"]).sum()
 ```{code-cell}
 df.groupby(by=["b"], dropna=False).sum()
 ```
+
+<iframe width="800" height="500" frameborder="0" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D,%20dropna%3DFalse%29.sum%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
 
 ```{code-cell}
 l = [["a", 12, 12], [None, 12.3, 33.], ["b", 12.3, 123], ["a", 1, 1]]
