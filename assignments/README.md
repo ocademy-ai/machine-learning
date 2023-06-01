@@ -12,7 +12,9 @@ There are multiple ways to do exercise with the assignment in self-paced mode. Y
 
 Simply click on this [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/open-academy/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fopen-academy%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain).
 
-### Local
+### [Optional]Local
+
+All the assignment notebooks can be executed independently without any prerequisite, and in any Jupyter Lab environment. Below steps will guide you to create a work environment if you don't have yet, which consists of some necessary dependencies and helpful Jupyter Lab extensions.
 
 1\. Install Python & Conda by following [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md#install-python--conda).
 
