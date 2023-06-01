@@ -207,7 +207,7 @@ In Python, there are several types of data types. Let us get started with the mo
 - Complex.
   Example: 1 + j, 2 + 4j
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 age = 26  # That's Interge
@@ -228,7 +228,7 @@ print(type(pi))
 
 A collection of one or more characters under a single or double quote. If a string is more than one sentence then we use a triple quote.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 s = 'Rutherford Birchard Hayes'
@@ -253,7 +253,7 @@ print(type(s2))
 
 A boolean data type is either a `True` or `False` value. `T` and `F` should be always uppercase.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 def boolean(s, s2):
@@ -279,7 +279,7 @@ boolean(1, 1)
 
 Python list is an ordered collection that allows to store items of different data types. A list is similar to an array in JavaScript.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 beatles = ['John', 'Paul', 'George']
@@ -303,7 +303,7 @@ for b in beatles:
 
 A Python dictionary object is an unordered collection of data in a key-value pair format.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 netWorth = {}
@@ -336,7 +336,7 @@ if 'Tom Cruise' in netWorth:
 
 A tuple is an ordered collection of different data types like a list, but tuples can not be modified once they are created. They are immutable.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
@@ -355,7 +355,7 @@ print(type(ages))
 
 A set is a collection of data types similar to a list and tuple. Unlike the list and the tuple, a set is not an ordered collection of items. Like in Mathematics, set in Python only stores unique items. In later sections, we will go into detail about every Python data type.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
@@ -438,7 +438,7 @@ First open your project folder, `open-academy`. If you don't have this folder, c
 
 The Python interactive shell was printing without using `print` but on Visual Studio Code to see our result we should use a built-in function `print()`. The `print()` built-in function takes one or more arguments as follows `print('arument1', 'argument2', 'argument3')`. See the examples below.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 x = [1, 2, 3]
