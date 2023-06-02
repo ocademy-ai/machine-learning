@@ -1373,11 +1373,12 @@ df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=('_left', '_right'))
 ```
 
 ````{div} full-width
-```{admonition} Let's visualize it!
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
 <div class="pandastutor" style="height:750px;">
 <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
 </div>
-```
+</div>
 ````
 
 
