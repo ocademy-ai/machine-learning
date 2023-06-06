@@ -78,6 +78,11 @@ A random set of 6 digits with actual and predicted labels. You can see a predict
 A demo of CNN. <a href="https://adamharley.com/nn_vis/cnn/3d.html">[source]</a>
 </p>
 
+<p style="text-align: center;">
+<iframe src="../html/cnn-vis-2/index.html" width="105%" height="400px;" style="border:none;"  scrolling="no"></iframe>
+A demo of CNN. <a href="https://poloclub.github.io/cnn-explainer/">[source]</a>
+</p>
+
 ### Code
 
 ```{code-cell}
