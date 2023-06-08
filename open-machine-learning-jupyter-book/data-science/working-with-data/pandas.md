@@ -706,7 +706,7 @@ Getting values from an object with multi-axes selection uses the following notat
 |**Object Type**|**Indexers**                        |
 |:--            |:-                                  |
 |Series         |`s.loc[indexer]`                    |
-|DataFrame      |`df.loc[row_indexer,column_indexer]`|
+|DataFrame      |`df.loc[row_indexer, column_indexer]`|
 
 ### Basics
 
@@ -1065,7 +1065,7 @@ s1
 
 With a DataFrame:
 
-···{code-cell}
+```{code-cell}
 df1 = pd.DataFrame(np.random.randn(6, 4),
                    index=list(range(0, 12, 2)),
                    columns=list(range(0, 8, 2)))
