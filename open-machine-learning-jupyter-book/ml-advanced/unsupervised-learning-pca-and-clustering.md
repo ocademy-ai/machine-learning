@@ -16,6 +16,12 @@ In this lesson, we will work with unsupervised learning methods such as Principa
 4. [Demo assignment](#4.-Demo-assignment)
 5. [Useful resources](#5.-Useful-resources)
 
+<p style="text-align: center;">
+<iframe src="../assets/html/PCA-demo/PCA.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of PCA. <a href="https://www.statskingdom.com/pca-calculator.html">[source]</a>
+</p>
+
 ## 1. Introduction
 
 The main feature of unsupervised learning algorithms, when compared to classification and regression methods, is that input data are unlabeled (i.e. no labels or classes given) and that the algorithm learns the structure of the data without any assistance. This creates two main differences. First, it allows us to process large amounts of data because the data does not need to be manually labeled. Second, it is difficult to evaluate the quality of an unsupervised algorithm due to the absence of an explicit goodness metric as used in supervised learning.  
