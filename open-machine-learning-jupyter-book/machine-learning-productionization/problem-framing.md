@@ -70,7 +70,7 @@ El Emam, Khaled, Lucy Mosquera, and Richard Hoptroff. [Practical synthetic data 
 **Public data.** There are many public available Open Source or free-to-use datasets. They are on plenty of different topics, easy to access, and of good quality. [data.gov](https://data.gov/) is a great example of the government entity. The White House under the Obama administration has been a leader in its approach to transparency and launched the website in 2009. To date, more than 300k datasets are available on the site.
 
 ```{seealso}
-[Open Learning Resource - dataset](https://github.com/open-academy/open-learning-resources/blob/main/README.md#dataset) - a curated list of open-source/public datasets.
+[Open Learning Resource - dataset](https://github.com/ocademy-ai/open-learning-resources/blob/main/README.md#dataset) - a curated list of open-source/public datasets.
 ```
 
 **More data is better?** The answer is yes or no. No matter whether the Machine Learning performance increases monotonically{cite}`banko2001scaling` or logarithmically{cite}`8237359` based on the volume of the training data size, more data is usually better. But this is not always the truth, because more data is not equal to better data if more noise is introduced. Also, the appearance of large public datasets like [Imagenet](http://image-net.org/) and recent research advances makes data less of a competitive advantage.

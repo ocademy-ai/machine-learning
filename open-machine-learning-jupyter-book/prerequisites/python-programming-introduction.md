@@ -143,13 +143,13 @@ Open the Visual Studio Code by double-clicking the visual studio icon. When you 
 
 ![Visual Studio Code](../../images/vscode_ui.png)
 
-Create a folder named `open-academy` on your desktop. Then open it using Visual Studio Code.
+Create a folder named `ocademy` on your desktop. Then open it using Visual Studio Code.
 
 ![Opening Project on Visual studio](../../images/how_to_open_project_on_vscode.png)
 
 ![Opening a project](../../images/opening_project.png)
 
-After opening it you will see shortcuts for creating files and folders inside of `open-academy` project's directory. As you can see below, the very first file is created as `helloworld.py`. You can do the same.
+After opening it you will see shortcuts for creating files and folders inside of `ocademy` project's directory. As you can see below, the very first file is created as `helloworld.py`. You can do the same.
 
 ![Creating a Python file](../../images/helloworld.png)
 
@@ -398,7 +398,7 @@ else:
 ```
 
 In this structure, the `condition` is an expression or variable that evaluates to either `True` or `False`. If the condition is true, the code block under `if` is executed. If the condition is false, the code block under `else` is executed.
-You can click [here](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
+You can click [here](https://ocademy-ai.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
 
 #### for
 
@@ -410,7 +410,7 @@ for item in sequence:
 ```
 
 In this structure, `item` is a variable that represents each element in the sequence, and `sequence` is the iterable object you want to loop through. The code block under the `for` loop is executed for each item in the sequence.
-You can click [here](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html#list) to see sample code in list.
+You can click [here](https://ocademy-ai.github.io/machine-learning/prerequisites/python-programming-introduction.html#list) to see sample code in list.
 
 #### def
 
@@ -429,12 +429,12 @@ Here's a breakdown of the different components:
 - `function_name`: This is the name you choose for your function. It should be descriptive and follow Python naming conventions.
 - `parameters_input`: These are optional `input values` that you can pass to the function. They are placeholders for the actual values that will be provided when calling the function.
 - `Code block`: This is where you write the instructions or statements that define the behavior of the function. It should be indented under the function definition.
-- `return`: Usually `return` is found in def, and its purpose is to return `parameters_output` that follows. But if you have other outputs, you don't have to write 'return'. You can click [here](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
+- `return`: Usually `return` is found in def, and its purpose is to return `parameters_output` that follows. But if you have other outputs, you don't have to write 'return'. You can click [here](https://ocademy-ai.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
 - `parameters_output`: These are the `parameters` you wish to pass out.
 
 ### Python file
 
-First open your project folder, `open-academy`. If you don't have this folder, create a folder name called `open-academy`. Inside this folder, create a file called `helloworld.py`. Now, let's do what we did on Python interactive shell using Visual Studio Code.
+First open your project folder, `oocademy`. If you don't have this folder, create a folder name called `ocademy`. Inside this folder, create a file called `helloworld.py`. Now, let's do what we did on Python interactive shell using Visual Studio Code.
 
 The Python interactive shell was printing without using `print` but on Visual Studio Code to see our result we should use a built-in function `print()`. The `print()` built-in function takes one or more arguments as follows `print('arument1', 'argument2', 'argument3')`. See the examples below.
 
