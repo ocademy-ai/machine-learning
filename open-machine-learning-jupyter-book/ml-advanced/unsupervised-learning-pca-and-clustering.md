@@ -17,7 +17,7 @@ In this lesson, we will work with unsupervised learning methods such as Principa
 5. [Useful resources](#5.-Useful-resources)
 
 <p style="text-align: center;">
-<iframe src="../assets/html/PCA-demo/PCA.html" width="105%" height="700px;"
+<iframe src="../html/PCA-demo/PCA.html" width="105%" height="700px;"
 style="border:none;" scrolling="auto"></iframe>
 A demo of PCA. <a href="https://www.statskingdom.com/pca-calculator.html">[source]</a>
 </p>
