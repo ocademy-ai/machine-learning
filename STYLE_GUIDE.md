@@ -16,6 +16,9 @@ Use warm, inclusive language (such as “them”, even when referring to a singl
 
       MIT License
 
+      Copyright (c) 2018 Author 1
+      Copyright (c) 2018 Author 2
+
       ...
       </details>
     * `## Your turn! 🚀` for exercises/assignments.
@@ -99,6 +102,51 @@ Typically, we set the width to `90%`. However, for some smaller figures, you cou
   * Please follow the [PEP8](https://www.python.org/dev/peps/pep-0008/) where the lint static checking does not cover, e.g. the naming convention.
 * Markdown - please refer to [markdownlint](https://github.com/DavidAnson/markdownlint), where you can find the command line tool and VSCode plugin.
 
+## Assignment
+
+Please follow below to elaborate the test content.
+
+1. Keep the BEST accessibility. The assignment must be executable at any Jupyter environment with no need to install any additional dependencies.
+   1. The assignment manages the dependencies itself.
+      1. Install necessary dependencies at the beginning of the notebook.
+        ```
+         # install the necessary dependencies
+         import sys
+         !{sys.executable} - m pip install - -quiet numpy
+         ```
+   2. Don't use Jupyter Book specific syntax for assignment.
+2. Clear all the output before you submit the PR.
+3. Use separate PRs for assignment content, unit test and questions.
+4. Follow the same way as the text content to add copyright statement and acknowledgement.
+5. If hint is necessary, follow below style to add.
+   1. ```html
+        <div class="alert alert-info">
+          
+        <details><summary>👩‍💻 <b>Hint</b></summary>
+
+        This is the hint content.
+
+        </details>
+
+        </div>
+        ```
+
+### TDD style
+
+You can follow the [Small diabetes study](open-machine-learning-jupyter-book/assignments/data-science/small-diabetes-study.ipynb) assignment as an example to add unit test if TDD style assignment code is applicable.
+
+<div class="admonition note" name="html-admonition">
+How to modify the <a src=https://jupyterbook.org/en/stable/content/metadata.html#adding-tags-using-notebook-interfaces>metadata</a> of Jupyter Notebook?
+</div>
+
+1. Add below as the precursor node of the test.
+   1. `<h5><font color=blue>Check result by executing below... 📝</font></h5>`
+2. Set the necessary metadata of the unit test code cell.
+   1. Set `hide-input` [tag](https://jupyterbook.org/en/stable/interactive/hiding.html#hide-cell-inputs) for hiding the test content in Jupuyter Book.
+   2. Set `"jupyter": { "source_hidden": true }` to auto hide the test content in Jupyter Lab.
+   3. Set `"editable": false` to block editing.
+3. Make sure all the tests could be passed.
+
 ## Data
 
 If sample data is needed for the book or assignments, first try to use built-in ones from [sklearn](https://scikit-learn.org/stable/datasets.html) or [tensorflow](https://www.tensorflow.org/datasets) if possible.
@@ -180,6 +228,14 @@ Here `YUyec4eCEiY` is the YouTube `id` of the video, and you should change it ac
 
 How does it work? In fact, the `class="yt-container"` is set to use the CSS style defined in `open-machine-learning-jupyter-book/_static/youtube.css`. This `youtube.css` file will be included in every generated HTML file of Jupyter Book.
 
+## Python Tutor
+
+TBD
+
+## Pandas Tutor
+
+TBD
+
 ## Emoji
 
 Emojis should be put on the right place, used with consistency, coherence and uniformity.
@@ -192,7 +248,6 @@ The list of all emojis can be found here:
 |-------|-----------------------------------------------|----------------------------------------|-------------------------------------|----------------------------------|
 | 🔗     | when referring to source of figures or texts  | ```[&#x1F517;source](your/url/here)``` | ```[:link:source](your/url/here)``` | [&#x1F517;source](your/url/here) |
 | 🚀     | JupyterBook - Your turn (assignments) | ```Your turn! &#x1F680;```             |   ```Your turn! :rocket:```     | Your turn! 🚀                    |
-
 
 ## Table
 

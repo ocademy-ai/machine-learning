@@ -143,13 +143,13 @@ Open the Visual Studio Code by double-clicking the visual studio icon. When you 
 
 ![Visual Studio Code](../../images/vscode_ui.png)
 
-Create a folder named `open-academy` on your desktop. Then open it using Visual Studio Code.
+Create a folder named `ocademy` on your desktop. Then open it using Visual Studio Code.
 
 ![Opening Project on Visual studio](../../images/how_to_open_project_on_vscode.png)
 
 ![Opening a project](../../images/opening_project.png)
 
-After opening it you will see shortcuts for creating files and folders inside of `open-academy` project's directory. As you can see below, the very first file is created as `helloworld.py`. You can do the same.
+After opening it you will see shortcuts for creating files and folders inside of `ocademy` project's directory. As you can see below, the very first file is created as `helloworld.py`. You can do the same.
 
 ![Creating a Python file](../../images/helloworld.png)
 
@@ -207,7 +207,7 @@ In Python, there are several types of data types. Let us get started with the mo
 - Complex.
   Example: 1 + j, 2 + 4j
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 age = 26  # That's Interge
@@ -218,13 +218,17 @@ print(type(pi))
 
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=age%20%3D%2026%20%20%23%20That's%20Interge%0Api%20%3D%203.14159%20%20%23%20That's%20Float%0A%23%20Complex.%20Example%3A%201%20%2B%20j,%202%20%2B%204j%0Aprint%28type%28age%29%29%0Aprint%28type%28pi%29%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=age%20%3D%2026%20%20%23%20That's%20Interge%0Api%20%3D%203.14159%20%20%23%20That's%20Float%0A%23%20Complex.%20Example%3A%201%20%2B%20j,%202%20%2B%204j%0Aprint%28type%28age%29%29%0Aprint%28type%28pi%29%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 #### String
 
 A collection of one or more characters under a single or double quote. If a string is more than one sentence then we use a triple quote.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 s = 'Rutherford Birchard Hayes'
@@ -239,13 +243,17 @@ print(type(s2))
 
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=s%20%3D%20'Rutherford%20Birchard%20Hayes'%0Atokens%20%3D%20s.split%28%29%0AfirstName%20%3D%20tokens%5B0%5D%0AmiddleName%20%3D%20tokens%5B1%5D%0AlastName%20%3D%20tokens%5B2%5D%0As2%20%3D%20firstName%20%2B%20'%20'%20%2B%20middleName%20%2B%20'%20'%20%2B%20lastName%0A%23%20All%20objects%20except%20tokens%20are%20of%20type%20string%0Aprint%28type%28s%29%29%0Aprint%28type%28s2%29%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=s%20%3D%20'Rutherford%20Birchard%20Hayes'%0Atokens%20%3D%20s.split%28%29%0AfirstName%20%3D%20tokens%5B0%5D%0AmiddleName%20%3D%20tokens%5B1%5D%0AlastName%20%3D%20tokens%5B2%5D%0As2%20%3D%20firstName%20%2B%20'%20'%20%2B%20middleName%20%2B%20'%20'%20%2B%20lastName%0A%23%20All%20objects%20except%20tokens%20are%20of%20type%20string%0Aprint%28type%28s%29%29%0Aprint%28type%28s2%29%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 #### Booleans
 
 A boolean data type is either a `True` or `False` value. `T` and `F` should be always uppercase.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 def boolean(s, s2):
@@ -261,13 +269,17 @@ boolean(1, 1)
 
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=def%20boolean%28s,%20s2%29%3A%0A%20%20%20%20print%28type%28s%20%3D%3D%20s2%29%29%0A%20%20%20%20if%20%28s%20%3D%3D%20s2%29%3A%0A%20%20%20%20%20%20%20%20print%28'yes!!!'%29%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20print%28'nooooooo'%29%0A%0A%0Aboolean%281,%202%29%0Aboolean%281,%20'1'%29%0Aboolean%281,%201%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=def%20boolean%28s,%20s2%29%3A%0A%20%20%20%20print%28type%28s%20%3D%3D%20s2%29%29%0A%20%20%20%20if%20%28s%20%3D%3D%20s2%29%3A%0A%20%20%20%20%20%20%20%20print%28'yes!!!'%29%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20print%28'nooooooo'%29%0A%0A%0Aboolean%281,%202%29%0Aboolean%281,%20'1'%29%0Aboolean%281,%201%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 #### List
 
 Python list is an ordered collection that allows to store items of different data types. A list is similar to an array in JavaScript.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 beatles = ['John', 'Paul', 'George']
@@ -281,13 +293,17 @@ for b in beatles:
 
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=beatles%20%3D%20%5B'John',%20'Paul',%20'George'%5D%0Abeatles.append%28'Ringo'%29%0Aprint%28type%28beatles%29%29%0A%0A%23%20'for'%20loop%20-%20indentation%20matters!%0A%0Afor%20b%20in%20beatles%3A%0A%20%20%20%20print%28'Hello%20'%20%2B%20b%29%0A&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=beatles%20%3D%20%5B'John',%20'Paul',%20'George'%5D%0Abeatles.append%28'Ringo'%29%0Aprint%28type%28beatles%29%29%0A%0A%23%20'for'%20loop%20-%20indentation%20matters!%0A%0Afor%20b%20in%20beatles%3A%0A%20%20%20%20print%28'Hello%20'%20%2B%20b%29%0A&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 #### Dictionary
 
 A Python dictionary object is an unordered collection of data in a key-value pair format.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 netWorth = {}
@@ -310,13 +326,17 @@ if 'Tom Cruise' in netWorth:
     print('show me the money!')
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=netWorth%20%3D%20%7B%7D%0AnetWorth%5B'Donald%20Trump'%5D%20%3D%203000000000%0AnetWorth%5B'Bill%20Gates'%5D%20%3D%2058000000000%0AnetWorth%5B'Tom%20Cruise'%5D%20%3D%2040000000%0AnetWorth%5B'Joe%20Postdoc'%5D%20%3D%2020000%0Aprint%28netWorth%29%0Aprint%28type%28netWorth%29%29%0A%0A%23%20iterating%20over%20key-value%20pairs%3A%0A%0Afor%20%28person,%20worth%29%20in%20netWorth.items%28%29%3A%0A%20%20%20%20if%20worth%20%3C%201000000%3A%0A%20%20%20%20%20%20%20%20print%28'haha%20'%20%2B%20person%20%2B%20'%20is%20not%20a%20millionaire'%29%0A%0A%23%20testing%20dict%20membership%0A%0Aif%20'Tom%20Cruise'%20in%20netWorth%3A%0A%20%20%20%20print%28'show%20me%20the%20money!'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=netWorth%20%3D%20%7B%7D%0AnetWorth%5B'Donald%20Trump'%5D%20%3D%203000000000%0AnetWorth%5B'Bill%20Gates'%5D%20%3D%2058000000000%0AnetWorth%5B'Tom%20Cruise'%5D%20%3D%2040000000%0AnetWorth%5B'Joe%20Postdoc'%5D%20%3D%2020000%0Aprint%28netWorth%29%0Aprint%28type%28netWorth%29%29%0A%0A%23%20iterating%20over%20key-value%20pairs%3A%0A%0Afor%20%28person,%20worth%29%20in%20netWorth.items%28%29%3A%0A%20%20%20%20if%20worth%20%3C%201000000%3A%0A%20%20%20%20%20%20%20%20print%28'haha%20'%20%2B%20person%20%2B%20'%20is%20not%20a%20millionaire'%29%0A%0A%23%20testing%20dict%20membership%0A%0Aif%20'Tom%20Cruise'%20in%20netWorth%3A%0A%20%20%20%20print%28'show%20me%20the%20money!'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 #### Tuple
 
 A tuple is an ordered collection of different data types like a list, but tuples can not be modified once they are created. They are immutable.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
@@ -325,13 +345,17 @@ print(type(ages))
 # If you want to change ages, you will get a error.
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=ages%20%3D%20%2818,%2021,%2028,%2021,%2022,%2018,%2019,%2034,%209%29%0Aprint%28ages%29%0Aprint%28type%28ages%29%29%0A%23%20If%20you%20want%20to%20change%20ages,%20you%20will%20get%20a%20error.&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=ages%20%3D%20%2818,%2021,%2028,%2021,%2022,%2018,%2019,%2034,%209%29%0Aprint%28ages%29%0Aprint%28type%28ages%29%29%0A%23%20If%20you%20want%20to%20change%20ages,%20you%20will%20get%20a%20error.&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 #### Set
 
 A set is a collection of data types similar to a list and tuple. Unlike the list and the tuple, a set is not an ordered collection of items. Like in Mathematics, set in Python only stores unique items. In later sections, we will go into detail about every Python data type.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 ages = (18, 21, 28, 21, 22, 18, 19, 34, 9)
@@ -354,7 +378,11 @@ if 18 in uniqueAges:
     print('There is an 18-year-old present!')
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=ages%20%3D%20%2818,%2021,%2028,%2021,%2022,%2018,%2019,%2034,%209%29%0A%0AuniqueAges%20%3D%20set%28ages%29%0AuniqueAges.add%2818%29%20%20%23%20already%20in%20set,%20no%20effect%0AuniqueAges.remove%2821%29%0A%0A%0A%23%20no%20guaranteed%20order%20when%20iterating%20over%20a%20set%0A%0Afor%20thisAge%20in%20uniqueAges%3A%0A%20%20%20%20print%28thisAge%29%0A%0Aprint%28type%28uniqueAges%29%29%0A%0A%23%20testing%20set%20membership%0A%0Aif%2018%20in%20uniqueAges%3A%0A%20%20%20%20print%28'There%20is%20an%2018-year-old%20present!'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=ages%20%3D%20%2818,%2021,%2028,%2021,%2022,%2018,%2019,%2034,%209%29%0A%0AuniqueAges%20%3D%20set%28ages%29%0AuniqueAges.add%2818%29%20%20%23%20already%20in%20set,%20no%20effect%0AuniqueAges.remove%2821%29%0A%0A%0A%23%20no%20guaranteed%20order%20when%20iterating%20over%20a%20set%0A%0Afor%20thisAge%20in%20uniqueAges%3A%0A%20%20%20%20print%28thisAge%29%0A%0Aprint%28type%28uniqueAges%29%29%0A%0A%23%20testing%20set%20membership%0A%0Aif%2018%20in%20uniqueAges%3A%0A%20%20%20%20print%28'There%20is%20an%2018-year-old%20present!'%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 ### Control flow and function
 
@@ -370,7 +398,7 @@ else:
 ```
 
 In this structure, the `condition` is an expression or variable that evaluates to either `True` or `False`. If the condition is true, the code block under `if` is executed. If the condition is false, the code block under `else` is executed.
-You can click [here](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
+You can click [here](https://ocademy-ai.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
 
 #### for
 
@@ -382,7 +410,7 @@ for item in sequence:
 ```
 
 In this structure, `item` is a variable that represents each element in the sequence, and `sequence` is the iterable object you want to loop through. The code block under the `for` loop is executed for each item in the sequence.
-You can click [here](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html#list) to see sample code in list.
+You can click [here](https://ocademy-ai.github.io/machine-learning/prerequisites/python-programming-introduction.html#list) to see sample code in list.
 
 #### def
 
@@ -401,16 +429,16 @@ Here's a breakdown of the different components:
 - `function_name`: This is the name you choose for your function. It should be descriptive and follow Python naming conventions.
 - `parameters_input`: These are optional `input values` that you can pass to the function. They are placeholders for the actual values that will be provided when calling the function.
 - `Code block`: This is where you write the instructions or statements that define the behavior of the function. It should be indented under the function definition.
-- `return`: Usually `return` is found in def, and its purpose is to return `parameters_output` that follows. But if you have other outputs, you don't have to write 'return'. You can click [here](https://open-academy.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
+- `return`: Usually `return` is found in def, and its purpose is to return `parameters_output` that follows. But if you have other outputs, you don't have to write 'return'. You can click [here](https://ocademy-ai.github.io/machine-learning/prerequisites/python-programming-introduction.html#booleans) to see sample code in boolean.
 - `parameters_output`: These are the `parameters` you wish to pass out.
 
 ### Python file
 
-First open your project folder, `open-academy`. If you don't have this folder, create a folder name called `open-academy`. Inside this folder, create a file called `helloworld.py`. Now, let's do what we did on Python interactive shell using Visual Studio Code.
+First open your project folder, `oocademy`. If you don't have this folder, create a folder name called `ocademy`. Inside this folder, create a file called `helloworld.py`. Now, let's do what we did on Python interactive shell using Visual Studio Code.
 
 The Python interactive shell was printing without using `print` but on Visual Studio Code to see our result we should use a built-in function `print()`. The `print()` built-in function takes one or more arguments as follows `print('arument1', 'argument2', 'argument3')`. See the examples below.
 
-**Let's visualize it.**
+**Let's visualize it!**
 
 ```{code-cell}
 x = [1, 2, 3]
@@ -446,8 +474,11 @@ To run the Python file check the image below. You can run the Python file either
 
 ![Running Python script](../../images/running_python_script.png)
 
-
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/visualize.html#code=x%20%3D%20%5B1,%202,%203%5D%0Ay%20%3D%20%5B4,%205,%206%5D%0Az%20%3D%20y%0Ay%20%3D%20x%0Ax%20%3D%20z%0A%0Ax%20%3D%20%5B1,%202,%203%5D%20%23%20a%20different%20%5B1,%202,%203%5D%20list!%0Ay%20%3D%20x%0Ax.append%284%29%0Ay.append%285%29%0Az%20%3D%20%5B1,%202,%203,%204,%205%5D%20%23%20a%20different%20list!%0Ax.append%286%29%0Ay.append%287%29%0Ay%20%3D%20%22hello%22%0A%0A%0Adef%20foo%28lst%29%3A%0A%20%20%20%20lst.append%28%22hello%22%29%0A%20%20%20%20bar%28lst%29%0A%0Adef%20bar%28myLst%29%3A%0A%20%20%20%20print%28myLst%29%0A%0Afoo%28x%29%0Afoo%28z%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+````{div} full-width
+<div class="pythontutor">
+  <iframe frameborder="1" scrolling="no" src="https://pythontutor.com/visualize.html#code=x%20%3D%20%5B1,%202,%203%5D%0Ay%20%3D%20%5B4,%205,%206%5D%0Az%20%3D%20y%0Ay%20%3D%20x%0Ax%20%3D%20z%0A%0Ax%20%3D%20%5B1,%202,%203%5D%20%23%20a%20different%20%5B1,%202,%203%5D%20list!%0Ay%20%3D%20x%0Ax.append%284%29%0Ay.append%285%29%0Az%20%3D%20%5B1,%202,%203,%204,%205%5D%20%23%20a%20different%20list!%0Ax.append%286%29%0Ay.append%287%29%0Ay%20%3D%20%22hello%22%0A%0A%0Adef%20foo%28lst%29%3A%0A%20%20%20%20lst.append%28%22hello%22%29%0A%20%20%20%20bar%28lst%29%0A%0Adef%20bar%28myLst%29%3A%0A%20%20%20%20print%28myLst%29%0A%0Afoo%28x%29%0Afoo%28z%29&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe>
+</div>
+````
 
 🌕 You are amazing. You have just completed our challenge and you are on your way to greatness. Now do some exercises for your brain and muscles.
 

@@ -25,8 +25,8 @@ The goals of this project are:
 
 This project includes the following features:
 
-- A curated list of [online courses](https://github.com/Appointat/machine-learning#curriculum), [tutorials](https://open-academy.github.io/machine-learning/intro.html), and other [resources](https://www.notion.so/README-md-for-Open-ML-9e8e63c05411425e838ad8dc04b7ff73) for learning about Data Science, Machine Learning, and Deep Learning. These resources are suitable for beginners and are organized by topic, making it easy to find what you're looking for.
-- Open source [code examples and projects](https://open-academy.github.io/machine-learning/assignments/introduction.html) that demonstrate best practices in these fields. These examples are designed to help students learn by doing and can be modified and adapted for use in their own projects.
+- A curated list of [online courses](https://github.com/Appointat/machine-learning#curriculum), [tutorials](https://ocademy-ai.github.io/machine-learning/intro.html), and other [resources](https://www.notion.so/README-md-for-Open-ML-9e8e63c05411425e838ad8dc04b7ff73) for learning about Data Science, Machine Learning, and Deep Learning. These resources are suitable for beginners and are organized by topic, making it easy to find what you're looking for.
+- Open source [code examples and projects](https://ocademy-ai.github.io/machine-learning/assignments/introduction.html) that demonstrate best practices in these fields. These examples are designed to help students learn by doing and can be modified and adapted for use in their own projects.
 - Collaborative learning opportunities, such as hackathons and online forums, where students can work together on projects and share their knowledge with each other. These events are open to anyone who wants to participate and are a great way to meet other students who are interested in these topics.
 - Guest lectures and other industry events that provide students with insights into the latest trends and developments in Data Science, Machine Learning, and Deep Learning. These events are hosted by industry experts and are a great way to learn about the practical applications of these fields.
 
@@ -38,7 +38,7 @@ If you're interested in participating in hackathons or online forums, simply joi
 
 ### Interactive online textbook
 
-This [Online Textbook](https://open-academy.github.io/machine-learning/intro.html) is designed to provide a comprehensive introduction to Data Science, Machine Learning, and Deep Learning, from the fundamentals to the latest advanced techniques, with a focus on practical applications. It is intended for developers, data scientists, engineers, and anyone who wants to learn how to use machine learning to solve real-world problems.
+This [Online Textbook](https://ocademy-ai.github.io/machine-learning/intro.html) is designed to provide a comprehensive introduction to Data Science, Machine Learning, and Deep Learning, from the fundamentals to the latest advanced techniques, with a focus on practical applications. It is intended for developers, data scientists, engineers, and anyone who wants to learn how to use machine learning to solve real-world problems.
 
 It is divided into four main parts.
 
@@ -48,7 +48,7 @@ It is divided into four main parts.
 - Chap 4 covers advanced Machine Learning techniques, such as Clustering, Ensemble Learning, and Deep Learning.
 - …
 
-Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the [textbook](https://open-academy.github.io/machine-learning/intro.html), you will have the knowledge and skills to build and deploy Machine Learning models in a production environment.
+Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the [textbook](https://ocademy-ai.github.io/machine-learning/intro.html), you will have the knowledge and skills to build and deploy Machine Learning models in a production environment.
 
 1. **PREREQUISITES**
     - 1\. Python programming introduction
@@ -127,7 +127,7 @@ We welcome contributions from students and educators who are passionate about Da
 
 If you're new to open source or aren't sure where to start, don't worry! We have a guide for beginners that can help you get started. We also have a code of conduct that we ask all contributors to follow to ensure that our community is welcoming and inclusive.
 
-See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.
+See [this](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.
 
 ## **Contact Us**
 

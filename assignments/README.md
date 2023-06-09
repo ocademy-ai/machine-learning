@@ -1,6 +1,6 @@
 # Ocademy self-paced assignments
 
-[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/open-academy/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fopen-academy%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain)
+[![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ocademy-ai/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Focademy-ai%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain)
 
 Ocademy sets up the assignment as [Test-driven Development](https://en.wikipedia.org/wiki/Test-driven_development) style. The questions are [unit testing](https://en.wikipedia.org/wiki/Unit_testing) alike, implemented as a bunch of Jupyter Notebooks, and visualized by [jupyterlab-pytutor](https://github.com/jupyterlab-contrib/jupyterlab-pytutor). A real-world code quality assurance environment is simulated. You will learn how to handle software testing while working on the assignments.
 
@@ -10,11 +10,13 @@ There are multiple ways to do exercise with the assignment in self-paced mode. Y
 
 ### Binder
 
-Simply click on this [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/open-academy/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fopen-academy%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain).
+Simply click on this [![Binder](http://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/ocademy-ai/assignments-binder-requirements/main?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Focademy-ai%252Fmachine-learning%26urlpath%3Dlab%252Ftree%252Fmachine-learning%252F%26branch%3Dmain).
 
-### Local
+### [Optional]Local
 
-1\. Install Python & Conda by following [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md#install-python--conda).
+All the assignment notebooks can be executed independently without any prerequisite, and in any Jupyter Lab environment. Below steps will guide you to create a work environment if you don't have yet, which consists of some necessary dependencies and helpful Jupyter Lab extensions.
+
+1\. Install Python & Conda by following [this](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md#install-python--conda).
 
 2\. Install Jupyter Lab by following (this)[https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html].
 
@@ -45,31 +47,31 @@ jupyter lab
 
 To start working on the assignments, you could follow the  steps below:
 
-1. [First time only] Fork the [open-academy/machine-learning](https://github.com/open-academy/machine-learning) under your own GitHub account.
-![](../../images/fork-01.jpg)
-![](../../images/fork-02.jpg)
+1. [First time only] Fork the [repo](https://github.com/ocademy-ai/machine-learning) under your own GitHub account.
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/fork-01.jpg)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/fork-02.jpg)
 2. [First time only] Create a test branch on your repo forked above, which MUST be named as `assignment`.
-![](../../images/create_branch-01.jpg)
-![](../../images/create_branch-02.jpg)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/create_branch-01.jpg)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/create_branch-02.jpg)
 3. [First time only] Enable GitHub Actions for your forked repository.
-![](../../images/enable_actions.png)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/enable_actions.png)
 4. [First time only] Clone the repo to your local, and switch to the `assignment` branch.
-![](../../images/git_clone-01.jpg)
-![](../../images/clone_checkout.png)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/git_clone-01.jpg)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/clone_checkout.png)
     ```shell
     git clone <the url just copied>
     cd machine-learning
     git checkout assignment
     ```
 5. Work on the assignment locally by following the instructions provided in the Jupyter notebook. Test your code by executing the corresponding notebook cells inside the assignment.
-![](../../images/executing-code-cell.png)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/executing-code-cell.png)
 6. [Optional] Make sure that your code can pass local `pytest` test, by taping in the terminal : <br>
     ```shell
    pytest --nbmake <YOUR-ASSIGNMENT-JUPYTER-FILE>.ipynb
    ```
 
 7. Commit & push the local changes to remote once you finish the assignment.
-![](../../images/commit_push.png)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/commit_push.png)
 
     ```shell
     git commit -am '<description>'
@@ -77,8 +79,8 @@ To start working on the assignments, you could follow the  steps below:
     ```
 
 8. A GitHub Action will be triggered automatically, and the result will be shown on your forked repo at GitHub.
-![](../../images/actions-1.png)
-![](../../images/actions-2.png)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/actions-1.png)
+![](https://raw.githubusercontent.com/ocademy-ai/machine-learning/main/images/actions-2.png)
 
 Starting from your second assignment, you need only follow
 Step 5-Step 8. Note that Step 6 is optional and you can skip it without any issue.
@@ -92,7 +94,7 @@ You don't need to finish all the assignments at the same time. Only the changed 
 
 ### How does this work?
 
-The assignment is fully automated by leveraging GitHub Action. The action is defined by [assignment.yml](https://github.com/open-academy/machine-learning/blob/main/.github/workflows/assignment.yml), which handles the continuous integration workflow post a code push. It listens to the code change under `open-machine-learning-jupyter-book/assignments` path, gets the changed files, and runs unit testing against them.
+The assignment is fully automated by leveraging GitHub Action. The action is defined by [assignment.yml](https://github.com/ocademy-ai/machine-learning/blob/main/.github/workflows/assignment.yml), which handles the continuous integration workflow post a code push. It listens to the code change under `open-machine-learning-jupyter-book/assignments` path, gets the changed files, and runs unit testing against them.
 
 `pytest` is the testing framework used for the assignments. To support unit testing for the Jupyter Notebook, `nbmake` is used as a plugin together with `pytest`.
 
@@ -105,9 +107,9 @@ The assignment is fully automated by leveraging GitHub Action. The action is def
 
 ### Environment
 
-The environment is managed at [open-academy/assignments-binder-requirements](https://github.com/open-academy/assignments-binder-requirements) by following [this](https://discourse.jupyter.org/t/tip-speed-up-binder-launches-by-pulling-github-content-in-a-binder-link-with-nbgitpuller/922).
+The environment is managed at [assignments-binder-requirements](https://github.com/ocademy-ai/assignments-binder-requirements) by following [this](https://discourse.jupyter.org/t/tip-speed-up-binder-launches-by-pulling-github-content-in-a-binder-link-with-nbgitpuller/922).
 
 To update the environment,
 
-1. go to [open-academy/assignments-binder-requirements](https://github.com/open-academy/assignments-binder-requirements) and update the `requirements.in`.
+1. go to [assignments-binder-requirements](https://github.com/ocademy-ai/assignments-binder-requirements) and update the `requirements.in`.
 2. update the `environment.yml` to match the `requirements.in` mentioned in step 1.
