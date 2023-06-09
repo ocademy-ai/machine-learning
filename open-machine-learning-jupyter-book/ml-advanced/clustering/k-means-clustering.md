@@ -25,7 +25,7 @@ Terms you will learn about:
 - Variance 
 
 <p style="text-align: center;">
-<iframe src="../../assets/html/k-means-demo/k-means.html" width="105%" height="700px;"
+<iframe src="../html/k-means-demo/k-means.html" width="105%" height="700px;"
 style="border:none;" scrolling="auto"></iframe>
 A demo of K-Means. <a href="http://alekseynp.com/viz/k-means.html">[source]</a>
 </p>
