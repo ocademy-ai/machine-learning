@@ -1455,7 +1455,14 @@ If we want to join using the `key` columns, we need to set `key` to be the index
 df.set_index('key').join(other.set_index('key'))
 ```
 
-<iframe width="800" height="500" frameborder="0" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:750px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
 
 Another option to join using the key columns is to use the `on` parameter. `DataFrame.join` always uses `other`’s index but we can use any column in `df`. This method preserves the original DataFrame’s index in the result.
 
