@@ -1,4 +1,4 @@
-<img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/6d1db291-b08b-4e62-89ff-20f6f9ba461e" alt="logo" width="240" height="240" align="right" />
+<img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/6d1db291-b08b-4e62-89ff-20f6f9ba461e" alt="logo" width="220" height="220" align="right" />
 
 # An interactive and visual Machine Learning book - with code and assignment
 
