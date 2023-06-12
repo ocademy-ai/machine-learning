@@ -24,12 +24,6 @@ Terms you will learn about:
 - Inertia
 - Variance 
 
-<p style="text-align: center;">
-<iframe src="../html/k-means-demo/k-means.html" width="105%" height="700px;"
-style="border:none;" scrolling="auto"></iframe>
-A demo of K-Means. <a href="http://alekseynp.com/viz/k-means.html">[source]</a>
-</p>
-
 ## Introduction
 
 K-Means Clustering is a method derived from the domain of signal processing. It is used to divide and partition groups of data into 'k' clusters using a series of observations. Each observation works to group a given datapoint closest to its nearest 'mean', or the center point of a cluster.
