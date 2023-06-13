@@ -156,7 +156,7 @@ Visit [Analyzing text about data science](../../assignments/data-science/analyzi
 
 ## Self study
 
-Here is a list of free/open-source learning resources for [Data Science](https://github.com/open-academy/open-learning-resources/blob/main/README.md#data-science--engineering).
+Here is a list of free/open-source learning resources for [Data Science](https://github.com/ocademy-ai/open-learning-resources/blob/main/README.md#data-science--engineering).
 
 ## Acknowledgments
 

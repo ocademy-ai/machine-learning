@@ -387,12 +387,6 @@ pd.DataFrame(
 )
 ```
 
-````{div} full-width
-<div class="pandastutor" style="height:775px;">
-  <iframe frameborder="1" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0A%0Apd.DataFrame%28%0A%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%28%22a%22,%20%22b%22%29%3A%20%7B%28%22A%22,%20%22B%22%29%3A%201,%20%28%22A%22,%20%22C%22%29%3A%202%7D,%0A%20%20%20%20%20%20%20%20%28%22a%22,%20%22a%22%29%3A%20%7B%28%22A%22,%20%22C%22%29%3A%203,%20%28%22A%22,%20%22B%22%29%3A%204%7D,%0A%20%20%20%20%20%20%20%20%28%22a%22,%20%22c%22%29%3A%20%7B%28%22A%22,%20%22B%22%29%3A%205,%20%28%22A%22,%20%22C%22%29%3A%206%7D,%0A%20%20%20%20%20%20%20%20%28%22b%22,%20%22a%22%29%3A%20%7B%28%22A%22,%20%22C%22%29%3A%207,%20%28%22A%22,%20%22B%22%29%3A%208%7D,%0A%20%20%20%20%20%20%20%20%28%22b%22,%20%22b%22%29%3A%20%7B%28%22A%22,%20%22D%22%29%3A%209,%20%28%22A%22,%20%22B%22%29%3A%2010%7D,%0A%20%20%20%20%7D%0A%20%20%20%20%0A%29&d=2023-05-21&lang=py&v=v1"> </iframe>
-</div>
-````
-
 ##### From a Series
 
 The result will be a DataFrame with the same index as the input Series, and with one column whose name is the original name of the Series (only if no other column name provided).
@@ -712,7 +706,7 @@ Getting values from an object with multi-axes selection uses the following notat
 |**Object Type**|**Indexers**                        |
 |:--            |:-                                  |
 |Series         |`s.loc[indexer]`                    |
-|DataFrame      |`df.loc[row_indexer,column_indexer]`|
+|DataFrame      |`df.loc[row_indexer, column_indexer]`|
 
 ### Basics
 
@@ -1071,7 +1065,7 @@ s1
 
 With a DataFrame:
 
-···{code-cell}
+```{code-cell}
 df1 = pd.DataFrame(np.random.randn(6, 4),
                    index=list(range(0, 12, 2)),
                    columns=list(range(0, 8, 2)))
@@ -1365,40 +1359,26 @@ If both key columns contain rows where the key is a null value, those rows will 
 
 For example:
 
-```{code-cell}
+```python
 df1 = pd.DataFrame({'lkey': ['foo', 'bar', 'baz', 'foo'],
                     'value': [1, 2, 3, 5]})
 df2 = pd.DataFrame({'rkey': ['foo', 'bar', 'baz', 'foo'],
                     'value': [5, 6, 7, 8]})
 ```
 
-```{code-cell}
-df1
-```
-
-```{code-cell}
-df2
-```
-
-Merge `df1` and `df2` on the `lkey` and `rkey` columns. The value columns have the default suffixes, `_x` and `_y`, appended.
-
-```{code-cell}
-df1.merge(df2, left_on='lkey', right_on='rkey')
-```
-
 Merge DataFrames `df1` and `df2` with specified left and right suffixes appended to any overlapping columns.
 
-```{code-cell}
-df1.merge(df2, left_on='lkey', right_on='rkey',
-        suffixes=('_left', '_right'))
+```python
+df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=('_left', '_right'))
 ```
 
 ````{div} full-width
-```{admonition} Let's visualize it!
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
 <div class="pandastutor" style="height:750px;">
 <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
 </div>
-```
+</div>
 ````
 
 

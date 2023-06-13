@@ -1629,7 +1629,7 @@ Practice the Python programming basics by following this [assignment](../assignm
 
 ## Self study
 
-Here is a list of free/open-source learning resources for advanced [Python programming](https://github.com/open-academy/open-learning-resources/blob/main/README.md#python).
+Here is a list of free/open-source learning resources for advanced [Python programming](https://github.com/ocademy-ai/open-learning-resources/blob/main/README.md#python).
 
 ## Acknowledgments
 
