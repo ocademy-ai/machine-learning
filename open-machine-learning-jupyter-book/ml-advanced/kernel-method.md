@@ -339,6 +339,12 @@ Some code comes from [jakevdp](https://jakevdp.github.io/PythonDataScienceHandbo
 
 <p style="text-align: center;">
 <iframe src="../html/svm-vis/demo1/demo.html" width="105%" height="900px;"
-style="border:none;" scrolling="auto"></iframe>
-A demo of SVM. <a href="https://www.statskingdom.com/pca-calculator.html">[source]</a>
+style="border:none;"></iframe>
+A demo of SVM. <a href="https://cs.stanford.edu/~karpathy/svmjs/demo/">[source]</a>
+</p>
+
+<p style="text-align: center;">
+<iframe src="../html/svm-vis/demo3/svm-playground/index.html" width="105%" height="600px;"
+style="border:none;"></iframe>
+A demo of SVM. <a href="http://macheads101.com/demos/svm-playground/">[source]</a>
 </p>
