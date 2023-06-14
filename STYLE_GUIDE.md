@@ -253,21 +253,21 @@ Please notice,
 * the UI/UX is working for desktop browsers only.
 * please keep the original code in the notebook still. Below HTML code snippet could be used for this.
 
-```html
+````html
 <link rel="stylesheet" href="https://ocademy-ai.github.io/machine-learning/_static/style.css">
 
 <div class="admonition dropdown code" name="html-admonition">
 
 <p class="admonition-title code=">Show me the code ⌨️</p>
 
-\`\`\`python
+```python
 
 # YOUR PYTHON CODE
 
-\`\`\`
+```
 
 </div>
-```
+````
 
 ## Pandas Tutor
 
