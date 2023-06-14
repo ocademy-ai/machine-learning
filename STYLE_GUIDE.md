@@ -230,7 +230,42 @@ How does it work? In fact, the `class="yt-container"` is set to use the CSS styl
 
 ## Python Tutor
 
-TBD
+Python Tutor is used to visualize the execution of Python code. Below code snippet is used to insert Python Tutor quick link as an iframe in the book.
+
+```html
+<link rel="stylesheet" href="https://ocademy-ai.github.io/machine-learning/_static/style.css">
+
+<div class='full-width docutils' style='padding-right:20px;'>
+  <div class="admonition note pythontutor" name="html-admonition">
+    <p class="admonition-title pythontutor">Let's visualize it! 🎥</p>
+    <div class="pythontutor inner" style="height:665px;">
+      <iframe frameborder="0" scrolling="yes" src="YOUR_PYTHONTUTOR_PERMANANT_URL"> </iframe>
+    </div>
+  </div>
+</div>
+```
+
+Please notice,
+
+* to make the notebook executable independently, the stylesheet is referred to remotely. So to local develop or debug, please replace the `<link>`'s `href` tag with the relative path to the `/open-machine-learning-jupyter-book/_static/style.css`.
+* to better fit the screen, the iframe's height needs to be adjusted manually, such as this `<div class="pythontutor inner" style="height:665px;">`.
+* to generate the permanent Python Tutor, please go to [Python Tutor](https://pythontutor.com/visualize.html#mode=edit) website, paste the code, and Visualize Execution. Once the link is generated, use it to replace the `YOUR_PYTHONTUTOR_PERMANANT_URL` in above sample code.
+* the UI/UX is working for desktop browsers only.
+* please keep the original code in the notebook still. Below HTML code snippet could be used for this.
+
+```html
+<link rel="stylesheet" href="https://ocademy-ai.github.io/machine-learning/_static/style.css">
+
+<div class="admonition dropdown code" name="html-admonition">
+
+<p class="admonition-title code=">Show me the code ⌨️</p>
+
+```python
+# YOUR PYTHON CODE
+```
+
+</div>
+```
 
 ## Pandas Tutor
 
@@ -238,7 +273,7 @@ TBD
 
 ## Emoji
 
-Emojis should be put on the right place, used with consistency, coherence and uniformity.
+Emojis should be put in the right place, and used with consistency, coherence and uniformity.
 
 The list of all emojis can be found here: 
 - [HTML](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
@@ -251,7 +286,7 @@ The list of all emojis can be found here:
 
 ## Table
 
-Whenever possible, use Table instead of Screenshot/Figures.
+Whenever possible, use Table instead of screenshots or figures.
 
 How to generate tables:
 - [Markdown](https://www.tablesgenerator.com/markdown_tables)
