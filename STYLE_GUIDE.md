@@ -260,9 +260,11 @@ Please notice,
 
 <p class="admonition-title code=">Show me the code ⌨️</p>
 
-```python
+\`\`\`python
+
 # YOUR PYTHON CODE
-```
+
+\`\`\`
 
 </div>
 ```
@@ -275,7 +277,7 @@ TBD
 
 Emojis should be put in the right place, and used with consistency, coherence and uniformity.
 
-The list of all emojis can be found here: 
+The list of all emojis can be found here:
 - [HTML](https://www.quackit.com/character_sets/emoji/emoji_v3.0/unicode_emoji_v3.0_characters_all.cfm)
 - [Markdown](https://gist.github.com/rxaviers/7360908)
 
