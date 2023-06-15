@@ -31,6 +31,8 @@ When we talk about events, we use **random variables**. For example, the random 
 
 The random variable in the previous example is called **discrete** because it has a countable sample space, i.e. there are separate values that can be enumerated. There are cases when sample space is a range of real numbers or the whole set of real numbers. Such variables are called **continuous**. A good example is a time when the bus arrives.
 
+
+
 ## Probability distribution
 
 In the case of discrete random variables, it is easy to describe the probability of each event by a function $P(X)$. For each value $s$ from sample space $S$ it will give a number from $0$ to $1$, such that the sum of all values of $P(X=s)$ for all events would be $1$.
@@ -70,11 +72,11 @@ To help us understand the distribution of data, it is helpful to talk about **qu
 * the first quartile, or $Q1$, is a value, such that $25%$ of the data fall below it,
 * the third quartile, or $Q3$, is a value that $75%$ of the data falls below it.
 
-Graphically we can represent the relationship between median and quartiles in a diagram called the **box plot**:
+Graphically we can represent the relationship between the median and quartiles in a diagram called the **box plot**:
 
 ![](../../../images/boxplot_explanation.png)
 
-Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR,Q3+1.5*IQR]$.
+Here we also compute the **inter-quartile range** $IQR=Q3-Q1$, and so-called **outliers** - values, that lie outside the boundaries $[Q1-1.5*IQR, Q3+1.5*IQR]$.
 
 For the finite distribution that contains a small number of possible values, a good "typical" value is the one that appears the most frequently, which is called **mode**. It is often applied to categorical data, such as colors. Consider a situation where we have two groups of people - some that strongly prefer red, and others who prefer blue. If we code colors by numbers, the mean value for a favorite color would be somewhere in the orange-green spectrum, which does not indicate the actual preference for either group. However, the mode would be either one of the colors, or both colors, if the number of people voting for them is equal (in this case we call the sample **multimodal**).
 
@@ -118,7 +120,7 @@ If we take weights of other people, not from the baseball league, the distributi
 
 The distribution of weights that we have seen above is very typical, and many measurements from the real world follow the same type of distribution, but with different mean and variance. This distribution is called **normal distribution**, and it plays a very important role in statistics.
 
-Using normal distribution is the correct way to generate random weights of potential baseball players. Once we know the mean weight `mean`` and standard deviation `std`, we can generate 1000 weight samples in the following way:
+Using normal distribution is the correct way to generate random weights of potential baseball players. Once we know the mean weight `mean` and standard deviation `std`, we can generate 1000 weight samples in the following way:
 
 ```python
 samples = np.random.normal(mean, std, 1000)
@@ -253,7 +255,7 @@ One of the things Data Science does is find relations between data. We say that 
 Correlation does not necessarily indicate causal relationship between two sequences; sometimes both variables can depend on some external cause, or it can be purely by chance the two sequences correlate. However, strong mathematical correlation is a good indication that two variables are somehow connected.
 ```
 
-Mathematically, the main concept that shows the relation between two random variables is **covariance**, which is computed like this: $Cov(X, Y) = **E**\[(X-E(X))(Y-E(Y))\]$. We compute the deviation of both variables from their mean values, and then the product of those deviations. If both variables deviate together, the product would always be a positive value, which would add up to positive covariance. If both variables deviate out of sync (i.e. one falls below average when another one rises above average), we will always get negative numbers, which will add up to negative covariance. If the deviations are not dependent, they will add up to roughly zero.
+Mathematically, the main concept that shows the relation between two random variables is **covariance**, which is computed like this: $Cov(X, Y) = E[(X-E(X))(Y-E(Y))]$. We compute the deviation of both variables from their mean values, and then the product of those deviations. If both variables deviate together, the product would always be a positive value, which would add up to positive covariance. If both variables deviate out of sync (i.e. one falls below average when another one rises above average), we will always get negative numbers, which will add up to negative covariance. If the deviations are not dependent, they will add up to roughly zero.
 
 The absolute value of covariance does not tell us much about how large the correlation is, because it depends on the magnitude of actual values. To normalize it, we can divide covariance by the standard deviation of both variables, to get a **correlation**. The good thing is that correlation is always in the range of $[-1,1]$, where $1$ indicates a strong positive correlation between values, $-1$ - strong negative correlation, and $0$ - no correlation at all (variables are independent).
 
@@ -302,7 +304,8 @@ Use the sample code in the notebook to test another hypothesis:
 2. First basemen are taller than third basemen
 3. Shortstops are taller than second basemen
 
-Task - [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
+- [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
+- [Introduction to probability and statistics](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
 
 ## Self study
 

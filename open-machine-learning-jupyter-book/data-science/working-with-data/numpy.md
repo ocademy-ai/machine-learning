@@ -32,7 +32,7 @@ For example, the array for the coordinates of a point in 3D space, `[1, 2, 1]`, 
 
 To create a NumPy array, you can use the function `np.array()`.
 
-All you need to do to create a simple array is pass a list to it. If you choose to, you can also specify the type of data in your list. 
+All you need to do to create a simple array is pass a list to it. If you choose to, you can also specify the type of data in your list.
 
 ```{code-cell}
 import numpy as np
@@ -82,7 +82,6 @@ While the default data type is floating point (`np.float64`), you can explicitly
 np.ones(2, dtype=np.int64)
 ```
 
-
 ### Adding, removing, and sorting elements
 
 Sorting an element is simple with `np.sort()`. You can specify the axis, kind, and order when you call the function.
@@ -103,7 +102,7 @@ In addition to sort, which returns a sorted copy of an array, you can use:
 
 - `argsort`, which is an indirect sort along a specified axis,
 - `lexsort`, which is an indirect stable sort on multiple keys,
-- `searchsorted`, which will find elements in a sorted array, 
+- `searchsorted`, which will find elements in a sorted array,
 - `partition`, which is a partial sort.
 
 If you start with these arrays:
@@ -203,7 +202,6 @@ a
 
 You can use `reshape()` to reshape your array. For example, you can reshape this array to an array with three rows and two columns:
 
-
 ```{code-cell}
 b = a.reshape(3, 2)
 b
@@ -254,6 +252,7 @@ Or, for a column vector, you can insert an axis along the second dimension:
 col_vector = a[:, np.newaxis]
 col_vector.shape
 ```
+
 You can also expand an array by inserting a new axis at a specified position with `np.expand_dims`.
 
 For example, if you start with this array:
@@ -528,16 +527,134 @@ You can sum over the axis of columns with:
 b.sum(axis=1)
 ```
 
-### Computation on arrays: broadcasting
+### Universal functions(ufunc)
 
-There are times when you might want to carry out an operation between an array and a single number (also called an operation between a vector and a scalar) or between arrays of two different sizes. For example, your array (we’ll call it “data”) might contain information about distance in miles but you want to convert the information to kilometers. You can perform this operation with:
+A universal function (or ufunc for short) is a function that operates on ndarrays in an element-by-element fashion, supporting array broadcasting, type casting, and several other standard features. That is, a ufunc is a “vectorized” wrapper for a function that takes a fixed number of specific inputs and produces a fixed number of specific outputs.
 
-```{code-cell}
-data = np.array([1.0, 2.0])
-data * 1.6
+#### Available ufuncs
+
+There are currently more than 60 universal functions defined in numpy on one or more types, covering a wide variety of operations. Some of these ufuncs are called automatically on arrays when the relevant infix notation is used (e.g., `add(a, b)` is called internally when `a + b` is written and a or b is an ndarray). Nevertheless, you may still want to use the ufunc call in order to use the optional output argument(s) to place the output(s) in an object (or objects) of your choice.
+
+Recall that each ufunc operates element-by-element. Therefore, each scalar ufunc will be described as if acting on a set of scalar inputs to return a set of scalar outputs.
+
+```{note}
+The ufunc still returns its output(s) even if you use the optional output argument(s).
 ```
 
-NumPy understands that the multiplication should happen with each cell. That concept is called broadcasting. Broadcasting is a mechanism that allows NumPy to perform operations on arrays of different shapes. The dimensions of your array must be compatible, for example, when the dimensions of both arrays are equal or when one of them is 1. If the dimensions are not compatible, you will get a ValueError.
+##### Math operations
+
+|Syntax|Role|
+|:-|:-|
+|`add(x1, x2, /[, out, where, casting, order, ...])`|Add arguments element-wise.|
+|`subtract(x1, x2, /[, out, where, casting, ...])`|Subtract arguments, element-wise.|
+|`multiply(x1, x2, /[, out, where, casting, ...])`|Multiply arguments element-wise.|
+|`matmul(x1, x2, /[, out, casting, order, ...])`|Matrix product of two arrays.|
+|`divide(x1, x2, /[, out, where, casting, ...])`|Divide arguments element-wise.|
+|`logaddexp(x1, x2, /[, out, where, casting, ...])`|Logarithm of the sum of exponentiations of the inputs.|
+|`negative(x, /[, out, where, casting, order, ...])`|Numerical negative, element-wise.|
+|`positive(x, /[, out, where, casting, order, ...])`|Numerical positive, element-wise.|
+|`power(x1, x2, /[, out, where, casting, ...])`|First array elements raised to powers from second array, element-wise.|
+|`absolute(x, /[, out, where, casting, order, ...])`|Calculate the absolute value element-wise.|
+|`exp(x, /[, out, where, casting, order, ...])`|Calculate the exponential of all elements in the input array.|
+|`log(x, /[, out, where, casting, order, ...])`|Natural logarithm, element-wise.|
+|`log2(x, /[, out, where, casting, order, ...])`|Base-2 logarithm of x.|
+
+##### Trigonometric functions
+
+|Syntax|Role|
+|:-|:-|
+|`sin(x, /[, out, where, casting, order, ...])`|Trigonometric sine, element-wise.|
+|`cos(x, /[, out, where, casting, order, ...])`|Cosine element-wise.|
+|`tan(x, /[, out, where, casting, order, ...])`|Compute tangent element-wise.|
+|`arcsin(x, /[, out, where, casting, order, ...])`|Inverse sine, element-wise.|
+|`arccos(x, /[, out, where, casting, order, ...])`|Trigonometric inverse cosine, element-wise.|
+|`arctan(x, /[, out, where, casting, order, ...])`|Trigonometric inverse tangent, element-wise.|
+
+##### Bit-twiddling functions
+
+|Syntax|Role|
+|:-|:-|
+|`bitwise_and(x1, x2, /[, out, where, ...])`|Compute the bit-wise AND of two arrays element-wise.|
+|`bitwise_or(x1, x2, /[, out, where, casting, ...])`|Compute the bit-wise OR of two arrays element-wise.
+|`bitwise_xor(x1, x2, /[, out, where, ...])`|Compute the bit-wise XOR of two arrays element-wise.|
+|`invert(x, /[, out, where, casting, order, ...])`|Compute bit-wise inversion, or bit-wise NOT, element-wise.|
+
+##### Comparison functions
+
+|Syntax|Role|
+|:-|:-|
+|`greater(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 > x2) element-wise.|
+|`greater_equal(x1, x2, /[, out, where, ...])`|Return the truth value of (x1 >= x2) element-wise.|
+|`less(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 < x2) element-wise.|
+|`less_equal(x1, x2, /[, out, where, casting, ...])`|Return the truth value of (x1 <= x2) element-wise.|
+|`not_equal(x1, x2, /[, out, where, casting, ...])`|Return (x1 != x2) element-wise.|
+|`equal(x1, x2, /[, out, where, casting, ...])`|Return (x1 == x2) element-wise.|
+
+```{warning}
+Do not use the Python keywords `and` and `or` to combine logical array expressions. These keywords will test the truth value of the entire array (not element-by-element as you might expect). Use the bitwise operators `&` and `|` instead.
+```
+
+|Syntax|Role|
+|:-|:-|
+|`logical_and(x1, x2, /[, out, where, ...])`|Compute the truth value of x1 AND x2 element-wise.|
+|`logical_or(x1, x2, /[, out, where, casting, ...])`|Compute the truth value of x1 OR x2 element-wise.|
+|`logical_xor(x1, x2, /[, out, where, ...])`|Compute the truth value of x1 XOR x2, element-wise.|
+|`logical_not(x, /[, out, where, casting, ...])`|Compute the truth value of NOT x element-wise.|
+
+```{warning}
+The bit-wise operators & and | are the proper way to perform element-by-element array comparisons. Be sure you understand the operator precedence: (a > 2) & (a < 5) is the proper syntax because a > 2 & a < 5 will result in an error due to the fact that 2 & a is evaluated first.
+```
+
+### Computation on arrays: broadcasting
+
+The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations. Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have compatible shapes. Broadcasting provides a means of vectorizing array operations so that looping occurs in C instead of Python. It does this without making needless copies of data and usually leads to efficient algorithm implementations. There are, however, cases where broadcasting is a bad idea because it leads to inefficient use of memory that slows computation.
+
+NumPy operations are usually done on pairs of arrays on an element-by-element basis. In the simplest case, the two arrays must have exactly the same shape, as in the following example:
+
+```{code-cell}
+a = np.array([1.0, 2.0, 3.0])
+b = np.array([2.0, 2.0, 2.0])
+a * b
+```
+
+NumPy’s broadcasting rule relaxes this constraint when the arrays’ shapes meet certain constraints. The simplest broadcasting example occurs when an array and a scalar value are combined in an operation:
+
+```{code-cell}
+a = np.array([1.0, 2.0, 3.0])
+b = 2.0
+a * b
+```
+
+The result is equivalent to the previous example where `b` was an array.  NumPy is smart enough to use the original scalar value without actually making copies so that broadcasting operations are as memory and computationally efficient as possible.
+
+#### General Broadcasting Rules
+
+When operating on two arrays, NumPy compares their shapes element-wise. It starts with the trailing (i.e. rightmost) dimension and works its way left. Two dimensions are compatible when
+
+- they are equal, or
+- one of them is 1.
+
+If these conditions are not met, a `ValueError: operands could not be broadcast together` exception is thrown, indicating that the arrays have incompatible shapes.
+
+Input arrays do not need to have *the same number* of dimensions. The resulting array will have the same number of dimensions as the input array with the greatest number of dimensions, where the *size* of each dimension is the largest size of the corresponding dimension among the input arrays. Note that missing dimensions are assumed to have size one.
+
+For example, if you have a `256x256x3` array of RGB values, and you want to scale each color in the image by a different value, you can multiply the image by a one-dimensional array with 3 values. Lining up the sizes of the trailing axes of these arrays according to the broadcast rules, shows that they are compatible:
+
+```py
+Image  (3d array): 256 x 256 x 3
+Scale  (1d array):             3
+Result (3d array): 256 x 256 x 3
+```
+
+When either of the dimensions compared is one, the other is used. In other words, dimensions with size 1 are stretched or “copied” to match the other.
+
+In the following example, both the `A` and `B` arrays have axes with length one that are expanded to a larger size during the broadcast operation:
+
+```py
+A      (4d array):  8 x 1 x 6 x 1
+B      (3d array):      7 x 1 x 5
+Result (4d array):  8 x 7 x 6 x 5
+```
 
 ### Aggregations: min, max and everything in between
 
@@ -653,7 +770,7 @@ All arrays generated by basic slicing are always **views** of the original array
 NumPy slicing creates a **view** instead of a **copy** as in the case of built-in Python sequences such as string, tuple and list. Care must be taken when extracting a small portion from a large array which becomes useless after the extraction, because the small portion extracted contains a reference to the large original array whose memory will not be released until all arrays derived from it are garbage-collected. In such cases an explicit `copy()` is recommended.
 ```
 
-- The basic slice syntax is `i:j:k` where *i* is the starting index, *j* is the stopping index, and *k* is the step ($k /neq 0$). This selects the m elements (in the corresponding dimension) with index values *i*, *i + k*, *…*,* i + (m - 1) k* where $m = q + (r /neq 0)$ and *q* and *r* are the quotient and remainder obtained by dividing *j - i* by *k*: *j - i = q k + r*, so that *i + (m - 1) k < j*. For example:
+- The basic slice syntax is `i:j:k` where *i* is the starting index, *j* is the stopping index, and *k* is the step ($k /neq 0$). This selects the m elements (in the corresponding dimension) with index values *i*, *i + k*, *…*,*i + (m - 1) k* where $m = q + (r /neq 0)$ and *q* and *r* are the quotient and remainder obtained by dividing *j - i* by *k*: *j - i = q k + r*, so that *i + (m - 1) k < j*. For example:
 
 ```{code-cell}
 x = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -687,7 +804,7 @@ x.shape
 x[1:2]
 ```
 
-- An integer, *i*, returns the same values as `i:i+1` **except** the dimensionality of the returned object is reduced by 1. In particular, a selection tuple with the *p*-th element an integer (and all other entries *:*) returns the corresponding sub-array with dimension *N - 1*. If *N = 1* then the returned object is an array scalar. 
+- An integer, *i*, returns the same values as `i:i+1` **except** the dimensionality of the returned object is reduced by 1. In particular, a selection tuple with the *p*-th element an integer (and all other entries *:*) returns the corresponding sub-array with dimension *N - 1*. If *N = 1* then the returned object is an array scalar.
 
 - If the selection tuple has all entries : except the p-th entry which is a slice object `i:j:k`, then the returned array has dimension *N* formed by concatenating the sub-arrays returned by integer indexing of elements *i*, *i+k*, *…*, *i + (m - 1) k < j*,
 
@@ -1037,7 +1154,7 @@ x[1:2, [1, 2]]
 The easiest way to understand a combination of multiple advanced indices may be to think in terms of the resulting shape. There are two parts to the indexing operation, the subspace defined by the basic indexing (excluding integers) and the subspace from the advanced indexing part. Two cases of index combination need to be distinguished:
 
 - The advanced indices are separated by a slice, `Ellipsis` or `newaxis`. For example `x[arr1, :, arr2]`.
-- The advanced indices are all next to each other. For example `x[..., arr1, arr2, :]` but not` x[arr1, :, 1]` since `1` is an advanced index in this regard.
+- The advanced indices are all next to each other. For example `x[..., arr1, arr2, :]` but not`x[arr1, :, 1]` since `1` is an advanced index in this regard.
 
 In the first case, the dimensions resulting from the advanced indexing operation come first in the result array, and the subspace dimensions after that. In the second case, the dimensions from the advanced indexing operations are inserted into the result array at the same spot as they were in the initial array (the latter logic is what makes simple advanced indexing behave just like slicing).
 
@@ -1098,7 +1215,7 @@ x['b'].dtype
 
 ### Flat Iterator indexing
 
-`x.flat` returns an iterator that will iterate over the entire array (in C-contiguous style with the last index varying the fastest). This iterator object can also be indexed using basic slicing or advanced indexing as long as the selection object is not a tuple. This should be clear from the fact that` x.flat` is a 1-dimensional view. It can be used for integer indexing with 1-dimensional C-style-flat indices. The shape of any returned array is therefore the shape of the integer indexing object.
+`x.flat` returns an iterator that will iterate over the entire array (in C-contiguous style with the last index varying the fastest). This iterator object can also be indexed using basic slicing or advanced indexing as long as the selection object is not a tuple. This should be clear from the fact that`x.flat` is a 1-dimensional view. It can be used for integer indexing with 1-dimensional C-style-flat indices. The shape of any returned array is therefore the shape of the integer indexing object.
 
 ### Assigning values to indexed arrays
 

@@ -706,7 +706,7 @@ Getting values from an object with multi-axes selection uses the following notat
 |**Object Type**|**Indexers**                        |
 |:--            |:-                                  |
 |Series         |`s.loc[indexer]`                    |
-|DataFrame      |`df.loc[row_indexer,column_indexer]`|
+|DataFrame      |`df.loc[row_indexer, column_indexer]`|
 
 ### Basics
 
@@ -985,9 +985,18 @@ mask = pd.array([True, False, True, False, pd.NA, False], dtype="boolean")
 mask
 ```
 
-```{code-cell}
+```
 df1[mask]
 ```
+
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:620px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Amask%20%3D%20pd.array%28%5BTrue,%20False,%20True,%20False,%20pd.NA,%20False%5D,%20dtype%3D%22boolean%22%29%0Adf1%5Bmask%5D%0A&d=2023-06-13&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
 
 For getting a value explicitly:
 
@@ -1065,7 +1074,7 @@ s1
 
 With a DataFrame:
 
-···{code-cell}
+```{code-cell}
 df1 = pd.DataFrame(np.random.randn(6, 4),
                    index=list(range(0, 12, 2)),
                    columns=list(range(0, 8, 2)))
@@ -1078,9 +1087,18 @@ Select via integer slicing:
 df1.iloc[:3]
 ```
 
-```{code-cell}
+```
 df1.iloc[1:5, 2:4]
 ```
+
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:620px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1.iloc%5B1%3A5,%202%3A4%5D&d=2023-06-13&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
 
 Select via integer list:
 
@@ -1225,142 +1243,495 @@ For getting multiple indexers, using `.get_indexer`:
 dfd.iloc[[0, 2], dfd.columns.get_indexer(['A', 'B'])]
 ```
 
+## Combining datasets: concat, merge and join
 
+### concat
 
+- Concatenate pandas objects along a particular axis.
 
+- Allows optional set logic along the other axes.
 
+- Can also add a layer of hierarchical indexing on the concatenation axis, which may be useful if the labels are the same (or overlapping) on the passed axis number.
 
+For example:
 
+Combine two `Series`.
 
+```{code-cell}
+s1 = pd.Series(['a', 'b'])
+s2 = pd.Series(['c', 'd'])
+pd.concat([s1, s2])
+```
 
+Clear the existing index and reset it in the result by setting the `ignore_index` option to `True`.
 
+```{code-cell}
+pd.concat([s1, s2], ignore_index=True)
+```
 
+Add a hierarchical index at the outermost level of the data with the `keys` option.
 
+```{code-cell}
+pd.concat([s1, s2], keys=['s1', 's2'])
+```
 
+Label the index keys you create with the `names` option.
 
+```{code-cell}
+pd.concat([s1, s2], keys=['s1', 's2'],
+          names=['Series name', 'Row ID'])
+```
 
+Combine two `DataFrame` objects with identical columns.
 
+```{code-cell}
+df1 = pd.DataFrame([['a', 1], ['b', 2]],
+                   columns=['letter', 'number'])
+df1
+```
 
+```{code-cell}
+df2 = pd.DataFrame([['c', 3], ['d', 4]],
+                   columns=['letter', 'number'])
+df2
+```
 
+```{code-cell}
+pd.concat([df1, df2])
+```
 
+Combine `DataFrame` objects with overlapping columns and return everything. Columns outside the intersection will be filled with `NaN` values.
 
+```{code-cell}
+df3 = pd.DataFrame([['c', 3, 'cat'], ['d', 4, 'dog']],
+                   columns=['letter', 'number', 'animal'])
+df3
+```
 
+```{code-cell}
+pd.concat([df1, df3], sort=False)
+```
 
+Combine DataFrame objects with overlapping columns and return only those that are shared by passing inner to the join keyword argument.
 
+```{code-cell}
+pd.concat([df1, df3], join="inner")
+```
 
+Combine `DataFrame` objects horizontally along the x axis by passing in `axis=1`.
 
+```{code-cell}
+df4 = pd.DataFrame([['bird', 'polly'], ['monkey', 'george']],
+                   columns=['animal', 'name'])
+pd.concat([df1, df4], axis=1)
+```
 
+Prevent the result from including duplicate index values with the `verify_integrity` option.
 
+```{code-cell}
+df5 = pd.DataFrame([1], index=['a'])
+df5
+```
 
+```{code-cell}
+df6 = pd.DataFrame([2], index=['a'])
+df6
+```
 
+```{code-cell}
+:tags: ["raises-exception"]
+pd.concat([df5, df6], verify_integrity=True)
+```
+    
+Append a single row to the end of a `DataFrame` object.
 
+```{code-cell}
+df7 = pd.DataFrame({'a': 1, 'b': 2}, index=[0])
+df7
+```
 
+```{code-cell}
+new_row = pd.Series({'a': 3, 'b': 4})
+new_row
+```
 
+```{code-cell}
+pd.concat([df7, new_row.to_frame().T], ignore_index=True)
+```
 
+```{note}
+`append()` has been deprecated since version 1.4.0: Use `concat()` instead. 
+```
 
+### merge
 
+- Merge DataFrame or named Series objects with a database-style join.
 
+- A named Series object is treated as a DataFrame with a single named column.
 
+- The join is done on columns or indexes. If joining columns on columns, the DataFrame indexes will be ignored. Otherwise if joining indexes on indexes or indexes on a column or columns, the index will be passed on. When performing a cross merge, no column specifications to merge on are allowed.
 
+```{warning}
+If both key columns contain rows where the key is a null value, those rows will be matched against each other. This is different from usual SQL join behaviour and can lead to unexpected results.
+```
 
+For example:
 
+```python
+df1 = pd.DataFrame({'lkey': ['foo', 'bar', 'baz', 'foo'],
+                    'value': [1, 2, 3, 5]})
+df2 = pd.DataFrame({'rkey': ['foo', 'bar', 'baz', 'foo'],
+                    'value': [5, 6, 7, 8]})
+```
 
+Merge DataFrames `df1` and `df2` with specified left and right suffixes appended to any overlapping columns.
 
+```
+df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=('_left', '_right'))
+```
 
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:750px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
 
 
+Merge DataFrames `df1` and `df2`, but raise an exception if the DataFrames have any overlapping columns.
 
+```{code-cell}
+:tags: ["raises-exception"]
+df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=(False, False))
+```
 
+Using `how` parameter decide the type of merge to be performed.
 
+```{code-cell}
+df1 = pd.DataFrame({'a': ['foo', 'bar'], 'b': [1, 2]})
+df2 = pd.DataFrame({'a': ['foo', 'baz'], 'c': [3, 4]})
+df1
+```
 
+```{code-cell}
+df2
+```
 
+```{code-cell}
+df1.merge(df2, how='inner', on='a')
+```
 
+```{code-cell}
+df1.merge(df2, how='left', on='a')
+```
 
+```{code-cell}
+df1 = pd.DataFrame({'left': ['foo', 'bar']})
+df2 = pd.DataFrame({'right': [7, 8]})
+df1
+```
 
+```{code-cell}
+df2
+```
 
+```{code-cell}
+df1.merge(df2, how='cross')
+```
 
+### join
 
+- Join columns of another DataFrame.
 
+- Join columns with other DataFrame either on index or on a key column. Efficiently join multiple DataFrame objects by index at once by passing a list.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3', 'K4', 'K5'],
+                   'A': ['A0', 'A1', 'A2', 'A3', 'A4', 'A5']})
+df
+```
 
+```{code-cell}
+other = pd.DataFrame({'key': ['K0', 'K1', 'K2'],
+                      'B': ['B0', 'B1', 'B2']})
+other                      
+```
 
+Join DataFrames using their indexes.
 
+```{code-cell}
+df.join(other, lsuffix='_caller', rsuffix='_other')
+```
 
+If we want to join using the `key` columns, we need to set `key` to be the index in both `df` and `other`. The joined DataFrame will have `key` as its index.
 
+```
+df.set_index('key').join(other.set_index('key'))
+```
 
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:1150px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
 
+Another option to join using the key columns is to use the `on` parameter. `DataFrame.join` always uses `other`’s index but we can use any column in `df`. This method preserves the original DataFrame’s index in the result.
 
+```{code-cell}
+df.join(other.set_index('key'), on='key')
+```
 
+Using non-unique key values shows how they are matched.
 
+```{code-cell}
+df = pd.DataFrame({'key': ['K0', 'K1', 'K1', 'K3', 'K0', 'K1'],
+                   'A': ['A0', 'A1', 'A2', 'A3', 'A4', 'A5']})
+df                   
+```
 
+```{code-cell}
+df.join(other.set_index('key'), on='key', validate='m:1')
+```
 
+## Aggregation and grouping
 
+Group DataFrame using a mapper or by a Series of columns.
 
+A groupby operation involves some combination of splitting the object, applying a function, and combining the results. This can be used to group large amounts of data and compute operations on these groups.
 
+For example:
 
+```
+df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
+                              'Parrot', 'Parrot'],
+                   'Max Speed': [380., 370., 24., 26.]})
+df
+df.groupby(['Animal']).mean()
+```
 
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:750px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'Animal'%3A%20%5B'Falcon',%20'Falcon',%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Max%20Speed'%3A%20%5B380.,%20370.,%2024.,%2026.%5D%7D%29%0Adf%0Adf.groupby%28%5B'Animal'%5D%29.mean%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
+
+### Hierarchical Indexes
 
+We can groupby different levels of a hierarchical index using the `level` parameter:
+
+```{code-cell}
+arrays = [['Falcon', 'Falcon', 'Parrot', 'Parrot'],
+          ['Captive', 'Wild', 'Captive', 'Wild']]
+index = pd.MultiIndex.from_arrays(arrays, names=('Animal', 'Type'))
+df = pd.DataFrame({'Max Speed': [390., 350., 30., 20.]},
+                  index=index)
+df
+```
+
+```{code-cell}
+df.groupby(level=0).mean()
+```
+
+```{code-cell}
+df.groupby(level="Type").mean()
+```
+
+We can also choose to include NA in group keys or not by setting `dropna` parameter, the default setting is `True`.
+
+```{code-cell}
+l = [[1, 2, 3], [1, None, 4], [2, 1, 3], [1, 2, 2]]
+df = pd.DataFrame(l, columns=["a", "b", "c"])
+```
+
+```{code-cell}
+df.groupby(by=["b"]).sum()
+```
 
+```
+df.groupby(by=["b"], dropna=False).sum()
+```
 
+````{div} full-width
+<div class="admonition note" name="html-admonition" style="margin-right:20%">
+<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
+<div class="pandastutor" style="height:720px;">
+<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D,%20dropna%3DFalse%29.sum%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+</div>
+</div>
+````
 
+```{code-cell}
+l = [["a", 12, 12], [None, 12.3, 33.], ["b", 12.3, 123], ["a", 1, 1]]
+df = pd.DataFrame(l, columns=["a", "b", "c"])
+```
 
+```{code-cell}
+df.groupby(by="a").sum()
+```
 
+```{code-cell}
+df.groupby(by="a", dropna=False).sum()
+```
 
+When using `.apply()`, use `group_keys` to include or exclude the group keys. The `group_keys` argument defaults to `True` (include).
 
+```{code-cell}
+df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
+                              'Parrot', 'Parrot'],
+                   'Max Speed': [380., 370., 24., 26.]})
+df.groupby("Animal", group_keys=True).apply(lambda x: x)
+```
 
+```{code-cell}
+df.groupby("Animal", group_keys=False).apply(lambda x: x)
+```
 
+## Pivot table
 
+Create a spreadsheet-style pivot table as a DataFrame.
 
+The levels in the pivot table will be stored in MultiIndex objects (hierarchical indexes) on the index and columns of the result DataFrame.
 
+```{code-cell}
+df = pd.DataFrame({"A": ["foo", "foo", "foo", "foo", "foo",
+                         "bar", "bar", "bar", "bar"],
+                   "B": ["one", "one", "one", "two", "two",
+                         "one", "one", "two", "two"],
+                   "C": ["small", "large", "large", "small",
+                         "small", "large", "small", "small",
+                         "large"],
+                   "D": [1, 2, 2, 3, 3, 4, 5, 6, 7],
+                   "E": [2, 4, 5, 5, 6, 6, 8, 9, 9]})
+df
+```
 
+This first example aggregates values by taking the sum.
 
+```{code-cell}
+table = pd.pivot_table(df, values='D', index=['A', 'B'],
+                    columns=['C'], aggfunc=np.sum)
+table
+```
 
+We can also fill missing values using the `fill_value` parameter.
 
+```{code-cell}
+table = pd.pivot_table(df, values='D', index=['A', 'B'],
+                    columns=['C'], aggfunc=np.sum, fill_value=0)
+table
+```
 
+The next example aggregates by taking the mean across multiple columns.
 
+```{code-cell}
+table = pd.pivot_table(df, values=['D', 'E'], index=['A', 'C'],
+                    aggfunc={'D': np.mean,
+                             'E': np.mean})
+table
+```
 
+We can also calculate multiple types of aggregations for any given value column.
 
+```{code-cell}
+table = pd.pivot_table(df, values=['D', 'E'], index=['A', 'C'],
+                    aggfunc={'D': np.mean,
+                             'E': [min, max, np.mean]})
+table
+```
 
+## High-performance Pandas: eval() and query()
 
+### eval()
 
+Evaluate a string describing operations on DataFrame columns.
 
+Operates on columns only, not specific rows or elements. This allows `eval` to run arbitrary code, which can make you vulnerable to code injection if you pass user input to this function.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({'A': range(1, 6), 'B': range(10, 0, -2)})
+df
+```
 
+```{code-cell}
+df.eval('A + B')
+```
 
+Assignment is allowed though by default the original DataFrame is not modified.
 
+```{code-cell}
+df.eval('C = A + B')
+```
 
+```{code-cell}
+df
+```
 
+Use `inplace=True` to modify the original DataFrame.
 
+```{code-cell}
+df.eval('C = A + B', inplace=True)
+df
+```
 
+Multiple columns can be assigned to using multi-line expressions:
 
+```{code-cell}
+df.eval(
+    '''
+    C = A + B
+    D = A - B
+    '''
+)
+```
 
+### query()
 
+Query the columns of a DataFrame with a boolean expression.
 
+For example:
 
+```{code-cell}
+df = pd.DataFrame({
+    'A': range(1, 6),
+    'B': range(10, 0, -2),
+    'C C': range(10, 5, -1)
+})
+df
+```
 
+```{code-cell}
+df.query('A > B')
+```
 
+The previous expression is equivalent to
 
+```{code-cell}
+df[df.A > df.B]
+```
 
+For columns with spaces in their name, you can use backtick quoting.
 
+```{code-cell}
+df.query('B == `C C`')
+```
 
+The previous expression is equivalent to
 
-
-
-## Further resources
-
-In this chapter, we've covered many of the basics of using Pandas effectively for data analysis. Still, much has been omitted from our discussion. To learn more about Pandas, we recommend the following resources:
-
-- [Pandas online documentation](http://pandas.pydata.org/): This is the go-to source for complete documentation of the package. While the examples in the documentation tend to be small generated datasets, the description of the options is complete and generally very useful for understanding the use of various functions.
-
-- [*Python for Data Analysis*](http://shop.oreilly.com/product/0636920023784.do) Written by Wes McKinney (the original creator of Pandas), this book contains much more detail on the Pandas package than we had room for in this chapter. In particular, he takes a deep dive into tools for time series, which were his bread and butter as a financial consultant. The book also has many entertaining examples of applying Pandas to gain insight from real-world datasets. Keep in mind, though, that the book is now several years old, and the Pandas package has quite a few new features that this book does not cover (but be on the lookout for a new edition in 2017).
-
-- [Stack Overflow](http://stackoverflow.com/questions/tagged/pandas): Pandas has so many users that any question you have has likely been asked and answered on Stack Overflow. Using Pandas is a case where some Google-Fu is your best friend. Simply go to your favorite search engine and type in the question, problem, or error you're coming across–more than likely you'll find your answer on a Stack Overflow page.
-
-- [Pandas on PyVideo](http://pyvideo.org/search?q=pandas): From PyCon to SciPy to PyData, many conferences have featured tutorials from Pandas developers and power users. The PyCon tutorials in particular tend to be given by very well-vetted presenters.
-
-Using these resources, combined with the walk-through given in this chapter, my hope is that you'll be poised to use Pandas to tackle any data analysis problem you come across!
+```{code-cell}
+df[df.B == df['C C']]
+```
 
 ## Your turn! 🚀
 
@@ -1382,6 +1753,20 @@ Here are some examples of exploring data from Image data sources:
 ### Assignment
 
 [Perform more detailed data study for the challenges above](../../assignments/data-science/data-processing-in-python.md)
+
+## Self study
+
+In this chapter, we've covered many of the basics of using Pandas effectively for data analysis. Still, much has been omitted from our discussion. To learn more about Pandas, we recommend the following resources:
+
+- [Pandas online documentation](http://pandas.pydata.org/): This is the go-to source for complete documentation of the package. While the examples in the documentation tend to be small generated datasets, the description of the options is complete and generally very useful for understanding the use of various functions.
+
+- [*Python for Data Analysis*](http://shop.oreilly.com/product/0636920023784.do) Written by Wes McKinney (the original creator of Pandas), this book contains much more detail on the Pandas package than we had room for in this chapter. In particular, he takes a deep dive into tools for time series, which were his bread and butter as a financial consultant. The book also has many entertaining examples of applying Pandas to gain insight from real-world datasets. Keep in mind, though, that the book is now several years old, and the Pandas package has quite a few new features that this book does not cover (but be on the lookout for a new edition in 2017).
+
+- [Stack Overflow](http://stackoverflow.com/questions/tagged/pandas): Pandas has so many users that any question you have has likely been asked and answered on Stack Overflow. Using Pandas is a case where some Google-Fu is your best friend. Simply go to your favorite search engine and type in the question, problem, or error you're coming across–more than likely you'll find your answer on a Stack Overflow page.
+
+- [Pandas on PyVideo](http://pyvideo.org/search?q=pandas): From PyCon to SciPy to PyData, many conferences have featured tutorials from Pandas developers and power users. The PyCon tutorials in particular tend to be given by very well-vetted presenters.
+
+Using these resources, combined with the walk-through given in this chapter, my hope is that you'll be poised to use Pandas to tackle any data analysis problem you come across!
 
 ## Acknowledgments
 
