@@ -21,6 +21,11 @@ The original purpose of Generative adversarial networks(GAN) is to generate new 
 GAN is proposed in 2005, the paper is Ian J. Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, Yoshua Bengio. "Generative Adversarial Networks", arxiv:1406.2661.
 ```
 
+<p style="text-align: center;">
+  <iframe src="../html/ganlab/ganlab.html" width="105%" height="700px;" style="border:none;"></iframe>
+  Caption of the iframe. <a href="https://github.com/poloclub/ganlab">[source]</a>
+</p>
+
 ## Overview
 
 The structures of GANs are roughly as follows. They have two essential part, discriminator and generator. 
