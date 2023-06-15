@@ -17,7 +17,19 @@ kernelspec:
 
 ## K-means
 
+<p style="text-align: center;">
+<iframe src="../html/k-means-demo/k-means.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of K-Means. <a href="http://alekseynp.com/viz/k-means.html">[source]</a>
+</p>
+
 ## PCA
+
+<p style="text-align: center;">
+<iframe src="../html/PCA-demo/PCA.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of PCA. <a href="https://www.statskingdom.com/pca-calculator.html">[source]</a>
+</p>
 
 ## LDA
 
@@ -25,7 +37,19 @@ kernelspec:
 
 ## T-SNE
 
+<p style="text-align: center;">
+<iframe src="../html/t-SNE-demo/t-SNE.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of t-SNE. <a href="https://cs.stanford.edu/people/karpathy/tsnejs/csvdemo.html">[source]</a>
+</p>
+
 ## DBSCAN
+
+<p style="text-align: center;">
+<iframe src="../html/dbscan-demo/dbscan.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of dbscan. <a href="https://www.naftaliharris.com/blog/visualizing-dbscan-clustering/">[source]</a>
+</p>
 
 ## Hierarchical Clustering 
 
