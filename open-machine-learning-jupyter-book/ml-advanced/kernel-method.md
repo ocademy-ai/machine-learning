@@ -337,3 +337,14 @@ Disadvantages of SVMs:
 
 Some code comes from [jakevdp](https://jakevdp.github.io/PythonDataScienceHandbook/05.07-support-vector-machines.html), for which the code part is licenced under MIT licence.
 
+<p style="text-align: center;">
+<iframe src="../html/svm-vis/demo1/demo.html" width="105%" height="650px;"
+style="border:none;"></iframe>
+A demo of SVM. <a href="https://cs.stanford.edu/~karpathy/svmjs/demo/">[source]</a>
+</p>
+
+<p style="text-align: center;">
+<iframe src="../html/svm-vis/demo2/index.html" width="105%" height="600px;"
+style="border:none;"></iframe>
+A demo of SVM. <a href="http://macheads101.com/demos/svm-playground/">[source]</a>
+</p>
