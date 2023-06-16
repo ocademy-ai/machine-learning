@@ -1,0 +1,398 @@
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=820, initial-scale=0.5">
+
+  <title>Gradient Boosting explained [demonstration]</title>
+  <meta name="description" content="Understanding gradient boosting with 3d-demonstrations">
+
+<meta name="twitter:card" value="summary_large_image">
+<meta name="twitter:title" content="Gradient Boosting explained by Alex Rogozhnikov">
+<meta name="twitter:description" content="Understanding gradient boosting with interactive 3d-demonstrations">
+<meta name="twitter:url" content="http://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html">
+<meta name="twitter:image" content="http://arogozhnikov.github.io/images/ml_demonstrations/gradient_boosting_explained.png">
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Gradient Boosting explained by Alex Rogozhnikov" />
+<meta property="og:description" content="Understanding gradient boosting with interactive 3d-demonstrations" />
+<meta property="og:url" content="http://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html" />
+<meta property="og:image" content="http://arogozhnikov.github.io/images/ml_demonstrations/gradient_boosting_explained.png" />
+
+
+  <link rel="stylesheet" href="./main.css">
+  <!--<link rel="stylesheet" href="/css/alex.css">-->
+
+  <link rel="canonical" href="https://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html">
+  <link rel="alternate" type="application/rss+xml" title="Brilliantly wrong" href="https://arogozhnikov.github.io/feed.xml" />
+
+  <link rel="stylesheet" href="./katex.min.css">
+  <script src="./katex/katex.min.js"></script>
+  <script src="./auto-render.min.js"></script>
+  <script>
+    // can be filled along the way
+    var tex_macros = {};
+
+    var options = {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "`$", right: "$`", display: false},
+            {left: "$", right: "$", display: false}
+        ],
+        macros: tex_macros // I am not sure this is actually working
+    };
+    document.addEventListener("DOMContentLoaded", function() {
+      renderMathInElement(document.body, options);
+    });
+  </script>
+</head>
+<body>
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Gradient Boosting explained [demonstration]</h1>
+</p>
+  </header>
+
+  <article class="post-content">
+    <style type="text/css">
+    div.demo-wrapper {
+        width: 800px;
+        margin: auto;
+    }
+
+    div.visualization-wrapper {
+        font-size: 14px;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    div.visualization {
+        margin: auto;
+        /*width: 800px;*/
+    }
+
+    div.controls {
+        margin: auto;
+        /*width: 770px;*/
+        padding: 15px;
+        background-color: #eee;
+    }
+
+    input[type=range] {
+        vertical-align: text-top;
+    }
+
+    div.control {
+        text-align: center;
+        display: inline-block;
+        margin: 0 15px;
+        vertical-align: middle;
+    }
+
+    span.semi-transparent {
+        color: rgba(61, 26, 77, 0.5);
+        font-weight: bold;
+    }
+
+    .explanation-preview {
+        color: #237;
+        cursor: pointer;
+        border-bottom: 1px dotted #237;
+    }
+
+    .explanation-content {
+        display: None;
+    }
+
+    .dataset-control {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .dataset-control canvas {
+        margin: 5px;
+    }
+
+    .dataset-control canvas:hover {
+        outline: 5px solid #bdb;
+    }
+</style>
+
+
+<div id="demo-wrapper" class="demo-wrapper">
+    <img src="./gbdt_attractive_picture.png" width="100%"
+         alt="visualizing gradient boosting over decision trees"/>
+    <p>
+        Gradient boosting (GB) is a machine learning algorithm developed in the late '90s that is still very
+        popular.
+        It produces state-of-the-art results for many commercial (and academic) applications.
+    </p>
+    <p>
+        This page explains how the gradient boosting algorithm works using several interactive visualizations.
+    </p>
+
+    <h2>Decision Tree Visualized</h2>
+    <div class="visualization-wrapper">
+        <div>
+            <div style="text-align: center;"><span class="semi-transparent">semi-transparent target function \( f(\mathbf{x}) \) </span>
+                and tree prediction \( d_\text{tree}(\mathbf{x}) \)
+            </div>
+            <div id="tree_visualization" class="visualization"></div>
+        </div>
+        <div class="controls">
+            <div class="control dataset-control" id="tree_dataset_select_control">
+            </div>
+            <div class="control">
+                <label for="tree_depth_control">Tree depth: </label><label id="tree_depth_display"></label> <br/>
+                <input type="range" min="0" max="6" value="1" id="tree_depth_control">
+            </div>
+            <div class="control">
+                <button id="tree_look_from_above_control">Look from above</button>
+            </div>
+        </div>
+    </div>
+    <p>
+        We take a 2-dimensional regression problem and investigate how a tree is able to reconstruct the function
+        \( y = f(\mathbf{x}) = f(x_1, x_2) \).
+        Play with the tree depth, then look at the tree-building process from above!
+    </p>
+
+
+    <div>
+        <h2>Explanation: <span data-explained="tree" class="explanation-preview">how the tree is built?</span></h2>
+        <div data-explained="tree" class="explanation-content">
+            <p>
+                First, let's revisit how a decision tree works.
+                A decision tree is a fairly simple classifier which splits the space of features into regions by
+                applying trivial splitting (e.g. \( x_2 < 2.4 \) ).
+                The resulting regions have a rectangular form. In each region the predictions are constant.
+            </p>
+            <p>
+                Gradient boosting relies on regression trees (even when solving a classification problem) which minimize
+                <i>mean squared error</i> (MSE).
+                Selecting a prediction for a leaf region is simple: to minimize MSE we should select an average target
+                value over samples in the leaf.
+                The tree is built greedily starting from the root: for each leaf a split is selected to minimize MSE for
+                this step.
+            </p>
+            <p>
+                The greediness of this process allows it to build trees quite fast, but it produces suboptimal results.
+                Building an optimal tree turns out to be a very hard (NP-complete, actually) problem.
+            </p>
+            <p>
+                At the same time these built trees do their job (better than people typically think)
+                and fit well for our next step.
+            </p>
+        </div>
+    </div>
+
+    <h2>Gradient Boosting Visualized</h2>
+    <p>
+        This demo shows the result of combining 100 decision trees.
+    </p>
+    <div class="visualization-wrapper">
+        <div>
+            <div style="text-align: center;"><span class="semi-transparent">target function \( f(\mathbf{x}) \) </span> and
+                prediction of GB \( D(\mathbf{x}) \)
+            </div>
+            <div id="gb_simple_visualization" class="visualization"></div>
+        </div>
+        <div class="controls">
+            <div class="control dataset-control" id="gb_simple_dataset_select_control">
+            </div>
+            <div class="control">
+                <label for="gb_simple_depth_control">Tree depth: </label><span id="gb_simple_depth_display"></span><br/>
+                <input type="range" min="0" max="6" value="3" id="gb_simple_depth_control"/>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        Not bad, right?
+        As we see, gradient boosting is able to provide smooth detailed predictions by combining many trees of very
+        limited depth (cf. with the single decision tree above!).
+    </p>
+    <div>
+        <h2>Explanation: <span data-explained="basic_gb" class="explanation-preview">what is gradient boosting?</span>
+        </h2>
+        <div data-explained="basic_gb" class="explanation-content">
+            <p>
+                To begin with, gradient boosting is an ensembling technique, which means that prediction is done by an
+                ensemble
+                of simpler estimators.
+                While this theoretical framework makes it possible to create an ensemble of various estimators, in practice
+                we almost
+                always use GBDT &mdash; gradient boosting over decision trees.
+                This is the case I cover in the demo, but in principle any other estimator could be used instead of a
+                decision tree.
+            </p>
+            <p>
+                The aim of gradient boosting is to create (or "train") an ensemble of trees, given that we know how to
+                train a single decision tree.
+                This technique is called <b>boosting</b> because we expect an ensemble to work much better than
+                a single estimator.
+            </p>
+        </div>
+    </div>
+
+
+    <h2>How an Ensemble Is Built</h2>
+    <p>
+        Here comes the most interesting part.
+        Gradient boosting builds an ensemble of trees <strong>one-by-one</strong>,
+        then the predictions of the individual trees <strong>are summed</strong>:
+        $$
+        D(\mathbf{x}) = d_\text{tree 1}(\mathbf{x}) + d_\text{tree 2}(\mathbf{x}) + ...
+        $$
+    </p>
+    <p>
+        The next decision tree tries to cover the discrepancy between the target function \( f(\mathbf{x}) \) and the current
+        ensemble prediction <strong>by reconstructing the residual</strong>.
+    </p>
+    <p>
+        For example, if an ensemble has 3 trees the prediction of that ensemble is:
+        $$
+        D(\mathbf{x}) = d_\text{tree 1}(\mathbf{x}) + d_\text{tree 2}(\mathbf{x}) + d_\text{tree 3}(\mathbf{x})
+        $$
+
+        The next tree ( \( \text{tree 4} \) ) in the ensemble should complement well the existing trees and minimize
+        the training error of the ensemble. <br/>
+        In the ideal case we'd be happy to have:
+        $$
+        D(\mathbf{x}) + d_\text{tree 4}(\mathbf{x}) = f(\mathbf{x}).
+        $$
+    </p>
+    <p>
+        To get a bit closer to the destination, we train a tree to reconstruct the difference between the
+        target function and the current predictions of an ensemble, which is called the <strong>residual</strong>:
+        $$
+        R(\mathbf{x}) = f(\mathbf{x}) - D(\mathbf{x}).
+        $$
+        Did you notice? If decision tree completely reconstructs \( R(\mathbf{x}) \),
+        the whole ensemble gives predictions without errors (after adding the
+        <nobr>newly-trained</nobr>
+        tree to the ensemble)!
+        That said, in practice this never happens, so we instead continue the iterative process of ensemble building.
+    </p>
+
+    <div class="visualization-wrapper">
+        <div style="width: 850px; margin: auto;">
+            <div style="width: 400px; display: inline-block;">
+                <div style="text-align: center;"><span class="semi-transparent">target function \( f(\mathbf{x}) \)</span>
+                    and prediction of previous trees \( D(\mathbf{x}) \)
+                </div>
+                <div id="gb_build_visualization_prediction"></div>
+            </div>
+            <div style="width: 400px; display: inline-block;">
+                <div style="text-align: center;"><span class="semi-transparent">residual \( R(\mathbf{x}) \)</span> and
+                    prediction
+                    of next tree \( d_n(\mathbf{x}) \)
+                </div>
+                <div id="gb_build_visualization_residual"></div>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="control dataset-control" id="gb_build_dataset_select_control">
+            </div>
+            <div class="control">
+                <label for="gb_build_depth_control">Tree depth: </label><span id="gb_build_depth_display"></span><br/>
+                <input type="range" min="1" max="6" value="3" id="gb_build_depth_control">
+            </div>
+            <div class="control">
+                <label for="gb_build_estimator_control">Number of built trees: </label>
+                <span id="gb_build_estimator_display"></span><br/>
+                <input type="range" min="0" max="10" value="0" id="gb_build_estimator_control">
+            </div>
+        </div>
+    </div>
+    <p>
+        Look at the plot on the right. pay attention to how the values on the vertical (y) axis decrease after many trees have been built (and the residual
+        becomes smaller and smaller). <br/>
+        After playing with this residuals demo you may notice some <span data-explained="comments" class="explanation-preview">interesting things:</span>
+    </p>
+    <ul data-explained="comments" class="explanation-content">
+        <li>before a tree is added to an ensemble, its predictions are multiplied by some factor</li>
+        <li>this factor (called \( \eta \) or learning rate) is an important parameter of GB ( \( \eta = 0.3 \) in this
+            demo)
+        </li>
+        <li>if we set number of trees to 10 and vary the depth: we notice that as the depth gets higher, the residual gets smaller, but it's also more
+            noisy
+        </li>
+        <li>
+            discontinuities ('spikes') appear at those points where a decision tree split
+        </li>
+        <li>
+            the larger the learning rate &mdash; the larger the 'step' made by a single decision tree
+            &mdash; and the larger the discontinuity
+        </li>
+        <li>
+            in practice GBDT is used with small learning rate ( \( 0.01 < \eta < 0.1 \) ) and large number of trees
+            to get the best results
+        </li>
+    </ul>
+    <h2>Gradient Boosting for Classification Problem</h2>
+    <p>
+        Things become more interesting when we want to build an ensemble for classification.
+    </p>
+    <p>
+        A naive approach that covers the difference between 'where we are' and 'where we want to get' doesn't seem to work anymore,
+        and things become more interesting.
+    </p>
+
+</div>
+
+<script type="text/javascript" src="./jquery-2.1.4.js"></script>
+<script type="text/javascript" src="./plotly-1.13.js"></script>
+<script type="text/javascript" src="./utils-compiled.js"></script>
+<script type="text/javascript" src="./gradient_boosting-compiled.js"></script>
+<script type="text/javascript" src="./datasets-compiled.js"></script>
+<script type="text/javascript" src="./gradient_boosting_explained-compiled.js"></script>
+
+  </article>
+
+  <!-- adding temp info -->
+  <!--
+  <div class='job-looking' style='background: #DEF; font-size: 1.2em; padding: 30px;'  >
+    Psst. Looking for a <strong>research scientist in machine learning</strong> to join your team? <br />
+    Drop me an email, I'm currently open for opportunities! <a href='http://arogozhnikov.github.io/cv/AlexRogozhnikov.html' >My CV</a>.
+  </div>
+  -->
+  <!-- end of temp info -->
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+      <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-12796577-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </div>
+</footer>
+
+
+  </body>
+
+</html>

@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+      <link rel="stylesheet" href="./icons.css" />
+      <link rel="stylesheet" href="./material.red-indigo.min.css" />
+      <link rel="stylesheet" href="./dialog-polyfill.css" />
+      <link rel="stylesheet" href="./style.css" />
+</head>
+
+
+
+      <div>
+            <div id="settings">
+                  <!-- Image upload button -->
+                  <input type="file" onchange="read_file();" id="load-image-upload">
+                  <label for="load-image-upload" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-upload-button">
+                        Upload Image
+                  </label>
+                  <div class="mdl-tooltip" data-mdl-for="load-image-upload-button">
+                        Upload an image file in .jpeg, .png, or .gif format.
+                  </div>
+
+                  <!-- Image loading from URL -->
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="load-image-url">
+                        Load image from URL
+                  </button>
+                  <div class="mdl-tooltip" data-mdl-for="load-image-url">
+                        Enter a URL of an image in .jpeg, .png, or .gif format.
+                  </div>
+
+                  <input class="mdl-slider mdl-js-slider" type="range" min="8" max="200" value="50" tabindex="0" onchange="set_resolution(set_filter);" id="resolution">
+                  <div class="mdl-tooltip" data-mdl-for="resolution">
+                        Set resolution of input image.
+                  </div>
+                  <p id="resolution-display">Resolution</p>
+                  <div class="mdl-tooltip" data-mdl-for="resolution-display" id="resolution-tooltip">
+                        Current resolution.
+                  </div>
+
+                  <!-- Settings -->
+                  <div style="width: 100%;" class="inline-block">
+                        <!-- Filter kernel visualization -->
+                        <div id="kernel-vis"></div>
+
+                        <!-- Right settings panel -->
+                        <div style="width: 49%; margin-left: 1%; float: left;">
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="select-filter">
+                                          No filter applied <i class="material-icons">arrow_drop_down</i>
+                                    </button>
+                              <div class="mdl-tooltip" data-mdl-for="select-filter">
+                                    Select a filter kernel to apply to image.
+                              </div>
+                              <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" id="kernels" for="select-filter"></ul>
+
+                              <br />
+                              <br />
+
+                              <!-- Apply convolutional filter to image (only needed when automatic updating is disabled) -->
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="apply_filter();" id="apply-filter">
+                                          Apply filter
+                                    </button>
+                              <div class="mdl-tooltip" data-mdl-for="apply-filter">
+                                    Apply filter to image.
+                              </div>
+
+                              <br />
+                              <br />
+
+                              <button class="full-width mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="randomize();" id="randomize-filter">
+                                          Randomize
+                                    </button>
+                              <div class="mdl-tooltip" data-mdl-for="randomize-filter">
+                                    Randomize weights of filter kernel.
+                              </div>
+
+                              <br />
+
+                              <!-- Filter repeat text field -->
+                              <div class="mdl-textfield mdl-js-textfield">
+                                    <input oninput="set_filter();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="repeat-filter">
+                                    <label class="mdl-textfield__label" for="repeat-filter">Repeat filter</label>
+                                    <span class="mdl-textfield__error">Input is not a number</span>
+                              </div>
+                              <div class="mdl-tooltip" data-mdl-for="repeat-filter">
+                                    Repeat convolutional filter on image a specified number of times.
+                              </div>
+
+                              <!-- Automatic filter update toggle -->
+                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="automatic-update-label" for="automatic-update">
+                                          <input type="checkbox" oninput="update_settings();" id="automatic-update" class="mdl-switch__input" checked></input>
+                                          <span class="mdl-switch__label">Automatically update</span>
+                                    </label>
+                              <div class="mdl-tooltip" data-mdl-for="automatic-update-label">
+                                    Update convolutional filter whenever a setting is changed.
+                              </div>
+
+                              <!-- Filter kernel export button -->
+                              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="export-kernel-button">
+                                    <i class="material-icons">arrow_downward</i>
+                              </button>
+                              <!-- Filter kernel export button tooltip -->
+                              <div class="mdl-tooltip" data-mdl-for="export-kernel-button">
+                                    Export filter kernel
+                              </div>
+
+                              <!-- Filter kernel import button -->
+                              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="import-kernel-button">
+                                    <i class="material-icons">arrow_upward</i>
+                              </button>
+                              <!-- Filter kernel import button tooltip -->
+                              <div class="mdl-tooltip" data-mdl-for="import-kernel-button">
+                                    Import filter kernel
+                              </div>
+                        </div>
+                  </div>
+                  <div>
+                        <h4 id="kernel-weight-label">Edit Kernel</h4>
+                        <h5 id="kernel-name"></h5>
+                        <h5 id="kernel-weight-position"></h5>
+                        <div class="mdl-textfield mdl-js-textfield" id="kernel-weight-container">
+                              <input oninput="set_weight();" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="kernel-weight">
+                              <label class="mdl-textfield__label" for="repeat-filter">Kernel weight</label>
+                              <span class="mdl-textfield__error">Input is not a number</span>
+                        </div>
+                        <div class="mdl-tooltip" data-mdl-for="repeat-filter">
+                              Repeat convolutional filter on image a specified number of times.
+                        </div>
+                  </div>
+            </div>
+            <!-- Canvases to display images on -->
+            <div id="canvases">
+                  <div id="input-canvas">
+                        <!-- Unfiltered input image -->
+                        <canvas id="input"></canvas>
+                        <div class="mdl-tooltip" data-mdl-for="input">
+                              Input image
+                        </div>
+
+                        <!-- Input image save button -->
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" id="save-input">
+                              <i class="material-icons">save</i>
+                        </button>
+                        <!-- Input image save tooltip -->
+                        <div class="mdl-tooltip" data-mdl-for="save-input">
+                              Download input image
+                        </div>
+                  </div>
+
+                  <div id="output-canvas">
+                        <!-- Output image with convolutional filter applied -->
+                        <canvas id="output"></canvas>
+                        <div class="mdl-tooltip" data-mdl-for="output">
+                              Output image
+                        </div>
+
+                        <!-- Output image save button -->
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--accent" id="save-output">
+                              <i class="material-icons">save</i>
+                        </button>
+                        <!-- Output image save tooltip -->
+                        <div class="mdl-tooltip" data-mdl-for="save-output">
+                              Download output image
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+      </div>
+
+      <dialog class="mdl-dialog" id="load-image-url">
+            <h4 class="mdl-dialog__title">Load Image From URL</h4>
+            <div class="mdl-dialog__content">
+                  <p>
+                        Enter an image URL below to load an image. Note that not all websites will allow this. Try Imgur.
+                  </p>
+                  <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="sample1">
+                        <label class="mdl-textfield__label" for="sample1"></label>
+                  </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                  <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect confirm">
+                        Load Image
+                  </button>
+                  <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Cancel
+                  </button>
+            </div>
+      </dialog>
+
+      <dialog class="mdl-dialog" id="export-kernel-dialog">
+            <h4 class="mdl-dialog__title">Export Filter Kernel</h4>
+            <div class="mdl-dialog__content">
+                  <p>
+                        Copy and paste the code below, or press the download button to save a text file with the filter kernel information.
+                  </p>
+
+                  <div class="mdl-textfield mdl-js-textfield" id="export-kernel-field-container">
+                        <textarea class="mdl-textfield__input" type="text" rows="3" id="export-kernel-field"></textarea>
+                        <label class="mdl-textfield__label" for="kernel-export-field">
+                              Filter kernel code
+                        </label>
+                  </div>
+
+                  <br />
+
+                  <!-- Kernel data download button -->
+                  <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="export-kernel-download-button">
+                        <i class="material-icons">save</i>
+                  </button>
+                  <!-- Kernel data download button tooltip -->
+                  <div class="mdl-tooltip" data-mdl-for="export-kernel-download-button">
+                        Download filter kernel data
+                  </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                  <button type="button" class="close mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Close
+                  </button>
+            </div>
+      </dialog>
+
+      <dialog class="mdl-dialog" id="import-kernel-dialog">
+            <h4 class="mdl-dialog__title">Import Filter Kernel</h4>
+            <div class="mdl-dialog__content">
+                  <p>
+                        Paste your filter kernel code here.
+                  </p>
+                  <div class="mdl-textfield mdl-js-textfield">
+                        <textarea class="mdl-textfield__input" type="text" rows="3" id="import-kernel-field"></textarea>
+                        <label class="mdl-textfield__label" for="import-kernel-field">
+                              Filter kernel code
+                        </label>
+                  </div>
+            </div>
+            <div class="mdl-dialog__actions">
+                  <button type="button" class="close mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Cancel
+                  </button>
+                  <button type="button" class="confirm close mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Import
+                  </button>
+            </div>
+      </dialog>
+
+      <!-- Load JavaScript -->
+      <script defer src="./jquery-3.3.1.min.js"></script>
+      <script defer src="./download.js"></script>
+      <script defer src="./material.js"></script>
+      <script defer src="./dialog-polyfill.js"></script>
+      <script defer src="./kernels.js"></script>
+      <script defer src="./canvas.js"></script>
+      <script defer src="./utilities.js"></script>
+      <script defer src="./variables.js"></script>
+      <script defer src="./import-export.js"></script>
+      <script defer src="./script.js"></script>
+      <script defer src="./setup.js"></script>
+</body>
+
+</html>
