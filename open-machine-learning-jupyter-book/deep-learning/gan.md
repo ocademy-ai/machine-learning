@@ -33,6 +33,7 @@ Discriminator learns to become better at distinguishing real from generated imag
 
 :::{figure-md} GAN structure
 <img src="../../images/deep-learning/GAN/structure.png" width="90%" class="bg-white mb-1">
+
 Illustration of GAN structure
 :::
 
