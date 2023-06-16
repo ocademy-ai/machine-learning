@@ -176,7 +176,7 @@ Data Science is visualized by [Pandas Tutor](https://pandastutor.com/), Pandas a
 ```{grid-item-card}
 :class-header: bg-light
 
-Machine Learning/Deep Learning 🚀
+Machine Learning 🚀
 ^^^
 
 Algorithms and models are visualized by popular frameworks like [Tensorflow.js](https://www.tensorflow.org/js).
