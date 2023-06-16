@@ -22,7 +22,7 @@ GAN is proposed in 2005, the paper is Ian J. Goodfellow, Jean Pouget-Abadie, Meh
 ```
 
 <p style="text-align: center;">
-  <iframe src="../html/ganlab/ganlab.html" width="105%" height="750px;" style="border:none; overflow-x:hidden;"></iframe>
+  <iframe src="../html/ganlab/ganlab.html" width="105%" height="770px;" style="border:none; " scolling="auto"></iframe>
   A demo of ganlab. <a href="https://github.com/poloclub/ganlab">[source]</a>
 </p>
 
@@ -33,7 +33,6 @@ Discriminator learns to become better at distinguishing real from generated imag
 
 :::{figure-md} GAN structure
 <img src="../../images/deep-learning/GAN/structure.png" width="90%" class="bg-white mb-1">
-
 Illustration of GAN structure
 :::
 
