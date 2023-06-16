@@ -51,7 +51,7 @@ Start to read {fas}`arrow-right`
 Data Science 💾
 ^^^
 
-Data science is an interdisciplinary academic field that uses statistics, scientific computing, scientific methods, processes, algorithms and systems to extract insights from data.
+Data Science is an interdisciplinary academic field that uses statistics, scientific computing, scientific methods, processes, algorithms and systems to extract insights from data.
 +++
 Start to read {fas}`arrow-right`
 ```
