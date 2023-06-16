@@ -1,0 +1,85 @@
+name: update the source links in online book
+
+on:
+  push:
+    branches:
+    - release
+    paths:
+    - open-machine-learning-jupyter-book/**
+    - .github/**
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)
+        required: false
+
+jobs:
+  build-chatbot:
+    runs-on: ubuntu-latest
+    steps:
+    
+      # Checkout the repository to get access to the files.
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-deepth: 0 # Fetch complete history.
+
+      # Set up Node.js 16.x.
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          
+      # Set up Python.
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Install dependencies.
+      - name: Install dependencies
+        run: |
+          npm install dotenv
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install openai
+          python -m pip install qdrant_client
+          python -m pip install langchain
+          python -m pip install tiktoken
+          python -m pip install python-dotenv
+
+      # Get changed files.
+      - name: Get changed files
+        id: getfile
+        run: |
+          echo "::set-output name=files::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep 'open-machine-learning-jupyter-book' | grep '\.md$')"
+
+      # Write changed files to a text file.
+      - name: Write changed files to a text file
+        run: |
+          echo "${{ github.repository }}"
+          echo "${{ github.ref }}"
+          for file in ${{ steps.getfile.outputs.files }}; do
+            echo "https://github.com/${{ github.repository }}/blob/${{ github.ref }}/${file}"
+            echo "https://github.com/${{ github.repository }}/blob/${{ github.ref }}/${file}" >> ./chatbot/vector-db-persist-directory/resources-new/changed_file.txt
+          done
+          echo  "hello" >> ./chatbot/vector-db-persist-directory/resources-new/changed_file.txt
+
+      # Set up OpenAI API Key.
+      - name: Set up OpenAI API Key
+        run: |
+          echo "Set up OpenAI API Key successfully."
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
+          
+      # Update the vector database of chatbot using Python script.
+      - name: Update the vector database of chatbot
+        run: python -m chatbot.workflows.update_source_link
+        
+      # Commit and push changes.
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git diff --cached --quiet || git add .
+          git diff --cached --quiet || git commit -m "Update source links in online book"
+          git diff --cached --quiet || git push
