@@ -22,7 +22,7 @@ GAN is proposed in 2005, the paper is Ian J. Goodfellow, Jean Pouget-Abadie, Meh
 ```
 
 <p style="text-align: center;">
-  <iframe src="../html/ganlab/ganlab.html" width="105%" height="700px;" style="border:none;"></iframe>
+  <iframe src="../html/ganlab-vis/ganlab.html" width="105%" height="700px;" style="border:none;"></iframe>
   Caption of the iframe. <a href="https://github.com/poloclub/ganlab">[source]</a>
 </p>
 
