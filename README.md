@@ -13,11 +13,11 @@ Our content is completely free and self-paced, which covers Python, Data Science
 ## 🧩 Features
 
 - A curated list of beginner-friendly [tutorials](https://ocademy-ai.github.io/machine-learning/intro.html) for learning Python, Data Science, Machine Learning, Deep Learning and MLOps.
-- Everything is interactive Jupyter Notebook for immersive learning.
+- Empower the learning journey with interactive Jupyter Notebooks.
   - The book is built with [Jupyter Book](https://jupyterbook.org/) from computational content written as notebook.
   - The slide is built with [RISE](https://github.com/damianavila/RISE) which instantly turns notebook into a live [reveal.js](https://revealjs.com/)-based presentation.
   - The assignment is in [TDD](https://en.wikipedia.org/wiki/Test-driven_development) style and self-testable as pytest compatible notebook.
-- Visualization is the motivation of AI learning.
+- Transforming Machine Learning through the art of visualization.
   - Python is visualized by [Python Tutor](https://pythontutor.com/).
   - Data Science is visualized by [Pandas Tutor](https://pandastutor.com/), Pandas and various other Python visualization libraries.
   - Machine Learning/Deep Learning algorithms and models are visualized by frameworks like [Tensorflow.js](https://www.tensorflow.org/js).
