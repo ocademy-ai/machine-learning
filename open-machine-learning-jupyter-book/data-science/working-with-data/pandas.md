@@ -1752,7 +1752,7 @@ Here are some examples of exploring data from Image data sources:
 
 ### Assignment
 
-[Perform more detailed data study for the challenges above](../../assignments/data-science/data-processing-in-python.md)
+[TBD]().
 
 ## Self study
 
