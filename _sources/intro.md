@@ -25,6 +25,7 @@ An interactive and visual Machine Learning book - with code and assignment
 ````
 `````
 
+# Learn with us
 
 ````{grid} 1 1 2 3
 :class-container: text-center
@@ -51,7 +52,7 @@ Start to read {fas}`arrow-right`
 Data Science 💾
 ^^^
 
-Data science is an interdisciplinary academic field that uses statistics, scientific computing, scientific methods, processes, algorithms and systems to extract insights from data.
+Data Science is an interdisciplinary academic field that uses statistics, scientific computing, scientific methods, processes, algorithms and systems to extract insights from data.
 +++
 Start to read {fas}`arrow-right`
 ```
@@ -176,7 +177,7 @@ Data Science is visualized by [Pandas Tutor](https://pandastutor.com/), Pandas a
 ```{grid-item-card}
 :class-header: bg-light
 
-Machine Learning/Deep Learning 🚀
+Machine Learning 🚀
 ^^^
 
 Algorithms and models are visualized by popular frameworks like [Tensorflow.js](https://www.tensorflow.org/js).
