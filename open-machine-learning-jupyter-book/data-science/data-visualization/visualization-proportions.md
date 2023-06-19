@@ -169,7 +169,7 @@ Do some research to find more information on this sticky decision.
 
 Try recreating these tasty charts in [Charticulator](https://charticulator.com).
 
-Assignment - [Try it in Excel](../../assignments/data-science/try-it-in-excel.md)
+Assignment - [TBD]()
 
 ## Acknowledgments
 
