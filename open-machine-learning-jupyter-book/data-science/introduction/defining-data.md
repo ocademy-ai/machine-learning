@@ -59,16 +59,11 @@ Databases are a common source and rely on a database management system to host a
 
 ## Your turn! 🚀
 
-### Task 1
-
 Kaggle is an excellent source of open datasets. Use the [dataset search tool](https://www.kaggle.com/datasets) to find some interesting datasets and classify 3-5 datasets with these criteria:
 
 - Is the data quantitative or qualitative?
 - Is the data structured, unstructured, or semi-structured?
 
-### Task 2
-
-[Classifying datasets](../../assignments/data-science/classifying-datasets.md)
 
 ## Self study
 
