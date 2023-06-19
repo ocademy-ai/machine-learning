@@ -103,7 +103,7 @@ As you can see, we can leverage Cloud services in many ways to perform Data Scie
 
 ## Your turn! 🚀
 
-[Market research](../../assignments/data-science/market-research.md)
+[TBD]()
 
 ## Acknowledgments
 
