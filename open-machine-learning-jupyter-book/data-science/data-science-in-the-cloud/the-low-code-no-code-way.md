@@ -318,7 +318,7 @@ Once you are done with the project, don't forget to delete all the resources.
 
 Look closely at the model explanations and details that AutoML generated for the top models. Try to understand why the best model is better than the other ones. What algorithms were compared? What are the differences between them? Why is the best one performing better in this case?
 
-Assignment - [Low code/no code Data Science project on Azure ML](../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.md)
+Assignment - [TBD]()
 
 ## Self Study
 
