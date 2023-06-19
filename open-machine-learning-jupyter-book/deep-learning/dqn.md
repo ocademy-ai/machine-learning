@@ -234,18 +234,141 @@ This is an example of DQN discrete model.
 
 ```{code-cell}
 import tensorflow as tf
-import maze
-import maze_collection as mc
 import random as r
 import numpy as np
 import matplotlib.pyplot as plt
 ```
 
 ```{code-cell}
+class Maze:
+    def __init__(self, maze_type):
+        # Use the maze types from maze_collection.py
+        [self.maze,
+         [self.startX, self.startY],
+         [self.goalX, self.goalY]] = maze_type
+        self.x = self.startX
+        self.y = self.startY
+
+        self.won = False
+
+        self.win = None
+        self.squares = None
+
+    def reset(self):
+        self.x = self.startX
+        self.y = self.startY
+
+        self.won = False
+        if self.win is not None:
+            self.display()
+
+    def display_commandline(self):
+        to_print = ""
+        for y_pos, y in enumerate(self.maze):
+            for x_pos, x in enumerate(y):
+                if self.x == x_pos and self.y == y_pos:
+                    to_print += " O "
+                elif self.goalX == x_pos and self.goalY == y_pos:
+                    to_print += " X "
+                elif x == 0:
+                    to_print += "   "
+                elif x == 1:
+                    to_print += " # "
+            to_print += "\n"
+        print(to_print)
+
+    # def initialise_graphics(self):
+    #     self.win = g.GraphWin("Maze", 200 + (50 * len(self.maze[0])), 200 + (50 * len(self.maze)))
+    #     self.squares = []
+    #     for i in range(len(self.maze)):
+    #         self.squares.append([])
+    #         for j in range(len(self.maze[i])):
+    #             self.squares[i].append(
+    #                 g.Rectangle(g.Point(100 + (j * 50), 100 + (i * 50)), g.Point(150 + (j * 50), 150 + (i * 50))))
+    #             self.squares[i][j].draw(self.win)
+    #     self.display()
+
+    def display(self):
+        for y_pos, y in enumerate(self.maze):
+            for x_pos, x in enumerate(y):
+                if self.x == x_pos and self.y == y_pos:
+                    self.squares[y_pos][x_pos].setFill("orangered")
+                elif self.goalX == x_pos and self.goalY == y_pos:
+                    self.squares[y_pos][x_pos].setFill("green")
+                elif x == 0:
+                    self.squares[y_pos][x_pos].setFill("white")
+                elif x == 1:
+                    self.squares[y_pos][x_pos].setFill("black")
+
+    def check_win_condition(self):
+        if self.x == self.goalX and self.y == self.goalY:
+            self.won = True
+
+    def move_up(self):
+        if self.y - 1 >= 0 and self.maze[self.y - 1][self.x] != 1:
+            self.y -= 1
+        self.check_win_condition()
+
+    def move_down(self):
+        if self.y + 1 < len(self.maze) and self.maze[self.y + 1][self.x] != 1:
+            self.y += 1
+        self.check_win_condition()
+
+    def move_left(self):
+        if self.x - 1 >= 0 and self.maze[self.y][self.x - 1] != 1:
+            self.x -= 1
+        self.check_win_condition()
+
+    def move_right(self):
+        if self.x + 1 < len(self.maze[0]) and self.maze[self.y][self.x + 1] != 1:
+            self.x += 1
+        self.check_win_condition()
+
+    def distance_up(self):
+        for i in range(self.y, -1, -1):
+            if i - 1 < 0 or self.maze[i - 1][self.x] == 1:
+                return self.y - i
+
+    def distance_down(self):
+        for i in range(self.y, len(self.maze), 1):
+            if i + 1 >= len(self.maze) or self.maze[i + 1][self.x] == 1:
+                return i - self.y
+
+    def distance_left(self):
+        for i in range(self.x, -1, -1):
+            if i - 1 < 0 or self.maze[self.y][i - 1] == 1:
+                return self.x - i
+
+    def distance_right(self):
+        for i in range(self.x, len(self.maze[0]), 1):
+            if i + 1 >= len(self.maze) or self.maze[self.y][i + 1] == 1:
+                return i - self.x
+
+    def normal_x(self):
+        return self.x / (len(self.maze[0]) - 1)
+
+    def normal_y(self):
+        return self.y / (len(self.maze) - 1)
+
+    def normal_goal_x(self):
+        return self.goalX / (len(self.maze[0]) - 1)
+
+    def normal_goal_y(self):
+        return self.goalY / (len(self.maze) - 1)
+
+T_maze = [
+    [  # Layout
+        [0, 0, 0],
+        [1, 0, 1],
+        [1, 0, 1]
+    ],
+    [1, 2],  # Start coordinates
+    [0, 0]   # Goal coordinates
+]
+
 def main(output_file_name):
     # housekeeping
-    m = maze.Maze(mc.T_maze)
-    sess = tf.Session()
+    m = Maze(T_maze)
     learning_rate = 0.0001
     num_memory_units = 4
     graphical = True
@@ -256,42 +379,11 @@ def main(output_file_name):
         file = open(output_file_name + ".txt", "w")
         file.write("Iter\tWon?\tSteps\tAll steps\n")
 
-    # neural network structure
-    x = tf.placeholder(tf.float32, [None, 2+num_memory_units])
-
-    W1 = tf.Variable(tf.truncated_normal([2+num_memory_units, 6]))
-    b1 = tf.Variable(tf.truncated_normal([1, 6]))
-
-    h1 = tf.sigmoid(tf.matmul(x, W1) + b1)
-
-    W2 = tf.Variable(tf.truncated_normal([6, 6]))
-    b2 = tf.Variable(tf.truncated_normal([1, 6]))
-
-    h2 = tf.sigmoid(tf.matmul(h1, W2) + b2)
-
-    W3 = tf.Variable(tf.truncated_normal([6, 4+num_memory_units]))
-    b3 = tf.Variable(tf.truncated_normal([1, 4+num_memory_units]))
-
-    output_final_layer_before_activation_function = tf.matmul(h2, W3) + b3
-    left_output = output_final_layer_before_activation_function[:, 0:4]
-    right_output = output_final_layer_before_activation_function[:, 4:]
-    y = tf.nn.softmax(left_output)
-    memory_units = tf.sigmoid(right_output)
-
-    sess.run(tf.global_variables_initializer())
-
-    weights_list = [W1, b1, W2, b2, W3, b3]
-
-    # gradients (i.e. dp/dw) for backpropagation
-    dprobability0_dweights = tf.gradients(y[:, 0], weights_list)
-    dprobability1_dweights = tf.gradients(y[:, 1], weights_list)
-    dprobability2_dweights = tf.gradients(y[:, 2], weights_list)
-    dprobability3_dweights = tf.gradients(y[:, 3], weights_list)
-
     # weight update operation
-    ph_delta_weights_list = [tf.placeholder(tf.float32, w.get_shape()) for w in weights_list]
-    update_weights = [tf.assign(weights_list[i], weights_list[i] + ph_delta_weights_list[i])
-                      for i in range(len(weights_list))]
+    # ph_delta_weights_list = [tf.placeholder(tf.float32, w.get_shape()) for w in weights_list]
+    # ph_delta_weights_list = [w.get_shape() for w in weights_list]
+    # update_weights = [tf.compat.v1.assign(weights_list[i], weights_list[i] + ph_delta_weights_list[i])
+    #                   for i in range(len(weights_list))]
 
     # training setup
     maxSteps = 20
@@ -321,24 +413,68 @@ def main(output_file_name):
         # Current step
         step = 0
 
-        # All outputs and dp_dthetas for this iteration
-        probabilities = np.zeros(maxSteps)
-        dp_dthetas = list()
-
-        memory = np.zeros(num_memory_units)
-
-        movements = ""
+        # # All outputs and dp_dthetas for this iteration
+        # probabilities = np.zeros(maxSteps)
+        # dp_dthetas = list()
+        #
+        # memory = np.zeros(num_memory_units)
+        #
+        # movements = ""
 
         while m.won is False and step < maxSteps:
+            # All outputs and dp_dthetas for this iteration
+            probabilities = np.zeros(maxSteps)
+            dp_dthetas = list()
+
+            memory = np.zeros(num_memory_units)
+
+            movements = ""
+
             # Defining neural network input
             input_values = np.array([m.normal_x(), m.normal_y()])
             input_values = np.append(input_values, memory)
 
             # Running input through the neural network
+            # [output, dp0dtheta, dp1dtheta, dp2dtheta, dp3dtheta, output_memory] =\
+            #     sess.run([y, dprobability0_dweights, dprobability1_dweights, dprobability2_dweights,
+            #               dprobability3_dweights, memory_units],
+            #              feed_dict={x: [input_values]})
+
+            with tf.GradientTape(persistent=True) as tape:
+                x = tf.cast(input_values, tf.float32)
+
+                W1 = tf.Variable(tf.random.truncated_normal([2+num_memory_units, 6]))
+                b1 = tf.Variable(tf.random.truncated_normal([1, 6]))
+                W2 = tf.Variable(tf.random.truncated_normal([6, 6]))
+                b2 = tf.Variable(tf.random.truncated_normal([1, 6]))
+                W3 = tf.Variable(tf.random.truncated_normal([6, 4+num_memory_units]))
+                b3 = tf.Variable(tf.random.truncated_normal([1, 4+num_memory_units]))
+
+                h1 = tf.sigmoid(tf.matmul([x], W1) + b1)
+                h2 = tf.sigmoid(tf.matmul(h1, W2) + b2)
+
+                output_final_layer_before_activation_function = tf.matmul(h2, W3) + b3
+                left_output = output_final_layer_before_activation_function[:, 0:4]
+                right_output = output_final_layer_before_activation_function[:, 4:]
+                y = tf.nn.softmax(left_output)
+                memory_units = tf.sigmoid(right_output)
+
+                weights_list = [W1, b1, W2, b2, W3, b3]
+            dprobability0_dweights = tape.gradient(y[:, 0], weights_list)
+            # print(dprobability0_dweights)
+            # print("gradient")
+            dprobability1_dweights = tape.gradient(y[:, 1], weights_list)
+            dprobability2_dweights = tape.gradient(y[:, 2], weights_list)
+            dprobability3_dweights = tape.gradient(y[:, 3], weights_list)
+
+            ph_delta_weights_list = [w.get_shape() for w in weights_list]
+            # update_weights = [tf.compat.v1.assign(weights_list[i], weights_list[i] + ph_delta_weights_list[i])
+            #           for i in range(len(weights_list))]
+
             [output, dp0dtheta, dp1dtheta, dp2dtheta, dp3dtheta, output_memory] =\
-                sess.run([y, dprobability0_dweights, dprobability1_dweights, dprobability2_dweights,
-                          dprobability3_dweights, memory_units],
-                         feed_dict={x: [input_values]})
+                [y, dprobability0_dweights, dprobability1_dweights, dprobability2_dweights,
+                          dprobability3_dweights, memory_units]
+
 
             # Random value between 0 and 1, inclusive on both sides
             result = r.uniform(0, 1)
@@ -348,6 +484,8 @@ def main(output_file_name):
                 m.move_up()
                 probabilities[step] = output[0][0]
                 dp_dthetas.append(dp0dtheta)
+                print(dp0dtheta)
+                print("=========================================")
                 movements += "U"
             elif result <= output[0][0] + output[0][1]:
                 # Right
@@ -382,10 +520,15 @@ def main(output_file_name):
 
         # Applying weight change for every step taken, based on the reward given at the end
         for i in range(step):
+            # print(dp_dthetas[0][0])
+            # print('===================================')
+            # print((1 / probabilities[i]) * reward)
             deltaTheta = [(learning_rate * (1 / probabilities[i]) * reward) * dp_dthetas[i][j]
                           for j in range(len(weights_list))]
 
-            sess.run(update_weights, feed_dict=dict(zip(ph_delta_weights_list, deltaTheta)))
+            # sess.run(update_weights, feed_dict=dict(zip(ph_delta_weights_list, deltaTheta)))
+            update_weights = [tf.compat.v1.assign(weights_list[i], weights_list[i] + ph_delta_weights_list[i])
+                      for i in range(len(dict(zip(ph_delta_weights_list, deltaTheta))))]
 
         steps_taken[iteration] = step
         if graphical is True and iteration % spread == 0:
@@ -409,14 +552,15 @@ def main(output_file_name):
             plt.show()
         #input("Press [enter] to continue.")
         plt.close()
-    sess.close()
 ```
 
 ```{code-cell}
 if __name__ == "__main__":
-    for run in range(15, 25):
+    import os
+    for run in range(11, 25):
         number = "{:05d}".format(run)
-        main("./output/T_fixed-memory-linear_reward/" + number)
+        os.mkdir("T_fixed-memory-linear_reward_" + number)
+        main("T_fixed-memory-linear_reward_" + number)
 ```
 
 ## Your turn! 🚀
