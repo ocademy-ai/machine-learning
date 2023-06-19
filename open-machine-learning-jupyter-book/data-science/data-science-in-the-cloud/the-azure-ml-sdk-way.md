@@ -298,7 +298,7 @@ Once you are done with the project, don't forget to delete all the resources.
 **HINT:** Go to the [SDK documentation](https://docs.microsoft.com/python/api/overview/azure/ml/?view=azure-ml-py?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109) and type keywords in the search bar like "Pipeline". You should have the `azureml.pipeline.core.Pipeline` class in the search results.
 ```
 
-Assignment - [Data Science project using Azure ML SDK](../../assignments/data-science/data-science-project-using-azure-ml-sdk.md)
+Assignment - [TBD]()
 
 ## Self study
 
