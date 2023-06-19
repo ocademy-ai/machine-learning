@@ -203,7 +203,7 @@ If Emerson took approach #2, it is much more likely that the team leads will tak
 
 ## Your turn! 🚀
 
-[TBD]()
+[TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

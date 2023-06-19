@@ -203,7 +203,7 @@ This first section has given you some information about how to use Matplotlib to
 
 This bird dataset offers a wealth of information about different types of birds within a particular ecosystem. Search around the internet and see if you can find other bird-oriented datasets. Practice building charts and graphs around these birds to discover facts you didn't realize.
 
-Assignment - [TBD]()
+Assignment - [TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

@@ -264,7 +264,7 @@ There are many ways to discover and approach preparing your data for analysis an
 
 All of the discussed materials are provided as a [Jupyter Notebook](../../assignments/data-science/data-preparation.ipynb). Additionally, there are exercises present after each section, give them a try!
 
-Task - [TBD]()
+Task - [TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

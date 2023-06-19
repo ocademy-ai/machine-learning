@@ -103,7 +103,7 @@ As you can see, we can leverage Cloud services in many ways to perform Data Scie
 
 ## Your turn! 🚀
 
-[TBD]()
+[TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

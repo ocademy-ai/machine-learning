@@ -192,7 +192,7 @@ In this section, you used Matplotlib and started working with Seaborn to show mo
 
 Histograms are a more sophisticated type of chart than basic scatterplots, bar charts, or line charts. Go on a search on the internet to find good examples of the use of histograms. How are they used, what do they demonstrate, and in what fields or areas of inquiry do they tend to be used?
 
-Assignment - [TBD]().
+Assignment - [TBD](https://ocademy-ai.github.io/machine-learning).
 
 ## Acknowledgments
 

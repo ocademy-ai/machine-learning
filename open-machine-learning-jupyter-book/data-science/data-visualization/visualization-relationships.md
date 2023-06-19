@@ -166,7 +166,7 @@ Line plots can be simple or quite complex. Do a bit of reading in the [Seaborn d
 
 In this section, you learned a bit more about other uses of scatterplots and line grids, including facet grids. Challenge yourself to create a facet grid using a different dataset, maybe one you used prior to these sections. Note how long they take to create and how you need to be careful about how many grids you need to draw using these techniques.
 
-Assignment - [TBD]()
+Assignment - [TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

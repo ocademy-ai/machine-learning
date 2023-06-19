@@ -152,7 +152,7 @@ World of Data Science{cite}`NolliHow2020`
 Visit [Analyzing text about data science](../../assignments/data-science/analyzing-text-about-data-science.ipynb) to read through the code. You can also run the code, and see how it performs all data transformations in real-time.
 
 * **Task 1**: Modify the code above to find out related concepts for the fields of **Big Data** and **Machine Learning**.
-* **Task 2**: [TBD]().
+* **Task 2**: [TBD](https://ocademy-ai.github.io/machine-learning).
 
 ## Self study
 

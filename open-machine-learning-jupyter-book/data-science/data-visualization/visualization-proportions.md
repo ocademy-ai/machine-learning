@@ -169,7 +169,7 @@ Do some research to find more information on this sticky decision.
 
 Try recreating these tasty charts in [Charticulator](https://charticulator.com).
 
-Assignment - [TBD]()
+Assignment - [TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

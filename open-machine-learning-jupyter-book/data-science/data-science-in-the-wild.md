@@ -130,7 +130,7 @@ Want to explore more use cases? Here are a few relevant articles:
 
 Search for articles that recommend data science projects that are beginner friendly - like [these 50 topic areas](https://www.upgrad.com/blog/data-science-project-ideas-topics-beginners/) or [these 21 project ideas](https://www.intellspot.com/data-science-project-ideas) or [these 16 projects with source code](https://data-flair.training/blogs/data-science-project-ideas/) that you can deconstruct and remix. And don't forget to blog about your learning journeys and share your insights with all of us.
 
-Assignment - [TBD]()
+Assignment - [TBD](https://ocademy-ai.github.io/machine-learning)
 
 ## Acknowledgments
 

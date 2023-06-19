@@ -1752,7 +1752,7 @@ Here are some examples of exploring data from Image data sources:
 
 ### Assignment
 
-[TBD]().
+[TBD](https://ocademy-ai.github.io/machine-learning).
 
 ## Self study
 
