@@ -989,14 +989,14 @@ mask
 df1[mask]
 ```
 
-````{div} full-width
-<div class="admonition note" name="html-admonition" style="margin-right:20%">
-<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
-<div class="pandastutor" style="height:620px;">
-<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Amask%20%3D%20pd.array%28%5BTrue,%20False,%20True,%20False,%20pd.NA,%20False%5D,%20dtype%3D%22boolean%22%29%0Adf1%5Bmask%5D%0A&d=2023-06-13&lang=py&v=v1"> </iframe>
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:620px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Amask%20%3D%20pd.array%28%5BTrue,%20False,%20True,%20False,%20pd.NA,%20False%5D,%20dtype%3D%22boolean%22%29%0Adf1%5Bmask%5D%0A&d=2023-06-13&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
 </div>
-</div>
-````
 
 For getting a value explicitly:
 
@@ -1091,14 +1091,14 @@ df1.iloc[:3]
 df1.iloc[1:5, 2:4]
 ```
 
-````{div} full-width
-<div class="admonition note" name="html-admonition" style="margin-right:20%">
-<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
-<div class="pandastutor" style="height:620px;">
-<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1.iloc%5B1%3A5,%202%3A4%5D&d=2023-06-13&lang=py&v=v1"> </iframe>
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:620px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1.iloc%5B1%3A5,%202%3A4%5D&d=2023-06-13&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
 </div>
-</div>
-````
 
 Select via integer list:
 
@@ -1390,15 +1390,14 @@ Merge DataFrames `df1` and `df2` with specified left and right suffixes appended
 df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=('_left', '_right'))
 ```
 
-````{div} full-width
-<div class="admonition note" name="html-admonition" style="margin-right:20%">
-<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
-<div class="pandastutor" style="height:750px;">
-<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:800px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
 </div>
-</div>
-````
-
 
 Merge DataFrames `df1` and `df2`, but raise an exception if the DataFrames have any overlapping columns.
 
@@ -1473,14 +1472,14 @@ If we want to join using the `key` columns, we need to set `key` to be the index
 df.set_index('key').join(other.set_index('key'))
 ```
 
-````{div} full-width
-<div class="admonition note" name="html-admonition" style="margin-right:20%">
-<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
-<div class="pandastutor" style="height:1150px;">
-<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:1160px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
 </div>
-</div>
-````
 
 Another option to join using the key columns is to use the `on` parameter. `DataFrame.join` always uses `other`’s index but we can use any column in `df`. This method preserves the original DataFrame’s index in the result.
 
@@ -1516,14 +1515,14 @@ df
 df.groupby(['Animal']).mean()
 ```
 
-````{div} full-width
-<div class="admonition note" name="html-admonition" style="margin-right:20%">
-<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
-<div class="pandastutor" style="height:750px;">
-<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'Animal'%3A%20%5B'Falcon',%20'Falcon',%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Max%20Speed'%3A%20%5B380.,%20370.,%2024.,%2026.%5D%7D%29%0Adf%0Adf.groupby%28%5B'Animal'%5D%29.mean%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:775px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'Animal'%3A%20%5B'Falcon',%20'Falcon',%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Max%20Speed'%3A%20%5B380.,%20370.,%2024.,%2026.%5D%7D%29%0Adf%0Adf.groupby%28%5B'Animal'%5D%29.mean%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
 </div>
-</div>
-````
 
 ### Hierarchical Indexes
 
@@ -1561,14 +1560,14 @@ df.groupby(by=["b"]).sum()
 df.groupby(by=["b"], dropna=False).sum()
 ```
 
-````{div} full-width
-<div class="admonition note" name="html-admonition" style="margin-right:20%">
-<p class="admonition-title" style="background:lightcyan">Let's visualize it!</p>
-<div class="pandastutor" style="height:720px;">
-<iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D,%20dropna%3DFalse%29.sum%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:730px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D,%20dropna%3DFalse%29.sum%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
 </div>
-</div>
-````
 
 ```{code-cell}
 l = [["a", 12, 12], [None, 12.3, 33.], ["b", 12.3, 123], ["a", 1, 1]]
