@@ -15,11 +15,11 @@ kernelspec:
 
 # Pandas
 
-pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.
+Pandas is a fast, powerful, flexible and easy-to-use open-source data analysis and manipulation tool, built on top of the Python programming language.
 
 ## Introducing Pandas objects
 
-We’ll start with a quick, non-comprehensive overview of the fundamental data structures in pandas to get you started. The fundamental behavior about data types, indexing, axis labeling, and alignment apply across all of the objects. To get started, import NumPy and load pandas into your namespace:
+We’ll start with a quick, non-comprehensive overview of the fundamental data structures in Pandas to get you started. The fundamental behavior about data types, indexing, axis labeling, and alignment apply across all of the objects. To get started, import NumPy and load Pandas into your namespace:
 
 ```{code-cell}
 import numpy as np
@@ -41,13 +41,13 @@ Here, `data` can be many different things:
 - a scalar value (like 5)
 
 
-The passed **index** is a list of axis labels. Thus, this separates into a few cases depending on what **data is**:
+The passed **index** is a list of axis labels. Thus, this separates into a few cases depending on what the **data is**:
 
 #### Create a Series
 
 ##### From ndarray
 
-If `data` is an ndarray, **index** must be the same length as **data**. If no index is passed, one will be created having values `[0, ..., len(data) - 1]`.
+If `data` is an ndarray, **index** must be the same length as the **data**. If no index is passed, one will be created having values `[0, ..., len(data) - 1]`.
 
 ```{code-cell}
 s = pd.Series(np.random.randn(5), index=["a", "b", "c", "d", "e"])
@@ -95,7 +95,7 @@ pd.Series(d, index=["b", "c", "d", "a"])
 ```
 
 ```{note}
-NaN (not a number) is the standard missing data marker used in pandas.
+NaN (not a number) is the standard missing data marker used in Pandas.
 ```
 
 ##### From scalar value
@@ -130,7 +130,7 @@ s[[4, 3, 1]]
 np.exp(s)
 ```
 
-Like a NumPy array, a pandas Series has a single dtype.
+Like a NumPy array, a Pandas Series has a single `dtype`.
 
 ```{code-cell}
 s.dtype
@@ -148,7 +148,7 @@ While `Series` is ndarray-like, if you need an actual ndarray, then use `Series.
 s.to_numpy()
 ```
 
-Even if the `Series` is backed by a `ExtensionArray`, `Series.to_numpy()` will return a NumPy ndarray.
+Even if the `Series` is backed by an `ExtensionArray`, `Series.to_numpy()` will return a NumPy ndarray.
 
 #### Series is dict-like
 
@@ -195,7 +195,7 @@ These labels can also be accessed by `attribute`.
 
 #### Vectorized operations and label alignment with Series
 
-When working with raw NumPy arrays, looping through value-by-value is usually not necessary. The same is true when working with `Series` in pandas. `Series` can also be passed into most NumPy methods expecting an ndarray.
+When working with raw NumPy arrays, looping through value-by-value is usually not necessary. The same is true when working with `Series` in Pandas. `Series` can also be passed into most NumPy methods expecting an ndarray.
 
 ```{code-cell}
 s + s
@@ -209,16 +209,16 @@ s * 2
 np.exp(s)
 ```
 
-A key difference between `Series` and ndarray is that operations between `Series` automatically align the data based on label. Thus, you can write computations without giving consideration to whether the `Series` involved have the same labels.
+A key difference between `Series` and ndarray is that operations between `Series` automatically align the data based on the label. Thus, you can write computations without giving consideration to whether the `Series` involved have the same labels.
 
 ```{code-cell}
 s[1:] + s[:-1]
 ```
 
-The result of an operation between unaligned `Series` will have the **union** of the indexes involved. If a label is not found in one `Series` or the other, the result will be marked as missing `NaN`. Being able to write code without doing any explicit data alignment grants immense freedom and flexibility in interactive data analysis and research. The integrated data alignment features of the pandas data structures set pandas apart from the majority of related tools for working with labeled data.
+The result of an operation between unaligned `Series` will have the **union** of the indexes involved. If a label is not found in one `Series` or the other, the result will be marked as missing `NaN`. Being able to write code without doing any explicit data alignment grants immense freedom and flexibility in interactive data analysis and research. The integrated data alignment features of the Pandas data structures set Pandas apart from the majority of related tools for working with labeled data.
 
 ```{note}
-In general, we chose to make the default result of operations between differently indexed objects yield the **union** of the indexes in order to avoid loss of information. Having an index label, though the data is missing, is typically important information as part of a computation. You of course have the option of dropping labels with missing data via the **dropna** function.
+In general, we chose to make the default result of operations between differently indexed objects yield the **union** of the indexes in order to avoid loss of information. Having an index label, though the data is missing, is typically important information as part of a computation. You of course have the option of dropping labels with missing data via the `dropna` function.
 ```
 
 #### Name attribute
@@ -253,23 +253,23 @@ Note that `s` and `s2` refer to different objects.
 
 ### DataFrame
 
-`DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of `Series` objects. It is generally the most commonly used pandas object. Like `Series`, `DataFrame` accepts many different kinds of input:
+`DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a `dict` of `Series` objects. It is generally the most commonly used Pandas object. Like `Series`, `DataFrame` accepts many different kinds of input:
 
 - Dict of 1D ndarrays, lists, dicts, or `Series`
-- 2-D numpy.ndarray
+- 2-D `numpy.ndarray`
 - Structured or record ndarray
 - A `Series`
 - Another `DataFrame`
 
-Along with the data, you can optionally pass **index** (row labels) and **columns** (column labels) arguments. If you pass an index and / or columns, you are guaranteeing the index and / or columns of the resulting DataFrame. Thus, a dict of Series plus a specific index will discard all data not matching up to the passed index.
+Along with the data, you can optionally pass **index** (row labels) and **columns** (column labels) arguments. If you pass an index and / or columns, you are guaranteeing the index and / or columns of the resulting `DataFrame`. Thus, a `dict` of Series plus a specific index will discard all data not matching up to the passed index.
 
 If axis labels are not passed, they will be constructed from the input data based on common sense rules.
 
-#### Create a dataframe
+#### Create a Dataframe
 
-##### From dict of Series or dicts
+##### From dict of `Series` or dicts
 
-The resulting **index** will be the **union** of the indexes of the various Series. If there are any nested dicts, these will first be converted to Series. If no columns are passed, the columns will be the ordered list of dict keys.
+The resulting **index** will be the **union** of the indexes of the various Series. If there are any nested dicts, these will first be converted to Series. If no columns are passed, the columns will be the ordered list of `dict` keys.
 
 ```{code-cell}
 d = {
@@ -584,7 +584,7 @@ df.iloc[2]
 
 #### Data alignment and arithmetic
 
-Data alignment between `DataFrame` objects automatically align on **both the columns and the index (row labels)**. Again, the resulting object will have the union of the column and row labels.
+Data alignment between `DataFrame` objects automatically aligns on **both** the columns and the index (row labels)**. Again, the resulting object will have the union of the column and row labels.
 
 ```{code-cell}
 df = pd.DataFrame(np.random.randn(10, 4), columns=["A", "B", "C", "D"])
@@ -655,16 +655,16 @@ df[:5].T
 
 ## Data indexing and selection
 
-The axis labeling information in pandas objects serves many purposes:
+The axis labeling information in Pandas objects serves many purposes:
 
 - Identifies data (i.e. provides metadata) using known indicators, important for analysis, visualization, and interactive console display.
 - Enables automatic and explicit data alignment.
 - Allows intuitive getting and setting of subsets of the data set.
 
-In this section, we will focus on the final point: namely, how to slice, dice, and generally get and set subsets of pandas objects. The primary focus will be on Series and DataFrame as they have received more development attention in this area.
+In this section, we will focus on the final point: namely, how to slice, dice, and generally get and set subsets of Pandas objects. The primary focus will be on Series and DataFrame as they have received more development attention in this area.
 
 ```{note}
-The Python and NumPy indexing operators `[]` and attribute operator `.` provide quick and easy access to pandas data structures across a wide range of use cases. This makes interactive work intuitive, as there’s little new to learn if you already know how to deal with Python dictionaries and NumPy arrays. However, since the type of the data to be accessed isn’t known in advance, directly using standard operators has some optimization limits. For production code, we recommended that you take advantage of the optimized pandas data access methods exposed in this chapter.
+The Python and NumPy indexing operators `[]` and attribute operator `.` provide quick and easy access to Pandas data structures across a wide range of use cases. This makes interactive work intuitive, as there’s little new to learn if you already know how to deal with Python dictionaries and NumPy arrays. However, since the type of the data to be accessed isn’t known in advance, directly using standard operators has some optimization limits. For production code, we recommended that you take advantage of the optimized Pandas data access methods exposed in this chapter.
 ```
 
 ```{warning}
@@ -673,32 +673,21 @@ Whether a copy or a reference is returned for a setting operation, may depend on
 
 ### Different choices for indexing
 
-Object selection has had a number of user-requested additions in order to support more explicit location based indexing. pandas now supports three types of multi-axis indexing.
+Object selection has had a number of user-requested additions in order to support more explicit location-based indexing. Pandas now supports three types of multi-axis indexing.
 
 - `.loc` is primarily label based, but may also be used with a boolean array. `.loc` will raise `KeyError` when the items are not found. Allowed inputs are:
-
-    - A single label, e.g. `5` or `'a'` (Note that `5` is interpreted as a label of the index. This use is not an integer position along the index.).
-
-    - A list or array of labels `['a', 'b', 'c']`.
-
-    - A slice object with labels `'a':'f'` (Note that contrary to usual Python slices, both the start and the stop are included, when present in the index!)
-
-    - A boolean array (any `NA` values will be treated as `False`).
-
-    - A `callable` function with one argument (the calling Series or DataFrame) and that returns valid output for indexing (one of the above).
+  - A single label, e.g. `5` or `'a'` (Note that `5` is interpreted as a label of the index. This use is not an integer position along the index.).
+  - A list or array of labels `['a', 'b', 'c']`.
+  - A slice object with labels `'a':'f'` (Note that contrary to usual Python slices, both the start and the stop are included, when present in the index!)
+  - A boolean array (any `NA` values will be treated as `False`).
+  - A `callable` function with one argument (the calling Series or DataFrame) and that returns valid output for indexing (one of the above).
 
 - `.iloc` is primarily integer position based (from `0` to `length-1` of the axis), but may also be used with a boolean array. `.iloc` will raise `IndexError` if a requested indexer is out-of-bounds, except slice indexers which allow out-of-bounds indexing. (this conforms with Python/NumPy slice semantics). Allowed inputs are:
-
-    - An integer e.g. `5`.
-
-    - A list or array of integers `[4, 3, 0]`.
-
-    - A slice object with ints `1:7`.
-
-    - A boolean array (any `NA` values will be treated as `False`).
-
-    - A `callable` function with one argument (the calling Series or DataFrame) and that returns valid output for indexing (one of the above).
-
+  - An integer e.g. `5`.
+  - A list or array of integers `[4, 3, 0]`.
+  - A slice object with ints `1:7`.
+  - A boolean array (any `NA` values will be treated as `False`).
+  - A `callable` function with one argument (the calling Series or DataFrame) that returns valid output for indexing (one of the above).
 - `.loc`, `.iloc`, and also `[]` indexing can accept a `callable` as indexer.
 
 Getting values from an object with multi-axes selection uses the following notation (using `.loc` as an example, but the following applies to `.iloc` as well). Any of the axes accessors may be the null slice `:`. Axes left out of the specification are assumed to be `:`, e.g. `p.loc['a']` is equivalent to `p.loc['a', :]`.
@@ -710,8 +699,7 @@ Getting values from an object with multi-axes selection uses the following notat
 
 ### Basics
 
-As mentioned when introducing the data structures in the last section, the primary function of indexing with `[]` (a.k.a.` __getitem__` for those familiar with implementing class behavior in Python) is selecting out lower-dimensional slices. The following table shows return type values when indexing pandas objects with `[]`:
-
+As mentioned when introducing the data structures in the last section, the primary function of indexing with `[]` (a.k.a.` __getitem__` for those familiar with implementing class behavior in Python) is selecting out lower-dimensional slices. The following table shows return type values when indexing Pandas objects with `[]`:
 
 |**Object Type**|**Selection**   |Return Value Type                |
 |:-             |:-              |:-                               |
@@ -753,7 +741,7 @@ df
 You may find this useful for applying a transform (in-place) to a subset of the columns.
 
 ```{warning}
-pandas aligns all AXES when setting `Series` and `DataFrame` from `.loc`, and `.iloc`.
+Pandas aligns all AXES when setting `Series` and `DataFrame` from `.loc`, and `.iloc`.
 
 This will not modify `df` because the column alignment is before value assignment.
 ```
@@ -906,10 +894,10 @@ dfl.loc['20130102':'20130104']
 ```
 
 ```{warning}
-pandas will raise a `KeyError` if indexing with a list with missing labels.
+Pandas will raise a `KeyError` if indexing with a list with missing labels.
 ```
 
-pandas provides a suite of methods in order to have **purely label based indexing**. This is a strict inclusion based protocol. Every label asked for must be in the index, or a `KeyError` will be raised. When slicing, both the start bound **AND** the stop bound are included, if present in the index. Integers are valid labels, but they refer to the label **and not the position**.
+Pandas provides a suite of methods in order to have **purely label-based indexing**. This is a strict inclusion-based protocol. Every label asked for must be in the index, or a `KeyError` will be raised. When slicing, both the start bound **AND** the stop bound are included, if present in the index. Integers are valid labels, but they refer to the label **and not the position**.
 
 - The `.loc` attribute is the primary access method. The following are valid inputs:
 
@@ -936,7 +924,7 @@ s1.loc['c':]
 s1.loc['b']
 ```
 
-Note that setting works as well:
+Note that the setting works as well:
 
 ```{code-cell}
 s1.loc['c':] = 0
@@ -962,7 +950,7 @@ Accessing via label slices:
 df1.loc['d':, 'A':'C']
 ```
 
-For getting a cross section using a label (equivalent to `df.xs('a')`):
+For getting a cross-section using a label (equivalent to `df.xs('a')`):
 
 ```{code-cell}
 df1.loc['a']
@@ -1023,7 +1011,7 @@ s.sort_index()
 s.sort_index().loc[1:6]
 ```
 
-However, if at least one of the two is absent and the index is not sorted, an error will be raised (since doing otherwise would be computationally expensive, as well as potentially ambiguous for mixed type indexes). For instance, in the above example, `s.loc[1:6]` would raise `KeyError`.
+However, if at least one of the two is absent and the index is not sorted, an error will be raised (since doing otherwise would be computationally expensive, as well as potentially ambiguous for mixed-type indexes). For instance, in the above example, `s.loc[1:6]` would raise `KeyError`.
 
 ```{code-cell}
 s = pd.Series(list('abcdef'), index=[0, 3, 2, 5, 4, 2])
@@ -1038,7 +1026,7 @@ Also, if the index has duplicate labels and either the start or the stop label i
 Whether a copy or a reference is returned for a setting operation, may depend on the context. This is sometimes called `chained assignment` and should be avoided.
 ```
 
-pandas provides a suite of methods in order to get purely integer based indexing. The semantics follow closely Python and NumPy slicing. These are 0-based indexing. When slicing, the start bound is included, while the upper bound is excluded. Trying to use a non-integer, even a valid label will raise an `IndexError`.
+Pandas provides a suite of methods in order to get purely integer-based indexing. The semantics follow closely Python and NumPy slicing. These are 0-based indexing. When slicing, the start bound is included, while the upper bound is excluded. Trying to use a non-integer, even a valid label will raise an `IndexError`.
 
 The `.iloc` attribute is the primary access method. The following are valid inputs:
 
@@ -1118,13 +1106,13 @@ df1.iloc[:, 1:3]
 df1.iloc[1, 1] # this is also equivalent to ``df1.iat[1,1]``
 ```
 
-For getting a cross section using an integer position (equiv to `df.xs(1)`):
+For getting a cross-section using an integer position (equiv to `df.xs(1)`):
 
 ```{code-cell}
 df1.iloc[1]
 ```
 
-Out of range slice indexes are handled gracefully just as in Python/NumPy.
+Out-of-range slice indexes are handled gracefully just as in Python/NumPy.
 
 ```{code-cell}
 x = list('abcdef') # these are allowed in Python/NumPy.
@@ -1247,7 +1235,7 @@ dfd.iloc[[0, 2], dfd.columns.get_indexer(['A', 'B'])]
 
 ### concat
 
-- Concatenate pandas objects along a particular axis.
+- Concatenate Pandas objects along a particular axis.
 
 - Allows optional set logic along the other axes.
 
@@ -1318,7 +1306,7 @@ Combine DataFrame objects with overlapping columns and return only those that ar
 pd.concat([df1, df3], join="inner")
 ```
 
-Combine `DataFrame` objects horizontally along the x axis by passing in `axis=1`.
+Combine `DataFrame` objects horizontally along the x-axis by passing in `axis=1`.
 
 ```{code-cell}
 df4 = pd.DataFrame([['bird', 'polly'], ['monkey', 'george']],
@@ -1369,7 +1357,7 @@ pd.concat([df7, new_row.to_frame().T], ignore_index=True)
 
 - A named Series object is treated as a DataFrame with a single named column.
 
-- The join is done on columns or indexes. If joining columns on columns, the DataFrame indexes will be ignored. Otherwise if joining indexes on indexes or indexes on a column or columns, the index will be passed on. When performing a cross merge, no column specifications to merge on are allowed.
+- The join is done on columns or indexes. If joining columns on columns, the DataFrame indexes will be ignored. Otherwise if joining indexes on indexes or indexes on a column or columns, the index will be passed on. When performing a cross-merge, no column specifications to merge on are allowed.
 
 ```{warning}
 If both key columns contain rows where the key is a null value, those rows will be matched against each other. This is different from usual SQL join behaviour and can lead to unexpected results.
@@ -1502,9 +1490,9 @@ df.join(other.set_index('key'), on='key', validate='m:1')
 
 ## Aggregation and grouping
 
-Group DataFrame using a mapper or by a Series of columns.
+Group `DataFrame` using a mapper or by a `Series` of columns.
 
-A groupby operation involves some combination of splitting the object, applying a function, and combining the results. This can be used to group large amounts of data and compute operations on these groups.
+A `groupby` operation involves some combination of splitting the object, applying a function, and combining the results. This can be used to group large amounts of data and compute operations on these groups.
 
 For example:
 
@@ -1527,7 +1515,7 @@ df.groupby(['Animal']).mean()
 
 ### Hierarchical Indexes
 
-We can groupby different levels of a hierarchical index using the `level` parameter:
+We can `groupby` different levels of a hierarchical index using the `level` parameter:
 
 ```{code-cell}
 arrays = [['Falcon', 'Falcon', 'Parrot', 'Parrot'],
@@ -1623,7 +1611,7 @@ table = pd.pivot_table(df, values='D', index=['A', 'B'],
 table
 ```
 
-We can also fill missing values using the `fill_value` parameter.
+We can also fill in missing values using the `fill_value` parameter.
 
 ```{code-cell}
 table = pd.pivot_table(df, values='D', index=['A', 'B'],
@@ -1668,7 +1656,7 @@ df
 df.eval('A + B')
 ```
 
-Assignment is allowed though by default the original DataFrame is not modified.
+The assignment is allowed though by default the original `DataFrame` is not modified.
 
 ```{code-cell}
 df.eval('C = A + B')
@@ -1685,7 +1673,7 @@ df.eval('C = A + B', inplace=True)
 df
 ```
 
-Multiple columns can be assigned to using multi-line expressions:
+Multiple columns can be assigned using multi-line expressions:
 
 ```{code-cell}
 df.eval(
@@ -1739,7 +1727,7 @@ df[df.B == df['C C']]
 
 Recently, very powerful AI models have been developed that allow us to understand images. There are many tasks that can be solved using pre-trained neural networks, or cloud services. Some examples include:
 
-- **Image Classification**, which can help you categorize the image into one of the pre-defined classes. You can easily train your own image classifiers using services such as [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum)
+- **Image Classification**, can help you categorize the image into one of the pre-defined classes. You can easily train your own image classifiers using services such as [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum)
 - **Object Detection** to detect different objects in the image. Services such as [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum) can detect a number of common objects, and you can train [Custom Vision](https://azure.microsoft.com/services/cognitive-services/custom-vision-service/?WT.mc_id=academic-77958-bethanycheum) model to detect some specific objects of interest.
 - **Face Detection**, including Age, Gender and Emotion detection. This can be done via [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum).
 
@@ -1747,8 +1735,8 @@ All those cloud services can be called using [Python SDKs](https://docs.microsof
 
 Here are some examples of exploring data from Image data sources:
 
-- In the blog post [How to Learn Data Science without Coding](https://soshnikov.com/azure/how-to-learn-data-science-without-coding/) we explore Instagram photos, trying to understand what makes people give more likes to a photo. We first extract as much information from pictures as possible using [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum), and then use [Azure Machine Learning AutoML](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml/?WT.mc_id=academic-77958-bethanycheum) to build interpretable model.
-- In [Facial Studies Workshop](https://github.com/CloudAdvocacy/FaceStudies) we use [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum) to extract emotions on people on photographs from events, in order to try to understand what makes people happy.
+- In the blog post [How to Learn Data Science without Coding](https://soshnikov.com/azure/how-to-learn-data-science-without-coding/) we explore Instagram photos, trying to understand what makes people give more likes to a photo. We first extract as much information from pictures as possible using [computer vision](https://azure.microsoft.com/services/cognitive-services/computer-vision/?WT.mc_id=academic-77958-bethanycheum), and then use [Azure Machine Learning AutoML](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml/?WT.mc_id=academic-77958-bethanycheum) to build the interpretable model.
+- In [Facial Studies Workshop](https://github.com/CloudAdvocacy/FaceStudies) we use [Face API](https://azure.microsoft.com/services/cognitive-services/face/?WT.mc_id=academic-77958-bethanycheum) to extract emotions from people on photographs from events, in order to try to understand what makes people happy.
 
 ### Assignment
 
@@ -1770,4 +1758,4 @@ Using these resources, combined with the walk-through given in this chapter, my 
 
 ## Acknowledgments
 
-Thanks for [pandas user guide](https://pandas.pydata.org/docs/user_guide/index.html). It contributes the majority of the content in this chapter.
+Thanks for [Pandas user guide](https://pandas.pydata.org/docs/user_guide/index.html). It contributes the majority of the content in this chapter.
