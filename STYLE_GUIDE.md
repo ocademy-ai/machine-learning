@@ -239,7 +239,7 @@ Python Tutor is used to visualize the execution of Python code. Below code snipp
   <div class="admonition note pythontutor" name="html-admonition">
     <p class="admonition-title pythontutor">Let's visualize it! 🎥</p>
     <div class="pythontutor inner" style="height:665px;">
-      <iframe frameborder="0" scrolling="yes" src="YOUR_PYTHONTUTOR_PERMANANT_URL"> </iframe>
+      <iframe frameborder="0" scrolling="no" src="YOUR_PYTHONTUTOR_PERMANANT_URL"> </iframe>
     </div>
   </div>
 </div>
