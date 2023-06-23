@@ -39,8 +39,6 @@ There are very good 'cheat sheets' available for Matplotlib [here](https://matpl
 
 ## Build a line plot about bird wingspan values
 
-Open the notebook [let-us-learn-about-birds](../../assignments/data-science/let-us-learn-about-birds.ipynb) with Jupyter Notebook and add a cell. The data could be found <a href="../../assets/data/birds.csv">here</a>.
-
 ```{code-cell}
 :tags: [output_scroll]
 import pandas as pd
