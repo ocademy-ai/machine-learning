@@ -26,7 +26,7 @@ Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 ```
 
 <p style="text-align: center;">
-<iframe src="../../html/lin-playground/index.html" width="105%" height="700px;"
+<iframe src="../../html/linr-playground/index.html" width="105%" height="700px;"
 style="border:none;" scrolling="auto"></iframe>
 A demo of linear-regression. <a href="https://observablehq.com/@yizhe-ang/interactive-visualization-of-linear-regression"> [source]</a >
 </p >
