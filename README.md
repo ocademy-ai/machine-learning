@@ -7,7 +7,7 @@
 - [Features](https://github.com/Appointat/machine-learning/tree/main#Features)
 - [How to enjoy our project](https://github.com/Appointat/machine-learning/tree/main#how-to-enjoy-our-project)
 - [How to contribute](https://github.com/Appointat/machine-learning/tree/main#How-to-contribute)
-- [Contact us](https://github.com/Appointat/machine-learning/tree/main#ontact-Us)
+
 
 ## **Overview**
 
