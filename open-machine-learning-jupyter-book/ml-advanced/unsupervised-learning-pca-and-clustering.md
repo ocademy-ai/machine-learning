@@ -246,7 +246,6 @@ plt.title('MNIST. PCA projection');
 
 Indeed, with t-SNE, the picture looks better since PCA has a linear constraint while t-SNE does not. However, even with such a small dataset, the t-SNE algorithm takes significantly more time to complete than PCA.
 
-
 ```python
 %%time
 

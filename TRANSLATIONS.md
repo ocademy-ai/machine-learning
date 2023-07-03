@@ -17,7 +17,7 @@ For example, if you are translating the README file for Chinese speakers, the fi
 
 ### Quizzes
 
-To translate the quizzes, add a topic to the [GitHub Issues](https://github.com/open-academy/machine-learning/issues). Please make sure to use the proper naming convention (zh.json, fr.json, etc.). However, please do not localize the words 'true' or 'false'.
+To translate the quizzes, add a topic to the [GitHub Issues](https://github.com/ocademy-ai/machine-learning/issues). Please make sure to use the proper naming convention (zh.json, fr.json, etc.). However, please do not localize the words 'true' or 'false'.
 
 After adding your translation, add your language code to the dropdown in the corresponding file. Edit the translations index.js file to add your language.
 

@@ -25,6 +25,12 @@ width: 100%
 Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 ```
 
+<p style="text-align: center;">
+<iframe src="../../html/linr-playground/index.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of linear-regression. <a href="https://observablehq.com/@yizhe-ang/interactive-visualization-of-linear-regression"> [source]</a >
+</p >
+
 ### Introduction
 
 So far you have explored what regression is with sample data gathered from the pumpkin pricing dataset that we will use throughout this lesson. You have also visualized it using Matplotlib.

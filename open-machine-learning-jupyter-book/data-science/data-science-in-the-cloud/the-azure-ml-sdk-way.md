@@ -33,7 +33,7 @@ Key areas of the SDK include:
 
 In the [previous section](./the-low-code-no-code-way.md), we saw how to train, deploy and consume a model in a Low code/No code fashion. We used the Heart Failure dataset to generate and Heart failure prediction model. In this section, we are going to do the exact same thing but using the Azure Machine Learning SDK.
 
-![project-schema](../../../images/project-schema.PNG)
+![project-schema](../../../images/project-schema.png)
 
 ### Heart failure prediction project and dataset introduction
 

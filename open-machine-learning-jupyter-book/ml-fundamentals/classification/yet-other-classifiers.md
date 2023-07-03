@@ -62,7 +62,11 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import accuracy_score,precision_score,confusion_matrix,classification_report, precision_recall_curve
 import numpy as np
+import pandas as pd
+
 cuisines_df = pd.read_csv("../../assets/data/classification/cleaned_cuisines.csv")
+cuisines_feature_df = cuisines_df.drop(['Unnamed: 0', 'cuisine'], axis=1)
+cuisines_label_df = cuisines_df['cuisine']
 ```
 
 2\. Split your training and test data:
@@ -94,31 +98,19 @@ classifiers = {
 ```{code-cell}
 n_classifiers = len(classifiers)
 
-for index, (name, classifier) in enumerate(classifiers.items()):
-    classifier.fit(X_train, np.ravel(y_train))
+def classify():
+  for index, (name, classifier) in enumerate(classifiers.items()):
+      classifier.fit(X_train, np.ravel(y_train))
 
-    y_pred = classifier.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    print("Accuracy (train) for %s: %0.1f%% " % (name, accuracy * 100))
-    print(classification_report(y_test,y_pred))
+      y_pred = classifier.predict(X_test)
+      accuracy = accuracy_score(y_test, y_pred)
+      print("Accuracy (train) for %s: %0.1f%% " % (name, accuracy * 100))
+      print(classification_report(y_test,y_pred))
+
+classify()
 ```
 
-The result is pretty good:
-
-```output
-Accuracy (train) for Linear SVC: 78.6% 
-              precision    recall  f1-score   support
-
-      chinese       0.71      0.67      0.69       242
-      indian       0.88      0.86      0.87       234
-    japanese       0.79      0.74      0.76       254
-      korean       0.85      0.81      0.83       242
-        thai       0.71      0.86      0.78       227
-
-    accuracy                           0.79      1199
-    macro avg       0.79      0.79      0.79      1199
-weighted avg       0.79      0.79      0.79      1199
-```
+The result is pretty good.
 
 ## K-Neighbors classifier
 
@@ -131,25 +123,12 @@ The previous classifier was good, and worked well with the data, but maybe we ca
 1\. Add a line to your classifier array (add a comma after the Linear SVC item):
 
 ```{code-cell}
-'KNN classifier': KNeighborsClassifier(C),
+classifiers['KNN classifier'] = KNeighborsClassifier(C)
+
+classify()
 ```
 
-The result is a little worse:
-
-```output
-Accuracy (train) for KNN classifier: 73.8% 
-              precision    recall  f1-score   support
-
-      chinese       0.64      0.67      0.66       242
-      indian       0.86      0.78      0.82       234
-    japanese       0.66      0.83      0.74       254
-      korean       0.94      0.58      0.72       242
-        thai       0.71      0.82      0.76       227
-
-    accuracy                           0.74      1199
-    macro avg       0.76      0.74      0.74      1199
-weighted avg       0.76      0.74      0.74      1199
-```
+The result is a little worse.
 
 ```{seealso}
 Learn about [K-Neighbors](https://scikit-learn.org/stable/modules/neighbors.html#neighbors)
@@ -166,25 +145,12 @@ Let's try for a little better accuracy with a Support Vector Classifier.
 1\. Add a comma after the K-Neighbors item, and then add this line:
 
 ```{code-cell}
-'SVC': SVC(),
+classifiers['SVC'] = SVC()
+
+classify()
 ```
 
 The result is quite good!
-
-```output
-Accuracy (train) for SVC: 83.2% 
-              precision    recall  f1-score   support
-
-      chinese       0.79      0.74      0.76       242
-      indian       0.88      0.90      0.89       234
-    japanese       0.87      0.81      0.84       254
-      korean       0.91      0.82      0.86       242
-        thai       0.74      0.90      0.81       227
-
-    accuracy                           0.83      1199
-    macro avg       0.84      0.83      0.83      1199
-weighted avg       0.84      0.83      0.83      1199
-```
 
 ```{seealso}
 Learn about [Support-Vectors](https://scikit-learn.org/stable/modules/svm.html#svm)
@@ -195,39 +161,13 @@ Learn about [Support-Vectors](https://scikit-learn.org/stable/modules/svm.html#s
 Let's follow the path to the very end, even though the previous test was quite good. Let's try some 'Ensemble Classifiers, specifically Random Forest and AdaBoost:
 
 ```{code-cell}
-  'RFST': RandomForestClassifier(n_estimators=100),
-  'ADA': AdaBoostClassifier(n_estimators=100)
+classifiers['RFST'] = RandomForestClassifier(n_estimators=100)
+classifiers['ADA'] = AdaBoostClassifier(n_estimators=100)
+
+classify()
 ```
 
-The result is very good, especially for Random Forest:
-
-```output
-Accuracy (train) for RFST: 84.5% 
-              precision    recall  f1-score   support
-
-     chinese       0.80      0.77      0.78       242
-      indian       0.89      0.92      0.90       234
-    japanese       0.86      0.84      0.85       254
-      korean       0.88      0.83      0.85       242
-        thai       0.80      0.87      0.83       227
-
-    accuracy                           0.84      1199
-   macro avg       0.85      0.85      0.84      1199
-weighted avg       0.85      0.84      0.84      1199
-
-Accuracy (train) for ADA: 72.4% 
-              precision    recall  f1-score   support
-
-     chinese       0.64      0.49      0.56       242
-      indian       0.91      0.83      0.87       234
-    japanese       0.68      0.69      0.69       254
-      korean       0.73      0.79      0.76       242
-        thai       0.67      0.83      0.74       227
-
-    accuracy                           0.72      1199
-   macro avg       0.73      0.73      0.72      1199
-weighted avg       0.73      0.72      0.72      1199
-```
+The result is very good, especially for Random Forest.
 
 ```{seealso}
 Learn about [Ensemble Classifiers](https://scikit-learn.org/stable/modules/ensemble.html)

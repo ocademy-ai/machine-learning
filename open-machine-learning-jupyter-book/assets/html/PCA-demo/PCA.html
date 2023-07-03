@@ -1,0 +1,593 @@
+<!doctype html>
+document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<meta charset="UTF-8">
+<meta name="description"
+    content="Principal Component Analysis calculator - Scree plot, 3D PCA, 2D PCA, 1D PCA and solution steps">
+<meta name="keywords"
+    content="pca calculator, principal component analysis calculator, pca online, principal component analysis online">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Principal Component Analysis (PCA) calculator - Scree plot, 3D PCA, 2D PCA, 1D PCA</title>
+<link rel="icon" type="image/png" href="images/statskingdom.png">
+<script
+    type="a975b554b3635f629f5d482b-text/javascript">function load_bootstrap_css(){x=document.createElement("LINK"),x.setAttribute("rel","stylesheet"),x.setAttribute("type","text/css"),x.setAttribute("href","bootstrap.min.css"),document.head.appendChild(x)}</script>
+<script src="rocket-loader.min.js" data-cf-settings="a975b554b3635f629f5d482b-|49"></script>
+<link rel="stylesheet" href="bootstrap.min.css" onerror="load_bootstrap_css()"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    .empty_cell,
+    .grey_backgroud,
+    body {
+        background-color: #f0f0f0
+    }
+
+    .first_header {
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        font-size: 48px;
+        background-color: #003459;
+        width: 100%;
+        font-family: serif;
+        margin-bottom: 0
+    }
+
+    .font_Webroboto {
+        font-family: WebRoboto, "Times New Roman", Times, serif
+    }
+
+    .grey_backgroud2 {
+        background-color: #e7e7e8;
+        border: 1px solid #dadcde
+    }
+
+    .white_backgroud {
+        background-color: #fff
+    }
+
+    .pink_backgroud {
+        background-color: #fbf0fb;
+        border: 1px solid #d2afd1
+    }
+
+    .blue_backgroud {
+        background-color: #fbfcfc;
+        border: 1px solid #c4d6e8
+    }
+
+    .blue_backgroud2 {
+        background-color: #f6f9fc;
+        border: 1px solid #c4d6e8
+    }
+
+    .green_backgroud {
+        background-color: #f5fffa;
+        border: 1px solid #cef2e0
+    }
+
+    .image_button:hover {
+        opacity: .5
+    }
+
+    .red,
+    .red1 {
+        color: red
+    }
+
+    .yellow1 {
+        color: #bb8d26
+    }
+
+    .green1 {
+        color: green
+    }
+
+    .num_col {
+        color: #bf344e;
+        font-weight: 700
+    }
+
+    .bg-primary-white {
+        background-color: #bfdcff;
+        color: #000;
+        border: 1px solid #0052ab;
+        border-color: #8484e4;
+        border-radius: .25rem
+    }
+
+    .bg-light-white {
+        background-color: #fff;
+        color: grey;
+        border: 1px solid #d3d3d3
+    }
+
+    .btn-more {
+        color: #212529;
+        background-color: #ebf1fa;
+        border: 1px solid #c4d6e8
+    }
+
+    .btn-more:hover {
+        color: #212529;
+        background-color: #e2e6ea;
+        border-color: #dae0e5
+    }
+
+    .enter {
+        border: 1px solid #000;
+        font-size: 12px;
+        padding: 1px 2px;
+        background-color: #d3d3d3;
+        color: #00008b
+    }
+
+    .overflow_bw {
+        overflow-wrap: break-word;
+        white-space: pre-wrap !important
+    }
+
+    textarea {
+        resize: none;
+        overflow: hidden
+    }
+
+    .tab {
+        overflow: hidden;
+        padding: 0;
+        border: 1px solid #ccc;
+        background-color: #337ab7
+    }
+
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: 0;
+        cursor: pointer;
+        padding: 14px 16px
+    }
+
+    .tab button.active {
+        background-color: #000095
+    }
+
+    .tab button {
+        background-color: #337ab7;
+        color: #fff
+    }
+
+    .tab button:hover {
+        background-color: #0000b0;
+        color: #fff
+    }
+
+    .pad,
+    .tabcontent {
+        padding-top: 15px
+    }
+
+    .mw1 {
+        min-width: 80px
+    }
+</style>
+<script defer="defer" src="popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"
+    type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script defer="defer" src="bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"
+    type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script defer="defer" src="infra_44.js" type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script defer="defer" src="pca_3.js" type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script
+    type="a975b554b3635f629f5d482b-text/javascript">function add_script(t){var e=document.createElement("script");e.setAttribute("src",t),e.setAttribute("type","text/javascript"),document.body.appendChild(e)}</script>
+<script defer="defer" src="loader.js" onerror='add_script("loader.js")'
+    type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script defer="defer" src="jstat.min.js" onerror='add_script("jstat.min.js")'
+    type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script defer="defer" src="math.js" type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script defer="defer" src="plotly-2.3.0.min.js" type="a975b554b3635f629f5d482b-text/javascript"></script>
+<div id="top">
+</div>
+<div id="wrapper" class="container-fluid px-lg-5 grey_backgroud">
+    <div id="main" class="row">
+        <div class="col-md-9 mt-3">
+            <div id="enter_data" class="form-row blue_backgroud my-0 p-4"><input style="display:none" type="number"
+                    id="height1" value="500" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                    data-cf-modified-a975b554b3635f629f5d482b-=""> <input style="display:none" type="number" id="width1"
+                    value="500" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                    data-cf-modified-a975b554b3635f629f5d482b-=""> <input style="display:none" type="number"
+                    id="height2" value="500" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                    data-cf-modified-a975b554b3635f629f5d482b-=""> <input style="display:none" type="number" id="width2"
+                    value="1000" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                    data-cf-modified-a975b554b3635f629f5d482b-="">
+                <div class="form-group col-md-6"><label for="type"><span class="d-inline-block" tabindex="0"
+                            data-toggle="tooltip" data-html="true"
+                            title='The bin&#39;s range, each column counts the values that fall in this range.<br /><span class="text-danger">leave empty for automatic calculation</span>'><span
+                                class="text-info">Type</span></span></label> <select id="type"
+                        class="form-control pink_backgroud"
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-="">
+                        <option id="cor1" value="cor">PCA - Correlation (EVD)
+                        <option selected="selected" value="cov">PCA - Covariance (EVD)
+                        <option style="display:none" value="svd">SVD
+                    </select></div>
+                <div class="form-group col-md-6"><label for="title"><span class="d-inline-block" tabindex="0"
+                            data-toggle="tooltip" data-html="true" title="The chart&#39;s title and font size"><span
+                                class="text-info">Title</span></span></label>
+                    <div class="input-group"><input class="form-control col-lg-9" placeholder="Title" id="title"> <input
+                            class="form-control col-lg-3" type="number" value="25" id="title_fontSize"></div>
+                </div>
+                <div class="form-group col-md-6"><label for="dimensions">Dimensions:</label> <select
+                        class="form-control" id="dimensions"
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; rerun_function(&quot;tab1&quot;,calculate_pca)"
+                        data-cf-modified-a975b554b3635f629f5d482b-="">
+                        <option value="1">1
+                        <option selected="selected" value="2">2
+                        <option value="3">3
+                    </select></div>
+                <div class="form-group col-md-6"><label for="scale1">Scaling:</label> <select class="form-control"
+                        id="scale1"
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; rerun_function(&quot;tab1&quot;,calculate_pca)"
+                        data-cf-modified-a975b554b3635f629f5d482b-="">
+                        <option selected="selected" value="true">Standardize
+                        <option value="false">None
+                    </select></div>
+            </div>
+            <div class="form-row blue_backgroud p-4" id="options" style="display:none">
+                <div class="form-group col-md-3"><label for="digits"><span class="d-inline-block" tabindex="0"
+                            data-toggle="tooltip" data-html="true" title=""
+                            data-original-title="Example digits=2:<br /> 0.001234 => 0.0012"><span
+                                class="text-info">Digits:</span></span></label> <select class="form-control"
+                        id="digits">
+                        <option value="1">1
+                        <option value="2">2
+                        <option value="3">3
+                        <option selected="selected" value="4">4
+                        <option value="5">5
+                        <option value="6">6
+                        <option value="7">7
+                        <option value="8">8
+                        <option value="9">9
+                        <option value="10">10
+                    </select></div>
+                <div class="form-group col-md-3"><label for="legend">Legend:</label> <select id="legend"
+                        class="form-control" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-="">
+                        <option value="false">Hide
+                        <option selected="selected" value="true">Show
+                    </select></div>
+                <div class="form-group col-sm-3"><label for="backgroundColor">Chart area:</label> <input
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()" class="form-control"
+                        type="color" id="backgroundColor" value="#FFFFFF" onchange="c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-sm-3"><label for="c_backgroundColor">Page Background:</label> <input
+                        class="form-control" type="color" id="c_backgroundColor" value="#FFFFFF"
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-md-3"><label for="symbol1">Marker shape:</label> <select class="form-control"
+                        id="symbol1" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-="">
+                        <option value="circle-open">○
+                        <option value="diamond-open">◇
+                        <option value="square-open">▢
+                        <option selected="selected" value="circle">●
+                        <option value="cross">✚
+                        <option value="diamond">◆
+                        <option value="x">✖
+                    </select></div>
+                <div class="form-group col-sm-3"><label for="marker_size">Marker size:</label> <input
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()" class="form-control"
+                        type="number" id="marker_size" value="9" onchange="c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-sm-3"><label for="markerBorderWidth">Marker border width:</label> <input
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()" class="form-control"
+                        type="number" id="markerBorderWidth" value="1" onchange="c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-sm-3"><label for="markerBorderColor">Marker border:</label> <input
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()" class="form-control"
+                        type="color" id="markerBorderColor" value="#000000" onchange="c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-sm-3"><label for="borderWidth">Bar border width:</label> <input
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()" class="form-control"
+                        type="number" id="borderWidth" value="1.5" onchange="c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-sm-3"><label for="borderColor">Bar border:</label> <input
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()" class="form-control"
+                        type="color" id="borderColor" value="#020b4d" onchange="c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="form-group col-sm-3"><label for="vColor">Loading vectors:</label> <input
+                        class="form-control" type="color" id="vColor" value="#a30505"
+                        onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                <div class="col-lg-12 h6 ml-0 mb-2">Data Delimiters:</div>
+                <div class="form-check col-lg-1 ml-4"><label class="form-check-label"><input disabled="disabled"
+                            id="enter" checked="checked" type="checkbox" class="form-check-input" value="">Enter</label>
+                </div>
+                <div class="form-check col-lg-1 ml-4"><label class="form-check-label"><input id="comma" type="checkbox"
+                            class="form-check-input" value="">Comma</label></div>
+                <div class="form-check col-lg-1 ml-4"><label class="form-check-label"><input id="tab" type="checkbox"
+                            class="form-check-input" value="">Tab</label></div>
+                <div class="form-check col-lg-1 ml-4"><label class="form-check-label"><input id="space" type="checkbox"
+                            class="form-check-input" value="">Space</label></div>
+                <div class="form-check col-lg-12 ml-4 mt-2"><label class="form-check-label"><input id="other"
+                            type="checkbox" class="form-check-input" value="">Other: <input class="col-lg-2 ml-1"
+                            value="" id="other_delimiter"></label></div>
+            </div>
+            <div class="form-row mb-3 mt-0"><button id="more"
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; toggle_options2()" type="button"
+                    class="btn btn-more form-control" data-cf-modified-a975b554b3635f629f5d482b-="">More options
+                    &#x25BC;</button></div><input style="display:none" class="hide" value="false" id="rerun">
+            <div id="insert">
+                <form id="manual_excel" class="mt-4 mb-1"><input checked="checked" id="manual" type="radio"
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; toggle_insert()" name="data source"
+                        value="manual" class="mr-3" data-cf-modified-a975b554b3635f629f5d482b-="">Enter data in
+                    columns<br><input id="excel" type="radio"
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; toggle_insert()" name="data source"
+                        value="excel" class="mr-3" data-cf-modified-a975b554b3635f629f5d482b-="">Enter data from
+                    excel<br></form>
+            </div>
+            <div id="insertSampleManual" class="table-responsive w-auto ml-0 mp-0">
+                <table id="table1" class="table1">
+                    <tr>
+                        <th><textarea class="mw1 form-control bg-primary-white" rows="1" placeholder="*ID/Name"
+                                id="h0">Series</textarea>
+                        <th><textarea onchange="if (!window.__cfRLUnblockHandlers) return false; change_h1()"
+                                class="mw1 form-control bg-primary-white" rows="1" placeholder="X-1" id="h1"
+                                data-cf-modified-a975b554b3635f629f5d482b-="">X-1</textarea>
+                        <th><textarea class="mw1 form-control bg-primary-white" rows="1" placeholder="X-2"
+                                id="h2">X-2</textarea>
+                    <tr>
+                        <td><textarea class="form-control" rows="15" id="c0"></textarea>
+                        <td><textarea onchange="if (!window.__cfRLUnblockHandlers) return false; change_h1()"
+                                class="form-control" rows="15" id="c1"
+                                data-cf-modified-a975b554b3635f629f5d482b-=""></textarea>
+                        <td><textarea class="form-control" rows="15" id="c2"></textarea>
+                </table>
+                <div class="col-12 mt-2"></div>
+                <div id="notes" class="col-lg-10 mt-3">
+                    <div class="text-primary"><b>*When using the tool, the 'Series' column can be left empty.</b></div>
+                    <div class="text-success"><b>The second column can be used for ID and will be displayed when
+                            hovering over the marker.</b></div>Data should be separated by either new line <span
+                        class="enter">Enter</span> or <span class="enter">,</span> comma.<br>The tool will ignore empty
+                    cells or cells containing non-numeric data.
+                </div>
+            </div>
+            <div id="insertSampleExcel" style="display:none">
+                <div id="inputExcel" class="row_"><textarea class="form-control" rows="15" id="table2"></textarea><br>
+                </div>
+                <div id="validateExcelmessage" class="message-style">
+                    <p>You may copy the data from Excel, Google sheets or any tool that separate the data with
+                        <b>Tab</b> and <b>Line Feed</b>. Copy the data, <b>one block of consecutive columns includes the
+                            header</b>, and <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                            data-html="true"
+                            title="in excel you may choose the left upper cell<br/>then press: Ctrl + Shift + Down arrow <br/> then press Ctrl-C"><span
+                                class="text-info">paste.</span></span> Click to see example: <img loading="lazy"
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; window.open(this.src)"
+                            id="excelExample" width="20" height="20" class="hide3" alt="example from excel"
+                            src="images/copyExPca.jpg" data-cf-modified-a975b554b3635f629f5d482b-=""><br>Empty cells or
+                        non-numeric cells will be ignored
+                </div>
+            </div>
+            <div id="warning1" class="form-row alert alert-danger col-lg-7" style="display:none"></div>
+            <div class="ml-2"><button id="b_manual"
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; calculate_pca()" type="button"
+                    class="btn btn-primary m-1 mt-3" data-cf-modified-a975b554b3635f629f5d482b-="">Calculate</button>
+                <button onclick="if (!window.__cfRLUnblockHandlers) return false; insert_column(&quot;table1&quot;,0)"
+                    type="button" class="btn btn-secondary m-1 mt-3"
+                    data-cf-modified-a975b554b3635f629f5d482b-="">Insert column</button> <button
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; delete_col(&quot;table1&quot;,1,-1,1)"
+                    type="button" class="btn btn-secondary m-1 mt-3"
+                    data-cf-modified-a975b554b3635f629f5d482b-="">Delete column</button> <button id="delete2"
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; clear_columns(&quot;table1&quot;,&quot;c&quot;,0),deleteText(&quot;table2&quot;)"
+                    type="button" class="btn btn-secondary m-1 mt-3"
+                    data-cf-modified-a975b554b3635f629f5d482b-="">Clear</button> <button
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; example_data()" type="button"
+                    class="btn btn-outline-info m-1 mt-3" data-cf-modified-a975b554b3635f629f5d482b-="">Example
+                    data</button> <button onclick="if (!window.__cfRLUnblockHandlers) return false; example_data_id()"
+                    type="button" class="btn btn-outline-info m-1 mt-3"
+                    data-cf-modified-a975b554b3635f629f5d482b-="">Example with ID</button> <button
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; get_local_columns(&quot;pca&quot;,&quot;table1&quot;,&quot;c,h&quot;,&quot;&quot;,!1,0),get_local_list(&quot;pca&quot;,local(),&quot;&quot;)"
+                    type="button" class="btn btn-outline-info m-1 mt-3"
+                    data-cf-modified-a975b554b3635f629f5d482b-="">Load last run</button>
+            </div>
+            <div id="results" style="display:none" class="p-0">
+                <div id="alert"></div><button id="r1"
+                    onclick="if (!window.__cfRLUnblockHandlers) return false; GEBI(&quot;rblock&quot;).scrollIntoView({behavior:&quot;smooth&quot;})"
+                    type="button" class="mt-3 mb-1 btn btn-link" data-cf-modified-a975b554b3635f629f5d482b-="">How to do
+                    with R?</button>
+                <h3>PCA Plot</h3>
+                <div id="chart1" class="grey_backgroud mb-2" style="height:500px;width:500px"></div>
+                <div class="col-lg-12"><button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_size(&quot;chart1&quot;,&quot;height1&quot;,&quot;width1&quot;,c_rerun,1.1)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/zoom_in1.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_size(&quot;chart1&quot;,&quot;height1&quot;,&quot;width1&quot;,c_rerun,1/1.1)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/zoom_out1.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_height(&quot;chart1&quot;,&quot;height1&quot;,c_rerun,20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_higher.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_height(&quot;chart1&quot;,&quot;height1&quot;,c_rerun,-20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_lower.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_width(&quot;chart1&quot;,&quot;width1&quot;,c_rerun,20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_wide.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_width(&quot;chart1&quot;,&quot;width1&quot;,c_rerun,-20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_narrow.png"></button></div>
+                <div class="row">
+                    <div class="form-group col-sm-2 mt-3">
+                        <div class="custom-control custom-switch ml-3"><input type="checkbox"
+                                class="custom-control-input" id="mirror_x"
+                                onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                                data-cf-modified-a975b554b3635f629f5d482b-=""> <label class="custom-control-label"
+                                for="mirror_x">Mirror X Axis</label></div>
+                    </div>
+                    <div class="form-group col-sm-2 mt-3">
+                        <div class="custom-control custom-switch ml-3"><input type="checkbox"
+                                class="custom-control-input" id="mirror_y"
+                                onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                                data-cf-modified-a975b554b3635f629f5d482b-=""> <label class="custom-control-label"
+                                for="mirror_y">Mirror Y Axis</label></div>
+                    </div>
+                    <div class="form-group col-lg-2 mt-3">
+                        <div class="custom-control custom-switch ml-3"><input checked="checked" type="checkbox"
+                                class="custom-control-input" id="showVector"
+                                onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                                data-cf-modified-a975b554b3635f629f5d482b-=""> <label class="custom-control-label"
+                                for="showVector">Show vectors</label></div>
+                    </div>
+                    <div class="form-group col-lg-2 mt-3">
+                        <div class="custom-control custom-switch ml-3"><input checked="checked" type="checkbox"
+                                class="custom-control-input" id="showExplain"
+                                onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                                data-cf-modified-a975b554b3635f629f5d482b-=""> <label class="custom-control-label"
+                                for="showExplain">Explained %</label></div>
+                    </div>
+                    <div id="col1" class="col-lg-12 ml-3 my-2"><b>Series:</b> (you can change any color)</div>
+                    <div class="col-md-12 mb-3 ml-2"><input id="cl0" class="white_backgroud float-left" type="color"
+                            value="#1f77b4" onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl1"
+                            class="white_backgroud float-left" type="color" value="#ff7f0e"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl2"
+                            class="white_backgroud float-left" type="color" value="#2ca02c"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl3"
+                            class="white_backgroud float-left" type="color" value="#d62728"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl4"
+                            class="white_backgroud float-left" type="color" value="#9467bd"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl5"
+                            class="white_backgroud float-left" type="color" value="#8c564b"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl6"
+                            class="white_backgroud float-left" type="color" value="#e377c2"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl7"
+                            class="white_backgroud float-left" type="color" value="#7f7f7f"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl8"
+                            class="white_backgroud float-left" type="color" value="#bcbd22"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl9"
+                            class="white_backgroud float-left" type="color" value="#17becf"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl10"
+                            class="white_backgroud float-left" type="color" value="#921fb4"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl11"
+                            class="white_backgroud float-left" type="color" value="#feac0e"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl12"
+                            class="white_backgroud float-left" type="color" value="#2ca088"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl13"
+                            class="white_backgroud float-left" type="color" value="#27d66c"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""> <input id="cl14"
+                            class="white_backgroud float-left" type="color" value="#bd8367"
+                            onchange="if (!window.__cfRLUnblockHandlers) return false; c_rerun()"
+                            data-cf-modified-a975b554b3635f629f5d482b-=""></div>
+                    <div id="ca1" class="ml-3 col-lg-12"><b>Chart area background:</b></div>
+                    <div id="ca2" class="col-lg-12"><button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;c_backgroundColor&quot;,&quot;#ffffff&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#fff"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">White</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;c_backgroundColor&quot;,&quot;#F3F2F1&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3 border border-white" style="background-color:#f3f2f1"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Grey</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;c_backgroundColor&quot;,&quot;#FFF6E5&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#fff6e5"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Yellow</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;c_backgroundColor&quot;,&quot;#F5FFFA&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#f5fffa"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Green</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;c_backgroundColor&quot;,&quot;#E7F8FD&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#e7f8fd"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Blue</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;c_backgroundColor&quot;,&quot;#F8EEEC&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#f8eeec"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Pink</button></div>
+                    <div class="ml-3 col-lg-12"><b>Background:</b></div>
+                    <div class="col-lg-12 mb-3"><button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;backgroundColor&quot;,&quot;#ffffff&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#fff"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">White</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;backgroundColor&quot;,&quot;#F3F2F1&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3 border border-white" style="background-color:#f3f2f1"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Grey</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;backgroundColor&quot;,&quot;#FFF6E5&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#fff6e5"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Yellow</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;backgroundColor&quot;,&quot;#F5FFFA&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#f5fffa"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Green</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;backgroundColor&quot;,&quot;#E7F8FD&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#e7f8fd"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Blue</button> <button
+                            onclick="if (!window.__cfRLUnblockHandlers) return false; set_variable(&quot;backgroundColor&quot;,&quot;#F8EEEC&quot;),c_rerun()"
+                            type="button" class="btn m-1 mt-3" style="background-color:#f8eeec"
+                            data-cf-modified-a975b554b3635f629f5d482b-="">Pink</button></div>
+                </div>
+                <h3>Scree Plot</h3>
+                <div id="chart2" class="grey_backgroud mb-2" style="height:500px;width:500px"></div>
+                <div class="col-lg-12"><button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_size(&quot;chart2&quot;,&quot;height2&quot;,&quot;width2&quot;,c_rerun,1.1)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/zoom_in1.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_size(&quot;chart2&quot;,&quot;height2&quot;,&quot;width2&quot;,c_rerun,1/1.1)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/zoom_out1.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_height(&quot;chart2&quot;,&quot;height2&quot;,c_rerun,20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_higher.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_height(&quot;chart2&quot;,&quot;height2&quot;,c_rerun,-20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_lower.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_width(&quot;chart2&quot;,&quot;width2&quot;,c_rerun,20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_wide.png"></button> <button
+                        onclick="if (!window.__cfRLUnblockHandlers) return false; chart_width(&quot;chart2&quot;,&quot;width2&quot;,c_rerun,-20)"
+                        type="button" class="btn btn-secondary m-1 mt-3"
+                        data-cf-modified-a975b554b3635f629f5d482b-=""><img loading="lazy"
+                            src="images/i_narrow.png"></button></div>
+                <div id="message1" class="mt-4"></div>
+                <div id="tab1" class="mt-4"></div>
+                <div id="steps1" class="mt-4"></div>
+                <div class="mb-1 col-lg-12"></div>
+                <div class="table-responsive">
+                    <div id="result_table" class="col-lg-7 mt-5"></div>
+                </div>
+            </div>
+            <div id="info" class="col-sm-12 grey_backgroud2 p-3 mt-3 mr-3 ml-2">
+                <div id="rmessage" class="col-sm-12 green_backgroud p-3"></div>
+            </div>
+        </div>
+    </div>
+    <div id="left_nav" class="col-md-3 pt-5 mb-5">
+    </div>
+</div>
+</div>
+<div id="fb-root"></div>
+<script
+    type="a975b554b3635f629f5d482b-text/javascript">!function(e,t,n){var o,s=e.getElementsByTagName(t)[0];e.getElementById(n)||((o=e.createElement(t)).id=n,o.src="sdk.js",s.parentNode.insertBefore(o,s))}(document,"script","facebook-jssdk")</script>
+<script src="jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
+    type="a975b554b3635f629f5d482b-text/javascript"></script>
+<script
+    type="a975b554b3635f629f5d482b-text/javascript">$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip()})</script>
+<script src="rocket-loader.min.js" data-cf-settings="a975b554b3635f629f5d482b-|49" defer></script>

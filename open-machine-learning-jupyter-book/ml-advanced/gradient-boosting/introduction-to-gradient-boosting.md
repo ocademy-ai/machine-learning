@@ -23,7 +23,7 @@ The main advantage of gradient boosting is that it can handle complex data patte
 
 In this section we will further explore gradient boosting.
 
-```{figure} ../../../images/ml-advanced/gradient-boosting/gradient-boosting-process.png
+```{figure} ../../../images/ml-advanced/introduction-to-gradient-boosting/gradient-boosting-process.png
 ---
 name: gradient boosting
 ---

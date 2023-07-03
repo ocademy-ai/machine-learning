@@ -258,7 +258,7 @@ In general, for clustering, you can use scatterplots to show clusters of data, s
 
 ## Your turn! 🚀
 
-[Research other visualizations for clustering](../../assignments/ml-advanced/clustering/research-other-visualizations-for-clustering.md)
+TBD.
 
 ## Self study
 
