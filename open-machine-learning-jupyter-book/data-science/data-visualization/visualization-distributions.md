@@ -34,7 +34,7 @@ birds.head()
 In general, you can quickly look at the way data is distributed by using a scatter plot as we did in the previous section:
 
 ```{code-cell}
-birds.plot(kind='scatter',x='MaxLength',y='Order',figsize=(12,8))
+birds.plot(kind='scatter', x='MaxLength', y='Order', figsize=(12, 8))
 
 plt.title('Max Length per Order')
 plt.ylabel('Order')
@@ -50,14 +50,14 @@ This gives an overview of the general distribution of body length per bird Order
 Matplotlib offers very good ways to visualize data distribution using Histograms. This type of chart is like a bar chart where the distribution can be seen via a rise and fall of the bars. To build a histogram, you need numeric data. To build a Histogram, you can plot a chart defining the kind as 'hist' for Histogram. This chart shows the distribution of MaxBodyMass for the entire dataset's range of numeric data. By dividing the array of data it is given into smaller bins, it can display the distribution of the data's values:
 
 ```{code-cell}
-birds['MaxBodyMass'].plot(kind = 'hist', bins = 10, figsize = (12,12))
+birds['MaxBodyMass'].plot(kind='hist', bins=10, figsize=(12, 12))
 plt.show()
 ```
 
 As you can see, most of the 400+ birds in this dataset fall in the range of under 2000 for their Max Body Mass. Gain more insight into the data by changing  the `bins` parameter to a higher number, something like 30:
 
 ```{code-cell}
-birds['MaxBodyMass'].plot(kind = 'hist', bins = 30, figsize = (12,12))
+birds['MaxBodyMass'].plot(kind='hist', bins=30, figsize=(12, 12))
 plt.show()
 ```
 
@@ -67,7 +67,7 @@ Filter your data to get only those birds whose body mass is under 60, and show 4
 
 ```{code-cell}
 filteredBirds = birds[(birds['MaxBodyMass'] > 1) & (birds['MaxBodyMass'] < 60)]      
-filteredBirds['MaxBodyMass'].plot(kind='hist', bins=40, figsize=(12,12))
+filteredBirds['MaxBodyMass'].plot(kind='hist', bins=40, figsize=(12, 12))
 plt.show()     
 ```
 
