@@ -27,7 +27,7 @@ Let's discover some facts about the distributions of data in this dataset. Open 
 :tags: [output_scroll]
 import pandas as pd
 import matplotlib.pyplot as plt
-birds = pd.read_csv('../../assets/data/birds.csv')
+birds = pd.read_csv('https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/birds.csv')
 birds.head()
 ```
 
