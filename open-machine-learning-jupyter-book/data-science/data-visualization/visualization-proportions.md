@@ -138,7 +138,7 @@ fig = plt.figure(
     values = df.amount,
     labels = list(df.color),
     figsize = (30, 30),
-    colors=['brown', 'buff', 'cinnamon', 'green', 'pink', 'purple', 'red', 'white', 'yellow'],
+    colors=["brown", "tan", "maroon", "green", "pink", "purple", "red", "whitesmoke", "yellow"],
 )
 ```
 
