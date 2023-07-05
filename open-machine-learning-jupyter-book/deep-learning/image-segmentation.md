@@ -982,6 +982,12 @@ TBD.
 
 Thanks to [Yang Lu](https://github.com/luyanger1799) for creating the open-source project [Amazing-Semantic-Segmentation](https://github.com/luyanger1799/Amazing-Semantic-Segmentation), [tensorflow](https://github.com/tensorflow) for creating the open-source course [examples](https://github.com/tensorflow/examples). They inspire the majority of the content in this chapter.
 
+<p style="text-align: center;">
+<iframe src="../html/image-segmentation-2/index.html" width="105%" height="650px;"
+style="border:none;"></iframe>
+A demo of image segmentation. <a href="https://github.com/selvam85/deeplab">[source]</a>
+</p>
+
 ---
 
 ```{bibliography}

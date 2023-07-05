@@ -33,7 +33,8 @@ Mushrooms are very interesting. Let's import a dataset to study them:
 :tags: [output_scroll]
 import pandas as pd
 import matplotlib.pyplot as plt
-mushrooms = pd.read_csv('../../assets/data/mushrooms.csv')
+
+mushrooms = pd.read_csv('https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/mushrooms.csv')
 mushrooms.head()
 ```
 
@@ -63,7 +64,7 @@ If you follow the order presented in this table to create your class category la
 ## Pie!
 
 ```{code-cell}
-labels=['Edible','Poisonous']
+labels=['Edible', 'Poisonous']
 plt.pie(edibleclass['population'], labels=labels, autopct='%.1f %%')
 plt.title('Edible?')
 plt.show()
@@ -79,7 +80,7 @@ Take a look at the various habitats where mushrooms grow:
 
 ```{code-cell}
 :tags: [output_scroll]
-habitat=mushrooms.groupby(['habitat']).count()
+habitat = mushrooms.groupby(['habitat']).count()
 habitat
 ```
 
@@ -115,18 +116,16 @@ Select a segment of your data to group together:
 
 ```{code-cell}
 :tags: [output_scroll]
-capcolor=mushrooms.groupby(['cap-color']).count()
+capcolor = mushrooms.groupby(['cap-color']).count()
 capcolor
 ```
 
 Create a waffle chart by creating labels and then grouping your data:
 
 ```{code-cell}
-import pandas as pd
-import matplotlib.pyplot as plt
 from pywaffle import Waffle
   
-data ={
+data = {
     'color': ['brown', 'buff', 'cinnamon', 'green', 'pink', 'purple', 'red', 'white', 'yellow'],
     'amount': capcolor['class'],
 }
@@ -138,7 +137,7 @@ fig = plt.figure(
     rows = 100,
     values = df.amount,
     labels = list(df.color),
-    figsize = (30,30),
+    figsize = (30, 30),
     colors=["brown", "tan", "maroon", "green", "pink", "purple", "red", "whitesmoke", "yellow"],
 )
 ```
@@ -155,13 +154,10 @@ In this section, you learned three ways to visualize proportions. First, you nee
 
 Sometimes it's not obvious when to use a pie, donut, or waffle chart. Here are some articles to read on this topic:
 
-* [Battle of the Charts: Pie Chart vs. Donut Chart| The Beautiful Blog](https://www.beautiful.ai/blog/battle-of-the-charts-pie-chart-vs-donut-chart)
-
-* [Pie Chart vs. Donut Chart: Showdown in the Ring](https://medium.com/@hypsypops/pie-chart-vs-donut-chart-showdown-in-the-ring-5d24fd86a9ce)
-
-* [About Doughnut Charts](https://www.mit.edu/~mbarker/formula1/f1help/11-ch-c6.htm)
-
-* [Data Visualization Done the Right Way with Tableau- Waffle Chart](https://medium.datadriveninvestor.com/data-visualization-done-the-right-way-with-tableau-waffle-chart-fdf2a19be402)
+- [Battle of the Charts: Pie Chart vs. Donut Chart| The Beautiful Blog](https://www.beautiful.ai/blog/battle-of-the-charts-pie-chart-vs-donut-chart)
+- [Pie Chart vs. Donut Chart: Showdown in the Ring](https://medium.com/@hypsypops/pie-chart-vs-donut-chart-showdown-in-the-ring-5d24fd86a9ce)
+- [About Doughnut Charts](https://www.mit.edu/~mbarker/formula1/f1help/11-ch-c6.htm)
+- [Data Visualization Done the Right Way with Tableau- Waffle Chart](https://medium.datadriveninvestor.com/data-visualization-done-the-right-way-with-tableau-waffle-chart-fdf2a19be402)
 
 Do some research to find more information on this sticky decision.
 

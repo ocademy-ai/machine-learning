@@ -506,6 +506,12 @@ plt.show()
 
 Thanks to [Kwangnam Yu](https://github.com/phykn) for creating the open-source project [diffusion_models_tutorial](https://github.com/phykn/diffusion_models_tutorial) and [kaggle](https://www.kaggle.com/) for creating the open-source course [Denoising Diffusion Models with TensorFlow](https://www.kaggle.com/code/folefac/denoising-diffusion-models-with-tensorflow#3.-The-Celeb-A-Dataset-%F0%9F%92%BE). They inspire the majority of the content in this chapter.
 
+<p style="text-align: center;">
+<iframe src="../html/difussion-model-demo/demo.html" width="105%" height="970px;"
+style="border:none;"></iframe>
+A demo of difussion model. <a href="https://jasonwebb.github.io/reaction-diffusion-playground/">[source]</a>
+</p>
+
 ---
 
 ```{bibliography}
