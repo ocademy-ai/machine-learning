@@ -291,6 +291,8 @@ Please notice,
 * to better fit the screen, the iframe's height needs to be adjusted manually, such as this `<div class="pandastutor inner" style="height:665px;">`.
 * to generate the permanent Pandas Tutor, please go to [Pandas Tutor](https://pandastutor.com/vis.html) website, paste the code, and Visualize Execution. Once the link is generated, use it to replace the `YOUR_PANDASTUTOR_PERMANANT_URL` in above sample code.
 * Pandas Tutor only visualizes the last line of code, which is better suited for long strings of code that continuously calls pandas methods. Here are some [examples](https://pandastutor.com/index.html).
+* Pandas Tutor does not visualize the calculations between the data.
+* After you visualize a piece of code, you need to convert the repeated code cell to normal code format
 * the UI/UX is working for desktop browsers only.
 * please keep the original code in the notebook still. Below HTML code snippet could be used for this.
 
