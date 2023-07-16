@@ -19,9 +19,9 @@ Continuing with the nature focus of our research, let's discover interesting vis
 
 This dataset of about 600 items displays honey production in many U.S. states. So, for example, you can look at the number of colonies, yield per colony, total production, stocks, price per pound, and value of the honey produced in a given state from 1998-2012, with one row per year for each state. 
 
-It will be interesting to visualize the relationship between a given state's production per year and, for example, the price of honey in that state. Alternately, you could visualize the relationship between states' honey yield per colony. This year span covers the devastating 'CCD' or 'Colony Collapse Disorder' first seen in 2006 (http://npic.orst.edu/envir/ccd.html), so it is a poignant dataset to study. 🐝
+It will be interesting to visualize the relationship between a given state's production per year and, for example, the price of honey in that state. Alternatively, you could visualize the relationship between states' honey yield per colony. This year's span covers the devastating 'CCD' or '[Colony Collapse Disorder](http://npic.orst.edu/envir/ccd.html)' first seen in 2006, so it is a poignant dataset to study. 🐝
 
-In this section, you can use Seaborn, which you have used before, as a good library to visualize relationships between variables. Particularly interesting is the use of Seaborn's `relplot` function that allows scatter plots and line plots to quickly visualize '[statistical relationships](https://seaborn.pydata.org/tutorial/relational.html?highlight=relationships)', which allow the data scientist to better understand how variables relate to each other.
+In this section, you can use Seaborn, which you have used before, as a good library to visualize relationships between variables. Particularly interesting is the use of Seaborn's `relplot` function that allows scatter plots and line plots to quickly visualize '[statistical relationships](https://seaborn.pydata.org/tutorial/relational.html?highlight=relationships)', which allows the data scientist to better understand how variables relate to each other.
 
 ## Scatterplots
 
@@ -33,7 +33,8 @@ Let's start by importing the data and Seaborn:
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-honey = pd.read_csv('../../assets/data/honey.csv')
+
+honey = pd.read_csv('https://static-1300131294.cos.ap-shanghai.myqcloud.com /data/honey.csv')
 honey.head()
 ```
 
@@ -134,7 +135,7 @@ For this dataset, nothing particularly stands out with regards to the number of 
 
 ## Dual-line Plots
 
-Try a multiline plot by superimposing two lineplots on top of each other, using Seaborn's 'despine' to remove their top and right spines, and using `ax.twinx` [derived from Matplotlib](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.twinx.html). Twinx allows a chart to share the x axis and display two y axes. So, display the yield per colony and number of colonies, superimposed:
+Try a multiline plot by superimposing two lineplots on top of each other, using Seaborn's `despine` to remove their top and right spines, and using `ax.twinx` [derived from Matplotlib](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.twinx.html). Twinx allows a chart to share the x axis and display two y axes. So, display the yield per colony and the number of colonies, superimposed:
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(12,6))
