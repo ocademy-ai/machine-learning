@@ -1465,7 +1465,7 @@ df1.loc[:, lambda df: ['A', 'B']]
   </div>
 </div>
 
-```{code-cell}
+```
 df1.iloc[:, lambda df: [0, 1]]
 ```
 
@@ -1478,7 +1478,7 @@ df1.iloc[:, lambda df: [0, 1]]
   </div>
 </div>
 
-```{code-cell}
+```
 df1[lambda df: df.columns[0]]
 ```
 
@@ -1493,7 +1493,7 @@ df1[lambda df: df.columns[0]]
 
 You can use callable indexing in `Series`.
 
-```{code-cell}
+```
 df1['A'].loc[lambda s: s > 0]
 ```
 
