@@ -446,6 +446,10 @@ pd.DataFrame([Point(0, 0), Point(0, 3), Point(2, 3)])
 You can treat a `DataFrame` semantically like a dict of like-indexed `Series` objects. Getting, setting, and deleting columns works with the same syntax as the analogous dict operations:
 
 ```{code-cell}
+df
+```
+
+```{code-cell}
 df["one"]
 ```
 
@@ -490,6 +494,15 @@ When inserting a `Series` that does not have the same index as the `DataFrame`, 
 ```{code-cell}
 df["one_trunc"] = df["one"][:2]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:1000px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Ad%20%3D%20%7B%0A%20%20%20%20%22one%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29,%0A%20%20%20%20%22two%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0,%204.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22,%20%22d%22%5D%29,%0A%7D%0Adf%20%3D%20pd.DataFrame%28d%29%0Adf%5B%22flag%22%5D%20%3D%20df%5B%22one%22%5D%20%3E%202%0Adel%20df%5B%22two%22%5D%0Adf%5B%22foo%22%5D%20%3D%20%22bar%22%0Adf%5B%22one%22%5D%5B%3A2%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ```{code-cell}
 df
@@ -574,9 +587,18 @@ The basics of indexing are as follows:
 
 Row selection, for example, returns a `Series` whose index is the columns of the `DataFrame`:
 
-```{code-cell}
+```
 df.loc["b"]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:730px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Ad%20%3D%20%7B%0A%20%20%20%20%22one%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29,%0A%20%20%20%20%22two%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0,%204.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22,%20%22d%22%5D%29,%0A%7D%0Adf%20%3D%20pd.DataFrame%28d%29%0Adf%5B%22flag%22%5D%20%3D%20df%5B%22one%22%5D%20%3E%202%0Adel%20df%5B%22two%22%5D%0Adf%5B%22foo%22%5D%20%3D%20%22bar%22%0Adf%5B%22one_trunc%22%5D%20%3Ddf.insert%281,%20%22bar%22,%20df%5B%22one%22%5D%29%0Adf.loc%5B%22b%22%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ```{code-cell}
 df.iloc[2]
@@ -834,6 +856,10 @@ For now, we explain the semantics of slicing using the [] operator.
 With Series, the syntax works exactly as with an ndarray, returning a slice of the values and the corresponding labels:
 
 ```{code-cell}
+s
+```
+
+```{code-cell}
 s[:5]
 ```
 
@@ -877,7 +903,6 @@ Whether a copy or a reference is returned for a setting operation, may depend on
 dfl = pd.DataFrame(np.random.randn(5, 4),
                    columns=list('ABCD'),
                    index=pd.date_range('20130101', periods=5))
-dfl
 ```
 
 ```{code-cell}
@@ -889,9 +914,18 @@ dfl.loc[2:3]
 String likes in slicing can be convertible to the type of the index and lead to natural slicing.
 ```
 
-```{code-cell}
+```
 dfl.loc['20130102':'20130104']
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:730px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%20%2810%29%0Adfl%20%3D%20pd.DataFrame%28np.random.randn%285,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dpd.date_range%28'20130101',%20periods%3D5%29%29%0Adfl%0Adfl.loc%5B'20130102'%3A'20130104'%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ```{warning}
 Pandas will raise a `KeyError` if indexing with a list with missing labels.
@@ -911,60 +945,129 @@ Pandas provides a suite of methods in order to have **purely label-based indexin
 
 - A `callable`.
 
-```{code-cell}
+```
 s1 = pd.Series(np.random.randn(6), index=list('abcdef'))
 s1
-```
-
-```{code-cell}
 s1.loc['c':]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:630px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0As1%20%3D%20pd.Series%28np.random.randn%286%29,%20index%3Dlist%28'abcdef'%29%29%0As1.loc%5B'c'%3A%5D%0A&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 s1.loc['b']
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:630px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0As1%20%3D%20pd.Series%28np.random.randn%286%29,%20index%3Dlist%28'abcdef'%29%29%0As1.loc%5B'b'%5D%0A&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 Note that the setting works as well:
 
-```{code-cell}
+```
 s1.loc['c':] = 0
 s1
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:630px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0As1%20%3D%20pd.Series%28np.random.randn%286%29,%20index%3Dlist%28'abcdef'%29%29%0As1.loc%5B'c'%3A%5D%20%3D%200%0As1&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 With a DataFrame:
 
-```{code-cell}
+```
 df1 = pd.DataFrame(np.random.randn(6, 4),
                    index=list('abcdef'),
                    columns=list('ABCD'))
 df1
-```
-
-```{code-cell}
 df1.loc[['a', 'b', 'd'], :]
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:680px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5B%5B'a',%20'b',%20'd'%5D,%20%3A%5D%0A&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 Accessing via label slices:
 
-```{code-cell}
+```
 df1.loc['d':, 'A':'C']
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:710px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5B'd'%3A,%20'A'%3A'C'%5D%0A&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 For getting a cross-section using a label (equivalent to `df.xs('a')`):
 
-```{code-cell}
+```
 df1.loc['a']
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:690px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5B'a'%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+
 For getting values with a boolean array:
 
-```{code-cell}
+```
 df1.loc['a'] > 0
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:650px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5B'a'%5D%20%3E%200&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.loc[:, df1.loc['a'] > 0]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5B%3A,%20df1.loc%5B'a'%5D%20%3E%200%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+
 
 NA values in a boolean array propagate as `False`:
 
@@ -980,43 +1083,90 @@ df1[mask]
 <div class='full-width docutils' >
   <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
     <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:620px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Amask%20%3D%20pd.array%28%5BTrue,%20False,%20True,%20False,%20pd.NA,%20False%5D,%20dtype%3D%22boolean%22%29%0Adf1%5Bmask%5D%0A&d=2023-06-13&lang=py&v=v1"> </iframe>
+    <div class="pandastutor inner" style="height:680px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Amask%20%3D%20pd.array%28%5BTrue,%20False,%20True,%20False,%20pd.NA,%20False%5D,%20dtype%3D%22boolean%22%29%0Adf1%5Bmask%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
     </div>
   </div>
 </div>
 
 For getting a value explicitly:
 
-```{code-cell}
+```
 df1.loc['a', 'A'] # this is also equivalent to ``df1.at['a','A']``
 ```
+
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:680px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5B'a',%20'A'%5D%20&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 #### Slicing with labels
 
 When using `.loc` with slices, if both the start and the stop labels are present in the index, then elements located between the two (including them) are returned:
 
-```{code-cell}
+```
 s = pd.Series(list('abcde'), index=[0, 3, 2, 5, 4])
 s.loc[3:5]
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:580px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0As%20%3D%20pd.Series%28list%28'abcde'%29,%20index%3D%5B0,%203,%202,%205,%204%5D%29%0As.loc%5B3%3A5%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+
 If at least one of the two is absent, but the index is sorted, and can be compared against start and stop labels, then slicing will still work as expected, by selecting labels which rank between the two:
 
-```{code-cell}
+```
 s.sort_index()
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:600px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0As%20%3D%20pd.Series%28list%28'abcde'%29,%20index%3D%5B0,%203,%202,%205,%204%5D%29%0As.sort_index%28%29&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 s.sort_index().loc[1:6]
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:820px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0As%20%3D%20pd.Series%28list%28'abcde'%29,%20index%3D%5B0,%203,%202,%205,%204%5D%29%0As.sort_index%28%29.loc%5B1%3A6%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 However, if at least one of the two is absent and the index is not sorted, an error will be raised (since doing otherwise would be computationally expensive, as well as potentially ambiguous for mixed-type indexes). For instance, in the above example, `s.loc[1:6]` would raise `KeyError`.
 
-```{code-cell}
+```
 s = pd.Series(list('abcdef'), index=[0, 3, 2, 5, 4, 2])
 s.loc[3:5]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:650px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0As%20%3D%20pd.Series%28list%28'abcdef'%29,%20index%3D%5B0,%203,%202,%205,%204,%202%5D%29%0As.loc%5B3%3A5%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 Also, if the index has duplicate labels and either the start or the stop label is duplicated, an error will be raised. For instance, in the above example, `s.loc[2:5]` would raise a `KeyError`.
 
@@ -1040,40 +1190,69 @@ The `.iloc` attribute is the primary access method. The following are valid inpu
 
 - A `callable`.
 
-```{code-cell}
+```
 s1 = pd.Series(np.random.randn(5), index=list(range(0, 10, 2)))
 s1
-```
-
-```{code-cell}
 s1.iloc[:3]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:600px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0As1%20%3D%20pd.Series%28np.random.randn%285%29,%20index%3Dlist%28range%280,%2010,%202%29%29%29%0As1.iloc%5B%3A3%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 s1.iloc[3]
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:600px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0As1%20%3D%20pd.Series%28np.random.randn%285%29,%20index%3Dlist%28range%280,%2010,%202%29%29%29%0As1.iloc%5B3%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 Note that setting works as well:
 
-```{code-cell}
+```
 s1.iloc[:3] = 0
 s1
 ```
 
-With a DataFrame:
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:620px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0As1%20%3D%20pd.Series%28np.random.randn%285%29,%20index%3Dlist%28range%280,%2010,%202%29%29%29%0As1.iloc%5B%3A3%5D%20%3D%200%0As1&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
-```{code-cell}
+With a DataFrame,Select via integer slicing:
+
+```
 df1 = pd.DataFrame(np.random.randn(6, 4),
                    index=list(range(0, 12, 2)),
                    columns=list(range(0, 8, 2)))
 df1
-```
-
-Select via integer slicing:
-
-```{code-cell}
 df1.iloc[:3]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:680px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B%3A3%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 
 ```
 df1.iloc[1:5, 2:4]
@@ -1082,35 +1261,80 @@ df1.iloc[1:5, 2:4]
 <div class='full-width docutils' >
   <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
     <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:620px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1.iloc%5B1%3A5,%202%3A4%5D&d=2023-06-13&lang=py&v=v1"> </iframe>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B1%3A5,%202%3A4%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
     </div>
   </div>
 </div>
 
 Select via integer list:
 
-```{code-cell}
+```
 df1.iloc[[1, 3, 5], [1, 3]]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B%5B1,%203,%205%5D,%20%5B1,%203%5D%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.iloc[1:3, :]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:680px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B1%3A3,%20%3A%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.iloc[:, 1:3]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B%3A,%201%3A3%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.iloc[1, 1] # this is also equivalent to ``df1.iat[1,1]``
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:680px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B1,%201%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 For getting a cross-section using an integer position (equiv to `df.xs(1)`):
 
-```{code-cell}
+```
 df1.iloc[1]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28range%280,%2012,%202%29%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28range%280,%208,%202%29%29%29%0Adf1%0Adf1.iloc%5B1%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 Out-of-range slice indexes are handled gracefully just as in Python/NumPy.
 
@@ -1132,9 +1356,18 @@ s = pd.Series(x)
 s
 ```
 
-```{code-cell}
+```
 s.iloc[4:10]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:600px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Ax%20%3D%20list%28'abcdef'%29%20%0As%20%3D%20pd.Series%28x%29%0As.iloc%5B4%3A10%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ```{code-cell}
 s.iloc[8:10]
@@ -1144,20 +1377,46 @@ Note that using slices that go out of bounds can result in an empty axis (e.g. a
 
 ```{code-cell}
 dfl = pd.DataFrame(np.random.randn(5, 2), columns=list('AB'))
-dfl
 ```
 
-```{code-cell}
+```
 dfl.iloc[:, 2:3]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:630px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%20%0Anp.random.seed%2810%29%0Adfl%20%3D%20pd.DataFrame%28np.random.randn%285,%202%29,%20columns%3Dlist%28'AB'%29%29%0Adfl%0Adfl.iloc%5B%3A,%202%3A3%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 dfl.iloc[:, 1:3]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:630px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%20%0Anp.random.seed%2810%29%0Adfl%20%3D%20pd.DataFrame%28np.random.randn%285,%202%29,%20columns%3Dlist%28'AB'%29%29%0Adfl.iloc%5B%3A,%201%3A3%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 dfl.iloc[4:6]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:600px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%20%0Anp.random.seed%2810%29%0Adfl%20%3D%20pd.DataFrame%28np.random.randn%285,%202%29,%20columns%3Dlist%28'AB'%29%29%0Adfl.iloc%5B4%3A6%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 A single indexer that is out of bounds will raise an `IndexError`. A list of indexers where any element is out of bounds will raise an `IndexError`.
 
@@ -1175,61 +1434,128 @@ dfl.iloc[:, 4]
 
 `.loc`, `.iloc`, and also `[]` indexing can accept a `callable` as indexer. The `callable` must be a function with one argument (the calling Series or DataFrame) that returns valid output for indexing.
 
-```{code-cell}
+
+```
 df1 = pd.DataFrame(np.random.randn(6, 4),
                    index=list('abcdef'),
                    columns=list('ABCD'))
 df1
-```
-
-```{code-cell}
 df1.loc[lambda df: df['A'] > 0, :]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%20%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%0Adf1.loc%5Blambda%20df%3A%20df%5B'A'%5D%20%3E%200,%20%3A%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.loc[:, lambda df: ['A', 'B']]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1.loc%5B%3A,%20lambda%20df%3A%20%5B'A',%20'B'%5D%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.iloc[:, lambda df: [0, 1]]
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:700px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1.iloc%5B%3A,%20lambda%20df%3A%20%5B0,%201%5D%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1[lambda df: df.columns[0]]
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:650px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%5Blambda%20df%3A%20df.columns%5B0%5D%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 You can use callable indexing in `Series`.
 
-```{code-cell}
+```
 df1['A'].loc[lambda s: s > 0]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:920px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Aimport%20random%0Anp.random.seed%2810%29%0Adf1%20%3D%20pd.DataFrame%28np.random.randn%286,%204%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abcdef'%29,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20columns%3Dlist%28'ABCD'%29%29%0Adf1%5B'A'%5D.loc%5Blambda%20s%3A%20s%20%3E%200%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ### Combining positional and label-based indexing
 
 If you wish to get the 0th and the 2nd elements from the index in the `'A'` column, you can do:
 
-```{code-cell}
+```
 dfd = pd.DataFrame({'A': [1, 2, 3],
                     'B': [4, 5, 6]},
                    index=list('abc'))
 dfd
-```
-
-```{code-cell}
 dfd.loc[dfd.index[[0, 2]], 'A']
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:550px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adfd%20%3D%20pd.DataFrame%28%7B'A'%3A%20%5B1,%202,%203%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B4,%205,%206%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abc'%29%29%0Adfd.loc%5Bdfd.index%5B%5B0,%202%5D%5D,%20'A'%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 This can also be expressed using `.iloc`, by explicitly getting locations on the indexers, and using positional indexing to select things.
 
-```{code-cell}
+```
 dfd.iloc[[0, 2], dfd.columns.get_loc('A')]
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:550px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adfd%20%3D%20pd.DataFrame%28%7B'A'%3A%20%5B1,%202,%203%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B4,%205,%206%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abc'%29%29%0Adfd.iloc%5B%5B0,%202%5D,%20dfd.columns.get_loc%28'A'%29%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 For getting multiple indexers, using `.get_indexer`:
 
-```{code-cell}
+```
 dfd.iloc[[0, 2], dfd.columns.get_indexer(['A', 'B'])]
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:550px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adfd%20%3D%20pd.DataFrame%28%7B'A'%3A%20%5B1,%202,%203%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B4,%205,%206%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dlist%28'abc'%29%29%0Adfd.iloc%5B%5B0,%202%5D,%20dfd.columns.get_indexer%28%5B'A',%20'B'%5D%29%5D&d=2023-07-14&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ## Combining datasets: concat, merge and join
 
@@ -1396,37 +1722,54 @@ df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=(False, False))
 
 Using `how` parameter decide the type of merge to be performed.
 
-```{code-cell}
+```
 df1 = pd.DataFrame({'a': ['foo', 'bar'], 'b': [1, 2]})
 df2 = pd.DataFrame({'a': ['foo', 'baz'], 'c': [3, 4]})
-df1
 ```
 
-```{code-cell}
-df2
 ```
-
-```{code-cell}
 df1.merge(df2, how='inner', on='a')
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:600px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf1%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'bar'%5D,%20'b'%3A%20%5B1,%202%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'baz'%5D,%20'c'%3A%20%5B3,%204%5D%7D%29%0Adf1.merge%28df2,%20how%3D'inner',%20on%3D'a'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1.merge(df2, how='left', on='a')
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:630px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf1%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'bar'%5D,%20'b'%3A%20%5B1,%202%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'baz'%5D,%20'c'%3A%20%5B3,%204%5D%7D%29%0Adf1.merge%28df2,%20how%3D'left',%20on%3D'a'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df1 = pd.DataFrame({'left': ['foo', 'bar']})
 df2 = pd.DataFrame({'right': [7, 8]})
-df1
 ```
 
-```{code-cell}
-df2
 ```
-
-```{code-cell}
 df1.merge(df2, how='cross')
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:670px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf1%20%3D%20pd.DataFrame%28%7B'left'%3A%20%5B'foo',%20'bar'%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'right'%3A%20%5B7,%208%5D%7D%29%0Adf1.merge%28df2,%20how%3D'cross'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ### join
 
@@ -1439,20 +1782,27 @@ For example:
 ```{code-cell}
 df = pd.DataFrame({'key': ['K0', 'K1', 'K2', 'K3', 'K4', 'K5'],
                    'A': ['A0', 'A1', 'A2', 'A3', 'A4', 'A5']})
-df
 ```
 
 ```{code-cell}
 other = pd.DataFrame({'key': ['K0', 'K1', 'K2'],
-                      'B': ['B0', 'B1', 'B2']})
-other                      
+                      'B': ['B0', 'B1', 'B2']})                     
 ```
 
 Join DataFrames using their indexes.
 
-```{code-cell}
+```
 df.join(other, lsuffix='_caller', rsuffix='_other')
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:830px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.join%28other,%20lsuffix%3D'_caller',%20rsuffix%3D'_other'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 If we want to join using the `key` columns, we need to set `key` to be the index in both `df` and `other`. The joined DataFrame will have `key` as its index.
 
@@ -1463,7 +1813,7 @@ df.set_index('key').join(other.set_index('key'))
 <div class='full-width docutils' >
   <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
     <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:1160px;">
+    <div class="pandastutor inner" style="height:1170px;">
       <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
     </div>
   </div>
@@ -1506,7 +1856,7 @@ df.groupby(['Animal']).mean()
 <div class='full-width docutils' >
   <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
     <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:775px;">
+    <div class="pandastutor inner" style="height:785px;">
       <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'Animal'%3A%20%5B'Falcon',%20'Falcon',%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Max%20Speed'%3A%20%5B380.,%20370.,%2024.,%2026.%5D%7D%29%0Adf%0Adf.groupby%28%5B'Animal'%5D%29.mean%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
     </div>
   </div>
@@ -1514,35 +1864,57 @@ df.groupby(['Animal']).mean()
 
 ### Hierarchical Indexes
 
+#################
+
 We can `groupby` different levels of a hierarchical index using the `level` parameter:
 
-```{code-cell}
+```
 arrays = [['Falcon', 'Falcon', 'Parrot', 'Parrot'],
           ['Captive', 'Wild', 'Captive', 'Wild']]
 index = pd.MultiIndex.from_arrays(arrays, names=('Animal', 'Type'))
 df = pd.DataFrame({'Max Speed': [390., 350., 30., 20.]},
                   index=index)
-df
-```
-
-```{code-cell}
 df.groupby(level=0).mean()
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:810px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aarrays%20%3D%20%5B%5B'Falcon',%20'Falcon',%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%5B'Captive',%20'Wild',%20'Captive',%20'Wild'%5D%5D%0Aindex%20%3D%20pd.MultiIndex.from_arrays%28arrays,%20names%3D%28'Animal',%20'Type'%29%29%0Adf%20%3D%20pd.DataFrame%28%7B'Max%20Speed'%3A%20%5B390.,%20350.,%2030.,%2020.%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dindex%29%0Adf.groupby%28level%3D0%29.mean%28%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df.groupby(level="Type").mean()
 ```
 
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:810px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aarrays%20%3D%20%5B%5B'Falcon',%20'Falcon',%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%5B'Captive',%20'Wild',%20'Captive',%20'Wild'%5D%5D%0Aindex%20%3D%20pd.MultiIndex.from_arrays%28arrays,%20names%3D%28'Animal',%20'Type'%29%29%0Adf%20%3D%20pd.DataFrame%28%7B'Max%20Speed'%3A%20%5B390.,%20350.,%2030.,%2020.%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dindex%29%0Adf.groupby%28level%3D%22Type%22%29.mean%28%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
 We can also choose to include NA in group keys or not by setting `dropna` parameter, the default setting is `True`.
 
-```{code-cell}
+```
 l = [[1, 2, 3], [1, None, 4], [2, 1, 3], [1, 2, 2]]
 df = pd.DataFrame(l, columns=["a", "b", "c"])
-```
-
-```{code-cell}
 df.groupby(by=["b"]).sum()
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:770px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D%29.sum%28%29%0A&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 ```
 df.groupby(by=["b"], dropna=False).sum()
@@ -1551,24 +1923,39 @@ df.groupby(by=["b"], dropna=False).sum()
 <div class='full-width docutils' >
   <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
     <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:730px;">
+    <div class="pandastutor inner" style="height:750px;">
       <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D,%20dropna%3DFalse%29.sum%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
     </div>
   </div>
 </div>
 
-```{code-cell}
+```
 l = [["a", 12, 12], [None, 12.3, 33.], ["b", 12.3, 123], ["a", 1, 1]]
 df = pd.DataFrame(l, columns=["a", "b", "c"])
-```
-
-```{code-cell}
 df.groupby(by="a").sum()
 ```
 
-```{code-cell}
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:750px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Al%20%3D%20%5B%5B%22a%22,%2012,%2012%5D,%20%5BNone,%2012.3,%2033.%5D,%20%5B%22b%22,%2012.3,%20123%5D,%20%5B%22a%22,%201,%201%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%22a%22%29.sum%28%29&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
+
+```
 df.groupby(by="a", dropna=False).sum()
 ```
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:750px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Al%20%3D%20%5B%5B%22a%22,%2012,%2012%5D,%20%5BNone,%2012.3,%2033.%5D,%20%5B%22b%22,%2012.3,%20123%5D,%20%5B%22a%22,%201,%201%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%22a%22,%20dropna%3DFalse%29.sum%28%29%0A&d=2023-07-15&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 
 When using `.apply()`, use `group_keys` to include or exclude the group keys. The `group_keys` argument defaults to `True` (include).
 
@@ -1719,7 +2106,14 @@ The previous expression is equivalent to
 ```{code-cell}
 df[df.B == df['C C']]
 ```
-
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:660px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B%0A%20%20%20%20'A'%3A%20range%281,%206%29,%0A%20%20%20%20'B'%3A%20range%2810,%200,%20-2%29,%0A%20%20%20%20'C%20C'%3A%20range%2810,%205,%20-1%29%0A%7D%29%0A%0Adf%5Bdf.B%20%3D%3D%20df%5B'C%20C'%5D%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
+    </div>
+  </div>
+</div>
 ## Your turn! 🚀
 
 ### Processing image data
