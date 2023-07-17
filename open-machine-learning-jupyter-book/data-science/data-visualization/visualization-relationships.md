@@ -34,7 +34,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-honey = pd.read_csv('https://static-1300131294.cos.ap-shanghai.myqcloud.com /data/honey.csv')
+honey = pd.read_csv('https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/honey.csv')
 honey.head()
 ```
 
