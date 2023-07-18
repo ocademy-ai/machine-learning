@@ -18,7 +18,7 @@ All the assignment notebooks can be executed independently without any prerequis
 
 1\. Install Python & Conda by following [this](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md#install-python--conda).
 
-2\. Install Jupyter Lab by following (this)[https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html].
+2\. Install Jupyter Lab by following [this](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html).
 
 3\. Initialize the Conda env.
 
