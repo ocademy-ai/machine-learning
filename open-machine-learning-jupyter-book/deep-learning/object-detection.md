@@ -377,6 +377,12 @@ TBD.
 
 Thanks to [Tensorpack](https://github.com/tensorpack) for creating the open-source project [tensorpack](https://github.com/tensorpack/tensorpack), [Hyungjin Kim](https://github.com/Burf) for creating the open-source project [TFDetection](https://github.com/Burf/TFDetection) and [PaperCodeReview](https://github.com/PaperCodeReview) for creating the open-source project [DETR-TF](https://github.com/PaperCodeReview/DETR-TF). They inspire the majority of the content in this chapter.
 
+<p style="text-align: center;">
+<iframe src="../html/object-detection/demo.html" width="105%" height="400px;"
+style="border:none;"></iframe>
+A demo of object detection. <a href="https://github.com/mtschirs/js-objectdetect">[source]</a>
+</p>
+
 ---
 
 ```{bibliography}

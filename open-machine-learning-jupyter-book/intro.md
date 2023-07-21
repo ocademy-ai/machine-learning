@@ -187,7 +187,7 @@ Algorithms and models are visualized by popular frameworks like [Tensorflow.js](
 
 # Connect with us
 
-We are an international open source community that welcomes discussion, feedback, and contributions of many kinds.
+We are an international open-source community that welcomes discussion, feedback, and contributions of many kinds.
 Here are a few ways to connect more with us.
 
 ````{grid} 1 1 2 2

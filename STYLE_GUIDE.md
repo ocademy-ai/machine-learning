@@ -239,7 +239,7 @@ Python Tutor is used to visualize the execution of Python code. Below code snipp
   <div class="admonition note pythontutor" name="html-admonition">
     <p class="admonition-title pythontutor">Let's visualize it! 🎥</p>
     <div class="pythontutor inner" style="height:665px;">
-      <iframe frameborder="0" scrolling="yes" src="YOUR_PYTHONTUTOR_PERMANANT_URL"> </iframe>
+      <iframe frameborder="0" scrolling="no" src="YOUR_PYTHONTUTOR_PERMANANT_URL"> </iframe>
     </div>
   </div>
 </div>
@@ -271,7 +271,46 @@ Please notice,
 
 ## Pandas Tutor
 
-TBD
+Pandas Tutor is used to visualize the execution of Pandas code and see how it transforms your data step-by-step. Below code snippet is used to insert Pandas Tutor quick link as an iframe in the book. They have a similar format to Python Tutors.
+
+```html
+<link rel="stylesheet" href="https://ocademy-ai.github.io/machine-learning/_static/style.css">
+
+<div class='full-width docutils' >
+  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
+    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
+    <div class="pandastutor inner" style="height:730px;">
+      <iframe frameborder="0" scrolling="no" src="YOUR_PANDASTUTOR_PERMANANT_URL"> </iframe>
+    </div>
+  </div>
+</div>
+```
+
+Please notice,
+
+* to better fit the screen, the iframe's height needs to be adjusted manually, such as this `<div class="pandastutor inner" style="height:665px;">`.
+* to generate the permanent Pandas Tutor, please go to [Pandas Tutor](https://pandastutor.com/vis.html) website, paste the code, and Visualize Execution. Once the link is generated, use it to replace the `YOUR_PANDASTUTOR_PERMANANT_URL` in above sample code.
+* Pandas Tutor only visualizes the last line of code, which is better suited for long strings of code that continuously calls pandas methods. Here are some [examples](https://pandastutor.com/index.html).
+* Pandas Tutor does not visualize the calculations between the data.
+* After you visualize a piece of code, you need to convert the repeated code cell to normal code format
+* the UI/UX is working for desktop browsers only.
+* please keep the original code in the notebook still. Below HTML code snippet could be used for this.
+
+````html
+<link rel="stylesheet" href="https://ocademy-ai.github.io/machine-learning/_static/style.css">
+
+<div class="admonition dropdown code" name="html-admonition">
+
+<p class="admonition-title code=">Show me the code ⌨️</p>
+
+```python
+
+# YOUR PANDAS CODE
+
+```
+
+</div>
+````
 
 ## Emoji
 
