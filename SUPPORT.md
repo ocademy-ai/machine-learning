@@ -4,7 +4,7 @@ Welcome to our project! We're here to help you with any questions or issues you 
 
 ## **Issue Tracker**
 
-If you find a bug or have a feature request, please create an issue in our **[issue tracker](https://github.com/open-academy/machine-learning/issues)**. When creating an issue, please provide as much detail as possible about the problem or feature request. This will help us address the issue or request as quickly and efficiently as possible.
+If you find a bug or have a feature request, please create an issue in our **[issue tracker](https://github.com/ocademy-ai/machine-learning/issues)**. When creating an issue, please provide as much detail as possible about the problem or feature request. This will help us address the issue or request as quickly and efficiently as possible.
 
 ## **Email Support**
 
