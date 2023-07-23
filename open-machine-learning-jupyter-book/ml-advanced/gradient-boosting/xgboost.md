@@ -51,7 +51,7 @@ from sklearn.impute import SimpleImputer
 import warnings
 
 warnings.filterwarnings('ignore')
-data = pd.read_csv('../../assets/data/house_price_tarin.csv')
+data = pd.read_csv('../../assets/data/house_price_train.csv')
 data.dropna(axis=0, subset=['SalePrice'], inplace=True)
 y = data.SalePrice
 X = data.drop(['SalePrice'], axis=1).select_dtypes(exclude=['object'])
