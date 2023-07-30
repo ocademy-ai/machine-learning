@@ -22,6 +22,11 @@ Boosting
 :::
 
 Today we are going to have a look at one of the most popular and practical machine learning algorithms: gradient boosting. 
+<img src="../../../images/ml-advanced/gradient_boosting/gbdt_attractive_picture.png" width="90%" class="bg-white mb-1">
+<p style="text-align: center;">
+<iframe src="../../assets/html/gradient-boosting-explain/index.html" width="105%" height="700px;" style="border:none;"  scrolling="yes"></iframe>
+A demo of Gradient Boosting. <a href="https://arogozhnikov.github.io/2016/06/24/gradient_boosting_explained.html">[source]</a>
+</p>
 
 ## Introduction and history of boosting
 Almost everyone in machine learning has heard about gradient boosting. Many data scientists include this algorithm in their data scientist's toolbox because of the good results it yields on any given (unknown) problem.  
