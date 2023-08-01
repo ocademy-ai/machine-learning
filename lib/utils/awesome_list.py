@@ -21,7 +21,7 @@ def apply_label_style_to_column(df, text_column, color_palette, convert=capitali
     
     def __convert_each__(label_text):
         converted = convert(label_text) if convert else label_text
-        return '<div class="rounded-label" style="background-color:{1};">{0}</div>'.format(converted, color_palette[converted])
+        return '<div class="rounded-label" style="border-radius: 8px; color: white; padding: 8px 16px; display: inline-block; font-size: 12px; font-weight: bold;background-color:{1};">{0}</div>'.format(converted, color_palette[converted])
     
     def __convert__(x):
         text = x[text_column]
