@@ -17,11 +17,12 @@ def apply_a_tag_to_column(df, url_column, text_column):
         lambda x: '<a href="{0}">{1}</a>'.format(x[url_column], x[text_column]) if x[url_column] is not np.nan else x[text_column], axis=1)
 
 
-def apply_label_style_to_column(df, text_column, color_palette, convert=capitalize_properly):
+def apply_label_style_to_column(df, text_column, icon_palette, convert=capitalize_properly):
     
     def __convert_each__(label_text):
         converted = convert(label_text) if convert else label_text
-        return '<div class="rounded-label" style="border-radius: 8px; color: white; padding: 8px 16px; display: inline-block; font-size: 12px; font-weight: bold;background-color:{1};">{0}</div>'.format(converted, color_palette[converted])
+        # return '<div class="rounded-label" style="background-color:{1};">{0}</div>'.format(converted, icon_palette[converted])
+        return icon_palette[converted] + converted
     
     def __convert__(x):
         text = x[text_column]
