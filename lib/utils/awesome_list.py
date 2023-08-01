@@ -17,6 +17,10 @@ def apply_a_tag_to_column(df, url_column, text_column):
         lambda x: '<a href="{0}">{1}</a>'.format(x[url_column], x[text_column]) if x[url_column] is not np.nan else x[text_column], axis=1)
 
 
+def apply_label_style_to_boolean_column(df, column_name):
+    df[column_name] = df[column_name].apply(lambda x: '✅' if x else '❌')
+
+
 def apply_label_style_to_column(df, text_column, icon_palette, convert=capitalize_properly):
     
     def __convert_each__(label_text):
