@@ -22,6 +22,7 @@ label_icon_palette = {
     'Machine learning': '🧠',
     'Math': '🧮',
     'Deep learning': '👽',
+    'Code': '⌨️',
 }
 
 language_icon_palette = {
