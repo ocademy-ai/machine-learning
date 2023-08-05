@@ -35,9 +35,9 @@ Thanks to the democratization of AI, developers are now finding it easier to des
 
 ```{figure} ../../images/data-science-applications.png
 ---
-name: 'Data Science Applications in The Real World'
+name: 'Data Science applications in the real world'
 ---
-Data Science Applications in The Real World{cite}`6_amazing_data_science_applications`
+Data Science applications in the real world{cite}`6_amazing_data_science_applications`
 ```
 
 The figure shows other domains and examples for applying data science techniques. Want to explore other applications? Check out the [Self study](#self-study) section below.
@@ -47,7 +47,7 @@ The figure shows other domains and examples for applying data science techniques
 While real-world applications often focus on industry use cases at scale, _research_ applications and projects can be useful from two perspectives:
 
 * _innovation opportunities_ - explore rapid prototyping of advanced concepts and testing of user experiences for next-generation applications.
-* _deployment challenges_ - investigate potential harms or unintended consequences of data science technologies in real-world contexts.
+* _deployment challenges_ - investigate potential harms or unintended consequences of Data Science technologies in real-world contexts.
 
 For students, these research projects can provide both learning and collaboration opportunities that can improve your understanding of the topic, and broaden your awareness and engagement with relevant people or teams working in areas of interest. So what do research projects look like and how can they make an impact?
 

@@ -17,14 +17,14 @@ Please delete options that are not relevant.
 
 Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
 
-- [ ] [local build the book](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md#build-the-book)
+- [ ] [local build the book](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md#build-the-book)
 - [ ] review the artifacts from local build
-- [ ] [local build the slides](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md#build-the-slides-optional) if appliable
+- [ ] [local build the slides](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md#build-the-slides-optional) if appliable
 - [ ] Unit test if appliable
 
 # Checklist:
 
-- [ ] My code follows the [style guidelines](https://github.com/open-academy/machine-learning/blob/main/STYLE_GUIDE.md) of this project
+- [ ] My code follows the [style guidelines](https://github.com/ocademy-ai/machine-learning/blob/main/STYLE_GUIDE.md) of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
