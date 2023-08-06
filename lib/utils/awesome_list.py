@@ -23,6 +23,11 @@ label_icon_palette = {
     'Math': '🧮',
     'Deep learning': '👽',
     'Code': '⌨️',
+    'Big data': '⚡️',
+    'NLP': '🗣️',
+    'Computer vision': '👓',
+    'Hardware': '💻',
+    'Robotics': '🦿',
 }
 
 language_icon_palette = {
@@ -36,6 +41,7 @@ topic_icon_palette = {
     'Python': '🐍',
     'Machine learning': '🧠',
     'Deep learning': '👽',
+    'Robotics': '🦿',
 }
 
 type_icon_palette = {
@@ -64,21 +70,25 @@ def apply_a_tag_to_column(df, url_column, text_column):
         return
 
     def __convert__(x):
-        if x[text_column] is '' or x[text_column] is np.nan:
+        if x[text_column] == '' or x[text_column] is np.nan:
             return ''
         
-        if x[url_column] is '' or x[url_column] is np.nan:
+        if x[url_column] == '' or x[url_column] is np.nan:
             return x[text_column]
         
-        text_array = x[text_column].split(',')
-        url_array = x[url_column].split(',')
+        if text_column in ['label', 'author']:
+            text_array = x[text_column].split(',')
+            url_array = x[url_column].split(',')
+        else:
+            text_array = [x[text_column]]
+            url_array = [x[url_column]]
         
         result = []
         
         for i in range(0, len(text_array)):
             text = text_array[i]
             url = url_array[i]
-            result.append('<a href="{0}">{1}</a>'.format(url, text) if url is not '' else text)
+            result.append('<a href="{0}">{1}</a>'.format(url, text) if url != '' else text)
 
         return ', '.join(result)
 
