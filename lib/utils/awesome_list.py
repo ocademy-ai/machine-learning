@@ -144,12 +144,16 @@ def clean_up(df, excluded_columns):
     df = df.loc[:, ~df.columns.isin(excluded_columns)]
     df = df.replace(np.nan, '', regex=True)
 
-    df.columns = df.columns.str.title()
+    df.columns = df.columns.str.capitalize()
     df.index += 1
     return df
 
 
 def apply_common_style(df, excluded_columns):
+
+    if 'publishedAt' in df:
+        df = df.rename(columns={'publishedAt': 'published At'})
+
     apply_a_tag_to_column(df, 'source', 'title')
 
     apply_a_tag_to_column(df, 'platformSrc', 'platform')
@@ -157,6 +161,7 @@ def apply_common_style(df, excluded_columns):
     apply_a_tag_to_column(df, 'authorSrc', 'author')
 
     apply_label_style_to_column(df, 'price', price_icon_palette)
+    df['price'] = df.apply(lambda x: f"{x['price']} of {x['cost']}$" if x['cost'] != 0 else x['price'], axis=1)
 
     apply_label_style_to_column(df, 'label', label_icon_palette)
 
