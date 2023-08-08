@@ -120,7 +120,7 @@ If we take weights of other people, not from the baseball league, the distributi
 
 The distribution of weights that we have seen above is very typical, and many measurements from the real world follow the same type of distribution, but with different mean and variance. This distribution is called **normal distribution**, and it plays a very important role in statistics.
 
-Using normal distribution is the correct way to generate random weights of potential baseball players. Once we know the mean weight `mean`` and standard deviation `std`, we can generate 1000 weight samples in the following way:
+Using normal distribution is the correct way to generate random weights of potential baseball players. Once we know the mean weight `mean` and standard deviation `std`, we can generate 1000 weight samples in the following way:
 
 ```python
 samples = np.random.normal(mean, std, 1000)
@@ -255,7 +255,7 @@ One of the things Data Science does is find relations between data. We say that 
 Correlation does not necessarily indicate causal relationship between two sequences; sometimes both variables can depend on some external cause, or it can be purely by chance the two sequences correlate. However, strong mathematical correlation is a good indication that two variables are somehow connected.
 ```
 
-Mathematically, the main concept that shows the relation between two random variables is **covariance**, which is computed like this: $Cov(X, Y) = **E**\[(X-E(X))(Y-E(Y))\]$. We compute the deviation of both variables from their mean values, and then the product of those deviations. If both variables deviate together, the product would always be a positive value, which would add up to positive covariance. If both variables deviate out of sync (i.e. one falls below average when another one rises above average), we will always get negative numbers, which will add up to negative covariance. If the deviations are not dependent, they will add up to roughly zero.
+Mathematically, the main concept that shows the relation between two random variables is **covariance**, which is computed like this: $Cov(X, Y) = E[(X-E(X))(Y-E(Y))]$. We compute the deviation of both variables from their mean values, and then the product of those deviations. If both variables deviate together, the product would always be a positive value, which would add up to positive covariance. If both variables deviate out of sync (i.e. one falls below average when another one rises above average), we will always get negative numbers, which will add up to negative covariance. If the deviations are not dependent, they will add up to roughly zero.
 
 The absolute value of covariance does not tell us much about how large the correlation is, because it depends on the magnitude of actual values. To normalize it, we can divide covariance by the standard deviation of both variables, to get a **correlation**. The good thing is that correlation is always in the range of $[-1,1]$, where $1$ indicates a strong positive correlation between values, $-1$ - strong negative correlation, and $0$ - no correlation at all (variables are independent).
 
@@ -304,7 +304,8 @@ Use the sample code in the notebook to test another hypothesis:
 2. First basemen are taller than third basemen
 3. Shortstops are taller than second basemen
 
-Task - [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
+- [Small diabetes study](../../assignments/data-science/small-diabetes-study.ipynb).
+- [Introduction to probability and statistics](../../assignments/data-science/introduction-to-statistics-and-probability.ipynb).
 
 ## Self study
 

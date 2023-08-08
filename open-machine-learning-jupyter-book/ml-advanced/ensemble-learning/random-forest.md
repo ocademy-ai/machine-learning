@@ -28,6 +28,22 @@ The following algorithm constructs an ensemble of models using the random subspa
 5. Train each model.
 6. Apply the resulting ensemble model to a new instance by combining the results from all the models in $\large L$. You can use either majority voting or aggregation of the posterior probabilities. 
 
+<p style="text-align: center;">
+<iframe src="../../html/random-forest/index.html" width="105%" height="700px;" style="border:none;" scrolling="yes"></iframe>
+A demo of Decision Tree. <a href="https://mlu-explain.github.io/random-forest/">[source]</a>
+</p>
+
+
+<p style="text-align: center;">
+<iframe src="../../html/random-forest-2/index.html" width="105%" height="1000px;" style="border:none;" scrolling="no"></iframe>
+A demo of Decision Tree. <a href="https://cs.stanford.edu/~karpathy/svmjs/demo/demoforest.html">[source]</a>
+</p>
+
+<p style="text-align: center;">
+<iframe src="../../html/random-forest-3/index.html" width="110%" height="600px;" style="border:none;" scrolling="no"></iframe>
+A demo of Decision Tree. <a href="https://nlhlong01.github.io/playground/#dataset=circle&regDataset=reg-plane&noise=25&seed=0.59759&showTestData=false&discretize=false&percTrainData=60&problem=classification&percSamples=50&nTrees=100&maxDepth=5">[source]</a>
+</p>
+
 ## Algorithm
 
 The algorithm for constructing a random forest of $\large N$ trees goes as follows:
@@ -532,6 +548,8 @@ These new features are the result of the non-linear space splitting, and they pr
 
 Similarity between random forests and knn
 :::
+
+
 
 ## Transformation of a dataset into a high-dimensional representation
 
