@@ -31,7 +31,7 @@ label_icon_palette = {
 }
 
 language_icon_palette = {
-    'English': '🇺🇸',
+    'English': '🇬🇧',
     '中文': '🇨🇳',
 }
 
