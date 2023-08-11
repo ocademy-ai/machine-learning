@@ -28,11 +28,14 @@ label_icon_palette = {
     'Computer vision': '👓',
     'Hardware': '💻',
     'Robotics': '🦿',
+    'Self driving': '🚗',
+    'Reinforcement learning': '🎮',
 }
 
 language_icon_palette = {
-    'English': '🇬🇧',
+    'English': '🇺🇸',
     '中文': '🇨🇳',
+    'français': '🇫🇷',
 }
 
 topic_icon_palette = {
@@ -76,7 +79,7 @@ def apply_a_tag_to_column(df, url_column, text_column):
         if x[url_column] == '' or x[url_column] is np.nan:
             return x[text_column]
         
-        if text_column in ['label', 'author']:
+        if text_column in ['tag', 'author']:
             text_array = x[text_column].split(',')
             url_array = x[url_column].split(',')
         else:
@@ -99,7 +102,7 @@ def apply_label_style_to_boolean_column(df, column_name):
     if column_name not in df:
         return
     
-    df[column_name] = df[column_name].apply(lambda x: '✅' if x else '❌')
+    df[column_name] = df[column_name].apply(lambda x: '✅' if x == 'True' else '❌')
 
 
 def apply_label_style_to_column(df, text_column, icon_palette, convert=capitalize_properly):
@@ -129,7 +132,7 @@ def apply_label_style_to_language_column(df, column_name='language'):
 
 
 def create_by_column_from_author_column_and_platform_column(
-        df, author_column='author', by_column='by', author_src_column='authorSrc', platform_column='platform', platform_src_column='platformSrc'):
+        df, author_column='author', by_column='by', author_src_column='authorSrc', platform_column='organization', platform_src_column='organizationSrc'):
     if platform_column not in df and author_column not in df:
         return
     
@@ -151,19 +154,19 @@ def clean_up(df, excluded_columns):
 
 def apply_common_style(df, excluded_columns):
 
-    if 'publishedAt' in df:
-        df = df.rename(columns={'publishedAt': 'published At'})
+    if 'published_at' in df:
+        df = df.rename(columns={'published_at': 'published At'})
 
     apply_a_tag_to_column(df, 'source', 'title')
 
-    apply_a_tag_to_column(df, 'platformSrc', 'platform')
+    apply_a_tag_to_column(df, 'organizationSrc', 'organization')
 
     apply_a_tag_to_column(df, 'authorSrc', 'author')
 
     apply_label_style_to_column(df, 'price', price_icon_palette)
     df['price'] = df.apply(lambda x: f"{x['price']} of {x['cost']}$" if x['cost'] != 0 else x['price'], axis=1)
 
-    apply_label_style_to_column(df, 'label', label_icon_palette)
+    apply_label_style_to_column(df, 'tag', label_icon_palette)
 
     apply_label_style_to_language_column(df)
 
@@ -173,6 +176,6 @@ def apply_common_style(df, excluded_columns):
 
     apply_label_style_to_column(df, 'level', level_icon_palette)
 
-    apply_label_style_to_boolean_column(df, 'cert')
+    apply_label_style_to_boolean_column(df, 'hasCert')
     
     return clean_up(df, excluded_columns)
