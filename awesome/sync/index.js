@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 
 let amplifyConfig;
-const configFilePath = path.join(__dirname, './.development.env.json');
+const configFilePath = path.join(__dirname, './.config.development.json');
 
 if (fs.existsSync(configFilePath)) {
     amplifyConfig = require(configFilePath);
@@ -29,6 +29,7 @@ if (fs.existsSync(configFilePath)) {
 
 const email = process.env.EMAIL;
 const password = process.env.PASSWORD;
+
 Amplify.configure(amplifyConfig);
 
 async function fetchLocalData(knex, knexConfig, TABLE_NAME) {
