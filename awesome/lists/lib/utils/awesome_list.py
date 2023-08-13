@@ -164,7 +164,8 @@ def apply_common_style(df, excluded_columns):
     apply_a_tag_to_column(df, 'authorSrc', 'author')
 
     apply_label_style_to_column(df, 'price', price_icon_palette)
-    df['price'] = df.apply(lambda x: f"{x['price']} of {x['cost']}$" if x['cost'] != 0 else x['price'], axis=1)
+    if 'price' in df:
+        df['price'] = df.apply(lambda x: f"{x['price']} of ${x['cost']}" if x['cost'] != 0 else x['price'], axis=1)
 
     apply_label_style_to_column(df, 'tag', label_icon_palette)
 
