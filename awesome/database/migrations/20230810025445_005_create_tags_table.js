@@ -1,7 +1,7 @@
 const databaseOperations = require("../utils");
 const { TABLES } = require("../constants");
 
-const TABLE_NAME = TABLES.TAGS;
+const TABLE_NAME = TABLES.TAG;
 
 /**
  * @param { import("knex").Knex } knex

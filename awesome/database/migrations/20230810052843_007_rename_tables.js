@@ -12,11 +12,11 @@ const TAG = TABLES.TAG;
  */
 exports.up = function (knex) {
     return Promise.all([
-        knex.schema.renameTable('certificates', CERTIFICATE),
-        knex.schema.renameTable('courses', COURSE),
-        knex.schema.renameTable('organizations', ORGANIZATION),
-        knex.schema.renameTable('users', USER),
-        knex.schema.renameTable('tags', TAG),
+        knex.schema.renameTable('certificate', CERTIFICATE),
+        knex.schema.renameTable('course', COURSE),
+        knex.schema.renameTable('organization', ORGANIZATION),
+        knex.schema.renameTable('user', USER),
+        knex.schema.renameTable('tag', TAG),
     ]);
 };
 
@@ -26,10 +26,10 @@ exports.up = function (knex) {
  */
 exports.down = function (knex) {
     return Promise.all([
-        knex.schema.renameTable(CERTIFICATE, 'certificates'),
-        knex.schema.renameTable(COURSE, 'courses'),
-        knex.schema.renameTable(ORGANIZATION, 'organizations'),
-        knex.schema.renameTable(USER, 'users'),
-        knex.schema.renameTable(TAG, 'tags'),
+        knex.schema.renameTable(CERTIFICATE, 'certificate'),
+        knex.schema.renameTable(COURSE, 'course'),
+        knex.schema.renameTable(ORGANIZATION, 'organization'),
+        knex.schema.renameTable(USER, 'user'),
+        knex.schema.renameTable(TAG, 'tag'),
     ]);
 };

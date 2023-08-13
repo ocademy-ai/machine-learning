@@ -1,7 +1,7 @@
 const databaseOperations = require("../utils");
 const { TABLES } = require("../constants");
 
-const TABLE_NAME = TABLES.CERTIFICATES;
+const TABLE_NAME = TABLES.CERTIFICATE;
 
 /**
  * @param { import("knex").Knex } knex
@@ -17,7 +17,7 @@ exports.up = function (knex) {
     table
       .foreign("organization")
       .references("id")
-      .inTable(TABLES.ORGANIZATIONS);
+      .inTable(TABLES.ORGANIZATION);
     table.timestamps(true, true, true);
   });
 };
