@@ -116,7 +116,5 @@ async function main(LIST_TABLE, LIST_TABLE_STRING, CREATED_TABLE, CREATED_TABLE_
             console.log("Cloud data is more than local data, please check it");
             break;
     }
-
-
 }
 main(listCourses, 'listCourses', createCourse, 'createCourse', 'Course');
