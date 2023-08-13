@@ -11,7 +11,6 @@ const path = require('path');
 let amplifyConfig;
 const configFilePath = path.join(__dirname, './.development.env.json');
 
-
 if (fs.existsSync(configFilePath)) {
     amplifyConfig = require(configFilePath);
 } else {
