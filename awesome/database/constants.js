@@ -11,6 +11,11 @@ const TABLES = {
   USER_COURSES: "UserCourses",
 };
 
+const DIRECTUS_TABLES = {
+  DIRECTUS_FIELDS: "directus_fields",
+}
+
 module.exports = {
   TABLES,
+  DIRECTUS_TABLES,
 };
