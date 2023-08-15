@@ -11,13 +11,13 @@ const TAG = TABLES.TAG;
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    return Promise.all([
-        knex.schema.renameTable('certificates', CERTIFICATE),
-        knex.schema.renameTable('courses', COURSE),
-        knex.schema.renameTable('organizations', ORGANIZATION),
-        knex.schema.renameTable('users', USER),
-        knex.schema.renameTable('tags', TAG),
-    ]);
+  return Promise.all([
+    knex.schema.renameTable("certificates", CERTIFICATE),
+    knex.schema.renameTable("courses", COURSE),
+    knex.schema.renameTable("organizations", ORGANIZATION),
+    knex.schema.renameTable("users", USER),
+    knex.schema.renameTable("tags", TAG),
+  ]);
 };
 
 /**
@@ -25,11 +25,11 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return Promise.all([
-        knex.schema.renameTable(CERTIFICATE, 'certificates'),
-        knex.schema.renameTable(COURSE, 'courses'),
-        knex.schema.renameTable(ORGANIZATION, 'organizations'),
-        knex.schema.renameTable(USER, 'users'),
-        knex.schema.renameTable(TAG, 'tags'),
-    ]);
+  return Promise.all([
+    knex.schema.renameTable(CERTIFICATE, "certificates"),
+    knex.schema.renameTable(COURSE, "courses"),
+    knex.schema.renameTable(ORGANIZATION, "organizations"),
+    knex.schema.renameTable(USER, "users"),
+    knex.schema.renameTable(TAG, "tags"),
+  ]);
 };

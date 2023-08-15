@@ -11,6 +11,17 @@ function createTable(knex, tableName, tableBuilderFunction) {
   }
 }
 
+// alter table
+async function alterTable(knex, tableName, tableBuilderFunction) {
+  try {
+    await knex.schema.alterTable(tableName, tableBuilderFunction);
+    console.log(`Table "${tableName}" altered successfully.`);
+  } catch (error) {
+    console.error("Error altering table:", error);
+  } finally {
+  }
+}
+
 // delete table
 async function dropTable(tableName) {
   try {
@@ -114,4 +125,5 @@ module.exports = {
   createTable,
   deleteColumn,
   insertColumn,
+  alterTable,
 };

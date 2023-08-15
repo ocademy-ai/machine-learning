@@ -1,15 +1,15 @@
 const TABLES = {
-  ORGANIZATION: 'Organization',
-  USER: 'User',
-  CERTIFICATE: 'Certificate',
-  COURSE: 'Course',
-  BOOK: 'Book',
-  TUTORIAL: 'Tutorial',
-  TAG: 'Tag',
-  COURSETAGS: 'CourseTags',
-  COURSEORGANIZATIONS: 'CourseOrganizations',
-  USERCOURSES: 'UserCourses',
-}
+  ORGANIZATION: "Organization",
+  USER: "User",
+  CERTIFICATE: "Certificate",
+  COURSE: "Course",
+  BOOK: "Book",
+  TUTORIAL: "Tutorial",
+  TAG: "Tag",
+  COURSE_TAGS: "CourseTags",
+  COURSE_ORGANIZATIONS: "CourseOrganizations",
+  USER_COURSES: "UserCourses",
+};
 
 async function alterTable(knex, tableName, tableBuilderFunction) {
   try {
