@@ -34,7 +34,7 @@ Mushrooms are very interesting. Let's import a dataset to study them:
 import pandas as pd
 import matplotlib.pyplot as plt
 
-mushrooms = pd.read_csv('https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/mushrooms.csv')
+mushrooms = pd.read_csv('https://static-1300131294.cos.accelerate.myqcloud.com/data/mushrooms.csv')
 mushrooms.head()
 ```
 
