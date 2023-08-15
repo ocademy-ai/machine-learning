@@ -1,5 +1,5 @@
 const { alterTable } = require("../utils");
-const { TABLES, alterTable } = require("../constants");
+const { TABLES } = require("../constants");
 
 exports.up = async function (knex) {
   await alterTable(knex, TABLES.COURSE_TAGS, (table) => {
