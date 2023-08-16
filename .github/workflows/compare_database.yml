@@ -1,0 +1,32 @@
+name: Compare Databases
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'awesome/database/data.db'
+
+jobs:
+  compare-dbs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SQLite
+      run: sudo apt-get install sqlite3
+      
+    - name: Convert current branch database to dump
+      run: sqlite3 awesome/database/data.db .dump > current_data.dump
+      continue-on-error: true
+
+    - name: Get target branch database content
+      run: |
+        wget -O target_data.db https://raw.githubusercontent.com/${{ github.repository }}/main/awesome/database/data.db
+        sqlite3 target_data.db .dump > target_data.dump
+      continue-on-error: true
+      
+    - name: Show differences
+      run: diff -a target_data.dump current_data.dump || true
