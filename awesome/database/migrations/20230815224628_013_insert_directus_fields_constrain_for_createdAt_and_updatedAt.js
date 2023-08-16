@@ -10,7 +10,7 @@ exports.up = async function (knex) {
     await Promise.all(
       Object.values(TABLES).map(async (v) => {
         return new Promise((resolve, reject) => {
-          knex("directus_fields")
+          knex(DIRECTUS_TABLES.DIRECTUS_FIELDS)
             .insert({
               collection: v,
               field: "createdAt",
@@ -32,7 +32,7 @@ exports.up = async function (knex) {
     await Promise.all(
         Object.values(TABLES).map(async (v) => {
           return new Promise((resolve, reject) => {
-            knex("directus_fields")
+            knex(DIRECTUS_TABLES.DIRECTUS_FIELDS)
               .insert({
                 collection: v,
                 field: "updatedAt",
@@ -64,10 +64,15 @@ exports.down = async function (knex) {
     await Promise.all(
       Object.values(TABLES).map(async (v) => {
         return new Promise((resolve, reject) => {
-          knex("directus_fields")
-            .where({
-              collection: v,
-              field: "createdAt",
+          knex(DIRECTUS_TABLES.DIRECTUS_FIELDS)
+            .where(function() {
+              this.where({
+                collection: v,
+                field: "createdAt",
+              }).orWhere({
+                collection: v,
+                field: "updatedAt",
+              });
             })
             .del()
             .then((r) => resolve(r))
@@ -75,19 +80,5 @@ exports.down = async function (knex) {
         });
       })
     );
-    await Promise.all(
-        Object.values(TABLES).map(async (v) => {
-          return new Promise((resolve, reject) => {
-            knex("directus_fields")
-              .where({
-                collection: v,
-                field: "updatedAt",
-              })
-              .del()
-              .then((r) => resolve(r))
-              .catch((e) => reject(e));
-          });
-        })
-      );
   }
 };
