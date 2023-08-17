@@ -3342,7 +3342,7 @@ const deleteCourseOrganizations = /* GraphQL */ `
         cost
         topic
         duration
-        type
+        typejs
         hasCert
         language
         level
@@ -3426,4 +3426,20 @@ module.exports = {
   updateUserProjects,
   updateUserVisualizations,
   updateVisualizationTags,
+  deleteConversation,
+  deleteCourse,
+  deleteCourseOrganizations,
+  deleteCourseTags,
+  deleteMessage,
+  deleteOrganization,
+  deleteProject,
+  deleteProjectTags,
+  deleteTag,
+  deleteUser,
+  deleteUserConversations,
+  deleteUserCourses,
+  deleteUserProjects,
+  deleteUserVisualizations,
+  deleteVisualization,
+  deleteVisualizationTags,
 };

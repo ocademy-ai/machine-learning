@@ -1,4 +1,4 @@
-name: Compare Databases
+name: pr-awesome
 
 on:
   pull_request:
@@ -28,5 +28,10 @@ jobs:
         sqlite3 target_data.db .dump > target_data.dump
       continue-on-error: true
       
-    - name: Show differences
+    - name: Show database differences
       run: diff -a target_data.dump current_data.dump || true
+
+    - name: Synchronize local and cloud databases
+      run: |
+        cd awesome/sync
+        node index.js
