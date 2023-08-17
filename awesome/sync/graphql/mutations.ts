@@ -3342,7 +3342,7 @@ const deleteCourseOrganizations = /* GraphQL */ `
         cost
         topic
         duration
-        typejs
+        type
         hasCert
         language
         level
