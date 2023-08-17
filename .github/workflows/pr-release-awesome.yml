@@ -1,0 +1,56 @@
+name: pr-release-awesome
+
+on:
+  pull_request:
+    branches:
+      - release
+    paths:
+      - 'awesome/database/data.db'
+
+jobs:
+  compare-dbs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SQLite
+      run: sudo apt-get install sqlite3
+      
+    - name: Convert current branch database to dump
+      run: sqlite3 awesome/database/data.db .dump > current_data.dump
+      continue-on-error: true
+
+    - name: Get target branch database content
+      run: |
+        wget -O target_data.db https://raw.githubusercontent.com/${{ github.repository }}/release/awesome/database/data.db
+        sqlite3 target_data.db .dump > target_data.dump
+      continue-on-error: true
+      
+    - name: Show database differences
+      run: diff -a target_data.dump current_data.dump || true
+
+    - name: Install dependencies
+      run: |
+        cd awesome
+        npm install
+
+    - name: Set environment variables 
+      run: |
+        export EMAIL=${{ secrets.EMAIL }}
+        export PASSWORD=${{ secrets.PASSWORD }}
+        export AWS_APPSYNC_AUTHENTICATIONTYPE_PROD=${{ secrets.AWS_APPSYNC_AUTHENTICATIONTYPE_PROD }}
+        export AWS_APPSYNC_GRAPHQLENDPOINT_PROD=${{ secrets.AWS_APPSYNC_GRAPHQLENDPOINT_PROD }}
+        export AWS_APPSYNC_REGION_PROD=${{ secrets.AWS_APPSYNC_REGION_PROD }}
+        export AWS_COGNITO_IDENTITY_POOL_ID_PROD=${{ secrets.AWS_COGNITO_IDENTITY_POOL_ID_PROD }}
+        export AWS_COGNITO_REGION_PROD=${{ secrets.AWS_COGNITO_REGION_PROD }}
+        export AWS_COGNITO_SIGNUP_ATTRIBUTES_PROD=${{ secrets.AWS_COGNITO_SIGNUP_ATTRIBUTES_PROD }}
+        export AWS_PROJECT_REGION_PROD=${{ secrets.AWS_PROJECT_REGION_PROD }}
+        export AWS_USER_POOLS_ID_PROD=${{ secrets.AWS_USER_POOLS_ID_PROD }}
+        export AWS_USER_POOLS_WEB_CLIENT_ID_PROD=${{ secrets.AWS_USER_POOLS_WEB_CLIENT_ID_PROD }}
+
+    - name: Synchronize local and cloud databases
+      run: |
+        cd sync
+        node index.js
