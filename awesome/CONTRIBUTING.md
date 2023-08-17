@@ -10,19 +10,24 @@ To contribute, send us a pull request. Please review our general [Guidelines for
 
 This section describes the development environment setup and workflow which should be followed when making changes. We follow a set of pre-defined [Style guide](./STYLE_GUIDE.md) for consistent code quality throughout the book and expect the same from our community contributors. You may need to check other chapters from other contributors as well for this step.
 
-The awesome lists are structured as several parts.
+The awesome lists are structured into several parts.
 
 - A SQLite database containing the actual data.
 - A [Directus](https://directus.io/) CMS as a user-friendly interface for data management.
 - To each list, there are,
-  - a Jupyter Notebook `README.ipynb` queries the corresponding data from database, and generates the output as a table.
+  - a Jupyter Notebook `README.ipynb` queries the corresponding data from the database, and generates the output as a table.
   - a Markdown file `README.md` renders the parsed records in an easier-to-access way.
+
+Here is the latest ERD of the database.
+
+![Screenshot 2023-08-16 at 1 39 37 PM](https://github.com/ocademy-ai/machine-learning/assets/5424267/194ce266-8f0b-49d9-9210-d8c42d731e33)
+
 
 ### How to update the data?
 
 #### Update the data
 
-The build-in Directus CRM is the recommended way to update the data. But if you'd like be in a more handy way, feel free to use any preferred [SQLite editor or through any programming language](https://shareg.pt/4iQxJ9F).
+The built-in Directus CRM is the recommended way to update the data. But if you'd like to be in a more handy way, feel free to use any preferred [SQLite editor or through any programming language](https://shareg.pt/4iQxJ9F).
 
 The Directus is defined by the `awesome/database/docker-compose.yml` by following the [official self-hosting guidance](https://docs.directus.io/self-hosted/quickstart.html), including,
 
@@ -31,7 +36,7 @@ The Directus is defined by the `awesome/database/docker-compose.yml` by followin
 - port,
 - key and secret.
 
-You can simply follow below steps to launch the Directus instance on your local.
+You can simply follow the below steps to launch the Directus instance on your local.
 
 1. [Set up Docker](https://sharegpt.com/c/6C9MF91).
 2. `cd machine-learning/awesome/database`.
@@ -42,7 +47,7 @@ Now you are ready to make changes to the data through the Directus Data Studio A
 
 #### Update the corresponding Jupyter Notebook
 
-You need nothing but a Jupyter Notebook environment for to start the development of this step. You can either [set up the environnement in your local or use any cloud based solutions like Google Colab](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d). If you are using VSCode, please follow [this](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d).
+You need nothing but a Jupyter Notebook environment to start the development of this step. You can either [set up the environment locally or use any cloud-based solution like Google Colab](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d). If you are using VSCode, please follow [this](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d).
 
 E.g. you are adding some new content to the courses list.
 
@@ -50,9 +55,9 @@ E.g. you are adding some new content to the courses list.
 2. Open `machine-learning/awesome/lists/courses/README.ipynb`.
 3. Rerun all the cells.
 4. If you want to update the output rendering logic in the Notebook or `machine-learning/awesome/lists/lib`,
-   1. add new introduced Python libraries if needed,
+   1. add newly introduced Python libraries if needed,
    2. update the rendering code in Python.
-5. Go back to the JupyterLab or Jupyter NOtebook, restart the kernel, and rerun all the cells.
+5. Go back to JupyterLab or Jupyter NOtebook, restart the kernel, and rerun all the cells.
 6. Use [nbconvert to sync](#how-to-use-nbconvert) the latest `README.ipynb` with the `README.md` Markdown file.
 
 ### How to update the database schema?
@@ -63,7 +68,7 @@ TBD
 
 ### How to use **nbconvert**?
 
-**nbconvert** is used to generate the final Markdown file from the Jupyter Notebook Content. You can set it up by following [this](https://chat.openai.com/share/d7a0ea4a-886f-4872-9e91-ba315ffe2c02), then simply run below command.
+**nbconvert** is used to generate the final Markdown file from the Jupyter Notebook Content. You can set it up by following [this](https://chat.openai.com/share/d7a0ea4a-886f-4872-9e91-ba315ffe2c02), then simply run the below command.
 
 ```bash
 jupyter nbconvert README.ipynb --no-input --to markdown --TagRemovePreprocessor.enabled=True --TagRemovePreprocessor.remove_cell_tags remove_cell
