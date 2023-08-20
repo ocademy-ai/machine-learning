@@ -65,14 +65,13 @@ exports.down = async function (knex) {
       Object.values(TABLES).map(async (v) => {
         return new Promise((resolve, reject) => {
           knex(DIRECTUS_TABLES.DIRECTUS_FIELDS)
-            .where(function() {
-              this.where({
-                collection: v,
-                field: "createdAt",
-              }).orWhere({
-                collection: v,
-                field: "updatedAt",
-              });
+            .where({
+              collection: v,
+              field: "createdAt",
+            })
+            .orWhere({
+              collection: v,
+              field: "updatedAt",
             })
             .del()
             .then((r) => resolve(r))
