@@ -32,8 +32,8 @@ If you're new to open source or aren't sure where to start, don't worry! We have
 
 If you have any questions or comments about this project, please feel free to contact us by email. We look forward to hearing from you!
 
-- [zhangqi444@gmail.com](mailto:zhangqi444@gmail.com)
-- [lundechen@shu.edu.cn](mailto:lundechen@shu.edu.cn)
+- [qi@ocademy.cc](mailto:qi@ocadmy.cc)
+- [lunde@ocademy.cc](mailto:lunde@ocademy.cc)
 
 Follow us -
 
