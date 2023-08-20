@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="google-site-verification" content="_SXyl5T3hvOdDzBuw4EVGD8qyT4ipkQ-4S0TN41zvdI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Visualizing K-Means Clustering</title>
+
+    <!-- Local stylesheets -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif|Oxygen' rel='stylesheet' type='text/css'>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/favicon.ico?1=1" />
+
+</head>
+
+
+<div class="content">
+    <h1 id="visualizing-k-means-clustering">Visualizing K-Means
+        Clustering</a></h1>
+
+    <p>
+        Suppose you plotted the screen width and height of all the devices accessing this website. You'd probably
+        find that the points form three clumps: one clump with small dimensions, (smartphones), one with moderate
+        dimensions, (tablets), and one with large dimensions, (laptops and desktops). Getting an algorithm to
+        recognize these clumps of points without help is called <em>clustering</em>. To gain insight into how common
+        clustering techniques work (and don't work), I've been making some visualizations that illustrate three
+        fundamentally different approaches. This post, the first in this series of three, covers the k-means
+        algorithm. To begin, click an initialization strategy below:
+    </p>
+
+    <style>
+        input {
+            font-size: 40px;
+        }
+
+        text.choice_text {
+            font-size: 20px;
+        }
+
+        text.choice_title {
+            font-size: 40px;
+        }
+    </style>
+
+    <script src="min.js"></script>
+    <script src="choose.js"></script>
+    <script src="generate.js"></script>
+    <script src="config.js"></script>
+    <script src="kmeans.js"></script>
+    <script src="main.js"></script>
+    <div id="svg_area" style="margin-top: 40px;"><svg width="100%" viewBox="0 0 960 500">
+            <rect x="0" y="0" width="100%" height="100%" style="fill: white;"></rect>
+            <g transform="translate(40,20)">
+                <g class="own_region" opacity="0.5"></g>
+                <rect class="choice_rect" x="112.5" y="112.5" rx="10" ry="10" width="180.0000000000001" height="85.5"
+                    style="stroke: black; stroke-width: 3; fill: white; cursor: pointer;"></rect>
+                <rect class="choice_rect" x="337.5" y="112.5" rx="10" ry="10" width="180.0000000000001" height="85.5"
+                    style="stroke: black; stroke-width: 3; fill: white; cursor: pointer;"></rect>
+                <rect class="choice_rect" x="562.5" y="112.5" rx="10" ry="10" width="180.0000000000001" height="85.5"
+                    style="stroke: black; stroke-width: 3; fill: white; cursor: pointer;"></rect><text
+                    class="choice_text" x="153.00000000000003" y="157.5" style="font-size: 20px; cursor: pointer;">I'll
+                    Choose</text><text class="choice_text" x="378.00000000000006" y="157.5"
+                    style="font-size: 20px; cursor: pointer;">Randomly</text><text class="choice_text" x="589.5"
+                    y="157.5" style="font-size: 20px; cursor: pointer;">Farthest
+                    Point</text><text class="choice_title" x="135.00000000000003" y="22.499999999999943"
+                    style="font-size: 40px;">How to pick the initial centroids?</text>
+            </g>
+        </svg></div>
+    <div id="button_area" style="margin-top: 10px;"><input class="restart_button" name="restart_button" type="button"
+            value="Restart"></div>
+    <script>restart();</script>
+
+    <h2>K-Means Algorithm</h2>
+    <p>
+        The k-means algorithm captures the insight that each point in a cluster should be near to the center of that
+        cluster. It works like this: first we choose k, the number of clusters we want to find in the data. Then,
+        the centers of those k clusters, called <em>centroids</em>, are initialized in some fashion, (discussed
+        later).
+    </p>
+    <p>
+        The algorithm then proceeds in two alternating parts: In the <em>Reassign Points</em> step, we assign every
+        point in the data to the cluster whose centroid is nearest to it. In the <em>Update Centroids</em> step, we
+        recalculate each centroid's location as the mean (center) of all the points assigned to its cluster. We then
+        iterate these steps until the centroids stop moving, or equivalently until the points stop switching
+        clusters.
+    </p>
+    <p>
+        In the above visualization, the color of the small data points represents the cluster to which they have
+        been assigned. The larger circles are the cluster centroids, with their color indicating the cluster that
+        they represent. For illustrative purposes, I've also shaded subregions depending on which centroid they are
+        closest to. This is called a Voronoi diagram</a>.
+    </p>
+    <p>
+        In the Reassign Points step, for every point we determine which centroid is closest to it, and modify its
+        color accordingly. In the Update Centroids step, the centroids move to the new mean of the points in their
+        cluster, and I redraw the Voronoi diagram based on the new locations of the centroids. Until k-means
+        converges, after each Update Centroids step there will be data points in the Voronoi cells belonging to a
+        different cluster; these will be reassigned in the next Reassign Points step. When the algorithm converges,
+        all the data points in each Voronoi cell will actually be assigned to the corresponding centroid, so that
+        further Reassign Points steps and further Update Centroids steps will have no effect.
+    </p>
+
+    <h2>Properties of K-Means</h2>
+    <p>
+        It's not hard to prove that the k-means algorithm eventually converges. (Proof outline: The sum of squared
+        distances between each point and its centroid strictly decreases in both the Reassign Points and Update
+        Centroids steps, and there are only finitely many cluster configurations). Despite some contrived examples
+        in which k-means takes exponential time to converge, as a matter of practice it converges reasonably
+        quickly. Since the Reassign Points and Update Centroids steps each take linear time, the practical run time
+        of k-means is basically linear, and exactly so if you limit the number of iterations.
+    </p>
+    <p>
+        Unfortunately, despite the fact that k-means is guaranteed to converge, the final cluster configuration to
+        which it converges is not in general unique, and depends on the initial centroid locations. As a simple
+        example of this, take a look at the &quot;Gaussian Mixture&quot; data, which consists of three clearly
+        separate clumps. If you try to place four centroids, however, usually what will happen after you run k-means
+        is that two of the point clumps will get one centroid each, and the final clump will get two centroids.
+        Which clump it is that gets two centroids, however, depends on where you initialize the centroids to be. As
+        a matter of practice, then, oftentimes people will try several initialization strategies, (or try a
+        randomized initialization strategy multiple times), and pick the one that results in the best clustering.
+    </p>
+    <p>
+        One final interesting property of k-means, though one that isn't much talked about, is that it is actually
+        possible for no data points to be assigned to a cluster in the Reassign Points step. For instance, if you
+        initialize the centroids yourself, and place one centroid inside a ring of other centroids in some empty
+        region, then the ring of centroids will &quot;block off&quot; the inner centroid from the data points.
+        Consequently, no data points will be closest to the inner centroid, and so no points will be assigned to it.
+        It can also happen, however, that no points are assigned to a centroid in a later Reassign Points step.
+    </p>
+    <p>
+        What happens in this situation is implementation dependent: In my visualization, the lonely centroid
+        awkwardly stays where it is, and sometimes gets points assigned to it in a later Reassign Points step. Some
+        implementations, however, delete the lonely centroid, and some randomly relocate it somewhere else. If an
+        implementation does not specifically handle this situation, however, then it will occasionally fail with a
+        0/0 error when it tries to compute the lonely centroid's new location.
+    </p>
+
+    <h2>Initialization Strategies</h2>
+    <p>
+        So how do you initialize the centroids in k-means?
+    </p>
+    <p>
+        One straightforward way of doing it is to pick them randomly from among your data points. This is does not
+        work particularly well, however, because it becomes overwhelmingly likely that many of initial centroids
+        will end up in the same true cluster. Suppose you are lucky enough to pick k correctly, and that each of the
+        k true clusters has about the same number of points. Then it's easy to show that the probability that the k
+        centroids will each be initialized into unique clusters is about k!/k^k. By Stirling's Approximation, this
+        is about e^-k sqrt(2 pi k), which goes to zero very fast.
+    </p>
+    <p>
+        A better idea, implemented in the &quot;farthest&quot; heuristic, is to initialize the first centroid
+        randomly, but then to initialize the second centroid to be the data point farthest away from it. In general,
+        we initialize the jth centroid to the point whose minimum distance to the preceding centroids is largest.
+        This procedure initializes the centroids to be well spread-out from each other. Notice how well it works in
+        the &quot;Packed Circles&quot; data, for example: With k=6, the farthest point heuristic will usually
+        initialize each centroid into a different true cluster.
+    </p>
+    <p>
+        Of course, there is still the problem of choosing k, the number of clusters. Usually, you don't know
+        beforehand how many clusters the data contains, and usually you can't look at the data directly because it
+        lies in a higher dimension than two or three. (Indeed, if you can look at your data and see obvious clusters
+        like you can here, you may be better off clustering manually). So in practice, people often try different
+        values of k and see how their results vary.
+    </p>
+
+    <h2>K-Means Performance</h2>
+    <p>
+        K-Means works best in datasets that have with clusters that are roughly equally-sized and shaped roughly
+        regularly. So it works very well on the &quot;Gaussian Mixture&quot; data and the &quot;Packed Circles&quot;
+        data if you the &quot;Farthest&quot; heuristic and the right number of centroids.
+    </p>
+    <p>
+        However, it is not able to capture the four different clusters of points in the &quot;Smiley&quot; and
+        &quot;Pimpled Smiley&quot; datasets, due to the unusual shape of the face outline. The requirement of
+        choosing k, and the dependence of the output on the initial cluster configuration, is also annoying. And
+        k-means can only be applied when the data points lie in a Euclidean space, failing for more complex types of
+        data.
+    </p>
+    </p>
+
+</div>
+
+
+
+<!-- Local javascript first -->
