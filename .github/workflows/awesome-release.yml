@@ -1,0 +1,55 @@
+name: awesome-release
+
+on:
+  push:
+    branches:
+      - release
+    paths:
+      - 'awesome/database/data.db'
+
+jobs:
+  compare-dbs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SQLite
+      run: sudo apt-get install sqlite3
+      
+    - name: Install sqldiff tool
+      run: |
+        wget https://www.sqlite.org/2023/sqlite-tools-linux-x86-3420000.zip
+        unzip sqlite-tools-linux-x86-3420000.zip
+
+    - name: Get target branch database
+      run: |
+        wget -O target_data.db https://raw.githubusercontent.com/${{ github.repository }}/release/awesome/database/data.db
+
+    - name: Show database differences
+      run: ./sqlite-tools-linux-x86-3420000/sqldiff target_data.db awesome/database/data.db
+
+    - name: Install dependencies
+      run: |
+        cd awesome
+        npm install
+
+    - name: Set environment variables 
+      run: |
+        export EMAIL=${{ secrets.EMAIL }}
+        export PASSWORD=${{ secrets.PASSWORD }}
+        export AWS_APPSYNC_AUTHENTICATIONTYPE=${{ secrets.AWS_APPSYNC_AUTHENTICATIONTYPE_PROD }}
+        export AWS_APPSYNC_GRAPHQLENDPOINT=${{ secrets.AWS_APPSYNC_GRAPHQLENDPOINT_PROD }}
+        export AWS_APPSYNC_REGION=${{ secrets.AWS_APPSYNC_REGION_PROD }}
+        export AWS_COGNITO_IDENTITY_POOL_ID=${{ secrets.AWS_COGNITO_IDENTITY_POOL_ID_PROD }}
+        export AWS_COGNITO_REGION=${{ secrets.AWS_COGNITO_REGION_PROD }}
+        export AWS_COGNITO_SIGNUP_ATTRIBUTES=${{ secrets.AWS_COGNITO_SIGNUP_ATTRIBUTES_PROD }}
+        export AWS_PROJECT_REGION=${{ secrets.AWS_PROJECT_REGION_PROD }}
+        export AWS_USER_POOLS_ID=${{ secrets.AWS_USER_POOLS_ID_PROD }}
+        export AWS_USER_POOLS_WEB_CLIENT_ID=${{ secrets.AWS_USER_POOLS_WEB_CLIENT_ID_PROD }}
+
+    - name: Synchronize local and cloud databases
+      run: |
+        cd sync
+        node index.js

@@ -56,8 +56,15 @@ jobs:
       name: Build the book
       run: |
         cd ./open-machine-learning-jupyter-book/
-        bash ./build.sh
+        bash ./build-force-all.sh
       continue-on-error: false
+
+    # Post build the book
+    - shell: bash -l {0}
+      name: Post build the book
+      run: |
+        cd ./open-machine-learning-jupyter-book/
+        bash ./post-build.sh
 
     - name: Deploy to Netlify
       uses: nwtgck/actions-netlify@v1.2
