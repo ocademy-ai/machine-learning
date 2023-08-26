@@ -24,7 +24,7 @@ async function deleteField(knex, data) {
     .del()
 }
 
-async function insertIdField(
+async function insertIdFields(
   knex,
   tables,
 ) {
@@ -49,7 +49,7 @@ async function insertIdField(
   );
 }
 
-async function insertTimeField(
+async function insertTimeFields(
   knex,
   tables,
   field,
@@ -79,7 +79,7 @@ async function insertTimeField(
   );
 }
 
-async function insertForeignIdField(
+async function insertForeignIdFields(
   knex,
   tables,
   field,
@@ -107,7 +107,7 @@ async function insertForeignIdField(
   );
 }
 
-async function deleteField(
+async function deleteFields(
   knex,
   tables,
   field
@@ -141,9 +141,10 @@ async function updateDisplayTemplates(knex, tables, field, template) {
 }
 
 module.exports = {
-  insertIdField,
-  insertTimeField,
-  insertForeignIdField,
-  deleteField
+  insertField,
+  insertIdFields,
+  insertTimeFields,
+  insertForeignIdFields,
+  deleteField,
   updateDisplayTemplates,
 };

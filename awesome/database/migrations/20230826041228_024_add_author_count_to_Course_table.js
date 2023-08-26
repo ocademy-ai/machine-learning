@@ -1,5 +1,6 @@
 const { TABLES } = require("../constants");
 const TABLE_NAME = TABLES.COURSE;
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
