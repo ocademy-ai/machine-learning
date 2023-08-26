@@ -1,4 +1,4 @@
-<img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/6d1db291-b08b-4e62-89ff-20f6f9ba461e" alt="logo" width="160" height="160" align="right" />
+<img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/bebee200-677e-4d9b-93f7-5e517f59e6f4" alt="logo" height="160" align="right" />
 
 # Learn AI together, for free.
 
