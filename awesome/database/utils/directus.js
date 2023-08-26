@@ -13,65 +13,11 @@ function _updateDisplayTemplate(knex, collection, field, template, display) {
     });
 }
 
-async function updateCourseIdDisplayTemplate(
-  knex,
-  tables,
-  template = "{{title}}"
-) {
+async function updateDisplayTemplates(knex, tables, field, template) {
   await Promise.all(
     tables.map(async (v) => {
       return new Promise((resolve, reject) => {
-        _updateDisplayTemplate(knex, v, "courseId", template, "related-values")
-          .then((r) => resolve(r))
-          .catch((e) => reject(e));
-      });
-    })
-  );
-}
-
-async function updateUserIdDisplayTemplate(
-  knex,
-  tables,
-  template = "{{name}}"
-) {
-  await Promise.all(
-    tables.map(async (v) => {
-      return new Promise((resolve, reject) => {
-        _updateDisplayTemplate(knex, v, "userId", template, "related-values")
-          .then((r) => resolve(r))
-          .catch((e) => reject(e));
-      });
-    })
-  );
-}
-
-async function updateTagIdDisplayTemplate(knex, tables, template = "{{name}}") {
-  await Promise.all(
-    tables.map(async (v) => {
-      return new Promise((resolve, reject) => {
-        _updateDisplayTemplate(knex, v, "tagId", template, "related-values")
-          .then((r) => resolve(r))
-          .catch((e) => reject(e));
-      });
-    })
-  );
-}
-
-async function updateOrganizationIdDisplayTemplate(
-  knex,
-  tables,
-  template = "{{name}}"
-) {
-  await Promise.all(
-    tables.map(async (v) => {
-      return new Promise((resolve, reject) => {
-        _updateDisplayTemplate(
-          knex,
-          v,
-          "organizationId",
-          template,
-          "related-values"
-        )
+        _updateDisplayTemplate(knex, v, field, template, "related-values")
           .then((r) => resolve(r))
           .catch((e) => reject(e));
       });
@@ -80,8 +26,5 @@ async function updateOrganizationIdDisplayTemplate(
 }
 
 module.exports = {
-  updateCourseIdDisplayTemplate,
-  updateOrganizationIdDisplayTemplate,
-  updateTagIdDisplayTemplate,
-  updateUserIdDisplayTemplate,
+  updateDisplayTemplates,
 };
