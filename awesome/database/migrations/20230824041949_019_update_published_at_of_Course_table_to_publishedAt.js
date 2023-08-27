@@ -3,9 +3,9 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-    return knex.schema.table('Course', function (table) {
-        table.renameColumn('published_at', 'publishedAt');
-    });
+  return knex.schema.table("Course", function (table) {
+    table.renameColumn("publishedAt", "publishedAt");
+  });
 };
 
 /**
@@ -13,7 +13,7 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-    return knex.schema.table('Course', function (table) {
-        table.renameColumn('publishedAt', 'published_at');
-    });
+  return knex.schema.table("Course", function (table) {
+    table.renameColumn("publishedAt", "publishedAt");
+  });
 };

@@ -55,15 +55,16 @@ E.g. you are adding some new content to the courses list.
 4. If you want to update the output rendering logic in the Notebook or `machine-learning/awesome/lists/lib`,
    1. add newly introduced Python libraries if needed,
    2. update the rendering code in Python.
-5. Go back to JupyterLab or Jupyter NOtebook, restart the kernel, and rerun all the cells.
-6. Use [nbconvert to sync](#how-to-use-nbconvert) the latest `README.ipynb` with the `README.md` Markdown file.
+   3. Go back to JupyterLab or Jupyter Notebook, restart the kernel, and rerun all the cells.
+5. Check the output `README.md`.
 
 #### STEP 3. Submit PR
 
 Now, you are ready to submit a PR for your changes. Please make sure you have gone through above STEPs successfully first. Then,
 
-1. submit PR, a SQLite database diff will be generated automatically by the GitHub action,
-2. review the GitHub Action build log, and make sure only intended change is included.
+1. submit PR, a SQLite database [diff](https://github.com/ocademy-ai/machine-learning/actions/runs/5971587037/job/16243737705) will be generated automatically by the GitHub action,
+2. review the GitHub Action build log, and make sure only intended database change is included,
+3. review the content of the `README.md`.
 
 #### An example
 

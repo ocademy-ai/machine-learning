@@ -17,4 +17,3 @@ def merge_table(main_df, intermediate_df, merged_df, main_id_name, merged_id_nam
     # merge main_df and intermediate_df
     main_df = main_df.merge(intermediate_df, left_on='id', right_on=main_id_name, how='left').drop(columns=[main_id_name])
     return main_df
-  

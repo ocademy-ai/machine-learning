@@ -1,4 +1,4 @@
-<img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/bebee200-677e-4d9b-93f7-5e517f59e6f4" alt="logo" height="160" align="right" />
+<img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/bebee200-677e-4d9b-93f7-5e517f59e6f4" alt="logo" height="200" align="right" />
 
 # Learn AI together, for free.
 
@@ -10,13 +10,15 @@
 
 ### 👍 Ocademy Awesome [In progress]
 
-A well-structured list of awesome AI courses, turorials, books, tools and other learning resources.
+A well-structured list of awesome AI courses, turorials, books, tools and other learning resources. Have a glance [here](./awesome/).
+
+### Ocademy GenAI
+
+Resources about Generative AI, started with a list of [prompts](./generative-ai/prompts/) for for AI Teaching and Learning.
 
 ### 📓 Ocademy Open Book [In progress]
 
-An [interactive and visual book](https://ocademy-ai.github.io/machine-learning/intro.html) aims to help millions of busy adults transition into AI.
-
-### 🧩 Features
+An [interactive and visual book](https://ocademy-ai.github.io/machine-learning/intro.html) aims to help millions of busy adults transition into AI, with below 🧩 features,
 
 - A curated list of beginner-friendly resources for learning Python, Data Science, Machine Learning, Deep Learning and MLOps.
 - Empower the learning journey with interactive Jupyter Notebooks built by [Jupyter Book](https://jupyterbook.org/) and [RISE](https://github.com/damianavila/RISE), with [TDD](https://en.wikipedia.org/wiki/Test-driven_development) style assignments.
@@ -52,7 +54,7 @@ Follow us -
 
 ## 📄 License
 
-Copyright © 2023 Ocademy
+Copyright © 2022-2023 Ocademy
 
 The content of this repository is bound by the following licenses:
 

@@ -36,6 +36,7 @@ language_icon_palette = {
     'English': '🇺🇸',
     '中文': '🇨🇳',
     'français': '🇫🇷',
+    'русский': '🇷🇺',
 }
 
 topic_icon_palette = {
@@ -154,8 +155,8 @@ def clean_up(df, excluded_columns):
 
 def apply_common_style(df, excluded_columns):
 
-    if 'published_at' in df:
-        df = df.rename(columns={'published_at': 'published At'})
+    if 'publishedAt' in df:
+        df = df.rename(columns={'publishedAt': 'published At'})
 
     apply_a_tag_to_column(df, 'source', 'title')
 
