@@ -30,6 +30,10 @@ label_icon_palette = {
     'Robotics': '🦿',
     'Self driving': '🚗',
     'Reinforcement learning': '🎮',
+    'System': '⚙️',
+    'Cloud computing': '☁️',
+    'Network': '🌐',
+    'Hardware': '💾'
 }
 
 language_icon_palette = {
@@ -46,6 +50,10 @@ topic_icon_palette = {
     'Machine learning': '🧠',
     'Deep learning': '👽',
     'Robotics': '🦿',
+    'System': '⚙️',
+    'Cloud computing': '☁️',
+    'Network': '🌐',
+    'Hardware': '💾'
 }
 
 type_icon_palette = {
