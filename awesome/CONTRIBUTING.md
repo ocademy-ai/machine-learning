@@ -43,6 +43,11 @@ You can simply follow the below steps to launch the Directus instance on your lo
 4. Go visit `http://localhost:8055`.
 5. Update data through the Directus Data Studio App. Go through this official [instruction](https://docs.directus.io/app/data-model.html) if you want to learn how to use it.
 
+**some notes**
+1. please do not add the link provided by the task in the source field of the course, instead of the official website link of the course.
+2. regarding the authorCount field, if the number of authors of the course exceeds 3, please fill this field, otherwise please do not make any changes to this field
+3. please do not fill the link of course in the source field of organization and user table, instead of the link of organization and author
+
 #### STEP 2. Update the corresponding Jupyter Notebook
 
 You need nothing but a Jupyter Notebook environment to start the development of this step. You can either [set up the environment locally or use any cloud-based solution like Google Colab](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d). If you are using VSCode, please follow [this](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d).
@@ -69,6 +74,15 @@ Now, you are ready to submit a PR for your changes. Please make sure you have go
 #### An example
 
 TBD
+
+#### STEP 4. Resolve conflict
+If there is no conflict in your pr, you can skip this step.
+Otherwise, you can resolve conflicts according to the following solution.
+
+1. go to github actions page, find your pr and copy the output of `Show database differences` and save it as a `.sql` file.
+2. reset your code by `git reset --hard upstream/main`.
+3. execute the `.sql` file in SQLiteStudio.
+4. push your changes to the corresponding origin branch.
 
 ### How to update the database schema?
 
