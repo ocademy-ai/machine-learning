@@ -44,6 +44,7 @@ You can simply follow the below steps to launch the Directus instance on your lo
 5. Update data through the Directus Data Studio App. Go through this official [instruction](https://docs.directus.io/app/data-model.html) if you want to learn how to use it.
 
 **some notes**
+
 1. please do not fill the link provided by the task in the source field of the course, instead of the official website link of the course.
 2. regarding the authorCount field, if the number of authors of the course exceeds 3, please fill this field, otherwise please do not make any changes to this field
 3. please do not fill the link of course in the source field of organization and user table, instead of the link of organization and author
@@ -76,6 +77,7 @@ Now, you are ready to submit a PR for your changes. Please make sure you have go
 TBD
 
 #### STEP 4. Resolve conflicts
+
 If there is no conflict in your pr, you can skip this step.
 Otherwise, you can resolve conflicts according to the following solution.
 
