@@ -43,11 +43,11 @@ You can simply follow the below steps to launch the Directus instance on your lo
 4. Go visit `http://localhost:8055`.
 5. Update data through the Directus Data Studio App. Go through this official [instruction](https://docs.directus.io/app/data-model.html) if you want to learn how to use it.
 
-**some notes**
+**Some notes**
 
-1. please do not fill the link provided by the task in the source field of the course, instead of the official website link of the course.
-2. regarding the authorCount field, if the number of authors of the course exceeds 3, please fill this field, otherwise please do not make any changes to this field
-3. please do not fill the link of course in the source field of organization and user table, instead of the link of organization and author
+1. For the `source` field in the course table, kindly use the official website link of the course, not the link provided by the task.
+2. The `authorCount` field should be filled in only if the number of course authors exceeds three. In cases where there are three or fewer authors, leave this field unchanged.
+3. In the `source` field of the organization and user tables, please use the links pertaining to the organization or author, respectively. Do not use the course link in these fields.
 
 #### STEP 2. Update the corresponding Jupyter Notebook
 
@@ -78,15 +78,14 @@ TBD
 
 #### STEP 4. Resolve conflicts
 
-If there is no conflict in your pr, you can skip this step.
-Otherwise, you can resolve conflicts according to the following solution.
+If your PR does not have any conflicts, you can proceed to the next step. However, if conflicts are present, follow the steps below to resolve them effectively.
 
-1. go to github actions page, find your pr and copy the output of `Show database differences` and save it as a `.sql` file.
-2. reset your code by `git reset --hard upstream/main`.
-3. execute the `.sql` file in SQLiteStudio.
-4. push your changes to the corresponding origin branch.
+1. Access the GitHub Action page and locate your PR. Copy the output of the `Show database differences` and save it as a .sql file.
+2. To reset your code to the original state, execute the following command in your command-line interface: `git reset --hard upstream/main`.
+3. Open SQLiteStudio and execute the .sql file you saved in the previous step.
+4. Once the changes have been successfully applied, push the modified database to the appropriate origin branch using the following command: `git push origin branch-name`.
 
-**Note**: Do not pass the .sql file to pr together, you can delete it after you execute the file
+**Note**: Remember not to include the .sql file in your PR. You can safely delete it after executing the file to resolve the conflicts.
 
 #### An example
 
