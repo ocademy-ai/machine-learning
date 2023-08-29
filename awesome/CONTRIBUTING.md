@@ -90,15 +90,15 @@ Otherwise, you can resolve conflicts according to the following solution.
 
 1. copy sqldiff
 
-![sqldiff](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/awesome/sqldiff.png)
+![sqldiff](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/sqldiff.png)
 
 2. create .sql file
    
-![.sql_file](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/awesome/.sql_file.png)
+![.sql_file](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/.sql_file.png)
 
 3. execute the sql file in SQLiteStudio
 
-![execute_sql_from_file](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/awesome/execute_sql_from_file.png)
+![execute_sql_from_file](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/execute_sql_from_file.png)
 
 ### How to update the database schema?
 
