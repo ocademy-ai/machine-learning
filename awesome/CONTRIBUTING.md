@@ -43,6 +43,12 @@ You can simply follow the below steps to launch the Directus instance on your lo
 4. Go visit `http://localhost:8055`.
 5. Update data through the Directus Data Studio App. Go through this official [instruction](https://docs.directus.io/app/data-model.html) if you want to learn how to use it.
 
+**Some notes**
+
+1. For the `source` field in the course table, kindly use the official website link of the course, not the link provided by the task.
+2. The `authorCount` field should be filled in only if the number of course authors exceeds three. In cases where there are three or fewer authors, leave this field unchanged.
+3. In the `source` field of the organization and user tables, please use the links pertaining to the organization or author, respectively. Do not use the course link in these fields.
+
 #### STEP 2. Update the corresponding Jupyter Notebook
 
 You need nothing but a Jupyter Notebook environment to start the development of this step. You can either [set up the environment locally or use any cloud-based solution like Google Colab](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d). If you are using VSCode, please follow [this](https://chat.openai.com/share/7debcafb-21b4-44ca-a9cf-bddcca73047d).
@@ -69,6 +75,31 @@ Now, you are ready to submit a PR for your changes. Please make sure you have go
 #### An example
 
 TBD
+
+#### STEP 4. Resolve conflicts
+
+If your PR does not have any conflicts, you can proceed to the next step. However, if conflicts are present, follow the steps below to resolve them effectively.
+
+1. Access the GitHub Action page and locate your PR. Copy the output of the `Show database differences` and save it as a .sql file.
+2. To reset your code to the original state, execute the following command in your command-line interface: `git reset --hard upstream/main`.
+3. Open SQLiteStudio and execute the .sql file you saved in the previous step.
+4. Once the changes have been successfully applied, push the modified database to the appropriate origin branch using the following command: `git push origin branch-name`.
+
+**Note**: Remember not to include the .sql file in your PR. You can safely delete it after executing the file to resolve the conflicts.
+
+#### An example
+
+1. copy sqldiff
+
+![sqldiff](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/sqldiff.png)
+
+2. create .sql file
+   
+![.sql_file](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/.sql_file.png)
+
+3. execute the sql file in SQLiteStudio
+
+![execute_sql_from_file](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/execute_sql_from_file.png)
 
 ### How to update the database schema?
 

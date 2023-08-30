@@ -132,6 +132,19 @@ def apply_label_style_to_language_column(df, column_name='language'):
         x).describe(language=x)[column_name])
 
 
+def _construct_author(x, author_column, platform_column):
+    if x[author_column] is np.nan:
+        return x[platform_column]
+    
+    if x['authorCount'] > 3:
+        x[author_column] += ', others'
+
+    if x[platform_column] is not "":
+        return f"{x[author_column]}@{x[platform_column]}"
+    
+    return x[author_column]
+
+
 def create_by_column_from_author_column_and_platform_column(
         df, author_column='author', by_column='by', author_src_column='authorSrc', platform_column='organization', platform_src_column='organizationSrc'):
     if platform_column not in df and author_column not in df:
@@ -139,8 +152,7 @@ def create_by_column_from_author_column_and_platform_column(
     
     apply_a_tag_to_column(df, platform_src_column, platform_column)
     apply_a_tag_to_column(df, author_src_column, author_column)
-    df[by_column] = df.apply(lambda x: x[platform_column] if x[author_column]
-                        is np.nan else f"{x[author_column]}@{x[platform_column]}" if x[platform_column] is not np.nan else x[author_column], axis=1)
+    df[by_column] = df.apply(lambda x: _construct_author(x, author_column, platform_column), axis=1)
     df.insert(2, by_column, df.pop(by_column))
 
 
@@ -155,14 +167,9 @@ def clean_up(df, excluded_columns):
 
 def apply_common_style(df, excluded_columns):
 
-    if 'publishedAt' in df:
-        df = df.rename(columns={'publishedAt': 'published At'})
-
     apply_a_tag_to_column(df, 'source', 'title')
 
-    apply_a_tag_to_column(df, 'organizationSrc', 'organization')
-
-    apply_a_tag_to_column(df, 'authorSrc', 'author')
+    create_by_column_from_author_column_and_platform_column(df)
 
     apply_label_style_to_column(df, 'price', price_icon_palette)
     df['price'] = df.apply(lambda x: f"{x['price']} of {x['cost']}$" if x['cost'] != 0 else x['price'], axis=1)
