@@ -10,11 +10,11 @@
 
 ### 👍 Ocademy Awesome [In progress]
 
-A well-structured list of awesome AI courses, turorials, books, tools and other learning resources. Have a glance [here](./awesome/).
+A well-structured list of awesome AI courses, turorials, books, tools and other learning resources. Have a glance [here](./awesome/README.md).
 
 ### Ocademy GenAI
 
-Resources about Generative AI, started with a list of [prompts](./generative-ai/prompts/) for for AI Teaching and Learning.
+Resources about Generative AI, started with a list of [prompts](./generative-ai/prompts/README.md) for AI Teaching and Learning.
 
 ### 📓 Ocademy Open Book [In progress]
 
