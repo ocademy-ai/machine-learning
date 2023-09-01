@@ -1,0 +1,31 @@
+name: pr-awesome-release
+
+on:
+  pull_request:
+    branches:
+      - release
+    paths:
+      - 'awesome/database/data.db'
+
+jobs:
+  compare-dbs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SQLite
+      run: sudo apt-get install sqlite3
+      
+    - name: Install sqldiff tool
+      run: |
+        wget https://www.sqlite.org/2023/sqlite-tools-linux-x86-3420000.zip
+        unzip sqlite-tools-linux-x86-3420000.zip
+
+    - name: Get target branch database
+      run: |
+        wget -O target_data.db https://raw.githubusercontent.com/${{ github.repository }}/release/awesome/database/data.db
+
+    - name: Show database differences
+      run: ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey target_data.db awesome/database/data.db

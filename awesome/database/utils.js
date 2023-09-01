@@ -11,6 +11,17 @@ function createTable(knex, tableName, tableBuilderFunction) {
   }
 }
 
+// alter table
+async function alterTable(knex, tableName, tableBuilderFunction) {
+  try {
+    await knex.schema.alterTable(tableName, tableBuilderFunction);
+    console.log(`Table "${tableName}" altered successfully.`);
+  } catch (error) {
+    console.error("Error altering table:", error);
+  } finally {
+  }
+}
+
 // delete table
 async function dropTable(tableName) {
   try {
@@ -105,7 +116,38 @@ async function insertColumn(knex, tableName, columnName, columnType) {
     knex.destroy();
   }
 }
-
+// insert directus field
+async function addDirectusFKInterface(knex, tableName, collection, field) {
+  try {
+    await knex(tableName)
+      .insert({
+        collection,
+        field,
+        interface: 'select-dropdown-m2o',
+        options: '{"template":"{{id}}"}',
+        readonly: 0,
+        hidden: 0,
+        width: 'full',
+        required: 0,
+      });
+  } catch (error) {
+    console.error("Error inserting directus fields:", error);
+  } finally {
+    knex.destroy();
+  }
+}
+// remove directus field
+async function removeDirectusFKInterface(knex, tableName, collection, field) {
+  try {
+    await knex(tableName)
+    .where({ collection, field })
+    .del();
+  } catch (error) {
+    console.error("Error removing directus fields:", error);
+  } finally {
+    knex.destroy();
+  }
+}
 module.exports = {
   deleteRecord,
   updateRecord,
@@ -114,4 +156,7 @@ module.exports = {
   createTable,
   deleteColumn,
   insertColumn,
+  alterTable,
+  addDirectusFKInterface,
+  removeDirectusFKInterface,
 };
