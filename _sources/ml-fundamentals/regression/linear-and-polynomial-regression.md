@@ -15,8 +15,6 @@ kernelspec:
 
 # Linear and polynomial regression
 
-## Build a regression model using Scikit-learn: regression four ways
-
 ```{figure} ../../../images/ml-regression/linear-polynomial.png
 ---
 name: 'Linear vs polynomial regression infographic'
@@ -25,11 +23,13 @@ width: 100%
 Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 ```
 
+## Build a regression model using Scikit-learn: regression four ways
+
 <p style="text-align: center;">
 <iframe src="../../html/linr-playground/index.html" width="105%" height="700px;"
 style="border:none;" scrolling="auto"></iframe>
-A demo of linear-regression. <a href="https://observablehq.com/@yizhe-ang/interactive-visualization-of-linear-regression"> [source]</a >
-</p >
+A demo of linear-regression. <a href="https://observablehq.com/@yizhe-ang/interactive-visualization-of-linear-regression"> [source]</a>
+</p>
 
 ### Introduction
 
@@ -72,7 +72,7 @@ It is typical of **Least-Squares Regression** to draw this type of line. The ter
 We do so since we want to model a line that has the least cumulative distance from all of our data points. We also square the terms before adding them since we are concerned with its magnitude rather than its direction.
 
 ```{seealso}
-** Show me the math ** 
+**Show me the math** 
  
 This line, called the _line of best fit_ can be expressed by [an equation](https://en.wikipedia.org/wiki/Simple_linear_regression):  
 
