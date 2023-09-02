@@ -13,7 +13,7 @@ The book is completely free and self-paced, which covers Python, Data Science, M
 
 ## 🧩 Features
 
-- A curated list of beginner-friendly [tutorials](https://press.ocademy.cc) for learning Python, Data Science, Machine Learning, Deep Learning and MLOps.
+- A curated list of beginner-friendly [tutorials](https://ocademy-ai.github.io/machine-learning/) for learning Python, Data Science, Machine Learning, Deep Learning and MLOps.
 - Empower the learning journey with interactive Jupyter Notebooks.
   - The book is built with [Jupyter Book](https://jupyterbook.org/) from computational content written as notebook.
   - The slide is built with [RISE](https://github.com/damianavila/RISE) which instantly turns notebook into a live [reveal.js](https://revealjs.com/)-based presentation.
