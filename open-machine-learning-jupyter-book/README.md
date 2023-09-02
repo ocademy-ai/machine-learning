@@ -9,7 +9,7 @@ The book is completely free and self-paced, which covers Python, Data Science, M
 
 > **Note**
 >
-> All the Jupyter Notebook files can run independently on any Jupyter environment. Please use **Jupyter Lab** for the best experience.
+> Please note: all the Jupyter Notebook files can run independently on any Jupyter environment. Please use **Jupyter Lab** with [myst](https://mystmd.org/guide/quickstart-jupyter-lab-myst) support for the best experience.
 
 ## 🧩 Features
 
