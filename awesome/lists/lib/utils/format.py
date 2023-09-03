@@ -185,6 +185,6 @@ def apply_common_style(df, excluded_columns):
     apply_label_style_to_column(df, 'level', level_icon_palette)
 
     apply_label_style_to_boolean_column(df, 'hasCert')
-    df.rename(columns={'hasCert': 'certificate'}, inplace=True)
+    df.rename(columns={'hasCert': 'Cert'}, inplace=True)
 
     return clean_up(df, excluded_columns)

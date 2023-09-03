@@ -120,7 +120,7 @@ To update the awesome lists data schema,
    2. automatically update the `createdAt` column and `updatedAt` column.
 7. `knex migrate:latest`
 8. Verify your changes by using Directus, a SQLite editor or any other way you prefer.
-9. Update the database ERD in the [Notes for contributors](#notes-for-contributors) section if needed.
+9. Update the database ERD in the [Notes for contributors](#notes-for-contributors) section if needed by using [DBVisualizer](https://confluence.dbvis.com/display/UG232/Viewing+Entity+Relationships).
 10. Submit PR, a SQLite database diff will be generated automatically by the GitHub action.
 11. Review the GitHub Action build log, and make sure only intended change is included.
 
