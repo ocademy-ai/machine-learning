@@ -20,7 +20,8 @@ The awesome lists are structured into several parts.
 
 Here is the latest ERD of the database.
 
-![Screenshot 2023-08-16 at 1 39 37 PM](https://github.com/ocademy-ai/machine-learning/assets/5424267/194ce266-8f0b-49d9-9210-d8c42d731e33)
+![schema](https://github.com/ocademy-ai/machine-learning/assets/5424267/1a21a701-9404-4d4e-82d6-8fc92445f8d2)
+
 
 ### How to update the data?
 
@@ -30,7 +31,7 @@ The built-in Directus CRM is the recommended way to update the data. But if you'
 
 The Directus is defined by the `awesome/database/docker-compose.yml` by following the [official self-hosting guidance](https://docs.directus.io/self-hosted/quickstart.html), including,
 
-- the login credential,
+- the login credentials,
 - SQLite database location,
 - port,
 - key and secret.
@@ -120,7 +121,7 @@ To update the awesome lists data schema,
    2. automatically update the `createdAt` column and `updatedAt` column.
 7. `knex migrate:latest`
 8. Verify your changes by using Directus, a SQLite editor or any other way you prefer.
-9. Update the database ERD in the [Notes for contributors](#notes-for-contributors) section if needed.
+9. Update the database ERD in the [Notes for contributors](#notes-for-contributors) section if needed by using [DBVisualizer](https://confluence.dbvis.com/display/UG232/Viewing+Entity+Relationships).
 10. Submit PR, a SQLite database diff will be generated automatically by the GitHub action.
 11. Review the GitHub Action build log, and make sure only intended change is included.
 

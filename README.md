@@ -18,16 +18,21 @@
 
 ## 👍 Ocademy Awesome [![](<https://img.shields.io/badge/-start%20to%20learn%20%E2%86%92-rgb(124,156,55)?style=for-the-badge>)](./awesome/README.md)
 
+A curated list of awesome AI courses, tutorials, books, tools, and other learning resources.
 
-A curated list of awesome AI courses, tutorials, books, tools and other learning resources.
+![ezgif com-video-to-gif](https://github.com/ocademy-ai/machine-learning/assets/5424267/52faa6e0-4cba-4a47-a30d-934d72f805b6)
 
 ## 🤖 Ocademy GenAI [![](<https://img.shields.io/badge/-start%20to%20create%20%E2%86%92-rgb(224,156,55)?style=for-the-badge>)](./generative-ai/prompts/README.md)
 
 Resources about Generative AI, started with a list of prompts for AI Teaching and Learning.
 
+![ezgif com-video-to-gif](https://github.com/ocademy-ai/machine-learning/assets/5424267/5b8e3f70-a88e-4f69-8a17-dcae7856eda6)
+
 ## 📓 Ocademy Open Book [![](<https://img.shields.io/badge/-start%20to%20read%20%E2%86%92-rgb(84,56,255)?style=for-the-badge>)](https://ocademy-ai.github.io/machine-learning/)
 
 An interactive and visual book aims to help millions of busy adults transition into AI.
+
+![ezgif com-video-to-gif (1)](https://github.com/ocademy-ai/machine-learning/assets/5424267/193b78e3-9e58-44c7-8349-74b6f4a354db)
 
 ## 👩‍💻 How to contribute
 
