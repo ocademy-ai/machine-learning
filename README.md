@@ -32,6 +32,8 @@ Resources about Generative AI, started with a list of prompts for AI Teaching an
 
 An interactive and visual book aims to help millions of busy adults transition into AI.
 
+![ezgif com-video-to-gif (1)](https://github.com/ocademy-ai/machine-learning/assets/5424267/193b78e3-9e58-44c7-8349-74b6f4a354db)
+
 ## 👩‍💻 How to contribute
 
 We welcome all contributions to the community and are excited to welcome you aboard. If you have the passion for Data Science, Machine Learning, and Deep Learning, simply fork the repository and follow our [Guidelines for contributing](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md) to make your changes.
