@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/license/ocademy-ai/machine-learning?style=for-the-badge&label=license" />
   <img src="https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg?style=for-the-badge&label=license" />
   <a href='https://gitHub.com/ocademy-ai/machine-learning/graphs/contributors/'><img src="https://img.shields.io/github/contributors/ocademy-ai/machine-learning.svg?style=for-the-badge" /></a>
-  <a href='https://github.com/ocademy-ai/machine-learning/actions'><img src="https://img.shields.io/github/actions/workflow/status/ocademy-ai/machine-learning/main.yml?style=for-the-badge&branch=main&label=CI&logo=github" /></a>
+  <a href='https://github.com/ocademy-ai/machine-learning/actions'><img src="https://img.shields.io/github/actions/workflow/status/ocademy-ai/machine-learning/book-main.yml?style=for-the-badge&branch=main&label=CI&logo=github" /></a>
 </p>
 
 ---
