@@ -27,5 +27,21 @@ jobs:
       run: |
         wget -O target_data.db https://raw.githubusercontent.com/${{ github.repository }}/release/awesome/database/data.db
 
-    - name: Show database differences
+    - name: Show database schema differences
+      run: ./sqlite-tools-linux-x86-3420000/sqldiff --schema target_data.db awesome/database/data.db
+
+    - name: Show substantial tables differences
+      run: |
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Course target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Organization target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table User target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Tag target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table CourseTags target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table CourseOrganizations target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table UserCourses target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Tutorial target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table TutorialTags target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table UserTutorials target_data.db awesome/database/data.db
+
+    - name: Show all differences in database
       run: ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey target_data.db awesome/database/data.db
