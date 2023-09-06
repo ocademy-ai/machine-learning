@@ -103,7 +103,7 @@ def apply_label_style_to_boolean_column(df, column_name):
     if column_name not in df:
         return
     
-    df[column_name] = df[column_name].apply(lambda x: '✅' if x == 'True' else '❌')
+    df[column_name] = df[column_name].apply(lambda x: '✅' if x == 1 else '❌')
 
 
 def apply_label_style_to_column(df, text_column, icon_palette, convert=capitalize_properly):
@@ -139,7 +139,7 @@ def _construct_author(x, author_column, platform_column):
     if x['authorCount'] > 3:
         x[author_column] += ', others'
 
-    if x[platform_column] is not "":
+    if x[platform_column] != "":
         return f"{x[author_column]}@{x[platform_column]}"
     
     return x[author_column]
@@ -185,5 +185,6 @@ def apply_common_style(df, excluded_columns):
     apply_label_style_to_column(df, 'level', level_icon_palette)
 
     apply_label_style_to_boolean_column(df, 'hasCert')
-    
+    df.rename(columns={'hasCert': 'Cert'}, inplace=True)
+
     return clean_up(df, excluded_columns)
