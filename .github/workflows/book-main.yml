@@ -1,0 +1,81 @@
+name: mainline-deploy-book
+
+# Only run this when the master branch changes
+on:
+  push:
+    branches:
+    - main
+    # If your git repository has the Jupyter Book within some-subfolder next to
+    # unrelated files, you can make this run only if a file within that specific
+    # folder has been modified.
+    #
+    paths:
+    - open-machine-learning-jupyter-book/**
+    - .github/**
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)    
+        required: false
+
+# This job installs dependencies, builds the book, and pushes it to `gh-pages`
+jobs:
+  deploy-book:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Install drawio
+      run: |
+        sudo apt -y install wget curl
+        curl -s https://api.github.com/repos/jgraph/drawio-desktop/releases/latest | grep browser_download_url | grep '\.deb' | cut -d '"' -f 4 | wget -i -
+        sudo apt -f install ./drawio-amd64-*.deb
+
+    - uses: actions/checkout@v2
+
+    # Install dependencies
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Set up conda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: open-machine-learning-jupyter-book
+        environment-file: ./open-machine-learning-jupyter-book/environment.yml
+        python-version: '3.9'
+        auto-activate-base: false
+        auto-update-conda: true
+
+    - shell: bash -l {0}
+      run: |
+        conda info
+    
+    # Build the book
+    - shell: bash -l {0}
+      name: Build the book
+      run: |
+        cd ./open-machine-learning-jupyter-book/
+        bash ./build-force-all.sh
+      continue-on-error: false
+
+    # Post build the book
+    - shell: bash -l {0}
+      name: Post build the book
+      run: |
+        cd ./open-machine-learning-jupyter-book/
+        bash ./post-build.sh
+
+    - name: Deploy to Netlify
+      uses: nwtgck/actions-netlify@v1.2
+      with:
+        publish-dir: './open-machine-learning-jupyter-book/_build/html'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-message: "Deploy to netlify from GitHub Actions"
+        enable-pull-request-comment: false
+        enable-commit-comment: true
+        overwrites-pull-request-comment: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      timeout-minutes: 1

@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>tSNE CSV web demo</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <script src="jquery-1.11.2.min.js"></script>
+    <script src="d3.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="tsne.js"></script>
+
+    <!-- Tracking code -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-3698471-13']);
+        _gaq.push(['_trackPageview']);
+
+    </script>
+
+    <style>
+        svg {
+            border: 1px solid #333;
+            margin-top: 20px;
+        }
+
+        body {
+            font-size: 16px;
+        }
+    </style>
+
+    <script>
+
+        var T, opt;
+
+        var Y; // tsne result stored here
+        var data;
+
+        function updateEmbedding() {
+
+            // get current solution
+            var Y = T.getSolution();
+            // move the groups accordingly
+            gs.attr("transform", function (d, i) {
+                return "translate(" +
+                    ((Y[i][0] * 20 * ss + tx) + 400) + "," +
+                    ((Y[i][1] * 20 * ss + ty) + 400) + ")";
+            });
+
+        }
+
+        var svg;
+        function initEmbedding() {
+            $("#embed").empty();
+            var div = d3.select("#embed");
+            svg = div.append("svg") // svg is global
+                .attr("width", 1140)
+                .attr("height", 1140);
+        }
+
+        var gs;
+        var cs;
+        var ts;
+        function drawEmbedding() {
+
+            gs = svg.selectAll(".b")
+                .data(data)
+                .enter().append("g")
+                .attr("class", "u");
+
+            cs = gs.append("circle")
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("r", 5)
+                .attr('stroke-width', 1)
+                .attr('stroke', 'black')
+                .attr('fill', 'rgb(100,100,255)');
+
+            if (labels.length > 0) {
+                ts = gs.append("text")
+                    .attr("text-anchor", "top")
+                    .attr("transform", "translate(5, -5)")
+                    .attr("font-size", 12)
+                    .attr("fill", "#333")
+                    .text(function (d, i) { return labels[i]; });
+            }
+
+            var zoomListener = d3.behavior.zoom()
+                .scaleExtent([0.1, 10])
+                .center([0, 0])
+                .on("zoom", zoomHandler);
+            zoomListener(svg);
+        }
+
+        var tx = 0, ty = 0;
+        var ss = 1;
+        function zoomHandler() {
+            tx = d3.event.translate[0];
+            ty = d3.event.translate[1];
+            ss = d3.event.scale;
+        }
+
+        var stepnum = 0;
+        function step() {
+            if (dotrain) {
+                var cost = T.step(); // do a few steps
+                $("#cost").html("iteration " + T.iter + ", cost: " + cost);
+            }
+            updateEmbedding();
+        }
+
+        labels = [];
+        function preProLabels() {
+            var txt = $("#inlabels").val();
+            var lines = txt.split("\n");
+            labels = [];
+            for (var i = 0; i < lines.length; i++) {
+                var row = lines[i];
+                if (! /\S/.test(row)) {
+                    // row is empty and only has whitespace
+                    continue;
+                }
+                labels.push(row);
+            }
+        }
+
+        dataok = false;
+        function preProData() {
+            var txt = $("#incsv").val();
+            var d = $("#deltxt").val();
+            var lines = txt.split("\n");
+            var raw_data = [];
+            var dlen = -1;
+            dataok = true;
+            for (var i = 0; i < lines.length; i++) {
+                var row = lines[i];
+                if (! /\S/.test(row)) {
+                    // row is empty and only has whitespace
+                    continue;
+                }
+                var cells = row.split(d);
+                var data_point = [];
+                for (var j = 0; j < cells.length; j++) {
+                    if (cells[j].length !== 0) {
+                        data_point.push(parseFloat(cells[j]));
+                    }
+                }
+                var dl = data_point.length;
+                if (i === 0) { dlen = dl; }
+                if (dlen !== dl) {
+                    // TROUBLE. Not all same length.
+                    console.log('TROUBLE: row ' + i + ' has bad length ' + dlen);
+                    dlen = dl; // hmmm... 
+                    dataok = false;
+                }
+                raw_data.push(data_point);
+            }
+            data = raw_data; // set global
+        }
+
+        dotrain = true;
+        iid = -1;
+        $(window).load(function () {
+
+            initEmbedding();
+
+            $("#stopbut").click(function () {
+                dotrain = false;
+            });
+
+            $("#inbut").click(function () {
+
+                initEmbedding();
+                preProData();
+                if (!dataok) { // this is so terrible... globals everywhere #fasthacking #sosorry
+                    alert('there was trouble with data, probably rows had different number of elements. See console for output.');
+                    return;
+                }
+                preProLabels();
+                if (labels.length > 0) {
+                    if (data.length !== labels.length) {
+                        alert('number of rows in Text labels (' + labels.length + ') does not match number of rows in Data (' + data.length + ')! Aborting.');
+                        return;
+                    }
+                }
+
+                // ok lets do this
+                opt = { epsilon: parseFloat($("#lrtxt").val()), perplexity: parseInt($("#perptxt").val()), dim: data[0].length };
+                T = new tsnejs.tSNE(opt); // create a tSNE instance
+
+                var dfv = $('input[name=rdata]:checked', '#datatypeform').val();
+                if (dfv === 'raw') {
+                    console.log('raw');
+                    T.initDataRaw(data);
+                }
+                if (dfv === 'dist') {
+                    console.log('dist');
+                    T.initDataDist(data);
+                }
+                drawEmbedding();
+                iid = setInterval(step, 10);
+                dotrain = true;
+
+            });
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <b>(optional) Text labels:</b><br>
+                <textarea id="inlabels" style="width:100%; height:100px;">
+Alabama
+Alaska
+Arizona
+Arkansas
+California
+Colorado
+Connecticut
+Delaware
+Florida
+Georgia
+Hawaii
+Idaho
+Illinois
+Indiana
+Iowa
+Kansas
+Kentucky
+Louisiana
+Maine
+Maryland
+Massachusetts
+Michigan
+Minnesota
+Mississippi
+Missouri
+Montana
+Nebraska
+Nevada
+New Hampshire
+New Jersey
+New Mexico
+New York
+North Carolina
+North Dakota
+Ohio
+Oklahoma
+Oregon
+Pennsylvania
+Rhode Island
+South Carolina
+South Dakota
+Tennessee
+Texas
+Utah
+Vermont
+Virginia
+Washington
+West Virginia
+Wisconsin
+Wyoming
+      </textarea>
+            </div>
+            <div class="col-sm-6">
+                <b style="color:#999;">(optional) Data groups:</b><br>
+                <textarea id="ingroup" style="width:100%; height:100px;">not yet implemented</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <hr>
+        <b>Data:</b><br>
+        <textarea id="incsv" style="width:100%; height:200px;">
+32.380120, -86.300629
+58.299740, -134.406794
+33.448260, -112.075774
+34.748655, -92.274494
+38.579065, -121.491014
+39.740010, -104.992259
+41.763325, -72.674069
+39.158035, -75.524734
+30.439775, -84.280649
+33.748315, -84.391109
+21.304770, -157.857614
+43.606980, -116.193409
+39.801055, -89.643604
+39.766910, -86.149964
+41.589790, -93.615659
+39.049285, -95.671184
+38.195070, -84.878694
+30.443345, -91.186994
+44.318036, -69.776218
+38.976700, -76.489934
+42.358635, -71.056699
+42.731940, -84.552249
+44.943829, -93.093326
+32.298690, -90.180489
+38.577515, -92.177839
+46.589760, -112.021202
+40.813620, -96.707739
+39.164885, -119.766999
+43.207250, -71.536604
+40.217875, -74.759404
+35.691543, -105.937406
+42.651445, -73.755254
+35.785510, -78.642669
+46.805372, -100.779334
+39.961960, -83.002984
+35.472015, -97.520354
+44.933260, -123.043814
+40.259865, -76.882230
+41.823875, -71.411994
+33.998550, -81.045249
+44.368924, -100.350158
+36.167783, -86.778365
+30.267605, -97.742984
+40.759505, -111.888229
+44.260299, -72.576264
+37.540700, -77.433654
+47.039231, -122.891366
+38.350195, -81.638989
+43.072950, -89.386694
+41.134815, -104.821544
+</textarea>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                Delimiter (default is comma (CSV)): <input type="text" id="deltxt" maxlength="3" value=","
+                    style="width:20px;">
+                <br>
+                Learning rate: <input type="text" id="lrtxt" maxlength="10" value="10" style="width:40px;">
+                Perplexity: <input type="text" id="perptxt" maxlength="10" value="30" style="width:40px;">
+                <br>
+            </div>
+            <div class="col-sm-4">
+
+                My data is:
+                <form action="" id="datatypeform">
+                    <input type="radio" name="rdata" value="raw" checked> Raw NxD data (each row are features)<br>
+                    <input type="radio" name="rdata" value="dist"> NxN Distance
+                </form>
+            </div>
+            <div class="col-sm-4">
+
+                <form action="">
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <button type="button" id="inbut" class="btn btn-primary" style="width:200px; height:50px;">Run t-SNE!</button>
+        <button type="button" id="stopbut" class="btn btn-danger" style="width:200px; height:50px;">Stop</button>
+
+        <br>
+
+        <div id="cost" style="text-align:left; font-family: Impact;"></div>
+        <div id="embed"></div>
+
+    </div>
+
+
+
+</body>
+
+</html>
