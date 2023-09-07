@@ -81,12 +81,15 @@ TBD
 
 If your PR does not have any conflicts, you can proceed to the next step. However, if conflicts are present, follow the steps below to resolve them effectively.
 
-1. Access the GitHub Action page and locate your PR. Copy the output of the `Show database differences` and save it as a .sql file.
+1. Access the GitHub Action page, rerun and locate your PR. Copy the output of the `Show substantial tables differences` and save it as a .sql file.
 2. To reset your code to the original state, execute the following command in your command-line interface: `git reset --hard upstream/main`.
 3. Open SQLiteStudio and execute the .sql file you saved in the previous step.
 4. Once the changes have been successfully applied, push the modified database to the appropriate origin branch using the following command: `git push origin branch-name`.
 
-**Note**: Remember not to include the .sql file in your PR. You can safely delete it after executing the file to resolve the conflicts.
+**Note**: 
+
+1. Remember not to include the .sql file in your PR. You can safely delete it after executing the file to resolve the conflicts.
+2. Please make sure that all your operations occur in the `machine-learning` directory, not the `machine-learning/awesome/database` directory.
 
 #### An example
 
