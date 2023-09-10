@@ -1,137 +1,72 @@
-# Ocademy: an open academy for Data Science, Machine Learning, and Deep Learning
+<p align="center">
+  <img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/bebee200-677e-4d9b-93f7-5e517f59e6f4" alt="logo" height="200" align="center" />
+</p>
+<p align="center">
+  <a href='https://github.com/ocademy-ai/machine-learning/pulls'><img src="https://img.shields.io/badge/PR-welcome-brightgreen.svg?style=for-the-badge" /></a>
+  <a href='https://gitHub.com/ocademy-ai/machine-learning/graphs/contributors/'><img src="https://img.shields.io/github/contributors/ocademy-ai/machine-learning.svg?style=for-the-badge" /></a>
+  <a href='https://github.com/ocademy-ai/machine-learning/actions'><img src="https://img.shields.io/github/actions/workflow/status/ocademy-ai/machine-learning/book-main.yml?style=for-the-badge&branch=main&label=CI&logo=github" /></a>
+  <img src="https://img.shields.io/github/license/ocademy-ai/machine-learning?style=for-the-badge&label=license" />
+  <img src="https://img.shields.io/badge/License-CC_BY_4.0-lightblue.svg?style=for-the-badge&label=license" />
+</p>
 
-## Content
+---
+# Learn AI together, for free.
 
-- [Overview](https://github.com/Appointat/machine-learning/tree/main#overview)
-- [Goals](https://github.com/Appointat/machine-learning/tree/main#Goals)
-- [Features](https://github.com/Appointat/machine-learning/tree/main#Features)
-- [How to enjoy our project](https://github.com/Appointat/machine-learning/tree/main#how-to-enjoy-our-project)
-- [How to contribute](https://github.com/Appointat/machine-learning/tree/main#How-to-contribute)
-- [Contact us](https://github.com/Appointat/machine-learning/tree/main#ontact-Us)
+**Ocademy** is your AI learning community dedicated to Python, Data Science, Machine Learning, Deep Learning, and MLOps. We believe open-source promotes equal opportunities for everyone to access AI. By curating, creating, and distributing educational resources and approaches freely and openly with the public, we underscore the values of collaboration, transparency, and community-driven learning and teaching.
 
-## **Overview**
+## 🚀 Get started
 
-Welcome to **Ocademy** for Data Science, Machine Learning, and Deep Learning! Our target is to provide online resources for **university students and working professionals**, who are preparing for or currently involved in fields such as Data Science, Machine Learning, and Deep Learning. The project is hosted on GitHub and is free for anyone to use and learn.
+## 👍 Ocademy Awesome [![](<https://img.shields.io/badge/-start%20to%20learn%20%E2%86%92-rgb(124,156,55)?style=for-the-badge>)](./awesome/README.md)
 
-## **Goals**
+A curated list of awesome AI courses, tutorials, books, tools, and other learning resources.
 
-The goals of this project are:
+![ezgif com-video-to-gif](https://github.com/ocademy-ai/machine-learning/assets/5424267/52faa6e0-4cba-4a47-a30d-934d72f805b6)
 
-- To provide high-quality [online resources](https://github.com/Appointat/machine-learning/tree/main#How-to-enjoy-our-project) that are accessible to university students who are interested in Data Science, Machine Learning, and Deep Learning.
-- To create a [community](https://github.com/Appointat/machine-learning#community) of students and educators who are passionate about these topics and who can collaborate to improve the project over time.
-- To foster a culture of open source education, where students can learn from each other and from industry experts, and where educators can share their knowledge and expertise with a wider audience.
+## 🤖 Ocademy GenAI [![](<https://img.shields.io/badge/-start%20to%20create%20%E2%86%92-rgb(224,156,55)?style=for-the-badge>)](./generative-ai/prompts/README.md)
 
-## **Features**
+Resources about Generative AI, started with a list of prompts for AI Teaching and Learning.
 
-This project includes the following features:
+![ezgif com-video-to-gif](https://github.com/ocademy-ai/machine-learning/assets/5424267/5b8e3f70-a88e-4f69-8a17-dcae7856eda6)
 
-- A curated list of [online courses](https://github.com/Appointat/machine-learning#curriculum), [tutorials](https://open-academy.github.io/machine-learning/intro.html), and other [resources](https://www.notion.so/README-md-for-Open-ML-9e8e63c05411425e838ad8dc04b7ff73) for learning about Data Science, Machine Learning, and Deep Learning. These resources are suitable for beginners and are organized by topic, making it easy to find what you're looking for.
-- Open source [code examples and projects](https://open-academy.github.io/machine-learning/assignments/introduction.html) that demonstrate best practices in these fields. These examples are designed to help students learn by doing and can be modified and adapted for use in their own projects.
-- Collaborative learning opportunities, such as hackathons and online forums, where students can work together on projects and share their knowledge with each other. These events are open to anyone who wants to participate and are a great way to meet other students who are interested in these topics.
-- Guest lectures and other industry events that provide students with insights into the latest trends and developments in Data Science, Machine Learning, and Deep Learning. These events are hosted by industry experts and are a great way to learn about the practical applications of these fields.
+## 📓 Ocademy Open Book [![](<https://img.shields.io/badge/-start%20to%20read%20%E2%86%92-rgb(84,56,255)?style=for-the-badge>)](https://ocademy-ai.github.io/machine-learning/)
 
-## **How to enjoy our project**
+An interactive and visual book aims to help millions of busy adults transition into AI.
 
-To use this project, simply visit the GitHub repository and explore the resources that are available. You can use the curated list of resources to find online courses, tutorials, and other materials that are relevant to your interests. You can also browse the open source code examples and projects to see how these concepts are applied in practice.
+![ezgif com-video-to-gif (1)](https://github.com/ocademy-ai/machine-learning/assets/5424267/193b78e3-9e58-44c7-8349-74b6f4a354db)
 
-If you're interested in participating in hackathons or online forums, simply join the relevant group and start contributing. These groups are open to anyone who wants to participate and are a great way to meet other students who are interested in these topics.
+## 👩‍💻 How to contribute
 
-### Interactive online textbook
+We welcome all contributions to the community and are excited to welcome you aboard. If you have the passion for Data Science, Machine Learning, and Deep Learning, simply fork the repository and follow our [Guidelines for contributing](https://github.com/ocademy-ai/machine-learning/blob/main/CONTRIBUTING.md) to make your changes.
 
-This [Online Textbook](https://open-academy.github.io/machine-learning/intro.html) is designed to provide a comprehensive introduction to Data Science, Machine Learning, and Deep Learning, from the fundamentals to the latest advanced techniques, with a focus on practical applications. It is intended for developers, data scientists, engineers, and anyone who wants to learn how to use machine learning to solve real-world problems.
+If you're new to open source or aren't sure where to start, don't worry! We have a guide for beginners that can help you get started. We also have a [Code of conduct](https://github.com/ocademy-ai/machine-learning/blob/main/CODE_OF_CONDUCT.md) that we ask all contributors to follow to ensure that our community is welcoming and inclusive.
 
-It is divided into four main parts.
-
-- Chap 1 covers the prerequisites, including an introduction to Python programming and its advanced concepts.
-- Chap 2 focuses on the Data Science lifecycle, from data acquisition to data visualization, and introduces the best practices for working with data in the cloud.
-- Chap 3 covers the fundamentals of Machine Learning, including regression, classification, and model deployment.
-- Chap 4 covers advanced Machine Learning techniques, such as Clustering, Ensemble Learning, and Deep Learning.
-- …
-
-Each chapter includes **theoretical concepts**, **hands-on exercises**, and **real-world examples** to help you develop a solid understanding of the topic. By the end of the [textbook](https://open-academy.github.io/machine-learning/intro.html), you will have the knowledge and skills to build and deploy Machine Learning models in a production environment.
-
-1. **PREREQUISITES**
-    - 1\. Python programming introduction
-    - 2\. Python programming basics
-    - 3\. Python programming advanced
-2. **DATA SCIENCE**
-    - 4\. Introduction
-    - 5\. Working with data
-    - 6\. Data visualization
-    - 7\. Data Science lifecycle
-    - 8\. Data Science in the cloud
-    - 9\. Data Science in the real world
-3. **FUNDAMENTALS OF MACHINE LEARNING**
-    - 10\. Machine Learning overview
-    - 11\. Regression models for Machine Learning
-    - 12\. Build a web app to use a Machine Learning model
-    - 13\. Getting started with classification
-4. **ADVANCED MACHINE LEARNING**
-    - 14\. Clustering models for Machine Learning
-    - 15\. Kernel method
-    - 16\. Model selection
-    - 17\. Ensemble learning
-    - 18\. Unsupervised learning (TBD)
-    - 19\. Generative models
-5. **DEEP LEARNING**
-    - 20\. Deep learning overview (TBD)
-    - 21\. Convolutional Neural Networks
-    - 22\. Generative adversarial networks
-    - 23\. Recurrent Neural Networks
-    - 24\. Autoencoder (TBD)
-    - 25\. Long-short term memory
-    - 26\. NLP (TBD)
-    - 27\. Time series (TBD)
-    - 28\. DQN (TBD)
-    - 29\. Summary of deep learning (TBD)
-    - 30\. Image classification
-6. **MACHINE LEARNING PRODUCTIONIZATION**
-    - 31\. Overview
-    - 32\. Problem framing
-    - 33\. Data engineering
-    - 34\. Model training & evaluation
-    - 35\. Model deployment
-7. **SUPPORTING MATERIALS**
-    - 36\. PyTorch
-    - 37\. Bamboolib
-    - 38\. Mito
-    - 39\. KNN (TBD)
-    - 40\. Semi-supervised learning (TBD)
-    - 41\. Unbalanced problems
-    - 42\. AutoML (TBD)
-8. **OTHERS**
-    - 43\. Assignments
-    - 44\. Slides
-
-### Curriculum
-
-We are committed to delivering high-quality and practical courses on schedule every week, featuring instructors from both academia and industry, including technical experts from leading technology companies. Currently, we have completed the section on Data Science and are now in progress with the Machine Learning section. Please find the class schedule (TODO) below.
-
-| Time | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Morning |  |  |  |  |  |  |  |
-| Afternoon |  |  |  |  |  |  |  |
-| Evening |  |  |  |  |  |  |  |
-
-### Community
-
-TODO
-
-### Learning resources
-
-TODO
-
-## **How to contribute**
-
-We welcome contributions from students and educators who are passionate about Data Science, Machine Learning, and Deep Learning. If you'd like to contribute to the project, simply fork the repository and make your changes. You can then submit a pull request to have your changes reviewed and merged into the main repository.
-
-If you're new to open source or aren't sure where to start, don't worry! We have a guide for beginners that can help you get started. We also have a code of conduct that we ask all contributors to follow to ensure that our community is welcoming and inclusive.
-
-See [this](https://github.com/open-academy/machine-learning/blob/main/CONTRIBUTING.md) for more information about how to make your contribution.
-
-## **Contact Us**
+## ✉️ Contact us
 
 If you have any questions or comments about this project, please feel free to contact us by email. We look forward to hearing from you!
 
-- [zhangqi444@gmail.com](mailto:zhangqi444@gmail.com)
-- [lundechen@shu.edu.cn](mailto:lundechen@shu.edu.cn)
+- [qi@ocademy.cc](mailto:qi@ocadmy.cc)
+- [lunde@ocademy.cc](mailto:lunde@ocademy.cc)
+
+Follow us -
+
+<a href="https://www.zhihu.com/people/zhang-qi-30-99-44">
+    <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Zhihu&color=0084FF&logo=Zhihu&logoColor=FFFFFF&label="/>
+</a>
+<a href="https://space.bilibili.com/39453025">
+    <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Bilibili&color=00A1D6&logo=Bilibili&logoColor=FFFFFF&label="/>
+</a>
+<a href='https://github.com/ocademy-ai/machine-learning/assets/5424267/c852cd8b-993f-4286-962c-1e489c4baf6d'>
+  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=WeChat&color=222222&logo=WeChat&logoColor=07C160&label=" />
+</a>
+<a href="https://www.xiaohongshu.com/user/profile/60ea283100000000010004ba">
+    <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Xiaohongshu&color=dddddd&logo=data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QCMRXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAABOgAwAEAAAAAQAAABMAAAAA/+0AOFBob3Rvc2hvcCAzLjAAOEJJTQQEAAAAAAAAOEJJTQQlAAAAAAAQ1B2M2Y8AsgTpgAmY7PhCfv/CABEIABMAEwMBEQACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAADAgQBBQAGBwgJCgv/xADDEAABAwMCBAMEBgQHBgQIBnMBAgADEQQSIQUxEyIQBkFRMhRhcSMHgSCRQhWhUjOxJGIwFsFy0UOSNIII4VNAJWMXNfCTc6JQRLKD8SZUNmSUdMJg0oSjGHDiJ0U3ZbNVdaSVw4Xy00Z2gONHVma0CQoZGigpKjg5OkhJSldYWVpnaGlqd3h5eoaHiImKkJaXmJmaoKWmp6ipqrC1tre4ubrAxMXGx8jJytDU1dbX2Nna4OTl5ufo6erz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAECAAMEBQYHCAkKC//EAMMRAAICAQMDAwIDBQIFAgQEhwEAAhEDEBIhBCAxQRMFMCIyURRABjMjYUIVcVI0gVAkkaFDsRYHYjVT8NElYMFE4XLxF4JjNnAmRVSSJ6LSCAkKGBkaKCkqNzg5OkZHSElKVVZXWFlaZGVmZ2hpanN0dXZ3eHl6gIOEhYaHiImKkJOUlZaXmJmaoKOkpaanqKmqsLKztLW2t7i5usDCw8TFxsfIycrQ09TV1tfY2drg4uPk5ebn6Onq8vP09fb3+Pn6/9sAQwADAgIDAgIDAwIDAwMDAwQHBQQEBAQJBgcFBwoJCwsKCQoKDA0RDgwMEAwKCg4UDxAREhMTEwsOFBYUEhYREhMS/9sAQwEDAwMEBAQIBQUIEgwKDBISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhIS/9oADAMBAAIRAxEAAAGu8D+g3L4vjx3unlrOfM5e6gPTJ6XuXpflP//aAAgBAQABBQJYmuCna7xZj3Dc7NEHiZEaP6SQoO430d5e7zAi23R7JsljPtX/2gAIAQMRAT8Bxnp8I9mNDYLr8o/n/gZfKdDEWc0fT1/Pw5fj/iupmcsoxkT6uf8AdnJOU5DIDf535O67/p93pfjw/wC21nkDjyGO37PBkPwCvy9R/sX43ocvTdNHDOfI/wA/rx554D8NnyZ+gxZMhskafOfOfIYvkMsIZSAC/wD/2gAIAQIRAT8B/wB8vtz/ACRPJHi0Z6rh96IN/wCH/Ys5CUrckRGZA0wYMZxgkP8A/9oACAEBAAY/AhMsLk58uAVxzX6OibS4J14I9OLESF3USU8EkHRwpMC0hFMsSNAMaU+PT+tpkhRcGUJm/eISQCs19fI/qck0USkhdOJprTXg7mOFOKEyaD07W0k1sha1pqSX/8QAMxABAAMAAgICAgIDAQEAAAILAREAITFBUWFxgZGhscHw0RDh8SAwQFBgcICQoLDA0OD/2gAIAQEAAT8hfFMt+B96XCrPXZRB4Y9Uj44qDvCT3U7QJSB3Se2Y9mLFkJxYsc4gI7HxZ8NoJsAoSEsvPdkjcGzD/mhCLqqt/9oADAMBAAIRAxEAABDjr3Uf/8QAMxEBAQEAAwABAgUFAQEAAQEJAQARITEQQVFhIHHwkYGhsdHB4fEwQFBgcICQoLDA0OD/2gAIAQMRAT8QVIIrphvLjOjz24ry855D6j8N0dmnPIZ85duSAjqcdji8cv175n+BUwNRjIgDjyONG8Y4m94TTvE1l3nHvWwunU4EZpAgWgch1YCF145+N4/r9e3nzDsQDAAD7f8AXt5v/9oACAECEQE/ENV1+Wa/L9Pz+37QnT/X+I3KLEPh/rOvvx8533AB1T5B8t4+w8flOiZt1Aa+aAF/P63/2gAIAQEAAT8QK4wdKkpMs8oAECAgzGAFgmOxZpnqcuz82uSYhyDoSIIuUsab7aiOUZOOQz60tqdkSbCQOgrjiQJGLEMAqAUlQEhglWJWDowgApqXeBfhBVX8HAQEAX//2Q==&logoColor=000000&label="/>
+</a>
+
+## 📄 License
+
+Copyright © 2022-2023 Ocademy
+
+The content of this repository is bound by the following licenses:
+
+- The code is licensed under the MIT.
+- The text and multimedia are licensed under CC-BY-4.0.

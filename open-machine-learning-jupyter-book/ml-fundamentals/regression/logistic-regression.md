@@ -22,6 +22,11 @@ width: 100%
 ---
 Logistic regression to predict categories. Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
 ```
+<p style="text-align: center;">
+<iframe src="../../html/logr-playground/index.html" width="105%" height="700px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-regression/"> [source]</a >
+</p >
 
 ## Introduction
 

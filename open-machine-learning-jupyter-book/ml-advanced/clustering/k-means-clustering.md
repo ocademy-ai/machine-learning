@@ -264,7 +264,7 @@ This is a great moment to think about all the ways you could correct this issue.
 
 ## Your turn! 🚀
 
-[Try different clustering methods](../../assignments/ml-advanced/clustering/try-different-clustering-methods.md)
+TBD.
 
 ## Self study
 
