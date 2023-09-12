@@ -26,7 +26,7 @@ async function fetchLocalData(TABLE_NAME) {
             if (item.hasOwnProperty('hasCert')) {
                 return {
                     ...item,
-                    hasCert: item.hasCert === "True"
+                    hasCert: item.hasCert === 1
                 };
             }
             return item;
