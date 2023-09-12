@@ -25,7 +25,7 @@ An interactive and visual Machine Learning book - with code and assignment
 ````
 `````
 
-# Learn with us
+# Learn AI together, for free
 
 ````{grid} 1 1 2 3
 :class-container: text-center
