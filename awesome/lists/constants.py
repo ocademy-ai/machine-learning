@@ -1,1 +1,1 @@
-DB_URL = '../../database/data.db'
+DB_URL = './database/data.db'
