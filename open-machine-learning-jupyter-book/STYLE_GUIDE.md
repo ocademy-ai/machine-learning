@@ -210,6 +210,25 @@ assets/
 
 Note that we may need to set the `width` to `105%` so that all content of `index.html` will be rendered correctly. Also, the `height` has to be set manually.
 
+## Visualization parts
+
+1\. Get the target HTML file, make sure all the bundled files are downloaded and the HTML file can be run separately locally.
+
+2\. Keep only the visualization content, no additional description is needed.
+
+3\. Add the HTML file and bundle to the `open-machine-learning-jupyter-book\assets\html` counterpart.
+
+4\. Embed HTML within the corresponding section. HTML embedding method refer to Python. For example:
+
+```text
+from IPython.display import HTML
+display(HTML("""
+<p style="text-align: center;">
+<iframe src="https://observablehq.com/embed/@yizhe-ang/interactive-visualization-of-linear-regression?cellsmviewOptions%2CrSquaredP" style="border:none;" scrolling="auto"></iframe>
+A demo of visualization.   <a href="source/of/the/iframe"> [source]</a></p>
+"""))
+```
+
 ## YouTube video
 
 To include a YouTube video:
