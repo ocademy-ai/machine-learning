@@ -37,6 +37,18 @@ name: voronoi diagram
 voronoi diagram infographic by Jen Looper
 ```
 
+from IPython.display import HTML
+
+display(HTML("""
+<p style="text-align: center;">
+<iframe src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/html/clustering-vis/clustering.html" width="105%" height="800px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of linear-regression. <a
+href="https://www.naftaliharris.com/blog/visualizing-k-means-clustering/"> [source]</a>
+</p>
+"""))
+
+
 The K-Means clustering process executes in a three-step process):
 
 - The algorithm selects k-number of center points by sampling from the dataset. After this, it loops:
@@ -272,6 +284,7 @@ You can use this tool to visualize sample data points and determine their centro
 
 - [such as this one](https://user.ceng.metu.edu.tr/~akifakkus/courses/ceng574/k-means/)
 - [this handout on K-Means](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)
+- [another K-means clustering visualization](https://www.naftaliharris.com/blog/visualizing-k-means-clustering/)
 
 ## Acknowledgments
 
