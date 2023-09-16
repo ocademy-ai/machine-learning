@@ -202,7 +202,7 @@ Remember how linear regression often used ordinary least squares to arrive at a 
 Logistic function{cite}`logistic_function`
 :::
 
-Where the sigmoid's midpoint finds itself at x's 00 point, L is the curve's maximum value, and kk is the curve's steepness. If the outcome of the function is more than 0.5, the label in question will be given the class '1' of the binary choice. If not, it will be classified as '0'.
+Where the sigmoid's midpoint finds itself at x's $0$ point, L is the curve's maximum value, and $k$ is the curve's steepness. If the outcome of the function is more than 0.5, the label in question will be given the class '1' of the binary choice. If not, it will be classified as '0'.
 
 ```
 
