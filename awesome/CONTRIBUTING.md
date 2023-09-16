@@ -20,7 +20,8 @@ The awesome lists are structured into several parts.
 
 Here is the latest ERD of the database.
 
-![Screenshot 2023-08-16 at 1 39 37 PM](https://github.com/ocademy-ai/machine-learning/assets/5424267/194ce266-8f0b-49d9-9210-d8c42d731e33)
+![schema](https://github.com/ocademy-ai/machine-learning/assets/5424267/1a21a701-9404-4d4e-82d6-8fc92445f8d2)
+
 
 ### How to update the data?
 
@@ -30,7 +31,7 @@ The built-in Directus CRM is the recommended way to update the data. But if you'
 
 The Directus is defined by the `awesome/database/docker-compose.yml` by following the [official self-hosting guidance](https://docs.directus.io/self-hosted/quickstart.html), including,
 
-- the login credential,
+- the login credentials,
 - SQLite database location,
 - port,
 - key and secret.
@@ -42,6 +43,12 @@ You can simply follow the below steps to launch the Directus instance on your lo
 3. `docker compose up`.
 4. Go visit `http://localhost:8055`.
 5. Update data through the Directus Data Studio App. Go through this official [instruction](https://docs.directus.io/app/data-model.html) if you want to learn how to use it.
+
+**Some notes**
+
+1. For the `source` field in the course table, kindly use the official website link of the course, not the link provided by the task.
+2. The `authorCount` field should be filled in only if the number of course authors exceeds three. In cases where there are three or fewer authors, leave this field unchanged.
+3. In the `source` field of the organization and user tables, please use the links pertaining to the organization or author, respectively. Do not use the course link in these fields.
 
 #### STEP 2. Update the corresponding Jupyter Notebook
 
@@ -55,19 +62,48 @@ E.g. you are adding some new content to the courses list.
 4. If you want to update the output rendering logic in the Notebook or `machine-learning/awesome/lists/lib`,
    1. add newly introduced Python libraries if needed,
    2. update the rendering code in Python.
-5. Go back to JupyterLab or Jupyter NOtebook, restart the kernel, and rerun all the cells.
-6. Use [nbconvert to sync](#how-to-use-nbconvert) the latest `README.ipynb` with the `README.md` Markdown file.
+   3. Go back to JupyterLab or Jupyter Notebook, restart the kernel, and rerun all the cells.
+5. Check the output `README.md`.
 
 #### STEP 3. Submit PR
 
 Now, you are ready to submit a PR for your changes. Please make sure you have gone through above STEPs successfully first. Then,
 
-1. submit PR, a SQLite database diff will be generated automatically by the GitHub action,
-2. review the GitHub Action build log, and make sure only intended change is included.
+1. submit PR, a SQLite database [diff](https://github.com/ocademy-ai/machine-learning/actions/runs/5971587037/job/16243737705) will be generated automatically by the GitHub action,
+2. review the GitHub Action build log, and make sure only intended database change is included,
+3. review the content of the `README.md`.
 
 #### An example
 
 TBD
+
+#### STEP 4. Resolve conflicts
+
+If your PR does not have any conflicts, you can proceed to the next step. However, if conflicts are present, follow the steps below to resolve them effectively.
+
+1. Access the GitHub Action page, rerun and locate your PR. Copy the output of the `Show substantial tables differences` and save it as a .sql file.
+2. To reset your code to the original state, execute the following command in your command-line interface: `git reset --hard upstream/main`.
+3. Open SQLiteStudio and execute the .sql file you saved in the previous step.
+4. Once the changes have been successfully applied, push the modified database to the appropriate origin branch using the following command: `git push origin branch-name`.
+
+**Note**: 
+
+1. Remember not to include the .sql file in your PR. You can safely delete it after executing the file to resolve the conflicts.
+2. Please make sure that all your operations occur in the `machine-learning` directory, not the `machine-learning/awesome/database` directory.
+
+#### An example
+
+1. copy sqldiff
+
+![sqldiff](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/sqldiff.png)
+
+2. create .sql file
+   
+![.sql_file](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/.sql_file.png)
+
+3. execute the sql file in SQLiteStudio
+
+![execute_sql_from_file](https://static-1300131294.cos.accelerate.myqcloud.com/images/awesome/execute_sql_from_file.png)
 
 ### How to update the database schema?
 
@@ -88,7 +124,7 @@ To update the awesome lists data schema,
    2. automatically update the `createdAt` column and `updatedAt` column.
 7. `knex migrate:latest`
 8. Verify your changes by using Directus, a SQLite editor or any other way you prefer.
-9. Update the database ERD in the [Notes for contributors](#notes-for-contributors) section if needed.
+9. Update the database ERD in the [Notes for contributors](#notes-for-contributors) section if needed by using [DBVisualizer](https://confluence.dbvis.com/display/UG232/Viewing+Entity+Relationships).
 10. Submit PR, a SQLite database diff will be generated automatically by the GitHub action.
 11. Review the GitHub Action build log, and make sure only intended change is included.
 

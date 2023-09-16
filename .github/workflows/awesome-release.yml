@@ -18,26 +18,42 @@ jobs:
     - name: Set up SQLite
       run: sudo apt-get install sqlite3
       
-    - name: Convert current branch database to dump
-      run: sqlite3 awesome/database/data.db .dump > current_data.dump
-      continue-on-error: true
+    - name: Install sqldiff tool
+      run: |
+        wget https://www.sqlite.org/2023/sqlite-tools-linux-x86-3420000.zip
+        unzip sqlite-tools-linux-x86-3420000.zip
 
-    - name: Get target branch database content
+    - name: Get target branch database
       run: |
         wget -O target_data.db https://raw.githubusercontent.com/${{ github.repository }}/release/awesome/database/data.db
-        sqlite3 target_data.db .dump > target_data.dump
-      continue-on-error: true
-      
-    - name: Show database differences
-      run: diff -a target_data.dump current_data.dump || true
+
+    - name: Show database schema differences
+      run: ./sqlite-tools-linux-x86-3420000/sqldiff --schema target_data.db awesome/database/data.db
+
+    - name: Show substantial tables differences
+      run: |
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Course target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Organization target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table User target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Tag target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table CourseTags target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table CourseOrganizations target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table UserCourses target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table Tutorial target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table TutorialTags target_data.db awesome/database/data.db
+        ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey --table UserTutorials target_data.db awesome/database/data.db
+
+    - name: Show all differences in database
+      run: ./sqlite-tools-linux-x86-3420000/sqldiff --primarykey target_data.db awesome/database/data.db
 
     - name: Install dependencies
       run: |
         cd awesome
         npm install
 
-    - name: Set environment variables 
+    - name: Synchronize local and cloud databases
       run: |
+        cd awesome/sync
         export EMAIL=${{ secrets.EMAIL }}
         export PASSWORD=${{ secrets.PASSWORD }}
         export AWS_APPSYNC_AUTHENTICATIONTYPE=${{ secrets.AWS_APPSYNC_AUTHENTICATIONTYPE_PROD }}
@@ -49,8 +65,4 @@ jobs:
         export AWS_PROJECT_REGION=${{ secrets.AWS_PROJECT_REGION_PROD }}
         export AWS_USER_POOLS_ID=${{ secrets.AWS_USER_POOLS_ID_PROD }}
         export AWS_USER_POOLS_WEB_CLIENT_ID=${{ secrets.AWS_USER_POOLS_WEB_CLIENT_ID_PROD }}
-
-    - name: Synchronize local and cloud databases
-      run: |
-        cd sync
         node index.js

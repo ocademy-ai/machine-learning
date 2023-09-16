@@ -49,6 +49,21 @@ const getTag = /* GraphQL */ `
         nextToken
         startedAt
       }
+      tutorials {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -78,6 +93,10 @@ const listTags = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -119,6 +138,10 @@ const syncTags = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -376,6 +399,9 @@ const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
+      name
+      source
+      title
       nickname
       portrait
       bio
@@ -451,6 +477,21 @@ const getUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      tutorials {
+        items {
+          id
+          userId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
       messages {
         items {
           id
@@ -486,6 +527,9 @@ const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -514,6 +558,10 @@ const listUsers = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -548,6 +596,9 @@ const syncUsers = /* GraphQL */ `
     ) {
       items {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -576,6 +627,10 @@ const syncUsers = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -612,6 +667,9 @@ const usersByUsername = /* GraphQL */ `
     ) {
       items {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -640,6 +698,10 @@ const usersByUsername = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -774,6 +836,9 @@ const getMessage = /* GraphQL */ `
       id
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -802,6 +867,10 @@ const getMessage = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -857,6 +926,9 @@ const listMessages = /* GraphQL */ `
         id
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -921,6 +993,9 @@ const syncMessages = /* GraphQL */ `
         id
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -987,7 +1062,7 @@ const getCourse = /* GraphQL */ `
       language
       level
       license
-      published_at
+      publishedAt
       organizations {
         items {
           id
@@ -1066,7 +1141,7 @@ const listCourses = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -1121,7 +1196,7 @@ const syncCourses = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -1242,6 +1317,152 @@ const syncOrganizations = /* GraphQL */ `
     }
   }
 `;
+const getTutorial = /* GraphQL */ `
+  query GetTutorial($id: ID!) {
+    getTutorial(id: $id) {
+      id
+      title
+      source
+      description
+      objectives
+      syllabus
+      price
+      cost
+      topic
+      language
+      level
+      publishedAt
+      prerequisites
+      references
+      tags {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      users {
+        items {
+          id
+          userId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const listTutorials = /* GraphQL */ `
+  query ListTutorials(
+    $filter: ModelTutorialFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTutorials(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const syncTutorials = /* GraphQL */ `
+  query SyncTutorials(
+    $filter: ModelTutorialFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncTutorials(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 const getVisualizationTags = /* GraphQL */ `
   query GetVisualizationTags($id: ID!) {
     getVisualizationTags(id: $id) {
@@ -1261,6 +1482,10 @@ const getVisualizationTags = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1537,6 +1762,10 @@ const getProjectTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -1806,6 +2035,10 @@ const getCourseTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -1830,7 +2063,7 @@ const getCourseTags = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -1898,7 +2131,7 @@ const listCourseTags = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -1963,7 +2196,7 @@ const syncCourseTags = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -2030,7 +2263,7 @@ const courseTagsByTagId = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -2097,7 +2330,325 @@ const courseTagsByCourseId = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const getTutorialTags = /* GraphQL */ `
+  query GetTutorialTags($id: ID!) {
+    getTutorialTags(id: $id) {
+      id
+      tagId
+      tutorialId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const listTutorialTags = /* GraphQL */ `
+  query ListTutorialTags(
+    $filter: ModelTutorialTagsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTutorialTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        tagId
+        tutorialId
+        tag {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const syncTutorialTags = /* GraphQL */ `
+  query SyncTutorialTags(
+    $filter: ModelTutorialTagsFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncTutorialTags(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        tagId
+        tutorialId
+        tag {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const tutorialTagsByTagId = /* GraphQL */ `
+  query TutorialTagsByTagId(
+    $tagId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelTutorialTagsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    tutorialTagsByTagId(
+      tagId: $tagId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        tagId
+        tutorialId
+        tag {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const tutorialTagsByTutorialId = /* GraphQL */ `
+  query TutorialTagsByTutorialId(
+    $tutorialId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelTutorialTagsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    tutorialTagsByTutorialId(
+      tutorialId: $tutorialId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        tagId
+        tutorialId
+        tag {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
           createdAt
           updatedAt
           _version
@@ -2146,6 +2697,9 @@ const getUserVisualizations = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2174,6 +2728,10 @@ const getUserVisualizations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2227,6 +2785,9 @@ const listUserVisualizations = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2293,6 +2854,9 @@ const syncUserVisualizations = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2361,6 +2925,9 @@ const userVisualizationsByVisualizationId = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2429,6 +2996,9 @@ const userVisualizationsByUserId = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2492,6 +3062,9 @@ const getUserProjects = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2520,6 +3093,10 @@ const getUserProjects = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2569,6 +3146,9 @@ const listUserProjects = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2635,6 +3215,9 @@ const syncUserProjects = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2703,6 +3286,9 @@ const userProjectsByProjectId = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2771,6 +3357,9 @@ const userProjectsByUserId = /* GraphQL */ `
         }
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2813,6 +3402,9 @@ const getUserConversations = /* GraphQL */ `
       conversationId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2841,6 +3433,10 @@ const getUserConversations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2898,6 +3494,9 @@ const listUserConversations = /* GraphQL */ `
         conversationId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -2960,6 +3559,9 @@ const syncUserConversations = /* GraphQL */ `
         conversationId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3024,6 +3626,9 @@ const userConversationsByUserId = /* GraphQL */ `
         conversationId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3088,6 +3693,9 @@ const userConversationsByConversationId = /* GraphQL */ `
         conversationId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3139,6 +3747,9 @@ const getUserCourses = /* GraphQL */ `
       courseId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -3170,6 +3781,10 @@ const getUserCourses = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         messages {
           nextToken
           startedAt
@@ -3198,7 +3813,7 @@ const getUserCourses = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -3240,6 +3855,9 @@ const listUserCourses = /* GraphQL */ `
         courseId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3279,7 +3897,7 @@ const listUserCourses = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3318,6 +3936,9 @@ const syncUserCourses = /* GraphQL */ `
         courseId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3357,7 +3978,7 @@ const syncUserCourses = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3398,6 +4019,9 @@ const userCoursesByUserId = /* GraphQL */ `
         courseId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3437,7 +4061,7 @@ const userCoursesByUserId = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3478,6 +4102,9 @@ const userCoursesByCourseId = /* GraphQL */ `
         courseId
         user {
           id
+          name
+          source
+          title
           nickname
           portrait
           bio
@@ -3517,7 +4144,413 @@ const userCoursesByCourseId = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const getUserTutorials = /* GraphQL */ `
+  query GetUserTutorials($id: ID!) {
+    getUserTutorials(id: $id) {
+      id
+      userId
+      tutorialId
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const listUserTutorials = /* GraphQL */ `
+  query ListUserTutorials(
+    $filter: ModelUserTutorialsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserTutorials(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        tutorialId
+        user {
+          id
+          name
+          source
+          title
+          nickname
+          portrait
+          bio
+          birth
+          gender
+          city
+          profession
+          username
+          email
+          phoneNumber
+          authStatus
+          type
+          status
+          isDeleted
+          isBlocked
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const syncUserTutorials = /* GraphQL */ `
+  query SyncUserTutorials(
+    $filter: ModelUserTutorialsFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUserTutorials(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        userId
+        tutorialId
+        user {
+          id
+          name
+          source
+          title
+          nickname
+          portrait
+          bio
+          birth
+          gender
+          city
+          profession
+          username
+          email
+          phoneNumber
+          authStatus
+          type
+          status
+          isDeleted
+          isBlocked
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const userTutorialsByUserId = /* GraphQL */ `
+  query UserTutorialsByUserId(
+    $userId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserTutorialsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userTutorialsByUserId(
+      userId: $userId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        tutorialId
+        user {
+          id
+          name
+          source
+          title
+          nickname
+          portrait
+          bio
+          birth
+          gender
+          city
+          profession
+          username
+          email
+          phoneNumber
+          authStatus
+          type
+          status
+          isDeleted
+          isBlocked
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+const userTutorialsByTutorialId = /* GraphQL */ `
+  query UserTutorialsByTutorialId(
+    $tutorialId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserTutorialsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userTutorialsByTutorialId(
+      tutorialId: $tutorialId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        tutorialId
+        user {
+          id
+          name
+          source
+          title
+          nickname
+          portrait
+          bio
+          birth
+          gender
+          city
+          profession
+          username
+          email
+          phoneNumber
+          authStatus
+          type
+          status
+          isDeleted
+          isBlocked
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        tutorial {
+          id
+          title
+          source
+          description
+          objectives
+          syllabus
+          price
+          cost
+          topic
+          language
+          level
+          publishedAt
+          prerequisites
+          references
           createdAt
           updatedAt
           _version
@@ -3560,7 +4593,7 @@ const getCourseOrganizations = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -3638,7 +4671,7 @@ const listCourseOrganizations = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3705,7 +4738,7 @@ const syncCourseOrganizations = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3774,7 +4807,7 @@ const courseOrganizationsByCourseId = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3843,7 +4876,7 @@ const courseOrganizationsByOrganizationId = /* GraphQL */ `
           language
           level
           license
-          published_at
+          publishedAt
           createdAt
           updatedAt
           _version
@@ -3876,7 +4909,6 @@ const courseOrganizationsByOrganizationId = /* GraphQL */ `
     }
   }
 `;
-
 module.exports = {
   listConversations,
   listCourseOrganizations,
@@ -3894,6 +4926,9 @@ module.exports = {
   listUsers,
   listVisualizationTags,
   listVisualizations,
+  listTutorials,
+  listTutorialTags,
+  listUserTutorials,
   getCourse,
   getConversation,
   getCourseOrganizations,
@@ -3910,4 +4945,7 @@ module.exports = {
   getUserVisualizations,
   getVisualization,
   getVisualizationTags,
+  getTutorial,
+  getTutorialTags,
+  getUserTutorials,
 };

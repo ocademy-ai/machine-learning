@@ -57,6 +57,21 @@ const createTag = /* GraphQL */ `
         nextToken
         startedAt
       }
+      tutorials {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -120,6 +135,21 @@ const updateTag = /* GraphQL */ `
         nextToken
         startedAt
       }
+      tutorials {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -173,6 +203,21 @@ const deleteTag = /* GraphQL */ `
           id
           tagId
           courseId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      tutorials {
+        items {
+          id
+          tagId
+          tutorialId
           createdAt
           updatedAt
           _version
@@ -499,6 +544,9 @@ const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
+      name
+      source
+      title
       nickname
       portrait
       bio
@@ -564,6 +612,21 @@ const createUser = /* GraphQL */ `
           id
           userId
           courseId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      tutorials {
+        items {
+          id
+          userId
+          tutorialId
           createdAt
           updatedAt
           _version
@@ -607,6 +670,9 @@ const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
+      name
+      source
+      title
       nickname
       portrait
       bio
@@ -672,6 +738,21 @@ const updateUser = /* GraphQL */ `
           id
           userId
           courseId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      tutorials {
+        items {
+          id
+          userId
+          tutorialId
           createdAt
           updatedAt
           _version
@@ -715,6 +796,9 @@ const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
+      name
+      source
+      title
       nickname
       portrait
       bio
@@ -780,6 +864,21 @@ const deleteUser = /* GraphQL */ `
           id
           userId
           courseId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      tutorials {
+        items {
+          id
+          userId
+          tutorialId
           createdAt
           updatedAt
           _version
@@ -969,6 +1068,9 @@ const createMessage = /* GraphQL */ `
       id
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -997,6 +1099,10 @@ const createMessage = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1050,6 +1156,9 @@ const updateMessage = /* GraphQL */ `
       id
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -1078,6 +1187,10 @@ const updateMessage = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1131,6 +1244,9 @@ const deleteMessage = /* GraphQL */ `
       id
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -1159,6 +1275,10 @@ const deleteMessage = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1225,7 +1345,7 @@ const createCourse = /* GraphQL */ `
       language
       level
       license
-      published_at
+      publishedAt
       organizations {
         items {
           id
@@ -1302,7 +1422,7 @@ const updateCourse = /* GraphQL */ `
       language
       level
       license
-      published_at
+      publishedAt
       organizations {
         items {
           id
@@ -1379,7 +1499,7 @@ const deleteCourse = /* GraphQL */ `
       language
       level
       license
-      published_at
+      publishedAt
       organizations {
         items {
           id
@@ -1539,6 +1659,183 @@ const deleteOrganization = /* GraphQL */ `
     }
   }
 `;
+const createTutorial = /* GraphQL */ `
+  mutation CreateTutorial(
+    $input: CreateTutorialInput!
+    $condition: ModelTutorialConditionInput
+  ) {
+    createTutorial(input: $input, condition: $condition) {
+      id
+      title
+      source
+      description
+      objectives
+      syllabus
+      price
+      cost
+      topic
+      language
+      level
+      publishedAt
+      prerequisites
+      references
+      tags {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      users {
+        items {
+          id
+          userId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const updateTutorial = /* GraphQL */ `
+  mutation UpdateTutorial(
+    $input: UpdateTutorialInput!
+    $condition: ModelTutorialConditionInput
+  ) {
+    updateTutorial(input: $input, condition: $condition) {
+      id
+      title
+      source
+      description
+      objectives
+      syllabus
+      price
+      cost
+      topic
+      language
+      level
+      publishedAt
+      prerequisites
+      references
+      tags {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      users {
+        items {
+          id
+          userId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const deleteTutorial = /* GraphQL */ `
+  mutation DeleteTutorial(
+    $input: DeleteTutorialInput!
+    $condition: ModelTutorialConditionInput
+  ) {
+    deleteTutorial(input: $input, condition: $condition) {
+      id
+      title
+      source
+      description
+      objectives
+      syllabus
+      price
+      cost
+      topic
+      language
+      level
+      publishedAt
+      prerequisites
+      references
+      tags {
+        items {
+          id
+          tagId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      users {
+        items {
+          id
+          userId
+          tutorialId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
 const createVisualizationTags = /* GraphQL */ `
   mutation CreateVisualizationTags(
     $input: CreateVisualizationTagsInput!
@@ -1561,6 +1858,10 @@ const createVisualizationTags = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1626,6 +1927,10 @@ const updateVisualizationTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -1685,6 +1990,10 @@ const deleteVisualizationTags = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1750,6 +2059,10 @@ const createProjectTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -1809,6 +2122,10 @@ const updateProjectTags = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -1874,6 +2191,10 @@ const deleteProjectTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -1936,6 +2257,10 @@ const createCourseTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -1960,7 +2285,7 @@ const createCourseTags = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -2014,6 +2339,10 @@ const updateCourseTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -2038,7 +2367,7 @@ const updateCourseTags = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -2092,6 +2421,10 @@ const deleteCourseTags = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -2116,11 +2449,236 @@ const deleteCourseTags = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
         }
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const createTutorialTags = /* GraphQL */ `
+  mutation CreateTutorialTags(
+    $input: CreateTutorialTagsInput!
+    $condition: ModelTutorialTagsConditionInput
+  ) {
+    createTutorialTags(input: $input, condition: $condition) {
+      id
+      tagId
+      tutorialId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const updateTutorialTags = /* GraphQL */ `
+  mutation UpdateTutorialTags(
+    $input: UpdateTutorialTagsInput!
+    $condition: ModelTutorialTagsConditionInput
+  ) {
+    updateTutorialTags(input: $input, condition: $condition) {
+      id
+      tagId
+      tutorialId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const deleteTutorialTags = /* GraphQL */ `
+  mutation DeleteTutorialTags(
+    $input: DeleteTutorialTagsInput!
+    $condition: ModelTutorialTagsConditionInput
+  ) {
+    deleteTutorialTags(input: $input, condition: $condition) {
+      id
+      tagId
+      tutorialId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
         tags {
           nextToken
           startedAt
@@ -2177,6 +2735,9 @@ const createUserVisualizations = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2205,6 +2766,10 @@ const createUserVisualizations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2260,6 +2825,9 @@ const updateUserVisualizations = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2288,6 +2856,10 @@ const updateUserVisualizations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2343,6 +2915,9 @@ const deleteUserVisualizations = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2371,6 +2946,10 @@ const deleteUserVisualizations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2426,6 +3005,9 @@ const createUserProjects = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2454,6 +3036,10 @@ const createUserProjects = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2509,6 +3095,9 @@ const updateUserProjects = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2537,6 +3126,10 @@ const updateUserProjects = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2592,6 +3185,9 @@ const deleteUserProjects = /* GraphQL */ `
       }
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2620,6 +3216,10 @@ const deleteUserProjects = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2654,6 +3254,9 @@ const createUserConversations = /* GraphQL */ `
       conversationId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2682,6 +3285,10 @@ const createUserConversations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2733,6 +3340,9 @@ const updateUserConversations = /* GraphQL */ `
       conversationId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2761,6 +3371,10 @@ const updateUserConversations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2812,6 +3426,9 @@ const deleteUserConversations = /* GraphQL */ `
       conversationId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2840,6 +3457,10 @@ const deleteUserConversations = /* GraphQL */ `
           startedAt
         }
         courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
           nextToken
           startedAt
         }
@@ -2891,6 +3512,9 @@ const createUserCourses = /* GraphQL */ `
       courseId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -2922,6 +3546,10 @@ const createUserCourses = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         messages {
           nextToken
           startedAt
@@ -2950,7 +3578,7 @@ const createUserCourses = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -2990,6 +3618,9 @@ const updateUserCourses = /* GraphQL */ `
       courseId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -3021,6 +3652,10 @@ const updateUserCourses = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         messages {
           nextToken
           startedAt
@@ -3049,7 +3684,7 @@ const updateUserCourses = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -3089,6 +3724,9 @@ const deleteUserCourses = /* GraphQL */ `
       courseId
       user {
         id
+        name
+        source
+        title
         nickname
         portrait
         bio
@@ -3120,6 +3758,10 @@ const deleteUserCourses = /* GraphQL */ `
           nextToken
           startedAt
         }
+        tutorials {
+          nextToken
+          startedAt
+        }
         messages {
           nextToken
           startedAt
@@ -3148,11 +3790,308 @@ const deleteUserCourses = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
         }
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const createUserTutorials = /* GraphQL */ `
+  mutation CreateUserTutorials(
+    $input: CreateUserTutorialsInput!
+    $condition: ModelUserTutorialsConditionInput
+  ) {
+    createUserTutorials(input: $input, condition: $condition) {
+      id
+      userId
+      tutorialId
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const updateUserTutorials = /* GraphQL */ `
+  mutation UpdateUserTutorials(
+    $input: UpdateUserTutorialsInput!
+    $condition: ModelUserTutorialsConditionInput
+  ) {
+    updateUserTutorials(input: $input, condition: $condition) {
+      id
+      userId
+      tutorialId
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
+        tags {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const deleteUserTutorials = /* GraphQL */ `
+  mutation DeleteUserTutorials(
+    $input: DeleteUserTutorialsInput!
+    $condition: ModelUserTutorialsConditionInput
+  ) {
+    deleteUserTutorials(input: $input, condition: $condition) {
+      id
+      userId
+      tutorialId
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      tutorial {
+        id
+        title
+        source
+        description
+        objectives
+        syllabus
+        price
+        cost
+        topic
+        language
+        level
+        publishedAt
+        prerequisites
+        references
         tags {
           nextToken
           startedAt
@@ -3203,7 +4142,7 @@ const createCourseOrganizations = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -3275,7 +4214,7 @@ const updateCourseOrganizations = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -3347,7 +4286,7 @@ const deleteCourseOrganizations = /* GraphQL */ `
         language
         level
         license
-        published_at
+        publishedAt
         organizations {
           nextToken
           startedAt
@@ -3410,6 +4349,9 @@ module.exports = {
   createUserProjects,
   createUserVisualizations,
   createVisualizationTags,
+  createTutorial,
+  createTutorialTags,
+  createUserTutorials,
   updateTag,
   updateConversation,
   updateCourse,
@@ -3426,6 +4368,9 @@ module.exports = {
   updateUserProjects,
   updateUserVisualizations,
   updateVisualizationTags,
+  updateTutorial,
+  updateTutorialTags,
+  updateUserTutorials,
   deleteConversation,
   deleteCourse,
   deleteCourseOrganizations,
@@ -3442,4 +4387,7 @@ module.exports = {
   deleteUserVisualizations,
   deleteVisualization,
   deleteVisualizationTags,
+  deleteTutorial,
+  deleteTutorialTags,
+  deleteUserTutorials,
 };

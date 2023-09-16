@@ -25,7 +25,7 @@ exports.up = function (knex) {
     table.string("language");
     table.string("level");
     table.string("license");
-    table.string("published_at");
+    table.string("publishedAt");
     table.timestamps(true, true, true);
   });
 };
