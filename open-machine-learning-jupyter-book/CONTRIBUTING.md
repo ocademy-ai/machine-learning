@@ -291,3 +291,14 @@ jupyter notebook
 > **Warning**
 >
 > Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
+>
+> Q&A
+> WARNING: Non-consecutive header level increase; 0 to 2 [myst.header] (https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/header-level-increase.png)
+> This error is caused by the presence of a non-consecutive heading level increase in the specified Jupyter notebook file. Specifically, the heading level increases directly from 0 to 2 without going through level 1.
+
+To resolve this issue, you can follow these steps:
+1. Open the specified Jupyter notebook file.
+2. Check the setting for the heading level, which in this lesson is the number of '#'.
+3. Ensure that the heading level increases continuously without skipping any levels.
+4. If you find a non-continuous heading level increase, adjust it to a continuous level increase.
+5. Save the file and re-run the code to ensure the error has been resolved.
