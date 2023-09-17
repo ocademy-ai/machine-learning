@@ -293,7 +293,7 @@ jupyter notebook
 > Please make sure the Jupyter Notebook is running in trusted mode, and the [init_cell](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/init_cell/README.html) is configured for the first cell of slide notebook. So that the first cell will be automatically executed to load the CSS.
 >
 
-## Q&A
+## FAQ
 
 **Regarding the deletion and addition of the ‘_toc.yml’ file:**
 
