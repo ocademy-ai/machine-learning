@@ -303,6 +303,7 @@ jupyter notebook
  *  When you build your book using Jupyter Book, it reads the _toc.yml file and generates a navigation bar based on the directory structure in it.
  *  To speed up the local book build, you can keep only the content of the chapters you changed for the build. This speeds up the build and ignores errors reported by other chapters.
  *  However, when deleting other chapters, pay attention to ensure the integrity of the entire book structure, otherwise it may lead to error reporting, it is recommended that when you first get started, one by one CAPTION deletion.
+ *  After the preview, please restore the original _toc structure
 ```
 
 **Non-consecutive header level increase**
