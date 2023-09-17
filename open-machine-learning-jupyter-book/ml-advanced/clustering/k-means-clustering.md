@@ -1,17 +1,3 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
 
 # K-Means clustering
 
@@ -30,11 +16,23 @@ K-Means Clustering is a method derived from the domain of signal processing. It 
 
 The clusters can be visualized as Voronoi diagrams, which include a point (or 'seed') and its corresponding region. 
 
-```{figure} ../../../images/clustering/voronoi.png
+:::{figure} https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/clustering/voronoi.png
 ---
 name: voronoi diagram
 ---
 voronoi diagram infographic by Jen Looper
+:::
+
+```{code-cell}
+from IPython.display import HTML
+display(HTML("""
+<p style="text-align: center;">
+<iframe src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/html/clustering-vis/clustering.html" width="105%" height="800px;"
+style="border:none;" scrolling="auto"></iframe>
+A demo of linear-regression. <a
+href="https://www.naftaliharris.com/blog/visualizing-k-means-clustering/"> [source]</a>
+</p>
+"""))
 ```
 
 from IPython.display import HTML
@@ -73,7 +71,7 @@ import pandas as pd
 import seaborn as sns
 
 
-df = pd.read_csv("../../assets/data/nigerian-songs.csv")
+df = pd.read_csv("https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/nigerian-songs.csv")
 df = df[(df['artist_top_genre'] == 'afro dancehall') | (df['artist_top_genre'] == 'afropop') | (df['artist_top_genre'] == 'nigerian pop')]
 df = df[(df['popularity'] > 0)]
 top = df['artist_top_genre'].value_counts()
@@ -194,7 +192,7 @@ for i in range(1, 11):
 
  There are a few parts here that warrant explaining.
 
-```{seealso} 
+:::{seealso} 
 🎓 range: These are the iterations of the clustering process
 
 🎓 random_state: "Determines random number generation for centroid initialization."
@@ -204,7 +202,7 @@ for i in range(1, 11):
 🎓 Inertia: K-Means algorithms attempt to choose centroids to minimize 'inertia', "a measure of how internally coherent clusters are." The value is appended to the wcss variable on each iteration.
 
 🎓 k-means++: In Scikit-learn you can use the 'k-means++' optimization, which "initializes the centroids to be (generally) distant from each other, leading to probably better results than random initialization.
-```
+:::
 
 ### Elbow method
 
@@ -221,11 +219,11 @@ plt.ylabel('WCSS')
 plt.show()
 ```
 
-```{figure} ../../../images/clustering/elbow.png
+:::{figure} https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/clustering/elbow.png
 ---
 name: elbow
 ---
-```
+:::
 
 Use the `wcss` variable that you built in the previous step to create a chart showing where the 'bend' in the elbow is, which indicates the optimum number of clusters. Maybe it **is** 3!
 
@@ -259,20 +257,20 @@ This data is too imbalanced, too little correlated and there is too much varianc
 
 In Scikit-learn's documentation, you can see that a model like this one, with clusters not very well demarcated, has a 'variance' problem:
 
-```{figure} ../../../images/clustering/problems.png
+:::{figure} https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/clustering/problems.png
 ---
 name: problem models
 ---
 roblem models by Scikit-learn
-```
+:::
 
 ## Variance
 
 Variance is defined as "the average of the squared differences from the Mean" . In the context of this clustering problem, it refers to data that the numbers of our dataset tend to diverge a bit too much from the mean. 
 
-```{seealso} 
+:::{seealso} 
 This is a great moment to think about all the ways you could correct this issue. Tweak the data a bit more? Use different columns? Use a different algorithm? Hint: Try scaling your data to normalize it and test other columns.
-```
+:::
 
 ## Your turn! 🚀
 
