@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Visualizing distributions 
+# Visualizing distributions
 
 In the previous section, you learned some interesting facts about a dataset about the birds of Minnesota. You found some erroneous data by visualizing outliers and looked at the differences between bird categories by their maximum length.
 
