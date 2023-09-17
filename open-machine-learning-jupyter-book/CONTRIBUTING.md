@@ -295,7 +295,7 @@ jupyter notebook
 
 ## Q&A
 
-**Regarding the deletion and addition of the _toc file:**
+**Regarding the deletion and addition of the ‘_toc.yml’ file:**
 
 ```bash
  *  The _toc file is located in the open-machine-learning-jupyter-book [directory](https://github.com/ocademy-ai/machine-learning/blob/main/open-machine-learning-jupyter-book/_toc.yml)
