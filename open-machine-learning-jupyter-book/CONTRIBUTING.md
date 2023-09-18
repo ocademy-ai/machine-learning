@@ -322,4 +322,19 @@ To resolve this issue, you can follow these steps:
 3. Ensure that the heading level increases continuously without skipping any levels.
 4. If you find a non-continuous heading level increase, adjust it to a continuous level increase.
 5. Save the file and re-run the code to ensure the error has been resolved.
+6. Take care of '---', this will be recognize as a title. If you are transforming md file to ipynb file, and confirm that the above situation does not exist, please delete the last '---'.
 ```
+
+**Can't run the code locally**
+
+You may encounter a situation where the code cannot be run locally. You can try uploading the document to [Google Colab](https://colab.google/) for running, and then download the file containing the results to submit a PR locally.
+
+**Couldn't find cache key**
+
+You may meet a error like this:
+```
+ERROR: Execution Failed: /home/runner/work/machine-learning/machine-learning/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.md
+ERROR: Couldn't find cache key for notebook file data-science/data-visualization/visualization-distributions.md. Outputs will not be inserted.
+```
+
+To solve this error, you can find the file and just add a ' ' in anywhere of the file, just to resubmit it. And then delete the ' ' in next commit to make sure the file not exist in you PR.
