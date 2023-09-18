@@ -220,7 +220,7 @@ Note that we may need to set the `width` to `105%` so that all content of `index
 
 4\. Embed HTML within the corresponding section. HTML embedding method refer to Python. For example:
 
-```text
+```python
 from IPython.display import HTML
 display(HTML("""
 <p style="text-align: center;">
