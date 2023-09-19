@@ -46,6 +46,7 @@ If you have any questions or comments about this project, please feel free to co
 
 - [qi@ocademy.cc](mailto:qi@ocadmy.cc)
 - [lunde@ocademy.cc](mailto:lunde@ocademy.cc)
+- [hong@ocademy.cc](mailto:hong@ocademy.cc)
 
 Follow us -
 
