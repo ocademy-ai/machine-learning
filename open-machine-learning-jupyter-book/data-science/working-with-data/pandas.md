@@ -495,14 +495,19 @@ When inserting a `Series` that does not have the same index as the `DataFrame`, 
 df["one_trunc"] = df["one"][:2]
 ```
 
-<div class='full-width docutils' >
+
+
+
+
+<div class='full-width docutils'>
   <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
     <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:1000px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Ad%20%3D%20%7B%0A%20%20%20%20%22one%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29,%0A%20%20%20%20%22two%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0,%204.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22,%20%22d%22%5D%29,%0A%7D%0Adf%20%3D%20pd.DataFrame%28d%29%0Adf%5B%22flag%22%5D%20%3D%20df%5B%22one%22%5D%20%3E%202%0Adel%20df%5B%22two%22%5D%0Adf%5B%22foo%22%5D%20%3D%20%22bar%22%0Adf%5B%22one%22%5D%5B%3A2%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
+    <div class="pandastutor inner" style="height:730px;">
+      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Ad%20%3D%20%7B%0A%20%20%20%20%22one%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29,%0A%20%20%20%20%22two%22%3A%20pd.Series%28%5B1.0,%202.0,%203.0,%204.0%5D,%20index%3D%5B%22a%22,%20%22b%22,%20%22c%22,%20%22d%22%5D%29,%0A%7D%0Adf%20%3D%20pd.DataFrame%28d%29%0Adf%5B%22flag%22%5D%20%3D%20df%5B%22one%22%5D%20%3E%202%0Adel%20df%5B%22two%22%5D%0Adf%5B%22foo%22%5D%20%3D%20%22bar%22%0Adf%5B%22one_trunc%22%5D%20%3Ddf.insert%281,%20%22bar%22,%20df%5B%22one%22%5D%29%0Adf.loc%5B%22b%22%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
     </div>
   </div>
 </div>
+
 
 ```{code-cell}
 df
