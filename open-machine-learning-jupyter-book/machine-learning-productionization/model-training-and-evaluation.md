@@ -84,7 +84,7 @@ Under the deep learning context, there are multiple levels of complexity in usin
 
 ### AutoML
 
-Automated Machine Learning(AutoML) provides methods and processes to make Machine Learning available for non-Machine Learning experts, to improve the efficiency of Machine Learning and accelerate research on Machine Learning. Designing and tuning Machine Learning systems is a labor and time-intensive task, and also requires extensive expertise. AutoML is focused on automating the model selection and training process.
+[Automated Machine Learning(AutoML)](automl) provides methods and processes to make Machine Learning available for non-Machine Learning experts, to improve the efficiency of Machine Learning and accelerate research on Machine Learning. Designing and tuning Machine Learning systems is a labor and time-intensive task, and also requires extensive expertise. AutoML is focused on automating the model selection and training process.
 
 As it is named, AutoML helps automate many aspects of Machine Learning model developments and training. It consists of a broader group of methodologies listed here:
 
@@ -359,7 +359,7 @@ The model performance could be improved by adding features that encode informati
 
 ### Tune hyperparameters
 
-Values of hyperparameters make your model work. However, these hyperparameter values can still be tuned. The values could be tuned manually by trial and error, but manual tuning is time-consuming. Instead, consider using an AutoML hyperparameter tuning service, such as [Google Cloud Machine Learning hyperparameter tuning](https://cloud.google.com/ml-engine/docs/tensorflow/hyperparameter-tuning-overview), [Auto Gluon](https://github.com/awslabs/autogluon), etc. With different sets of hyperparameters, the same model may perform drastically differently on the same dataset. Keep in mind that not all hyperparameters are created equal. A model could be more sensitive to one hyperparameter.
+Values of hyperparameters make your model work. However, these hyperparameter values can still be tuned. The values could be tuned manually by trial and error, but manual tuning is time-consuming. Instead, consider using an [AutoML](#automl) hyperparameter tuning service, such as [Google Cloud Machine Learning hyperparameter tuning](https://cloud.google.com/ml-engine/docs/tensorflow/hyperparameter-tuning-overview), [Auto Gluon](https://github.com/awslabs/autogluon), etc. With different sets of hyperparameters, the same model may perform drastically differently on the same dataset. Keep in mind that not all hyperparameters are created equal. A model could be more sensitive to one hyperparameter.
 
 ### Tune model depth and width
 
