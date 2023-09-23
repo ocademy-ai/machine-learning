@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Kernel method
+# Kernel method 
 
 SVMs are a powerful and flexible class of algorithms used for classification and regression. In this section, we will explore the intuition behind SVMs and their use in classification problems.
 To start with, let's understand the basic concept of SVMs. 
