@@ -1,17 +1,4 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
+
 
 # Introduction
 
@@ -103,7 +90,7 @@ As you can see, we can leverage Cloud services in many ways to perform Data Scie
 
 ## Your turn! 🚀
 
-[Market research](../../assignments/data-science/market-research.md)
+[Market research](https://static-1300131294.cos.ap-shanghai.myqcloud.com/assignments/data-science/market-research.md)
 
 ## Acknowledgments
 

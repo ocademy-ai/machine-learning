@@ -1,18 +1,3 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.11.5
-kernelspec:
-  display_name: Python 3
-  language: Python
-  name: Python3
----
-
 # The "low code/no code" way
 
 ## What is Azure Machine Learning(ML)?
@@ -37,7 +22,7 @@ Azure ML provides all the tools developers and data scientists need for their Ma
 
 There is no doubt that making and building projects are the best way to put your skills and knowledge to the test. In this section, we are going to explore two different ways of building a data science project for the prediction of heart failure attacks in Azure ML Studio, through Low code/No code and through the Azure ML SDK as shown in the following schema:
 
-![project-schema](../../../images/project-schema.png)
+![project-schema](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/project-schema.png)
 
 Each way has its own pros and cons. The Low code/No code way is easier to start with as it involves interacting with a GUI (Graphical User Interface), with no prior knowledge of code required. This method enables quick testing of the project's viability and to create POC (Proof Of Concept). However, as the project grows and things need to be production ready, it is not feasible to create resources through GUI. We need to programmatically automate everything, from the creation of resources to the deployment of a model. This is where knowing how to use the Azure ML SDK becomes crucial.
 
@@ -87,23 +72,23 @@ It is recommended to use the most up-to-date browser that's compatible with your
 
 To use Azure Machine Learning, create a workspace in your Azure subscription. You can then use this workspace to manage data, compute resources, code, models, and other artifacts related to your Machine Learning workloads.
 
-```{note}
+:::{note}
 Your Azure subscription will be charged a small amount for data storage as long as the Azure Machine Learning workspace exists in your subscription, so we recommend you to delete the Azure Machine Learning workspace when you are no longer using it.
-```
+:::
 
 1\. Sign in to the [Azure portal](https://ms.portal.azure.com/) using the Microsoft credentials associated with your Azure subscription.
 
 2\. Select **＋Create a resource**.
 
-![workspace-1](../../../images/workspace-1.PNG)
+![workspace-1](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/workspace-1.PNG)
 
 Search for Machine Learning and select the Machine Learning tile.
 
-![workspace-2](../../../images/workspace-2.PNG)
+![workspace-2](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/workspace-2.PNG)
 
 Click the create button.
 
-![workspace-3](../../../images/workspace-3.PNG)
+![workspace-3](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/workspace-3.PNG)
 
 Fill in the settings as follows:
 
@@ -115,18 +100,18 @@ Fill in the settings as follows:
 - Key vault: Note the default new key vault that will be created for your workspace.
 - Application insights: Note the default new application insights resource that will be created for your workspace.
 - Container registry: None (one will be created automatically the first time you deploy a model to a container)
-  ![workspace-4](../../../images/workspace-4.PNG).
+  ![workspace-4](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/workspace-4.PNG).
 - Click the create + review and then on the create button.
   
 3\. Wait for your workspace to be created (this can take a few minutes). Then go to it in the portal. You can find it through the Machine Learning Azure service.
 
 4\. On the Overview page for your workspace, launch Azure Machine Learning studio (or open a new browser tab and navigate to [Azure ML](https://ml.azure.com), and sign into Azure Machine Learning studio using your Microsoft account. If prompted, select your Azure directory and subscription, and your Azure Machine Learning workspace.
 
-![workspace-5](../../../images/workspace-5.PNG)
+![workspace-5](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/workspace-5.PNG)
 
 5\. In Azure Machine Learning Studio, toggle the ☰ icon at the top left to view the various pages in the interface. You can use these pages to manage the resources in your workspace.
 
-![workspace-6](../../../images/workspace-6.PNG)
+![workspace-6](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/workspace-6.PNG)
 
 You can manage your workspace using the Azure portal, but for data scientists and Machine Learning operations engineers, Azure Machine Learning Studio provides a more focused user interface for managing workspace resources.
 
@@ -172,33 +157,33 @@ This is another consideration of time vs money, since interruptible instances ar
 
 In the [Azure ML workspace](https://ml.azure.com/) that we created earlier, go to compute and you will be able to see the different compute resources we just discussed (i.e compute instances, compute clusters, inference clusters and attached compute). For this project, we are going to need a compute cluster for model training. In the Studio, Click on the "Compute" menu, then the "Compute cluster" tab and click on the "+ New" button to create a compute cluster.
 
-![22](../../../images/cluster-1.PNG)
+![22](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/cluster-1.PNG)
 
 6\. Choose your options: Dedicated vs Low priority, CPU or GPU, VM size and core number (you can keep the default settings for this project).
 
 7\. Click on the Next button.
 
-![23](../../../images/cluster-2.PNG)
+![23](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/cluster-2.PNG)
 
 8\. Give the cluster a compute name
 
 9\. Choose your options: Minimum/Maximum number of nodes, Idle seconds before scale down, SSH access. Note that if the minimum number of nodes is 0, you will save money when the cluster is idle. Note that the higher the number of maximum nodes, the shorter the training will be. The maximum number of nodes recommended is 3.  
 
 10\. Click on the "Create" button. This step may take a few minutes.
-![29](../../../images/cluster-3.PNG)
+![29](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/cluster-3.PNG)
 
 Awesome! Now that we have a Compute cluster, we need to load the data to Azure ML Studio.
 
 ### Loading the dataset
 
 11\. In the [Azure ML workspace](https://ml.azure.com/) that we created earlier, click on "Datasets" in the left menu and click on the "+ Create dataset" button to create a dataset. Choose the "From local files" option and select the Kaggle dataset we downloaded earlier.
-![24](../../../images/dataset-1.PNG)
+![24](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/dataset-1.PNG)
 
 12\. Give your dataset a name, a type and a description. Click Next. Upload the data from files. Click Next.
-![25](../../../images/dataset-2.PNG)
+![25](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/dataset-2.PNG)
 
 13\. In the Schema, change the data type to Boolean for the following features: anemia, diabetes, high blood pressure, sex, smoking, and DEATH_EVENT. Click Next and Click Create.
-![26](../../../images/dataset-3.PNG)
+![26](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/dataset-3.PNG)
 
 Great! Now that the dataset is in place and the compute cluster is created, we can start the training of the model!
 
@@ -208,16 +193,16 @@ Traditional Machine Learning model development is resource-intensive, requires s
 Automated Machine Learning (AutoML), is the process of automating the time-consuming, iterative tasks of Machine Learning model development. It allows data scientists, analysts, and developers to build ML models with high scale, efficiency, and productivity, all while sustaining model quality. It reduces the time it takes to get production-ready ML models, with great ease and efficiency. [Learn more](https://docs.microsoft.com/azure/machine-learning/concept-automated-ml?WT.mc_id=academic-77958-bethanycheum&ocid=AID3041109)
 
 14\. In the [Azure ML workspace](https://ml.azure.com/) that we created earlier click on "Automated ML" in the left menu and select the dataset you just uploaded. Click Next.
-![27](../../../images/aml-1.PNG)
+![27](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/aml-1.PNG)
 
 15\.  Enter a new experiment name, the target column (DEATH_EVENT) and the compute cluster we created. Click Next.
-![28](../../../images/aml-2.PNG)
+![28](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/aml-2.PNG)
 
 16\. Choose "Classification" and Click Finish. This step might take between 30 minutes to 1 hour, depending upon your compute cluster size.
-![30](../../../images/aml-3.PNG)
+![30](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/aml-3.PNG)
 
 17\. Once the run is complete, click on the "Automated ML" tab, click on your run, and click on the Algorithm in the "Best model summary" card.
-![31](../../../images/aml-4.PNG)
+![31](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/aml-4.PNG)
 
 Here you can see a detailed description of the best model that AutoML generated. You can also explore other modes generated in the Models tab. Take a few minutes to explore the models in the Explanations (preview button). Once you have chosen the model you want to use (here we will choose the best model selected by autoML), we will see how we can deploy it.
 
@@ -229,15 +214,15 @@ The automated Machine Learning interface allows you to deploy the best model as 
 
 In the best model description, click on the "Deploy" button.
 
-![deploy-1](../../../images/deploy-1.PNG)
+![deploy-1](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deploy-1.PNG)
 
 18\. Give it a name, a description, compute type (Azure Container Instance), enable authentication and click on Deploy. This step might take about 20 minutes to complete. The deployment process entails several steps including registering the model, generating resources, and configuring them for the web service. A status message appears under Deploy status. Select Refresh periodically to check the deployment status. It is deployed and running when the status is "Healthy".
 
-![deploy-2](../../../images/deploy-2.PNG)
+![deploy-2](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deploy-2.PNG)
 
 19\. Once it has been deployed, click on the Endpoint tab and click on the endpoint you just deployed. You can find here all the details you need to know about the endpoint. 
 
-![deploy-3](../../../images/deploy-3.PNG)
+![deploy-3](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deploy-3.PNG)
 
 Amazing! Now that we have a model deployed, we can start the consumption of the endpoint.
 
@@ -247,11 +232,11 @@ Click on the "Consume" tab. Here you can find the REST endpoint and a python scr
 
 This script can be run directly from your local machine and will consume your endpoint.
 
-![35](../../../images/consumption-1.PNG)
+![35](https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/consumption-1.PNG)
 
 Take a moment to check those 2 lines of code:
 
-```python
+```{code-cell}
 url = 'http://98e3715f-xxxx-xxxx-xxxx-9ec22d57b796.centralus.azurecontainer.io/score'
 api_key = '' # Replace this with the API key for the web service
 ```
@@ -260,13 +245,13 @@ The `url` variable is the REST endpoint found in the consume tab and the `api_ke
 
 20\. Running the script, you should see the following output:
 
-```python
+```{code-cell}
 b'"{\\"result\\": [true]}"'
 ```
 
 This means that the prediction of heart failure for the data given is true. This makes sense because if you look more closely at the data automatically generated in the script, everything is at 0 and false by default. You can change the data with the following input sample:
 
-```python
+```{code-cell}
 data = {
     "data":
     [
@@ -304,21 +289,21 @@ data = {
 
 The script should return :
 
-```python
+```{code-cell}
 b'"{\\"result\\": [true, false]}"'
 ```
 
 Congratulations! You just consumed the model deployed and trained it on Azure ML!
 
-```{note}
+:::{note}
 Once you are done with the project, don't forget to delete all the resources.
-```
+:::
 
 ## Your turn! 🚀
 
 Look closely at the model explanations and details that AutoML generated for the top models. Try to understand why the best model is better than the other ones. What algorithms were compared? What are the differences between them? Why is the best one performing better in this case?
 
-Assignment - [Low code/no code Data Science project on Azure ML](../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.md)
+Assignment - [Low code/no code Data Science project on Azure ML](https://static-1300131294.cos.ap-shanghai.myqcloud.com/assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.md)
 
 ## Self Study
 
