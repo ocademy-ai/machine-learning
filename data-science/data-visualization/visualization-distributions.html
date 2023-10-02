@@ -1282,7 +1282,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1300,7 +1300,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1395,7 +1395,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/data-science/data-visualization/visualization-distributions.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1427,23 +1427,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../_sources/data-science/data-visualization/visualization-distributions.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1451,7 +1434,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1598,27 +1581,169 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="visualizing-distributions">
+  <hr class="docutils" />
+<p>jupytext:
+cell_metadata_filter: -all
+formats: md:myst
+text_representation:
+extension: .md
+format_name: myst
+format_version: 0.13
+jupytext_version: 1.11.5
+kernelspec:
+display_name: Python 3
+language: python
+name: python3</p>
+<section class="tex2jax_ignore mathjax_ignore" id="visualizing-distributions">
 <h1><span class="section-number">6.1. </span>Visualizing distributions<a class="headerlink" href="#visualizing-distributions" title="Permalink to this headline">#</a></h1>
 <p>In the previous section, you learned some interesting facts about a dataset about the birds of Minnesota. You found some erroneous data by visualizing outliers and looked at the differences between bird categories by their maximum length.</p>
 <section id="explore-the-birds-dataset">
 <h2><span class="section-number">6.1.1. </span>Explore the birds dataset<a class="headerlink" href="#explore-the-birds-dataset" title="Permalink to this headline">#</a></h2>
 <p>Another way to dig into data is by looking at its distribution, or how the data is organized along an axis. Perhaps, for example, you’d like to learn about the general distribution, for this dataset, of the maximum wingspan or maximum body mass for the birds of Minnesota.</p>
 <p>Let’s discover some facts about the distributions of data in this dataset.</p>
-<div class="cell tag_output_scroll docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython<span class="w"> </span>birds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_output_scroll tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">birds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/birds.csv&#39;</span><span class="p">)</span>
 <span class="n">birds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>ScientificName</th>
+      <th>Category</th>
+      <th>Order</th>
+      <th>Family</th>
+      <th>Genus</th>
+      <th>ConservationStatus</th>
+      <th>MinLength</th>
+      <th>MaxLength</th>
+      <th>MinBodyMass</th>
+      <th>MaxBodyMass</th>
+      <th>MinWingspan</th>
+      <th>MaxWingspan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Black-bellied whistling-duck</td>
+      <td>Dendrocygna autumnalis</td>
+      <td>Ducks/Geese/Waterfowl</td>
+      <td>Anseriformes</td>
+      <td>Anatidae</td>
+      <td>Dendrocygna</td>
+      <td>LC</td>
+      <td>47.0</td>
+      <td>56.0</td>
+      <td>652.0</td>
+      <td>1020.0</td>
+      <td>76.0</td>
+      <td>94.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Fulvous whistling-duck</td>
+      <td>Dendrocygna bicolor</td>
+      <td>Ducks/Geese/Waterfowl</td>
+      <td>Anseriformes</td>
+      <td>Anatidae</td>
+      <td>Dendrocygna</td>
+      <td>LC</td>
+      <td>45.0</td>
+      <td>53.0</td>
+      <td>712.0</td>
+      <td>1050.0</td>
+      <td>85.0</td>
+      <td>93.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Snow goose</td>
+      <td>Anser caerulescens</td>
+      <td>Ducks/Geese/Waterfowl</td>
+      <td>Anseriformes</td>
+      <td>Anatidae</td>
+      <td>Anser</td>
+      <td>LC</td>
+      <td>64.0</td>
+      <td>79.0</td>
+      <td>2050.0</td>
+      <td>4050.0</td>
+      <td>135.0</td>
+      <td>165.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ross's goose</td>
+      <td>Anser rossii</td>
+      <td>Ducks/Geese/Waterfowl</td>
+      <td>Anseriformes</td>
+      <td>Anatidae</td>
+      <td>Anser</td>
+      <td>LC</td>
+      <td>57.3</td>
+      <td>64.0</td>
+      <td>1066.0</td>
+      <td>1567.0</td>
+      <td>113.0</td>
+      <td>116.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Greater white-fronted goose</td>
+      <td>Anser albifrons</td>
+      <td>Ducks/Geese/Waterfowl</td>
+      <td>Anseriformes</td>
+      <td>Anatidae</td>
+      <td>Anser</td>
+      <td>LC</td>
+      <td>64.0</td>
+      <td>81.0</td>
+      <td>1930.0</td>
+      <td>3310.0</td>
+      <td>130.0</td>
+      <td>165.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>In general, you can quickly look at the way data is distributed by using a scatter plot as we did in the previous section:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;MaxLength&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Order&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;MaxLength&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Order&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Max Length per Order&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Order&#39;</span><span class="p">)</span>
@@ -1628,55 +1753,67 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_5_0.png" src="../../_images/visualization-distributions_5_0.png" />
+</div>
 </div>
 <p>This gives an overview of the general distribution of body length per bird Order, but it is not the optimal way to display true distributions. That task is usually handled by creating a Histogram.</p>
 </section>
 <section id="working-with-histograms">
 <h2><span class="section-number">6.1.2. </span>Working with histograms<a class="headerlink" href="#working-with-histograms" title="Permalink to this headline">#</a></h2>
 <p>Matplotlib offers very good ways to visualize data distribution using Histograms. This type of chart is like a bar chart where the distribution can be seen via a rise and fall of the bars. To build a histogram, you need numeric data. To build a Histogram, you can plot a chart defining the kind as ‘hist’ for Histogram. This chart shows the distribution of MaxBodyMass for the entire dataset’s range of numeric data. By dividing the array of data it is given into smaller bins, it can display the distribution of the data’s values:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_7_0.png" src="../../_images/visualization-distributions_7_0.png" />
 </div>
 </div>
 <p>As you can see, most of the 400+ birds in this dataset fall in the range of under 2000 for their Max Body Mass. Gain more insight into the data by changing  the <code class="docutils literal notranslate"><span class="pre">bins</span></code> parameter to a higher number, something like 30:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_9_0.png" src="../../_images/visualization-distributions_9_0.png" />
 </div>
 </div>
 <p>This chart shows the distribution in a bit more granular fashion. A chart less skewed to the left could be created by ensuring that you only select data within a given range:</p>
 <p>Filter your data to get only those birds whose body mass is under 60, and show 40 <code class="docutils literal notranslate"><span class="pre">bins</span></code>:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filteredBirds</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[(</span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)]</span>      
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filteredBirds</span> <span class="o">=</span> <span class="n">birds</span><span class="p">[(</span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">birds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">)]</span>      
 <span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>     
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_11_0.png" src="../../_images/visualization-distributions_11_0.png" />
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+</div>
 <p>Try some other filters and data points. To see the full distribution of the data, remove the <code class="docutils literal notranslate"><span class="pre">['MaxBodyMass']</span></code> filter to show labeled distributions.</p>
-</div>
 <p>The histogram offers some nice color and labeling enhancements to try as well:</p>
 <p>Create a 2D histogram to compare the relationship between two distributions. Let’s compare <code class="docutils literal notranslate"><span class="pre">MaxBodyMass</span></code> vs. <code class="docutils literal notranslate"><span class="pre">MaxLength</span></code>. Matplotlib offers a built-in way to show convergence using brighter colors:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxLength&#39;</span><span class="p">]</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">hist</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hist2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_14_0.png" src="../../_images/visualization-distributions_14_0.png" />
 </div>
 </div>
 <p>There appears to be an expected correlation between these two elements along an expected axis, with one particularly strong point of convergence:</p>
@@ -1685,8 +1822,6 @@ title="Print to PDF"
 <section id="explore-the-dataset-for-distributions-using-text-data">
 <h2><span class="section-number">6.1.3. </span>Explore the dataset for distributions using text data<a class="headerlink" href="#explore-the-dataset-for-distributions-using-text-data" title="Permalink to this headline">#</a></h2>
 <p>This dataset also includes good information about the bird category and its genus, species, and family as well as its conservation status. Let’s dig into this conservation information. What is the distribution of the birds according to their conservation status?</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>In the dataset, several acronyms are used to describe conservation status. These acronyms come from the <a class="reference external" href="https://www.iucnredlist.org/">IUCN Red List Categories</a>, an organization that catalogs species’ status.</p>
 <blockquote>
 <div><ul class="simple">
@@ -1698,11 +1833,10 @@ title="Print to PDF"
 <li><p>VU: Vulnerable</p></li>
 </ul>
 </div></blockquote>
-</div>
 <p>These are text-based values so you will need to do a transform to create a histogram. Using the filteredBirds dataframe, display its conservation status alongside its Minimum Wingspan. What do you see?</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filteredBirds</span><span class="o">.</span><span class="n">ConservationStatus</span><span class="o">==</span><span class="s1">&#39;EX&#39;</span><span class="p">,</span> <span class="s1">&#39;MinWingspan&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filteredBirds</span><span class="o">.</span><span class="n">ConservationStatus</span><span class="o">==</span><span class="s1">&#39;EX&#39;</span><span class="p">,</span> <span class="s1">&#39;MinWingspan&#39;</span><span class="p">]</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filteredBirds</span><span class="o">.</span><span class="n">ConservationStatus</span><span class="o">==</span><span class="s1">&#39;CR&#39;</span><span class="p">,</span> <span class="s1">&#39;MinWingspan&#39;</span><span class="p">]</span>
 <span class="n">x3</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filteredBirds</span><span class="o">.</span><span class="n">ConservationStatus</span><span class="o">==</span><span class="s1">&#39;EN&#39;</span><span class="p">,</span> <span class="s1">&#39;MinWingspan&#39;</span><span class="p">]</span>
 <span class="n">x4</span> <span class="o">=</span> <span class="n">filteredBirds</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">filteredBirds</span><span class="o">.</span><span class="n">ConservationStatus</span><span class="o">==</span><span class="s1">&#39;NT&#39;</span><span class="p">,</span> <span class="s1">&#39;MinWingspan&#39;</span><span class="p">]</span>
@@ -1723,6 +1857,9 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_18_0.png" src="../../_images/visualization-distributions_18_0.png" />
+</div>
 </div>
 <p>There doesn’t seem to be a good correlation between minimum wingspan and conservation status. Test other elements of the dataset using this method. You can try different filters as well. Do you find any correlation?</p>
 </section>
@@ -1731,43 +1868,49 @@ title="Print to PDF"
 <p>You may have noticed that the histograms we have looked at so far are ‘stepped’ and do not flow smoothly in an arc. To show a smoother density chart, you can try a density plot.</p>
 <p>To work with density plots, familiarize yourself with a new plotting library, <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html">Seaborn</a>.</p>
 <p>Loading Seaborn, try a basic density plot:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MinWingspan&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_20_0.png" src="../../_images/visualization-distributions_20_0.png" />
+</div>
 </div>
 <p>You can see how the plot echoes the previous one for Minimum Wingspan data; it’s just a bit smoother. According to Seaborn’s documentation, “Relative to a histogram, KDE can produce a plot that is less cluttered and more interpretable, especially when drawing multiple distributions. But it has the potential to introduce distortions if the underlying distribution is bounded or not smooth. Like a histogram, the quality of the representation also depends on the selection of good smoothing parameters.” <a class="reference external" href="https://seaborn.pydata.org/generated/seaborn.kdeplot.html">source</a> In other words, outliers as always will make your charts behave badly.</p>
 <p>If you wanted to revisit that jagged MaxBodyMass line in the second chart you built, you could smooth it out very well by recreating it using this method:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_22_0.png" src="../../_images/visualization-distributions_22_0.png" />
 </div>
 </div>
 <p>If you wanted a smooth, but not too smooth line, edit the <code class="docutils literal notranslate"><span class="pre">bw_adjust</span></code> parameter:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">],</span> <span class="n">bw_adjust</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">filteredBirds</span><span class="p">[</span><span class="s1">&#39;MaxBodyMass&#39;</span><span class="p">],</span> <span class="n">bw_adjust</span><span class="o">=</span><span class="mf">.2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../../_images/visualization-distributions_24_0.png" src="../../_images/visualization-distributions_24_0.png" />
 </div>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
+</div>
 <p>Read about the parameters available for this type of plot and experiment!</p>
-</div>
 <p>This type of chart offers beautifully explanatory visualizations. With a few lines of code, for example, you can show the max body mass density per bird Order:</p>
-<div class="cell docutils container">
+<div class="cell tag_output_scroll tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span>
    <span class="n">data</span><span class="o">=</span><span class="n">filteredBirds</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MaxBodyMass&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;Order&quot;</span><span class="p">,</span>
    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">common_norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;crest&quot;</span><span class="p">,</span>
    <span class="n">alpha</span><span class="o">=</span><span class="mf">.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -1775,13 +1918,35 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-</div>
-<p>You can also map the density of several variables in one chart. Text the MaxLength and MinLength of a bird compared to their conservation status:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">filteredBirds</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MinLength&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;MaxLength&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;ConservationStatus&quot;</span><span class="p">)</span>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6068/1933666654.py:1: UserWarning: Dataset has 0 variance; skipping density estimate. Pass `warn_singular=False` to disable this warning.
+  sns.kdeplot(
+/tmp/ipykernel_6068/1933666654.py:1: UserWarning: Dataset has 0 variance; skipping density estimate. Pass `warn_singular=False` to disable this warning.
+  sns.kdeplot(
 </pre></div>
 </div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;MaxBodyMass&#39;, ylabel=&#39;Density&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/visualization-distributions_27_2.png" src="../../_images/visualization-distributions_27_2.png" />
+</div>
+</div>
+<p>You can also map the density of several variables in one chart. Text the MaxLength and MinLength of a bird compared to their conservation status:</p>
+<div class="cell tag_output_scroll tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">filteredBirds</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;MinLength&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;MaxLength&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;ConservationStatus&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_6068/49960699.py:1: UserWarning: KDE cannot be estimated (0 variance or perfect covariance). Pass `warn_singular=False` to disable this warning.
+  sns.kdeplot(data=filteredBirds, x=&quot;MinLength&quot;, y=&quot;MaxLength&quot;, hue=&quot;ConservationStatus&quot;)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: xlabel=&#39;MinLength&#39;, ylabel=&#39;MaxLength&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/visualization-distributions_29_2.png" src="../../_images/visualization-distributions_29_2.png" />
 </div>
 </div>
 <p>Perhaps it’s worth researching whether the cluster of ‘Vulnerable’ birds according to their lengths is meaningful or not.</p>
@@ -1793,7 +1958,7 @@ title="Print to PDF"
 <section id="your-turn">
 <h2><span class="section-number">6.1.6. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
 <p>Histograms are a more sophisticated type of chart than basic scatterplots, bar charts, or line charts. Go on a search on the internet to find good examples of the use of histograms. How are they used, what do they demonstrate, and in what fields or areas of inquiry do they tend to be used?</p>
-<p>Assignment - <a class="reference internal" href="../../assignments/data-science/apply-your-skills.html"><span class="doc std std-doc">Apply your skills</span></a></p>
+<p>Assignment - <a class="reference external" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/assignments/data-science/apply-your-skills.md">Apply your skills</a></p>
 </section>
 <section id="acknowledgments">
 <h2><span class="section-number">6.1.7. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
