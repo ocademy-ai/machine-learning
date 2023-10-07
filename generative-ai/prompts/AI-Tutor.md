@@ -136,11 +136,7 @@ We hope this AI can offer ample guidance and assistance to students on their lea
 
 - Demo
 
-<<<<<<< HEAD
     [Chat History: AI-Tutor-Teaching](https://chat.openai.com/share/4246ef3c-bb5e-4e0b-b8a8-281f9377ff67)
-=======
-    [Chat History: AI-Tutor-Teaching](https://chat.openai.com/c/17543036-5179-4104-bbc4-d31d6896b0bb)
->>>>>>> 42a26bf01ff08cf93d88eea7647da00643401e91
 
 
 ### 2. Course Project Scenario
@@ -241,8 +237,4 @@ We hope this AI can offer ample guidance and assistance to students on their lea
 
 - Demo
 
-<<<<<<< HEAD
     [Chat History: AI-Tutor-Project](https://chat.openai.com/share/6c31ac3c-8ff2-4216-a438-8dfed4d5f4ba)
-=======
-    [Chat History: AI-Tutor-Project](https://chat.openai.com/c/d67bc199-af58-4964-b47e-6d6a15702af1)
->>>>>>> 42a26bf01ff08cf93d88eea7647da00643401e91
