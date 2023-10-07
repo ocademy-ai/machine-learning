@@ -172,13 +172,13 @@ We hope this AI can offer ample guidance and assistance to students on their lea
 
     ### 2. Dependencies Installation
     Ensure you have `pip` installed. Then, use it to install the following dependencies:
-    ```bash
+    ``bash
     pip install tensorflow==2.6 scikit-learn==0.24 numpy==1.19 pandas==1.2 matplotlib==3.4
-    ```
+    ``
 
     ### 3. Configuration Files
     #### 3.1 Dataset Configuration (`data_config.json`)
-    ```json
+    ``json
     {
         "train_data_path": "./data/train",
         "test_data_path": "./data/test",
@@ -189,7 +189,7 @@ We hope this AI can offer ample guidance and assistance to students on their lea
     }
     ```
     #### 3.2 Model Configuration (`model_config.json`)
-    ```json
+    ``json
     {
         "base_model": "MobileNetV2",
         "base_model_weights": "imagenet",
@@ -201,7 +201,7 @@ We hope this AI can offer ample guidance and assistance to students on their lea
 
     ### 4. Model Training Script (`train_model.py`)
     Ensure the following structure is followed in your training script to utilize the configuration files effectively:
-    ```python
+    ``python
     import json
     import tensorflow as tf
     from sklearn.model_selection import train_test_split
@@ -214,7 +214,7 @@ We hope this AI can offer ample guidance and assistance to students on their lea
         model_config = json.load(file)
 
     # Implement your data loading, pre-processing, and model training...
-    ```
+    ``
 
     ### 5. Model Deployment
     - **Local Deployment**: Utilize TensorFlow Serving or a Flask API for local testing.
