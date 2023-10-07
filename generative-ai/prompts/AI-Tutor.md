@@ -187,7 +187,7 @@ We hope this AI can offer ample guidance and assistance to students on their lea
         "image_size": [224, 224],
         "num_classes": 5
     }
-    ```
+    ``
     #### 3.2 Model Configuration (`model_config.json`)
     ``json
     {
@@ -197,7 +197,7 @@ We hope this AI can offer ample guidance and assistance to students on their lea
         "epochs": 20,
         "checkpoint_path": "./checkpoints"
     }
-    ```
+    ``
 
     ### 4. Model Training Script (`train_model.py`)
     Ensure the following structure is followed in your training script to utilize the configuration files effectively:
