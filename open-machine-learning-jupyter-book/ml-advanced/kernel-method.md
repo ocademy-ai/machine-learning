@@ -345,4 +345,4 @@ A demo of SVM. <a href="http://macheads101.com/demos/svm-playground/">[source]</
 
 
 ## Your turn! 🚀
-You can follow this [assignment](..\assignments\ml-advanced\kernel-method\kernel-method-assignment-1.ipynb) to practise Support Vector Machines with examples.
+You can follow this [assignment](../assignments/ml-advanced/kernel-method/kernel-method-assignment-1.ipynb) to practise Support Vector Machines with examples.
