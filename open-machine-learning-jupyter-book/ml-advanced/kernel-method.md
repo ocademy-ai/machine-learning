@@ -341,3 +341,8 @@ A demo of SVM. <a href="https://cs.stanford.edu/~karpathy/svmjs/demo/">[source]<
 style="border:none;"></iframe>
 A demo of SVM. <a href="http://macheads101.com/demos/svm-playground/">[source]</a>
 </p>
+
+
+
+## Your turn! 🚀
+You can follow this [assignment](..\assignments\ml-advanced\kernel-method\kernel-method-assignment-1.ipynb) to practise Support Vector Machines with examples.
