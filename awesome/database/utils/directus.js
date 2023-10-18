@@ -107,7 +107,7 @@ async function insertForeignIdFields(
   );
 }
 
-async function deleteFields(
+async function deleteField(
   knex,
   tables,
   field
