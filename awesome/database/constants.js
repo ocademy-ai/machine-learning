@@ -11,7 +11,8 @@ const TABLES = {
   COURSE_ORGANIZATIONS: "CourseOrganizations",
   USER_COURSES: "UserCourses",
   TUTORIAL_TAGS: "TutorialTags",
-  USER_TUTORIALS: "UserTutorials"
+  USER_TUTORIALS: "UserTutorials",
+  USER_TAGS: "UserTags",
 };
 
 const DIRECTUS_TABLES = {
