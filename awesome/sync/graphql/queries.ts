@@ -4909,6 +4909,172 @@ const courseOrganizationsByOrganizationId = /* GraphQL */ `
     }
   }
 `;
+const getUserTags = /* GraphQL */ `
+  query GetUserTags($id: ID!) {
+    getUserTags(id: $id) {
+      id
+      tagId
+      userId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        organizations {
+          nextToken
+          startedAt
+        }
+        tags {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const listUserTags = /* GraphQL */ `
+  query ListUserTags(
+    $filter: ModelUserTagsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        tagId
+        userId
+        tag {
+          id
+          name
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        user {
+          id
+          name
+          source
+          title
+          nickname
+          portrait
+          bio
+          birth
+          gender
+          city
+          profession
+          username
+          email
+          phoneNumber
+          authStatus
+          type
+          status
+          isDeleted
+          isBlocked
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 module.exports = {
   listConversations,
   listCourseOrganizations,
@@ -4929,6 +5095,7 @@ module.exports = {
   listTutorials,
   listTutorialTags,
   listUserTutorials,
+  listUserTags,
   getCourse,
   getConversation,
   getCourseOrganizations,
@@ -4948,4 +5115,5 @@ module.exports = {
   getTutorial,
   getTutorialTags,
   getUserTutorials,
+  getUserTags,
 };
