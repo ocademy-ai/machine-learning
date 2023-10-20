@@ -48,6 +48,11 @@ const { updateUserTutorials } = require('./graphql/mutations.ts');
 const { deleteUserTutorials } = require('./graphql/mutations.ts');
 const { getUserTutorials } = require('./graphql/queries.ts');
 const { listUserTutorials } = require('./graphql/queries.ts');
+const { createUserTags } = require('./graphql/mutations.ts');
+const { updateUserTags } = require('./graphql/mutations.ts');
+const { deleteUserTags } = require('./graphql/mutations.ts');
+const { getUserTags } = require('./graphql/queries.ts');
+const { listUserTags } = require('./graphql/queries.ts');
 const syncOperations = require('./utils');
 const fs = require('fs');
 const path = require('path');
@@ -89,6 +94,7 @@ const courseTagsFields = ['courseId', 'tagId'];
 const courseOrganizationsFields = ['courseId', 'organizationId'];
 const userTutorialsFields = ['tutorialId', 'userId'];
 const tutorialTagsFields = ['tutorialId', 'tagId'];
+const userTagsFields = ['tagId', 'userId'];
 
 async function main() {
     await syncOperations.amplifyConfig(amplifyConfig);
@@ -239,6 +245,21 @@ async function main() {
         'deleteTutorialTags',
         'TutorialTags',
         tutorialTagsFields
+    );
+
+    await syncOperations.sync(
+        listUserTags,
+        'listUserTags',
+        createUserTags,
+        'createUserTags',
+        getUserTags,
+        'getUserTags',
+        updateUserTags,
+        'updateUserTags',
+        deleteUserTags,
+        'deleteUserTags',
+        'UserTags',
+        userTagsFields
     );
 }
 main();

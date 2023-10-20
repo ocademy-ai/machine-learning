@@ -4332,6 +4332,330 @@ const deleteCourseOrganizations = /* GraphQL */ `
     }
   }
 `;
+const createUserTags = /* GraphQL */ `
+  mutation CreateUserTags(
+    $input: CreateUserTagsInput!
+    $condition: ModelUserTagsConditionInput
+  ) {
+    createUserTags(input: $input, condition: $condition) {
+      id
+      tagId
+      userId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        organizations {
+          nextToken
+          startedAt
+        }
+        tags {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const updateUserTags = /* GraphQL */ `
+  mutation UpdateUserTags(
+    $input: UpdateUserTagsInput!
+    $condition: ModelUserTagsConditionInput
+  ) {
+    updateUserTags(input: $input, condition: $condition) {
+      id
+      tagId
+      userId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        organizations {
+          nextToken
+          startedAt
+        }
+        tags {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
+const deleteUserTags = /* GraphQL */ `
+  mutation DeleteUserTags(
+    $input: DeleteUserTagsInput!
+    $condition: ModelUserTagsConditionInput
+  ) {
+    deleteUserTags(input: $input, condition: $condition) {
+      id
+      tagId
+      userId
+      tag {
+        id
+        name
+        description
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        users {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      user {
+        id
+        name
+        source
+        title
+        nickname
+        portrait
+        bio
+        birth
+        gender
+        city
+        profession
+        username
+        email
+        phoneNumber
+        authStatus
+        type
+        status
+        isDeleted
+        isBlocked
+        visualizations {
+          nextToken
+          startedAt
+        }
+        projects {
+          nextToken
+          startedAt
+        }
+        conversations {
+          nextToken
+          startedAt
+        }
+        courses {
+          nextToken
+          startedAt
+        }
+        tutorials {
+          nextToken
+          startedAt
+        }
+        organizations {
+          nextToken
+          startedAt
+        }
+        tags {
+          nextToken
+          startedAt
+        }
+        messages {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      owner
+    }
+  }
+`;
 module.exports = {
   createTag,
   createConversation,
@@ -4352,6 +4676,7 @@ module.exports = {
   createTutorial,
   createTutorialTags,
   createUserTutorials,
+  createUserTags,
   updateTag,
   updateConversation,
   updateCourse,
@@ -4371,6 +4696,7 @@ module.exports = {
   updateTutorial,
   updateTutorialTags,
   updateUserTutorials,
+  updateUserTags,
   deleteConversation,
   deleteCourse,
   deleteCourseOrganizations,
@@ -4390,4 +4716,5 @@ module.exports = {
   deleteTutorial,
   deleteTutorialTags,
   deleteUserTutorials,
+  deleteUserTags,
 };
