@@ -1,1 +1,6 @@
 # Pandas
+
+--
+
+```{tableofcontents}
+```
