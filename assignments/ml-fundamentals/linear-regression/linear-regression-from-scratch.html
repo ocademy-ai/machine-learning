@@ -27,8 +27,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/drawio.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -1538,6 +1538,18 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#model-development">
    37.49.3. Model Development
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-loss-function">
+     37.49.3.1. Define loss function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-gradient-descent-to-train-the-model">
+     37.49.3.2. Use gradient descent to train the model
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#model-evaluation">
@@ -1547,11 +1559,6 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#conclusion">
    37.49.5. Conclusion
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#acknowledgments">
-   37.49.6. Acknowledgments
   </a>
  </li>
 </ul>
@@ -1587,6 +1594,18 @@ title="Print to PDF"
   <a class="reference internal nav-link" href="#model-development">
    37.49.3. Model Development
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#define-loss-function">
+     37.49.3.1. Define loss function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-gradient-descent-to-train-the-model">
+     37.49.3.2. Use gradient descent to train the model
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#model-evaluation">
@@ -1596,11 +1615,6 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#conclusion">
    37.49.5. Conclusion
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#acknowledgments">
-   37.49.6. Acknowledgments
   </a>
  </li>
 </ul>
@@ -1617,11 +1631,14 @@ title="Print to PDF"
 <h1><span class="section-number">37.49. </span>Linear Regression Implementation from Scratch<a class="headerlink" href="#linear-regression-implementation-from-scratch" title="Permalink to this headline">#</a></h1>
 <section id="introduction">
 <h2><span class="section-number">37.49.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>In previous sections, we have gained some understanding of linear regression, gradient descent, evaluation metrics, and the role of the loss function in this regression technique. In summary, linear regression utilizes gradient descent to optimize the model’s parameters by minimizing the loss function. This enables it to establish a linear relationship between the input features and the target variable, making it a powerful algorithm for predicting continuous values.</p>
 <p>Linear regression is a widely used method in data analysis to describe the relationship between independent variables and a dependent variable using a linear equation. It aims to minimize the error between predicted and actual values by finding the best-fit line or surface. Linear regression can be used for predicting trends, exploring relationships, and identifying patterns in the data.</p>
+<p>This chapter will apply the previously learnt knowledge to implement a linear regression model from scratch. The chapter includes steps for data preparation, model development, and model evaluation, and ultimately summarises the process of developing and evaluating linear regression models.</p>
 <p>In Python, we can use libraries like NumPy and Pandas for data handling and analysis. We will also use the Matplotlib library for visualizing data and model performance. Here’s a simple Python code snippet to demonstrate how a linear regression model works:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
@@ -1633,8 +1650,12 @@ title="Print to PDF"
 <span class="c1"># Create a DataFrame from the data</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
 
-<span class="c1"># Save the data to a CSV file</span>
-<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Create the &#39;Temp&#39; directory if it doesn&#39;t exist</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;./tmp&#39;</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s1">&#39;./tmp&#39;</span><span class="p">)</span>
+
+<span class="c1"># Save the data to a CSV file in the &#39;Temp&#39; directory</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./tmp/data.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># Plot the data</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -1645,7 +1666,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../../_images/linear-regression-from-scratch_4_0.png" src="../../../_images/linear-regression-from-scratch_4_0.png" />
+<img alt="../../../_images/linear-regression-from-scratch_6_0.png" src="../../../_images/linear-regression-from-scratch_6_0.png" />
 </div>
 </div>
 </section>
@@ -1659,23 +1680,31 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="c1"># Load the dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./Temp/data.csv&#39;</span><span class="p">)</span>
 
 <span class="c1"># Perform exploratory data analysis</span>
 <span class="c1"># Display the first few rows of the data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 
-<span class="c1"># Check for missing values</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X的缺失值数量：&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;y的缺失值数量：&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="c1"># Split the dataset into training and testing sets</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;X&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># Visualize the relationship between features and target variable</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training Set&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Testing Set&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Print the sizes of training and testing sets</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training set size:&quot;</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing set size:&quot;</span><span class="p">,</span> <span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1686,132 +1715,1186 @@ title="Print to PDF"
 2  1.463988  8.483724
 3  1.197317  5.604382
 4  0.312037  4.716440
-X的缺失值数量： 0
-y的缺失值数量： 0
 </pre></div>
 </div>
-<img alt="../../../_images/linear-regression-from-scratch_6_1.png" src="../../../_images/linear-regression-from-scratch_6_1.png" />
+<img alt="../../../_images/linear-regression-from-scratch_8_1.png" src="../../../_images/linear-regression-from-scratch_8_1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Training set size: (80, 1) (80,)
+Testing set size: (20, 1) (20,)
+</pre></div>
 </div>
 </div>
-<p>In this code snippet, we first import the necessary libraries, such as NumPy and Pandas. Then, we load the dataset using the read_csv() function from Pandas, replacing ‘data.csv’ with the actual path to your dataset.</p>
-<p>Next, we perform exploratory data analysis by printing the first few rows of the dataset using head(), displaying the shape of the dataset using shape, and printing summary statistics using describe().</p>
-<p>After that, we check for missing values in the dataset using isnull().sum(). If there are missing values, we can handle them accordingly. In this example, we simply drop rows with missing values using dropna().</p>
-<p>Then, we perform any necessary preprocessing steps, such as feature scaling or encoding categorical variables. Finally, we split the dataset into input features (X) and the target variable (y), convert them to NumPy arrays using np.array(), and verify their dimensions using shape.</p>
+</div>
 </section>
 <section id="model-development">
 <h2><span class="section-number">37.49.3. </span>Model Development<a class="headerlink" href="#model-development" title="Permalink to this headline">#</a></h2>
 <p>Once we have prepared the data, we can proceed with developing the linear regression model. This involves deriving the mathematical formula for linear regression, implementing the formula in code, defining a cost function, and implementing the gradient descent algorithm to train the model.</p>
 <p>Let’s take a look at the code snippet below to understand how we can develop the linear regression model:</p>
+<section id="define-loss-function">
+<h3><span class="section-number">37.49.3.1. </span>Define loss function<a class="headerlink" href="#define-loss-function" title="Permalink to this headline">#</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Calculate the loss between the true target variable and the predicted target variable.
+
+Parameters:
+- y_true: The true target variable (numpy array or pandas Series)
+- y_pred: The predicted target variable (numpy array or pandas Series)
+
+Returns:
+- loss: The calculated loss (float)
+</pre></div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Deriving the mathematical formula for linear regression</span>
-<span class="c1"># Implementing the formula in code</span>
-<span class="k">class</span> <span class="nc">LinearRegression</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="kc">None</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the loss function</span>
+<span class="k">def</span> <span class="nf">loss_function</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="c1"># Calculate the mean squared error</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mse</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-gradient-descent-to-train-the-model">
+<h3><span class="section-number">37.49.3.2. </span>Use gradient descent to train the model<a class="headerlink" href="#use-gradient-descent-to-train-the-model" title="Permalink to this headline">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">gradient_descent</span></code> function is responsible for performing gradient descent to optimize the coefficients of the linear regression model. Here is a breakdown of the steps involved:</p>
+<ol class="simple">
+<li><p>Scale the data: The input features (<code class="docutils literal notranslate"><span class="pre">X_train</span></code> and <code class="docutils literal notranslate"><span class="pre">X_test</span></code>) are scaled using the <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> from scikit-learn. This ensures that all features have a similar scale, which can improve the performance of the gradient descent algorithm.</p></li>
+<li><p>Add a bias term: A column of ones is added to the input features (<code class="docutils literal notranslate"><span class="pre">X_train</span></code>) to account for the bias term in the linear regression model.</p></li>
+<li><p>Initialize coefficients: The coefficients are initialized with zeros. The number of coefficients is equal to the number of features plus one (including the bias term).</p></li>
+<li><p>Perform gradient descent: The function iterates over a specified number of iterations. In each iteration, the following steps are performed:</p>
+<ul class="simple">
+<li><p>Compute the predictions (<code class="docutils literal notranslate"><span class="pre">y_pred</span></code>) by multiplying the input features (<code class="docutils literal notranslate"><span class="pre">X_train_with_bias</span></code>) with the coefficients.</p></li>
+<li><p>Compute the gradients by taking the dot product of the transposed input features (<code class="docutils literal notranslate"><span class="pre">X_train_with_bias.T</span></code>) and the difference between the predictions and the true target variable (<code class="docutils literal notranslate"><span class="pre">y_train</span></code>).</p></li>
+<li><p>Update the coefficients by subtracting the learning rate multiplied by the gradients.</p></li>
+<li><p>Compute the loss by calculating the mean squared error between the true target variable (<code class="docutils literal notranslate"><span class="pre">y_train</span></code>) and the predictions (<code class="docutils literal notranslate"><span class="pre">y_pred</span></code>).</p></li>
+</ul>
+</li>
+<li><p>Make predictions on the test set: The function applies the same preprocessing steps to the test set (<code class="docutils literal notranslate"><span class="pre">X_test</span></code>) and computes the predictions (<code class="docutils literal notranslate"><span class="pre">y_pred_test</span></code>) using the updated coefficients.</p></li>
+</ol>
+<p>This function is a key component in training the linear regression model from scratch. It allows us to iteratively update the coefficients based on the gradients, gradually improving the model’s performance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the gradient descent function</span>
+<span class="k">def</span> <span class="nf">gradient_descent</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">):</span>
+    <span class="c1"># Scale the data</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+    <span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="c1"># Add a column of ones to X for the bias term</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X</span><span class="p">]</span>
+    <span class="c1"># Add a column of ones to X for the bias term</span>
+    <span class="n">X_train_with_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X_train_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X_train_scaled</span><span class="p">]</span>
 
-        <span class="c1"># Compute the coefficients using the normal equation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="c1"># Initialize the coefficients with zeros</span>
+    <span class="n">coefficients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X_train_with_bias</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-        <span class="c1"># Add a column of ones to X for the bias term</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X</span><span class="p">]</span>
+    <span class="c1"># Perform gradient descent</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+        <span class="c1"># Compute the predictions</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X_train_with_bias</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
 
-        <span class="c1"># Predict the target variable</span>
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)</span>
+        <span class="c1"># Compute the gradients</span>
+        <span class="n">gradients</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">X_train_with_bias</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> 
 
-        <span class="k">return</span> <span class="n">y_pred</span>
+        <span class="c1"># Update the coefficients</span>
+        <span class="n">coefficients</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradients</span>
 
-<span class="c1"># Defining cost function</span>
-<span class="k">def</span> <span class="nf">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Compute the loss</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y_train</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Iteration:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Loss:&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span>
 
-<span class="c1"># 训练模型</span>
-<span class="n">regressor</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
-<span class="n">regressor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="c1"># Make predictions on the test set</span>
+    <span class="n">X_test_with_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">X_test_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X_test_scaled</span><span class="p">]</span>
+    <span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">X_test_with_bias</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">coefficients</span><span class="p">)</span>
 
-<span class="c1"># 使用训练好的模型进行预测</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">regressor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="c1"># Evaluating the model</span>
-<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean Squared Error:&#39;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">y_pred_test</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, we train the linear regression model and make predictions on the test set.</p>
+<p>First, we import the required library and set the learning rate and number of iterations for gradient descent. We then call the gradient descent function and pass in the training and test data, the learning rate, and the number of iterations. The function returns the optimised coefficients and predictions for the test set. Finally, we store the returned results in the variables coefficients and ypred test.</p>
+<p>By running this code, we can train a linear regression model using gradient descent and get the prediction results on the test set to further analyse and evaluate the performance of the model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="c1"># Perform gradient descent to train the model</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">num_iterations</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">coefficients</span><span class="p">,</span> <span class="n">y_pred_test</span> <span class="o">=</span> <span class="n">gradient_descent</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">num_iterations</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 0.8065845639670534
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Iteration: 1 Loss: 49.252973836909085
+Iteration: 2 Loss: 18.27358504939668
+Iteration: 3 Loss: 7.121005085892223
+Iteration: 4 Loss: 3.1060762990306165
+Iteration: 5 Loss: 1.6607019357604422
+Iteration: 6 Loss: 1.1403671649831801
+Iteration: 7 Loss: 0.9530466475033655
+Iteration: 8 Loss: 0.8856112612106326
+Iteration: 9 Loss: 0.8613345221452491
+Iteration: 10 Loss: 0.8525948960817107
+Iteration: 11 Loss: 0.8494486306988371
+Iteration: 12 Loss: 0.8483159751610024
+Iteration: 13 Loss: 0.8479082191673818
+Iteration: 14 Loss: 0.8477614270096787
+Iteration: 15 Loss: 0.8477085818329055
+Iteration: 16 Loss: 0.8476895575692671
+Iteration: 17 Loss: 0.8476827088343573
+Iteration: 18 Loss: 0.8476802432897899
+Iteration: 19 Loss: 0.8476793556937455
+Iteration: 20 Loss: 0.8476790361591695
+Iteration: 21 Loss: 0.847678921126722
+Iteration: 22 Loss: 0.8476788797150412
+Iteration: 23 Loss: 0.8476788648068361
+Iteration: 24 Loss: 0.8476788594398821
+Iteration: 25 Loss: 0.8476788575077785
+Iteration: 26 Loss: 0.8476788568122215
+Iteration: 27 Loss: 0.847678856561821
+Iteration: 28 Loss: 0.8476788564716766
+Iteration: 29 Loss: 0.8476788564392248
+Iteration: 30 Loss: 0.847678856427542
+Iteration: 31 Loss: 0.8476788564233363
+Iteration: 32 Loss: 0.8476788564218222
+Iteration: 33 Loss: 0.8476788564212772
+Iteration: 34 Loss: 0.8476788564210811
+Iteration: 35 Loss: 0.8476788564210102
+Iteration: 36 Loss: 0.8476788564209847
+Iteration: 37 Loss: 0.8476788564209757
+Iteration: 38 Loss: 0.8476788564209723
+Iteration: 39 Loss: 0.8476788564209713
+Iteration: 40 Loss: 0.8476788564209707
+Iteration: 41 Loss: 0.8476788564209705
+Iteration: 42 Loss: 0.8476788564209705
+Iteration: 43 Loss: 0.8476788564209705
+Iteration: 44 Loss: 0.8476788564209704
+Iteration: 45 Loss: 0.8476788564209707
+Iteration: 46 Loss: 0.8476788564209705
+Iteration: 47 Loss: 0.8476788564209705
+Iteration: 48 Loss: 0.8476788564209705
+Iteration: 49 Loss: 0.8476788564209705
+Iteration: 50 Loss: 0.8476788564209705
+Iteration: 51 Loss: 0.8476788564209705
+Iteration: 52 Loss: 0.8476788564209705
+Iteration: 53 Loss: 0.8476788564209705
+Iteration: 54 Loss: 0.8476788564209705
+Iteration: 55 Loss: 0.8476788564209704
+Iteration: 56 Loss: 0.8476788564209705
+Iteration: 57 Loss: 0.8476788564209705
+Iteration: 58 Loss: 0.8476788564209705
+Iteration: 59 Loss: 0.8476788564209705
+Iteration: 60 Loss: 0.8476788564209705
+Iteration: 61 Loss: 0.8476788564209704
+Iteration: 62 Loss: 0.8476788564209705
+Iteration: 63 Loss: 0.8476788564209705
+Iteration: 64 Loss: 0.8476788564209705
+Iteration: 65 Loss: 0.8476788564209705
+Iteration: 66 Loss: 0.8476788564209705
+Iteration: 67 Loss: 0.8476788564209705
+Iteration: 68 Loss: 0.8476788564209704
+Iteration: 69 Loss: 0.8476788564209705
+Iteration: 70 Loss: 0.8476788564209705
+Iteration: 71 Loss: 0.8476788564209705
+Iteration: 72 Loss: 0.8476788564209707
+Iteration: 73 Loss: 0.8476788564209705
+Iteration: 74 Loss: 0.8476788564209705
+Iteration: 75 Loss: 0.8476788564209705
+Iteration: 76 Loss: 0.8476788564209705
+Iteration: 77 Loss: 0.8476788564209705
+Iteration: 78 Loss: 0.8476788564209705
+Iteration: 79 Loss: 0.8476788564209705
+Iteration: 80 Loss: 0.8476788564209705
+Iteration: 81 Loss: 0.8476788564209705
+Iteration: 82 Loss: 0.8476788564209705
+Iteration: 83 Loss: 0.8476788564209705
+Iteration: 84 Loss: 0.8476788564209705
+Iteration: 85 Loss: 0.8476788564209705
+Iteration: 86 Loss: 0.8476788564209705
+Iteration: 87 Loss: 0.8476788564209705
+Iteration: 88 Loss: 0.8476788564209705
+Iteration: 89 Loss: 0.8476788564209705
+Iteration: 90 Loss: 0.8476788564209705
+Iteration: 91 Loss: 0.8476788564209705
+Iteration: 92 Loss: 0.8476788564209705
+Iteration: 93 Loss: 0.8476788564209705
+Iteration: 94 Loss: 0.8476788564209705
+Iteration: 95 Loss: 0.8476788564209705
+Iteration: 96 Loss: 0.8476788564209705
+Iteration: 97 Loss: 0.8476788564209705
+Iteration: 98 Loss: 0.8476788564209705
+Iteration: 99 Loss: 0.8476788564209705
+Iteration: 100 Loss: 0.8476788564209705
+Iteration: 101 Loss: 0.8476788564209705
+Iteration: 102 Loss: 0.8476788564209705
+Iteration: 103 Loss: 0.8476788564209705
+Iteration: 104 Loss: 0.8476788564209705
+Iteration: 105 Loss: 0.8476788564209705
+Iteration: 106 Loss: 0.8476788564209705
+Iteration: 107 Loss: 0.8476788564209705
+Iteration: 108 Loss: 0.8476788564209705
+Iteration: 109 Loss: 0.8476788564209705
+Iteration: 110 Loss: 0.8476788564209705
+Iteration: 111 Loss: 0.8476788564209705
+Iteration: 112 Loss: 0.8476788564209705
+Iteration: 113 Loss: 0.8476788564209705
+Iteration: 114 Loss: 0.8476788564209705
+Iteration: 115 Loss: 0.8476788564209705
+Iteration: 116 Loss: 0.8476788564209705
+Iteration: 117 Loss: 0.8476788564209705
+Iteration: 118 Loss: 0.8476788564209705
+Iteration: 119 Loss: 0.8476788564209705
+Iteration: 120 Loss: 0.8476788564209705
+Iteration: 121 Loss: 0.8476788564209705
+Iteration: 122 Loss: 0.8476788564209705
+Iteration: 123 Loss: 0.8476788564209705
+Iteration: 124 Loss: 0.8476788564209705
+Iteration: 125 Loss: 0.8476788564209705
+Iteration: 126 Loss: 0.8476788564209705
+Iteration: 127 Loss: 0.8476788564209705
+Iteration: 128 Loss: 0.8476788564209705
+Iteration: 129 Loss: 0.8476788564209705
+Iteration: 130 Loss: 0.8476788564209705
+Iteration: 131 Loss: 0.8476788564209705
+Iteration: 132 Loss: 0.8476788564209705
+Iteration: 133 Loss: 0.8476788564209705
+Iteration: 134 Loss: 0.8476788564209705
+Iteration: 135 Loss: 0.8476788564209705
+Iteration: 136 Loss: 0.8476788564209705
+Iteration: 137 Loss: 0.8476788564209705
+Iteration: 138 Loss: 0.8476788564209705
+Iteration: 139 Loss: 0.8476788564209705
+Iteration: 140 Loss: 0.8476788564209705
+Iteration: 141 Loss: 0.8476788564209705
+Iteration: 142 Loss: 0.8476788564209705
+Iteration: 143 Loss: 0.8476788564209705
+Iteration: 144 Loss: 0.8476788564209705
+Iteration: 145 Loss: 0.8476788564209705
+Iteration: 146 Loss: 0.8476788564209705
+Iteration: 147 Loss: 0.8476788564209705
+Iteration: 148 Loss: 0.8476788564209705
+Iteration: 149 Loss: 0.8476788564209705
+Iteration: 150 Loss: 0.8476788564209705
+Iteration: 151 Loss: 0.8476788564209705
+Iteration: 152 Loss: 0.8476788564209705
+Iteration: 153 Loss: 0.8476788564209705
+Iteration: 154 Loss: 0.8476788564209705
+Iteration: 155 Loss: 0.8476788564209705
+Iteration: 156 Loss: 0.8476788564209705
+Iteration: 157 Loss: 0.8476788564209705
+Iteration: 158 Loss: 0.8476788564209705
+Iteration: 159 Loss: 0.8476788564209705
+Iteration: 160 Loss: 0.8476788564209705
+Iteration: 161 Loss: 0.8476788564209705
+Iteration: 162 Loss: 0.8476788564209705
+Iteration: 163 Loss: 0.8476788564209705
+Iteration: 164 Loss: 0.8476788564209705
+Iteration: 165 Loss: 0.8476788564209705
+Iteration: 166 Loss: 0.8476788564209705
+Iteration: 167 Loss: 0.8476788564209705
+Iteration: 168 Loss: 0.8476788564209705
+Iteration: 169 Loss: 0.8476788564209705
+Iteration: 170 Loss: 0.8476788564209705
+Iteration: 171 Loss: 0.8476788564209705
+Iteration: 172 Loss: 0.8476788564209705
+Iteration: 173 Loss: 0.8476788564209705
+Iteration: 174 Loss: 0.8476788564209705
+Iteration: 175 Loss: 0.8476788564209705
+Iteration: 176 Loss: 0.8476788564209705
+Iteration: 177 Loss: 0.8476788564209705
+Iteration: 178 Loss: 0.8476788564209705
+Iteration: 179 Loss: 0.8476788564209705
+Iteration: 180 Loss: 0.8476788564209705
+Iteration: 181 Loss: 0.8476788564209705
+Iteration: 182 Loss: 0.8476788564209705
+Iteration: 183 Loss: 0.8476788564209705
+Iteration: 184 Loss: 0.8476788564209705
+Iteration: 185 Loss: 0.8476788564209705
+Iteration: 186 Loss: 0.8476788564209705
+Iteration: 187 Loss: 0.8476788564209705
+Iteration: 188 Loss: 0.8476788564209705
+Iteration: 189 Loss: 0.8476788564209705
+Iteration: 190 Loss: 0.8476788564209705
+Iteration: 191 Loss: 0.8476788564209705
+Iteration: 192 Loss: 0.8476788564209705
+Iteration: 193 Loss: 0.8476788564209705
+Iteration: 194 Loss: 0.8476788564209705
+Iteration: 195 Loss: 0.8476788564209705
+Iteration: 196 Loss: 0.8476788564209705
+Iteration: 197 Loss: 0.8476788564209705
+Iteration: 198 Loss: 0.8476788564209705
+Iteration: 199 Loss: 0.8476788564209705
+Iteration: 200 Loss: 0.8476788564209705
+Iteration: 201 Loss: 0.8476788564209705
+Iteration: 202 Loss: 0.8476788564209705
+Iteration: 203 Loss: 0.8476788564209705
+Iteration: 204 Loss: 0.8476788564209705
+Iteration: 205 Loss: 0.8476788564209705
+Iteration: 206 Loss: 0.8476788564209705
+Iteration: 207 Loss: 0.8476788564209705
+Iteration: 208 Loss: 0.8476788564209705
+Iteration: 209 Loss: 0.8476788564209705
+Iteration: 210 Loss: 0.8476788564209705
+Iteration: 211 Loss: 0.8476788564209705
+Iteration: 212 Loss: 0.8476788564209705
+Iteration: 213 Loss: 0.8476788564209705
+Iteration: 214 Loss: 0.8476788564209705
+Iteration: 215 Loss: 0.8476788564209705
+Iteration: 216 Loss: 0.8476788564209705
+Iteration: 217 Loss: 0.8476788564209705
+Iteration: 218 Loss: 0.8476788564209705
+Iteration: 219 Loss: 0.8476788564209705
+Iteration: 220 Loss: 0.8476788564209705
+Iteration: 221 Loss: 0.8476788564209705
+Iteration: 222 Loss: 0.8476788564209705
+Iteration: 223 Loss: 0.8476788564209705
+Iteration: 224 Loss: 0.8476788564209705
+Iteration: 225 Loss: 0.8476788564209705
+Iteration: 226 Loss: 0.8476788564209705
+Iteration: 227 Loss: 0.8476788564209705
+Iteration: 228 Loss: 0.8476788564209705
+Iteration: 229 Loss: 0.8476788564209705
+Iteration: 230 Loss: 0.8476788564209705
+Iteration: 231 Loss: 0.8476788564209705
+Iteration: 232 Loss: 0.8476788564209705
+Iteration: 233 Loss: 0.8476788564209705
+Iteration: 234 Loss: 0.8476788564209705
+Iteration: 235 Loss: 0.8476788564209705
+Iteration: 236 Loss: 0.8476788564209705
+Iteration: 237 Loss: 0.8476788564209705
+Iteration: 238 Loss: 0.8476788564209705
+Iteration: 239 Loss: 0.8476788564209705
+Iteration: 240 Loss: 0.8476788564209705
+Iteration: 241 Loss: 0.8476788564209705
+Iteration: 242 Loss: 0.8476788564209705
+Iteration: 243 Loss: 0.8476788564209705
+Iteration: 244 Loss: 0.8476788564209705
+Iteration: 245 Loss: 0.8476788564209705
+Iteration: 246 Loss: 0.8476788564209705
+Iteration: 247 Loss: 0.8476788564209705
+Iteration: 248 Loss: 0.8476788564209705
+Iteration: 249 Loss: 0.8476788564209705
+Iteration: 250 Loss: 0.8476788564209705
+Iteration: 251 Loss: 0.8476788564209705
+Iteration: 252 Loss: 0.8476788564209705
+Iteration: 253 Loss: 0.8476788564209705
+Iteration: 254 Loss: 0.8476788564209705
+Iteration: 255 Loss: 0.8476788564209705
+Iteration: 256 Loss: 0.8476788564209705
+Iteration: 257 Loss: 0.8476788564209705
+Iteration: 258 Loss: 0.8476788564209705
+Iteration: 259 Loss: 0.8476788564209705
+Iteration: 260 Loss: 0.8476788564209705
+Iteration: 261 Loss: 0.8476788564209705
+Iteration: 262 Loss: 0.8476788564209705
+Iteration: 263 Loss: 0.8476788564209705
+Iteration: 264 Loss: 0.8476788564209705
+Iteration: 265 Loss: 0.8476788564209705
+Iteration: 266 Loss: 0.8476788564209705
+Iteration: 267 Loss: 0.8476788564209705
+Iteration: 268 Loss: 0.8476788564209705
+Iteration: 269 Loss: 0.8476788564209705
+Iteration: 270 Loss: 0.8476788564209705
+Iteration: 271 Loss: 0.8476788564209705
+Iteration: 272 Loss: 0.8476788564209705
+Iteration: 273 Loss: 0.8476788564209705
+Iteration: 274 Loss: 0.8476788564209705
+Iteration: 275 Loss: 0.8476788564209705
+Iteration: 276 Loss: 0.8476788564209705
+Iteration: 277 Loss: 0.8476788564209705
+Iteration: 278 Loss: 0.8476788564209705
+Iteration: 279 Loss: 0.8476788564209705
+Iteration: 280 Loss: 0.8476788564209705
+Iteration: 281 Loss: 0.8476788564209705
+Iteration: 282 Loss: 0.8476788564209705
+Iteration: 283 Loss: 0.8476788564209705
+Iteration: 284 Loss: 0.8476788564209705
+Iteration: 285 Loss: 0.8476788564209705
+Iteration: 286 Loss: 0.8476788564209705
+Iteration: 287 Loss: 0.8476788564209705
+Iteration: 288 Loss: 0.8476788564209705
+Iteration: 289 Loss: 0.8476788564209705
+Iteration: 290 Loss: 0.8476788564209705
+Iteration: 291 Loss: 0.8476788564209705
+Iteration: 292 Loss: 0.8476788564209705
+Iteration: 293 Loss: 0.8476788564209705
+Iteration: 294 Loss: 0.8476788564209705
+Iteration: 295 Loss: 0.8476788564209705
+Iteration: 296 Loss: 0.8476788564209705
+Iteration: 297 Loss: 0.8476788564209705
+Iteration: 298 Loss: 0.8476788564209705
+Iteration: 299 Loss: 0.8476788564209705
+Iteration: 300 Loss: 0.8476788564209705
+Iteration: 301 Loss: 0.8476788564209705
+Iteration: 302 Loss: 0.8476788564209705
+Iteration: 303 Loss: 0.8476788564209705
+Iteration: 304 Loss: 0.8476788564209705
+Iteration: 305 Loss: 0.8476788564209705
+Iteration: 306 Loss: 0.8476788564209705
+Iteration: 307 Loss: 0.8476788564209705
+Iteration: 308 Loss: 0.8476788564209705
+Iteration: 309 Loss: 0.8476788564209705
+Iteration: 310 Loss: 0.8476788564209705
+Iteration: 311 Loss: 0.8476788564209705
+Iteration: 312 Loss: 0.8476788564209705
+Iteration: 313 Loss: 0.8476788564209705
+Iteration: 314 Loss: 0.8476788564209705
+Iteration: 315 Loss: 0.8476788564209705
+Iteration: 316 Loss: 0.8476788564209705
+Iteration: 317 Loss: 0.8476788564209705
+Iteration: 318 Loss: 0.8476788564209705
+Iteration: 319 Loss: 0.8476788564209705
+Iteration: 320 Loss: 0.8476788564209705
+Iteration: 321 Loss: 0.8476788564209705
+Iteration: 322 Loss: 0.8476788564209705
+Iteration: 323 Loss: 0.8476788564209705
+Iteration: 324 Loss: 0.8476788564209705
+Iteration: 325 Loss: 0.8476788564209705
+Iteration: 326 Loss: 0.8476788564209705
+Iteration: 327 Loss: 0.8476788564209705
+Iteration: 328 Loss: 0.8476788564209705
+Iteration: 329 Loss: 0.8476788564209705
+Iteration: 330 Loss: 0.8476788564209705
+Iteration: 331 Loss: 0.8476788564209705
+Iteration: 332 Loss: 0.8476788564209705
+Iteration: 333 Loss: 0.8476788564209705
+Iteration: 334 Loss: 0.8476788564209705
+Iteration: 335 Loss: 0.8476788564209705
+Iteration: 336 Loss: 0.8476788564209705
+Iteration: 337 Loss: 0.8476788564209705
+Iteration: 338 Loss: 0.8476788564209705
+Iteration: 339 Loss: 0.8476788564209705
+Iteration: 340 Loss: 0.8476788564209705
+Iteration: 341 Loss: 0.8476788564209705
+Iteration: 342 Loss: 0.8476788564209705
+Iteration: 343 Loss: 0.8476788564209705
+Iteration: 344 Loss: 0.8476788564209705
+Iteration: 345 Loss: 0.8476788564209705
+Iteration: 346 Loss: 0.8476788564209705
+Iteration: 347 Loss: 0.8476788564209705
+Iteration: 348 Loss: 0.8476788564209705
+Iteration: 349 Loss: 0.8476788564209705
+Iteration: 350 Loss: 0.8476788564209705
+Iteration: 351 Loss: 0.8476788564209705
+Iteration: 352 Loss: 0.8476788564209705
+Iteration: 353 Loss: 0.8476788564209705
+Iteration: 354 Loss: 0.8476788564209705
+Iteration: 355 Loss: 0.8476788564209705
+Iteration: 356 Loss: 0.8476788564209705
+Iteration: 357 Loss: 0.8476788564209705
+Iteration: 358 Loss: 0.8476788564209705
+Iteration: 359 Loss: 0.8476788564209705
+Iteration: 360 Loss: 0.8476788564209705
+Iteration: 361 Loss: 0.8476788564209705
+Iteration: 362 Loss: 0.8476788564209705
+Iteration: 363 Loss: 0.8476788564209705
+Iteration: 364 Loss: 0.8476788564209705
+Iteration: 365 Loss: 0.8476788564209705
+Iteration: 366 Loss: 0.8476788564209705
+Iteration: 367 Loss: 0.8476788564209705
+Iteration: 368 Loss: 0.8476788564209705
+Iteration: 369 Loss: 0.8476788564209705
+Iteration: 370 Loss: 0.8476788564209705
+Iteration: 371 Loss: 0.8476788564209705
+Iteration: 372 Loss: 0.8476788564209705
+Iteration: 373 Loss: 0.8476788564209705
+Iteration: 374 Loss: 0.8476788564209705
+Iteration: 375 Loss: 0.8476788564209705
+Iteration: 376 Loss: 0.8476788564209705
+Iteration: 377 Loss: 0.8476788564209705
+Iteration: 378 Loss: 0.8476788564209705
+Iteration: 379 Loss: 0.8476788564209705
+Iteration: 380 Loss: 0.8476788564209705
+Iteration: 381 Loss: 0.8476788564209705
+Iteration: 382 Loss: 0.8476788564209705
+Iteration: 383 Loss: 0.8476788564209705
+Iteration: 384 Loss: 0.8476788564209705
+Iteration: 385 Loss: 0.8476788564209705
+Iteration: 386 Loss: 0.8476788564209705
+Iteration: 387 Loss: 0.8476788564209705
+Iteration: 388 Loss: 0.8476788564209705
+Iteration: 389 Loss: 0.8476788564209705
+Iteration: 390 Loss: 0.8476788564209705
+Iteration: 391 Loss: 0.8476788564209705
+Iteration: 392 Loss: 0.8476788564209705
+Iteration: 393 Loss: 0.8476788564209705
+Iteration: 394 Loss: 0.8476788564209705
+Iteration: 395 Loss: 0.8476788564209705
+Iteration: 396 Loss: 0.8476788564209705
+Iteration: 397 Loss: 0.8476788564209705
+Iteration: 398 Loss: 0.8476788564209705
+Iteration: 399 Loss: 0.8476788564209705
+Iteration: 400 Loss: 0.8476788564209705
+Iteration: 401 Loss: 0.8476788564209705
+Iteration: 402 Loss: 0.8476788564209705
+Iteration: 403 Loss: 0.8476788564209705
+Iteration: 404 Loss: 0.8476788564209705
+Iteration: 405 Loss: 0.8476788564209705
+Iteration: 406 Loss: 0.8476788564209705
+Iteration: 407 Loss: 0.8476788564209705
+Iteration: 408 Loss: 0.8476788564209705
+Iteration: 409 Loss: 0.8476788564209705
+Iteration: 410 Loss: 0.8476788564209705
+Iteration: 411 Loss: 0.8476788564209705
+Iteration: 412 Loss: 0.8476788564209705
+Iteration: 413 Loss: 0.8476788564209705
+Iteration: 414 Loss: 0.8476788564209705
+Iteration: 415 Loss: 0.8476788564209705
+Iteration: 416 Loss: 0.8476788564209705
+Iteration: 417 Loss: 0.8476788564209705
+Iteration: 418 Loss: 0.8476788564209705
+Iteration: 419 Loss: 0.8476788564209705
+Iteration: 420 Loss: 0.8476788564209705
+Iteration: 421 Loss: 0.8476788564209705
+Iteration: 422 Loss: 0.8476788564209705
+Iteration: 423 Loss: 0.8476788564209705
+Iteration: 424 Loss: 0.8476788564209705
+Iteration: 425 Loss: 0.8476788564209705
+Iteration: 426 Loss: 0.8476788564209705
+Iteration: 427 Loss: 0.8476788564209705
+Iteration: 428 Loss: 0.8476788564209705
+Iteration: 429 Loss: 0.8476788564209705
+Iteration: 430 Loss: 0.8476788564209705
+Iteration: 431 Loss: 0.8476788564209705
+Iteration: 432 Loss: 0.8476788564209705
+Iteration: 433 Loss: 0.8476788564209705
+Iteration: 434 Loss: 0.8476788564209705
+Iteration: 435 Loss: 0.8476788564209705
+Iteration: 436 Loss: 0.8476788564209705
+Iteration: 437 Loss: 0.8476788564209705
+Iteration: 438 Loss: 0.8476788564209705
+Iteration: 439 Loss: 0.8476788564209705
+Iteration: 440 Loss: 0.8476788564209705
+Iteration: 441 Loss: 0.8476788564209705
+Iteration: 442 Loss: 0.8476788564209705
+Iteration: 443 Loss: 0.8476788564209705
+Iteration: 444 Loss: 0.8476788564209705
+Iteration: 445 Loss: 0.8476788564209705
+Iteration: 446 Loss: 0.8476788564209705
+Iteration: 447 Loss: 0.8476788564209705
+Iteration: 448 Loss: 0.8476788564209705
+Iteration: 449 Loss: 0.8476788564209705
+Iteration: 450 Loss: 0.8476788564209705
+Iteration: 451 Loss: 0.8476788564209705
+Iteration: 452 Loss: 0.8476788564209705
+Iteration: 453 Loss: 0.8476788564209705
+Iteration: 454 Loss: 0.8476788564209705
+Iteration: 455 Loss: 0.8476788564209705
+Iteration: 456 Loss: 0.8476788564209705
+Iteration: 457 Loss: 0.8476788564209705
+Iteration: 458 Loss: 0.8476788564209705
+Iteration: 459 Loss: 0.8476788564209705
+Iteration: 460 Loss: 0.8476788564209705
+Iteration: 461 Loss: 0.8476788564209705
+Iteration: 462 Loss: 0.8476788564209705
+Iteration: 463 Loss: 0.8476788564209705
+Iteration: 464 Loss: 0.8476788564209705
+Iteration: 465 Loss: 0.8476788564209705
+Iteration: 466 Loss: 0.8476788564209705
+Iteration: 467 Loss: 0.8476788564209705
+Iteration: 468 Loss: 0.8476788564209705
+Iteration: 469 Loss: 0.8476788564209705
+Iteration: 470 Loss: 0.8476788564209705
+Iteration: 471 Loss: 0.8476788564209705
+Iteration: 472 Loss: 0.8476788564209705
+Iteration: 473 Loss: 0.8476788564209705
+Iteration: 474 Loss: 0.8476788564209705
+Iteration: 475 Loss: 0.8476788564209705
+Iteration: 476 Loss: 0.8476788564209705
+Iteration: 477 Loss: 0.8476788564209705
+Iteration: 478 Loss: 0.8476788564209705
+Iteration: 479 Loss: 0.8476788564209705
+Iteration: 480 Loss: 0.8476788564209705
+Iteration: 481 Loss: 0.8476788564209705
+Iteration: 482 Loss: 0.8476788564209705
+Iteration: 483 Loss: 0.8476788564209705
+Iteration: 484 Loss: 0.8476788564209705
+Iteration: 485 Loss: 0.8476788564209705
+Iteration: 486 Loss: 0.8476788564209705
+Iteration: 487 Loss: 0.8476788564209705
+Iteration: 488 Loss: 0.8476788564209705
+Iteration: 489 Loss: 0.8476788564209705
+Iteration: 490 Loss: 0.8476788564209705
+Iteration: 491 Loss: 0.8476788564209705
+Iteration: 492 Loss: 0.8476788564209705
+Iteration: 493 Loss: 0.8476788564209705
+Iteration: 494 Loss: 0.8476788564209705
+Iteration: 495 Loss: 0.8476788564209705
+Iteration: 496 Loss: 0.8476788564209705
+Iteration: 497 Loss: 0.8476788564209705
+Iteration: 498 Loss: 0.8476788564209705
+Iteration: 499 Loss: 0.8476788564209705
+Iteration: 500 Loss: 0.8476788564209705
+Iteration: 501 Loss: 0.8476788564209705
+Iteration: 502 Loss: 0.8476788564209705
+Iteration: 503 Loss: 0.8476788564209705
+Iteration: 504 Loss: 0.8476788564209705
+Iteration: 505 Loss: 0.8476788564209705
+Iteration: 506 Loss: 0.8476788564209705
+Iteration: 507 Loss: 0.8476788564209705
+Iteration: 508 Loss: 0.8476788564209705
+Iteration: 509 Loss: 0.8476788564209705
+Iteration: 510 Loss: 0.8476788564209705
+Iteration: 511 Loss: 0.8476788564209705
+Iteration: 512 Loss: 0.8476788564209705
+Iteration: 513 Loss: 0.8476788564209705
+Iteration: 514 Loss: 0.8476788564209705
+Iteration: 515 Loss: 0.8476788564209705
+Iteration: 516 Loss: 0.8476788564209705
+Iteration: 517 Loss: 0.8476788564209705
+Iteration: 518 Loss: 0.8476788564209705
+Iteration: 519 Loss: 0.8476788564209705
+Iteration: 520 Loss: 0.8476788564209705
+Iteration: 521 Loss: 0.8476788564209705
+Iteration: 522 Loss: 0.8476788564209705
+Iteration: 523 Loss: 0.8476788564209705
+Iteration: 524 Loss: 0.8476788564209705
+Iteration: 525 Loss: 0.8476788564209705
+Iteration: 526 Loss: 0.8476788564209705
+Iteration: 527 Loss: 0.8476788564209705
+Iteration: 528 Loss: 0.8476788564209705
+Iteration: 529 Loss: 0.8476788564209705
+Iteration: 530 Loss: 0.8476788564209705
+Iteration: 531 Loss: 0.8476788564209705
+Iteration: 532 Loss: 0.8476788564209705
+Iteration: 533 Loss: 0.8476788564209705
+Iteration: 534 Loss: 0.8476788564209705
+Iteration: 535 Loss: 0.8476788564209705
+Iteration: 536 Loss: 0.8476788564209705
+Iteration: 537 Loss: 0.8476788564209705
+Iteration: 538 Loss: 0.8476788564209705
+Iteration: 539 Loss: 0.8476788564209705
+Iteration: 540 Loss: 0.8476788564209705
+Iteration: 541 Loss: 0.8476788564209705
+Iteration: 542 Loss: 0.8476788564209705
+Iteration: 543 Loss: 0.8476788564209705
+Iteration: 544 Loss: 0.8476788564209705
+Iteration: 545 Loss: 0.8476788564209705
+Iteration: 546 Loss: 0.8476788564209705
+Iteration: 547 Loss: 0.8476788564209705
+Iteration: 548 Loss: 0.8476788564209705
+Iteration: 549 Loss: 0.8476788564209705
+Iteration: 550 Loss: 0.8476788564209705
+Iteration: 551 Loss: 0.8476788564209705
+Iteration: 552 Loss: 0.8476788564209705
+Iteration: 553 Loss: 0.8476788564209705
+Iteration: 554 Loss: 0.8476788564209705
+Iteration: 555 Loss: 0.8476788564209705
+Iteration: 556 Loss: 0.8476788564209705
+Iteration: 557 Loss: 0.8476788564209705
+Iteration: 558 Loss: 0.8476788564209705
+Iteration: 559 Loss: 0.8476788564209705
+Iteration: 560 Loss: 0.8476788564209705
+Iteration: 561 Loss: 0.8476788564209705
+Iteration: 562 Loss: 0.8476788564209705
+Iteration: 563 Loss: 0.8476788564209705
+Iteration: 564 Loss: 0.8476788564209705
+Iteration: 565 Loss: 0.8476788564209705
+Iteration: 566 Loss: 0.8476788564209705
+Iteration: 567 Loss: 0.8476788564209705
+Iteration: 568 Loss: 0.8476788564209705
+Iteration: 569 Loss: 0.8476788564209705
+Iteration: 570 Loss: 0.8476788564209705
+Iteration: 571 Loss: 0.8476788564209705
+Iteration: 572 Loss: 0.8476788564209705
+Iteration: 573 Loss: 0.8476788564209705
+Iteration: 574 Loss: 0.8476788564209705
+Iteration: 575 Loss: 0.8476788564209705
+Iteration: 576 Loss: 0.8476788564209705
+Iteration: 577 Loss: 0.8476788564209705
+Iteration: 578 Loss: 0.8476788564209705
+Iteration: 579 Loss: 0.8476788564209705
+Iteration: 580 Loss: 0.8476788564209705
+Iteration: 581 Loss: 0.8476788564209705
+Iteration: 582 Loss: 0.8476788564209705
+Iteration: 583 Loss: 0.8476788564209705
+Iteration: 584 Loss: 0.8476788564209705
+Iteration: 585 Loss: 0.8476788564209705
+Iteration: 586 Loss: 0.8476788564209705
+Iteration: 587 Loss: 0.8476788564209705
+Iteration: 588 Loss: 0.8476788564209705
+Iteration: 589 Loss: 0.8476788564209705
+Iteration: 590 Loss: 0.8476788564209705
+Iteration: 591 Loss: 0.8476788564209705
+Iteration: 592 Loss: 0.8476788564209705
+Iteration: 593 Loss: 0.8476788564209705
+Iteration: 594 Loss: 0.8476788564209705
+Iteration: 595 Loss: 0.8476788564209705
+Iteration: 596 Loss: 0.8476788564209705
+Iteration: 597 Loss: 0.8476788564209705
+Iteration: 598 Loss: 0.8476788564209705
+Iteration: 599 Loss: 0.8476788564209705
+Iteration: 600 Loss: 0.8476788564209705
+Iteration: 601 Loss: 0.8476788564209705
+Iteration: 602 Loss: 0.8476788564209705
+Iteration: 603 Loss: 0.8476788564209705
+Iteration: 604 Loss: 0.8476788564209705
+Iteration: 605 Loss: 0.8476788564209705
+Iteration: 606 Loss: 0.8476788564209705
+Iteration: 607 Loss: 0.8476788564209705
+Iteration: 608 Loss: 0.8476788564209705
+Iteration: 609 Loss: 0.8476788564209705
+Iteration: 610 Loss: 0.8476788564209705
+Iteration: 611 Loss: 0.8476788564209705
+Iteration: 612 Loss: 0.8476788564209705
+Iteration: 613 Loss: 0.8476788564209705
+Iteration: 614 Loss: 0.8476788564209705
+Iteration: 615 Loss: 0.8476788564209705
+Iteration: 616 Loss: 0.8476788564209705
+Iteration: 617 Loss: 0.8476788564209705
+Iteration: 618 Loss: 0.8476788564209705
+Iteration: 619 Loss: 0.8476788564209705
+Iteration: 620 Loss: 0.8476788564209705
+Iteration: 621 Loss: 0.8476788564209705
+Iteration: 622 Loss: 0.8476788564209705
+Iteration: 623 Loss: 0.8476788564209705
+Iteration: 624 Loss: 0.8476788564209705
+Iteration: 625 Loss: 0.8476788564209705
+Iteration: 626 Loss: 0.8476788564209705
+Iteration: 627 Loss: 0.8476788564209705
+Iteration: 628 Loss: 0.8476788564209705
+Iteration: 629 Loss: 0.8476788564209705
+Iteration: 630 Loss: 0.8476788564209705
+Iteration: 631 Loss: 0.8476788564209705
+Iteration: 632 Loss: 0.8476788564209705
+Iteration: 633 Loss: 0.8476788564209705
+Iteration: 634 Loss: 0.8476788564209705
+Iteration: 635 Loss: 0.8476788564209705
+Iteration: 636 Loss: 0.8476788564209705
+Iteration: 637 Loss: 0.8476788564209705
+Iteration: 638 Loss: 0.8476788564209705
+Iteration: 639 Loss: 0.8476788564209705
+Iteration: 640 Loss: 0.8476788564209705
+Iteration: 641 Loss: 0.8476788564209705
+Iteration: 642 Loss: 0.8476788564209705
+Iteration: 643 Loss: 0.8476788564209705
+Iteration: 644 Loss: 0.8476788564209705
+Iteration: 645 Loss: 0.8476788564209705
+Iteration: 646 Loss: 0.8476788564209705
+Iteration: 647 Loss: 0.8476788564209705
+Iteration: 648 Loss: 0.8476788564209705
+Iteration: 649 Loss: 0.8476788564209705
+Iteration: 650 Loss: 0.8476788564209705
+Iteration: 651 Loss: 0.8476788564209705
+Iteration: 652 Loss: 0.8476788564209705
+Iteration: 653 Loss: 0.8476788564209705
+Iteration: 654 Loss: 0.8476788564209705
+Iteration: 655 Loss: 0.8476788564209705
+Iteration: 656 Loss: 0.8476788564209705
+Iteration: 657 Loss: 0.8476788564209705
+Iteration: 658 Loss: 0.8476788564209705
+Iteration: 659 Loss: 0.8476788564209705
+Iteration: 660 Loss: 0.8476788564209705
+Iteration: 661 Loss: 0.8476788564209705
+Iteration: 662 Loss: 0.8476788564209705
+Iteration: 663 Loss: 0.8476788564209705
+Iteration: 664 Loss: 0.8476788564209705
+Iteration: 665 Loss: 0.8476788564209705
+Iteration: 666 Loss: 0.8476788564209705
+Iteration: 667 Loss: 0.8476788564209705
+Iteration: 668 Loss: 0.8476788564209705
+Iteration: 669 Loss: 0.8476788564209705
+Iteration: 670 Loss: 0.8476788564209705
+Iteration: 671 Loss: 0.8476788564209705
+Iteration: 672 Loss: 0.8476788564209705
+Iteration: 673 Loss: 0.8476788564209705
+Iteration: 674 Loss: 0.8476788564209705
+Iteration: 675 Loss: 0.8476788564209705
+Iteration: 676 Loss: 0.8476788564209705
+Iteration: 677 Loss: 0.8476788564209705
+Iteration: 678 Loss: 0.8476788564209705
+Iteration: 679 Loss: 0.8476788564209705
+Iteration: 680 Loss: 0.8476788564209705
+Iteration: 681 Loss: 0.8476788564209705
+Iteration: 682 Loss: 0.8476788564209705
+Iteration: 683 Loss: 0.8476788564209705
+Iteration: 684 Loss: 0.8476788564209705
+Iteration: 685 Loss: 0.8476788564209705
+Iteration: 686 Loss: 0.8476788564209705
+Iteration: 687 Loss: 0.8476788564209705
+Iteration: 688 Loss: 0.8476788564209705
+Iteration: 689 Loss: 0.8476788564209705
+Iteration: 690 Loss: 0.8476788564209705
+Iteration: 691 Loss: 0.8476788564209705
+Iteration: 692 Loss: 0.8476788564209705
+Iteration: 693 Loss: 0.8476788564209705
+Iteration: 694 Loss: 0.8476788564209705
+Iteration: 695 Loss: 0.8476788564209705
+Iteration: 696 Loss: 0.8476788564209705
+Iteration: 697 Loss: 0.8476788564209705
+Iteration: 698 Loss: 0.8476788564209705
+Iteration: 699 Loss: 0.8476788564209705
+Iteration: 700 Loss: 0.8476788564209705
+Iteration: 701 Loss: 0.8476788564209705
+Iteration: 702 Loss: 0.8476788564209705
+Iteration: 703 Loss: 0.8476788564209705
+Iteration: 704 Loss: 0.8476788564209705
+Iteration: 705 Loss: 0.8476788564209705
+Iteration: 706 Loss: 0.8476788564209705
+Iteration: 707 Loss: 0.8476788564209705
+Iteration: 708 Loss: 0.8476788564209705
+Iteration: 709 Loss: 0.8476788564209705
+Iteration: 710 Loss: 0.8476788564209705
+Iteration: 711 Loss: 0.8476788564209705
+Iteration: 712 Loss: 0.8476788564209705
+Iteration: 713 Loss: 0.8476788564209705
+Iteration: 714 Loss: 0.8476788564209705
+Iteration: 715 Loss: 0.8476788564209705
+Iteration: 716 Loss: 0.8476788564209705
+Iteration: 717 Loss: 0.8476788564209705
+Iteration: 718 Loss: 0.8476788564209705
+Iteration: 719 Loss: 0.8476788564209705
+Iteration: 720 Loss: 0.8476788564209705
+Iteration: 721 Loss: 0.8476788564209705
+Iteration: 722 Loss: 0.8476788564209705
+Iteration: 723 Loss: 0.8476788564209705
+Iteration: 724 Loss: 0.8476788564209705
+Iteration: 725 Loss: 0.8476788564209705
+Iteration: 726 Loss: 0.8476788564209705
+Iteration: 727 Loss: 0.8476788564209705
+Iteration: 728 Loss: 0.8476788564209705
+Iteration: 729 Loss: 0.8476788564209705
+Iteration: 730 Loss: 0.8476788564209705
+Iteration: 731 Loss: 0.8476788564209705
+Iteration: 732 Loss: 0.8476788564209705
+Iteration: 733 Loss: 0.8476788564209705
+Iteration: 734 Loss: 0.8476788564209705
+Iteration: 735 Loss: 0.8476788564209705
+Iteration: 736 Loss: 0.8476788564209705
+Iteration: 737 Loss: 0.8476788564209705
+Iteration: 738 Loss: 0.8476788564209705
+Iteration: 739 Loss: 0.8476788564209705
+Iteration: 740 Loss: 0.8476788564209705
+Iteration: 741 Loss: 0.8476788564209705
+Iteration: 742 Loss: 0.8476788564209705
+Iteration: 743 Loss: 0.8476788564209705
+Iteration: 744 Loss: 0.8476788564209705
+Iteration: 745 Loss: 0.8476788564209705
+Iteration: 746 Loss: 0.8476788564209705
+Iteration: 747 Loss: 0.8476788564209705
+Iteration: 748 Loss: 0.8476788564209705
+Iteration: 749 Loss: 0.8476788564209705
+Iteration: 750 Loss: 0.8476788564209705
+Iteration: 751 Loss: 0.8476788564209705
+Iteration: 752 Loss: 0.8476788564209705
+Iteration: 753 Loss: 0.8476788564209705
+Iteration: 754 Loss: 0.8476788564209705
+Iteration: 755 Loss: 0.8476788564209705
+Iteration: 756 Loss: 0.8476788564209705
+Iteration: 757 Loss: 0.8476788564209705
+Iteration: 758 Loss: 0.8476788564209705
+Iteration: 759 Loss: 0.8476788564209705
+Iteration: 760 Loss: 0.8476788564209705
+Iteration: 761 Loss: 0.8476788564209705
+Iteration: 762 Loss: 0.8476788564209705
+Iteration: 763 Loss: 0.8476788564209705
+Iteration: 764 Loss: 0.8476788564209705
+Iteration: 765 Loss: 0.8476788564209705
+Iteration: 766 Loss: 0.8476788564209705
+Iteration: 767 Loss: 0.8476788564209705
+Iteration: 768 Loss: 0.8476788564209705
+Iteration: 769 Loss: 0.8476788564209705
+Iteration: 770 Loss: 0.8476788564209705
+Iteration: 771 Loss: 0.8476788564209705
+Iteration: 772 Loss: 0.8476788564209705
+Iteration: 773 Loss: 0.8476788564209705
+Iteration: 774 Loss: 0.8476788564209705
+Iteration: 775 Loss: 0.8476788564209705
+Iteration: 776 Loss: 0.8476788564209705
+Iteration: 777 Loss: 0.8476788564209705
+Iteration: 778 Loss: 0.8476788564209705
+Iteration: 779 Loss: 0.8476788564209705
+Iteration: 780 Loss: 0.8476788564209705
+Iteration: 781 Loss: 0.8476788564209705
+Iteration: 782 Loss: 0.8476788564209705
+Iteration: 783 Loss: 0.8476788564209705
+Iteration: 784 Loss: 0.8476788564209705
+Iteration: 785 Loss: 0.8476788564209705
+Iteration: 786 Loss: 0.8476788564209705
+Iteration: 787 Loss: 0.8476788564209705
+Iteration: 788 Loss: 0.8476788564209705
+Iteration: 789 Loss: 0.8476788564209705
+Iteration: 790 Loss: 0.8476788564209705
+Iteration: 791 Loss: 0.8476788564209705
+Iteration: 792 Loss: 0.8476788564209705
+Iteration: 793 Loss: 0.8476788564209705
+Iteration: 794 Loss: 0.8476788564209705
+Iteration: 795 Loss: 0.8476788564209705
+Iteration: 796 Loss: 0.8476788564209705
+Iteration: 797 Loss: 0.8476788564209705
+Iteration: 798 Loss: 0.8476788564209705
+Iteration: 799 Loss: 0.8476788564209705
+Iteration: 800 Loss: 0.8476788564209705
+Iteration: 801 Loss: 0.8476788564209705
+Iteration: 802 Loss: 0.8476788564209705
+Iteration: 803 Loss: 0.8476788564209705
+Iteration: 804 Loss: 0.8476788564209705
+Iteration: 805 Loss: 0.8476788564209705
+Iteration: 806 Loss: 0.8476788564209705
+Iteration: 807 Loss: 0.8476788564209705
+Iteration: 808 Loss: 0.8476788564209705
+Iteration: 809 Loss: 0.8476788564209705
+Iteration: 810 Loss: 0.8476788564209705
+Iteration: 811 Loss: 0.8476788564209705
+Iteration: 812 Loss: 0.8476788564209705
+Iteration: 813 Loss: 0.8476788564209705
+Iteration: 814 Loss: 0.8476788564209705
+Iteration: 815 Loss: 0.8476788564209705
+Iteration: 816 Loss: 0.8476788564209705
+Iteration: 817 Loss: 0.8476788564209705
+Iteration: 818 Loss: 0.8476788564209705
+Iteration: 819 Loss: 0.8476788564209705
+Iteration: 820 Loss: 0.8476788564209705
+Iteration: 821 Loss: 0.8476788564209705
+Iteration: 822 Loss: 0.8476788564209705
+Iteration: 823 Loss: 0.8476788564209705
+Iteration: 824 Loss: 0.8476788564209705
+Iteration: 825 Loss: 0.8476788564209705
+Iteration: 826 Loss: 0.8476788564209705
+Iteration: 827 Loss: 0.8476788564209705
+Iteration: 828 Loss: 0.8476788564209705
+Iteration: 829 Loss: 0.8476788564209705
+Iteration: 830 Loss: 0.8476788564209705
+Iteration: 831 Loss: 0.8476788564209705
+Iteration: 832 Loss: 0.8476788564209705
+Iteration: 833 Loss: 0.8476788564209705
+Iteration: 834 Loss: 0.8476788564209705
+Iteration: 835 Loss: 0.8476788564209705
+Iteration: 836 Loss: 0.8476788564209705
+Iteration: 837 Loss: 0.8476788564209705
+Iteration: 838 Loss: 0.8476788564209705
+Iteration: 839 Loss: 0.8476788564209705
+Iteration: 840 Loss: 0.8476788564209705
+Iteration: 841 Loss: 0.8476788564209705
+Iteration: 842 Loss: 0.8476788564209705
+Iteration: 843 Loss: 0.8476788564209705
+Iteration: 844 Loss: 0.8476788564209705
+Iteration: 845 Loss: 0.8476788564209705
+Iteration: 846 Loss: 0.8476788564209705
+Iteration: 847 Loss: 0.8476788564209705
+Iteration: 848 Loss: 0.8476788564209705
+Iteration: 849 Loss: 0.8476788564209705
+Iteration: 850 Loss: 0.8476788564209705
+Iteration: 851 Loss: 0.8476788564209705
+Iteration: 852 Loss: 0.8476788564209705
+Iteration: 853 Loss: 0.8476788564209705
+Iteration: 854 Loss: 0.8476788564209705
+Iteration: 855 Loss: 0.8476788564209705
+Iteration: 856 Loss: 0.8476788564209705
+Iteration: 857 Loss: 0.8476788564209705
+Iteration: 858 Loss: 0.8476788564209705
+Iteration: 859 Loss: 0.8476788564209705
+Iteration: 860 Loss: 0.8476788564209705
+Iteration: 861 Loss: 0.8476788564209705
+Iteration: 862 Loss: 0.8476788564209705
+Iteration: 863 Loss: 0.8476788564209705
+Iteration: 864 Loss: 0.8476788564209705
+Iteration: 865 Loss: 0.8476788564209705
+Iteration: 866 Loss: 0.8476788564209705
+Iteration: 867 Loss: 0.8476788564209705
+Iteration: 868 Loss: 0.8476788564209705
+Iteration: 869 Loss: 0.8476788564209705
+Iteration: 870 Loss: 0.8476788564209705
+Iteration: 871 Loss: 0.8476788564209705
+Iteration: 872 Loss: 0.8476788564209705
+Iteration: 873 Loss: 0.8476788564209705
+Iteration: 874 Loss: 0.8476788564209705
+Iteration: 875 Loss: 0.8476788564209705
+Iteration: 876 Loss: 0.8476788564209705
+Iteration: 877 Loss: 0.8476788564209705
+Iteration: 878 Loss: 0.8476788564209705
+Iteration: 879 Loss: 0.8476788564209705
+Iteration: 880 Loss: 0.8476788564209705
+Iteration: 881 Loss: 0.8476788564209705
+Iteration: 882 Loss: 0.8476788564209705
+Iteration: 883 Loss: 0.8476788564209705
+Iteration: 884 Loss: 0.8476788564209705
+Iteration: 885 Loss: 0.8476788564209705
+Iteration: 886 Loss: 0.8476788564209705
+Iteration: 887 Loss: 0.8476788564209705
+Iteration: 888 Loss: 0.8476788564209705
+Iteration: 889 Loss: 0.8476788564209705
+Iteration: 890 Loss: 0.8476788564209705
+Iteration: 891 Loss: 0.8476788564209705
+Iteration: 892 Loss: 0.8476788564209705
+Iteration: 893 Loss: 0.8476788564209705
+Iteration: 894 Loss: 0.8476788564209705
+Iteration: 895 Loss: 0.8476788564209705
+Iteration: 896 Loss: 0.8476788564209705
+Iteration: 897 Loss: 0.8476788564209705
+Iteration: 898 Loss: 0.8476788564209705
+Iteration: 899 Loss: 0.8476788564209705
+Iteration: 900 Loss: 0.8476788564209705
+Iteration: 901 Loss: 0.8476788564209705
+Iteration: 902 Loss: 0.8476788564209705
+Iteration: 903 Loss: 0.8476788564209705
+Iteration: 904 Loss: 0.8476788564209705
+Iteration: 905 Loss: 0.8476788564209705
+Iteration: 906 Loss: 0.8476788564209705
+Iteration: 907 Loss: 0.8476788564209705
+Iteration: 908 Loss: 0.8476788564209705
+Iteration: 909 Loss: 0.8476788564209705
+Iteration: 910 Loss: 0.8476788564209705
+Iteration: 911 Loss: 0.8476788564209705
+Iteration: 912 Loss: 0.8476788564209705
+Iteration: 913 Loss: 0.8476788564209705
+Iteration: 914 Loss: 0.8476788564209705
+Iteration: 915 Loss: 0.8476788564209705
+Iteration: 916 Loss: 0.8476788564209705
+Iteration: 917 Loss: 0.8476788564209705
+Iteration: 918 Loss: 0.8476788564209705
+Iteration: 919 Loss: 0.8476788564209705
+Iteration: 920 Loss: 0.8476788564209705
+Iteration: 921 Loss: 0.8476788564209705
+Iteration: 922 Loss: 0.8476788564209705
+Iteration: 923 Loss: 0.8476788564209705
+Iteration: 924 Loss: 0.8476788564209705
+Iteration: 925 Loss: 0.8476788564209705
+Iteration: 926 Loss: 0.8476788564209705
+Iteration: 927 Loss: 0.8476788564209705
+Iteration: 928 Loss: 0.8476788564209705
+Iteration: 929 Loss: 0.8476788564209705
+Iteration: 930 Loss: 0.8476788564209705
+Iteration: 931 Loss: 0.8476788564209705
+Iteration: 932 Loss: 0.8476788564209705
+Iteration: 933 Loss: 0.8476788564209705
+Iteration: 934 Loss: 0.8476788564209705
+Iteration: 935 Loss: 0.8476788564209705
+Iteration: 936 Loss: 0.8476788564209705
+Iteration: 937 Loss: 0.8476788564209705
+Iteration: 938 Loss: 0.8476788564209705
+Iteration: 939 Loss: 0.8476788564209705
+Iteration: 940 Loss: 0.8476788564209705
+Iteration: 941 Loss: 0.8476788564209705
+Iteration: 942 Loss: 0.8476788564209705
+Iteration: 943 Loss: 0.8476788564209705
+Iteration: 944 Loss: 0.8476788564209705
+Iteration: 945 Loss: 0.8476788564209705
+Iteration: 946 Loss: 0.8476788564209705
+Iteration: 947 Loss: 0.8476788564209705
+Iteration: 948 Loss: 0.8476788564209705
+Iteration: 949 Loss: 0.8476788564209705
+Iteration: 950 Loss: 0.8476788564209705
+Iteration: 951 Loss: 0.8476788564209705
+Iteration: 952 Loss: 0.8476788564209705
+Iteration: 953 Loss: 0.8476788564209705
+Iteration: 954 Loss: 0.8476788564209705
+Iteration: 955 Loss: 0.8476788564209705
+Iteration: 956 Loss: 0.8476788564209705
+Iteration: 957 Loss: 0.8476788564209705
+Iteration: 958 Loss: 0.8476788564209705
+Iteration: 959 Loss: 0.8476788564209705
+Iteration: 960 Loss: 0.8476788564209705
+Iteration: 961 Loss: 0.8476788564209705
+Iteration: 962 Loss: 0.8476788564209705
+Iteration: 963 Loss: 0.8476788564209705
+Iteration: 964 Loss: 0.8476788564209705
+Iteration: 965 Loss: 0.8476788564209705
+Iteration: 966 Loss: 0.8476788564209705
+Iteration: 967 Loss: 0.8476788564209705
+Iteration: 968 Loss: 0.8476788564209705
+Iteration: 969 Loss: 0.8476788564209705
+Iteration: 970 Loss: 0.8476788564209705
+Iteration: 971 Loss: 0.8476788564209705
+Iteration: 972 Loss: 0.8476788564209705
+Iteration: 973 Loss: 0.8476788564209705
+Iteration: 974 Loss: 0.8476788564209705
+Iteration: 975 Loss: 0.8476788564209705
+Iteration: 976 Loss: 0.8476788564209705
+Iteration: 977 Loss: 0.8476788564209705
+Iteration: 978 Loss: 0.8476788564209705
+Iteration: 979 Loss: 0.8476788564209705
+Iteration: 980 Loss: 0.8476788564209705
+Iteration: 981 Loss: 0.8476788564209705
+Iteration: 982 Loss: 0.8476788564209705
+Iteration: 983 Loss: 0.8476788564209705
+Iteration: 984 Loss: 0.8476788564209705
+Iteration: 985 Loss: 0.8476788564209705
+Iteration: 986 Loss: 0.8476788564209705
+Iteration: 987 Loss: 0.8476788564209705
+Iteration: 988 Loss: 0.8476788564209705
+Iteration: 989 Loss: 0.8476788564209705
+Iteration: 990 Loss: 0.8476788564209705
+Iteration: 991 Loss: 0.8476788564209705
+Iteration: 992 Loss: 0.8476788564209705
+Iteration: 993 Loss: 0.8476788564209705
+Iteration: 994 Loss: 0.8476788564209705
+Iteration: 995 Loss: 0.8476788564209705
+Iteration: 996 Loss: 0.8476788564209705
+Iteration: 997 Loss: 0.8476788564209705
+Iteration: 998 Loss: 0.8476788564209705
+Iteration: 999 Loss: 0.8476788564209705
+Iteration: 1000 Loss: 0.8476788564209705
 </pre></div>
 </div>
 </div>
 </div>
-<p>In this code snippet, we first derive the mathematical formula for linear regression. Then, we implement the formula in code by creating a <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> class. The <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method is used to train the model using the normal equation, and the <code class="docutils literal notranslate"><span class="pre">predict()</span></code> method is used to make predictions on new data points.</p>
-<p>We also define a cost function called <code class="docutils literal notranslate"><span class="pre">mean_squared_error()</span></code> to evaluate the performance of the model. Additionally, we can implement the gradient descent algorithm to train the model iteratively if desired.</p>
-<p>Finally, we train the model using the <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method, make predictions using the <code class="docutils literal notranslate"><span class="pre">predict()</span></code> method, and evaluate the model’s performance using the mean squared error (MSE).</p>
+</section>
 </section>
 <section id="model-evaluation">
 <h2><span class="section-number">37.49.4. </span>Model Evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this headline">#</a></h2>
 <p>After training the linear regression model, it is important to evaluate its performance to assess how well it is able to make predictions. In this section, we will discuss some commonly used evaluation metrics for regression models.</p>
 <p>When evaluating a machine learning model, we often use certain metrics to measure its performance. Here are some commonly used metrics and plotting methods:</p>
-<ol class="simple">
-<li><p><strong>Mean Absolute Error (MAE):</strong> MAE is the average absolute difference between the predicted values and the actual values. It measures the average magnitude of the model’s errors. A lower MAE value indicates better predictive performance of the model.</p></li>
-<li><p><strong>Root Mean Squared Error (RMSE):</strong> RMSE is the square root of the average of the squared differences between the predicted values and the actual values. Compared to MAE, RMSE is more sensitive to large errors because it penalizes squared errors. Similar to MAE, a lower RMSE value indicates better predictive performance of the model.</p></li>
-<li><p><strong>R-squared:</strong> R-squared measures the proportion of the variance in the dependent variable that is predictable from the independent variables. It ranges from 0 to 1. A higher R-squared value indicates a better fit of the model to the data.</p></li>
-<li><p><strong>Mean Squared Error (MSE):</strong> MSE is the average of the squared differences between the predicted values and the actual values. Unlike RMSE, MSE does not take the square root, so its values are typically larger.</p></li>
-</ol>
-<p>Let’s take a look at the code snippet below to understand how we can evaluate the linear regression model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">r2_score</span>
 
-<span class="c1"># Evaluating the model</span>
-<span class="c1"># Mean Absolute Error (MAE)</span>
-<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean Absolute Error:&#39;</span><span class="p">,</span> <span class="n">mae</span><span class="p">)</span>
+<span class="c1"># Make predictions on the test set</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
-<span class="c1"># Root Mean Squared Error (RMSE)</span>
-<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Root Mean Squared Error:&#39;</span><span class="p">,</span> <span class="n">rmse</span><span class="p">)</span>
+<span class="c1"># Compute the evaluation metrics</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
 
-<span class="c1"># R-squared</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;R-squared:&#39;</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean Squared Error:&quot;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean Absolute Error:&quot;</span><span class="p">,</span> <span class="n">mae</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;R-squared:&quot;</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 0.6536995137169997
+Mean Absolute Error: 0.5913425779189757
+R-squared: 0.8072059636181399
+</pre></div>
+</div>
+</div>
+</div>
+<p>The scatter plot shows the relationship between the features (X) and the actual values (blue dots), along with the predicted values (red line). This visualization helps us understand how well the model captures the underlying patterns in the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mean Squared Error:&#39;</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span>
+<span class="c1"># Plot the scatter plot of the training set</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training Set&#39;</span><span class="p">)</span>
 
-<span class="c1"># Print shapes of X and y</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of X:&#39;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape of y:&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># Plot the scatter plot of the testing set</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Testing Set&#39;</span><span class="p">)</span>
 
-<span class="c1"># Plot the data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="c1"># Plot the line representing the predicted results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred_test</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set the title and labels for the chart</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Linear Regression&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add a legend</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Display the chart</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Absolute Error: 0.7010426719637757
-Root Mean Squared Error: 0.8981005311027566
-R-squared: 0.7692735413614223
-Mean Squared Error: 0.8065845639670534
-Shape of X: (100, 1)
-Shape of y: (100, 1)
-</pre></div>
-</div>
-<img alt="../../../_images/linear-regression-from-scratch_12_1.png" src="../../../_images/linear-regression-from-scratch_12_1.png" />
+<img alt="../../../_images/linear-regression-from-scratch_19_0.png" src="../../../_images/linear-regression-from-scratch_19_0.png" />
 </div>
 </div>
-<p>The scatter plot shows the relationship between the features (X) and the actual values (blue dots), along with the predicted values (red line). This visualization helps us understand how well the model captures the underlying patterns in the data.</p>
 </section>
 <section id="conclusion">
 <h2><span class="section-number">37.49.5. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
@@ -1826,10 +2909,6 @@ Shape of y: (100, 1)
 <li><p>Collect more data or use data augmentation techniques to increase the size of the dataset and improve the generalization ability of the model.</p></li>
 </ul>
 <p>In conclusion, implementing a linear regression model from scratch is a great way to gain a deeper understanding of how machine learning algorithms work. We hope that this assignment has helped you to better understand the concepts and techniques involved in building and training machine learning models.</p>
-</section>
-<section id="acknowledgments">
-<h2><span class="section-number">37.49.6. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
-<p>Thanks to the ChatGPT platform for providing the inspiration and guidance throughout this assignment.</p>
 </section>
 </section>
 
