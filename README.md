@@ -24,7 +24,7 @@ A curated list of awesome AI courses, tutorials, books, tools, and other learnin
 
 ## 🤖 Ocademy GenAI [![](<https://img.shields.io/badge/-start%20to%20create%20%E2%86%92-rgb(224,156,55)?style=for-the-badge>)](./generative-ai/prompts/README.md)
 
-In our collection of **Generative AI resources**, we feature an array of prompts for AI Teaching and Learning, including our innovative [AI Tutor Prompt](generative-ai/prompts/AI-Tutor.md). The AI Tutor Prompt adapts to two key educational scenarios:
+In our collection of **Generative AI resources**, we feature a list of prompts for AI Teaching and Learning, including our innovative [AI Tutor Prompt](generative-ai/prompts/AI-Tutor.md). The AI Tutor Prompt adapts to two key educational scenarios:
 
 1. **Classroom Learning**: The AI Tutor functions like a digital teacher, enabling personalized interactions and focused learning on specific topics like the "Gradient Descent" algorithm.
 2. **Course Project Assistance**: It guides students through machine learning projects, from setting up environments to implementing projects in a step-by-step fashion.
