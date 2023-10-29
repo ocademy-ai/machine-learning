@@ -1,6 +1,13 @@
 # Design of AI Tutor Prompt
 
-We have designed an **AI Tutor** intended for educational scenarios, primarily aimed at providing guidance to students in various aspects of proactive learning.
+We have designed an **AI Tutor** intended for educational scenarios, primarily aimed at providing guidance to students in various aspects of proactive learning. 
+
+The AI Tutor Prompt adapts to two key educational scenarios:
+
+1. Classroom Learning: The AI Tutor functions like a digital teacher, enabling personalized interactions and focused learning on specific topics like the "Gradient Descent" algorithm.
+2. Course Project Assistance: It guides students through machine learning projects, from setting up environments to implementing projects in a step-by-step fashion.
+
+Our AI Tutor is designed to significantly enhance the learning experience in AI and machine learning. 
 
 # Usage Scenarios
 
