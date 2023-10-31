@@ -1326,7 +1326,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1344,7 +1344,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1439,7 +1439,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/ml-advanced/ensemble-learning/feature-importance.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1471,23 +1471,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../_sources/ml-advanced/ensemble-learning/feature-importance.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1495,7 +1478,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1646,16 +1629,27 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="feature-importance">
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>seaborn<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="feature-importance">
 <h1><span class="section-number">15.3. </span>Feature importance<a class="headerlink" href="#feature-importance" title="Permalink to this headline">#</a></h1>
 <p>It’s quite often that you want to make out the exact reasons of the algorithm outputting a particular answer. Or at the very least to find out which input features contributed most to the result. With Random Forest, you can obtain such information quite easily.</p>
 <section id="intuition">
 <h2><span class="section-number">15.3.1. </span>Intuition<a class="headerlink" href="#intuition" title="Permalink to this headline">#</a></h2>
 <p>From the picture below, it is intuitively clear that, in our credit scoring problem, <em>Age</em> is much more important than <em>Income</em>. This can be formally explained using the concept of <em>information gain</em>.</p>
-<figure class="align-default" id="id1">
-<a class="bg-white mb-1 reference internal image-reference" href="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png"><img alt="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png" class="bg-white mb-1" src="https://habrastorage.org/webt/va/mm/9l/vamm9luoz1oqa4op74egpttaggy.png" style="width: 90%;" /></a>
+<figure class="align-default" id="example-of-credit-scoring-problem">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-advanced/ensemble-learning/feature-importance/Example_of_credit_scoring_problem.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-advanced/ensemble-learning/feature-importance/Example_of_credit_scoring_problem.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-advanced/ensemble-learning/feature-importance/Example_of_credit_scoring_problem.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 15.7 </span><span class="caption-text">Example of credit scoring problem</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 15.7 </span><span class="caption-text">Example of credit scoring problem</span><a class="headerlink" href="#example-of-credit-scoring-problem" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In the case of many decision trees or a random forest, the closer the mean position of a feature over all the trees to the root, the more significant it is for a given classification or regression problem. Gains in the splitting criterion, such as the <em>Gini impurity</em>, obtained at each optimal split in every tree is a measure of importance that is directly associated with the splitting feature. The value of this score is distinct for each feature and accumulates over all the trees.</p>
@@ -1781,13 +1775,18 @@ Sklearn library uses another approach to determine feature importance. The ratio
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">iris_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../assets/data/iris.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell tag_output_scroll docutils container">
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/iris.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1921,7 +1920,7 @@ Name: Name, Length: 150, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/feature-importance_10_0.png" src="../../_images/feature-importance_10_0.png" />
+<img alt="../../_images/feature-importance_18_0.png" src="../../_images/feature-importance_18_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1938,7 +1937,7 @@ Name: Name, Length: 150, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/feature-importance_11_0.png" src="../../_images/feature-importance_11_0.png" />
+<img alt="../../_images/feature-importance_19_0.png" src="../../_images/feature-importance_19_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1955,7 +1954,7 @@ Name: Name, Length: 150, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/feature-importance_12_0.png" src="../../_images/feature-importance_12_0.png" />
+<img alt="../../_images/feature-importance_20_0.png" src="../../_images/feature-importance_20_0.png" />
 </div>
 </div>
 <p>Let’s start from the first tree and <code class="docutils literal notranslate"><span class="pre">Sepal</span> <span class="pre">length</span> <span class="pre">(cm)</span></code> feature. This feature is located in two nodes: the root (#0) and the rightmost node (#4). The reduction in impurity for these nodes are:</p>
@@ -2018,7 +2017,7 @@ Name: Name, Length: 150, dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
 
-<span class="n">hostel_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../../assets/data/hostel_factors.csv&quot;</span><span class="p">)</span>
+<span class="n">hostel_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/hostel_factors.csv&quot;</span><span class="p">)</span>
 <span class="n">features</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Staff&quot;</span><span class="p">,</span>
     <span class="s2">&quot;f2&quot;</span><span class="p">:</span> <span class="sa">u</span><span class="s2">&quot;Hostel booking&quot;</span><span class="p">,</span>
@@ -2078,7 +2077,7 @@ Name: Name, Length: 150, dtype: int64
 10. Room condition 0.039105 
 </pre></div>
 </div>
-<img alt="../../_images/feature-importance_16_1.png" src="../../_images/feature-importance_16_1.png" />
+<img alt="../../_images/feature-importance_24_1.png" src="../../_images/feature-importance_24_1.png" />
 </div>
 </div>
 <p>The picture above shows that, more often than not, customers pay great attention to staff and the price-quality ratio. This couple of factors affects the resulting overall rating the most. The difference between these two features and other features is not very large, so we can conclude that exclusion of any of these features will lead to a reduction of model’s accuracy. However, based on our analysis, we can recommend hostel owners to focus primarily on staff training and price-to-quality ratio.</p>

@@ -1326,7 +1326,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/deep-learning/dqn.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/deep-learning/dqn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1344,7 +1344,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/deep-learning/dqn.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/deep-learning/dqn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1439,7 +1439,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/deep-learning/dqn.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/deep-learning/dqn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1471,23 +1471,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../_sources/deep-learning/dqn.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1495,7 +1478,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1832,16 +1815,27 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="deep-q-learning">
+  <div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="deep-q-learning">
 <h1><span class="section-number">27. </span>Deep Q-learning<a class="headerlink" href="#deep-q-learning" title="Permalink to this headline">#</a></h1>
 <section id="overview">
 <h2><span class="section-number">27.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
 <p>Usually, we regard Deep Q Network as DQN, and it can also be called Reinforcement Learning (RL) whose aim is to achieve the desired behavior of an agent that learns from its mistakes and improves its performance.</p>
 <p>RL is a type of machine learning that allows us to create AI agents that learn from the environment by interacting with it to maximize its cumulative reward. Here is an image showing the basic RL operation principle:</p>
-<figure class="align-default" id="pipline">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/02_pipline.png"><img alt="../_images/02_pipline.png" class="bg-white mb-1" src="../_images/02_pipline.png" style="width: 90%;" /></a>
+<figure class="align-default" id="pipline-of-dqn">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/02_pipline.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/02_pipline.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/02_pipline.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.1 </span><span class="caption-text">Pipline of DQN</span><a class="headerlink" href="#pipline" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.1 </span><span class="caption-text">Pipline of DQN</span><a class="headerlink" href="#pipline-of-dqn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>From this image, we can see that at each step <span class="math notranslate nohighlight">\(k\)</span>, the agent picks an action <span class="math notranslate nohighlight">\(u_k\)</span>, receives an observation <span class="math notranslate nohighlight">\(y_k\)</span> and receives a reward <span class="math notranslate nohighlight">\(r_k\)</span>, and the environment receives an action <span class="math notranslate nohighlight">\(u_k\)</span>, emits an observation <span class="math notranslate nohighlight">\(y_{k+1}\)</span> and emits a reward <span class="math notranslate nohighlight">\(r_{k+1}\)</span>. Later, the time increments k ← k + 1. A one step time delay is assumed between executing the action and receiving the observation as well as reward. We assume that the resulting time interval <span class="math notranslate nohighlight">\(∆t = t_k − t_{k+1}\)</span> is constant.</p>
@@ -1961,10 +1955,10 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 <li><p>Reference value is part of the environment state: <span class="math notranslate nohighlight">\(x_k =[y_k y^∗_k]^T\)</span>.</p></li>
 <li><p>Control output is the agent’s action: <span class="math notranslate nohighlight">\(u_k = \pi(x_k|K_p, K_i, K_d)\)</span>.</p></li>
 </ul>
-<figure class="align-default" id="policy-example">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/03_policy_example.png"><img alt="../_images/03_policy_example.png" class="bg-white mb-1" src="../_images/03_policy_example.png" style="width: 90%;" /></a>
+<figure class="align-default" id="classical-pid-control-loop-with-scalar-quantities">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/03_policy_example.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/03_policy_example.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/03_policy_example.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.2 </span><span class="caption-text">Classical PID control loop with scalar quantities</span><a class="headerlink" href="#policy-example" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.2 </span><span class="caption-text">Classical PID control loop with scalar quantities</span><a class="headerlink" href="#classical-pid-control-loop-with-scalar-quantities" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -2005,18 +1999,18 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 <li><p>State: agent’s location.</p></li>
 <li><p>Deterministic problem (no stochastic influences).</p></li>
 </ul>
-<figure class="align-default" id="maze">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/04_maze.png"><img alt="../_images/04_maze.png" class="bg-white mb-1" src="../_images/04_maze.png" style="width: 90%;" /></a>
+<figure class="align-default" id="maze-setup-statement">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/04_maze.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/04_maze.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/04_maze.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.3 </span><span class="caption-text">Maze setup statement</span><a class="headerlink" href="#maze" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.3 </span><span class="caption-text">Maze setup statement</span><a class="headerlink" href="#maze-setup-statement" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="rl-solution-by-policy">
 <h3><span class="section-number">27.3.1. </span>RL-solution by policy<a class="headerlink" href="#rl-solution-by-policy" title="Permalink to this headline">#</a></h3>
-<figure class="align-default" id="maze-policy">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/05_maze_policy.png"><img alt="../_images/05_maze_policy.png" class="bg-white mb-1" src="../_images/05_maze_policy.png" style="width: 90%;" /></a>
+<figure class="align-default" id="maze-solved-by-policy">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/05_maze_policy.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/05_maze_policy.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/05_maze_policy.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.4 </span><span class="caption-text">Maze solved by policy</span><a class="headerlink" href="#maze-policy" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.4 </span><span class="caption-text">Maze solved by policy</span><a class="headerlink" href="#maze-solved-by-policy" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Key characteristics:</p>
@@ -2027,10 +2021,10 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 </section>
 <section id="rl-solution-by-value-function">
 <h3><span class="section-number">27.3.2. </span>RL-solution by value function<a class="headerlink" href="#rl-solution-by-value-function" title="Permalink to this headline">#</a></h3>
-<figure class="align-default" id="maze-valuefunc">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/06_maze_valuefunc.png"><img alt="../_images/06_maze_valuefunc.png" class="bg-white mb-1" src="../_images/06_maze_valuefunc.png" style="width: 90%;" /></a>
+<figure class="align-default" id="maze-solved-by-value-functiony">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/06_maze_valuefunc.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/06_maze_valuefunc.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/06_maze_valuefunc.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.5 </span><span class="caption-text">Maze solved by value function</span><a class="headerlink" href="#maze-valuefunc" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.5 </span><span class="caption-text">Maze solved by value function</span><a class="headerlink" href="#maze-solved-by-value-functiony" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Key characteristics:</p>
@@ -2041,10 +2035,10 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 </section>
 <section id="rl-solution-by-model-evaluation">
 <h3><span class="section-number">27.3.3. </span>RL-solution by model evaluation<a class="headerlink" href="#rl-solution-by-model-evaluation" title="Permalink to this headline">#</a></h3>
-<figure class="align-default" id="maze-modeleval">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/07_maze_modeleval.png"><img alt="../_images/07_maze_modeleval.png" class="bg-white mb-1" src="../_images/07_maze_modeleval.png" style="width: 90%;" /></a>
+<figure class="align-default" id="maze-solved-by-model-evaluation">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/07_maze_modeleval.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/07_maze_modeleval.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/07_maze_modeleval.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.6 </span><span class="caption-text">Maze solved by model evaluation</span><a class="headerlink" href="#maze-modeleval" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.6 </span><span class="caption-text">Maze solved by model evaluation</span><a class="headerlink" href="#maze-solved-by-model-evaluation" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Key characteristics:</p>
@@ -2056,10 +2050,10 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 </section>
 <section id="rl-agent-taxonomy">
 <h3><span class="section-number">27.3.4. </span>RL agent taxonomy<a class="headerlink" href="#rl-agent-taxonomy" title="Permalink to this headline">#</a></h3>
-<figure class="align-default" id="taxonomy">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/07_taxonomy.png"><img alt="../_images/07_taxonomy.png" class="bg-white mb-1" src="../_images/07_taxonomy.png" style="width: 90%;" /></a>
+<figure class="align-default" id="main-categories-of-reinforcement-learning-algorithms">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/07_taxonomy.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/07_taxonomy.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/DQN/07_taxonomy.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 27.7 </span><span class="caption-text">Main categories of reinforcement learning algorithms</span><a class="headerlink" href="#taxonomy" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 27.7 </span><span class="caption-text">Main categories of reinforcement learning algorithms</span><a class="headerlink" href="#main-categories-of-reinforcement-learning-algorithms" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -2069,17 +2063,38 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 <p>This is an example of DQN discrete model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">r</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by &#39;ConnectTimeoutError(&lt;pip._vendor.urllib3.connection.HTTPSConnection object at 0x000002B94E742100&gt;, &#39;Connection to pypi.org timed out. (connect timeout=15)&#39;)&#39;: /simple/pandas/
+  WARNING: Failed to remove contents in a temporary directory &#39;C:\Users\yienk\anaconda3\envs\tensorflow\Lib\site-packages\~mq&#39;.
+  You can safely remove it manually.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Maze</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">num_memory_units</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_model</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">num_memory_units</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">create_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">num_memory_units</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_size</span><span class="p">,)),</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">),</span>
+            <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="n">num_memory_units</span><span class="p">)</span>
+        <span class="p">])</span>
+        <span class="k">return</span> <span class="n">model</span>
+    
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Maze</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maze_type</span><span class="p">):</span>
         <span class="c1"># Use the maze types from maze_collection.py</span>
         <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">maze</span><span class="p">,</span>
@@ -2212,6 +2227,9 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
     <span class="n">num_memory_units</span> <span class="o">=</span> <span class="mi">4</span>
     <span class="n">graphical</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">file_output</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">num_memory_units</span><span class="p">,</span> <span class="n">num_memory_units</span><span class="p">)</span>
+    
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">file_output</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
         <span class="c1"># output to file (this is set to overwrite!)</span>
@@ -2249,6 +2267,31 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 
     <span class="c1"># Looping through iterations</span>
     <span class="k">while</span> <span class="n">iteration</span> <span class="o">&lt;</span> <span class="n">maxIterations</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">([</span><span class="n">input_values</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+            <span class="n">left_output</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">right_output</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:,</span> <span class="mi">4</span><span class="p">:]</span>
+            <span class="n">action_probs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">left_output</span><span class="p">)</span>
+            <span class="n">memory_units</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">right_output</span><span class="p">)</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">action_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">move_up</span><span class="p">()</span>
+                <span class="n">dp_dthetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">action_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">nn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">move_right</span><span class="p">()</span>
+                <span class="n">dp_dthetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">action_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">nn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">action</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">move_down</span><span class="p">()</span>
+                <span class="n">dp_dthetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">action_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">nn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">move_left</span><span class="p">()</span>
+                <span class="n">dp_dthetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">action_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">nn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">step</span><span class="p">):</span>
+            <span class="n">grads</span> <span class="o">=</span> <span class="n">dp_dthetas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="p">[(</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">action_probs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">action</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span> <span class="o">*</span> <span class="n">reward</span><span class="p">)</span> <span class="o">*</span> <span class="n">grad</span> <span class="k">for</span> <span class="n">grad</span> <span class="ow">in</span> <span class="n">grads</span><span class="p">]</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">))</span>
+
         <span class="c1"># Current step</span>
         <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -2397,12 +2440,91 @@ If <span class="math notranslate nohighlight">\(\gamma\)</span> ≈ 0: agent is 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="c1"># Ensure we are using TensorFlow 2.x</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;This code requires TensorFlow V2.x&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">directory_name</span><span class="p">):</span>
+    <span class="c1"># Sample TensorFlow operation for demonstration</span>
+    <span class="c1"># This creates a constant tensor and prints it.</span>
+    <span class="n">tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;In directory: </span><span class="si">{</span><span class="n">directory_name</span><span class="si">}</span><span class="s2">, tensor values are:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">25</span><span class="p">):</span>
         <span class="n">number</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:05d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;T_fixed-memory-linear_reward_&quot;</span> <span class="o">+</span> <span class="n">number</span><span class="p">)</span>
-        <span class="n">main</span><span class="p">(</span><span class="s2">&quot;T_fixed-memory-linear_reward_&quot;</span> <span class="o">+</span> <span class="n">number</span><span class="p">)</span>
+        <span class="n">dir_name</span> <span class="o">=</span> <span class="s2">&quot;T_fixed-memory-linear_reward_&quot;</span> <span class="o">+</span> <span class="n">number</span>
+        
+        <span class="c1"># Check if directory exists, if not create it</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_name</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)</span>
+        
+        <span class="c1"># Execute main function</span>
+        <span class="n">main</span><span class="p">(</span><span class="n">dir_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>In directory: T_fixed-memory-linear_reward_00011, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00012, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00013, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00014, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00015, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00016, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00017, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00018, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00019, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00020, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00021, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00022, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00023, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
+In directory: T_fixed-memory-linear_reward_00024, tensor values are:
+tf.Tensor(
+[[1 2]
+ [3 4]], shape=(2, 2), dtype=int32)
 </pre></div>
 </div>
 </div>
