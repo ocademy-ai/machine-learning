@@ -137,7 +137,7 @@ To implement the "model as service" pattern, most of the cloud providers have to
 
 **Model as data** 
 
-This is another approach to have the Machine Learning model treated and published independently, but the application will ingest it as data at runtime instead. This is more commonly used in streaming or real-time scenarios where the application can subscribe to events that are published whenever a new model version is released. The model data will be ingested into memory for predicting, which avoid introducin the extra latency. Deployment strategies such as Blue/Green deployment or Canary deployment can be applied in this scenario. Some of above serialization options are also applicable for implementing the "model as data" pattern.
+This is another approach to have the Machine Learning model treated and published independently, but the application will ingest it as data at runtime instead. This is more commonly used in streaming or real-time scenarios where the application can subscribe to events that are published whenever a new model version is released. The model data will be ingested into memory for predicting, which avoid introducing the extra latency. Deployment strategies such as Blue/Green deployment or Canary deployment can be applied in this scenario. Some of above serialization options are also applicable for implementing the "model as data" pattern.
 
 ## Infrastructure as code
 
@@ -181,7 +181,7 @@ The log shows how each of the steps is processed. And, here is the list of files
 Github Actions Quickstart Log Detail{cite}`quickstart_for_github_actions`
 :::
 
-The RedHat-sponsored [Ansible](https://github.com/ansible/ansible) is an open-source IaC framework handling configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration. As a public cloud hosted solution, [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) is an IoC service that helps the development teams model and set up AWS resources so that they can spend less time managing those resources and more time focusing on the applications that run in AWS. Both the open-source and hosted frameworks altogeher provide the flexibility for development teams to choose the right solution to adopt based on their requirements.
+The RedHat-sponsored [Ansible](https://github.com/ansible/ansible) is an open-source IaC framework handling configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration. As a public cloud hosted solution, [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html) is an IoC service that helps the development teams model and set up AWS resources so that they can spend less time managing those resources and more time focusing on the applications that run in AWS. Both the open-source and hosted frameworks altogether provide the flexibility for development teams to choose the right solution to adopt based on their requirements.
 
 ## Your turn! 🚀
 
