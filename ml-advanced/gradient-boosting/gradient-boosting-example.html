@@ -27,8 +27,8 @@
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -1326,7 +1326,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting-example.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting-example.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1344,7 +1344,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting-example.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting-example.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1439,7 +1439,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting-example.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/ml-advanced/gradient-boosting/gradient-boosting-example.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1471,23 +1471,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../_sources/ml-advanced/gradient-boosting/gradient-boosting-example.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1495,7 +1478,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1612,7 +1595,18 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="gradient-boosting-example">
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="gradient-boosting-example">
 <h1><span class="section-number">16.2. </span>Gradient boosting example<a class="headerlink" href="#gradient-boosting-example" title="Permalink to this headline">#</a></h1>
 <section id="what-is-gradient-boosting">
 <h2><span class="section-number">16.2.1. </span>What is gradient boosting?<a class="headerlink" href="#what-is-gradient-boosting" title="Permalink to this headline">#</a></h2>
@@ -1624,11 +1618,10 @@ title="Print to PDF"
 \]</div>
 <p>At first glance it doesn’t make much sense; trees are based on a split-gain function (Gini, entropy), not a loss function. Moreover, what would be <span class="math notranslate nohighlight">\(\theta\)</span>?</p>
 <p>Recall <span class="math notranslate nohighlight">\(\theta = (\theta_1,\ldots,\theta_n)\)</span> are the learned parameters we use for making predictions, which are the paramters of the loss function. In gradient boosting, we consider the loss function as a function of the predictions instead, so we want to find <span class="math notranslate nohighlight">\(\min_{p}L(y,p)\)</span> and the way to achieve that is analogous to gradient descent, i.e, updating the predictions on the opposite direction of the gradients. But how can you update the predicitions? I mean, once the tree is built it has a fixed structure.</p>
-<p>Here comes the idea of additive modeling, in which you add (sequentially in this case) the predictions of several models in order to get a better performance. The first tree makes predictions on the original target, then, with the second tree, we try to minimize the loss function adding something which is not exactly minus the gradient loss, as in gradient descent, but instead we add <em>predictions on the gradients loss</em>, i.e, we fit a tree over with target the gradient loss. So, if <span class="math notranslate nohighlight">\(X,y\)</span> represents the original data and
-<span class="math notranslate nohighlight">\(p = \mbox{predict}(X,y)\)</span></p>
+<p>Here comes the idea of additive modeling, in which you add (sequentially in this case) the predictions of several models in order to get a better performance. The first tree makes predictions on the original target, then, with the second tree, we try to minimize the loss function adding something which is not exactly minus the gradient loss, as in gradient descent, but instead we add <em>predictions on the gradients loss</em>, i.e, we fit a tree over with target the gradient loss. So, if <span class="math notranslate nohighlight">\(X,y\)</span> represents the original data and <span class="math notranslate nohighlight">\(p = \text{predict}(X,y)\)</span></p>
 <div class="math notranslate nohighlight">
 \[
-p = p-\mbox{predict}\left(X,\dfrac{\partial L(y,p)}{\partial p}\right)
+p = p-\text{predict}\left(X,\dfrac{\partial L(y,p)}{\partial p}\right)
 \]</div>
 <p>This equation would be the <em>gradient descent</em> version of trees. Maybe this is nothing new for you, but I hope it gives you a better or new way of seeing gradient boosting.</p>
 </section>
@@ -1652,9 +1645,9 @@ p = p-\mbox{predict}\left(X,\dfrac{\partial L(y,p)}{\partial p}\right)
 </div>
 </div>
 <p>We will work with a modified version of our familiar titanic dataset. This is a ready-to-train version: doesn’t not contains missings and categorical data has been encoded.</p>
-<div class="cell tag_output_scroll docutils container">
+<div class="cell tag_output-scoll docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;../../assets/data/titanic_train_and_test.csv&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/titanic_train_and_test.csv&quot;</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1973,7 +1966,7 @@ AUC score: 0.88
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/gradient-boosting-example_16_0.png" src="../../_images/gradient-boosting-example_16_0.png" />
+<img alt="../../_images/gradient-boosting-example_22_0.png" src="../../_images/gradient-boosting-example_22_0.png" />
 </div>
 </div>
 </section>

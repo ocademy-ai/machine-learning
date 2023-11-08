@@ -27,8 +27,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/drawio.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/youtube.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/youtube.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -1729,24 +1729,24 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="advanced-pandas-techniques">
-<h1><span class="section-number">5.4.3. </span>Advanced Pandas Techniques<a class="headerlink" href="#advanced-pandas-techniques" title="Permalink to this headline">#</a></h1>
-<section id="overview">
-<h2><span class="section-number">5.4.3.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
-<p>In this section, we’ll continue to introduce combining datasets: concat, merge and join along with data aggregation and grouping.</p>
-<p>Import NumPy and load Pandas into your namespace:</p>
-<div class="cell docutils container">
+  <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
 </pre></div>
 </div>
 </div>
 </div>
+<section class="tex2jax_ignore mathjax_ignore" id="advanced-pandas-techniques">
+<h1><span class="section-number">5.4.3. </span>Advanced Pandas Techniques<a class="headerlink" href="#advanced-pandas-techniques" title="Permalink to this headline">#</a></h1>
+<section id="overview">
+<h2><span class="section-number">5.4.3.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>In this section, we’ll continue to introduce combining datasets: concat, merge and join along with data aggregation and grouping.</p>
 </section>
 <section id="combining-datasets-concat-merge-and-join">
 <h2><span class="section-number">5.4.3.2. </span>Combining datasets: concat, merge and join<a class="headerlink" href="#combining-datasets-concat-merge-and-join" title="Permalink to this headline">#</a></h2>
@@ -1767,29 +1767,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a
-1    b
-0    c
-1    d
-dtype: object
-</pre></div>
-</div>
-</div>
 </div>
 <p>Clear the existing index and reset it in the result by setting the <code class="docutils literal notranslate"><span class="pre">ignore_index</span></code> option to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    a
-1    b
-2    c
-3    d
-dtype: object
 </pre></div>
 </div>
 </div>
@@ -1801,31 +1783,12 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>s1  0    a
-    1    b
-s2  0    c
-    1    d
-dtype: object
-</pre></div>
-</div>
-</div>
 </div>
 <p>Label the index keys you create with the <code class="docutils literal notranslate"><span class="pre">names</span></code> option.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">],</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span> <span class="s1">&#39;s2&#39;</span><span class="p">],</span>
           <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Series name&#39;</span><span class="p">,</span> <span class="s1">&#39;Row ID&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Series name  Row ID
-s1           0         a
-             1         b
-s2           0         c
-             1         d
-dtype: object
 </pre></div>
 </div>
 </div>
@@ -1839,43 +1802,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>b</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1885,43 +1811,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>c</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>d</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1929,53 +1818,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>b</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>c</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>d</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Combine <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects with overlapping columns and return everything. Columns outside the intersection will be filled with <code class="docutils literal notranslate"><span class="pre">NaN</span></code> values.</p>
 <div class="cell docutils container">
@@ -1986,46 +1828,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-      <th>animal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>c</td>
-      <td>3</td>
-      <td>cat</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>d</td>
-      <td>4</td>
-      <td>dog</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2033,58 +1835,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-      <th>animal</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>1</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>b</td>
-      <td>2</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>c</td>
-      <td>3</td>
-      <td>cat</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>d</td>
-      <td>4</td>
-      <td>dog</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Combine DataFrame objects with overlapping columns and return only those that are shared by passing inner to the join keyword argument.</p>
 <div class="cell docutils container">
@@ -2093,53 +1843,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>b</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>c</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>d</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Combine <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> objects horizontally along the x-axis by passing in <code class="docutils literal notranslate"><span class="pre">axis=1</span></code>.</p>
 <div class="cell docutils container">
@@ -2150,49 +1853,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>letter</th>
-      <th>number</th>
-      <th>animal</th>
-      <th>name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>1</td>
-      <td>bird</td>
-      <td>polly</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>b</td>
-      <td>2</td>
-      <td>monkey</td>
-      <td>george</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Prevent the result from including duplicate index values with the <code class="docutils literal notranslate"><span class="pre">verify_integrity</span></code> option.</p>
 <div class="cell docutils container">
@@ -2202,36 +1862,6 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2240,104 +1870,10 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df5</span><span class="p">,</span> <span class="n">df6</span><span class="p">],</span> <span class="n">verify_integrity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df5</span><span class="p">,</span> <span class="n">df6</span><span class="p">],</span> <span class="n">verify_integrity</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\concat.py:393,</span> in <span class="ni">concat</span><span class="nt">(objs, axis, join, ignore_index, keys, levels, names, verify_integrity, sort, copy)</span>
-<span class="g g-Whitespace">    </span><span class="mi">378</span>     <span class="n">copy</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">380</span> <span class="n">op</span> <span class="o">=</span> <span class="n">_Concatenator</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">381</span>     <span class="n">objs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">382</span>     <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">390</span>     <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">391</span> <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">393</span> <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\concat.py:667,</span> in <span class="ni">_Concatenator.get_result</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">665</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objs</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">666</span>     <span class="n">indexers</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="ne">--&gt; </span><span class="mi">667</span>     <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">new_labels</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">new_axes</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">668</span>         <span class="c1"># ::-1 to convert BlockManager ax to DataFrame ax</span>
-<span class="g g-Whitespace">    </span><span class="mi">669</span>         <span class="k">if</span> <span class="n">ax</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bm_axis</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">670</span>             <span class="c1"># Suppress reindexing on concat axis</span>
-<span class="g g-Whitespace">    </span><span class="mi">671</span>             <span class="k">continue</span>
-
-<span class="nn">File properties.pyx:36,</span> in <span class="ni">pandas._libs.properties.CachedProperty.__get__</span><span class="nt">()</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\concat.py:698,</span> in <span class="ni">_Concatenator.new_axes</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">695</span> <span class="nd">@cache_readonly</span>
-<span class="g g-Whitespace">    </span><span class="mi">696</span> <span class="k">def</span> <span class="nf">new_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Index</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">697</span>     <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_dim</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">698</span>     <span class="k">return</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">699</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_get_concat_axis</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bm_axis</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_comb_axis</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="nn">    700         for i</span> in <span class="ni">range</span><span class="nt">(ndim)</span>
-<span class="g g-Whitespace">    </span><span class="mi">701</span>     <span class="p">]</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\concat.py:699,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
-<span class="g g-Whitespace">    </span><span class="mi">695</span> <span class="nd">@cache_readonly</span>
-<span class="g g-Whitespace">    </span><span class="mi">696</span> <span class="k">def</span> <span class="nf">new_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Index</span><span class="p">]:</span>
-<span class="g g-Whitespace">    </span><span class="mi">697</span>     <span class="n">ndim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_result_dim</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">698</span>     <span class="k">return</span> <span class="p">[</span>
-<span class="ne">--&gt; </span><span class="mi">699</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_get_concat_axis</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">bm_axis</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_comb_axis</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="nn">    700         for i</span> in <span class="ni">range</span><span class="nt">(ndim)</span>
-<span class="g g-Whitespace">    </span><span class="mi">701</span>     <span class="p">]</span>
-
-<span class="nn">File properties.pyx:36,</span> in <span class="ni">pandas._libs.properties.CachedProperty.__get__</span><span class="nt">()</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\concat.py:762,</span> in <span class="ni">_Concatenator._get_concat_axis</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">757</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">758</span>     <span class="n">concat_axis</span> <span class="o">=</span> <span class="n">_make_concat_multiindex</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">759</span>         <span class="n">indexes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">levels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">names</span>
-<span class="g g-Whitespace">    </span><span class="mi">760</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">762</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maybe_check_integrity</span><span class="p">(</span><span class="n">concat_axis</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">764</span> <span class="k">return</span> <span class="n">concat_axis</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\concat.py:770,</span> in <span class="ni">_Concatenator._maybe_check_integrity</span><span class="nt">(self, concat_index)</span>
-<span class="g g-Whitespace">    </span><span class="mi">768</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">concat_index</span><span class="o">.</span><span class="n">is_unique</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">769</span>     <span class="n">overlap</span> <span class="o">=</span> <span class="n">concat_index</span><span class="p">[</span><span class="n">concat_index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">770</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Indexes have overlapping values: </span><span class="si">{</span><span class="n">overlap</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="ne">ValueError</span>: Indexes have overlapping values: Index([&#39;a&#39;], dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -2350,50 +1886,11 @@ dtype: object
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>a</th>
-      <th>b</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_row</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
 <span class="n">new_row</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>a    3
-b    4
-dtype: int64
 </pre></div>
 </div>
 </div>
@@ -2404,43 +1901,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>a</th>
-      <th>b</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>3</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2473,77 +1933,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>lkey</th>
-      <th>value_left</th>
-      <th>rkey</th>
-      <th>value_right</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>foo</td>
-      <td>1</td>
-      <td>foo</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>foo</td>
-      <td>1</td>
-      <td>foo</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>foo</td>
-      <td>5</td>
-      <td>foo</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>foo</td>
-      <td>5</td>
-      <td>foo</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>bar</td>
-      <td>2</td>
-      <td>bar</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>baz</td>
-      <td>3</td>
-      <td>baz</td>
-      <td>7</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -2570,108 +1959,11 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:800px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf1%20%3D%20pd.DataFrame%28%7B'lkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B1,%202,%203,%205%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'rkey'%3A%20%5B'foo',%20'bar',%20'baz',%20'foo'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'value'%3A%20%5B5,%206,%207,%208%5D%7D%29%0Adf1.merge%28df2,%20left_on%3D'lkey',%20right_on%3D'rkey'%29&d=2023-05-27&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-</div></div>
 </div>
 <p>Merge DataFrames <code class="docutils literal notranslate"><span class="pre">df1</span></code> and <code class="docutils literal notranslate"><span class="pre">df2</span></code>, but raise an exception if the DataFrames have any overlapping columns.</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;lkey&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;rkey&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;lkey&#39;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;rkey&#39;</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\frame.py:10490,</span> in <span class="ni">DataFrame.merge</span><span class="nt">(self, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
-<span class="g g-Whitespace">  </span><span class="mi">10471</span> <span class="nd">@Substitution</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">  </span><span class="mi">10472</span> <span class="nd">@Appender</span><span class="p">(</span><span class="n">_merge_doc</span><span class="p">,</span> <span class="n">indents</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="g g-Whitespace">  </span><span class="mi">10473</span> <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">  </span><span class="mi">10486</span>     <span class="n">validate</span><span class="p">:</span> <span class="n">MergeValidate</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10487</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span><span class="p">:</span>
-<span class="g g-Whitespace">  </span><span class="mi">10488</span>     <span class="kn">from</span> <span class="nn">pandas.core.reshape.merge</span> <span class="kn">import</span> <span class="n">merge</span>
-<span class="ne">&gt; </span><span class="mi">10490</span>     <span class="k">return</span> <span class="n">merge</span><span class="p">(</span>
-<span class="g g-Whitespace">  </span><span class="mi">10491</span>         <span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10492</span>         <span class="n">right</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10493</span>         <span class="n">how</span><span class="o">=</span><span class="n">how</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10494</span>         <span class="n">on</span><span class="o">=</span><span class="n">on</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10495</span>         <span class="n">left_on</span><span class="o">=</span><span class="n">left_on</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10496</span>         <span class="n">right_on</span><span class="o">=</span><span class="n">right_on</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10497</span>         <span class="n">left_index</span><span class="o">=</span><span class="n">left_index</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10498</span>         <span class="n">right_index</span><span class="o">=</span><span class="n">right_index</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10499</span>         <span class="n">sort</span><span class="o">=</span><span class="n">sort</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10500</span>         <span class="n">suffixes</span><span class="o">=</span><span class="n">suffixes</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10501</span>         <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10502</span>         <span class="n">indicator</span><span class="o">=</span><span class="n">indicator</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10503</span>         <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
-<span class="g g-Whitespace">  </span><span class="mi">10504</span>     <span class="p">)</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\merge.py:183,</span> in <span class="ni">merge</span><span class="nt">(left, right, how, on, left_on, right_on, left_index, right_index, sort, suffixes, copy, indicator, validate)</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="n">op</span> <span class="o">=</span> <span class="n">_MergeOperation</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">170</span>         <span class="n">left_df</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">171</span>         <span class="n">right_df</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">183</span>     <span class="k">return</span> <span class="n">op</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">)</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\merge.py:885,</span> in <span class="ni">_MergeOperation.get_result</span><span class="nt">(self, copy)</span>
-<span class="g g-Whitespace">    </span><span class="mi">881</span>     <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indicator_pre_merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">883</span> <span class="n">join_index</span><span class="p">,</span> <span class="n">left_indexer</span><span class="p">,</span> <span class="n">right_indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_join_info</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">885</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reindex_and_concat</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">886</span>     <span class="n">join_index</span><span class="p">,</span> <span class="n">left_indexer</span><span class="p">,</span> <span class="n">right_indexer</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">copy</span>
-<span class="g g-Whitespace">    </span><span class="mi">887</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">888</span> <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">__finalize__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_merge_type</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">890</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">indicator</span><span class="p">:</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\merge.py:837,</span> in <span class="ni">_MergeOperation._reindex_and_concat</span><span class="nt">(self, join_index, left_indexer, right_indexer, copy)</span>
-<span class="g g-Whitespace">    </span><span class="mi">834</span> <span class="n">left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">[:]</span>
-<span class="g g-Whitespace">    </span><span class="mi">835</span> <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[:]</span>
-<span class="ne">--&gt; </span><span class="mi">837</span> <span class="n">llabels</span><span class="p">,</span> <span class="n">rlabels</span> <span class="o">=</span> <span class="n">_items_overlap_with_suffix</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">838</span>     <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">_info_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">_info_axis</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">suffixes</span>
-<span class="g g-Whitespace">    </span><span class="mi">839</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">841</span> <span class="k">if</span> <span class="n">left_indexer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_range_indexer</span><span class="p">(</span><span class="n">left_indexer</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">842</span>     <span class="c1"># Pinning the index here (and in the right code just below) is not</span>
-<span class="g g-Whitespace">    </span><span class="mi">843</span>     <span class="c1">#  necessary, but makes the `.take` more performant if we have e.g.</span>
-<span class="g g-Whitespace">    </span><span class="mi">844</span>     <span class="c1">#  a MultiIndex for left.index.</span>
-<span class="g g-Whitespace">    </span><span class="mi">845</span>     <span class="n">lmgr</span> <span class="o">=</span> <span class="n">left</span><span class="o">.</span><span class="n">_mgr</span><span class="o">.</span><span class="n">reindex_indexer</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">846</span>         <span class="n">join_index</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">847</span>         <span class="n">left_indexer</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">852</span>         <span class="n">use_na_proxy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">853</span>     <span class="p">)</span>
-
-<span class="nn">File F:\anaconda\envs\py39\lib\site-packages\pandas\core\reshape\merge.py:2655,</span> in <span class="ni">_items_overlap_with_suffix</span><span class="nt">(left, right, suffixes)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2652</span> <span class="n">lsuffix</span><span class="p">,</span> <span class="n">rsuffix</span> <span class="o">=</span> <span class="n">suffixes</span>
-<span class="g g-Whitespace">   </span><span class="mi">2654</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">lsuffix</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rsuffix</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">2655</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;columns overlap but no suffix specified: </span><span class="si">{</span><span class="n">to_rename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2657</span> <span class="k">def</span> <span class="nf">renamer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">suffix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">2658</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">2659</span><span class="sd">     Rename the left and right indices.</span>
-<span class="g g-Whitespace">   </span><span class="mi">2660</span><span class="sd"> </span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">2671</span><span class="sd">     x : renamed column name</span>
-<span class="g g-Whitespace">   </span><span class="mi">2672</span><span class="sd">     &quot;&quot;&quot;</span>
-
-<span class="ne">ValueError</span>: columns overlap but no suffix specified: Index([&#39;value&#39;], dtype=&#39;object&#39;)
 </pre></div>
 </div>
 </div>
@@ -2691,40 +1983,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>a</th>
-      <th>b</th>
-      <th>c</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>foo</td>
-      <td>1</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -2750,20 +2008,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:600px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf1%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'bar'%5D,%20'b'%3A%20%5B1,%202%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'baz'%5D,%20'c'%3A%20%5B3,%204%5D%7D%29%0Adf1.merge%28df2,%20how%3D'inner',%20on%3D'a'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2771,46 +2015,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>a</th>
-      <th>b</th>
-      <th>c</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>foo</td>
-      <td>1</td>
-      <td>3.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>bar</td>
-      <td>2</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -2835,19 +2039,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:630px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf1%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'bar'%5D,%20'b'%3A%20%5B1,%202%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'a'%3A%20%5B'foo',%20'baz'%5D,%20'c'%3A%20%5B3,%204%5D%7D%29%0Adf1.merge%28df2,%20how%3D'left',%20on%3D'a'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2863,53 +2054,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>left</th>
-      <th>right</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>foo</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>foo</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>bar</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>bar</td>
-      <td>8</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -2938,23 +2082,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:670px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf1%20%3D%20pd.DataFrame%28%7B'left'%3A%20%5B'foo',%20'bar'%5D%7D%29%0Adf2%20%3D%20pd.DataFrame%28%7B'right'%3A%20%5B7,%208%5D%7D%29%0Adf1.merge%28df2,%20how%3D'cross'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-
-</div></div>
 </div>
 </section>
 <section id="join">
@@ -2987,77 +2114,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key_caller</th>
-      <th>A</th>
-      <th>key_other</th>
-      <th>B</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>K0</td>
-      <td>A0</td>
-      <td>K0</td>
-      <td>B0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>K1</td>
-      <td>A1</td>
-      <td>K1</td>
-      <td>B1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>K2</td>
-      <td>A2</td>
-      <td>K2</td>
-      <td>B2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>K3</td>
-      <td>A3</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>K4</td>
-      <td>A4</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>K5</td>
-      <td>A5</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3086,23 +2142,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:830px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.join%28other,%20lsuffix%3D'_caller',%20rsuffix%3D'_other'%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-
-</div></div>
 </div>
 <p>If we want to join using the <code class="docutils literal notranslate"><span class="pre">key</span></code> columns, we need to set <code class="docutils literal notranslate"><span class="pre">key</span></code> to be the index in both <code class="docutils literal notranslate"><span class="pre">df</span></code> and <code class="docutils literal notranslate"><span class="pre">other</span></code>. The joined DataFrame will have <code class="docutils literal notranslate"><span class="pre">key</span></code> as its index.</p>
 <div class="cell docutils container">
@@ -3111,68 +2150,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-    </tr>
-    <tr>
-      <th>key</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>K0</th>
-      <td>A0</td>
-      <td>B0</td>
-    </tr>
-    <tr>
-      <th>K1</th>
-      <td>A1</td>
-      <td>B1</td>
-    </tr>
-    <tr>
-      <th>K2</th>
-      <td>A2</td>
-      <td>B2</td>
-    </tr>
-    <tr>
-      <th>K3</th>
-      <td>A3</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>K4</th>
-      <td>A4</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>K5</th>
-      <td>A5</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3201,23 +2178,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:1170px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2',%20'K3',%20'K4',%20'K5'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'A'%3A%20%5B'A0',%20'A1',%20'A2',%20'A3',%20'A4',%20'A5'%5D%7D%29%0Aother%20%3D%20pd.DataFrame%28%7B'key'%3A%20%5B'K0',%20'K1',%20'K2'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'B'%3A%20%5B'B0',%20'B1',%20'B2'%5D%7D%29%0Adf.set_index%28'key'%29.join%28other.set_index%28'key'%29%29&d=2023-05-27&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-
-</div></div>
 </div>
 <p>Another option to join using the key columns is to use the <code class="docutils literal notranslate"><span class="pre">on</span></code> parameter. <code class="docutils literal notranslate"><span class="pre">DataFrame.join</span></code> always uses <code class="docutils literal notranslate"><span class="pre">other</span></code>’s index but we can use any column in <code class="docutils literal notranslate"><span class="pre">df</span></code>. This method preserves the original DataFrame’s index in the result.</p>
 <div class="cell docutils container">
@@ -3226,70 +2186,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>A</th>
-      <th>B</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>K0</td>
-      <td>A0</td>
-      <td>B0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>K1</td>
-      <td>A1</td>
-      <td>B1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>K2</td>
-      <td>A2</td>
-      <td>B2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>K3</td>
-      <td>A3</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>K4</td>
-      <td>A4</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>K5</td>
-      <td>A5</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Using non-unique key values shows how they are matched.</p>
 <div class="cell docutils container">
@@ -3300,63 +2196,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>A</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>K0</td>
-      <td>A0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>K1</td>
-      <td>A1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>K1</td>
-      <td>A2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>K3</td>
-      <td>A3</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>K0</td>
-      <td>A4</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>K1</td>
-      <td>A5</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3364,70 +2203,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>key</th>
-      <th>A</th>
-      <th>B</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>K0</td>
-      <td>A0</td>
-      <td>B0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>K1</td>
-      <td>A1</td>
-      <td>B1</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>K1</td>
-      <td>A2</td>
-      <td>B1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>K3</td>
-      <td>A3</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>K0</td>
-      <td>A4</td>
-      <td>B0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>K1</td>
-      <td>A5</td>
-      <td>B1</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </section>
 </section>
@@ -3446,44 +2221,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Max Speed</th>
-    </tr>
-    <tr>
-      <th>Animal</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Falcon</th>
-      <td>375.0</td>
-    </tr>
-    <tr>
-      <th>Parrot</th>
-      <td>25.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3511,22 +2248,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:785px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B'Animal'%3A%20%5B'Falcon',%20'Falcon',%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20'Max%20Speed'%3A%20%5B380.,%20370.,%2024.,%2026.%5D%7D%29%0Adf%0Adf.groupby%28%5B'Animal'%5D%29.mean%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-
-</div></div>
 </div>
 <section id="hierarchical-indexes">
 <h3><span class="section-number">5.4.3.3.1. </span>Hierarchical Indexes<a class="headerlink" href="#hierarchical-indexes" title="Permalink to this headline">#</a></h3>
@@ -3542,44 +2263,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Max Speed</th>
-    </tr>
-    <tr>
-      <th>Animal</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Falcon</th>
-      <td>370.0</td>
-    </tr>
-    <tr>
-      <th>Parrot</th>
-      <td>25.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3606,21 +2289,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:810px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aarrays%20%3D%20%5B%5B'Falcon',%20'Falcon',%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%5B'Captive',%20'Wild',%20'Captive',%20'Wild'%5D%5D%0Aindex%20%3D%20pd.MultiIndex.from_arrays%28arrays,%20names%3D%28'Animal',%20'Type'%29%29%0Adf%20%3D%20pd.DataFrame%28%7B'Max%20Speed'%3A%20%5B390.,%20350.,%2030.,%2020.%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dindex%29%0Adf.groupby%28level%3D0%29.mean%28%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3628,44 +2296,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Max Speed</th>
-    </tr>
-    <tr>
-      <th>Type</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Captive</th>
-      <td>210.0</td>
-    </tr>
-    <tr>
-      <th>Wild</th>
-      <td>185.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3692,21 +2322,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:810px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aarrays%20%3D%20%5B%5B'Falcon',%20'Falcon',%20'Parrot',%20'Parrot'%5D,%0A%20%20%20%20%20%20%20%20%20%20%5B'Captive',%20'Wild',%20'Captive',%20'Wild'%5D%5D%0Aindex%20%3D%20pd.MultiIndex.from_arrays%28arrays,%20names%3D%28'Animal',%20'Type'%29%29%0Adf%20%3D%20pd.DataFrame%28%7B'Max%20Speed'%3A%20%5B390.,%20350.,%2030.,%2020.%5D%7D,%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20index%3Dindex%29%0Adf.groupby%28level%3D%22Type%22%29.mean%28%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-</div></div>
 </div>
 <p>We can also choose to include NA in group keys or not by setting <code class="docutils literal notranslate"><span class="pre">dropna</span></code> parameter, the default setting is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <div class="cell docutils container">
@@ -3717,48 +2332,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>a</th>
-      <th>c</th>
-    </tr>
-    <tr>
-      <th>b</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1.0</th>
-      <td>2</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>2.0</th>
-      <td>2</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3784,20 +2357,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:770px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D%29.sum%28%29%0A&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3805,53 +2364,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>a</th>
-      <th>c</th>
-    </tr>
-    <tr>
-      <th>b</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1.0</th>
-      <td>2</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>2.0</th>
-      <td>2</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>NaN</th>
-      <td>1</td>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3876,19 +2388,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:750px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Al%20%3D%20%5B%5B1,%202,%203%5D,%20%5B1,%20None,%204%5D,%20%5B2,%201,%203%5D,%20%5B1,%202,%202%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%5B%22b%22%5D,%20dropna%3DFalse%29.sum%28%29&d=2023-05-27&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3898,48 +2397,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>b</th>
-      <th>c</th>
-    </tr>
-    <tr>
-      <th>a</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>13.0</td>
-      <td>13.0</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>12.3</td>
-      <td>123.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -3966,21 +2423,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:750px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Al%20%3D%20%5B%5B%22a%22,%2012,%2012%5D,%20%5BNone,%2012.3,%2033.%5D,%20%5B%22b%22,%2012.3,%20123%5D,%20%5B%22a%22,%201,%201%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%22a%22%29.sum%28%29&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3988,53 +2430,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>b</th>
-      <th>c</th>
-    </tr>
-    <tr>
-      <th>a</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>13.0</td>
-      <td>13.0</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>12.3</td>
-      <td>123.0</td>
-    </tr>
-    <tr>
-      <th>NaN</th>
-      <td>12.3</td>
-      <td>33.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -4060,20 +2455,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:750px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Al%20%3D%20%5B%5B%22a%22,%2012,%2012%5D,%20%5BNone,%2012.3,%2033.%5D,%20%5B%22b%22,%2012.3,%20123%5D,%20%5B%22a%22,%201,%201%5D%5D%0Adf%20%3D%20pd.DataFrame%28l,%20columns%3D%5B%22a%22,%20%22b%22,%20%22c%22%5D%29%0Adf.groupby%28by%3D%22a%22,%20dropna%3DFalse%29.sum%28%29%0A&d=2023-07-15&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-
-</div></div>
 </div>
 <p>When using <code class="docutils literal notranslate"><span class="pre">.apply()</span></code>, use <code class="docutils literal notranslate"><span class="pre">group_keys</span></code> to include or exclude the group keys. The <code class="docutils literal notranslate"><span class="pre">group_keys</span></code> argument defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code> (include).</p>
 <div class="cell docutils container">
@@ -4085,62 +2466,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
-      <th>Animal</th>
-      <th>Max Speed</th>
-    </tr>
-    <tr>
-      <th>Animal</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="2" valign="top">Falcon</th>
-      <th>0</th>
-      <td>Falcon</td>
-      <td>380.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Falcon</td>
-      <td>370.0</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">Parrot</th>
-      <th>2</th>
-      <td>Parrot</td>
-      <td>24.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Parrot</td>
-      <td>26.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4148,53 +2473,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Animal</th>
-      <th>Max Speed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Falcon</td>
-      <td>380.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Falcon</td>
-      <td>370.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Parrot</td>
-      <td>24.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Parrot</td>
-      <td>26.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </section>
 </section>
@@ -4217,108 +2495,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-      <th>D</th>
-      <th>E</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>foo</td>
-      <td>one</td>
-      <td>small</td>
-      <td>1</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>foo</td>
-      <td>one</td>
-      <td>large</td>
-      <td>2</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>foo</td>
-      <td>one</td>
-      <td>large</td>
-      <td>2</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>foo</td>
-      <td>two</td>
-      <td>small</td>
-      <td>3</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>foo</td>
-      <td>two</td>
-      <td>small</td>
-      <td>3</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>bar</td>
-      <td>one</td>
-      <td>large</td>
-      <td>4</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>bar</td>
-      <td>one</td>
-      <td>small</td>
-      <td>5</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>bar</td>
-      <td>two</td>
-      <td>small</td>
-      <td>6</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>bar</td>
-      <td>two</td>
-      <td>large</td>
-      <td>7</td>
-      <td>9</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>This first example aggregates values by taking the sum.</p>
 <div class="cell docutils container">
@@ -4329,66 +2505,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\87554\AppData\Local\Temp\ipykernel_26368\2135498425.py:1: FutureWarning: The provided callable &lt;function sum at 0x0000017F450A19D0&gt; is currently using DataFrameGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;sum&quot; instead.
-  table = pd.pivot_table(df, values=&#39;D&#39;, index=[&#39;A&#39;, &#39;B&#39;],
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>C</th>
-      <th>large</th>
-      <th>small</th>
-    </tr>
-    <tr>
-      <th>A</th>
-      <th>B</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="2" valign="top">bar</th>
-      <th>one</th>
-      <td>4.0</td>
-      <td>5.0</td>
-    </tr>
-    <tr>
-      <th>two</th>
-      <td>7.0</td>
-      <td>6.0</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">foo</th>
-      <th>one</th>
-      <td>4.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>two</th>
-      <td>NaN</td>
-      <td>6.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>We can also fill in missing values using the <code class="docutils literal notranslate"><span class="pre">fill_value</span></code> parameter.</p>
 <div class="cell docutils container">
@@ -4399,66 +2515,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\87554\AppData\Local\Temp\ipykernel_26368\3213005518.py:1: FutureWarning: The provided callable &lt;function sum at 0x0000017F450A19D0&gt; is currently using DataFrameGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string &quot;sum&quot; instead.
-  table = pd.pivot_table(df, values=&#39;D&#39;, index=[&#39;A&#39;, &#39;B&#39;],
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>C</th>
-      <th>large</th>
-      <th>small</th>
-    </tr>
-    <tr>
-      <th>A</th>
-      <th>B</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="2" valign="top">bar</th>
-      <th>one</th>
-      <td>4</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>two</th>
-      <td>7</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">foo</th>
-      <th>one</th>
-      <td>4</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>two</th>
-      <td>0</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>The next example aggregates by taking the mean across multiple columns.</p>
 <div class="cell docutils container">
@@ -4497,72 +2553,10 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;A + B&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    11
-1    10
-2     9
-3     8
-4     7
-dtype: int64
 </pre></div>
 </div>
 </div>
@@ -4574,64 +2568,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>8</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>6</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-      <td>7</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4639,58 +2575,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">inplace=True</span></code> to modify the original DataFrame.</p>
 <div class="cell docutils container">
@@ -4700,64 +2584,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>8</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>6</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-      <td>7</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>Multiple columns can be assigned using multi-line expressions:</p>
 <div class="cell docutils container">
@@ -4771,70 +2597,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-      <th>D</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-      <td>11</td>
-      <td>-9</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>8</td>
-      <td>10</td>
-      <td>-6</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>6</td>
-      <td>9</td>
-      <td>-3</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4</td>
-      <td>8</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-      <td>7</td>
-      <td>3</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 </section>
 <section id="query">
@@ -4852,64 +2614,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-      <td>8</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-      <td>6</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-      <td>4</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -4917,40 +2621,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>The previous expression is equivalent to</p>
 <div class="cell docutils container">
@@ -4959,40 +2629,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-      <td>2</td>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>For columns with spaces in their name, you can use backtick quoting.</p>
 <div class="cell docutils container">
@@ -5001,40 +2637,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>The previous expression is equivalent to</p>
 <div class="cell docutils container">
@@ -5043,40 +2645,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>10</td>
-      <td>10</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -5101,19 +2669,6 @@ dtype: int64
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<div class='full-width docutils' >
-  <div class="admonition note pandastutor" name="html-admonition" style="margin-right:20%">
-    <p class="admonition-title pandastutor">Let's visualize it! 🎥</p>
-    <div class="pandastutor inner" style="height:660px;">
-      <iframe frameborder="0" scrolling="no" src="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Aimport%20io%0Aimport%20numpy%20as%20np%0Adf%20%3D%20pd.DataFrame%28%7B%0A%20%20%20%20'A'%3A%20range%281,%206%29,%0A%20%20%20%20'B'%3A%20range%2810,%200,%20-2%29,%0A%20%20%20%20'C%20C'%3A%20range%2810,%205,%20-1%29%0A%7D%29%0A%0Adf%5Bdf.B%20%3D%3D%20df%5B'C%20C'%5D%5D&d=2023-07-13&lang=py&v=v1"> </iframe>
-    </div>
-  </div>
-</div>
-
-
-</div></div>
 </div>
 </section>
 </section>
