@@ -6,7 +6,6 @@ const TABLES = {
   BOOK: "Book",
   TUTORIAL: "Tutorial",
   TAG: "Tag",
-  TUTORIAL: "Tutorial",
   COURSE_TAGS: "CourseTags",
   COURSE_ORGANIZATIONS: "CourseOrganizations",
   USER_COURSES: "UserCourses",
