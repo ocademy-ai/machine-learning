@@ -238,9 +238,14 @@ const thebe_selector_output = ".output, .cell_output"
      5.3. NumPy
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/pandas-md.html">
+     5.4. Intro to pandas
+    </a>
+   </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../../data-science/working-with-data/pandas.html">
-     5.4. Pandas
+     5.5. Pandas
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -250,24 +255,24 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../../data-science/working-with-data/pandas/introduction-and-data-structures.html">
-       5.4.1. Introduction and Data Structures
+       5.5.1. Introduction and Data Structures
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../data-science/working-with-data/pandas/data-selection.html">
-       5.4.2. Data Selection
+       5.5.2. Data Selection
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../data-science/working-with-data/pandas/advanced-pandas-techniques.html">
-       5.4.3. Advanced Pandas Techniques
+       5.5.3. Advanced Pandas Techniques
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../../data-science/working-with-data/data-preparation.html">
-     5.5. Data preparation
+     5.6. Data preparation
     </a>
    </li>
   </ul>
@@ -1326,7 +1331,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/ml-fundamentals/regression/logistic-regression.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/ml-fundamentals/regression/logistic-regression.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1344,7 +1349,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/ml-fundamentals/regression/logistic-regression.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/ml-fundamentals/regression/logistic-regression.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1439,7 +1444,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/ml-fundamentals/regression/logistic-regression.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/ml-fundamentals/regression/logistic-regression.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1471,23 +1476,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../../_sources/ml-fundamentals/regression/logistic-regression.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1495,7 +1483,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1770,20 +1758,30 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="logistic-regression">
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython<span class="w"> </span>seaborn
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="logistic-regression">
 <h1><span class="section-number">11.4. </span>Logistic regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h1>
 <figure class="align-default" id="logistic-vs-linear-regression-infographic">
-<a class="reference internal image-reference" href="../../_images/logistic-linear.png"><img alt="../../_images/logistic-linear.png" src="../../_images/logistic-linear.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/logistic-linear.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/logistic-linear.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/logistic-linear.png" style="width: 100%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.12 </span><span class="caption-text">Logistic regression to predict categories. Infographic by <a class="reference external" href="https://twitter.com/dasani_decoded">Dasani Madipalli</a></span><a class="headerlink" href="#logistic-vs-linear-regression-infographic" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p style="text-align: center;">
-<iframe src="../../html/logr-playground/index.html" width="105%" height="700px;"
+<iframe src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/html/logr-playground/index.html" width="105%" height="700px;"
 style="border:none;" scrolling="auto"></iframe>
 A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-regression/"> [source]</a >
-</p >
-<section id="introduction">
+</p ><section id="introduction">
 <h2><span class="section-number">11.4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p>In this final section on Regression, one of the basic <em>classic</em> Machine Learning techniques, we will take a look at Logistic Regression. You would use this technique to discover patterns to predict binary categories. Is this candy chocolate or not? Is this disease contagious or not? Will this customer choose this product or not?</p>
 <p>In this section, you will learn:</p>
@@ -1820,7 +1818,7 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
 <h3><span class="section-number">11.4.4.1. </span>Binary classification<a class="headerlink" href="#binary-classification" title="Permalink to this headline">#</a></h3>
 <p>Logistic regression does not offer the same features as linear regression. The former offers a prediction about a binary category (“orange or not orange”) whereas the latter is capable of predicting continual values, for example given the origin of a pumpkin and the time of harvest, <em>how much its price will rise</em>.</p>
 <figure class="align-default" id="pumpkin-classification-model">
-<a class="reference internal image-reference" href="../../_images/pumpkin-classifier.png"><img alt="../../_images/pumpkin-classifier.png" src="../../_images/pumpkin-classifier.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/pumpkin-classifier.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/pumpkin-classifier.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/pumpkin-classifier.png" style="width: 100%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.13 </span><span class="caption-text">Infographic by <a class="reference external" href="https://twitter.com/dasani_decoded">Dasani Madipalli</a></span><a class="headerlink" href="#pumpkin-classification-model" title="Permalink to this image">#</a></p>
 </figcaption>
@@ -1834,7 +1832,7 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
 <li><p><strong>Ordinal</strong>, which involves ordered categories, useful if we wanted to order our outcomes logically, like our pumpkins that are ordered by a finite number of sizes (mini, sm, med, lg, xl, xxl).</p></li>
 </ul>
 <figure class="align-default" id="multinomial-vs-ordinal-regression">
-<a class="reference internal image-reference" href="../../_images/multinomial-ordinal.png"><img alt="../../_images/multinomial-ordinal.png" src="../../_images/multinomial-ordinal.png" style="width: 100%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/multinomial-ordinal.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/multinomial-ordinal.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/multinomial-ordinal.png" style="width: 100%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.14 </span><span class="caption-text">Infographic by <a class="reference external" href="https://twitter.com/dasani_decoded">Dasani Madipalli</a></span><a class="headerlink" href="#multinomial-vs-ordinal-regression" title="Permalink to this image">#</a></p>
 </figcaption>
@@ -1863,12 +1861,12 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
 <ol class="simple">
 <li><p>Add the following code:</p></li>
 </ol>
-<div class="cell tag_output_scroll docutils container">
+<div class="cell tag_output-scoll docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="n">pumpkins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../assets/data/us-pumpkins.csv&#39;</span><span class="p">)</span>
+<span class="n">pumpkins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://static-1300131294.cos.ap-shanghai.myqcloud.com/data/us-pumpkins.csv&#39;</span><span class="p">)</span>
 <span class="n">pumpkins</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -2099,10 +2097,10 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7fc4dce17700&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f3710d16910&gt;
 </pre></div>
 </div>
-<img alt="../../_images/logistic-regression_6_1.png" src="../../_images/logistic-regression_6_1.png" />
+<img alt="../../_images/logistic-regression_19_1.png" src="../../_images/logistic-regression_19_1.png" />
 </div>
 </div>
 <p>By observing data side-by-side, you can see how the Color data relates to the other columns.</p>
@@ -2140,7 +2138,7 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
   warnings.warn(msg, UserWarning)
 </pre></div>
 </div>
-<img alt="../../_images/logistic-regression_8_3.png" src="../../_images/logistic-regression_8_3.png" />
+<img alt="../../_images/logistic-regression_22_3.png" src="../../_images/logistic-regression_22_3.png" />
 </div>
 </div>
 </section>
@@ -2158,10 +2156,10 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7fc4c9bc8430&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f3713d59af0&gt;
 </pre></div>
 </div>
-<img alt="../../_images/logistic-regression_10_1.png" src="../../_images/logistic-regression_10_1.png" />
+<img alt="../../_images/logistic-regression_24_1.png" src="../../_images/logistic-regression_24_1.png" />
 </div>
 </div>
 <div class="admonition seealso">
@@ -2174,12 +2172,15 @@ A demo of logistic-regression. <a href="https://mlu-explain.github.io/logistic-r
 <p><strong>Show Me The Math</strong></p>
 <p>Remember how linear regression often used ordinary least squares to arrive at a value? Logistic regression relies on the concept of ‘maximum likelihood’ using <a class="reference external" href="https://wikipedia.org/wiki/Sigmoid_function">sigmoid functions</a>. A ‘Sigmoid Function’ on a plot looks like an ‘S’ shape. It takes a value and maps it to somewhere between 0 and 1. Its curve is also called a ‘logistic curve’. Its formula looks like this:</p>
 <figure class="align-default" id="logistic-function">
-<a class="bg-white mb-1 reference internal image-reference" href="../../_images/sigmoid.png"><img alt="../../_images/sigmoid.png" class="bg-white mb-1" src="../../_images/sigmoid.png" style="width: 90%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/sigmoid.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/sigmoid.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-regression/sigmoid.png" style="width: 90%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.15 </span><span class="caption-text">Logistic function<span id="id1">[<a class="reference internal" href="#id65" title="Jen Looper. Logistic function. URL: https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/4-Logistic/images/sigmoid.png (visited on 2022).">Loo</a>]</span></span><a class="headerlink" href="#logistic-function" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+</div>
 <p>Where the sigmoid’s midpoint finds itself at x’s <span class="math notranslate nohighlight">\(0\)</span> point, L is the curve’s maximum value, and <span class="math notranslate nohighlight">\(k\)</span> is the curve’s steepness. If the outcome of the function is more than 0.5, the label in question will be given the class ‘1’ of the binary choice. If not, it will be classified as ‘0’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </section>
 </section>
@@ -2324,7 +2325,7 @@ Precision = \frac{tp}{tp + fp} = \frac{162}{162 + 33} = 0.8307692307692308\\Reca
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: &gt;
 </pre></div>
 </div>
-<img alt="../../_images/logistic-regression_18_1.png" src="../../_images/logistic-regression_18_1.png" />
+<img alt="../../_images/logistic-regression_39_1.png" src="../../_images/logistic-regression_39_1.png" />
 </div>
 </div>
 <p>Using Seaborn again, plot the model’s <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_roc.html?highlight=roc">Receiving Operating Characteristic</a> or ROC. ROC curves are often used to get a view of the output of a classifier in terms of its true vs. false positives. “ROC curves typically feature true positive rate on the Y axis, and false positive rate on the X axis.” Thus, the steepness of the curve and the space between the midpoint line and the curve matter: you want a curve that quickly heads up and over the line. In our case, there are false positives to start with, and then the line heads up and over properly:</p>

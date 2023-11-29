@@ -238,9 +238,14 @@ const thebe_selector_output = ".output, .cell_output"
      5.3. NumPy
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas-md.html">
+     5.4. Intro to pandas
+    </a>
+   </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../data-science/working-with-data/pandas.html">
-     5.4. Pandas
+     5.5. Pandas
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -250,24 +255,24 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../data-science/working-with-data/pandas/introduction-and-data-structures.html">
-       5.4.1. Introduction and Data Structures
+       5.5.1. Introduction and Data Structures
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../data-science/working-with-data/pandas/data-selection.html">
-       5.4.2. Data Selection
+       5.5.2. Data Selection
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../data-science/working-with-data/pandas/advanced-pandas-techniques.html">
-       5.4.3. Advanced Pandas Techniques
+       5.5.3. Advanced Pandas Techniques
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
-     5.5. Data preparation
+     5.6. Data preparation
     </a>
    </li>
   </ul>
@@ -1326,7 +1331,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/deep-learning/object-detection.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/deep-learning/object-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1344,7 +1349,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/deep-learning/object-detection.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/deep-learning/object-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1439,7 +1444,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/deep-learning/object-detection.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/deep-learning/object-detection.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1471,23 +1476,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../_sources/deep-learning/object-detection.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1495,7 +1483,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1722,23 +1710,34 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="object-detection">
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython<span class="w"> </span>tensorflow<span class="w"> </span>tensorpack<span class="w"> </span>typing
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="object-detection">
 <h1><span class="section-number">31. </span>Object detection<a class="headerlink" href="#object-detection" title="Permalink to this headline">#</a></h1>
 <section id="what-is-object-detection">
 <h2><span class="section-number">31.1. </span>What is object detection?<a class="headerlink" href="#what-is-object-detection" title="Permalink to this headline">#</a></h2>
 <p>In this chapter we will introduce the object detection problem which can be described in this way: given an image or a video stream, an object detection model can identify which of a known set of objects might be present and provide information about their positions within the image.</p>
 <p>For example, this screenshot of the example application shows how three objects have been recognized and their positions annotated:</p>
-<figure class="align-default" id="example">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/01_example.png"><img alt="../_images/01_example.png" class="bg-white mb-1" src="../_images/01_example.png" style="width: 90%;" /></a>
+<figure class="align-default" id="example-of-the-object-detection-task">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/01_example.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/01_example.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/01_example.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 31.1 </span><span class="caption-text">Example of the object detection task</span><a class="headerlink" href="#example" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 31.1 </span><span class="caption-text">Example of the object detection task</span><a class="headerlink" href="#example-of-the-object-detection-task" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Object detection has now been widely used in many real-world applications, such as autonomous driving, robot vision, video surveillance, etc. The following image shows the growing number of publications that are associated with “object detection” over the past two decades.</p>
-<figure class="align-default" id="number-of-pu">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/02_number_of_pub.png"><img alt="../_images/02_number_of_pub.png" class="bg-white mb-1" src="../_images/02_number_of_pub.png" style="width: 90%;" /></a>
+<figure class="align-default" id="number-of-pub">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/02_number_of_pub.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/02_number_of_pub.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/02_number_of_pub.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 31.2 </span><span class="caption-text">The increasing number of publications in object detection from 1998 to 2021</span><a class="headerlink" href="#number-of-pu" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 31.2 </span><span class="caption-text">The increasing number of publications in object detection from 1998 to 2021</span><a class="headerlink" href="#number-of-pub" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1758,10 +1757,10 @@ title="Print to PDF"
 <section id="faster-r-cnn">
 <h3><span class="section-number">31.3.1. </span>Faster R-CNN<a class="headerlink" href="#faster-r-cnn" title="Permalink to this headline">#</a></h3>
 <p>Faster R-CNN is a single, unified network for object detection that utilizes a region proposal network (RPN) with the CNN model2. The RPN shares full-image convolutional features with the detection network, enabling nearly cost-free region proposals2. It is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position.</p>
-<figure class="align-default" id="faster-rcnn">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/03_faster_rcnn.png"><img alt="../_images/03_faster_rcnn.png" class="bg-white mb-1" src="../_images/03_faster_rcnn.png" style="width: 90%;" /></a>
+<figure class="align-default" id="the-structure-of-faster-rcnn">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/03_faster_rcnn.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/03_faster_rcnn.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/03_faster_rcnn.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 31.3 </span><span class="caption-text">The structure of Faster RCNN <span id="id1">[<a class="reference internal" href="#id85" title="Ross Girshick Shaoqing Ren, Kaiming He and Jian Sun. Faster r-cnn. URL: https://arxiv.org/abs/1506.01497 (visited on 2023).">SRS</a>]</span></span><a class="headerlink" href="#faster-rcnn" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 31.3 </span><span class="caption-text">The structure of Faster RCNN <span id="id1">[<a class="reference internal" href="#id85" title="Ross Girshick Shaoqing Ren, Kaiming He and Jian Sun. Faster r-cnn. URL: https://arxiv.org/abs/1506.01497 (visited on 2023).">SRS</a>]</span></span><a class="headerlink" href="#the-structure-of-faster-rcnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -1773,8 +1772,9 @@ title="Print to PDF"
 <p>Due to the complexity, here we just introduce the key parts of the model, Region Proposal Network(RPN).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorpack.models</span> <span class="kn">import</span> <span class="n">Conv2D</span>
+<span class="kn">from</span> <span class="nn">tensorpack.tfutils.argscope</span> <span class="kn">import</span> <span class="n">argscope</span>
 
 <span class="k">def</span> <span class="nf">rpn_head</span><span class="p">(</span><span class="n">featuremap</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">num_anchors</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1810,10 +1810,10 @@ title="Print to PDF"
 <section id="mask-r-cnn">
 <h3><span class="section-number">31.3.2. </span>Mask R-CNN<a class="headerlink" href="#mask-r-cnn" title="Permalink to this headline">#</a></h3>
 <p>Mask R-CNN is a deep neural network aimed to solve both object detection and instance segmentation problems. In other words, it can separate different objects in an image. You give it an image, it gives you the object bounding boxes, classes and masks. Mask R-CNN was developed on top of Faster R-CNN, a Region-Based Convolutional Neural Network. It is simple to train and adds only a small overhead to Faster R-CNN, running at 5 fps.</p>
-<figure class="align-default" id="mask-rcnn">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/04_mask_rcnn.png"><img alt="../_images/04_mask_rcnn.png" class="bg-white mb-1" src="../_images/04_mask_rcnn.png" style="width: 90%;" /></a>
+<figure class="align-default" id="the-structure-of-mask-rcnn">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/04_mask_rcnn.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/04_mask_rcnn.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/04_mask_rcnn.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 31.4 </span><span class="caption-text">The structure of Mask RCNN <span id="id2">[<a class="reference internal" href="#id86" title="Piotr Dollar Kaiming He, Georgia Gkioxari and Ross Girshick. Mask r-cnn. URL: https://arxiv.org/abs/1703.06870 (visited on 2023).">KHG</a>]</span></span><a class="headerlink" href="#mask-rcnn" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 31.4 </span><span class="caption-text">The structure of Mask RCNN <span id="id2">[<a class="reference internal" href="#id86" title="Piotr Dollar Kaiming He, Georgia Gkioxari and Ross Girshick. Mask r-cnn. URL: https://arxiv.org/abs/1703.06870 (visited on 2023).">KHG</a>]</span></span><a class="headerlink" href="#the-structure-of-mask-rcnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="admonition note">
@@ -1828,7 +1828,8 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorpack.tfutils.scope_utils</span> <span class="kn">import</span> <span class="n">under_name_scope</span>
 
 <span class="k">def</span> <span class="nf">crop_and_resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">box_ind</span><span class="p">,</span> <span class="n">crop_size</span><span class="p">,</span> <span class="n">pad_border</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1925,7 +1926,10 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorpack</span> <span class="kn">import</span> <span class="n">tfv1</span>
+<span class="kn">from</span> <span class="nn">tensorpack.models</span> <span class="kn">import</span> <span class="n">Conv2D</span><span class="p">,</span> <span class="n">Conv2DTranspose</span><span class="p">,</span><span class="n">layer_register</span>
+<span class="kn">from</span> <span class="nn">tensorpack.tfutils.argscope</span> <span class="kn">import</span> <span class="n">argscope</span>
 
 <span class="k">def</span> <span class="nf">maskrcnn_upXconv_head</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">num_category</span><span class="p">,</span> <span class="n">num_convs</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1946,12 +1950,42 @@ title="Print to PDF"
                       <span class="n">distribution</span><span class="o">=</span><span class="s1">&#39;untruncated_normal&#39;</span><span class="p">)):</span>
         <span class="c1"># c2&#39;s MSRAFill is fan_out</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_convs</span><span class="p">):</span>
-            <span class="n">l</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="s1">&#39;fcn</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">l</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">MRCNN</span><span class="o">.</span><span class="n">HEAD_DIM</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="s1">&#39;fcn</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">l</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">l</span> <span class="o">=</span> <span class="n">GroupNorm</span><span class="p">(</span><span class="s1">&#39;gn</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">l</span><span class="p">)</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="s1">&#39;deconv&#39;</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">MRCNN</span><span class="o">.</span><span class="n">HEAD_DIM</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">Conv2DTranspose</span><span class="p">(</span><span class="s1">&#39;deconv&#39;</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
         <span class="n">l</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="s1">&#39;conv&#39;</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">num_category</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">kernel_initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">random_normal_initializer</span><span class="p">(</span><span class="n">stddev</span><span class="o">=</span><span class="mf">0.001</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">l</span>
+
+<span class="nd">@layer_register</span><span class="p">(</span><span class="n">log_shape</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">GroupNorm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">gamma_initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant_initializer</span><span class="p">(</span><span class="mf">1.</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    More code that reproduces the paper can be found at https://github.com/ppwwyyxx/GroupNorm-reproduce/.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">get_shape</span><span class="p">()</span><span class="o">.</span><span class="n">as_list</span><span class="p">()</span>
+    <span class="n">ndims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">ndims</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="n">shape</span>
+    <span class="n">chan</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">chan</span> <span class="o">%</span> <span class="n">group</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">chan</span>
+    <span class="n">group_size</span> <span class="o">=</span> <span class="n">chan</span> <span class="o">//</span> <span class="n">group</span>
+
+    <span class="n">orig_shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">orig_shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_size</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">]))</span>
+
+    <span class="n">mean</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">moments</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">keep_dims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">chan</span><span class="p">],</span> <span class="n">initializer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">constant_initializer</span><span class="p">())</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">)</span>
+
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">chan</span><span class="p">],</span> <span class="n">initializer</span><span class="o">=</span><span class="n">gamma_initializer</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">new_shape</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;output&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">orig_shape</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;output&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1962,9 +1996,11 @@ title="Print to PDF"
 <h3><span class="section-number">31.3.3. </span>FCOS<a class="headerlink" href="#fcos" title="Permalink to this headline">#</a></h3>
 <p>FCOS (Fully Convolutional One-Stage Object Detection) is a one-stage object detection algorithm that uses a fully convolutional architecture to detect objects. It is a simple and effective method for object detection that does not require region proposal networks (RPNs) or anchor boxes.</p>
 <!---
-:::{figure-md} 05_fcos
-<img src="../../images/deep-learning/objdet/05_fcos.png" width="90%" class="bg-white mb-1">
-
+:::{figure} https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/05_FCOS.png
+---
+name: 'The structure of FCOS'
+width: 90%
+---
 The structure of FCOS {cite}`fcos_structure`
 :::
 
@@ -1976,18 +2012,18 @@ The structure of FCOS {cite}`fcos_structure`
 <section id="id4">
 <h4><span class="section-number">31.3.3.1. </span>Code<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h4>
 <p>The key point in FCOS is Center-ness, which is a novel way to calculate target: <span class="math notranslate nohighlight">\(centerness = \sqrt{\frac{min(l,r)}{max(l,r)} \frac{min(t,b)}{max(t,b)}}\)</span></p>
-<figure class="align-default" id="centerness">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/06_centerness.png"><img alt="../_images/06_centerness.png" class="bg-white mb-1" src="../_images/06_centerness.png" style="width: 90%;" /></a>
+<figure class="align-default" id="illustration-of-centerness">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/06_centerness.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/06_centerness.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/06_centerness.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 31.5 </span><span class="caption-text">Illustration of centerness <span id="id5">[<a class="reference internal" href="#id87" title="Hao Chen Zhi Tian, Chunhua Shen and Tong He. Fcos: fully convolutional one-stage object detection. URL: https://arxiv.org/abs/1904.01355 (visited on 2023).">ZTH</a>]</span></span><a class="headerlink" href="#centerness" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 31.5 </span><span class="caption-text">Illustration of centerness <span id="id5">[<a class="reference internal" href="#id87" title="Hao Chen Zhi Tian, Chunhua Shen and Tong He. Fcos: fully convolutional one-stage object detection. URL: https://arxiv.org/abs/1904.01355 (visited on 2023).">ZTH</a>]</span></span><a class="headerlink" href="#illustration-of-centerness" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
 <span class="k">class</span> <span class="nc">CenternessNet</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_anchor</span><span class="p">,</span> <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">concat</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">convolution</span> <span class="o">=</span> <span class="n">conf_conv</span><span class="p">,</span> <span class="n">normalize</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_anchor</span><span class="p">,</span> <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">concat</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">convolution</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">normalize</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">activation</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">activations</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CenternessNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_anchor</span> <span class="o">=</span> <span class="n">n_anchor</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_bias</span> <span class="o">=</span> <span class="p">(</span><span class="n">normalize</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">use_bias</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">use_bias</span>
@@ -2035,9 +2071,11 @@ The structure of FCOS {cite}`fcos_structure`
 <h3><span class="section-number">31.3.4. </span>DETR<a class="headerlink" href="#detr" title="Permalink to this headline">#</a></h3>
 <p>Similar to image classification, Transformer is also used in object detection task, and the classical one is DEtection TRansformer(DETR).</p>
 <!---
-:::{figure-md} 07_DETR
-<img src="../../images/deep-learning/objdet/07_detr.png" width="90%" class="bg-white mb-1">
-
+:::{figure} https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/objdet/07_DETR.png
+---
+name: 'Structure of DETR'
+width: 90%
+---
 Structure of DETR {cite}`detr_structure`
 :::
 --->
@@ -2049,10 +2087,12 @@ Structure of DETR {cite}`detr_structure`
 <h4><span class="section-number">31.3.4.1. </span>Code<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Conv2D</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Embedding</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
 
 <span class="k">class</span> <span class="nc">DETR</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; This is the DETR module that performs object detection &quot;&quot;&quot;</span>
@@ -2081,6 +2121,23 @@ Structure of DETR {cite}`detr_structure`
         <span class="n">src</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;img&#39;</span><span class="p">],</span> <span class="n">features</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;mask&#39;</span><span class="p">]</span>
         <span class="k">assert</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">hs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_proj</span><span class="p">(</span><span class="n">src</span><span class="p">),</span> <span class="n">mask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_embed</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pos</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                 <span class="n">hidden_dim</span><span class="p">:</span>    <span class="nb">int</span><span class="p">,</span> 
+                 <span class="n">output_dim</span><span class="p">:</span>    <span class="nb">int</span><span class="p">,</span> 
+                 <span class="n">num_layers</span><span class="p">:</span>    <span class="nb">int</span><span class="p">,</span> 
+                 <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+                 
+        <span class="bp">self</span><span class="p">(</span><span class="n">MLP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">=</span> <span class="n">num_layers</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="p">[</span><span class="n">hidden_dim</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_layers</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dense</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">h</span><span class="o">+</span><span class="p">[</span><span class="n">output_dim</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_layers</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 </div>
 </div>
@@ -2094,13 +2151,13 @@ Structure of DETR {cite}`detr_structure`
 </section>
 <section id="your-turn">
 <h2><span class="section-number">31.4. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
-<p>TBD.</p>
+<p>TBD</p>
 </section>
 <section id="acknowledgments">
 <h2><span class="section-number">31.5. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
 <p>Thanks to <a class="reference external" href="https://github.com/tensorpack">Tensorpack</a> for creating the open-source project <a class="reference external" href="https://github.com/tensorpack/tensorpack">tensorpack</a>, <a class="reference external" href="https://github.com/Burf">Hyungjin Kim</a> for creating the open-source project <a class="reference external" href="https://github.com/Burf/TFDetection">TFDetection</a> and <a class="reference external" href="https://github.com/PaperCodeReview">PaperCodeReview</a> for creating the open-source project <a class="reference external" href="https://github.com/PaperCodeReview/DETR-TF">DETR-TF</a>. They inspire the majority of the content in this chapter.</p>
 <p style="text-align: center;">
-<iframe src="../html/object-detection/demo.html" width="105%" height="400px;"
+<iframe src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/html/object-detection/demo.html" width="105%" height="400px;"
 style="border:none;"></iframe>
 A demo of object detection. <a href="https://github.com/mtschirs/js-objectdetect">[source]</a>
 </p>

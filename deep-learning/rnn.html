@@ -238,9 +238,14 @@ const thebe_selector_output = ".output, .cell_output"
      5.3. NumPy
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../data-science/working-with-data/pandas-md.html">
+     5.4. Intro to pandas
+    </a>
+   </li>
    <li class="toctree-l2 has-children">
     <a class="reference internal" href="../data-science/working-with-data/pandas.html">
-     5.4. Pandas
+     5.5. Pandas
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
     <label for="toctree-checkbox-3">
@@ -250,24 +255,24 @@ const thebe_selector_output = ".output, .cell_output"
     <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="../data-science/working-with-data/pandas/introduction-and-data-structures.html">
-       5.4.1. Introduction and Data Structures
+       5.5.1. Introduction and Data Structures
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../data-science/working-with-data/pandas/data-selection.html">
-       5.4.2. Data Selection
+       5.5.2. Data Selection
       </a>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../data-science/working-with-data/pandas/advanced-pandas-techniques.html">
-       5.4.3. Advanced Pandas Techniques
+       5.5.3. Advanced Pandas Techniques
       </a>
      </li>
     </ul>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../data-science/working-with-data/data-preparation.html">
-     5.5. Data preparation
+     5.6. Data preparation
     </a>
    </li>
   </ul>
@@ -1326,7 +1331,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/deep-learning/rnn.md"
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/deep-learning/rnn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1344,7 +1349,7 @@ title="Launch on Binder"
       </li>
       
       <li>
-        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/deep-learning/rnn.md"
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/deep-learning/rnn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1439,7 +1444,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/deep-learning/rnn.md"
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/deep-learning/rnn.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -1471,23 +1476,6 @@ title="Edit this page"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
-title="Download notebook file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-code"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="../_sources/deep-learning/rnn.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
 title="Download source file"
 >
   
@@ -1495,7 +1483,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -1612,37 +1600,48 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="recurrent-neural-networks">
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython<span class="w"> </span>tensorflow
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="recurrent-neural-networks">
 <h1><span class="section-number">23. </span>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this headline">#</a></h1>
-<blockquote class="epigraph">
+<blockquote>
 <div><p>The nervous system contains many circular paths, whose activity so regenerates the excitation of any participant neuron that reference to time past becomes indefinite, although it still implies that afferent activity has realized one of a certain class of configurations over time. Precise specification of these implications by means of recursive functions, and determination of those that can be embodied in the activity of nervous nets, completes the theory.</p>
-<p class="attribution">—Warren McCulloch and Walter Pitts, 1943</p>
+<p>– Warren McCulloch and Walter Pitts, 1943</p>
 </div></blockquote>
 <p>A recurrent neural network (RNN) is a type of artificial neural network that uses sequential data or time series data and it is mainly used for Natural Language Processing. Now let us see what it looks like.</p>
 <p>Sequential data is not <a class="reference external" href="https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables">independent and identically distributed</a>.</p>
 <figure class="align-default" id="sequential-data">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/sequential_data.png"><img alt="../_images/sequential_data.png" class="bg-white mb-1" src="../_images/sequential_data.png" style="width: 90%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/sequential_data.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/sequential_data.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/sequential_data.png" style="width: 90%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 23.1 </span><span class="caption-text">sequential data</span><a class="headerlink" href="#sequential-data" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>And the RNNs use recurrent edge to update.</p>
 <figure class="align-default" id="rnn1">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/rnn1.png"><img alt="../_images/rnn1.png" class="bg-white mb-1" src="../_images/rnn1.png" style="width: 90%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn1.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn1.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn1.png" style="width: 90%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 23.2 </span><span class="caption-text">RNN1</span><a class="headerlink" href="#rnn1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>If unroll over a sequence <span class="math notranslate nohighlight">\((x_0,x_1,x_2)\)</span>.</p>
 <figure class="align-default" id="rnn2">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/rnn2.png"><img alt="../_images/rnn2.png" class="bg-white mb-1" src="../_images/rnn2.png" style="width: 90%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn2.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn2.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn2.png" style="width: 90%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 23.3 </span><span class="caption-text">RNN2</span><a class="headerlink" href="#rnn2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Then, the input (w0,w1,…,wt) sequence of words ( 1-hot encoded ) and the output (w1,w2,…,wt+1) shifted sequence of words ( 1-hot encoded ) have the following relation.</p>
 <figure class="align-default" id="rnn3">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/rnn3.png"><img alt="../_images/rnn3.png" class="bg-white mb-1" src="../_images/rnn3.png" style="width: 90%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn3.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn3.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn3.png" style="width: 90%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 23.4 </span><span class="caption-text">RNN3</span><a class="headerlink" href="#rnn3" title="Permalink to this image">#</a></p>
 </figcaption>
@@ -1650,17 +1649,17 @@ title="Print to PDF"
 <p>The input projection is <span class="math notranslate nohighlight">\(x_t = Emb(\omega_t) = E\omega_t\)</span>, the recurrent connection is <span class="math notranslate nohighlight">\(h_t = g(W^h h_t + x_t + b^h)\)</span>, and the output projection should be <span class="math notranslate nohighlight">\(y = softmax(W^o h_t + b^o)\)</span>.
 The backpropagation of RNN is in this way:</p>
 <figure class="align-default" id="rnn4">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/rnn4.png"><img alt="../_images/rnn4.png" class="bg-white mb-1" src="../_images/rnn4.png" style="width: 90%;" /></a>
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn4.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn4.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/rnn4.png" style="width: 90%;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 23.5 </span><span class="caption-text">RNN4</span><a class="headerlink" href="#rnn4" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Let’s make the backpropagation process more clearly.</p>
 <p>First, we unfold a single-hidden layer RNN, and we can see the weight matrices <span class="math notranslate nohighlight">\(W_h\)</span> in it.</p>
-<figure class="align-default" id="backpropagation">
-<a class="bg-white mb-1 reference internal image-reference" href="../_images/bp_rnn1.png"><img alt="../_images/bp_rnn1.png" class="bg-white mb-1" src="../_images/bp_rnn1.png" style="width: 90%;" /></a>
+<figure class="align-default" id="backpropagation-for-rnn">
+<a class="reference internal image-reference" href="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/bp_rnn1.png"><img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/bp_rnn1.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/deep-learning/RNN/bp_rnn1.png" style="width: 90%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 23.6 </span><span class="caption-text">backpropagation for RNN</span><a class="headerlink" href="#backpropagation" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 23.6 </span><span class="caption-text">backpropagation for RNN</span><a class="headerlink" href="#backpropagation-for-rnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Through the image, we can get the output:</p>
@@ -1684,7 +1683,7 @@ The backpropagation of RNN is in this way:</p>
 <h2><span class="section-number">23.1. </span>Code<a class="headerlink" href="#code" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># A text classifier implemented in TensorFlow to classify SMS spam messages.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A text classifier implemented in TensorFlow to classify SMS spam messages.</span>
 
 <span class="c1"># Code first downloads and processes the SMS Spam Collection dataset from the UCI Machine Learning Repository and then builds a basic Recurrent neural network (RNN) for text classification using TensorFlow.</span>
 
@@ -1878,6 +1877,51 @@ The backpropagation of RNN is in this way:</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;go until jurong point crazy available only in bugis n great world la e buffet cine there got amore wat&#39;, &#39;ok lar joking wif u oni&#39;, &#39;free entry in a wkly comp to win fa cup final tkts st may text fa to to receive entry questionstd txt ratetcs apply overs&#39;, &#39;u dun say so early hor u c already then say&#39;, &#39;nah i dont think he goes to usf he lives around here though&#39;]
+(5574, 25)
+[[ 191    3   17 ... 2725    0    0]
+ [ 365 1206   41 ...    0    0    0]
+ [  81   40    4 ...    0    0    0]
+ ...
+ [7814 7815  533 ...    0    0    0]
+ [   2   28 1439 ...    7  161    3]
+ [  51   20    3 ...    0    0    0]]
+Vocabulary Size: 8629
+80-20 Train Test split: 4459 -- 1115
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\fuqiongying\AppData\Local\Temp\ipykernel_1816\2116000173.py:115: UserWarning: `tf.nn.rnn_cell.BasicRNNCell` is deprecated and will be removed in a future version. This class is equivalent as `tf.keras.layers.SimpleRNNCell`, and will be replaced by that in Tensorflow 2.0.
+  cell = tf.nn.rnn_cell.BasicRNNCell(num_units=rnn_size)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tensor(&quot;Mean:0&quot;, shape=(), dtype=float32)
+Tensor(&quot;Mean_1:0&quot;, shape=(), dtype=float32)
+Epoch: 1, Test Loss: 0.69, Test Acc: 0.81
+Epoch: 2, Test Loss: 0.65, Test Acc: 0.82
+Epoch: 3, Test Loss: 0.6, Test Acc: 0.82
+Epoch: 4, Test Loss: 0.55, Test Acc: 0.82
+Epoch: 5, Test Loss: 0.51, Test Acc: 0.83
+Epoch: 6, Test Loss: 0.47, Test Acc: 0.83
+Epoch: 7, Test Loss: 0.45, Test Acc: 0.83
+Epoch: 8, Test Loss: 0.43, Test Acc: 0.84
+Epoch: 9, Test Loss: 0.42, Test Acc: 0.84
+Epoch: 10, Test Loss: 0.41, Test Acc: 0.84
+Epoch: 11, Test Loss: 0.41, Test Acc: 0.84
+Epoch: 12, Test Loss: 0.4, Test Acc: 0.85
+Epoch: 13, Test Loss: 0.4, Test Acc: 0.85
+Epoch: 14, Test Loss: 0.4, Test Acc: 0.85
+Epoch: 15, Test Loss: 0.4, Test Acc: 0.86
+Epoch: 16, Test Loss: 0.39, Test Acc: 0.86
+Epoch: 17, Test Loss: 0.39, Test Acc: 0.87
+Epoch: 18, Test Loss: 0.38, Test Acc: 0.87
+Epoch: 19, Test Loss: 0.38, Test Acc: 0.87
+Epoch: 20, Test Loss: 0.37, Test Acc: 0.87
+</pre></div>
+</div>
+<img alt="../_images/rnn_7_3.png" src="../_images/rnn_7_3.png" />
+<img alt="../_images/rnn_7_4.png" src="../_images/rnn_7_4.png" />
 </div>
 </div>
 </section>
