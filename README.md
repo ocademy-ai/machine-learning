@@ -24,13 +24,13 @@ A curated list of awesome AI courses, tutorials, books, tools, and other learnin
 
 ## 🤖 Ocademy GenAI [![](<https://img.shields.io/badge/-start%20to%20create%20%E2%86%92-rgb(224,156,55)?style=for-the-badge>)](./generative-ai/prompts/README.md)
 
-Resources about Generative AI, started with a list of prompts for AI Teaching and Learning.
+In our collection of **Generative AI resources**, we feature a list of prompts for AI Teaching and Learning, including our innovative [AI Tutor Prompt](generative-ai/prompts/AI-Tutor.md) and the [AI Tutor Prompt](generative-ai/prompts/ai-tutor.md).
 
 ![ezgif com-video-to-gif](https://github.com/ocademy-ai/machine-learning/assets/5424267/5b8e3f70-a88e-4f69-8a17-dcae7856eda6)
 
 ## 📓 Ocademy Open Book [![](<https://img.shields.io/badge/-start%20to%20read%20%E2%86%92-rgb(84,56,255)?style=for-the-badge>)](https://ocademy-ai.github.io/machine-learning/)
 
-An interactive and visual book aims to help millions of busy adults transition into AI.
+An interactive and visual book aiming to help millions of busy adults transition into AI.
 
 ![ezgif com-video-to-gif (1)](https://github.com/ocademy-ai/machine-learning/assets/5424267/193b78e3-9e58-44c7-8349-74b6f4a354db)
 
