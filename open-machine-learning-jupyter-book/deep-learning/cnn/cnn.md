@@ -1,6 +1,0 @@
-# CNN
-
---
-
-```{tableofcontents}
-```
