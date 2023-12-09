@@ -1625,7 +1625,7 @@ assert custom_exception_is_caught
 
 ## Your turn! 🚀
 
-Practice the Python programming basics by following this [assignment](../assignments/prerequisites/python-programming-advanced.ipynb).
+Practice the Python programming basics by following this [assignment](../../assignments/prerequisites/python-programming-advanced.ipynb).
 
 ## Self study
 
