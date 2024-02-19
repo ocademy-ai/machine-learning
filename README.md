@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/bebee200-677e-4d9b-93f7-5e517f59e6f4" alt="logo" height="200" align="center" />
+  <img src="https://github.com/ocademy-ai/machine-learning/assets/5424267/11d86272-de08-4761-b900-acfd2ce8fae8" alt="logo" height="200" align="center" />
 </p>
 <p align="center">
   <a href='https://github.com/ocademy-ai/machine-learning/pulls'><img src="https://img.shields.io/badge/PR-welcome-brightgreen.svg?style=for-the-badge" /></a>
