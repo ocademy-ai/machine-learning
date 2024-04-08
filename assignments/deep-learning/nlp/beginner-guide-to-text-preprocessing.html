@@ -1,0 +1,2211 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>40.128. Beginner’s Guide to Text Pre-Processing &#8212; Ocademy Open Machine Learning Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "ocademy-ai/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="40.129. News topic classification tasks" href="news-topic-classification-tasks.html" />
+    <link rel="prev" title="40.126. Getting Start NLP with classification task" href="getting-start-nlp-with-classification-task.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint">Learn AI together, for free! At <a color='lightblue' href='https://ocademy.cc'><u style='color:lightblue;'>Ocademy</u></a>.</div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo-long.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Ocademy Open Machine Learning Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../../data-science/working-with-data/pandas/pandas.html">
+     5.4. Pandas
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../data-science/working-with-data/pandas/introduction-and-data-structures.html">
+       5.4.1. Introduction and Data Structures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../data-science/working-with-data/pandas/data-selection.html">
+       5.4.2. Data Selection
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../data-science/working-with-data/pandas/advanced-pandas-techniques.html">
+       5.4.3. Advanced Pandas Techniques
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-visualization/visualization-distributions.html">
+     6.1. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-visualization/visualization-proportions.html">
+     6.2. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-visualization/visualization-relationships.html">
+     6.3. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-visualization/meaningful-visualizations.html">
+     6.4. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING BASICS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ml-fundamentals/ml-overview.html">
+   10. Machine Learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../ml-fundamentals/classification/getting-started-with-classification.html">
+   12. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/classification/introduction-to-classification.html">
+     12.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/classification/more-classifiers.html">
+     12.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/classification/yet-other-classifiers.html">
+     12.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+     12.4. Build a web app to use a Machine Learning model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../ml-fundamentals/parameter-optimization/parameter-optimization.html">
+   13. Parameter Optimization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/parameter-optimization/loss-function.html">
+     13.1. Loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-fundamentals/parameter-optimization/gradient-descent.html">
+     13.2. Gradient descent
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../ml-advanced/clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../ml-advanced/ensemble-learning/getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/ensemble-learning/bagging.html">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/ensemble-learning/random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/ensemble-learning/feature-importance.html">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../ml-advanced/gradient-boosting/introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/gradient-boosting/gradient-boosting.html">
+     16.1. Gradient Boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/gradient-boosting/gradient-boosting-example.html">
+     16.2. Gradient boosting example
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/gradient-boosting/xgboost.html">
+     16.3. XGBoost
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../ml-advanced/gradient-boosting/xgboost-k-fold-cv-feature-importance.html">
+     16.4. XGBoost + k-fold CV + Feature Importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ml-advanced/unsupervised-learning.html">
+   17. Unsupervised learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ml-advanced/kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ml-advanced/unsupervised-learning-pca-and-clustering.html">
+   19. Unsupervised learning: PCA and clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../ml-advanced/model-selection.html">
+   20. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/dl-overview.html">
+   21. Intro to Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/nn.html">
+   22. Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../deep-learning/cnn/cnn.html">
+   23. Convolutional Neural Networks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../deep-learning/cnn/cnn-vgg.html">
+     23.3.1.1. Stylenet / Neural-Style
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../deep-learning/cnn/cnn-deepdream.html">
+     23.3.1.2. Deepdream in TensorFlow
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/rnn.html">
+   24. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/lstm.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/autoencoder.html">
+   27. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/object-detection.html">
+   28. Object detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../deep-learning/nlp/nlp.html">
+   31. Natural Language Processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../deep-learning/nlp/text-preprocessing.html">
+     31.7.1. Text Preprocessing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../deep-learning/nlp/text-representation.html">
+     31.7.2. Word embedding
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/gan.html">
+   32. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/difussion-model.html">
+   33. Diffusion Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../deep-learning/dqn.html">
+   34. Deep Q-learning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING OPERATIONS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../machine-learning-productionization/overview.html">
+   35. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../machine-learning-productionization/problem-framing.html">
+   36. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../machine-learning-productionization/data-engineering.html">
+   37. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../machine-learning-productionization/model-training-and-evaluation.html">
+   38. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../machine-learning-productionization/model-deployment.html">
+   39. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../README.html">
+   40. Self-paced assignments
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../set-up-env/first-assignment.html">
+     40.3. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../set-up-env/second-assignment.html">
+     40.4. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../project-plan-template.html">
+     40.5. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+     40.6. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+     40.7. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+     40.8. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/analyzing-text-about-data-science.html">
+     40.9. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-scenarios.html">
+     40.10. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/write-a-data-ethics-case-study.html">
+     40.11. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/lines-scatters-and-bars.html">
+     40.12. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/apply-your-skills.html">
+     40.13. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/try-it-in-excel.html">
+     40.14. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/dive-into-the-beehive.html">
+     40.15. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/build-your-own-custom-vis.html">
+     40.16. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/classifying-datasets.html">
+     40.17. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/small-diabetes-study.html">
+     40.18. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction-to-statistics-and-probability.html">
+     40.19. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/displaying-airport-data.html">
+     40.20. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/soda-profits.html">
+     40.21. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/analyzing-COVID-19-papers.html">
+     40.22. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/estimation-of-COVID-19-pandemic.html">
+     40.23. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-processing-in-python.html">
+     40.24. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/evaluating-data-from-a-form.html">
+     40.25. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-preparation.html">
+     40.26. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/analyzing-data.html">
+     40.27. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/nyc-taxi-data-in-winter-and-summer.html">
+     40.28. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/matplotlib-applied.html">
+     40.29. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/tell-a-story.html">
+     40.35. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/explore-a-planetary-computer-dataset.html">
+     40.36. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/exploring-for-anwser.html">
+     40.37. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/market-research.html">
+     40.38. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     40.39. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-project-using-azure-ml-sdk.html">
+     40.40. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     40.41. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/ml-overview-iris.html">
+     40.42. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/ml-overview-mnist-digits.html">
+     40.43. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression-with-scikit-learn.html">
+     40.44. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/linear-regression/california_housing.html">
+     40.45. Linear regression - California Housing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/linear-regression/linear-regression-metrics.html">
+     40.46. Linear Regression Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/linear-regression/loss-function.html">
+     40.47. Loss Function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/linear-regression/gradient-descent.html">
+     40.48. Gradient descent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/linear-regression/linear-regression-from-scratch.html">
+     40.49. Linear Regression Implementation from Scratch
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/ml-logistic-regression-1.html">
+     40.50. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/ml-logistic-regression-2.html">
+     40.51. ML logistic regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/ml-neural-network-1.html">
+     40.52. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/build-ml-web-app-1.html">
+     40.53. Build ML web app - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/build-ml-web-app-2.html">
+     40.54. Build ML web app - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression-tools.html">
+     40.55. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/managing-data.html">
+     40.56. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/exploring-visualizations.html">
+     40.57. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/try-a-different-model.html">
+     40.58. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/create-a-regression-model.html">
+     40.59. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/linear-and-polynomial-regression.html">
+     40.60. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/retrying-some-regression.html">
+     40.61. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/pumpkin-varieties-and-color.html">
+     40.62. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     40.63. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/explore-classification-methods.html">
+     40.64. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/kernel-method/kernel-method-assignment-1.html">
+     40.65. Kernel method assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/kernel-method/support_vector_machines_for_regression.html">
+     40.66. Support Vector Machines (SVM) - Intro and SVM for Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/kernel-method/support_vector_machines_for_classification.html">
+     40.67. Support Vector Machines (SVM) - Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/kernel-method/decision_trees_for_regression.html">
+     40.68. Decision Trees - Intro and Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/kernel-method/decision_trees_for_classification.html">
+     40.69. Decision Trees - Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/model-selection/model-selection-assignment-1.html">
+     40.70. Model selection assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/model-selection/learning-curve-to-identify-overfit-underfit.html">
+     40.71. Learning Curve To Identify Overfit &amp; Underfit
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/model-selection/dropout-and-batch-normalization.html">
+     40.72. Dropout and Batch Normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/model-selection/lasso-and-ridge-regression.html">
+     40.73. Lasso and Ridge Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/model-selection/regularized-linear-models.html">
+     40.74. Regularized Linear Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/unsupervised-learning/customer-segmentation-clustering.html">
+     40.75. Customer segmentation: clustering - assignment 3
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     40.76. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     40.77. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     40.78. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/decision-trees.html">
+     40.79. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/hyperparameter-tuning-gradient-boosting.html">
+     40.80. Hyperparameter tuning gradient boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/gradient-boosting-assignment.html">
+     40.81. Gradient boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/boosting-with-tuning.html">
+     40.82. Boosting with tuning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/random-forest-classifier-feature-importance.html">
+     40.83. Random Forest Classifier with Feature Importance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+     40.85. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     40.86. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../machine-learning-productionization/debugging-in-classification.html">
+     40.87. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../machine-learning-productionization/debugging-in-regression.html">
+     40.88. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../machine-learning-productionization/random-forest-classifier.html">
+     40.89. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/study-the-solvers.html">
+     40.90. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/build-classification-models.html">
+     40.91. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/build-classification-model.html">
+     40.92. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/parameter-play.html">
+     40.93. Parameter play
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cnn/how-to-choose-cnn-architecture-mnist.html">
+     40.94. How to choose cnn architecture mnist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cnn/sign-language-digits-classification-with-cnn.html">
+     40.96. Sign Language Digits Classification with CNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cnn/object-recognition-in-images-using-cnn.html">
+     40.98. Object Recognition in Images using CNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../cnn/image-classification.html">
+     40.99. Image classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../tensorflow/intro_to_tensorflow_for_deeplearning.html">
+     40.100. Intro to TensorFlow for Deep Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lstm/bitcoin-lstm-model-with-tweet-volume-and-sentiment.html">
+     40.102. Bitcoin LSTM Model with Tweet Volume and Sentiment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../rnn/google-stock-price-prediction-rnn.html">
+     40.104. Google Stock Price Prediction RNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../autoencoder/autoencoder.html">
+     40.106. Intro to Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../autoencoder/base-denoising-autoencoder-dimension-reduction.html">
+     40.107. Base/Denoising Autoencoder &amp; Dimension Reduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../autoencoder/variational-autoencoder-and-faces-generation.html">
+     40.108. Fun with Variational Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../time-series-forecasting-assignment.html">
+     40.109. Time Series Forecasting Assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nn-for-classification-assignment.html">
+     40.111. Neural Networks for Classification with TensorFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../nn-classify-15-fruits-assignment.html">
+     40.112. NN Classify 15 Fruits Assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../dqn/dqn-on-foreign-exchange-market.html">
+     40.117. DQN On Foreign Exchange Market
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../gan/art-by-gan.html">
+     40.118. Art by gan
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../gan/gan-introduction.html">
+     40.120. Generative Adversarial Networks (GANs)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../image-segmentation/comparing-edge-based-and-region-based-segmentation.html">
+     40.121. Comparing edge-based and region-based segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../difussion-model/denoising-difussion-model.html">
+     40.122. Summary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../object-detection/car-object-detection.html">
+     40.123. Car Object Detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../overview/basic-classification-classify-images-of-clothing.html">
+     40.125. Basic classification: Classify images of clothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="getting-start-nlp-with-classification-task.html">
+     40.126. Getting Start NLP with classification task
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     40.128. Beginner’s Guide to Text Pre-Processing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="news-topic-classification-tasks.html">
+     40.129. News topic classification tasks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../slides/introduction.html">
+   41. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/python-programming/python-programming-introduction.html">
+     41.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/python-programming/python-programming-basics.html">
+     41.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/python-programming/python-programming-advanced.html">
+     41.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/data-science-introduction.html">
+     41.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/relational-vs-non-relational-database.html">
+     41.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/numpy-and-pandas.html">
+     41.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/data-visualization.html">
+     41.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/data-science-lifecycle.html">
+     41.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/data-science-in-the-cloud.html">
+     41.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/data-science/data-science-in-real-world.html">
+     41.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-fundamentals/ml-overview.html">
+     41.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-fundamentals/linear-regression.html">
+     41.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-fundamentals/logistic-regression.html">
+     41.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-fundamentals/logistic-regression-condensed.html">
+     41.14. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-fundamentals/neural-network.html">
+     41.15. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-fundamentals/build-an-ml-web-app.html">
+     41.16. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-advanced/unsupervised-learning.html">
+     41.17. Unsupervised learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-advanced/kernel-method.html">
+     41.18. Kernel method
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/ml-advanced/model-selection.html">
+     41.19. Model Selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/deep-learning/cnn.html">
+     41.20. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../slides/deep-learning/gan.html">
+     41.21. Generative Adversarial Network
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/assignments/deep-learning/nlp/beginner-guide-to-text-preprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/assignments/deep-learning/nlp/beginner-guide-to-text-preprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ocademy-ai/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ocademy-ai/machine-learning//issues/new?title=Issue%20on%20page%20%2Fassignments/deep-learning/nlp/beginner-guide-to-text-preprocessing.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/assignments/deep-learning/nlp/beginner-guide-to-text-preprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/assignments/deep-learning/nlp/beginner-guide-to-text-preprocessing.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-text-pre-processing">
+   40.128.1. Why Text Pre-processing?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#downloading-packages">
+   40.128.2. Downloading Packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-accented-characters">
+   40.128.3. Removing Accented Characters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-special-non-alphanumeric-characters">
+   40.128.4. Removing Special &amp; Non-Alphanumeric Characters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#converting-to-lowercase">
+   40.128.5. Converting to Lowercase
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-punctuation">
+   40.128.6. Removing Punctuation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tokenization">
+   40.128.7. Tokenization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stopword-removal">
+   40.128.8. Stopword Removal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stemming">
+   40.128.9. Stemming
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lemmatization">
+   40.128.10. Lemmatization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-it-all-together">
+   40.128.11. Putting it all together
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   40.128.12. Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgements">
+   40.128.13. Acknowledgements
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Beginner’s Guide to Text Pre-Processing</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-text-pre-processing">
+   40.128.1. Why Text Pre-processing?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#downloading-packages">
+   40.128.2. Downloading Packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-accented-characters">
+   40.128.3. Removing Accented Characters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-special-non-alphanumeric-characters">
+   40.128.4. Removing Special &amp; Non-Alphanumeric Characters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#converting-to-lowercase">
+   40.128.5. Converting to Lowercase
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#removing-punctuation">
+   40.128.6. Removing Punctuation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tokenization">
+   40.128.7. Tokenization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stopword-removal">
+   40.128.8. Stopword Removal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stemming">
+   40.128.9. Stemming
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lemmatization">
+   40.128.10. Lemmatization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-it-all-together">
+   40.128.11. Putting it all together
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   40.128.12. Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgements">
+   40.128.13. Acknowledgements
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="beginners-guide-to-text-pre-processing">
+<h1><span class="section-number">40.128. </span>Beginner’s Guide to Text Pre-Processing<a class="headerlink" href="#beginners-guide-to-text-pre-processing" title="Permalink to this headline">#</a></h1>
+<p>Natural Language Processing is a subdomain under Artificial Intelligence which deals with processing natural language data like text and speech. We can also term NLP as the “Art of extracting information from texts”. Recently there has been a lot of activity in this field and amazing research coming out every day! But, the revolutionary research was the “Transformer” which opened up avenues to build massive Deep Learning models which can come very close to human-level tasks like Summarization and Question Answering. Then came the GPTs and BERTs which were massive models consisting of billions of computation parameters trained on very huge datasets and can be fine-tuned to a variety of NLP tasks and problem statements.</p>
+<p>Deep down, the roots of building a robust NLP model, Text Processing, plays a very important role. This might not be very evident in the recent models like BERT and GPT, but it is one of the most elementary processes in Natural Language Processing. All NLP researchers and enthusiasts will have done Text Processing more times than not while attempting to solve problems in this domain. For a beginner, Text Processing is a fundamental concept to be nailed before setting sights on solving advanced problems. This brings to a question - Why Text Processing?</p>
+<section id="why-text-pre-processing">
+<h2><span class="section-number">40.128.1. </span>Why Text Pre-processing?<a class="headerlink" href="#why-text-pre-processing" title="Permalink to this headline">#</a></h2>
+<p>Text Pre-processing is important because language models are quite complex and there might be unnecessary data in the text corpus which might add to an ambiguity factor in the dataset, make it more computationally intensive and also impact the accuracy to a pretty considerable extent.</p>
+<p>Text Pre-processing is important because language models are quite complex, largely due to grammar rules. Unnecessary data in non-processed datasets will only add to ambiguity, increase computation requirements, and impact the accuracy of the model to a considerable extent.</p>
+<p>Moreover, we have to get the text transformed into vectors/numbers which can be ingested by machines or computers. This process is called Encoding Technique and we have many techniques like CountVectorizer, Tf-Idf Vectorizer, Bag of Words, Word2Vec, GLoVe, etc. Popularly this process is also known as Text Representation. This comes after the Text Pre-Processing. We shall look into these techniques in the next article 🙂</p>
+<p>Coming back to Text Pre-processing, let us look into a few popular Text Pre-processing methods in NLP.</p>
+</section>
+<section id="downloading-packages">
+<h2><span class="section-number">40.128.2. </span>Downloading Packages<a class="headerlink" href="#downloading-packages" title="Permalink to this headline">#</a></h2>
+<p>We will use the most popular library in processing textual data - NLTK (Natural Language Toolkit). On top of downloading and loading the base NLTK library we have to download a few additional files for our Pre-Processing techniques. The code is shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>nltk
+
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;punkt&#39;</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;wordnet&#39;</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note: All code examples can be executed on Colab exactly the way it is shown in the articles.</p>
+<p>Once that is done, we can start doing different pre-processing activities, a few of which are listed below. At the end, we will bundle all of these pre-processing techniques into a function, making it very easy to use and even add that into a sequence with other pre-processing techniques.</p>
+</section>
+<section id="removing-accented-characters">
+<h2><span class="section-number">40.128.3. </span>Removing Accented Characters<a class="headerlink" href="#removing-accented-characters" title="Permalink to this headline">#</a></h2>
+<p>This will be our first pre-processing technique, which involves removing unaccented characters like é, â etc. These characters won’t be adding any meaning if included in the sentence. We can use the library - unicodedata to replace the unaccented characters with normal characters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unicodedata</span>
+
+<span class="k">def</span> <span class="nf">remove_accented_chars</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">text</span>
+
+<span class="n">remove_accented_chars</span><span class="p">(</span><span class="s1">&#39;résumé&#39;</span><span class="p">)</span>
+<span class="c1"># Result - &#39;resume&#39;</span>
+
+<span class="n">remove_accented_chars</span><span class="p">(</span><span class="s1">&#39;café&#39;</span><span class="p">)</span>
+<span class="c1"># Result - &#39;cafe&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;cafe&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="removing-special-non-alphanumeric-characters">
+<h2><span class="section-number">40.128.4. </span>Removing Special &amp; Non-Alphanumeric Characters<a class="headerlink" href="#removing-special-non-alphanumeric-characters" title="Permalink to this headline">#</a></h2>
+<p>Next step is to take care of special symbols, numbers and non-alphanumeric characters like #, &#64;, $ etc. We can remove these characters easily using regular expressions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">remove_special_characters</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[^a-zA-Z\s]&#39;</span>
+    <span class="n">n_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;[^a-zA-Z0-9\s]&#39;</span>
+    <span class="c1"># Removing everything apart from alphanumerical chars</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="c1"># Removing numbers</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">n_pattern</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+<span class="n">remove_special_characters</span><span class="p">(</span><span class="s1">&#39;The brown fox is quick and the blue dog is lazy!&#39;</span><span class="p">)</span>
+<span class="c1"># Result - The brown fox is quick and the blue dog is lazy</span>
+
+<span class="n">remove_special_characters</span><span class="p">(</span><span class="s1">&#39;@ElonMusk is revolutionizing the Space industry, especially the aspect of Reusable rockets!!!&#39;</span><span class="p">)</span>
+<span class="c1"># Result - ElonMusk is revolutionizing the Space industry especially the aspect of Reusable rockets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;ElonMusk is revolutionizing the Space industry especially the aspect of Reusable rockets&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note: Removing numbers may or may not be feasible based on the scenario of the problem statement. Therefore, removing numbers is solely based on the dataset and the problem statement.</p>
+</section>
+<section id="converting-to-lowercase">
+<h2><span class="section-number">40.128.5. </span>Converting to Lowercase<a class="headerlink" href="#converting-to-lowercase" title="Permalink to this headline">#</a></h2>
+<p>This is an important and compulsory step in Pre-processing text. If we consider the words “Banana” and “banana”, both convey the same meaning, but are represented differently and are treated as unique words by the encoder (which converts text to vectors). To combat this, we can simply convert the entire corpus to lower case to make sure every word or token (in NLP jargon) is in the same configuration which makes it easier to process and represent it in an effective manner.</p>
+<p>We can achieve this by simply using the lower() method on the string and further use strip() method to remove any white spaces too.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_lower</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">to_lower</span><span class="p">(</span><span class="s1">&#39;Hi there, How are you?&#39;</span><span class="p">)</span>
+<span class="c1"># Result - hi there, how are you?</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;hi there, how are you?&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="removing-punctuation">
+<h2><span class="section-number">40.128.6. </span>Removing Punctuation<a class="headerlink" href="#removing-punctuation" title="Permalink to this headline">#</a></h2>
+<p>Punctuation is an added weight to the corpus, but is very important in conveying the semantic meaning of the sentence. However, we can go ahead and remove them as one of the pre-processing techniques. Advanced encoding techniques like Word Embeddings (covered in a later post) can model the corpus without any punctuation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="k">def</span> <span class="nf">remove_p</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">))</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;[&#39;&#39;&quot;&quot;…]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">text</span>
+
+<span class="n">remove_p</span><span class="p">(</span><span class="s1">&#39;We were , though we had rushed to get there, late for the film. &#39;&#39;Thank you&#39;&#39;, I said&#39;</span><span class="p">)</span>
+<span class="c1"># Result - We were though we had rushed to get there late for the film. Thank you I said</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;We were  though we had rushed to get there late for the film Thank you I said&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note: Punctuation were not removed in the more advanced GPTs &amp; BERTs as the models were powerful enough to process and model sentences as it is without any pre-processing.</p>
+</section>
+<section id="tokenization">
+<h2><span class="section-number">40.128.7. </span>Tokenization<a class="headerlink" href="#tokenization" title="Permalink to this headline">#</a></h2>
+<p>This is a very small step which converts a sentence into tokens or words. If the input is a string (sentence) the output will be the list of words/tokens in that sentence. The official definition of a token is - ”A sequence of characters which are grouped together as a useful semantic term for analyzing”. To put it in simple words, they are nothing but the smallest meaningful entities of a sentence. Here, we use NLTK’s function word_tokenize(). Tokenization is important to apply the next steps  -  Stopword Removal, Stemming and Lemmatization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nltk</span>
+
+<span class="k">def</span> <span class="nf">tokenization</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tokens</span>
+
+<span class="n">tokenization</span><span class="p">(</span><span class="s1">&#39;She sells sea shells on the sea shore&#39;</span><span class="p">)</span>
+<span class="c1"># Result - [&#39;She&#39;,&#39;sells&#39;,&#39;sea&#39;,&#39;shells&#39;,&#39;on&#39;,&#39;the&#39;,&#39;sea&#39;,&#39;shore&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;She&#39;, &#39;sells&#39;, &#39;sea&#39;, &#39;shells&#39;, &#39;on&#39;, &#39;the&#39;, &#39;sea&#39;, &#39;shore&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is an alternative for nltk.word_tokenize i.e. tensorflow’s text_to_word_sequence which gives the same output as NLTK’s word_tokenize</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.preprocessing.text</span> <span class="kn">import</span> <span class="n">text_to_word_sequence</span>
+
+<span class="n">text_to_word_sequence</span><span class="p">(</span><span class="s1">&#39;She sells sea shells on the sea shore&#39;</span><span class="p">)</span>
+<span class="c1">#Result - [&#39;She&#39;,&#39;sells&#39;,&#39;sea&#39;,&#39;shells&#39;,&#39;on&#39;,&#39;the&#39;,&#39;sea&#39;,&#39;shore&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;she&#39;, &#39;sells&#39;, &#39;sea&#39;, &#39;shells&#39;, &#39;on&#39;, &#39;the&#39;, &#39;sea&#39;, &#39;shore&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="stopword-removal">
+<h2><span class="section-number">40.128.8. </span>Stopword Removal<a class="headerlink" href="#stopword-removal" title="Permalink to this headline">#</a></h2>
+<p>Stopwords are the words which are most common like I, am, there, where etc. They usually don’t help in certain NLP tasks and are best removed to save computation and time. Common methodology in earlier times was to remove the stopwords. However, in the age of GPT and BERT, we don’t usually remove the stopwords.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+
+<span class="n">STOPWORDS</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">remove_stopwords</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+
+    <span class="n">filtered_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">token</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">STOPWORDS</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">filtered_tokens</span>
+
+<span class="n">remove_stopwords</span><span class="p">([</span><span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;fox&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;quick&#39;</span><span class="p">,</span> <span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;lazy&#39;</span><span class="p">])</span>
+<span class="c1">#Result - [&#39;brown&#39;, &#39;fox&#39;, &#39;quick&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;lazy&#39;]</span>
+
+<span class="c1"># We can also print all the stopwords present in NLTK configuration by print(stopwords.words(&#39;english&#39;))</span>
+
+<span class="c1"># Also we have an option to modify the set of stopwords for our custom scenario by the following methods stopwords.remove() and stopwords.add()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;brown&#39;, &#39;fox&#39;, &#39;quick&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;lazy&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note: You can try out both approaches for creating the corpus — Removing Stopwords and Retaining the Stopwords. We can see different end results based on whether stopwords were removed or retained.</p>
+</section>
+<section id="stemming">
+<h2><span class="section-number">40.128.9. </span>Stemming<a class="headerlink" href="#stemming" title="Permalink to this headline">#</a></h2>
+<p>Stemming is a process of reducing a given token/word to its root form. For ex: The words - likely, likes, liked, liking are reduced to its root form i.e. like. Stemming uses a crude heuristic process that chops off the ends of words in the hope of correctly transforming words into its root form. So the words “trouble”, “troubled” and “troubles” might actually be converted to “troubl” instead of “trouble” because the ends were just chopped off!</p>
+<p>Stemming is an optional step and the best way to find out if it is effective or not is to experiment and observe the results before and after stemming. There are two types of Stemmer defined in NLTK - PorterStemmer &amp; SnowballStemmer. The details are given here. In our examples, we will be using PorterStemmer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">PorterStemmer</span>
+
+<span class="n">ps</span> <span class="o">=</span> <span class="n">PorterStemmer</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">stem</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+   <span class="n">stemmed_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">ps</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
+   <span class="k">return</span> <span class="n">stemmed_tokens</span>
+
+<span class="n">stem</span><span class="p">([</span><span class="s1">&#39;brown&#39;</span><span class="p">,</span> <span class="s1">&#39;fox&#39;</span><span class="p">,</span> <span class="s1">&#39;quick&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;lazy&#39;</span><span class="p">])</span>
+<span class="c1"># Result - [&#39;brown&#39;, &#39;fox&#39;, &#39;quick&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;lazi&#39;]</span>
+
+<span class="n">stem</span><span class="p">([</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;fairly&#39;</span><span class="p">,</span> <span class="s1">&#39;easily&#39;</span><span class="p">])</span>
+<span class="c1"># Result - [&#39;welcom&#39;, &#39;fairli&#39;, &#39;easili&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;welcom&#39;, &#39;fairli&#39;, &#39;easili&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lemmatization">
+<h2><span class="section-number">40.128.10. </span>Lemmatization<a class="headerlink" href="#lemmatization" title="Permalink to this headline">#</a></h2>
+<p>A widely used step after lower-casing and the removal of stopwords is Lemmatization. It is similar to stemming but does not chop the ends of the words, instead it transforms to the actual root word based on a dictionary. This dictionary is called WordNet. Find more details on WordNet here. Since it has to look up a dictionary, it is slightly slower than Stemming. For example, the token “better” is transformed into “good” which retains the semantic meaning even after transformation which might not be the case in stemming (most of the times, the meaning of the stemmed word is not semantically grasped. Lazy becomes lazi after stemming!) NLTK Lemmatizer details here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.stem.wordnet</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+
+<span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">lemmatize</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="n">lemmatized_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">lemmatized_tokens</span>
+
+<span class="n">lemmatize</span><span class="p">([</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;fairly&#39;</span><span class="p">,</span> <span class="s1">&#39;better&#39;</span><span class="p">,</span> <span class="s1">&#39;goose&#39;</span> <span class="p">,</span> <span class="s1">&#39;geese&#39;</span><span class="p">])</span>
+<span class="c1"># Result - [&#39;welcome&#39;, &#39;fairly&#39;, &#39;good&#39;, &#39;goose&#39; , &#39;goose&#39;]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;welcome&#39;, &#39;fairly&#39;, &#39;better&#39;, &#39;goose&#39;, &#39;goose&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="putting-it-all-together">
+<h2><span class="section-number">40.128.11. </span>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">#</a></h2>
+<p>Now that we have defined functions for all Pre-processing steps, let us call them and observe the results. We can also create a pipe of function calls in a specific order for processing. This is also termed as the Pre-processing pipeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentence</span> <span class="o">=</span> <span class="s1">&#39;The brown fox is quick and the blue dog is lazy!&#39;</span>
+
+<span class="c1"># REMOVING ACCENTED CHARACTERS</span>
+<span class="n">remove_accented_chars</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+<span class="c1"># Result - The brown fox is quick and the blue dog is lazy!</span>
+
+<span class="c1"># REMOVING SPECIAL CHARACTERS</span>
+<span class="n">remove_special_characters</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+<span class="c1"># Result - The brown fox is quick and the blue dog is lazy</span>
+
+<span class="c1"># CONVERTING TO LOWER CASE</span>
+<span class="c1"># Pipeline involving removal of spl chars and then lower casing</span>
+<span class="n">to_lower</span><span class="p">(</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
+<span class="c1"># Result - the brown fox is quick and the blue dog is lazy</span>
+
+<span class="c1"># REMOVING PUNCTUATION</span>
+<span class="n">remove_p</span><span class="p">(</span><span class="n">to_lower</span><span class="p">(</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">sentence</span><span class="p">)))</span>
+<span class="c1"># Result - the brown fox is quick and the blue dog is lazy</span>
+
+<span class="c1"># TOKENIZATION</span>
+<span class="n">text_tokens</span> <span class="o">=</span> <span class="n">tokenization</span><span class="p">(</span><span class="n">remove_p</span><span class="p">(</span><span class="n">to_lower</span><span class="p">(</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="n">sentence</span><span class="p">))))</span>
+<span class="c1"># Result - [&#39;the&#39;, &#39;brown&#39;, &#39;fox&#39;, &#39;is&#39;, &#39;quick&#39;, &#39;and&#39;, &#39;the&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;is&#39;, &#39;lazy&#39;]</span>
+
+<span class="c1"># REMOVAL OF STOPWORDS</span>
+<span class="n">filtered_tokens</span> <span class="o">=</span> <span class="n">remove_stopwords</span><span class="p">(</span><span class="n">text_tokens</span><span class="p">)</span>
+<span class="c1"># Result - [&#39;brown&#39;, &#39;fox&#39;, &#39;quick&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;lazy&#39;]</span>
+
+<span class="c1"># STEMMING</span>
+<span class="n">stem</span><span class="p">(</span><span class="n">filtered_tokens</span><span class="p">)</span>
+<span class="c1"># Result - [&#39;brown&#39;, &#39;fox&#39;, &#39;quick&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;lazi&#39;]</span>
+
+<span class="c1"># LEMMATIZATION</span>
+<span class="n">lemmatize</span><span class="p">(</span><span class="n">filtered_tokens</span><span class="p">)</span>
+<span class="c1"># Result - [&#39;brown&#39;, &#39;fox&#39;, &#39;quick&#39;, &#39;blue&#39;, &#39;dog&#39;, &#39;lazy&#39;]</span>
+
+<span class="c1"># REFACTORING THE CORPUS</span>
+<span class="k">def</span> <span class="nf">refactor</span><span class="p">(</span><span class="n">words</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="n">refactor</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">filtered_tokens</span><span class="p">))</span>
+<span class="c1"># Result - &#39;brown fox quick blue dog lazy&#39;</span>
+<span class="c1"># ONE PIPELINE FOR ALL STEPS</span>
+<span class="n">refactor</span><span class="p">(</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">remove_stopwords</span><span class="p">(</span><span class="n">tokenization</span><span class="p">(</span><span class="n">remove_p</span><span class="p">(</span><span class="n">to_lower</span><span class="p">(</span><span class="n">remove_special_characters</span><span class="p">(</span><span class="s1">&#39;The brown fox is quick and the blue dog is lazy!&#39;</span><span class="p">)))))))</span>
+<span class="c1"># Result - &#39;brown fox quick blue dog lazy&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;brown fox quick blue dog lazy&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Feel free to experiment stemming, lemmatization, stopword removal aspects in the pipeline. Given here is the code containing all the functions in a single python file.</p>
+</section>
+<section id="conclusion">
+<h2><span class="section-number">40.128.12. </span>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>We have covered a few of the most popular Text Pre-processing steps in NLP in this post. There are a few more advanced concepts like Bi-gram, Tri-gram filtering, correcting spelling mistakes, expanding abbreviations etc. Feel free to explore these methods also. One more thing to note which has surfaced in recent years is “Pre-processing can hamper the performance of Deep NLP models!” as stated here. BERT and GPT also don’t employ rigorous pre-processing steps, which might induce a thought  - ”Was learning these techniques a waste of time?” Definitely not! These techniques are building blocks in NLP and are to be known for any beginner starting out in NLP.</p>
+<p>Try these techniques on your custom data and observe how Pre-processing techniques can help in building a very good text corpus which can later be employed for training Deep Learning Models for NLP tasks. In our next post, we will move to the next step of representing the corpus as a vector, commonly known as Text Encoding.</p>
+</section>
+<section id="acknowledgements">
+<h2><span class="section-number">40.128.13. </span>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://twitter.com/A6Singularity">Pranav Raikote</a> for creating <a class="reference external" href="https://appliedsingularity.com/2021/12/28/nlp-tutorials-part-1-beginners-guide-to-text-pre-processing/">NLP Tutorials – Part 1: Beginner’s Guide to Text Pre-Processing</a>. It inspires the majority of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ocademy-ai/machine-learning",
+            ref: "release",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./assignments/deep-learning/nlp"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="getting-start-nlp-with-classification-task.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">40.126. </span>Getting Start NLP with classification task</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="news-topic-classification-tasks.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">40.129. </span>News topic classification tasks</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
