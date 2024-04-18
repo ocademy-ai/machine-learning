@@ -1,0 +1,3138 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>41.3. Transformers for Language Modelling &#8212; Ocademy Open Machine Learning Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/drawio.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/youtube.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script kind="utterances">
+
+    var commentsRunWhenDOMLoaded = cb => {
+    if (document.readyState != 'loading') {
+        cb()
+    } else if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', cb)
+    } else {
+        document.attachEvent('onreadystatechange', function() {
+        if (document.readyState == 'complete') cb()
+        })
+    }
+}
+
+var addUtterances = () => {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://utteranc.es/client.js";
+    script.async = "async";
+
+    script.setAttribute("repo", "ocademy-ai/machine-learning-utterances");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
+    script.setAttribute("label", "💬 comment");
+    script.setAttribute("crossorigin", "anonymous");
+
+    sections = document.querySelectorAll("div.section");
+    if (sections !== null) {
+        section = sections[sections.length-1];
+        section.appendChild(script);
+    }
+}
+commentsRunWhenDOMLoaded(addUtterances);
+</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script src="https://wavedrom.com/skins/default.js"></script>
+    <script src="https://wavedrom.com/wavedrom.min.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script src="https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"></script>
+    <script>quizdown.init({"quizdown_js": "https://cdn.jsdelivr.net/gh/bonartm/quizdown-js@latest/public/build/quizdown.js"});</script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="42. Implementing a GPT model from Scratch To Generate Text" href="../pretrained-model/implementing-a-GPT-model.html" />
+    <link rel="prev" title="41.2. Transformer" href="transformer.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint">Learn AI together, for free! At <a color='lightblue' href='https://ocademy.cc'><u style='color:lightblue;'>Ocademy</u></a>.</div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo-long.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Ocademy Open Machine Learning Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PREREQUISITES
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-introduction.html">
+   1. Python programming introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-basics.html">
+   2. Python programming basics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../prerequisites/python-programming-advanced.html">
+   3. Python programming advanced
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DATA SCIENCE
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/introduction/introduction.html">
+   4. Introduction
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data-science.html">
+     4.1. Defining data science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/data-science-ethics.html">
+     4.2. Data Science ethics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/defining-data.html">
+     4.3. Defining data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/introduction/introduction-to-statistics-and-probability.html">
+     4.4. Introduction to statistics and probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/working-with-data/working-with-data.html">
+   5. Working with data
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/relational-databases.html">
+     5.1. Relational databases
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/non-relational-data.html">
+     5.2. Non-relational data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/numpy.html">
+     5.3. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="../../data-science/working-with-data/pandas/pandas.html">
+     5.4. Pandas
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+    <label for="toctree-checkbox-3">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../data-science/working-with-data/pandas/introduction-and-data-structures.html">
+       5.4.1. Introduction and Data Structures
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../data-science/working-with-data/pandas/data-selection.html">
+       5.4.2. Data Selection
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../data-science/working-with-data/pandas/advanced-pandas-techniques.html">
+       5.4.3. Advanced Pandas Techniques
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/working-with-data/data-preparation.html">
+     5.5. Data preparation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-visualization/data-visualization.html">
+   6. Data visualization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-distributions.html">
+     6.1. Visualizing distributions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-proportions.html">
+     6.2. Visualizing proportions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/visualization-relationships.html">
+     6.3. Visualizing relationships: all about honey 🍯
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-visualization/meaningful-visualizations.html">
+     6.4. Making meaningful visualizations
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-lifecycle/data-science-lifecycle.html">
+   7. Data Science lifecycle
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/introduction.html">
+     7.1. Introduction to the Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/analyzing.html">
+     7.2. Analyzing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-lifecycle/communication.html">
+     7.3. Communication
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../data-science/data-science-in-the-cloud/data-science-in-the-cloud.html">
+   8. Data Science in the cloud
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/introduction.html">
+     8.1. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-low-code-no-code-way.html">
+     8.2. The “low code/no code” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../data-science/data-science-in-the-cloud/the-azure-ml-sdk-way.html">
+     8.3. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../data-science/data-science-in-the-wild.html">
+   9. Data Science in the real world
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING BASICS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-fundamentals/ml-overview.html">
+   10. Machine Learning overview
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/regression/regression-models-for-machine-learning.html">
+   11. Regression models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/>
+  <label for="toctree-checkbox-7">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/tools-of-the-trade.html">
+     11.1. Tools of the trade
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/managing-data.html">
+     11.2. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/linear-and-polynomial-regression.html">
+     11.3. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/regression/logistic-regression.html">
+     11.4. Logistic regression
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/classification/getting-started-with-classification.html">
+   12. Getting started with classification
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/>
+  <label for="toctree-checkbox-8">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/introduction-to-classification.html">
+     12.1. Introduction to classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/more-classifiers.html">
+     12.2. More classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/classification/yet-other-classifiers.html">
+     12.3. Yet other classifiers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/build-a-web-app-to-use-a-machine-learning-model.html">
+     12.4. Build a web app to use a Machine Learning model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-fundamentals/parameter-optimization/parameter-optimization.html">
+   13. Parameter Optimization
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/>
+  <label for="toctree-checkbox-9">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/parameter-optimization/loss-function.html">
+     13.1. Loss function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-fundamentals/parameter-optimization/gradient-descent.html">
+     13.2. Gradient descent
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  ADVANCED MACHINE LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-advanced/clustering/clustering-models-for-machine-learning.html">
+   14. Clustering models for Machine Learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/>
+  <label for="toctree-checkbox-10">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/clustering/introduction-to-clustering.html">
+     14.1. Introduction to clustering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/clustering/k-means-clustering.html">
+     14.2. K-Means clustering
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-advanced/ensemble-learning/getting-started-with-ensemble-learning.html">
+   15. Getting started with ensemble learning
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/>
+  <label for="toctree-checkbox-11">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/bagging.html">
+     15.1. Bagging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/random-forest.html">
+     15.2. Random forest
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/ensemble-learning/feature-importance.html">
+     15.3. Feature importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../ml-advanced/gradient-boosting/introduction-to-gradient-boosting.html">
+   16. Introduction to Gradient Boosting
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/>
+  <label for="toctree-checkbox-12">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/gradient-boosting.html">
+     16.1. Gradient Boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/gradient-boosting-example.html">
+     16.2. Gradient boosting example
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/xgboost.html">
+     16.3. XGBoost
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../ml-advanced/gradient-boosting/xgboost-k-fold-cv-feature-importance.html">
+     16.4. XGBoost + k-fold CV + Feature Importance
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/unsupervised-learning.html">
+   17. Unsupervised learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/kernel-method.html">
+   18. Kernel method
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/unsupervised-learning-pca-and-clustering.html">
+   19. Unsupervised learning: PCA and clustering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../ml-advanced/model-selection.html">
+   20. Model selection
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  DEEP LEARNING
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dl-overview.html">
+   21. Intro to Deep Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/nn.html">
+   22. Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../deep-learning/cnn/cnn.html">
+   23. Convolutional Neural Networks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/>
+  <label for="toctree-checkbox-13">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deep-learning/cnn/cnn-vgg.html">
+     23.9. Stylenet / Neural-Style
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deep-learning/cnn/cnn-deepdream.html">
+     23.10. Deepdream in TensorFlow
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/rnn.html">
+   24. Recurrent Neural Networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/lstm.html">
+   25. Long-short term memory
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/time-series.html">
+   26. Time series
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/autoencoder.html">
+   27. Autoencoder
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/object-detection.html">
+   28. Object detection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-classification.html">
+   29. Image classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/image-segmentation.html">
+   30. Image segmentation
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../deep-learning/nlp/nlp.html">
+   31. Natural Language Processing
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/>
+  <label for="toctree-checkbox-14">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deep-learning/nlp/text-preprocessing.html">
+     31.7.1. Text Preprocessing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../deep-learning/nlp/text-representation.html">
+     31.7.2. Word embedding
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/gan.html">
+   32. Generative adversarial networks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/difussion-model.html">
+   33. Diffusion Model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../deep-learning/dqn.html">
+   34. Deep Q-learning
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  MACHINE LEARNING OPERATIONS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/overview.html">
+   35. Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/problem-framing.html">
+   36. Problem framing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/data-engineering.html">
+   37. Data engineering
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-training-and-evaluation.html">
+   38. Model training &amp; evaluation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../machine-learning-productionization/model-deployment.html">
+   39. Model deployment
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Large Language Models
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction.html">
+   40. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="basic.html">
+   41. Large Language Models Basic
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/>
+  <label for="toctree-checkbox-15">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="attention.html">
+     41.1. Coding Attention Mechanisms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="transformer.html">
+     41.2. Transformer
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     41.3. Transformers for Language Modelling
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../pretrained-model/implementing-a-GPT-model.html">
+   42. Implementing a GPT model from Scratch To Generate Text
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/>
+  <label for="toctree-checkbox-16">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../pretrained-model/pretraining-on-unlabeled-data.html">
+     42.10. Pretraining on Unlabeled Data
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  OTHERS
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../assignments/README.html">
+   43. Self-paced assignments
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/>
+  <label for="toctree-checkbox-17">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/first-assignment.html">
+     43.3. First assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/set-up-env/second-assignment.html">
+     43.4. Second assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/project-plan-template.html">
+     43.5. Project Plan​ Template
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-introduction.html">
+     43.6. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-basics.html">
+     43.7. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/prerequisites/python-programming-advanced.html">
+     43.8. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-text-about-data-science.html">
+     43.9. Analyzing text about Data Science
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-scenarios.html">
+     43.10. Data Science scenarios
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/write-a-data-ethics-case-study.html">
+     43.11. Write a data ethics case study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/lines-scatters-and-bars.html">
+     43.12. Lines, scatters and bars
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/apply-your-skills.html">
+     43.13. Apply your skills
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/try-it-in-excel.html">
+     43.14. Try it in Excel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/dive-into-the-beehive.html">
+     43.15. Dive into the beehive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/build-your-own-custom-vis.html">
+     43.16. Build your own custom vis
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/classifying-datasets.html">
+     43.17. Classifying datasets
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/small-diabetes-study.html">
+     43.18. Small diabetes study
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/introduction-to-statistics-and-probability.html">
+     43.19. Introduction to probability and statistics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/displaying-airport-data.html">
+     43.20. Displaying airport data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/soda-profits.html">
+     43.21. Soda profits
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-COVID-19-papers.html">
+     43.22. Analyzing COVID-19 papers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/estimation-of-COVID-19-pandemic.html">
+     43.23. Estimation of COVID-19 pandemic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-processing-in-python.html">
+     43.24. Data processing in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/evaluating-data-from-a-form.html">
+     43.25. Evaluating data from a form
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-preparation.html">
+     43.26. Data preparation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/analyzing-data.html">
+     43.27. Analyzing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/nyc-taxi-data-in-winter-and-summer.html">
+     43.28. NYC taxi data in winter and summer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/matplotlib-applied.html">
+     43.29. Matplotlib applied
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/tell-a-story.html">
+     43.35. Tell a story
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/explore-a-planetary-computer-dataset.html">
+     43.36. Explore a planetary computer dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/exploring-for-anwser.html">
+     43.37. Exploring for answers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/market-research.html">
+     43.38. Market research
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/low-code-no-code-data-science-project-on-azure-ml.html">
+     43.39. Low code/no code Data Science project on Azure ML
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-project-using-azure-ml-sdk.html">
+     43.40. Data Science project using Azure ML SDK
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/data-science/data-science-in-the-cloud-the-azure-ml-sdk-way.html">
+     43.41. Data Science in the cloud: The “Azure ML SDK” way
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-iris.html">
+     43.42. Machine Learning overview - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-overview-mnist-digits.html">
+     43.43. Machine Learning overview - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-with-scikit-learn.html">
+     43.44. Regression with Scikit-learn
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-regression/california_housing.html">
+     43.45. Linear regression - California Housing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-regression/linear-regression-metrics.html">
+     43.46. Linear Regression Metrics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-regression/loss-function.html">
+     43.47. Loss Function
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-regression/gradient-descent.html">
+     43.48. Gradient descent
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-regression/linear-regression-from-scratch.html">
+     43.49. Linear Regression Implementation from Scratch
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-logistic-regression-1.html">
+     43.50. ML logistic regression - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-logistic-regression-2.html">
+     43.51. ML logistic regression - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/ml-neural-network-1.html">
+     43.52. ML neural network - Assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-ml-web-app-1.html">
+     43.53. Build ML web app - assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-ml-web-app-2.html">
+     43.54. Build ML web app - assignment 2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/regression-tools.html">
+     43.55. Regression tools
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/managing-data.html">
+     43.56. Managing data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/exploring-visualizations.html">
+     43.57. Exploring visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/try-a-different-model.html">
+     43.58. Try a different model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/create-a-regression-model.html">
+     43.59. Create a regression model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/linear-and-polynomial-regression.html">
+     43.60. Linear and polynomial regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/retrying-some-regression.html">
+     43.61. Retrying some regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/pumpkin-varieties-and-color.html">
+     43.62. Pumpkin varieties and color
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/delicious-asian-and-indian-cuisines.html">
+     43.63. Delicious asian and indian cuisines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/explore-classification-methods.html">
+     43.64. Explore classification methods
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/kernel-method/kernel-method-assignment-1.html">
+     43.65. Kernel method assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/kernel-method/support_vector_machines_for_regression.html">
+     43.66. Support Vector Machines (SVM) - Intro and SVM for Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/kernel-method/support_vector_machines_for_classification.html">
+     43.67. Support Vector Machines (SVM) - Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/kernel-method/decision_trees_for_regression.html">
+     43.68. Decision Trees - Intro and Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/kernel-method/decision_trees_for_classification.html">
+     43.69. Decision Trees - Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/model-selection/model-selection-assignment-1.html">
+     43.70. Model selection assignment 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/model-selection/learning-curve-to-identify-overfit-underfit.html">
+     43.71. Learning Curve To Identify Overfit &amp; Underfit
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/model-selection/dropout-and-batch-normalization.html">
+     43.72. Dropout and Batch Normalization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/model-selection/lasso-and-ridge-regression.html">
+     43.73. Lasso and Ridge Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/model-selection/regularized-linear-models.html">
+     43.74. Regularized Linear Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/unsupervised-learning/customer-segmentation-clustering.html">
+     43.75. Customer segmentation: clustering - assignment 3
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-intro-and-regression.html">
+     43.76. Random forests intro and regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forests-for-classification.html">
+     43.77. Random forests for classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/beyond-random-forests-more-ensemble-models.html">
+     43.78. Beyond random forests: more ensemble models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/decision-trees.html">
+     43.79. Decision trees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/gradient-boosting/hyperparameter-tuning-gradient-boosting.html">
+     43.80. Hyperparameter tuning gradient boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/gradient-boosting/gradient-boosting-assignment.html">
+     43.81. Gradient boosting
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/gradient-boosting/boosting-with-tuning.html">
+     43.82. Boosting with tuning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-advanced/ensemble-learning/random-forest-classifier-feature-importance.html">
+     43.83. Random Forest Classifier with Feature Importance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/data-engineering.html">
+     43.85. Data engineering
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/counterintuitive-challenges-in-ml-debugging.html">
+     43.86. Counterintuitive Challenges in ML Debugging
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-classification.html">
+     43.87. Case Study: Debugging in Classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/debugging-in-regression.html">
+     43.88. Case Study: Debugging in Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/machine-learning-productionization/random-forest-classifier.html">
+     43.89. Introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/study-the-solvers.html">
+     43.90. Study the solvers
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-models.html">
+     43.91. Build classification models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/build-classification-model.html">
+     43.92. Build Classification Model
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/ml-fundamentals/parameter-play.html">
+     43.93. Parameter play
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/cnn/how-to-choose-cnn-architecture-mnist.html">
+     43.94. How to choose cnn architecture mnist
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/cnn/sign-language-digits-classification-with-cnn.html">
+     43.96. Sign Language Digits Classification with CNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/cnn/object-recognition-in-images-using-cnn.html">
+     43.98. Object Recognition in Images using CNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/cnn/image-classification.html">
+     43.99. Image classification
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/tensorflow/intro_to_tensorflow_for_deeplearning.html">
+     43.100. Intro to TensorFlow for Deep Learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/lstm/bitcoin-lstm-model-with-tweet-volume-and-sentiment.html">
+     43.102. Bitcoin LSTM Model with Tweet Volume and Sentiment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/rnn/google-stock-price-prediction-rnn.html">
+     43.104. Google Stock Price Prediction RNN
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/autoencoder/autoencoder.html">
+     43.106. Intro to Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/autoencoder/base-denoising-autoencoder-dimension-reduction.html">
+     43.107. Base/Denoising Autoencoder &amp; Dimension Reduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/autoencoder/variational-autoencoder-and-faces-generation.html">
+     43.108. Fun with Variational Autoencoders
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/time-series-forecasting-assignment.html">
+     43.109. Time Series Forecasting Assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/nn-for-classification-assignment.html">
+     43.111. Neural Networks for Classification with TensorFlow
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/nn-classify-15-fruits-assignment.html">
+     43.112. NN Classify 15 Fruits Assignment
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/dqn/dqn-on-foreign-exchange-market.html">
+     43.117. DQN On Foreign Exchange Market
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/gan/art-by-gan.html">
+     43.118. Art by gan
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/gan/gan-introduction.html">
+     43.120. Generative Adversarial Networks (GANs)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/image-segmentation/comparing-edge-based-and-region-based-segmentation.html">
+     43.121. Comparing edge-based and region-based segmentation
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/difussion-model/denoising-difussion-model.html">
+     43.122. Summary
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/object-detection/car-object-detection.html">
+     43.123. Car Object Detection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/overview/basic-classification-classify-images-of-clothing.html">
+     43.125. Basic classification: Classify images of clothing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/nlp/getting-start-nlp-with-classification-task.html">
+     43.126. Getting Start NLP with classification task
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/nlp/beginner-guide-to-text-preprocessing.html">
+     43.128. Beginner’s Guide to Text Pre-Processing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/deep-learning/nlp/news-topic-classification-tasks.html">
+     43.129. News topic classification tasks
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../assignments/llm/basic/transformer-architecture.html">
+     43.130. Complete the transformer architecture
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../slides/introduction.html">
+   44. Slides
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/>
+  <label for="toctree-checkbox-18">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-introduction.html">
+     44.1. Python programming introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-basics.html">
+     44.2. Python programming basics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/python-programming/python-programming-advanced.html">
+     44.3. Python programming advanced
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-introduction.html">
+     44.4. Data Science introduction
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/relational-vs-non-relational-database.html">
+     44.5. Relational vs. non-relational database
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/numpy-and-pandas.html">
+     44.6. NumPy and Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-visualization.html">
+     44.7. Data visualization
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-lifecycle.html">
+     44.8. Data Science lifecycle
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-the-cloud.html">
+     44.9. Data Science in the cloud
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/data-science/data-science-in-real-world.html">
+     44.10. Data Science in real world
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/ml-overview.html">
+     44.11. Machine Learning overview
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/linear-regression.html">
+     44.12. Linear Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/logistic-regression.html">
+     44.13. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/logistic-regression-condensed.html">
+     44.14. Logistic Regression
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/neural-network.html">
+     44.15. Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-fundamentals/build-an-ml-web-app.html">
+     44.16. Build an machine learning web application
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/unsupervised-learning.html">
+     44.17. Unsupervised learning
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/kernel-method.html">
+     44.18. Kernel method
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/ml-advanced/model-selection.html">
+     44.19. Model Selection
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/deep-learning/cnn.html">
+     44.20. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../slides/deep-learning/gan.html">
+     44.21. Generative Adversarial Network
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/ocademy-ai/machine-learning/release?urlpath=lab/tree/open-machine-learning-jupyter-book/llm/basic/language-modelling.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://colab.research.google.com/github/ocademy-ai/machine-learning/blob/release/open-machine-learning-jupyter-book/llm/basic/language-modelling.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="headerbtn__text-container">Colab</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/ocademy-ai/machine-learning/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ocademy-ai/machine-learning//issues/new?title=Issue%20on%20page%20%2Fllm/basic/language-modelling.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/ocademy-ai/machine-learning/edit/release/open-machine-learning-jupyter-book/llm/basic/language-modelling.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/llm/basic/language-modelling.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#play-with-pre-trained-transformers-language-models">
+   41.3.1. Play with Pre-trained transformers language models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loading">
+     41.3.1.1. Loading
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bert">
+     41.3.1.2. BERT
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-bert-do-a-cloze-test">
+     41.3.1.3. Let BERT do a cloze test
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-structure-of-bert">
+     41.3.1.4. Inner structure of BERT
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gpt2">
+     41.3.1.5. GPT2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-gpt-say-something">
+     41.3.1.6. Let GPT say something
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-structure-of-gptmodel">
+     41.3.1.7. Inner structure of GPTmodel
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-a-transformer-to-speak-your-own-language">
+   41.3.2. Train a transformer to “speak your own language”!
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#probabilistic-generative-grammar">
+     41.3.2.1. Probabilistic Generative Grammar
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sample-from-probabilistic-generative-grammar">
+     41.3.2.2. Sample from probabilistic generative grammar
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tokenization-map-words-to-numbers">
+     41.3.2.3. Tokenization: map words to numbers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build-sequence-dataset-pad-seq-etc">
+     41.3.2.4. Build Sequence Dataset:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pad_seq
+      </span>
+     </code>
+     etc.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-a-transformer-on-this-language">
+     41.3.2.5. Train a transformer on this language
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#say-something-or-im-giving-up-on-you">
+     41.3.2.6. Say Something? (or I’m Giving Up On You)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#does-our-transformer-understand-part-of-speech">
+     41.3.2.7. Does our transformer “understand” part-of-speech?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   41.3.3. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   41.3.4. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Transformers for Language Modelling</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#play-with-pre-trained-transformers-language-models">
+   41.3.1. Play with Pre-trained transformers language models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loading">
+     41.3.1.1. Loading
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bert">
+     41.3.1.2. BERT
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-bert-do-a-cloze-test">
+     41.3.1.3. Let BERT do a cloze test
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-structure-of-bert">
+     41.3.1.4. Inner structure of BERT
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gpt2">
+     41.3.1.5. GPT2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-gpt-say-something">
+     41.3.1.6. Let GPT say something
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-structure-of-gptmodel">
+     41.3.1.7. Inner structure of GPTmodel
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#train-a-transformer-to-speak-your-own-language">
+   41.3.2. Train a transformer to “speak your own language”!
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#probabilistic-generative-grammar">
+     41.3.2.1. Probabilistic Generative Grammar
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sample-from-probabilistic-generative-grammar">
+     41.3.2.2. Sample from probabilistic generative grammar
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tokenization-map-words-to-numbers">
+     41.3.2.3. Tokenization: map words to numbers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build-sequence-dataset-pad-seq-etc">
+     41.3.2.4. Build Sequence Dataset:
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       pad_seq
+      </span>
+     </code>
+     etc.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#train-a-transformer-on-this-language">
+     41.3.2.5. Train a transformer on this language
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#say-something-or-im-giving-up-on-you">
+     41.3.2.6. Say Something? (or I’m Giving Up On You)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#does-our-transformer-understand-part-of-speech">
+     41.3.2.7. Does our transformer “understand” part-of-speech?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#your-turn">
+   41.3.3. Your turn! 🚀
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgments">
+   41.3.4. Acknowledgments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="transformers-for-language-modelling">
+<h1><span class="section-number">41.3. </span>Transformers for Language Modelling<a class="headerlink" href="#transformers-for-language-modelling" title="Permalink to this headline">#</a></h1>
+<p>As we have familiarized ourselves with the attention mechanism in Transformers, now let’s see how these models can be trained as language models.</p>
+<ul class="simple">
+<li><p>In the first part, I prepared a few pretrained language models for you to examine and play with.</p></li>
+<li><p>In the second part, we will train a transformer language model from scratch.</p>
+<ul>
+<li><p>We will handcraft a simple English language with <a class="reference external" href="https://en.wikipedia.org/wiki/Probabilistic_context-free_grammar">Probabilistic Context free Grammar</a>.</p></li>
+<li><p>Then let the GPT learn this artificial language, and we will examine the emergent phenomena from training.</p></li>
+</ul>
+</li>
+</ul>
+<section id="play-with-pre-trained-transformers-language-models">
+<h2><span class="section-number">41.3.1. </span>Play with Pre-trained transformers language models<a class="headerlink" href="#play-with-pre-trained-transformers-language-models" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">transformers</span></code> library from huggingface is the <em>de facto</em> standard library for loading and using transformer architectures.</p>
+<p>Let’s load some common models and see their inner architecture. Specifically, we will look at two classic models, BERT and GPT2. (developped ~ 2018)</p>
+<p>They are both transformers but with some prominal differences</p>
+<ul class="simple">
+<li><p>BERT: Bidirectional Encoder Representations from Transformers</p>
+<ul>
+<li><p><strong>Architecture</strong>: All-to-all attention. Transformer Encoder.</p></li>
+<li><p><strong>Objective</strong>: Masked language modelling</p></li>
+<li><p><strong>Usage</strong>:</p>
+<ul>
+<li><p>Can fill in blanks and perform cloze task</p></li>
+<li><p>Provide representation for many downstream language understanding tasks.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>GPT2: Generative Pre-trained Transformer 2</p>
+<ul>
+<li><p><strong>Architecture</strong>: Causal attention. Transformer Decoder</p></li>
+<li><p><strong>Objective</strong>: autoregressive language modelling</p></li>
+<li><p><strong>Usage</strong>:</p>
+<ul>
+<li><p>Can continue prompt and answer questions</p></li>
+<li><p>Can be finetuned to follow task specific instructions.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Here are the conceptual picture of BERT and GPT2, let’s keep it in mind and try to map them to the modules we see</p>
+<p><strong>BERT</strong></p>
+<p><img alt="BERT (Transformer encoder)" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/llm/clipboard_20240409_034503.png" /></p>
+<p><strong>GPT2</strong></p>
+<p><img alt="" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/llm/clipboard_20240409_034531.png" /></p>
+<section id="loading">
+<h3><span class="section-number">41.3.1.1. </span>Loading<a class="headerlink" href="#loading" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">transformers</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">GPT2Tokenizer</span><span class="p">,</span> <span class="n">GPT2Model</span><span class="p">,</span> <span class="n">GPT2Config</span><span class="p">,</span> <span class="n">GPT2LMHeadModel</span><span class="p">,</span> <span class="n">DataCollatorForLanguageModeling</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span><span class="p">,</span> <span class="n">BertModel</span><span class="p">,</span> <span class="n">BertConfig</span><span class="p">,</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertLMHeadModel</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="k">def</span> <span class="nf">recursive_print</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">deepest</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulating print(module) for torch.nn.Modules</span>
+<span class="sd">        but with depth control. Print to the `deepest` level. `deepest=0` means no print</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">depth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">module</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;=</span> <span class="n">deepest</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">([</span><span class="o">*</span><span class="n">child</span><span class="o">.</span><span class="n">named_children</span><span class="p">()])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">child</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> len=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">child</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">recursive_print</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">prefix</span> <span class="o">+</span> <span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">deepest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="bert">
+<h3><span class="section-number">41.3.1.2. </span>BERT<a class="headerlink" href="#bert" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Accessing the model configuration</span>
+<span class="n">BERTtokenizer</span> <span class="o">=</span> <span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;bert-base-uncased&#39;</span><span class="p">)</span>
+<span class="n">BERTmodel</span> <span class="o">=</span> <span class="n">BertModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;bert-base-uncased&#39;</span><span class="p">)</span>
+<span class="n">BERTconfig</span> <span class="o">=</span> <span class="n">BERTmodel</span><span class="o">.</span><span class="n">config</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3da08a0571344893b36c4b7938aa98fa", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BERTconfig</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>BertConfig {
+  &quot;_name_or_path&quot;: &quot;bert-base-uncased&quot;,
+  &quot;architectures&quot;: [
+    &quot;BertForMaskedLM&quot;
+  ],
+  &quot;attention_probs_dropout_prob&quot;: 0.1,
+  &quot;classifier_dropout&quot;: null,
+  &quot;gradient_checkpointing&quot;: false,
+  &quot;hidden_act&quot;: &quot;gelu&quot;,
+  &quot;hidden_dropout_prob&quot;: 0.1,
+  &quot;hidden_size&quot;: 768,
+  &quot;initializer_range&quot;: 0.02,
+  &quot;intermediate_size&quot;: 3072,
+  &quot;layer_norm_eps&quot;: 1e-12,
+  &quot;max_position_embeddings&quot;: 512,
+  &quot;model_type&quot;: &quot;bert&quot;,
+  &quot;num_attention_heads&quot;: 12,
+  &quot;num_hidden_layers&quot;: 12,
+  &quot;pad_token_id&quot;: 0,
+  &quot;position_embedding_type&quot;: &quot;absolute&quot;,
+  &quot;transformers_version&quot;: &quot;4.39.3&quot;,
+  &quot;type_vocab_size&quot;: 2,
+  &quot;use_cache&quot;: true,
+  &quot;vocab_size&quot;: 30522
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="let-bert-do-a-cloze-test">
+<h3><span class="section-number">41.3.1.3. </span>Let BERT do a cloze test<a class="headerlink" href="#let-bert-do-a-cloze-test" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">unmasker</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s1">&#39;fill-mask&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;bert-base-uncased&#39;</span><span class="p">)</span>
+<span class="n">unmasker</span><span class="p">(</span><span class="s2">&quot;Hello I&#39;m a [MASK] model.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Some weights of the model checkpoint at bert-base-uncased were not used when initializing BertForMaskedLM: [&#39;bert.pooler.dense.bias&#39;, &#39;bert.pooler.dense.weight&#39;, &#39;cls.seq_relationship.bias&#39;, &#39;cls.seq_relationship.weight&#39;]
+- This IS expected if you are initializing BertForMaskedLM from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertForMaskedLM from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;score&#39;: 0.10731107741594315,
+  &#39;token&#39;: 4827,
+  &#39;token_str&#39;: &#39;fashion&#39;,
+  &#39;sequence&#39;: &quot;hello i&#39;m a fashion model.&quot;},
+ {&#39;score&#39;: 0.08774460107088089,
+  &#39;token&#39;: 2535,
+  &#39;token_str&#39;: &#39;role&#39;,
+  &#39;sequence&#39;: &quot;hello i&#39;m a role model.&quot;},
+ {&#39;score&#39;: 0.05338377505540848,
+  &#39;token&#39;: 2047,
+  &#39;token_str&#39;: &#39;new&#39;,
+  &#39;sequence&#39;: &quot;hello i&#39;m a new model.&quot;},
+ {&#39;score&#39;: 0.04667223244905472,
+  &#39;token&#39;: 3565,
+  &#39;token_str&#39;: &#39;super&#39;,
+  &#39;sequence&#39;: &quot;hello i&#39;m a super model.&quot;},
+ {&#39;score&#39;: 0.027095822617411613,
+  &#39;token&#39;: 2986,
+  &#39;token_str&#39;: &#39;fine&#39;,
+  &#39;sequence&#39;: &quot;hello i&#39;m a fine model.&quot;}]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-structure-of-bert">
+<h3><span class="section-number">41.3.1.4. </span>Inner structure of BERT<a class="headerlink" href="#inner-structure-of-bert" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">BERTmodel</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[BertModel]
+(embeddings): BertEmbeddings
+(encoder): BertEncoder
+(pooler): BertPooler
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">BERTmodel</span><span class="o">.</span><span class="n">encoder</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[BertEncoder]
+(layer): ModuleList len=12
+  (0): BertLayer
+  (1): BertLayer
+  (2): BertLayer
+  (3): BertLayer
+  (4): BertLayer
+  (5): BertLayer
+  (6): BertLayer
+  (7): BertLayer
+  (8): BertLayer
+  (9): BertLayer
+  (10): BertLayer
+  (11): BertLayer
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">BERTmodel</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">layer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">deepest</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[BertLayer]
+(attention): BertAttention
+  (self): BertSelfAttention
+  (output): BertSelfOutput
+(intermediate): BertIntermediate
+  (dense): Linear(in_features=768, out_features=3072, bias=True)
+  (intermediate_act_fn): GELUActivation()
+(output): BertOutput
+  (dense): Linear(in_features=3072, out_features=768, bias=True)
+  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">BERTmodel</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">layer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attention</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[BertAttention]
+(self): BertSelfAttention
+  (query): Linear(in_features=768, out_features=768, bias=True)
+  (key): Linear(in_features=768, out_features=768, bias=True)
+  (value): Linear(in_features=768, out_features=768, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+(output): BertSelfOutput
+  (dense): Linear(in_features=768, out_features=768, bias=True)
+  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="gpt2">
+<h3><span class="section-number">41.3.1.5. </span>GPT2<a class="headerlink" href="#gpt2" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GPTtokenizer</span> <span class="o">=</span> <span class="n">GPT2Tokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
+<span class="n">GPTmodel</span>  <span class="o">=</span> <span class="n">GPT2Model</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
+<span class="n">GPTconfig</span> <span class="o">=</span> <span class="n">GPT2Config</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GPTconfig</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPT2Config {
+  &quot;activation_function&quot;: &quot;gelu_new&quot;,
+  &quot;architectures&quot;: [
+    &quot;GPT2LMHeadModel&quot;
+  ],
+  &quot;attn_pdrop&quot;: 0.1,
+  &quot;bos_token_id&quot;: 50256,
+  &quot;embd_pdrop&quot;: 0.1,
+  &quot;eos_token_id&quot;: 50256,
+  &quot;initializer_range&quot;: 0.02,
+  &quot;layer_norm_epsilon&quot;: 1e-05,
+  &quot;model_type&quot;: &quot;gpt2&quot;,
+  &quot;n_ctx&quot;: 1024,
+  &quot;n_embd&quot;: 768,
+  &quot;n_head&quot;: 12,
+  &quot;n_inner&quot;: null,
+  &quot;n_layer&quot;: 12,
+  &quot;n_positions&quot;: 1024,
+  &quot;reorder_and_upcast_attn&quot;: false,
+  &quot;resid_pdrop&quot;: 0.1,
+  &quot;scale_attn_by_inverse_layer_idx&quot;: false,
+  &quot;scale_attn_weights&quot;: true,
+  &quot;summary_activation&quot;: null,
+  &quot;summary_first_dropout&quot;: 0.1,
+  &quot;summary_proj_to_labels&quot;: true,
+  &quot;summary_type&quot;: &quot;cls_index&quot;,
+  &quot;summary_use_proj&quot;: true,
+  &quot;task_specific_params&quot;: {
+    &quot;text-generation&quot;: {
+      &quot;do_sample&quot;: true,
+      &quot;max_length&quot;: 50
+    }
+  },
+  &quot;transformers_version&quot;: &quot;4.39.3&quot;,
+  &quot;use_cache&quot;: true,
+  &quot;vocab_size&quot;: 50257
+}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="let-gpt-say-something">
+<h3><span class="section-number">41.3.1.6. </span>Let GPT say something<a class="headerlink" href="#let-gpt-say-something" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GPTLMmodel</span> <span class="o">=</span> <span class="n">GPT2LMHeadModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;gpt2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "6a88f830342e4cd894bbaf4f7e3642d4", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">input_ids</span> <span class="o">=</span> <span class="n">GPTtokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;The meaning of life&quot;</span><span class="p">)</span>
+<span class="n">out_ids</span> <span class="o">=</span> <span class="n">GPTLMmodel</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_ids</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()[</span><span class="kc">None</span><span class="p">,:],</span>
+              <span class="n">max_length</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_p</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+              <span class="n">num_return_sequences</span><span class="o">=</span><span class="mi">5</span><span class="p">,)</span>
+<span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">out_ids</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">GPTtokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">seq</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input&#39;s `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The meaning of life is a matter of faith, but it is also a matter of love. God is a good person, but not a good God. If
+The meaning of life as we know it is an eternal struggle between the two. We are both members of the same family. We both live in a world where
+The meaning of life in this world is so far removed from the human condition that it is hard to know what to make of it. The question is: How
+The meaning of life is life-giving and life is life. That is why God gives us life. And this is why God gives us life.
+
+
+The meaning of life is not simply the act of maintaining it, but the act of preserving it. It is the act of keeping it, of maintaining it,
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inner-structure-of-gptmodel">
+<h3><span class="section-number">41.3.1.7. </span>Inner structure of GPTmodel<a class="headerlink" href="#inner-structure-of-gptmodel" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">GPTmodel</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[GPT2Model]
+(wte): Embedding(50257, 768)
+(wpe): Embedding(1024, 768)
+(drop): Dropout(p=0.1, inplace=False)
+(h): ModuleList len=12
+(ln_f): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">GPTmodel</span><span class="o">.</span><span class="n">h</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ModuleList]
+(0): GPT2Block
+(1): GPT2Block
+(2): GPT2Block
+(3): GPT2Block
+(4): GPT2Block
+(5): GPT2Block
+(6): GPT2Block
+(7): GPT2Block
+(8): GPT2Block
+(9): GPT2Block
+(10): GPT2Block
+(11): GPT2Block
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">GPTmodel</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">deepest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[GPT2Block]
+(ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+(attn): GPT2Attention
+(ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+(mlp): GPT2MLP
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">GPTmodel</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attn</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[GPT2Attention]
+(c_attn): Conv1D()
+(c_proj): Conv1D()
+(attn_dropout): Dropout(p=0.1, inplace=False)
+(resid_dropout): Dropout(p=0.1, inplace=False)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recursive_print</span><span class="p">(</span><span class="n">GPTmodel</span><span class="o">.</span><span class="n">h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mlp</span><span class="p">,</span><span class="n">deepest</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[GPT2MLP]
+(c_fc): Conv1D()
+(c_proj): Conv1D()
+(act): NewGELUActivation()
+(dropout): Dropout(p=0.1, inplace=False)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="train-a-transformer-to-speak-your-own-language">
+<h2><span class="section-number">41.3.2. </span>Train a transformer to “speak your own language”!<a class="headerlink" href="#train-a-transformer-to-speak-your-own-language" title="Permalink to this headline">#</a></h2>
+<p>So let’s design an artificial language with simple grammar and let the transformer learn to “speak” it. More technically, this means, we hand-craft a probabilistic model of language (sequence) and then let the transformer learn it.</p>
+<section id="probabilistic-generative-grammar">
+<h3><span class="section-number">41.3.2.1. </span>Probabilistic Generative Grammar<a class="headerlink" href="#probabilistic-generative-grammar" title="Permalink to this headline">#</a></h3>
+<p>First let’s make our <em>simplified English grammar</em>.</p>
+<p>By building a set of probabilistic generative grammar, or more technically, <a class="reference external" href="https://en.wikipedia.org/wiki/Probabilistic_context-free_grammar">Probabilistic context-free grammar, (PCFG)</a></p>
+<p>This language has these part of speeches</p>
+<ul class="simple">
+<li><p>Noun</p></li>
+<li><p>Intransitive verb</p></li>
+<li><p>Transitive verb</p></li>
+<li><p>Article</p></li>
+<li><p>Adjective</p></li>
+<li><p>Conjunction “that”</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#%% list of words and their parts of speech</span>
+<span class="c1"># nouns</span>
+<span class="n">noun_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;fox&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">,</span> <span class="s2">&quot;horse&quot;</span><span class="p">,</span> <span class="s2">&quot;sheep&quot;</span><span class="p">,</span> <span class="s2">&quot;cow&quot;</span><span class="p">,</span> <span class="s2">&quot;bear&quot;</span><span class="p">,</span> <span class="s2">&quot;zebra&quot;</span><span class="p">,</span> <span class="s2">&quot;giraffe&quot;</span><span class="p">]</span>
+<span class="c1"># intransitive verb</span>
+<span class="n">intrans_verb_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ran&quot;</span><span class="p">,</span> <span class="s2">&quot;jumped&quot;</span><span class="p">,</span> <span class="s2">&quot;swam&quot;</span><span class="p">,</span> <span class="s2">&quot;flew&quot;</span><span class="p">,</span> <span class="s2">&quot;walked&quot;</span><span class="p">,</span> <span class="s2">&quot;slept&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;stood&quot;</span><span class="p">,</span> <span class="s2">&quot;danced&quot;</span><span class="p">]</span>
+<span class="c1"># transitive verbs that took an object or a clause</span>
+<span class="n">trans_verbs_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;saw&quot;</span><span class="p">,</span> <span class="s2">&quot;heard&quot;</span><span class="p">,</span> <span class="s2">&quot;smelled&quot;</span><span class="p">,</span> <span class="p">]</span>
+<span class="c1"># adjectives</span>
+<span class="n">adj_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;big&quot;</span><span class="p">,</span> <span class="s2">&quot;small&quot;</span><span class="p">,</span> <span class="s2">&quot;tall&quot;</span><span class="p">,</span> <span class="s2">&quot;short&quot;</span><span class="p">,</span> <span class="s2">&quot;long&quot;</span><span class="p">,</span> <span class="s2">&quot;wide&quot;</span><span class="p">,</span> <span class="s2">&quot;fat&quot;</span><span class="p">,</span> <span class="s2">&quot;thin&quot;</span><span class="p">,</span> <span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="s2">&quot;square&quot;</span><span class="p">,</span> <span class="s2">&quot;smart&quot;</span><span class="p">,</span> <span class="s2">&quot;pretty&quot;</span><span class="p">]</span>
+<span class="c1"># adverbs</span>
+<span class="n">article_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">]</span>
+<span class="c1"># conjunctive that introduces a clause.</span>
+<span class="n">conjunction_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;that&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This language also has the following grammar, i.e. a set of substitution rules. For example,</p>
+<div class="math notranslate nohighlight">
+\[S\to NP,VP\]</div>
+<p>means a sentence can be substituted by a Noun phrase (NP) + a Verb phrase (VP).
+$<span class="math notranslate nohighlight">\(VP\to TV, Conj, NP, VP\)</span>$
+means a verb phrase can be substituted by a transitive verb (TV) + a conjunction (Conj) + a Noun phrase (NP) + a Verb phrase (VP).</p>
+<p>The full set of rules are following, feel free to modify it!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rules for mapping part of speech to words</span>
+<span class="n">word_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="n">noun_list</span><span class="p">,</span>
+    <span class="s2">&quot;IV&quot;</span><span class="p">:</span> <span class="n">intrans_verb_list</span><span class="p">,</span>
+    <span class="s2">&quot;TV&quot;</span><span class="p">:</span> <span class="n">trans_verbs_list</span><span class="p">,</span>
+    <span class="s2">&quot;Adj&quot;</span><span class="p">:</span> <span class="n">adj_list</span><span class="p">,</span>
+    <span class="s2">&quot;Article&quot;</span><span class="p">:</span> <span class="n">article_list</span><span class="p">,</span>
+    <span class="s2">&quot;Conj&quot;</span><span class="p">:</span> <span class="n">conjunction_list</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="c1"># Grammar for generating sentences</span>
+<span class="n">rules</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># sentence</span>
+    <span class="s2">&quot;S&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="s2">&quot;NP&quot;</span><span class="p">,</span> <span class="s2">&quot;VP&quot;</span><span class="p">]],</span>
+    <span class="c1"># noun phrase</span>
+    <span class="s2">&quot;NP&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="s2">&quot;Article&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;Article&quot;</span><span class="p">,</span> <span class="s2">&quot;Adj&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;Article&quot;</span><span class="p">,</span> <span class="s2">&quot;Adj&quot;</span><span class="p">,</span> <span class="s2">&quot;Adj&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;Article&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;Conj&quot;</span><span class="p">,</span> <span class="s2">&quot;IV&quot;</span><span class="p">]],</span>
+    <span class="c1"># verb phrase</span>
+    <span class="s2">&quot;VP&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="s2">&quot;IV&quot;</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;TV&quot;</span><span class="p">,</span> <span class="s2">&quot;NP&quot;</span><span class="p">],</span>
+           <span class="p">[</span><span class="s2">&quot;TV&quot;</span><span class="p">,</span> <span class="s2">&quot;Conj&quot;</span><span class="p">,</span> <span class="s2">&quot;NP&quot;</span><span class="p">,</span> <span class="s2">&quot;VP&quot;</span><span class="p">],</span> <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sample-from-probabilistic-generative-grammar">
+<h3><span class="section-number">41.3.2.2. </span>Sample from probabilistic generative grammar<a class="headerlink" href="#sample-from-probabilistic-generative-grammar" title="Permalink to this headline">#</a></h3>
+<p>Now, see what these rules can generate using <strong>probabilistic generative grammar</strong>, i.e. recursively applying the substitution rules to an initial token <span class="math notranslate nohighlight">\(S\)</span> to elaborate it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="k">def</span> <span class="nf">generate_sentences</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span> <span class="n">word_map</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; A sentence generator with probabilistic generative grammar. &quot;&quot;&quot;</span>
+    <span class="n">initial_token</span> <span class="o">=</span> <span class="s2">&quot;S&quot;</span>
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">[</span><span class="n">initial_token</span><span class="p">]</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">next_sentence</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">fully_expanded</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+                <span class="c1"># expand the phrase</span>
+                <span class="k">if</span> <span class="n">depth</span> <span class="o">&lt;</span> <span class="n">max_depth</span><span class="p">:</span>
+                    <span class="n">next_sentence</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">rules</span><span class="p">[</span><span class="n">token</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># to limit complexity, we stop adding clauses</span>
+                    <span class="n">next_sentence</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">rules</span><span class="p">[</span><span class="n">token</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>  <span class="c1"># don&#39;t expand into the last conjunctive rule</span>
+
+                <span class="n">fully_expanded</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">next_sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+        <span class="n">sentence</span> <span class="o">=</span> <span class="n">next_sentence</span>
+        <span class="n">depth</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fully_expanded</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="c1"># turn tokens into words</span>
+    <span class="n">verbal_sentence</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">word_map</span><span class="p">[</span><span class="n">token</span><span class="p">])</span>
+        <span class="n">verbal_sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="n">sent_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">verbal_sentence</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">verbal_sentence</span><span class="p">,</span> <span class="n">sent_str</span>
+
+
+<span class="n">word_seq</span><span class="p">,</span> <span class="n">sentence_str</span> <span class="o">=</span> <span class="n">generate_sentences</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span> <span class="n">word_map</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sentence_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;NP&#39;, &#39;VP&#39;]
+[&#39;Article&#39;, &#39;N&#39;, &#39;Conj&#39;, &#39;IV&#39;, &#39;TV&#39;, &#39;Conj&#39;, &#39;NP&#39;, &#39;VP&#39;]
+[&#39;Article&#39;, &#39;N&#39;, &#39;Conj&#39;, &#39;IV&#39;, &#39;TV&#39;, &#39;Conj&#39;, &#39;Article&#39;, &#39;N&#39;, &#39;TV&#39;, &#39;NP&#39;]
+[&#39;Article&#39;, &#39;N&#39;, &#39;Conj&#39;, &#39;IV&#39;, &#39;TV&#39;, &#39;Conj&#39;, &#39;Article&#39;, &#39;N&#39;, &#39;TV&#39;, &#39;Article&#39;, &#39;N&#39;, &#39;Conj&#39;, &#39;IV&#39;]
+[&#39;Article&#39;, &#39;N&#39;, &#39;Conj&#39;, &#39;IV&#39;, &#39;TV&#39;, &#39;Conj&#39;, &#39;Article&#39;, &#39;N&#39;, &#39;TV&#39;, &#39;Article&#39;, &#39;N&#39;, &#39;Conj&#39;, &#39;IV&#39;]
+a cat that slept smelled that the zebra smelled the giraffe that ran
+</pre></div>
+</div>
+</div>
+</div>
+<p>Surely you can generate all kinds of nonsensical sentences which are grammatically correct!</p>
+<blockquote>
+<div><p>a small big cow smelled the thin fat zebra</p>
+</div></blockquote>
+<p>But let’s ignore it for a moment and let a transformer learn to “speak” this simply English.</p>
+</section>
+<section id="tokenization-map-words-to-numbers">
+<h3><span class="section-number">41.3.2.3. </span>Tokenization: map words to numbers<a class="headerlink" href="#tokenization-map-words-to-numbers" title="Permalink to this headline">#</a></h3>
+<p>For a computational system to understand language, first, we need to break the sentence into words and turn the words into something they know , indices. This is known as tokenization and encoding.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_word_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">words</span> <span class="k">for</span> <span class="n">words</span> <span class="ow">in</span> <span class="n">word_map</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> <span class="p">[]))</span>
+<span class="n">dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="n">word</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">full_word_set</span><span class="p">)}</span>  <span class="c1"># Mapping words to indices</span>
+<span class="n">dictionary</span><span class="p">[</span><span class="s2">&quot;[End]&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+<span class="n">EOS_ID</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="s2">&quot;[End]&quot;</span><span class="p">]</span>  <span class="c1"># end of sentence token</span>
+<span class="n">PAD_ID</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>  <span class="c1"># padding token</span>
+<span class="n">dictionary</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PAD_ID</span>
+
+<span class="n">inverse_dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>   <span class="c1"># Mapping indices to words</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tokenize_sentence</span><span class="p">(</span><span class="n">sentence</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Tokenize a sentence into a list of words. &quot;&quot;&quot;</span>
+    <span class="n">word_seq</span> <span class="o">=</span> <span class="n">sentence</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">word_seq</span>
+
+
+<span class="k">def</span> <span class="nf">encode_sentence</span><span class="p">(</span><span class="n">sentence</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Encode a sentence into a list of indices. &quot;&quot;&quot;</span>
+    <span class="n">word_seq</span> <span class="o">=</span> <span class="n">tokenize_sentence</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="n">inds</span> <span class="o">=</span> <span class="n">encode2indices</span><span class="p">(</span><span class="n">word_seq</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inds</span>
+
+
+<span class="k">def</span> <span class="nf">encode2indices</span><span class="p">(</span><span class="n">word_seq</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Encode a list of words into a list of indices. &quot;&quot;&quot;</span>
+    <span class="n">inds</span> <span class="o">=</span> <span class="p">[</span><span class="n">dictionary</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_seq</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">inds</span>
+
+
+<span class="k">def</span> <span class="nf">decode2words</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Decode a list of indices into a list of words. &quot;&quot;&quot;</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">inverse_dictionary</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">words</span>
+
+
+<span class="k">def</span> <span class="nf">decode2sentence</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Decode a list of indices into a sentence. &quot;&quot;&quot;</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">decode2words</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+    <span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sentence</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">encode_sentence</span><span class="p">(</span><span class="s2">&quot;a smart fox saw a cat that ran&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2, 3, 1, 26, 2, 10, 30, 19]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-sequence-dataset-pad-seq-etc">
+<h3><span class="section-number">41.3.2.4. </span>Build Sequence Dataset: <code class="docutils literal notranslate"><span class="pre">pad_seq</span></code> etc.<a class="headerlink" href="#build-sequence-dataset-pad-seq-etc" title="Permalink to this headline">#</a></h3>
+<p>Since we don’t have a fixed dataset, but a generative model of language, we can simply generate new sentences on the fly and fed it to our transformer. (this is usually not the case)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="kn">import</span> <span class="n">pad_sequence</span>
+
+<span class="k">def</span> <span class="nf">batch_sampler</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">max_len</span><span class="o">=</span><span class="mi">128</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+        <span class="n">word_seq</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_sentences</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span> <span class="n">word_map</span><span class="p">)</span>
+        <span class="n">word_seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[End]&quot;</span><span class="p">)</span>  <span class="c1"># add this marker to say, the sentence has ended.</span>
+        <span class="n">inds</span> <span class="o">=</span> <span class="n">encode2indices</span><span class="p">(</span><span class="n">word_seq</span><span class="p">)</span>
+        <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">inds</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">))</span>
+    <span class="c1"># pad the batch to be equal length, same len as the longest senetence.</span>
+    <span class="n">padded_batch</span> <span class="o">=</span> <span class="n">pad_sequence</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">padding_value</span><span class="o">=</span><span class="n">PAD_ID</span><span class="p">)</span>
+    <span class="c1"># chuck to the max_len</span>
+    <span class="n">padded_batch</span> <span class="o">=</span> <span class="n">padded_batch</span><span class="p">[:,</span> <span class="p">:</span><span class="n">max_len</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">padded_batch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">batch</span> <span class="o">=</span> <span class="n">batch_sampler</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">decode2sentence</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([32, 20])
+the cat that sat heard that the cat that sat smelled that the bird saw a sheep [End]  
+a dog swam [End]                
+a bird that swam heard that a giraffe smelled a fat horse [End]       
+a short smart dog saw that the sheep that stood saw that a bear sat [End]    
+the round cat swam [End]               
+the thin cow smelled a zebra that slept [End]           
+a bird heard that a cow saw a smart thin zebra [End]        
+a dog jumped [End]                
+a horse smelled that a cat danced [End]            
+the small dog saw that a wide bear smelled that the long sheep slept [End]     
+a thin thin cat slept [End]              
+a thin zebra saw the wide zebra [End]            
+the dog saw a big pretty cat [End]            
+the dog sat [End]                
+the small smart bear danced [End]              
+the horse that flew sat [End]              
+the sheep that stood smelled the sheep that jumped [End]          
+a long wide bird saw a zebra [End]            
+a zebra smelled that a big sheep walked [End]           
+a tall round fox saw the zebra [End]            
+a thin long bear walked [End]              
+the fox slept [End]                
+the fat short cat sat [End]              
+the big wide cat stood [End]              
+a long cow smelled that the horse that slept smelled the tall fat cat [End]     
+the long smart sheep smelled that a small cow heard the fat pretty bear [End]     
+the cat jumped [End]                
+a bird saw the zebra [End]              
+the wide small zebra jumped [End]              
+a fox smelled that the fat sheep smelled that the square fat fox walked [End]     
+the giraffe that walked saw that a dog that sat smelled that the wide tall giraffe smelled a cow [End]
+the horse smelled that a bear saw a square smart horse [End]        
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train-a-transformer-on-this-language">
+<h3><span class="section-number">41.3.2.5. </span>Train a transformer on this language<a class="headerlink" href="#train-a-transformer-on-this-language" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">AdamW</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">GPT2Model</span><span class="p">,</span> <span class="n">GPT2Tokenizer</span><span class="p">,</span> <span class="n">GPT2LMHeadModel</span><span class="p">,</span> <span class="n">GPT2Config</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">miniGPTconfig</span> <span class="o">=</span> <span class="n">GPT2Config</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dictionary</span><span class="p">),</span> <span class="n">n_positions</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">n_ctx</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
+                           <span class="n">n_embd</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">n_layer</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_head</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                           <span class="n">eos_token_id</span><span class="o">=</span><span class="n">EOS_ID</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="n">PAD_ID</span><span class="p">)</span>
+<span class="n">miniGPT</span> <span class="o">=</span> <span class="n">GPT2LMHeadModel</span><span class="p">(</span><span class="n">miniGPTconfig</span><span class="p">,</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, let’s run our training loops!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="n">loss_curve</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">AdamW</span><span class="p">(</span><span class="n">miniGPT</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">5e-4</span><span class="p">)</span>
+<span class="n">miniGPT</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+<span class="n">miniGPT</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="n">batch_sampler</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">miniGPT</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">loss</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">, batch </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">, loss </span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">loss_curve</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+
+<span class="n">miniGPT</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>We strongly recommend passing in an `attention_mask` since your input_ids may be padded. See https://huggingface.co/docs/transformers/troubleshooting#incorrect-output-when-padding-tokens-arent-masked.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, batch 0, loss 3.2727038860321045
+epoch 0, batch 1, loss 3.013523817062378
+epoch 0, batch 2, loss 2.9508156776428223
+epoch 0, batch 3, loss 2.864698648452759
+epoch 0, batch 4, loss 2.8440003395080566
+epoch 0, batch 5, loss 2.792489528656006
+epoch 0, batch 6, loss 2.7530574798583984
+epoch 0, batch 7, loss 2.712508201599121
+epoch 0, batch 8, loss 2.7014684677124023
+epoch 0, batch 9, loss 2.6464850902557373
+epoch 0, batch 10, loss 2.6130788326263428
+epoch 0, batch 11, loss 2.6004862785339355
+epoch 0, batch 12, loss 2.5547451972961426
+epoch 0, batch 13, loss 2.492750883102417
+epoch 0, batch 14, loss 2.4694128036499023
+epoch 0, batch 15, loss 2.4235713481903076
+epoch 0, batch 16, loss 2.3857686519622803
+epoch 0, batch 17, loss 2.4006121158599854
+epoch 0, batch 18, loss 2.3581535816192627
+epoch 0, batch 19, loss 2.2853527069091797
+epoch 0, batch 20, loss 2.2719969749450684
+epoch 0, batch 21, loss 2.2839810848236084
+epoch 0, batch 22, loss 2.259561061859131
+epoch 0, batch 23, loss 2.1954007148742676
+epoch 0, batch 24, loss 2.1371004581451416
+epoch 0, batch 25, loss 2.0955264568328857
+epoch 0, batch 26, loss 2.1326050758361816
+epoch 0, batch 27, loss 2.0571255683898926
+epoch 0, batch 28, loss 2.0366766452789307
+epoch 0, batch 29, loss 2.017181396484375
+epoch 0, batch 30, loss 1.9762787818908691
+epoch 0, batch 31, loss 1.9193634986877441
+epoch 0, batch 32, loss 1.9848976135253906
+epoch 0, batch 33, loss 1.9038301706314087
+epoch 0, batch 34, loss 1.872957468032837
+epoch 0, batch 35, loss 1.8023127317428589
+epoch 0, batch 36, loss 1.8214008808135986
+epoch 0, batch 37, loss 1.7515637874603271
+epoch 0, batch 38, loss 1.7599962949752808
+epoch 0, batch 39, loss 1.7228972911834717
+epoch 0, batch 40, loss 1.7311118841171265
+epoch 0, batch 41, loss 1.6666715145111084
+epoch 0, batch 42, loss 1.6528854370117188
+epoch 0, batch 43, loss 1.6836789846420288
+epoch 0, batch 44, loss 1.6230767965316772
+epoch 0, batch 45, loss 1.6041755676269531
+epoch 0, batch 46, loss 1.55047607421875
+epoch 0, batch 47, loss 1.5431965589523315
+epoch 0, batch 48, loss 1.512395977973938
+epoch 0, batch 49, loss 1.4878454208374023
+epoch 1, batch 0, loss 1.484283685684204
+epoch 1, batch 1, loss 1.5147674083709717
+epoch 1, batch 2, loss 1.4420981407165527
+epoch 1, batch 3, loss 1.4802629947662354
+epoch 1, batch 4, loss 1.4735491275787354
+epoch 1, batch 5, loss 1.3835302591323853
+epoch 1, batch 6, loss 1.4120527505874634
+epoch 1, batch 7, loss 1.3814001083374023
+epoch 1, batch 8, loss 1.420322299003601
+epoch 1, batch 9, loss 1.3910599946975708
+epoch 1, batch 10, loss 1.3818882703781128
+epoch 1, batch 11, loss 1.2963616847991943
+epoch 1, batch 12, loss 1.2820688486099243
+epoch 1, batch 13, loss 1.3216276168823242
+epoch 1, batch 14, loss 1.3533740043640137
+epoch 1, batch 15, loss 1.3162024021148682
+epoch 1, batch 16, loss 1.334485650062561
+epoch 1, batch 17, loss 1.2350927591323853
+epoch 1, batch 18, loss 1.2650562524795532
+epoch 1, batch 19, loss 1.1813908815383911
+epoch 1, batch 20, loss 1.2223633527755737
+epoch 1, batch 21, loss 1.2036733627319336
+epoch 1, batch 22, loss 1.2159011363983154
+epoch 1, batch 23, loss 1.1888813972473145
+epoch 1, batch 24, loss 1.1954584121704102
+epoch 1, batch 25, loss 1.202561616897583
+epoch 1, batch 26, loss 1.1740601062774658
+epoch 1, batch 27, loss 1.1533219814300537
+epoch 1, batch 28, loss 1.1416406631469727
+epoch 1, batch 29, loss 1.1652735471725464
+epoch 1, batch 30, loss 1.1516095399856567
+epoch 1, batch 31, loss 1.1084500551223755
+epoch 1, batch 32, loss 1.1114088296890259
+epoch 1, batch 33, loss 1.2187308073043823
+epoch 1, batch 34, loss 1.1055666208267212
+epoch 1, batch 35, loss 1.131159782409668
+epoch 1, batch 36, loss 1.1152591705322266
+epoch 1, batch 37, loss 1.1260128021240234
+epoch 1, batch 38, loss 1.0647740364074707
+epoch 1, batch 39, loss 1.110844373703003
+epoch 1, batch 40, loss 1.0777372121810913
+epoch 1, batch 41, loss 1.116552710533142
+epoch 1, batch 42, loss 1.081486701965332
+epoch 1, batch 43, loss 1.0923397541046143
+epoch 1, batch 44, loss 1.1311514377593994
+epoch 1, batch 45, loss 1.0535675287246704
+epoch 1, batch 46, loss 1.033979892730713
+epoch 1, batch 47, loss 1.0270079374313354
+epoch 1, batch 48, loss 1.0034534931182861
+epoch 1, batch 49, loss 1.1141964197158813
+epoch 2, batch 0, loss 1.0811495780944824
+epoch 2, batch 1, loss 1.0718233585357666
+epoch 2, batch 2, loss 1.0568015575408936
+epoch 2, batch 3, loss 1.054729700088501
+epoch 2, batch 4, loss 1.0524795055389404
+epoch 2, batch 5, loss 1.028294563293457
+epoch 2, batch 6, loss 1.0320098400115967
+epoch 2, batch 7, loss 1.0048317909240723
+epoch 2, batch 8, loss 0.9804179072380066
+epoch 2, batch 9, loss 0.9944889545440674
+epoch 2, batch 10, loss 0.9846476316452026
+epoch 2, batch 11, loss 1.0662739276885986
+epoch 2, batch 12, loss 0.9852057695388794
+epoch 2, batch 13, loss 0.9804151654243469
+epoch 2, batch 14, loss 0.9822817444801331
+epoch 2, batch 15, loss 0.9655719995498657
+epoch 2, batch 16, loss 0.9616129994392395
+epoch 2, batch 17, loss 0.9799185395240784
+epoch 2, batch 18, loss 0.9711923003196716
+epoch 2, batch 19, loss 0.9525609016418457
+epoch 2, batch 20, loss 0.9145498871803284
+epoch 2, batch 21, loss 0.9677637219429016
+epoch 2, batch 22, loss 0.9333570599555969
+epoch 2, batch 23, loss 0.9609147310256958
+epoch 2, batch 24, loss 0.9711549878120422
+epoch 2, batch 25, loss 0.949081301689148
+epoch 2, batch 26, loss 0.9375740885734558
+epoch 2, batch 27, loss 0.9734074473381042
+epoch 2, batch 28, loss 0.9486612677574158
+epoch 2, batch 29, loss 0.9926449060440063
+epoch 2, batch 30, loss 0.9132639765739441
+epoch 2, batch 31, loss 0.9556533098220825
+epoch 2, batch 32, loss 0.9298215508460999
+epoch 2, batch 33, loss 0.9498323202133179
+epoch 2, batch 34, loss 0.950808048248291
+epoch 2, batch 35, loss 0.922825038433075
+epoch 2, batch 36, loss 0.893294632434845
+epoch 2, batch 37, loss 0.948309600353241
+epoch 2, batch 38, loss 0.8933826684951782
+epoch 2, batch 39, loss 0.914124608039856
+epoch 2, batch 40, loss 0.8858266472816467
+epoch 2, batch 41, loss 0.9069903492927551
+epoch 2, batch 42, loss 0.8635560274124146
+epoch 2, batch 43, loss 0.9506620168685913
+epoch 2, batch 44, loss 0.9094947576522827
+epoch 2, batch 45, loss 0.9231759309768677
+epoch 2, batch 46, loss 0.9350917935371399
+epoch 2, batch 47, loss 0.9076787233352661
+epoch 2, batch 48, loss 0.869784951210022
+epoch 2, batch 49, loss 0.8812459111213684
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GPT2LMHeadModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(39, 64)
+    (wpe): Embedding(128, 64)
+    (drop): Dropout(p=0.1, inplace=False)
+    (h): ModuleList(
+      (0-2): 3 x GPT2Block(
+        (ln_1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (attn): GPT2Attention(
+          (c_attn): Conv1D()
+          (c_proj): Conv1D()
+          (attn_dropout): Dropout(p=0.1, inplace=False)
+          (resid_dropout): Dropout(p=0.1, inplace=False)
+        )
+        (ln_2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (mlp): GPT2MLP(
+          (c_fc): Conv1D()
+          (c_proj): Conv1D()
+          (act): NewGELUActivation()
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (ln_f): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (lm_head): Linear(in_features=64, out_features=39, bias=False)
+)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="say-something-or-im-giving-up-on-you">
+<h3><span class="section-number">41.3.2.6. </span>Say Something? (or I’m Giving Up On You)<a class="headerlink" href="#say-something-or-im-giving-up-on-you" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;the dog&quot;</span>
+<span class="n">prompt_inds</span> <span class="o">=</span> <span class="n">encode_sentence</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+<span class="n">ind_tsr</span> <span class="o">=</span> <span class="n">miniGPT</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">prompt_inds</span><span class="p">)</span><span class="o">.</span><span class="n">long</span><span class="p">()[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:],</span>
+                           <span class="n">max_length</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">top_p</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                           <span class="n">num_return_sequences</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="n">PAD_ID</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ind_seq</span> <span class="ow">in</span> <span class="n">ind_tsr</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">decode2sentence</span><span class="p">(</span><span class="n">ind_seq</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>the dog that heard that a bird that the square fox flew [End]     
+the dog saw a zebra [End]            
+the dog that slept flew [End]            
+the dog that walked saw that the sheep that danced saw that the smart smart giraffe swam [End]
+the dog that sat saw that a fat fat sheep smelled that the thin square cow swam [End]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="does-our-transformer-understand-part-of-speech">
+<h3><span class="section-number">41.3.2.7. </span>Does our transformer “understand” part-of-speech?<a class="headerlink" href="#does-our-transformer-understand-part-of-speech" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, let’s extract the embeddings of the words and the positions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">token_embedding</span> <span class="o">=</span> <span class="n">miniGPT</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">wte</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+<span class="n">position_embedding</span> <span class="o">=</span> <span class="n">miniGPT</span><span class="o">.</span><span class="n">transformer</span><span class="o">.</span><span class="n">wpe</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">token_embedding</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">position_embedding</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([39, 64])
+torch.Size([128, 64])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’d want to see how these learned embeddings cluster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mf">15.0</span><span class="p">)</span>
+<span class="n">token_embedding_2d</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">token_embedding</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">token_embedding_2d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>d:\app\anaconda3\envs\open-machine-learning-jupyter-book\lib\site-packages\sklearn\cluster\_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">token_embedding_2d</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">token_embedding_2d</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+<span class="c1"># annotate each word on the plot</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inverse_dictionary</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="p">(</span><span class="n">token_embedding_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">token_embedding_2d</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/language-modelling_65_0.png" src="../../_images/language-modelling_65_0.png" />
+</div>
+</div>
+<p>Let’s print out which words are in each cluster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nCluster</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">kmeans2</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">nCluster</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">token_embedding</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<span class="c1"># print the list of words in each cluster</span>
+<span class="k">for</span> <span class="n">icluster</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nCluster</span><span class="p">):</span>
+    <span class="n">cluster_words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">kmeans2</span><span class="o">.</span><span class="n">labels_</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">==</span> <span class="n">icluster</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cluster </span><span class="si">{</span><span class="n">icluster</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">cluster_words</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cluster 0: [&#39;smelled&#39;, &#39;saw&#39;, &#39;heard&#39;]
+cluster 1: [&#39;wide&#39;, &#39;fox&#39;, &#39;smart&#39;, &#39;small&#39;, &#39;tall&#39;, &#39;bird&#39;, &#39;short&#39;, &#39;cat&#39;, &#39;sheep&#39;, &#39;bear&#39;, &#39;cow&#39;, &#39;horse&#39;, &#39;giraffe&#39;, &#39;round&#39;, &#39;dog&#39;, &#39;big&#39;, &#39;zebra&#39;, &#39;square&#39;, &#39;thin&#39;, &#39;fat&#39;, &#39;pretty&#39;, &#39;long&#39;]
+cluster 2: [&#39;jumped&#39;, &#39;danced&#39;, &#39;walked&#39;, &#39;ran&#39;, &#39;stood&#39;, &#39;sat&#39;, &#39;swam&#39;, &#39;flew&#39;, &#39;slept&#39;]
+cluster 3: [&#39;[End]&#39;]
+cluster 4: [&#39;a&#39;, &#39;the&#39;]
+cluster 5: [&#39;&#39;]
+cluster 6: [&#39;that&#39;]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>d:\app\anaconda3\envs\open-machine-learning-jupyter-book\lib\site-packages\sklearn\cluster\_kmeans.py:870: FutureWarning: The default value of `n_init` will change from 10 to &#39;auto&#39; in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<p>Overall birds eye view of the word representations (embeddings)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">token_embedding</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;words&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;embedding dim&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/language-modelling_69_0.png" src="../../_images/language-modelling_69_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">position_embedding</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;positions&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;embedding dim&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/language-modelling_70_0.png" src="../../_images/language-modelling_70_0.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">41.3.3. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Permalink to this headline">#</a></h2>
+<p>tbd.</p>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">41.3.4. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Permalink to this headline">#</a></h2>
+<p>Thanks to <a class="reference external" href="https://github.com/Animadversio">Binxu Wang</a> for creating the open-source course <a class="reference external" href="https://github.com/Animadversio/TransformerFromScratch">From Transformer to LLM: Architecture, Training and Usage</a>. It inspires the majority of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ocademy-ai/machine-learning",
+            ref: "release",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./llm/basic"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="transformer.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">41.2. </span>Transformer</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../pretrained-model/implementing-a-GPT-model.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">42. </span>Implementing a GPT model from Scratch To Generate Text</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Ocademy<br/>
+  
+      &copy; Copyright 2022-2023.<br/>
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a> Text content of this work is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
